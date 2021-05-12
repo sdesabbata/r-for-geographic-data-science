@@ -1,2 +1,3 @@
-# r-for-geographic-data-science
-R for Geographic Data Science
+# R for Geographic Data Science
+
+Coming soon 😊
