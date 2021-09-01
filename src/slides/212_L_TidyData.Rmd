@@ -1,0 +1,370 @@
+---
+title: "Lecture 212"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+
+# Tidy data
+
+<p style="color: white">**CONTENT WARNING:**<br/>Some of the data used in these slides discuss issues that some people might find distressing: **disease**.</p>
+
+
+## Recap
+
+**Prev**: Join operations
+
+- Joining data
+- dplyr join functions
+
+**Now**: Tidy-up your data
+
+- Wide and long data
+- Re-shape data
+- Handle missing values
+
+
+<!-- Data for xample, also echo-ed below-->
+```{r, echo=FALSE}
+city_info_long <- data.frame(
+    city = c("Derby", "Leicester" , "Nottingham", 
+             "Derby", "Leicester", "Nottingham"),
+    week_ending = c("2020-10-03", "2020-10-03", "2020-10-03", 
+                    "2020-10-10", "2020-10-10", "2020-10-10"),
+    cases = c(NA, 473, 1701, 320, 616, NA)
+  ) %>% 
+  tibble::as_tibble()
+```
+
+
+
+## Long data 
+
+Each real-world entity is represented by *multiple rows*
+
+- each one reporting only one of its attributes
+- one column indicates which attribute each row represent
+- another column is used to report the value
+
+Common approach for temporal series
+
+```{r, echo=FALSE}
+city_info_long %>%
+  knitr::kable()
+```
+
+
+## Wide data
+
+Each real-world entity is represented by *one single row*
+
+  - its attributes are represented through different columns
+
+```{r, echo=FALSE}
+city_info_long %>%
+  dplyr::mutate(
+    week_ending = stringr::str_replace_all(week_ending, "-", "_")
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = week_ending,
+    names_prefix = "cases_",
+    values_from = cases
+  ) %>%
+  knitr::kable()
+```
+
+<br/>
+
+- **Long data** can be more flexible
+  - new attributes add new rows where necessary
+- **Wide data** require more structure
+  - new attributes need new column for all entities
+
+
+
+## Example
+
+```{r, echo=TRUE}
+city_info_long <- data.frame(
+    city = c("Derby", "Leicester" , "Nottingham", 
+             "Derby", "Leicester", "Nottingham"),
+    week_ending = c("2020-10-03", "2020-10-03", "2020-10-03", 
+                    "2020-10-10", "2020-10-10", "2020-10-10"),
+    cases = c(NA, 473, 1701, 320, 616, NA)
+  ) %>% 
+  tibble::as_tibble()
+```
+```{r, echo=FALSE}
+city_info_long %>%
+  knitr::kable()
+#population = c(257298, 354227, 332904, NA, NA, NA),
+```
+
+
+
+
+## tidyr
+
+The [`tidyr`](https://tidyr.tidyverse.org/) (pronounced *tidy-er*) library is part of [`tidyverse`](https://www.tidyverse.org/)
+
+Provides a series of functions to *"tidy-up"* your data, including
+
+- re-shape your data
+  - [`tidyr::pivot_wider`](https://tidyr.tidyverse.org/reference/pivot_wider.html): pivot from long to wide
+  - [`tidyr::pivot_longer`](https://tidyr.tidyverse.org/reference/pivot_longer.html): pivot from wide to long
+- handle missing values
+  - [`tidyr::drop_na`](https://tidyr.tidyverse.org/reference/drop_na.html): remove rows with missing data
+  - [`tidyr::replace_na`](https://tidyr.tidyverse.org/reference/replace_na.html): replace missing data
+  - [`tidyr::fill`](https://tidyr.tidyverse.org/reference/replace_na.html): fill missing data
+  - [`tidyr::complete`](https://tidyr.tidyverse.org/reference/complete.html): add missing value combinations
+
+
+
+## tidyr::pivot_wider
+
+Re-shape from **long** to **wide** format
+
+```{r, echo=TRUE}
+city_info_wide <- 
+  city_info_long %>%
+  tidyr::pivot_wider(
+    # Column from which to extract new column names
+    names_from = week_ending,
+    # Column from which to extract values
+    values_from = cases
+  )
+```
+```{r, echo=FALSE}
+city_info_wide %>%
+  knitr::kable()
+```
+
+
+
+## tidyr::pivot_wider
+
+It might be useful (or indeed necessary) to **format** the values that will become the names of the new columns
+
+```{r, echo=TRUE}
+city_info_wide <- city_info_long %>% dplyr::mutate(
+    # Change "-" to "_" in the string representing the dates
+    week_ending = stringr::str_replace_all(week_ending, "-", "_")
+  ) %>%
+  tidyr::pivot_wider(
+    names_from = week_ending, values_from = cases, # As before
+    names_prefix = "cases_" # Add a prefix
+  ) # Apologies for bad coding style, need to fit code in slide :)
+```
+```{r, echo=FALSE}
+city_info_wide %>%
+  knitr::kable()
+```
+
+
+
+## tidyr::pivot_longer
+
+Re-shape from **wide** to **long** format
+
+```{r, echo=TRUE}
+city_info_back_to_long <- city_info_wide %>%
+  tidyr::pivot_longer(
+    cols = -city, # Pivot all columns, excluding city
+    names_to = "week_ending", # Name column for column names
+    values_to = "cases" # Name column for values
+  ) # Again, not best formatting, sorry -_-'
+```
+```{r, echo=FALSE}
+city_info_back_to_long %>%
+  knitr::kable()
+```
+
+
+## tidyr::pivot_longer
+
+It might be useful (or indeed necessary) to **format** the values extracted from the column names
+
+```{r, echo=TRUE}
+city_info_back_to_long <- city_info_wide %>%
+  tidyr::pivot_longer(
+    # As before
+    cols = -city, names_to = "week_ending",  values_to = "cases",
+    # Remove name prefix
+    names_prefix = "cases_",
+    # Transform the values that will become column names
+    # list of new column names <-> functions to apply
+    names_transform = list(
+      # Provide a function name or define one
+      week_ending = function (x) { 
+        stringr::str_replace_all(x, "_", "-") 
+        }
+    )
+  ) # I usually format my code decently, I promise
+```
+
+
+
+## tidyr::pivot_longer
+
+... which brings us back exactly where we started.
+
+```{r, echo=FALSE}
+city_info_back_to_long %>%
+  knitr::kable()
+```
+
+
+
+## tidyr
+
+The [`tidyr`](https://tidyr.tidyverse.org/) (pronounced *tidy-er*) library is part of [`tidyverse`](https://www.tidyverse.org/)
+
+Provides a series of functions to *"tidy-up"* your data, including
+
+- re-shape your data
+  - [`tidyr::pivot_wider`](https://tidyr.tidyverse.org/reference/pivot_wider.html): pivot from long to wide
+  - [`tidyr::pivot_longer`](https://tidyr.tidyverse.org/reference/pivot_longer.html): pivot from wide to long
+- handle missing values
+  - [`tidyr::drop_na`](https://tidyr.tidyverse.org/reference/drop_na.html): remove rows with missing data
+  - [`tidyr::replace_na`](https://tidyr.tidyverse.org/reference/replace_na.html): replace missing data
+  - [`tidyr::fill`](https://tidyr.tidyverse.org/reference/replace_na.html): fill missing data
+  - [`tidyr::complete`](https://tidyr.tidyverse.org/reference/complete.html): add missing value combinations
+
+
+
+## tidyr::replace_na
+
+If the data allow for a baseline value, missing values can be **replaced**
+
+```{r, echo=TRUE, eval=FALSE}
+city_info_long %>%
+  tidyr::replace_na(
+    # List of columns <-> values to replace NA
+    list(cases = 0)
+  )
+```
+```{r, echo=FALSE}
+city_info_long %>%
+  tidyr::replace_na(
+    list(cases = 0)
+  ) %>%
+  knitr::kable()
+```
+
+
+
+## tidyr::fill
+
+Sometimes it can make sense to **fill** missing values using *"nearby"* values, but **caution**, order and grouping matter!
+
+```{r, echo=TRUE, eval=FALSE}
+city_info_long %>%
+  dplyr::group_by(city) %>%
+  dplyr::arrange(week_ending) %>%
+  # Columns to fill
+  tidyr::fill(cases)
+```
+```{r, echo=FALSE}
+city_info_long %>%
+  dplyr::group_by(city) %>%
+  dplyr::arrange(week_ending) %>%
+  tidyr::fill(cases) %>%
+  knitr::kable()
+```
+
+
+## tidyr::drop_na 
+
+In other cases, it might be simpler or safer to just **remove** all the rows with missing data
+
+```{r, echo=TRUE}
+city_info_long_noNAs <- 
+  city_info_long %>%
+  # Columns to drop where NA
+  tidyr::drop_na(cases)
+```
+```{r, echo=FALSE}
+city_info_long_noNAs %>%
+  knitr::kable()
+```
+
+
+
+## tidyr::complete
+
+Finally, some analysis or visualisation procedures might require a *complete* table
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+- where missing values are represented as NAs
+- for instance, when creating a map (as in [this example](https://sdesabbata.github.io/covid-19-uk-analysis/))
+  - you might want to use a specific colour for missing values
+  - rather than a missing polygon
+  
+:::
+
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+![](images/covid19_cases_uk_7DayRateNew_anim_20200307.png)
+
+:::
+
+::::::
+
+
+
+## tidyr::complete
+
+Complete table by turning implicit missing values into explicit missing values
+
+```{r, echo=TRUE, eval=FALSE}
+city_info_long_noNAs %>%
+  # Complete table with all week_ending and city combinations
+  # making missing values for remaining columns explicit
+  tidyr::complete(week_ending, city)
+```
+```{r, echo=FALSE}
+city_info_long_noNAs %>%
+  # Complete table with all week_ending and city combinations
+  # making missing values for remaining columns explicit
+  tidyr::complete(city, week_ending) %>%
+  knitr::kable()
+```
+
+
+## Summary
+
+Tidy-up your data
+
+- Wide and long data
+- Re-shape data
+- Handle missing values
+
+**Next**: Read and write data
+
+- file formats
+- read
+- write
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

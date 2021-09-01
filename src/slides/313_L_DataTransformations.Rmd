@@ -1,0 +1,382 @@
+---
+title: "Lecture 313"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+<style type="text/css">
+.small_r_all pre{
+  font-size: 16px;
+  line-height: 18px;
+}
+.small_r_output pre:not(.prettyprint){
+  font-size: 16px;
+  line-height: 18px;
+}
+.verysmall_r_output pre:not(.prettyprint){
+  font-size: 12px;
+  line-height: 14px;
+}
+</style>
+
+
+
+# Data transformations
+
+
+## Recap
+
+**Prev**: Correlation
+
+- Pearson’s r
+- Spearman’s rho
+- Kendall’s tau
+- Pairs panel
+- Chi-square
+
+**Now**: Data transformations
+
+- Z-scores
+- Logarithmic transformations
+- Inverse hyperbolic sine transformations
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(nycflights13)
+library(palmerpenguins)
+library(pastecs)
+
+leicester_2011OAC <- readr::read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
+```
+
+
+
+
+## Z-scores
+
+Transform the values as relative to
+
+- the distribution's mean 
+- and standard deviation
+
+- the z-score of a value i-th $x_i$ is calculated as below, where
+  - $\mu$ is the distribution's mean
+  - $\sigma$ is the distribution's standard deviation
+
+$$
+z_i = \frac{x_i - \mu}{\sigma} 
+$$
+
+Commonly used to render two variables easier to compare
+
+
+
+## Example
+
+Distribution of flipper lengths in Palmer's penguins
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 3}
+palmerpenguins::penguins %>%
+  ggplot2::ggplot(aes(x = flipper_length_mm)) +
+  ggplot2::geom_histogram() + ggplot2::theme_bw()
+```
+
+
+## base::scale
+
+Distribution of **zscores** derived from flipper lengths
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 3}
+palmerpenguins::penguins %>%
+  dplyr::mutate(flipper_length_zscore = scale(flipper_length_mm)) %>%
+  ggplot2::ggplot(aes(x = flipper_length_zscore)) +
+  ggplot2::geom_histogram() + ggplot2::theme_bw()
+```
+
+
+
+## base::scale
+
+Distribution of **zscores** derived from body mass
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 3}
+palmerpenguins::penguins %>%
+  dplyr::mutate(body_mass_g_zscore = scale(body_mass_g)) %>%
+  ggplot2::ggplot(aes(x = body_mass_g_zscore)) +
+  ggplot2::geom_histogram() + ggplot2::theme_bw()
+```
+
+
+
+## Comparison
+
+But, are flipper length and body mass related in penguins (without considering species as separated groups)?
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+palmerpenguins::penguins %>%
+  dplyr::mutate(flipper_length_zscore = scale(flipper_length_mm)) %>%
+  dplyr::mutate(body_mass_g_zscore = scale(body_mass_g)) %>%
+  ggplot2::ggplot(aes(x = flipper_length_zscore, y = body_mass_g_zscore)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw()
+```
+</center>
+
+
+
+## Log transformation
+
+**Logarithmic** transformations are useful to *"un-skew"* variables
+
+Common approaches include:
+
+- natural logarithm (`log`)
+- binary logarithm (`log2`)
+- logarithm base 10 (`log10`)
+
+Only possible on values `> 0`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 2, fig.width = 6, fig.align = 'center'}
+ggplot2::ggplot() + 
+  ggplot2::stat_function(
+    fun = log10
+  ) +
+  ggplot2::xlim(1, 1000) +
+  ggplot2::xlab("Original values") +
+  ggplot2::ylab("Logarithm base 10") +
+  ggplot2::theme_bw()
+```
+
+
+## Example
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+The number of residents aged 20 to 24 (`u011`) in the areas of Leicester described as *"Cosmopolitans"* by the [2011 Output Area Classification](https://www.gov.uk/government/statistics/2011-area-classification-for-super-output-areas) is skewed
+
+:::
+
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+leicester_2011OAC %>% 
+  dplyr::filter(supgrpname == "Cosmopolitans") %>%
+  ggplot2::ggplot(aes(x = u011)) +
+  ggplot2::geom_histogram() + ggplot2::theme_bw()
+```
+
+:::
+
+::::::
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>% 
+  dplyr::filter(supgrpname == "Cosmopolitans") %>% 
+  dplyr::select(u011) %>% 
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  knitr::kable(digits = 3)
+```
+
+
+## Example
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+However, it's logarithm base 10 is normally distributed, thus it can be used with tests requiring normally distributed values
+
+```{r, echo=TRUE, eval=FALSE}
+mutate(log10_u011 = log10(u011))
+```
+
+:::
+
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+leicester_2011OAC %>% 
+  dplyr::filter(supgrpname == "Cosmopolitans") %>%
+  dplyr::mutate(log10_u011 = log10(u011)) %>%
+  ggplot2::ggplot(aes(x = log10_u011)) +
+  ggplot2::geom_histogram() + theme_bw()
+```
+
+:::
+
+::::::
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>% 
+  dplyr::filter(supgrpname == "Cosmopolitans") %>%
+  dplyr::mutate(log10_u011 = log10(u011)) %>% 
+  dplyr::select(log10_u011) %>% 
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  knitr::kable(digits = 3)
+```
+
+
+
+## Inverse hyperbolic sine
+
+**Inverse hyperbolic sine** transformations are useful to *"un-skew"* variables
+
+- similar to logarithmic transformations
+- defined on all values
+- in R: `asinh`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 2, fig.width = 6, fig.align = 'center'}
+ggplot2::ggplot() + 
+  ggplot2::stat_function(
+    fun = asinh
+  ) +
+  ggplot2::xlim(-500, 500) +
+  ggplot2::xlab("Original values") +
+  ggplot2::ylab("Inverse hyperbolic sine") +
+  ggplot2::theme_bw()
+```
+
+
+## Example
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+The Inverse hyperbolic sine is also normally distributed
+
+```{r, echo=TRUE, eval=FALSE}
+mutate(ihs_u011 = asinh(u011))
+```
+
+:::
+
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+leicester_2011OAC %>% 
+  dplyr::filter(supgrpname == "Cosmopolitans") %>%
+  dplyr::mutate(ihs_u011 = asinh(u011)) %>%
+  ggplot2::ggplot(aes(x = ihs_u011)) +
+  ggplot2::geom_histogram() + theme_bw()
+```
+
+:::
+
+::::::
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>% 
+  dplyr::filter(supgrpname == "Cosmopolitans") %>%
+  dplyr::mutate(log10_u011 = log10(u011)) %>% 
+  dplyr::select(log10_u011) %>% 
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  knitr::kable(digits = 3)
+```
+
+
+
+## Example
+
+Logarithmic transformation can't be applied to arrival delays in the New York City 2013 flights dataset
+
+- skewed towards left
+- but there are values lower or equal to zero
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 3}
+nycflights13::flights %>%
+  dplyr::filter(!is.na(dep_delay), !is.na(arr_delay), month == 11, day ==20) %>%
+  ggplot2::ggplot(aes(x = dep_delay)) +
+  ggplot2::geom_histogram()
+```
+
+
+
+## Example
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+*Inverse hyperbolic sine* can still be applied. Here it partially unskews the distribution
+
+```{r, echo=TRUE, eval=FALSE}
+mutate(
+  dep_delay_ihs = 
+    asinh(dep_delay)
+)
+```
+
+:::
+
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+nycflights13::flights %>%
+  dplyr::filter(!is.na(dep_delay), !is.na(arr_delay), month == 11, day ==20) %>%
+  dplyr::mutate(
+    dep_delay_ihs = 
+      asinh(dep_delay)
+  ) %>%
+  ggplot2::ggplot(
+    aes(x = dep_delay_ihs)) + 
+  ggplot2::geom_histogram()
+```
+
+:::
+
+::::::
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+nycflights13::flights %>%
+  dplyr::filter(!is.na(dep_delay), !is.na(arr_delay), month == 11, day ==20) %>%
+  dplyr::mutate(
+    dep_delay_ihs = 
+      asinh(dep_delay)
+  ) %>%
+  dplyr::select(dep_delay_ihs) %>%
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  knitr::kable(digits = 3)
+```
+
+
+
+
+## Summary
+
+Data transformations
+
+- Z-scores
+- Logarithmic transformations
+- Inverse hyperbolic sine transformations
+
+**Next**: Practical session
+
+- Comparing means
+- Correlation
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

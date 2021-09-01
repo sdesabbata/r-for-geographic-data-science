@@ -1,0 +1,550 @@
+---
+title: "Lecture 403"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+<style type="text/css">
+.small_r_all pre{
+  font-size: 16px;
+  line-height: 18px;
+}
+.small_r_output pre:not(.prettyprint){
+  font-size: 16px;
+  line-height: 18px;
+}
+.verysmall_r_output pre:not(.prettyprint){
+  font-size: 12px;
+  line-height: 14px;
+}
+</style>
+
+
+
+# Support vector machines
+
+## Recap
+
+**Prev**: Artificial Neural Networks
+
+- Logistic regression
+- Artificial neural networks
+- Deep learning
+
+**Now**: Support vector machines
+
+- Hyperplanes
+- Linear separability
+- Kernels
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(palmerpenguins)
+```
+
+
+## Classification task
+
+Can we learn to distinguish the two species from body mass and bill depth?
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_to_learn <-
+  palmerpenguins::penguins %>%
+  dplyr::filter(
+    species %in% c("Adelie", "Gentoo")
+  ) %>%
+  dplyr::mutate(
+    species = forcats::fct_drop(species)
+  ) %>%
+  dplyr::filter(
+    !is.na(body_mass_g) 
+    | !is.na(bill_depth_mm)
+  ) %>%
+  dplyr::mutate(dplyr::across(
+      bill_length_mm:body_mass_g,
+      scale
+  ))
+
+penguins_for_training <- 
+  penguins_to_learn %>% 
+  slice_sample(prop = 0.8)
+
+penguins_for_testing <- 
+  penguins_to_learn %>% 
+  anti_join(penguins_for_training)
+```
+
+</div>
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 5, fig.height = 5}
+penguins_to_learn %>%
+  ggplot2::ggplot(aes(x = body_mass_g, y = bill_depth_mm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange", "cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+</center>
+
+:::
+::::::
+
+
+
+## Support vector machines
+
+Supervised learning approach to classification
+
+- a series of **input** values (predictors, independent variables)
+- one **output** categorical value (outcome, dependent variable)
+
+Partition of multidimensional space
+
+- finding boundaries (*"hyperplanes"*) 
+- between homogenous groups of observations
+- approach akin to
+  - linear regression modelling
+  - nearest neighbours approaches
+  
+
+
+## Nearest Neighbours (k-NN)
+
+One of the simplest approaches to classification
+
+Classification of a new observation:
+
+- select `k` closest observations in multidimensional space
+- new observation classified as most frequent class
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+library(class)
+
+species_3nn <- class::knn(
+    train = penguins_for_training %>% dplyr::pull(body_mass_g, bill_depth_mm),
+    test = penguins_for_testing %>% dplyr::pull(body_mass_g, bill_depth_mm),
+    cl = penguins_for_training %>% dplyr::pull(species),
+    k = 3
+  )
+
+penguins_for_testing <- penguins_for_testing %>%
+  tibble::add_column(predicted_species_3nn = species_3nn)
+
+caret::confusionMatrix(
+  penguins_for_testing %>% dplyr::pull(predicted_species_3nn),
+  penguins_for_testing %>% dplyr::pull(species)
+)
+```
+
+</div>
+
+## Performance
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(class)
+
+species_3nn <- class::knn(
+    train = penguins_for_training %>% dplyr::pull(body_mass_g, bill_depth_mm),
+    test = penguins_for_testing %>% dplyr::pull(body_mass_g, bill_depth_mm),
+    cl = penguins_for_training %>% dplyr::pull(species),
+    k = 3
+  )
+
+penguins_for_testing <- penguins_for_testing %>%
+  tibble::add_column(predicted_species_3nn = species_3nn)
+
+caret::confusionMatrix(
+  penguins_for_testing %>% dplyr::pull(predicted_species_3nn),
+  penguins_for_testing %>% dplyr::pull(species)
+)
+```
+
+</div>
+
+
+## Hyperplanes
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+If a hyperplane can be drawn between classes
+
+  - e.g., a line in bi-dimensional space, a plane in three dimensions, etc
+  - classes are linearly separable
+
+Find maximum-margin hyperplane
+
+- line that maximises separation between classes
+- conceptually similar to regression
+
+:::
+
+::: {.col style="width: 90%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 5, fig.height = 5}
+penguins_to_learn %>%
+  ggplot2::ggplot(aes(x = body_mass_g, y = bill_depth_mm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange", "cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom") +
+  ggplot2::geom_abline(intercept = -1/3, slope = 3/4)
+```
+</center>
+
+:::
+::::::
+
+## e1071::svm
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+library(e1071)
+
+species_svm <- penguins_for_training %$%
+  e1071::svm(
+    species ~ 
+      body_mass_g + bill_depth_mm, 
+    kernel = "linear", 
+    scale = FALSE
+  )
+
+penguins_for_testing <-
+  penguins_for_testing %>%
+  tibble::add_column(
+    predicted_species_svn = 
+      stats::predict(
+        species_svm,
+        penguins_for_testing %>% 
+          dplyr::select(body_mass_g, bill_depth_mm)
+      )
+  )
+
+caret::confusionMatrix(
+  penguins_for_testing %>% 
+    dplyr::pull(predicted_species_svn),
+  penguins_for_testing %>% 
+    dplyr::pull(species)
+  )
+```
+
+</div>
+
+## Performance
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+library(e1071)
+
+species_svm <- penguins_for_training %$%
+  e1071::svm(
+    species ~ 
+      body_mass_g + bill_depth_mm, 
+    kernel = "linear", 
+    scale = FALSE
+  )
+
+penguins_for_testing <-
+  penguins_for_testing %>%
+  tibble::add_column(
+    predicted_species_svn = 
+      stats::predict(
+        species_svm,
+        penguins_for_testing %>% 
+          dplyr::select(body_mass_g, bill_depth_mm)
+      )
+  )
+
+caret::confusionMatrix(
+  penguins_for_testing %>% 
+    dplyr::pull(predicted_species_svn),
+  penguins_for_testing %>% 
+    dplyr::pull(species)
+  )
+```
+
+
+
+## Not linearly separable
+
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+What if classes are *not* linearly separable?
+
+- slack variable `C`
+  - soft margin between classes
+  - a *"cost"* is applied to cases beyond margins
+- kernels *"trick"*
+  - functions used to create additional dimensions
+  - as functions of input values
+    - linear, polinomial, sigmoids, Gaussian
+
+:::
+
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 5, fig.height = 5}
+library(mvtnorm)
+set.seed(20201215)
+
+radius_A <- sqrt(runif(100)) # radius
+angle_A <- 2*pi*runif(100) # angle
+
+radius_B <- sqrt(5*runif(100)+1) # radius
+angle_B <- 2*pi*runif(100) # angle
+
+data_AB <- 
+  data.frame(
+    "x" = c(radius_A*cos(angle_A), radius_B*cos(angle_B)), 
+    "y" = c(radius_A*sin(angle_A), radius_B*sin(angle_B)),
+    "class_AB" = as.factor(c(rep("A", 100), rep("B", 100)))
+  ) %>%
+  tibble::as_tibble()
+
+data_AB_for_training <- 
+  data_AB %>% 
+  slice_sample(prop = 0.8)
+
+data_AB_for_testing <- 
+  data_AB %>% 
+  anti_join(data_AB_for_training)
+
+
+
+data_AB %>%
+  dplyr::mutate(
+    class_AB = class_AB %>% as.character()
+  ) %>%
+  ggplot2::ggplot(aes(x = x, y = y)) +
+  ggplot2::geom_point(
+    aes(
+      color =  class_AB,
+      shape = class_AB
+    ),
+    size = 2
+  ) +
+  ggplot2::scale_color_brewer(palette = "Set1") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+
+data_AB %>%
+  dplyr::mutate(
+    class_AB = class_AB %>% as.character(),
+    gaussian_kernel = dnorm(sqrt(x^2 + y^2))
+  ) %>%
+  ggplot2::ggplot(aes(x = x, y = gaussian_kernel)) +
+  ggplot2::geom_point(
+    aes(
+      color =  class_AB,
+      shape = class_AB
+    ),
+    size = 2
+  ) +
+  ggplot2::scale_color_brewer(palette = "Set1") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom") +
+  ggplot2::geom_abline(intercept = dnorm(1), slope = 0)
+```
+</center>
+
+:::
+::::::
+
+## e1071::svm
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+class_AB_svm <- 
+  data_AB_for_training %$%
+  e1071::svm(
+    class_AB ~ 
+      x + y, 
+    kernel = "linear", 
+    scale = FALSE
+  )
+
+data_AB_for_testing <-
+  data_AB_for_testing %>%
+  tibble::add_column(
+    predicted_AB_svm = 
+      stats::predict(
+        class_AB_svm,
+        data_AB_for_testing %>% 
+          dplyr::select(x, y)
+      )
+  )
+
+caret::confusionMatrix(
+  data_AB_for_testing %>% 
+    dplyr::pull(predicted_AB_svm),
+  data_AB_for_testing %>% 
+    dplyr::pull(class_AB)
+  )
+```
+
+</div>
+
+## Performance
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+class_AB_svm <- data_AB_for_training %$%
+  e1071::svm(
+    class_AB ~ 
+      x + y, 
+    kernel = "linear", 
+    scale = FALSE
+  )
+
+data_AB_for_testing <-
+  data_AB_for_testing %>%
+  tibble::add_column(
+    predicted_AB_svm = 
+      stats::predict(
+        class_AB_svm,
+        data_AB_for_testing %>% 
+          dplyr::select(x, y)
+      )
+  )
+
+caret::confusionMatrix(
+  data_AB_for_testing %>% 
+    dplyr::pull(predicted_AB_svm),
+  data_AB_for_testing %>% 
+    dplyr::pull(class_AB)
+  )
+```
+
+## e1071::svm
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+class_AB_svm_radial <- 
+  data_AB_for_training %$%
+  e1071::svm(
+    class_AB ~ x + y,  
+    kernel = "radial", 
+    scale = FALSE,
+    cost = 10
+  )
+
+data_AB_for_testing <-
+  data_AB_for_testing %>%
+  tibble::add_column(
+    predicted_AB_svm_radial = 
+      stats::predict(
+        class_AB_svm_radial,
+        data_AB_for_testing %>% 
+          dplyr::select(x, y)
+      )
+  )
+
+caret::confusionMatrix(
+  data_AB_for_testing %>% 
+    dplyr::pull(predicted_AB_svm_radial),
+  data_AB_for_testing %>% 
+    dplyr::pull(class_AB)
+  )
+```
+
+</div>
+
+## Performance
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+class_AB_svm_radial <- data_AB_for_training %$%
+  e1071::svm(
+    class_AB ~ x + y,  
+    kernel = "radial", 
+    scale = FALSE,
+    cost = 10
+  )
+
+data_AB_for_testing <-
+  data_AB_for_testing %>%
+  tibble::add_column(
+    predicted_AB_svm_radial = 
+      stats::predict(
+        class_AB_svm_radial,
+        data_AB_for_testing %>% 
+          dplyr::select(x, y)
+      )
+  )
+
+caret::confusionMatrix(
+  data_AB_for_testing %>% 
+    dplyr::pull(predicted_AB_svm_radial),
+  data_AB_for_testing %>% 
+    dplyr::pull(class_AB)
+  )
+```
+
+
+
+## Summary
+
+Support vector machines
+
+- Hyperplanes
+- Linear separability
+- Kernels
+
+**Next**: Practical session
+
+- Artificial neural networks
+- Support vector machines
+
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

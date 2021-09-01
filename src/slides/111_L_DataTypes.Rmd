@@ -1,0 +1,426 @@
+---
+title: "Lecture 111"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Data types
+
+
+
+## Recap
+
+**Prev**: Introduction
+
+- 101 Lecture: Introduction to R
+- 102 Lecture: Core concepts
+- 103 Lecture: Tidyverse
+- 104 Practical session
+
+**Now**: Data types
+
+- vectors
+- factors
+- matrices, arrays
+- lists
+
+
+
+## Vectors
+**Vectors** are ordered list of values.
+
+- Vectors can be of any data type
+    - numeric
+    - character
+    - logic
+- All items in a vector have to be of the same type
+- Vectors can be of any length
+
+
+## Defining vectors
+
+A vector variable can be defined using 
+
+- an **identifier** (e.g., `a_vector`) 
+- on the left of an **assignment operator** `<-`
+- followed by the object to be linked to the identifier
+- in this case, the result returned by the function `c`
+- which creates a vector containing the provided elements
+
+```{r, echo=TRUE}
+a_vector <- c("Birmingham", "Derby", "Leicester",
+  "Lincoln", "Nottingham", "Wolverhampton")
+a_vector
+```
+
+<!--
+Note that the second line of the answer provided by R in the console when asking to evaluate the variable starts with `[5]`, as the second line stats with the fifth element of the answer (i.e., the vector)
+-->
+
+## Creating vectors
+
+- the operator `:`
+- the function `seq`
+- the function `rep`
+
+```{r, echo=TRUE}
+4:7
+seq(1, 7, by = 0.5)
+seq(1, 10, length.out = 7)
+rep("Ciao", 4)
+```
+
+
+## Selection
+
+Each element of a vector can be retrieved specifying the related **index** between square brackets, after the identifier of the vector. The first element of the vector has index 1.
+
+```{r, echo=TRUE}
+a_vector[3]
+```
+
+
+A vector of indexes can be used to retrieve more than one element.
+
+```{r, echo=TRUE}
+a_vector[c(5, 3)]
+```
+
+
+<!--
+## Examples
+
+```{r, echo=TRUE}
+east_midlands_cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
+my_indexes <- 2:4
+east_midlands_cities[my_indexes]
+selected_cities <- c(east_midlands_cities[1], east_midlands_cities[3:4])
+```
+-->
+
+
+## Functions on vectors
+
+Functions can be used on a vector variable directly
+
+```{r, echo=TRUE}
+a_numeric_vector <- 1:5
+a_numeric_vector + 10
+sqrt(a_numeric_vector)
+a_numeric_vector >= 3
+```
+
+
+
+## Any and all
+
+Overall expressions can be tested using the functions:
+
+- **any**, TRUE if any of the elements satisfies the condition
+- **all**, TRUE if all of the elements satisfy the condition
+
+```{r, echo=TRUE}
+any(a_numeric_vector >= 3)
+all(a_numeric_vector >= 3)
+```
+
+
+
+## Factors
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
+
+```{r, echo=TRUE}
+houses_vector <- c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace")
+houses_vector
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+## table
+
+The function **table** can be used to obtain a tabulated count for each level.
+
+```{r, echo=TRUE}
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+table(houses_factor)
+```
+
+## Specified levels
+
+A specific set of levels can be specified when creating a factor by providing a **levels** argument.
+
+```{r, echo=TRUE}
+houses_factor_spec <- factor(
+  c("People Carrier", "Flat", "Flat", "Hatchback",
+      "Flat", "Terrace", "Terrace"),
+  levels = c("Bungalow", "Flat", "Detached",
+       "Semi", "Terrace"))
+
+table(houses_factor_spec)
+```
+
+
+## (Unordered) Factors
+
+In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
+
+```{r, echo=TRUE}
+income_nominal <- factor(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+```
+
+The *greater than* operator is not meaningful on the `income_nominal` factor defined above
+
+```{r, echo=TRUE}
+income_nominal > "Low"
+```
+
+## Ordered Factors
+
+In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
+
+```{r, echo=TRUE}
+income_ordered <- ordered(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+
+income_ordered > "Low"
+
+sort(income_ordered)
+```
+
+
+
+## Matrices
+
+**Matrices** are collections of numerics arranged in a two-dimensional rectangular layout
+
+- the first argument is a vector of values
+- the second specifies number of rows and columns
+- R offers operators and functions for matrix algebra
+
+```{r, echo=TRUE}
+a_matrix <- matrix(c(3, 5, 7, 4, 3, 1), c(3, 2))
+a_matrix
+```
+
+<!--
+## Matrices
+
+Variables of the type **matrix** are collections of data elements arranged in a two-dimensional rectangular layout. The first argument is vector a containing the values, the second is a vector specifying the number of rows and columns.
+
+```{r, echo=TRUE, eval=FALSE}
+x <- matrix(c(3, 5, 7, 4, 3, 1), c(3, 2))
+x
+y <- matrix(c(3, 5, 7, 4, 3, 1), c(2, 3))
+y
+z <- matrix(c(3, 5, 7, 4, 3, 1), c(2, 3), byrow = TRUE)
+z
+```
+
+
+## Matrix algebra
+
+Operations as in mathematical matrix algebra.
+
+```{r, echo=TRUE, eval=FALSE}
+x
+y
+z
+```
+
+```{r, echo=TRUE, eval=FALSE}
+y + z
+y %*% x
+t(x)
+```
+
+
+
+## Matrix algebra
+
+Operations as in mathematical matrix algebra.
+
+```{r, echo=TRUE, eval=FALSE}
+A <- matrix(
+      c(3, 1, 2, 1),
+      nrow = 2, ncol = 2)
+A
+b <- matrix(
+      c(8, 2),
+      nrow = 2, ncol = 1)
+b
+```
+
+```{r, echo=TRUE, eval=FALSE}
+# inverse
+solve(A)
+# returns x, where b = Ax
+solve(A, b)
+# That is
+# 8 = 3*4 + 2*-2
+# 2 = 1*4 + 1*-2
+```
+-->
+
+## Arrays
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+Variables of the type **array**<br/>are higher-dimensional<br/>matrices.
+
+- the first argument is a<br/>vector containing the<br/>values
+- the second argument is<br/>avector specifying the<br/>depth of each dimension
+
+```{r, echo=TRUE}
+a3dim_array <- array(1:24, dim=c(4, 3, 2))
+```
+
+```{r, echo=TRUE, eval=FALSE}
+a3dim_array
+```
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE}
+a3dim_array
+```
+
+:::
+::::::
+
+
+
+<!--
+## Matrices and arrays: selection
+
+The subset can be specified as a matrix of indexes.
+
+```{r, echo=TRUE, eval=FALSE}
+x2 
+choose_x2 <- matrix(
+              c(3, 3, 3, 1, 2, 1, 2, 3),
+              c(4, 2), byrow = TRUE)
+choose_x2
+x2[choose_x2]
+```
+-->
+
+
+## Selection
+
+Subsets of matrices (and arrays) can be selected as seen for vectors.
+
+```{r, echo=TRUE}
+a_matrix[2, c(1, 2)]
+a3dim_array[c(1, 2), 2, 2]
+```
+
+
+
+<!--
+## apply
+
+`apply` applies another function to each level of a set dimension of an array
+
+```{r, echo=TRUE}
+apply(a3dim_array, 3, min) # apply on third dimension
+apply(a3dim_array, 1, min) # apply on first dimension
+apply(a3dim_array, 2, min) # apply on second dimension
+```
+-->
+
+
+
+## Lists
+
+Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
+
+```{r, echo=TRUE}
+employee <- list("Stef", 2015)
+employee
+employee[[1]] # Note the double square brackets for selection
+```
+
+
+## Named Lists
+
+In **named lists** each element has a name, and elements can be selected using their name after the symbol `$`. 
+
+```{r, echo=TRUE}
+employee <- list(employee_name = "Stef", start_year = 2015)
+employee
+employee$employee_name
+```
+
+
+<!--
+## lapply
+
+With `lapply` take care that the function makes sense for *any* element in the list
+
+```{r, echo=TRUE}
+various <- list(
+  "Some text",
+  matrix(c(6, 3, 1, 2), c(2, 2))
+)
+lapply(various, is.numeric)
+```
+
+
+
+## Lists: append
+
+The function **append** can be used to append a new element at the end of a list.
+
+```{r, echo=TRUE, eval=FALSE}
+various <- list("Stefano", c(2015, 2016), "Lecturer",
+                matrix(c(6, 3, 1, 2), c(2, 2)))
+various <- append(various, list(c(7, 6, 9, 1))) 
+various
+```
+-->
+
+
+
+## Recap
+
+Data types
+
+- Vectors
+- Factors
+- Matrices, arrays
+- Lists
+
+**Next**: Control structures
+
+- Conditional statements
+- Loops
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

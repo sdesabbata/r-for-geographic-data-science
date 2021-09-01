@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Unsupervised machine learning | Practical session materials | granolarr</title>
+  <meta name="description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Unsupervised machine learning | Practical session materials | granolarr" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://sdesabbata.github.io/granolarr/" />
+  
+  <meta property="og:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="github-repo" content="sdesabbata/granolarr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Unsupervised machine learning | Practical session materials | granolarr" />
+  
+  <meta name="twitter:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  
+
+<meta name="author" content="Stefano De Sabbata" />
+
+
+<meta name="date" content="2021-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="supervised-machine-learning.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#session-info"><i class="fa fa-check"></i>Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-r-programming-language"><i class="fa fa-check"></i><b>1.1</b> The R programming language</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.1.1</b> Using RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#interpreting-values"><i class="fa fa-check"></i><b>1.2</b> Interpreting values</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#variables"><i class="fa fa-check"></i><b>1.3</b> Variables</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-types"><i class="fa fa-check"></i><b>1.4</b> Basic types</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#numeric"><i class="fa fa-check"></i><b>1.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#logical"><i class="fa fa-check"></i><b>1.4.2</b> Logical</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#character"><i class="fa fa-check"></i><b>1.4.3</b> Character</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidyverse"><i class="fa fa-check"></i><b>1.5</b> Tidyverse</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#stringr"><i class="fa fa-check"></i><b>1.5.1</b> stringr</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-pipe-operator"><i class="fa fa-check"></i><b>1.5.2</b> The pipe operator</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#coding-style"><i class="fa fa-check"></i><b>1.6</b> Coding style</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.1"><i class="fa fa-check"></i><b>1.7</b> Exercise 104.1</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.2"><i class="fa fa-check"></i><b>1.8</b> Exercise 104.2</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>2</b> R programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="r-programming.html"><a href="r-programming.html#r-scripts"><i class="fa fa-check"></i><b>2.1</b> R Scripts</a></li>
+<li class="chapter" data-level="2.2" data-path="r-programming.html"><a href="r-programming.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="r-programming.html"><a href="r-programming.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="r-programming.html"><a href="r-programming.html#conditional-statements"><i class="fa fa-check"></i><b>2.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="2.5" data-path="r-programming.html"><a href="r-programming.html#loops"><i class="fa fa-check"></i><b>2.5</b> Loops</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="r-programming.html"><a href="r-programming.html#conditional-loops"><i class="fa fa-check"></i><b>2.5.1</b> Conditional Loops</a></li>
+<li class="chapter" data-level="2.5.2" data-path="r-programming.html"><a href="r-programming.html#deterministic-loops"><i class="fa fa-check"></i><b>2.5.2</b> Deterministic Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="r-programming.html"><a href="r-programming.html#exercise-114.1"><i class="fa fa-check"></i><b>2.6</b> Exercise 114.1</a></li>
+<li class="chapter" data-level="2.7" data-path="r-programming.html"><a href="r-programming.html#function-definition"><i class="fa fa-check"></i><b>2.7</b> Function definition</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-programming.html"><a href="r-programming.html#functions-and-control-structures"><i class="fa fa-check"></i><b>2.7.1</b> Functions and control structures</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="r-programming.html"><a href="r-programming.html#exercise-114.2"><i class="fa fa-check"></i><b>2.8</b> Exercise 114.2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html"><i class="fa fa-check"></i><b>3</b> Data wrangling Pt. 1</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#install-libraries"><i class="fa fa-check"></i><b>3.2</b> Install libraries</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#loading-r-scripts"><i class="fa fa-check"></i><b>3.2.1</b> Loading R scripts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#summarise"><i class="fa fa-check"></i><b>3.3.1</b> Summarise</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#select-and-filter"><i class="fa fa-check"></i><b>3.3.2</b> Select and filter</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#mutate"><i class="fa fa-check"></i><b>3.3.3</b> Mutate</a></li>
+<li class="chapter" data-level="3.3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#arrange"><i class="fa fa-check"></i><b>3.3.4</b> Arrange</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation-example"><i class="fa fa-check"></i><b>3.4</b> Data manipulation example</a></li>
+<li class="chapter" data-level="3.5" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#exercise-204.1"><i class="fa fa-check"></i><b>3.5</b> Exercise 204.1</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html"><i class="fa fa-check"></i><b>4</b> Data wrangling Pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#table-manipulation"><i class="fa fa-check"></i><b>4.1</b> Table manipulation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#long-and-wide-formats"><i class="fa fa-check"></i><b>4.1.1</b> Long and wide formats</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join"><i class="fa fa-check"></i><b>4.1.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#read-and-write-data"><i class="fa fa-check"></i><b>4.2</b> Read and write data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#file-paths"><i class="fa fa-check"></i><b>4.2.1</b> File paths</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#data-wrangling-example"><i class="fa fa-check"></i><b>4.3</b> Data wrangling example</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#re-shaping"><i class="fa fa-check"></i><b>4.3.1</b> Re-shaping</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join-1"><i class="fa fa-check"></i><b>4.3.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.1"><i class="fa fa-check"></i><b>4.4</b> Exercise 214.1</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.2"><i class="fa fa-check"></i><b>4.5</b> Exercise 214.2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>5</b> Reproducibility</a><ul>
+<li class="chapter" data-level="5.1" data-path="reproducibility.html"><a href="reproducibility.html#markdown"><i class="fa fa-check"></i><b>5.1</b> Markdown</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="reproducibility.html"><a href="reproducibility.html#r-markdown"><i class="fa fa-check"></i><b>5.1.1</b> R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.1"><i class="fa fa-check"></i><b>5.2</b> Exercise 224.1</a></li>
+<li class="chapter" data-level="5.3" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.2"><i class="fa fa-check"></i><b>5.3</b> Exercise 224.2</a></li>
+<li class="chapter" data-level="5.4" data-path="reproducibility.html"><a href="reproducibility.html#git"><i class="fa fa-check"></i><b>5.4</b> Git</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="reproducibility.html"><a href="reproducibility.html#git-and-rstudio"><i class="fa fa-check"></i><b>5.4.1</b> Git and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.3"><i class="fa fa-check"></i><b>5.5</b> Exercise 224.3</a></li>
+<li class="chapter" data-level="5.6" data-path="reproducibility.html"><a href="reproducibility.html#cloning-granolarr"><i class="fa fa-check"></i><b>5.6</b> Cloning granolarr</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#gglot2-recap"><i class="fa fa-check"></i><b>6.2</b> GGlot2 recap</a></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data-visualisation"><i class="fa fa-check"></i><b>6.3</b> Data visualisation</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#distributions"><i class="fa fa-check"></i><b>6.3.1</b> Distributions</a></li>
+<li class="chapter" data-level="6.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>6.3.2</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.1"><i class="fa fa-check"></i><b>6.4</b> Exercise 304.1</a></li>
+<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploratory-statistics"><i class="fa fa-check"></i><b>6.5</b> Exploratory statistics</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.2"><i class="fa fa-check"></i><b>6.6</b> Exercise 304.2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comparing-data.html"><a href="comparing-data.html"><i class="fa fa-check"></i><b>7</b> Comparing data</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="comparing-data.html"><a href="comparing-data.html#anova"><i class="fa fa-check"></i><b>7.2</b> ANOVA</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>7.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.1"><i class="fa fa-check"></i><b>7.3</b> Exercise 314.1</a></li>
+<li class="chapter" data-level="7.4" data-path="comparing-data.html"><a href="comparing-data.html#correlation"><i class="fa fa-check"></i><b>7.4</b> Correlation</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.2"><i class="fa fa-check"></i><b>7.5</b> Exercise 314.2</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>8</b> Regression analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-regression"><i class="fa fa-check"></i><b>8.1</b> Simple regression</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>8.1.1</b> Example</a></li>
+<li class="chapter" data-level="8.1.2" data-path="regression-analysis.html"><a href="regression-analysis.html#checking-assumptions"><i class="fa fa-check"></i><b>8.1.2</b> Checking assumptions</a></li>
+<li class="chapter" data-level="8.1.3" data-path="regression-analysis.html"><a href="regression-analysis.html#how-to-report"><i class="fa fa-check"></i><b>8.1.3</b> How to report</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="regression-analysis.html"><a href="regression-analysis.html#multiple-regression"><i class="fa fa-check"></i><b>8.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>8.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="regression-analysis.html"><a href="regression-analysis.html#exercise-324.1"><i class="fa fa-check"></i><b>8.3</b> Exercise 324.1</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-networks"><i class="fa fa-check"></i><b>9.1.1</b> Artificial neural networks</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines"><i class="fa fa-check"></i><b>9.1.2</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#confusion-matrices"><i class="fa fa-check"></i><b>9.1.3</b> Confusion matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>9.2</b> Examples</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#data"><i class="fa fa-check"></i><b>9.2.1</b> Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#logistic-regression"><i class="fa fa-check"></i><b>9.2.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines-1"><i class="fa fa-check"></i><b>9.2.3</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#kernels"><i class="fa fa-check"></i><b>9.2.4</b> Kernels</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-network"><i class="fa fa-check"></i><b>9.2.5</b> Artificial neural network</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#exercise-404.1"><i class="fa fa-check"></i><b>9.3</b> Exercise 404.1</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>10</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means"><i class="fa fa-check"></i><b>10.1.1</b> K-means</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#number-of-clusters"><i class="fa fa-check"></i><b>10.1.2</b> Number of clusters</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#geodemographic-classification"><i class="fa fa-check"></i><b>10.1.3</b> Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#terrace-and-semi-detached-houses"><i class="fa fa-check"></i><b>10.2.1</b> Terrace and semi-detached houses</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters"><i class="fa fa-check"></i><b>10.2.2</b> Interpreting the clusters</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#a-geodemographic-of-dwelling-types"><i class="fa fa-check"></i><b>10.2.3</b> A geodemographic of dwelling types</a></li>
+<li class="chapter" data-level="10.2.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters-1"><i class="fa fa-check"></i><b>10.2.4</b> Interpreting the clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#exercise-414.1"><i class="fa fa-check"></i><b>10.3</b> Exercise 414.1</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical session materials | granolarr</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="unsupervised-machine-learning" class="section level1">
+<h1><span class="header-section-number">10</span> Unsupervised machine learning</h1>
+<p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
+<p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">10.1</span> Introduction</h2>
+<p>The field of <strong>machine learning</strong> sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), <em>“the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience.”</em></p>
+<p>Machine learning approaches are divided into two main types.</p>
+<ul>
+<li><strong>Supervised</strong>:
+<ul>
+<li>training of a <em>“predictive”</em> model from data;</li>
+<li>one (or more) attribute of the dataset is used to “predict” another attribute.</li>
+</ul></li>
+<li><strong>Unsupervised</strong>:
+<ul>
+<li>discovery of <em>descriptive</em> patterns in data;</li>
+<li>commonly used in data mining.</li>
+</ul></li>
+</ul>
+<p>Clustering is a classic unsupervised machine learning task, which aims to <em>"automatically divides the data into</em> <strong><em>clusters</em></strong> <em>, or groups of similar items"</em>(Lantz, 2019). In computer science, a wide range of approaches has been developed to tackle clustering. Among those approaches, the two most common are centroid-based approaches (such as k-means) and hierarchical approaches. Other approaches include density-based clustering methods (such as DBSCAN) and mixed approaches (such as bagged clustering), which combine different aspects of centroid-based and hierarchical approaches.</p>
+<div id="k-means" class="section level3">
+<h3><span class="header-section-number">10.1.1</span> K-means</h3>
+<p>The k-mean approach clusters <span class="math inline">\(n\)</span> observations (<span class="math inline">\(x\)</span>) in <span class="math inline">\(k\)</span> clusters (<span class="math inline">\(c\)</span>) by minimising the within-cluster sum of squares (WCSS) through an iterative process. That is, the algorithm calculates the distance between each observation (i.e., each case, object, row in the table) and the centroid of its cluster. The square values of those distances are summed up for each cluster, and then for the whole dataset. The aim of the algorithm is minimise that value.</p>
+<p><span class="math display">\[WCSS = \sum_{c=1}^{k} \sum_{x \in c} (x - \overline{x}_c)^2\]</span></p>
+<p>To minimise WCSS, while trying to identify <code>k</code> clusters, k-mean first randomly select <code>k</code> observations as initial centroids. Then, k-means repeats the two steps below. Every time k-means repeats those two steps, the new centroids will be closer to the two actual centre. The process continues until centroids don’t change anymore (within a certain margin of error) or until it has reached a maximum number of iterations set by the analyst.</p>
+<ul>
+<li><strong>assignment step</strong>: observations assigned to closest centroids</li>
+<li><strong>update step</strong>: calculate means for each cluster, as new the centroid</li>
+</ul>
+</div>
+<div id="number-of-clusters" class="section level3">
+<h3><span class="header-section-number">10.1.2</span> Number of clusters</h3>
+<p>A key limitation of k-mean is that it requires to select the number of clusters to be identified in advance. Unfortunately, analysts are not always in the position of knowing in advance how many clusters are there supposed to be within the data they are analysing. In such cases, there are a number of heuristics that can be used to select the number of clusters that best fits the data.</p>
+<p>The most well-known method is the <em>“elbow method”</em>. This approach suggests to calculate k-means for a range of values of k, calculate the WCSS obtained for each k, and then select the value of k that minimises WCSS without increasing the number of clusters beyond the point where the decrease in WCSS is minimal. This approach is called <em>“elbow method”</em> because (as can be seen in the examples below) when printing a line representing the value of WCSS for all values of k taken into account, it suggests to select the value of k at the <em>“elbow”</em> or inflation point of the line.</p>
+<p>Other heuristics exist, which suggest using alternative measures of cluster quality. For instance, the <code>cluster</code> library provides simple ways to calculate the <a href="https://en.wikipedia.org/wiki/Silhouette_(clustering)">silhouette</a> measure and the <a href="http://web.stanford.edu/~hastie/Papers/gap.pdf">gap statistic</a>. The silhouette value indicates how well observations fit within their clusters, whereas the gap statistic measures the dispersion within each cluster, compared to a uniform distribution of values. The higher the value of the gap statistic, the further away the distribution is from uniform (thus the higher the quality of the clustering).</p>
+<p>For all three heuristics, the best approach would be to calculate those values using a bootstrapping approach. That is, to calculate the same statistics multiple times on samples of the dataset, in order to account for random variation. However, only the <code>clusGap</code> function of the <code>cluster</code> library allows for bootstrapping natively, as illustrated below.</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="unsupervised-machine-learning.html#cb302-1"></a><span class="kw">library</span>(cluster)</span></code></pre></div>
+</div>
+<div id="geodemographic-classification" class="section level3">
+<h3><span class="header-section-number">10.1.3</span> Geodemographic Classification</h3>
+<p>In GIScience, clustering approaches are commonly used to create <em>geodemographic classifications</em>. For instance, <a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a> created the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification (2011 OAC)</a> starting from an initial set of 167 prospective variables from the UK Census 2011.</p>
+<p>In the process of creating the classification, 86 variables were removed from the initial set, including highly correlated variables that don’t bring additional information to the classification process. Furthermore, 41 variable were retained as they were, whereas 40 were combined, to create final set of 60 variables. The k-mean approach was then applied to cluster the census Output Areas (OAs) into 8 supergroups, 26 groups and 76 subgroups.</p>
+<p>The <a href="http://josis.net/index.php/josis/article/view/232/150">paper</a> provides a detail report of the process. In particular, it is interesting to see how the authors applied a process of variable selection involving repeated clustering while excluding one variable, to see how the within cluster sum of square measure (WCSS) would be affected. Variable that produced significantly higher WCSS when excluded were considered for exclusion from the final analysis, in order to increase the homogeneity of the clusters.</p>
+<p>Once the clustering is completed, the final step in geodemographic classification is the interpretation of the resulting cluster, which is commonly done by observing the average values of the variables for each cluster.</p>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2><span class="header-section-number">10.2</span> Examples</h2>
+<p>The two examples below explore the creation of simple geodemographic classifications for the city of Leicester, using a few variables from the United Kingdom 2011 Census and included among the 167 initial variables that <a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a> have taken into account in creating the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification</a>.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="unsupervised-machine-learning.html#cb303-1"></a>leicester_2011OAC &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;2011_OAC_Raw_uVariables_Leicester.csv&quot;</span>)</span></code></pre></div>
+<p>The variables that we are going to take into account are the five ones listed below, plus the total count for their statistical unit, that is <code>Total_Dwellings</code>.</p>
+<ul>
+<li><code>u086</code>: Detached</li>
+<li><code>u087</code>: Semi-detached</li>
+<li><code>u088</code>: Terraced (including end-terrace)</li>
+<li><code>u089</code>: Flats</li>
+<li><code>u090</code>: Caravan or other mobile or temporary structure</li>
+</ul>
+<p>The code below extracts the necessary variables from the original dataset and applies the normalisation steps across all the five variables listed above. Finally, the columns are renamed with more user-friendly names and adding <code>perc_</code> in front of the column name.</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="unsupervised-machine-learning.html#cb304-1"></a>leicester_dwellings &lt;-</span>
+<span id="cb304-2"><a href="unsupervised-machine-learning.html#cb304-2"></a><span class="st">  </span>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb304-3"><a href="unsupervised-machine-learning.html#cb304-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
+<span id="cb304-4"><a href="unsupervised-machine-learning.html#cb304-4"></a>    OA11CD, Total_Dwellings,</span>
+<span id="cb304-5"><a href="unsupervised-machine-learning.html#cb304-5"></a>    u086<span class="op">:</span>u090</span>
+<span id="cb304-6"><a href="unsupervised-machine-learning.html#cb304-6"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb304-7"><a href="unsupervised-machine-learning.html#cb304-7"></a><span class="st">  </span><span class="co"># scale across</span></span>
+<span id="cb304-8"><a href="unsupervised-machine-learning.html#cb304-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb304-9"><a href="unsupervised-machine-learning.html#cb304-9"></a>    dplyr<span class="op">::</span><span class="kw">across</span>( </span>
+<span id="cb304-10"><a href="unsupervised-machine-learning.html#cb304-10"></a>      u086<span class="op">:</span>u090,</span>
+<span id="cb304-11"><a href="unsupervised-machine-learning.html#cb304-11"></a>      <span class="co">#scale</span></span>
+<span id="cb304-12"><a href="unsupervised-machine-learning.html#cb304-12"></a>      <span class="cf">function</span>(x){ (x <span class="op">/</span><span class="st"> </span>Total_Dwellings) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> }</span>
+<span id="cb304-13"><a href="unsupervised-machine-learning.html#cb304-13"></a>    )</span>
+<span id="cb304-14"><a href="unsupervised-machine-learning.html#cb304-14"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb304-15"><a href="unsupervised-machine-learning.html#cb304-15"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
+<span id="cb304-16"><a href="unsupervised-machine-learning.html#cb304-16"></a>    <span class="dt">detached =</span> u086,</span>
+<span id="cb304-17"><a href="unsupervised-machine-learning.html#cb304-17"></a>    <span class="dt">semidetached =</span> u087,</span>
+<span id="cb304-18"><a href="unsupervised-machine-learning.html#cb304-18"></a>    <span class="dt">terraced =</span> u088,</span>
+<span id="cb304-19"><a href="unsupervised-machine-learning.html#cb304-19"></a>    <span class="dt">flats =</span> u089,	</span>
+<span id="cb304-20"><a href="unsupervised-machine-learning.html#cb304-20"></a>    <span class="dt">carava_tmp =</span> u090</span>
+<span id="cb304-21"><a href="unsupervised-machine-learning.html#cb304-21"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb304-22"><a href="unsupervised-machine-learning.html#cb304-22"></a><span class="st">  </span><span class="co"># rename columns</span></span>
+<span id="cb304-23"><a href="unsupervised-machine-learning.html#cb304-23"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename_with</span>(</span>
+<span id="cb304-24"><a href="unsupervised-machine-learning.html#cb304-24"></a>    <span class="cf">function</span>(x){ <span class="kw">paste0</span>(<span class="st">&quot;perc_&quot;</span>, x) },</span>
+<span id="cb304-25"><a href="unsupervised-machine-learning.html#cb304-25"></a>    detached<span class="op">:</span>carava_tmp</span>
+<span id="cb304-26"><a href="unsupervised-machine-learning.html#cb304-26"></a>  )</span></code></pre></div>
+<p>The first step of k-means is to select some observations at random as initial centroids. As a result, every time we run the computation, the starting point will be slightly different, and so might be the result. In particular, it is likely that the cluster order might chance (i.e., what was cluster <code>1</code> one time might be cluster <code>3</code> the next), although the overall result should be stable. Nevertheless, to make this document more reproducible, we can set a <em>“seed”</em> for the generation of random numbers. That will ensure that the observations selected at random will be the same, and thus the results will be the same. That can be done in R, using the function <code>set.seed</code> and providing a number (any relatively large number will do) as <em>“seed”</em>.</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="unsupervised-machine-learning.html#cb305-1"></a><span class="kw">set.seed</span>(<span class="dv">20201208</span>)</span></code></pre></div>
+<div id="terrace-and-semi-detached-houses" class="section level3">
+<h3><span class="header-section-number">10.2.1</span> Terrace and semi-detached houses</h3>
+<p>The first example explores how to create a geodemographic classification using only two variables.</p>
+<ul>
+<li><code>u087</code> (now <code>semidetached</code>): Semi-detached</li>
+<li><code>u088</code>(now <code>terraced</code>): Terraced (including end-terrace)</li>
+</ul>
+<p>As a first step, we can explore the relationship between the two variables. The code below illustrates the use of the <a href="https://ggobi.github.io/ggally/articles/ggpairs.html"><code>ggpairs</code></a> of the <a href="https://ggobi.github.io/ggally/"><code>GGally</code></a> library, which provides additional and more complex plots on top of the <code>ggplot2</code> framework.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="unsupervised-machine-learning.html#cb306-1"></a><span class="co"># install.packages(&quot;GGally&quot;)</span></span>
+<span id="cb306-2"><a href="unsupervised-machine-learning.html#cb306-2"></a><span class="kw">library</span>(GGally)</span>
+<span id="cb306-3"><a href="unsupervised-machine-learning.html#cb306-3"></a></span>
+<span id="cb306-4"><a href="unsupervised-machine-learning.html#cb306-4"></a>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb306-5"><a href="unsupervised-machine-learning.html#cb306-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_semidetached, perc_terraced) <span class="op">%&gt;%</span></span>
+<span id="cb306-6"><a href="unsupervised-machine-learning.html#cb306-6"></a><span class="st">  </span>GGally<span class="op">::</span><span class="kw">ggpairs</span>(</span>
+<span id="cb306-7"><a href="unsupervised-machine-learning.html#cb306-7"></a>    <span class="dt">upper =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(ggally_cor, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>)),</span>
+<span id="cb306-8"><a href="unsupervised-machine-learning.html#cb306-8"></a>    <span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size=</span><span class="fl">0.1</span>))</span>
+<span id="cb306-9"><a href="unsupervised-machine-learning.html#cb306-9"></a>  )</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-6-1.png" width="288" /></p>
+<p>The scatterplot above seems to indicate that at least three clusters might exist in the data. One with a lot of semi-detached and few terraced house (top-left corner of the scatterplot); one with a lot of terraced and few semi-detached houses (bottom-right corner of the scatterplot); and one with very few of both classes (bottom-left corner of the scatterplot).</p>
+<p>However, there are clearly many OAs which populate the area in between those three groups. So, what is the best approach to cluster those OAs?</p>
+<p>The code below illustrates how to create three plots. The first follows the elbow method heuristic. The second and the third take a similar approach but using the silhouette and gap statistic.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="unsupervised-machine-learning.html#cb307-1"></a><span class="co"># Get only the data necessary for testing</span></span>
+<span id="cb307-2"><a href="unsupervised-machine-learning.html#cb307-2"></a>data_for_testing &lt;-</span>
+<span id="cb307-3"><a href="unsupervised-machine-learning.html#cb307-3"></a><span class="st">  </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb307-4"><a href="unsupervised-machine-learning.html#cb307-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_semidetached, perc_terraced)</span>
+<span id="cb307-5"><a href="unsupervised-machine-learning.html#cb307-5"></a></span>
+<span id="cb307-6"><a href="unsupervised-machine-learning.html#cb307-6"></a><span class="co"># Calculate WCSS and silhouette</span></span>
+<span id="cb307-7"><a href="unsupervised-machine-learning.html#cb307-7"></a><span class="co"># for k = 2 to 15</span></span>
+<span id="cb307-8"><a href="unsupervised-machine-learning.html#cb307-8"></a><span class="co"># Set up two vectors where to store</span></span>
+<span id="cb307-9"><a href="unsupervised-machine-learning.html#cb307-9"></a><span class="co"># the calculated WCSS and silhouette value</span></span>
+<span id="cb307-10"><a href="unsupervised-machine-learning.html#cb307-10"></a>testing_wcss &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">15</span>)</span>
+<span id="cb307-11"><a href="unsupervised-machine-learning.html#cb307-11"></a>testing_silhouette &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">15</span>)</span>
+<span id="cb307-12"><a href="unsupervised-machine-learning.html#cb307-12"></a></span>
+<span id="cb307-13"><a href="unsupervised-machine-learning.html#cb307-13"></a><span class="co"># for k = 2 to 15</span></span>
+<span id="cb307-14"><a href="unsupervised-machine-learning.html#cb307-14"></a><span class="cf">for</span> (testing_k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">15</span>){</span>
+<span id="cb307-15"><a href="unsupervised-machine-learning.html#cb307-15"></a>  <span class="co"># Calculate kmeans</span></span>
+<span id="cb307-16"><a href="unsupervised-machine-learning.html#cb307-16"></a>  kmeans_result &lt;-<span class="st"> </span></span>
+<span id="cb307-17"><a href="unsupervised-machine-learning.html#cb307-17"></a><span class="st">    </span>stats<span class="op">::</span><span class="kw">kmeans</span>(data_for_testing, <span class="dt">centers =</span> testing_k, <span class="dt">iter.max =</span> <span class="dv">50</span>)</span>
+<span id="cb307-18"><a href="unsupervised-machine-learning.html#cb307-18"></a>  </span>
+<span id="cb307-19"><a href="unsupervised-machine-learning.html#cb307-19"></a>  <span class="co"># Extract WCSS</span></span>
+<span id="cb307-20"><a href="unsupervised-machine-learning.html#cb307-20"></a>  <span class="co"># and save it in the vector</span></span>
+<span id="cb307-21"><a href="unsupervised-machine-learning.html#cb307-21"></a>  testing_wcss[testing_k] &lt;-<span class="st"> </span>kmeans_result <span class="op">%$%</span><span class="st"> </span>tot.withinss</span>
+<span id="cb307-22"><a href="unsupervised-machine-learning.html#cb307-22"></a>  </span>
+<span id="cb307-23"><a href="unsupervised-machine-learning.html#cb307-23"></a>  <span class="co"># Calculate average silhouette</span></span>
+<span id="cb307-24"><a href="unsupervised-machine-learning.html#cb307-24"></a>  <span class="co"># and save it in the vector</span></span>
+<span id="cb307-25"><a href="unsupervised-machine-learning.html#cb307-25"></a>  testing_silhouette[testing_k] &lt;-<span class="st"> </span></span>
+<span id="cb307-26"><a href="unsupervised-machine-learning.html#cb307-26"></a><span class="st">    </span>kmeans_result <span class="op">%$%</span><span class="st"> </span>cluster <span class="op">%&gt;%</span></span>
+<span id="cb307-27"><a href="unsupervised-machine-learning.html#cb307-27"></a><span class="st">    </span>cluster<span class="op">::</span><span class="kw">silhouette</span>(</span>
+<span id="cb307-28"><a href="unsupervised-machine-learning.html#cb307-28"></a>      data_for_testing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dist</span>()</span>
+<span id="cb307-29"><a href="unsupervised-machine-learning.html#cb307-29"></a>    ) <span class="op">%&gt;%</span></span>
+<span id="cb307-30"><a href="unsupervised-machine-learning.html#cb307-30"></a><span class="st">    </span>magrittr<span class="op">::</span><span class="kw">extract</span>(, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb307-31"><a href="unsupervised-machine-learning.html#cb307-31"></a>}</span>
+<span id="cb307-32"><a href="unsupervised-machine-learning.html#cb307-32"></a></span>
+<span id="cb307-33"><a href="unsupervised-machine-learning.html#cb307-33"></a><span class="co"># Calculate the gap statistic using bootstrapping</span></span>
+<span id="cb307-34"><a href="unsupervised-machine-learning.html#cb307-34"></a>testing_gap &lt;-<span class="st"> </span></span>
+<span id="cb307-35"><a href="unsupervised-machine-learning.html#cb307-35"></a><span class="st">  </span>cluster<span class="op">::</span><span class="kw">clusGap</span>(</span>
+<span id="cb307-36"><a href="unsupervised-machine-learning.html#cb307-36"></a>    data_for_testing, </span>
+<span id="cb307-37"><a href="unsupervised-machine-learning.html#cb307-37"></a>    <span class="dt">FUN =</span> kmeans, </span>
+<span id="cb307-38"><a href="unsupervised-machine-learning.html#cb307-38"></a>    <span class="dt">K.max =</span> <span class="dv">15</span>, <span class="co"># max number of clusters</span></span>
+<span id="cb307-39"><a href="unsupervised-machine-learning.html#cb307-39"></a>    <span class="dt">B =</span> <span class="dv">50</span>      <span class="co"># number of samples</span></span>
+<span id="cb307-40"><a href="unsupervised-machine-learning.html#cb307-40"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="unsupervised-machine-learning.html#cb308-1"></a><span class="co"># Plots</span></span>
+<span id="cb308-2"><a href="unsupervised-machine-learning.html#cb308-2"></a><span class="kw">plot</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, testing_wcss[<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>], <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb308-3"><a href="unsupervised-machine-learning.html#cb308-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;WCSS&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)) <span class="op">+</span></span>
+<span id="cb308-4"><a href="unsupervised-machine-learning.html#cb308-4"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb308-5"><a href="unsupervised-machine-learning.html#cb308-5"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-1.png" width="576" /></p>
+<pre><code>## integer(0)</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="unsupervised-machine-learning.html#cb310-1"></a><span class="kw">plot</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, testing_silhouette[<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>], <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb310-2"><a href="unsupervised-machine-learning.html#cb310-2"></a>     <span class="dt">ylab=</span><span class="st">&quot;Silhouette&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)) <span class="op">+</span></span>
+<span id="cb310-3"><a href="unsupervised-machine-learning.html#cb310-3"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb310-4"><a href="unsupervised-machine-learning.html#cb310-4"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-2.png" width="576" /></p>
+<pre><code>## integer(0)</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="unsupervised-machine-learning.html#cb312-1"></a><span class="kw">plot</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, testing_gap[[<span class="st">&quot;Tab&quot;</span>]][<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, <span class="st">&quot;gap&quot;</span>], <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb312-2"><a href="unsupervised-machine-learning.html#cb312-2"></a>     <span class="dt">ylab=</span><span class="st">&quot;Gap&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)) <span class="op">+</span></span>
+<span id="cb312-3"><a href="unsupervised-machine-learning.html#cb312-3"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb312-4"><a href="unsupervised-machine-learning.html#cb312-4"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-3.png" width="576" /></p>
+<pre><code>## integer(0)</code></pre>
+<p>Based on the WCSS plot, the number of clusters k best fitting the data could range between <code>k = 3</code> and <code>k = 6</code>, which are all around the inflation point (elbow) of the line. The silhouette plot shows a local maximum at <code>k = 3</code> and <code>k = 6</code>, which indicates that the observations best fit within their clusters when 3 or 6 clusters are created. The gap statistic steadily increases until it reaches a plateau around <code>k = 5</code>. That indicates that clustering improves as we move from 2 to 5 clusters, but the quality doesn’t increase as much afterwards. The value for <code>k = 6</code> (which is the value suggested by the other two heuristics) is a local minimum, but still the difference with neighbouring values is relatively small.</p>
+<p>Overall, the heuristics seem to indicate that <code>k = 3</code> could lead to a good clustering result. However, the gap statistic indicates that those three clusters would not be very compact. That is probably due to the fact that the observations at center of the scatterplot seen above are rather uniformally distributed over the space between the three main clusters. As such, chosing <code>k = 6</code> clusters might be the best fitting approach in this case. We can then calculate the clusters for <code>k = 6</code> as shown below.</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="unsupervised-machine-learning.html#cb314-1"></a>terr_sede_kmeans &lt;-<span class="st"> </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb314-2"><a href="unsupervised-machine-learning.html#cb314-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_semidetached, perc_terraced) <span class="op">%&gt;%</span></span>
+<span id="cb314-3"><a href="unsupervised-machine-learning.html#cb314-3"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">kmeans</span>(<span class="dt">centers =</span> <span class="dv">6</span>, <span class="dt">iter.max =</span> <span class="dv">50</span>)</span>
+<span id="cb314-4"><a href="unsupervised-machine-learning.html#cb314-4"></a></span>
+<span id="cb314-5"><a href="unsupervised-machine-learning.html#cb314-5"></a>leicester_dwellings &lt;-<span class="st"> </span></span>
+<span id="cb314-6"><a href="unsupervised-machine-learning.html#cb314-6"></a><span class="st">  </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb314-7"><a href="unsupervised-machine-learning.html#cb314-7"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb314-8"><a href="unsupervised-machine-learning.html#cb314-8"></a>    <span class="dt">terr_sede_cluster =</span> terr_sede_kmeans <span class="op">%$%</span><span class="st"> </span>cluster <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.character</span>()</span>
+<span id="cb314-9"><a href="unsupervised-machine-learning.html#cb314-9"></a>  )</span></code></pre></div>
+</div>
+<div id="interpreting-the-clusters" class="section level3">
+<h3><span class="header-section-number">10.2.2</span> Interpreting the clusters</h3>
+<p>After the clustering has been completed, we can analyse the results through a visual analysis. For instance, we can plot the two original variables, along with the computed clusters as illustrated below.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="unsupervised-machine-learning.html#cb315-1"></a>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb315-2"><a href="unsupervised-machine-learning.html#cb315-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_semidetached, perc_terraced, terr_sede_cluster) <span class="op">%&gt;%</span></span>
+<span id="cb315-3"><a href="unsupervised-machine-learning.html#cb315-3"></a><span class="st">  </span>GGally<span class="op">::</span><span class="kw">ggpairs</span>(</span>
+<span id="cb315-4"><a href="unsupervised-machine-learning.html#cb315-4"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> terr_sede_cluster),</span>
+<span id="cb315-5"><a href="unsupervised-machine-learning.html#cb315-5"></a>    <span class="dt">upper =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(ggally_cor, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>)),</span>
+<span id="cb315-6"><a href="unsupervised-machine-learning.html#cb315-6"></a>    <span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size=</span><span class="fl">0.1</span>))</span>
+<span id="cb315-7"><a href="unsupervised-machine-learning.html#cb315-7"></a>  )</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<p>Another common approach in interpreting the results is to create <em>heatmaps</em> for the average values of the variables used in the clustering process for each cluster.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="unsupervised-machine-learning.html#cb316-1"></a>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb316-2"><a href="unsupervised-machine-learning.html#cb316-2"></a><span class="st">  </span><span class="kw">group_by</span>(terr_sede_cluster) <span class="op">%&gt;%</span></span>
+<span id="cb316-3"><a href="unsupervised-machine-learning.html#cb316-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(</span>
+<span id="cb316-4"><a href="unsupervised-machine-learning.html#cb316-4"></a>    <span class="dt">avg_perc_semidetached =</span> <span class="kw">mean</span>(perc_semidetached), </span>
+<span id="cb316-5"><a href="unsupervised-machine-learning.html#cb316-5"></a>    <span class="dt">avg_perc_terraced =</span> <span class="kw">mean</span>(perc_terraced)</span>
+<span id="cb316-6"><a href="unsupervised-machine-learning.html#cb316-6"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb316-7"><a href="unsupervised-machine-learning.html#cb316-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(terr_sede_cluster, avg_perc_semidetached, avg_perc_terraced) <span class="op">%&gt;%</span></span>
+<span id="cb316-8"><a href="unsupervised-machine-learning.html#cb316-8"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb316-9"><a href="unsupervised-machine-learning.html#cb316-9"></a>    <span class="dt">cols =</span> <span class="op">-</span>terr_sede_cluster,</span>
+<span id="cb316-10"><a href="unsupervised-machine-learning.html#cb316-10"></a>    <span class="dt">names_to =</span> <span class="st">&quot;clustering_dimension&quot;</span>,</span>
+<span id="cb316-11"><a href="unsupervised-machine-learning.html#cb316-11"></a>    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb316-12"><a href="unsupervised-machine-learning.html#cb316-12"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb316-13"><a href="unsupervised-machine-learning.html#cb316-13"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb316-14"><a href="unsupervised-machine-learning.html#cb316-14"></a>    <span class="kw">aes</span>(</span>
+<span id="cb316-15"><a href="unsupervised-machine-learning.html#cb316-15"></a>      <span class="dt">x =</span> clustering_dimension,</span>
+<span id="cb316-16"><a href="unsupervised-machine-learning.html#cb316-16"></a>      <span class="dt">y =</span> terr_sede_cluster</span>
+<span id="cb316-17"><a href="unsupervised-machine-learning.html#cb316-17"></a>    )</span>
+<span id="cb316-18"><a href="unsupervised-machine-learning.html#cb316-18"></a>  ) <span class="op">+</span></span>
+<span id="cb316-19"><a href="unsupervised-machine-learning.html#cb316-19"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_tile</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> value)) <span class="op">+</span></span>
+<span id="cb316-20"><a href="unsupervised-machine-learning.html#cb316-20"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Clustering dimension&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb316-21"><a href="unsupervised-machine-learning.html#cb316-21"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Cluster&quot;</span>) <span class="op">+</span></span>
+<span id="cb316-22"><a href="unsupervised-machine-learning.html#cb316-22"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;inferno&quot;</span>) <span class="op">+</span></span>
+<span id="cb316-23"><a href="unsupervised-machine-learning.html#cb316-23"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-11-1.png" width="480" /></p>
+<p>The plot above, clearly illustrates how cluster 6 has a high percentage of semi-detached houses and a low percentages of terraced houses. Cluster 2 has a high percentage of terraced houses and a low percentages of semi-detached houses. Cluster 4 has a low percentage of both semi-detached and terraced houses. Those are the three clusters that we first identified from the first scatterplot above.</p>
+<p>Moreover, the clustering process identifies cluster 1, which includes similar percentages of semi-detached and terraced houses; as well as cluster 5, including mostly semi-detached but also some terraced houses, and cluster 3, including mostly terraced but also some semi-detached houses.</p>
+</div>
+<div id="a-geodemographic-of-dwelling-types" class="section level3">
+<h3><span class="header-section-number">10.2.3</span> A geodemographic of dwelling types</h3>
+<p>The case study above is useful as a simple example of how to create a geodemographic classification, but possibly not the most interesting analysis due to the limited number of variables used. In this section, we explore the creation of a geodemographic of dwelling types in the city of Leicester, using all five variables available in the original dataset.</p>
+<p>As before we can start from a visual analysis of the data. The relationship between the different variables generally resembles the one seen between semi-detached and terraced houses seen in the example above, except for caravans and mobile or temporary structures, which seem fairly rare in Leicester. No variable seems to be particularly well correlated to any other. Thus all variables should be included in the classification, as they all have the potential to contribute relevant information.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="unsupervised-machine-learning.html#cb317-1"></a>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb317-2"><a href="unsupervised-machine-learning.html#cb317-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_detached<span class="op">:</span>perc_carava_tmp) <span class="op">%&gt;%</span></span>
+<span id="cb317-3"><a href="unsupervised-machine-learning.html#cb317-3"></a><span class="st">  </span>GGally<span class="op">::</span><span class="kw">ggpairs</span>(</span>
+<span id="cb317-4"><a href="unsupervised-machine-learning.html#cb317-4"></a>    <span class="dt">upper =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(ggally_cor, <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span>)),</span>
+<span id="cb317-5"><a href="unsupervised-machine-learning.html#cb317-5"></a>    <span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size=</span><span class="fl">0.1</span>))</span>
+<span id="cb317-6"><a href="unsupervised-machine-learning.html#cb317-6"></a>  )</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-12-1.png" width="432" /></p>
+<p>In order to identify the number of clusters <code>k</code> which best fits the data, we can use the elbow method, along with the silhouette and gap statistic measures, as seen in the previous example. The only difference is that in this case <code>data_for_testing</code> will include all five variables.</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="unsupervised-machine-learning.html#cb318-1"></a><span class="co"># Data for elbow method</span></span>
+<span id="cb318-2"><a href="unsupervised-machine-learning.html#cb318-2"></a>data_for_testing &lt;-</span>
+<span id="cb318-3"><a href="unsupervised-machine-learning.html#cb318-3"></a><span class="st">  </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb318-4"><a href="unsupervised-machine-learning.html#cb318-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_detached<span class="op">:</span>perc_carava_tmp)</span>
+<span id="cb318-5"><a href="unsupervised-machine-learning.html#cb318-5"></a></span>
+<span id="cb318-6"><a href="unsupervised-machine-learning.html#cb318-6"></a><span class="co"># Calculate WCSS and silhouette</span></span>
+<span id="cb318-7"><a href="unsupervised-machine-learning.html#cb318-7"></a><span class="co"># for k = 2 to 15</span></span>
+<span id="cb318-8"><a href="unsupervised-machine-learning.html#cb318-8"></a><span class="co"># Set up two vectors where to store</span></span>
+<span id="cb318-9"><a href="unsupervised-machine-learning.html#cb318-9"></a><span class="co"># the calculated WCSS and silhouette value</span></span>
+<span id="cb318-10"><a href="unsupervised-machine-learning.html#cb318-10"></a>testing_wcss &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">15</span>)</span>
+<span id="cb318-11"><a href="unsupervised-machine-learning.html#cb318-11"></a>testing_silhouette &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, <span class="dv">15</span>)</span>
+<span id="cb318-12"><a href="unsupervised-machine-learning.html#cb318-12"></a></span>
+<span id="cb318-13"><a href="unsupervised-machine-learning.html#cb318-13"></a><span class="co"># for k = 2 to 15</span></span>
+<span id="cb318-14"><a href="unsupervised-machine-learning.html#cb318-14"></a><span class="cf">for</span> (testing_k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">15</span>){</span>
+<span id="cb318-15"><a href="unsupervised-machine-learning.html#cb318-15"></a>  <span class="co"># Calculate kmeans</span></span>
+<span id="cb318-16"><a href="unsupervised-machine-learning.html#cb318-16"></a>  kmeans_result &lt;-<span class="st"> </span></span>
+<span id="cb318-17"><a href="unsupervised-machine-learning.html#cb318-17"></a><span class="st">    </span>stats<span class="op">::</span><span class="kw">kmeans</span>(data_for_testing, <span class="dt">centers =</span> testing_k, <span class="dt">iter.max =</span> <span class="dv">50</span>)</span>
+<span id="cb318-18"><a href="unsupervised-machine-learning.html#cb318-18"></a>  </span>
+<span id="cb318-19"><a href="unsupervised-machine-learning.html#cb318-19"></a>  <span class="co"># Extract WCSS</span></span>
+<span id="cb318-20"><a href="unsupervised-machine-learning.html#cb318-20"></a>  <span class="co"># and save it in the vector</span></span>
+<span id="cb318-21"><a href="unsupervised-machine-learning.html#cb318-21"></a>  testing_wcss[testing_k] &lt;-<span class="st"> </span>kmeans_result <span class="op">%$%</span><span class="st"> </span>tot.withinss</span>
+<span id="cb318-22"><a href="unsupervised-machine-learning.html#cb318-22"></a>  </span>
+<span id="cb318-23"><a href="unsupervised-machine-learning.html#cb318-23"></a>  <span class="co"># Calculate average silhouette</span></span>
+<span id="cb318-24"><a href="unsupervised-machine-learning.html#cb318-24"></a>  <span class="co"># and save it in the vector</span></span>
+<span id="cb318-25"><a href="unsupervised-machine-learning.html#cb318-25"></a>  testing_silhouette[testing_k] &lt;-<span class="st"> </span></span>
+<span id="cb318-26"><a href="unsupervised-machine-learning.html#cb318-26"></a><span class="st">    </span>kmeans_result <span class="op">%$%</span><span class="st"> </span>cluster <span class="op">%&gt;%</span></span>
+<span id="cb318-27"><a href="unsupervised-machine-learning.html#cb318-27"></a><span class="st">    </span>cluster<span class="op">::</span><span class="kw">silhouette</span>(</span>
+<span id="cb318-28"><a href="unsupervised-machine-learning.html#cb318-28"></a>      data_for_testing <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dist</span>()</span>
+<span id="cb318-29"><a href="unsupervised-machine-learning.html#cb318-29"></a>    ) <span class="op">%&gt;%</span></span>
+<span id="cb318-30"><a href="unsupervised-machine-learning.html#cb318-30"></a><span class="st">    </span>magrittr<span class="op">::</span><span class="kw">extract</span>(, <span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>()</span>
+<span id="cb318-31"><a href="unsupervised-machine-learning.html#cb318-31"></a>}</span>
+<span id="cb318-32"><a href="unsupervised-machine-learning.html#cb318-32"></a></span>
+<span id="cb318-33"><a href="unsupervised-machine-learning.html#cb318-33"></a><span class="co"># Calculate the gap statistic using bootstrapping</span></span>
+<span id="cb318-34"><a href="unsupervised-machine-learning.html#cb318-34"></a>testing_gap &lt;-<span class="st"> </span></span>
+<span id="cb318-35"><a href="unsupervised-machine-learning.html#cb318-35"></a><span class="st">  </span>cluster<span class="op">::</span><span class="kw">clusGap</span>(data_for_testing, <span class="dt">FUN =</span> kmeans, </span>
+<span id="cb318-36"><a href="unsupervised-machine-learning.html#cb318-36"></a>    <span class="dt">K.max =</span> <span class="dv">15</span>, <span class="dt">B =</span> <span class="dv">50</span></span>
+<span id="cb318-37"><a href="unsupervised-machine-learning.html#cb318-37"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="unsupervised-machine-learning.html#cb319-1"></a><span class="co"># Plots</span></span>
+<span id="cb319-2"><a href="unsupervised-machine-learning.html#cb319-2"></a><span class="kw">plot</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, testing_wcss[<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>], <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb319-3"><a href="unsupervised-machine-learning.html#cb319-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;WCSS&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)) <span class="op">+</span></span>
+<span id="cb319-4"><a href="unsupervised-machine-learning.html#cb319-4"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb319-5"><a href="unsupervised-machine-learning.html#cb319-5"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
+<pre><code>## integer(0)</code></pre>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="unsupervised-machine-learning.html#cb321-1"></a><span class="kw">plot</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, testing_silhouette[<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>], <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb321-2"><a href="unsupervised-machine-learning.html#cb321-2"></a>     <span class="dt">ylab=</span><span class="st">&quot;Silhouette&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)) <span class="op">+</span></span>
+<span id="cb321-3"><a href="unsupervised-machine-learning.html#cb321-3"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb321-4"><a href="unsupervised-machine-learning.html#cb321-4"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-2.png" width="576" /></p>
+<pre><code>## integer(0)</code></pre>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="unsupervised-machine-learning.html#cb323-1"></a><span class="kw">plot</span>(<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, testing_gap[[<span class="st">&quot;Tab&quot;</span>]][<span class="dv">2</span><span class="op">:</span><span class="dv">15</span>, <span class="st">&quot;gap&quot;</span>], <span class="dt">type=</span><span class="st">&quot;b&quot;</span>, <span class="dt">xlab=</span><span class="st">&quot;Number of Clusters&quot;</span>, </span>
+<span id="cb323-2"><a href="unsupervised-machine-learning.html#cb323-2"></a>     <span class="dt">ylab=</span><span class="st">&quot;Gap&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">15</span>)) <span class="op">+</span></span>
+<span id="cb323-3"><a href="unsupervised-machine-learning.html#cb323-3"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb323-4"><a href="unsupervised-machine-learning.html#cb323-4"></a><span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-3.png" width="576" /></p>
+<pre><code>## integer(0)</code></pre>
+<p>As in the previous example, the elbow method (i.e., WCSS), silhouette and gap statistic seem to indicate that <code>k = 3</code> or <code>k = 6</code> might be the best choice. Let’s see what the result is when choosing <code>k = 6</code>.</p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="unsupervised-machine-learning.html#cb325-1"></a>dwellings_kmeans &lt;-<span class="st"> </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb325-2"><a href="unsupervised-machine-learning.html#cb325-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_detached<span class="op">:</span>perc_carava_tmp) <span class="op">%&gt;%</span></span>
+<span id="cb325-3"><a href="unsupervised-machine-learning.html#cb325-3"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">kmeans</span>(</span>
+<span id="cb325-4"><a href="unsupervised-machine-learning.html#cb325-4"></a>    <span class="dt">centers =</span> <span class="dv">6</span>, </span>
+<span id="cb325-5"><a href="unsupervised-machine-learning.html#cb325-5"></a>    <span class="dt">iter.max =</span> <span class="dv">50</span></span>
+<span id="cb325-6"><a href="unsupervised-machine-learning.html#cb325-6"></a>  )</span>
+<span id="cb325-7"><a href="unsupervised-machine-learning.html#cb325-7"></a></span>
+<span id="cb325-8"><a href="unsupervised-machine-learning.html#cb325-8"></a>leicester_dwellings &lt;-<span class="st"> </span></span>
+<span id="cb325-9"><a href="unsupervised-machine-learning.html#cb325-9"></a><span class="st">  </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb325-10"><a href="unsupervised-machine-learning.html#cb325-10"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb325-11"><a href="unsupervised-machine-learning.html#cb325-11"></a>    <span class="dt">dwellings_cluster =</span> </span>
+<span id="cb325-12"><a href="unsupervised-machine-learning.html#cb325-12"></a>      dwellings_kmeans <span class="op">%$%</span><span class="st"> </span></span>
+<span id="cb325-13"><a href="unsupervised-machine-learning.html#cb325-13"></a><span class="st">        </span>cluster <span class="op">%&gt;%</span></span>
+<span id="cb325-14"><a href="unsupervised-machine-learning.html#cb325-14"></a><span class="st">          </span><span class="kw">as.character</span>()</span>
+<span id="cb325-15"><a href="unsupervised-machine-learning.html#cb325-15"></a>  )</span></code></pre></div>
+</div>
+<div id="interpreting-the-clusters-1" class="section level3">
+<h3><span class="header-section-number">10.2.4</span> Interpreting the clusters</h3>
+<p>A first exploratory plot of the clusters seems to reveal clusters that closely resemble those seen in the first example above.</p>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="unsupervised-machine-learning.html#cb326-1"></a>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb326-2"><a href="unsupervised-machine-learning.html#cb326-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_detached<span class="op">:</span>perc_carava_tmp, dwellings_cluster) <span class="op">%&gt;%</span></span>
+<span id="cb326-3"><a href="unsupervised-machine-learning.html#cb326-3"></a><span class="st">  </span>GGally<span class="op">::</span><span class="kw">ggpairs</span>(</span>
+<span id="cb326-4"><a href="unsupervised-machine-learning.html#cb326-4"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">color =</span> dwellings_cluster),</span>
+<span id="cb326-5"><a href="unsupervised-machine-learning.html#cb326-5"></a>    <span class="dt">lower =</span> <span class="kw">list</span>(<span class="dt">continuous =</span> <span class="kw">wrap</span>(<span class="st">&quot;points&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>, <span class="dt">size=</span><span class="fl">0.1</span>))</span>
+<span id="cb326-6"><a href="unsupervised-machine-learning.html#cb326-6"></a>  )</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-16-1.png" width="576" /></p>
+<div style="page-break-after: always;"></div>
+<p>As in the previous example, we can use an <em>“heatmap”</em> plot to explore how the clusters are characterised by the variables used in the clustering process (see also Exercise 414.1.1 below).</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="unsupervised-machine-learning.html#cb327-1"></a>dwellings_cluster_avgs &lt;-</span>
+<span id="cb327-2"><a href="unsupervised-machine-learning.html#cb327-2"></a><span class="st">  </span>leicester_dwellings <span class="op">%&gt;%</span></span>
+<span id="cb327-3"><a href="unsupervised-machine-learning.html#cb327-3"></a><span class="st">  </span><span class="kw">group_by</span>(dwellings_cluster) <span class="op">%&gt;%</span></span>
+<span id="cb327-4"><a href="unsupervised-machine-learning.html#cb327-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">summarise</span>(</span>
+<span id="cb327-5"><a href="unsupervised-machine-learning.html#cb327-5"></a>    dplyr<span class="op">::</span><span class="kw">across</span>(</span>
+<span id="cb327-6"><a href="unsupervised-machine-learning.html#cb327-6"></a>      perc_detached<span class="op">:</span>perc_carava_tmp,</span>
+<span id="cb327-7"><a href="unsupervised-machine-learning.html#cb327-7"></a>      mean</span>
+<span id="cb327-8"><a href="unsupervised-machine-learning.html#cb327-8"></a>    ) </span>
+<span id="cb327-9"><a href="unsupervised-machine-learning.html#cb327-9"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb327-10"><a href="unsupervised-machine-learning.html#cb327-10"></a><span class="st">  </span><span class="co"># rename columns</span></span>
+<span id="cb327-11"><a href="unsupervised-machine-learning.html#cb327-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename_with</span>(</span>
+<span id="cb327-12"><a href="unsupervised-machine-learning.html#cb327-12"></a>    <span class="cf">function</span>(x){ <span class="kw">paste0</span>(<span class="st">&quot;avg_&quot;</span>, x) },</span>
+<span id="cb327-13"><a href="unsupervised-machine-learning.html#cb327-13"></a>    perc_detached<span class="op">:</span>perc_carava_tmp</span>
+<span id="cb327-14"><a href="unsupervised-machine-learning.html#cb327-14"></a>  )</span>
+<span id="cb327-15"><a href="unsupervised-machine-learning.html#cb327-15"></a>  </span>
+<span id="cb327-16"><a href="unsupervised-machine-learning.html#cb327-16"></a>dwellings_cluster_avgs <span class="op">%&gt;%</span></span>
+<span id="cb327-17"><a href="unsupervised-machine-learning.html#cb327-17"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(</span>
+<span id="cb327-18"><a href="unsupervised-machine-learning.html#cb327-18"></a>    <span class="dt">cols =</span> <span class="op">-</span>dwellings_cluster,</span>
+<span id="cb327-19"><a href="unsupervised-machine-learning.html#cb327-19"></a>    <span class="dt">names_to =</span> <span class="st">&quot;clustering_dimension&quot;</span>,</span>
+<span id="cb327-20"><a href="unsupervised-machine-learning.html#cb327-20"></a>    <span class="dt">values_to =</span> <span class="st">&quot;value&quot;</span></span>
+<span id="cb327-21"><a href="unsupervised-machine-learning.html#cb327-21"></a>  )  <span class="op">%&gt;%</span></span>
+<span id="cb327-22"><a href="unsupervised-machine-learning.html#cb327-22"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb327-23"><a href="unsupervised-machine-learning.html#cb327-23"></a>    <span class="kw">aes</span>(</span>
+<span id="cb327-24"><a href="unsupervised-machine-learning.html#cb327-24"></a>      <span class="dt">x =</span> clustering_dimension,</span>
+<span id="cb327-25"><a href="unsupervised-machine-learning.html#cb327-25"></a>      <span class="dt">y =</span> dwellings_cluster</span>
+<span id="cb327-26"><a href="unsupervised-machine-learning.html#cb327-26"></a>    )</span>
+<span id="cb327-27"><a href="unsupervised-machine-learning.html#cb327-27"></a>  ) <span class="op">+</span></span>
+<span id="cb327-28"><a href="unsupervised-machine-learning.html#cb327-28"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_tile</span>(</span>
+<span id="cb327-29"><a href="unsupervised-machine-learning.html#cb327-29"></a>    <span class="kw">aes</span>(</span>
+<span id="cb327-30"><a href="unsupervised-machine-learning.html#cb327-30"></a>      <span class="dt">fill =</span> value</span>
+<span id="cb327-31"><a href="unsupervised-machine-learning.html#cb327-31"></a>    )</span>
+<span id="cb327-32"><a href="unsupervised-machine-learning.html#cb327-32"></a>  ) <span class="op">+</span></span>
+<span id="cb327-33"><a href="unsupervised-machine-learning.html#cb327-33"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Clustering dimension&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb327-34"><a href="unsupervised-machine-learning.html#cb327-34"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Cluster&quot;</span>) <span class="op">+</span></span>
+<span id="cb327-35"><a href="unsupervised-machine-learning.html#cb327-35"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_viridis_c</span>(<span class="dt">option =</span> <span class="st">&quot;inferno&quot;</span>) <span class="op">+</span></span>
+<span id="cb327-36"><a href="unsupervised-machine-learning.html#cb327-36"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb327-37"><a href="unsupervised-machine-learning.html#cb327-37"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme</span>(</span>
+<span id="cb327-38"><a href="unsupervised-machine-learning.html#cb327-38"></a>    <span class="dt">axis.text.x =</span> </span>
+<span id="cb327-39"><a href="unsupervised-machine-learning.html#cb327-39"></a>      <span class="kw">element_text</span>(</span>
+<span id="cb327-40"><a href="unsupervised-machine-learning.html#cb327-40"></a>        <span class="dt">angle =</span> <span class="dv">90</span>, </span>
+<span id="cb327-41"><a href="unsupervised-machine-learning.html#cb327-41"></a>        <span class="dt">vjust =</span> <span class="fl">0.5</span>, </span>
+<span id="cb327-42"><a href="unsupervised-machine-learning.html#cb327-42"></a>        <span class="dt">hjust=</span><span class="dv">1</span></span>
+<span id="cb327-43"><a href="unsupervised-machine-learning.html#cb327-43"></a>      )</span>
+<span id="cb327-44"><a href="unsupervised-machine-learning.html#cb327-44"></a>    )</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-17-1.png" width="384" /></p>
+<p>Another very common approach to explore the characteristics of the clusters created through k-means for the geodemongraphic classification is to use radar charts (also known as spider charts, web charts or polar charts), which can be created in R using a number of libraries, including the <code>radarchart</code> of the <code>fmsb</code> library.</p>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="unsupervised-machine-learning.html#cb328-1"></a><span class="co"># install.packages(&quot;fmsb&quot;)</span></span>
+<span id="cb328-2"><a href="unsupervised-machine-learning.html#cb328-2"></a><span class="kw">library</span>(fmsb)</span>
+<span id="cb328-3"><a href="unsupervised-machine-learning.html#cb328-3"></a></span>
+<span id="cb328-4"><a href="unsupervised-machine-learning.html#cb328-4"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="dv">3</span>,<span class="dv">4</span>))</span>
+<span id="cb328-5"><a href="unsupervised-machine-learning.html#cb328-5"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>))</span>
+<span id="cb328-6"><a href="unsupervised-machine-learning.html#cb328-6"></a></span>
+<span id="cb328-7"><a href="unsupervised-machine-learning.html#cb328-7"></a><span class="cf">for</span>(cluster_number <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>){</span>
+<span id="cb328-8"><a href="unsupervised-machine-learning.html#cb328-8"></a>  <span class="kw">rbind</span> (</span>
+<span id="cb328-9"><a href="unsupervised-machine-learning.html#cb328-9"></a>    <span class="co"># The radar chart requires a maximum and a minimum row </span></span>
+<span id="cb328-10"><a href="unsupervised-machine-learning.html#cb328-10"></a>    <span class="co"># before the actual data</span></span>
+<span id="cb328-11"><a href="unsupervised-machine-learning.html#cb328-11"></a>    <span class="kw">rep</span>(<span class="dv">100</span>, <span class="dv">5</span>), <span class="co"># max 100% for 5 variables</span></span>
+<span id="cb328-12"><a href="unsupervised-machine-learning.html#cb328-12"></a>    <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>),   <span class="co"># min 0% for 5 variables</span></span>
+<span id="cb328-13"><a href="unsupervised-machine-learning.html#cb328-13"></a>    dwellings_cluster_avgs <span class="op">%&gt;%</span></span>
+<span id="cb328-14"><a href="unsupervised-machine-learning.html#cb328-14"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">filter</span>(dwellings_cluster <span class="op">==</span><span class="st"> </span>cluster_number) <span class="op">%&gt;%</span></span>
+<span id="cb328-15"><a href="unsupervised-machine-learning.html#cb328-15"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>dwellings_cluster) <span class="op">%&gt;%</span></span>
+<span id="cb328-16"><a href="unsupervised-machine-learning.html#cb328-16"></a><span class="st">      </span><span class="kw">as.data.frame</span>()</span>
+<span id="cb328-17"><a href="unsupervised-machine-learning.html#cb328-17"></a>    ) <span class="op">%&gt;%</span></span>
+<span id="cb328-18"><a href="unsupervised-machine-learning.html#cb328-18"></a><span class="st">    </span>fmsb<span class="op">::</span><span class="kw">radarchart</span>(<span class="dt">title =</span> <span class="kw">paste</span>(<span class="st">&quot;Cluster&quot;</span>, cluster_number))</span>
+<span id="cb328-19"><a href="unsupervised-machine-learning.html#cb328-19"></a>}</span></code></pre></div>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/figures-side-1.png" width="576" /></p>
+<p>The radar charts are very effective in visualising the values for multiple varaibles, as long as the variables are all of similar type, value and range. In this case, as all values are percentages, radar chart are very effective in illustrating which variables have particularly high averages in each cluster.</p>
+<p>Finally, we can map the cluster cartographically to analyse their spatial distribution.</p>
+<p><img src="414_P_UnsupervisedLearning_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exercise-414.1" class="section level2">
+<h2><span class="header-section-number">10.3</span> Exercise 414.1</h2>
+<p><strong>Question 414.1.1:</strong> Based on the <em>“heatmap”</em>, radar charts and map created in the example above, how would you characterise the five clusters? How would you name them?.</p>
+<p><strong>Question 414.1.2:</strong> Create a geodemographic classification using the data seen in the second example above, but creating <code>k = 9</code> clusters.</p>
+<p><strong>Question 414.1.3:</strong> Create a geodemographic classification for the city of Leicester based on the presence of peoples in the different age groups included in the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset (<code>u007</code> to <code>u019</code>).</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="supervised-machine-learning.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["granolarr_practical_session_materials.pdf", "PDF"], ["granolarr_practical_session_materials.epub", "EPUB"]],
+"toc": {
+"collapse": "subsection"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

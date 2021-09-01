@@ -1,0 +1,458 @@
+---
+title: "Lecture 323"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+
+# Set seed for reproducibility
+set.seed(123)
+```
+
+<style type="text/css">
+.small_r_all pre{
+  font-size: 16px !important;
+  line-height: 18px !important;
+}
+.small_r_output pre:not(.prettyprint){
+  font-size: 16px;
+  line-height: 18px;
+}
+.verysmall_r_output pre:not(.prettyprint){
+  font-size: 12px;
+  line-height: 14px;
+}
+</style>
+
+
+
+# Comparing regression models
+
+
+## Recap
+
+**Prev**: Multiple Regression
+
+- Multiple regression
+- Interpretation
+- Checking assumptions
+
+**Now**: Comparing regression models
+
+- Information criteria
+- Model difference
+- Stepwise selection
+- Validation
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(palmerpenguins)
+library(MASS)
+library(lmtest)
+```
+
+
+## Multiple regression
+
+**Regression analysis** is a supervised machine learning approach
+
+Special case of the general linear model
+
+$$outcome_i = (model) + error_i $$
+
+Predict (estimate) value of one outcome (dependent) variable as
+
+- one predictor (independent) variable: **simple / univariate**
+
+$$Y_i = (b_0 + b_1 * X_{i1}) + \epsilon_i $$
+    
+- more predictor (independent) variables: **multiple / multivar.**
+
+$$Y_i = (b_0 + b_1 * X_{i1} + b_2 * X_{i2} + \dots + b_M * X_{iM}) + \epsilon_i $$
+
+
+## Example
+
+Can we predict price based on number of rooms and air quality?
+
+$$house\ value_i = (b_0 + b_1 * rooms_{i} + b_1 * NO\ conc_{i}) + \epsilon_i $$
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+MASS::Boston %>% filter(medv < 50) %>%
+  dplyr::select(medv, rm, nox) %>%
+  psych::pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+</center>
+
+
+## stats::lm
+
+<div class="small_r_all">
+
+```{r, echo=TRUE}
+MASS::Boston %>% filter(medv < 50) %$% 
+  stats::lm(medv ~ rm + nox) ->
+  medv_model1
+
+medv_model1 %>%  
+  summary()
+```
+
+</div>
+
+
+## Checking assumptions
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+medv_model1 %>% 
+  stats::rstandard() %>% 
+  stats::shapiro.test()
+
+medv_model1 %>% 
+  lmtest::bptest()
+
+medv_model1 %>%
+  lmtest::dwtest()
+
+medv_model1 %>%
+  car::vif()
+```
+
+</div>
+
+
+## Model 1
+
+No, we can't predict house prices based only on number of rooms and air quality.
+
+- predictors are statistically significant
+- but model is not robust, as it doesn't satisfy most assumptions
+  - Standard residuals are NOT normally distributed
+  - Standard residuals are NOT homoscedastic
+  - Standard residuals are NOT independent
+  - (although there is no multicollinearity)
+
+We seem to be on the right path, but something is missing...
+
+
+
+## stats::lm
+
+<div class="small_r_all">
+
+```{r, echo=TRUE}
+MASS::Boston %>% filter(medv < 50) %$% 
+  stats::lm(medv ~ rm + nox + ptratio + log(crim)) ->
+  medv_model2
+
+medv_model2 %>%  
+  summary()
+```
+
+</div>
+
+## Logarithmic transformations
+
+- 10% change in criminality score leads to
+  - $log(110/100) * b_{crim}= 0.0953 * b_{crim}$ change
+  - `0.0953 * -0.5558 = 0.0529` 
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+MASS::Boston %>% filter(medv < 50) %>%
+  mutate(
+    log_crim = log(crim)
+  ) %>%
+  dplyr::select(medv, log_crim) %>%
+  psych::pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+</center>
+
+
+
+## Checking assumptions
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+medv_model2 %>% 
+  stats::rstandard() %>% 
+  stats::shapiro.test()
+
+medv_model2 %>% 
+  lmtest::bptest()
+
+medv_model2 %>%
+  lmtest::dwtest()
+
+medv_model2 %>%
+  car::vif()
+```
+
+</div>
+
+
+
+## Model 2
+
+No, we still can't robustly predict house prices based on number of rooms, air quality, student/teacher ratio and crime level.
+
+- predictors are statistically significant
+- but model is not robust
+  - Standard residuals are NOT normally distributed
+  - Standard residuals are NOT homoscedastic
+  - Standard residuals are NOT independent
+  - There is some sign of multicollinearity
+
+Still possibly on the right path, not quite there yet...
+
+Is there a difference between:
+
+- Model1's $R^2 =$ `r medv_model1 %>% summary() %$% adj.r.squared %>% round(digits = 4)` and Model2's $R^2 =$ `r medv_model2 %>% summary() %$% adj.r.squared %>% round(digits = 4)`?
+
+
+
+## Comparing R-squared
+
+- $R^2$
+  - measure of correlation between
+    - values predicted by the model (fitted values)
+    - observed values for outcome variable
+- Adjusted $R^2$
+  - adjusts the $R^2$ depending on
+    - number of cases
+    - number of predictor (independent) variables
+  - *"unnecessary"* variables lower the value
+
+The model with the highest adjusted $R^2$ has the best fit
+
+
+
+## Model difference with ANOVA
+
+Can be used to test whether adjusted $R^2$ are signif. different
+
+- if models are hierarchical
+  - one uses all variables of the other
+  - plus some additional variables
+  
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+stats::anova(medv_model1, medv_model2)
+```
+
+</div>
+
+Still, neither model is robust
+
+
+
+## Information criteria
+
+- Akaike Information Criterion (**AIC**)
+  - measure of model fit 
+    - penalising model with more variables
+  - not interpretable per-se, used to compare similar models
+    - lower value, better fit
+- Bayesian Information Criterion (**BIC**)
+  - similar to AIC
+  
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+stats::AIC(medv_model1)
+stats::AIC(medv_model2)
+```
+
+</div>
+
+
+## Stepwise selection
+
+**Stepwise selection** of predictor (independent) variables
+
+- iteratively adding and/or removing predictors 
+- to obtain best performing model
+
+Three approaches
+
+- forward: from no variable, iteratively add variables
+- backward: from all variables, iteratively remove variables
+- both (a.k.a. step-wise): 
+  - from no variable
+  - one step forward, add most promising variable
+  - one step backward, remove any variable not improving
+
+
+## MASS::stepAIC
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+MASS::Boston %$% 
+  MASS::stepAIC(
+    object = 
+      lm(medv ~ 1),
+    scope = 
+      medv ~ 
+        crim + zn + indus + chas + rm + nox + age + 
+        dis + rad + tax + ptratio + black + lstat,
+    direction = "both",
+    trace = FALSE
+  ) ->
+  medv_model3
+
+medv_model3 %>%
+  summary()
+```
+
+
+## Model 3
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+MASS::Boston %$% 
+  MASS::stepAIC(
+    object = lm(medv ~ 1),
+    scope = medv ~ crim + zn + indus + chas + rm + nox + age + dis + rad + tax + ptratio + black + lstat,
+    direction = "forward",
+    trace = FALSE
+  ) ->
+  medv_model3
+
+medv_model3 %>%
+  summary()
+```
+
+</div>
+
+
+
+## Checking assumptions
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+medv_model3 %>% 
+  stats::rstandard() %>% 
+  stats::shapiro.test()
+
+medv_model3 %>% 
+  lmtest::bptest()
+
+medv_model3 %>%
+  lmtest::dwtest()
+
+medv_model3 %>%
+  car::vif() %>%
+  print(width = 70)
+```
+
+</div>
+
+
+
+## Validation
+
+Can the model be generalised?
+
+- split data into
+  - training set: used to train the model
+  - test set: used to test the model
+
+Approaches:
+
+- Validation
+  - simple split: e.g. 80% traning, 20% test
+- Cross-validation
+  - leave-p-out: repeated split, leaving out p cases for test
+     - leave-1-out
+  - k-fold: repeated split, k equal size samples
+  
+
+## caret::train
+
+Use caret::train to cross-validate Model 3
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+library(caret)
+
+train(
+  formula(medv_model3),
+  data = MASS::Boston,                        
+  trControl = trainControl(
+    method = "cv", # crossvalidate
+    number = 5 # folds
+  ),              
+  method = "lm", # regression model
+  na.action = na.pass
+) ->
+medv_model3_crossv
+```
+
+
+## Crossvalidate Model 3
+
+<div class="small_r_all">
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(caret)
+
+train(
+  formula(medv_model3),
+  data = MASS::Boston,                        
+  trControl = trainControl(
+    method = "cv", # crossvalidate
+    number = 5 # folds
+  ),
+  method = "lm" # regression model
+) ->
+medv_model3_crossv
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+medv_model3_crossv
+medv_model3_crossv$resample
+```
+
+</div>
+
+
+## Summary
+
+Comparing regression models
+
+- Information criteria
+- Model difference
+- Stepwise selection
+- Validation
+
+**Next**: Practical session
+
+- Simple regression
+- Multiple regression
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

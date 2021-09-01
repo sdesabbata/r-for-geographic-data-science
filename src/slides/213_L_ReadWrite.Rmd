@@ -1,0 +1,329 @@
+---
+title: "Lecture 213"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Read and write data
+
+
+
+## Summary
+
+Tidy-up your data
+
+- Wide and long data
+- Re-shape data
+- Handle missing values
+
+**Next**: Read and write data
+
+- file formats
+- read
+- write
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+
+
+## Text file formats
+
+A series of formats based on plain-text files
+
+For instance
+
+- comma-separated values files `.csv`
+- semi-colon-separated values files `.csv`
+- tab-separated values files `.tsv`
+- other formats using custom delimiters
+- fix-width files `.fwf`
+
+
+
+## Comma Separated Values
+
+The file `2011_OAC_supgrp_Leicester.csv` contains
+
+- one row for each [Output Area (OA)](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) in Leicester
+- [Lower-Super Output Area (LSOA)](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) containing the OA
+- code and name of the supergroup assigned to the OA by the [2011 Output Area Classification](http://geogale.github.io/2011OAC/)
+- total population of the OA
+
+Extract showing only the first few rows
+
+```{}
+OA11CD,LSOA11CD,supgrpcode,supgrpname,Total_Population
+E00069517,E01013785,6,Suburbanites,313
+E00069514,E01013784,2,Cosmopolitans,323
+E00169516,E01013713,4,Multicultural Metropolitans,341
+E00169048,E01032862,4,Multicultural Metropolitans,345
+```
+
+
+
+## readr
+
+The [`readr`](https://readr.tidyverse.org/) (pronounced *read-er*) library is part of [`tidyverse`](https://www.tidyverse.org/)
+
+Provides functions to read and write text files
+
+- `readr::read_csv`: comma-separated files `.csv`
+- `readr::read_csv2`: semi-colon-separated files `.csv`
+- `readr::read_tsv`: tab-separated files `.tsv`
+- `readr::read_fwf`: fix-width files `.fwf`
+- `readr::read_delim`: files using a custom delimiter
+
+and their *write* counterpart, such as
+
+- `readr::write_csv`: comma-separated files `.csv`
+
+
+## readr::read_csv
+
+The `readr::read_csv` function of the [`readr`](https://readr.tidyverse.org/index.html) library reads a *csv* file from the path provided as the first argument
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- 
+  readr::read_csv("2011_OAC_supgrp_Leicester.csv")
+
+leicester_2011OAC
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- readr::read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"))
+leicester_2011OAC %>% 
+  print(n= 3, width = 60)
+```
+
+
+
+## Read options
+
+Read functions provide options about how to interpret a file contents
+
+- For instance, `readr::read_csv`
+  - `col_names`: 
+    - `TRUE` or `FALSE` whether top row is column names
+    - or a vector of column names
+  - `col_types`:
+    - a `cols()` specification or a string
+  - `skip`: lines to skip before reading data
+  - `n_max`: max number of record to read
+
+
+
+## Column specifications
+
+- `col_logical()` or `l` as logic values
+- `col_integer()` or `i` as integer
+- `col_double()` or `d` as numeric (double)
+- `col_character()` or `c` as character
+- `col_factor(levels, ordered)` or `f` as factor
+- `col_date(format = "")` or `D` as data type
+- `col_time(format = "")` or `t` as time type
+- `col_datetime(format = "")` or `T` as datetime
+- `col_number()` or `n` as numeric (dropping marks)
+- `col_skip()` or `_` or `-` don’t import
+- `col_guess()` or `?` use best type based on the input
+
+
+
+## readr::read_csv
+
+Using `readr::read_csv` as in the previous example with no further options will generate the following warning
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- 
+  readr::read_csv("2011_OAC_supgrp_Leicester.csv")
+
+leicester_2011OAC
+```
+
+```{}
+Parsed with column specification:
+cols(
+  OA11CD = col_character(),
+  LSOA11CD = col_character(),
+  supgrpcode = col_double(),
+  supgrpname = col_character(),
+  Total_Population = col_double()
+)
+```
+
+
+
+## readr::read_csv
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- readr::read_csv(
+    "2011_OAC_supgrp_Leicester.csv",
+    col_types = cols(
+      OA11CD  = col_character(),
+      LSOA11CD  = col_character(),
+      supgrpcode  = col_character(),
+      supgrpname  = col_character(),
+      Total_Population  = col_integer()
+    )
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- readr::read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"),
+    col_types = cols(
+      OA11CD  = col_character(),
+      LSOA11CD  = col_character(),
+      supgrpcode  = col_character(),
+      supgrpname  = col_character(),
+      Total_Population  = col_integer()
+    )
+  ) 
+
+leicester_2011OAC%>% 
+  print(n= 3, width = 60)
+```
+
+
+## readr::read_csv
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- readr::read_csv(
+    "2011_OAC_supgrp_Leicester.csv",
+    col_types = "cccci"
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- readr::read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"),
+    col_types = "cccci"
+  ) 
+
+leicester_2011OAC%>% 
+  print(n= 7, width = 60)
+```
+
+
+## readr::write_csv
+
+The function `write_csv` can be used to save a dataset to `csv`
+
+Example:
+
+1. **read** the 2011 OAC dataset
+2. **select** a few columns
+3. **filter** only those OA in the supergroup *Suburbanites* (code `6`)
+4. **write** the results to a file named *2011_OAC_supgrp_Leicester_supgrp6.csv*
+
+```{r, echo=TRUE, eval=FALSE}
+readr::read_csv("2011_OAC_supgrp_Leicester.csv") %>%
+  dplyr::select(OA11CD, supgrpcode, Total_Population) %>%
+  dplyr::filter(supgrpcode == "6") %>%
+  readr::write_csv("2011_OAC_supgrp_Leicester_supgrp6.csv")
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+readr::read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv")
+  ) %>%
+  dplyr::select(OA11CD, supgrpcode, Total_Population) %>%
+  dplyr::filter(supgrpcode == "6") %>%
+  readr::write_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester_supgrp6.csv")
+  )
+```
+
+
+
+## readr::write_tsv
+
+```{r, echo=TRUE, eval=FALSE}
+readr::read_csv("2011_OAC_supgrp_Leicester.csv") %>%
+  dplyr::select(OA11CD, supgrpcode, Total_Population) %>%
+  dplyr::filter(supgrpcode == "6") %>%
+  readr::write_tsv("2011_OAC_supgrp_Leicester_supgrp6.tsv")
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+readr::read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv")
+  ) %>%
+  dplyr::select(OA11CD, supgrpcode, Total_Population) %>%
+  dplyr::filter(supgrpcode == "6") %>%
+  readr::write_tsv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester_supgrp6.tsv")
+  )
+```
+
+```{}
+OA11CD      supgrpcode  Total_Population
+E00069517 6         313
+E00069468 6         251
+E00069528 6         270
+E00069538 6         307
+E00069174 6         321
+E00069170 6         353
+E00069171 6         351
+E00068713 6         265
+E00069005 6         391
+E00069014 6         316
+E00068989 6         354
+```
+
+
+
+
+## Other data imports
+
+[Tidyverse](https://www.tidyverse.org/) also imports [other packages for reading data](https://www.tidyverse.org/packages/#import)
+
+- Tabular formats
+  - [`readxl`](https://readxl.tidyverse.org/) for Excel (`.xls` and `.xlsx`)
+  - [`haven`](https://haven.tidyverse.org/) for SPSS, Stata, and SAS data.
+- Databases
+  - [`DBI`](https://cran.r-project.org/web/packages/DBI/) for relational databases
+- NoSQL
+  - [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/) for JSON
+  - [`xml2`](https://cran.r-project.org/web/packages/xml2/) for XML
+- Web
+  - [`httr`](https://cran.r-project.org/web/packages/httr/) for web APIs
+
+<!--
+  - Specific backends require different packages, e.g. [`RPostgreSQL`](https://cran.r-project.org/web/packages/RPostgreSQL/)
+  - [`rvest`](https://cran.r-project.org/web/packages/rvest/) for web scraping.
+-->
+
+
+
+## Summary
+
+Read and write data
+
+- file formats
+- read
+- write
+
+**Next**: Practical session
+
+- Read and write data
+- Tidy data
+- Join operations
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

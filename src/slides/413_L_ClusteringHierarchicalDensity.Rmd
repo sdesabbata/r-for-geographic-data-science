@@ -1,0 +1,574 @@
+---
+title: "Lecture 413"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+
+data_to_cluster <- data.frame(
+  x_values = c(rnorm(40, 5, 1), rnorm(60, 10, 1), rnorm(20, 12, 3)),
+  y_values = c(rnorm(40, 5, 1), rnorm(60, 5, 3), rnorm(20, 15, 1)),
+  original_group = c(rep("A", 40), rep("B", 60), rep("C", 20)) )
+```
+
+
+
+# Hierarchical and density-based clustering
+
+
+
+## Recap
+
+**Prev**: Centroid-based clustering
+
+- K-means
+- Fuzzy c-means
+- Geodemographic classification
+
+**Now**: Hierarchical and density-based clustering
+
+- Hierarchical
+- Mixed 
+- Density-based
+
+```{r, echo=FALSE}
+library(tidyverse)
+library(magrittr)
+library(e1071)
+library(dbscan)
+```
+
+
+## Example
+
+Can we automatically identify the two groups visible in the scatterplot, without any previous knowledge of the groups?
+
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_norm <-
+  palmerpenguins::penguins %>%
+  dplyr::filter(
+    species %in%
+      c("Adelie", "Gentoo")
+  ) %>%
+  dplyr::filter(
+    !is.na(body_mass_g) | 
+      !is.na(bill_depth_mm)
+  ) %>%
+  dplyr::mutate(
+    body_mass_norm = 
+      scale(body_mass_g),
+    bill_depth_norm = 
+      scale(bill_depth_mm)
+  )
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 5, fig.height = 5}
+penguins_norm %>%
+  ggplot2::ggplot(aes(x = body_mass_norm, y = bill_depth_norm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+::::::
+
+
+## Hierarchical clustering
+
+Bottom-up approach
+
+- rather than splitting objects into clusters
+- aggregate from single objects upwards
+
+**Algorithm**: 
+
+- each object is initialised as it's own cluster
+- then repeat
+  - join the two most similar clusters 
+    - based on a distance-based metric
+    - e.g., Ward's (1963) approach is based on variance
+  - until only one single cluster is achieved
+
+**Limitation**: computationally expensive
+
+
+## stats::hclust
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_hclust_result <- 
+  penguins_norm %>%
+  dplyr::select(
+    body_mass_norm, 
+    bill_depth_norm
+  ) %>%
+  # Calculate distance matrix
+  stats::dist(method="euclidean") %>%
+  # Cluster data
+  stats::hclust(method="ward.D2")
+
+penguins_bm_bd_hclust <- penguins_norm %>%
+  tibble::add_column(
+    bm_bd_hclust = stats::cutree(
+      penguins_hclust_result, 
+      k = 2
+    )
+  )
+```
+
+
+
+## clustering tree
+
+Generates a clustering tree (dendrogram), which can then be *"cut"* at the desired height
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins_hclust_result %>%
+  plot() + 
+  abline(h = 20, col = "red")
+```
+
+
+
+## Hierarchical clustering result
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_hclust %>%
+  ggplot2::ggplot(aes(x = body_mass_norm, y = bill_depth_norm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_hclust %>%
+  ggplot2::ggplot(aes(
+    x = body_mass_norm, y = bill_depth_norm, 
+    colour = factor(bm_bd_hclust))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_manual(values = c("#d95f02", "#1b9e77")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+::::::
+
+
+## Bagged clustering
+
+Bootstrap aggregating (*b-agg-ed*) clustering approach
+
+- first, k-means
+  - randomly select a sample
+  - calculate K-means
+  - repeat on *many* samples
+- then, hierarchical 
+  - execute hierarchical clustering on the centroids of the clusters generated in the previous step
+- finally
+  - select required number of clusters
+  - assign object to closest centroid
+  
+<font size="4"> 
+Leisch, F., 1999. Bagged clustering.
+</font>
+
+## e1071::bclust
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, results="hide"}
+penguins_bclust_result <- 
+  penguins_norm %>%
+  dplyr::select(body_mass_norm, bill_depth_norm) %>%
+  e1071::bclust(
+    hclust.method = "ward.D2", 
+    resample = TRUE
+  )
+
+penguins_bm_bd_bclust <- 
+  penguins_norm %>%
+  tibble::add_column(
+    bm_bd_bclust = e1071::clusters.bclust(
+      penguins_bclust_result, 
+      2
+    )
+  )
+```
+
+## Bagged clustering result
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_bclust %>%
+  ggplot2::ggplot(aes(x = body_mass_norm, y = bill_depth_norm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_bclust %>%
+  ggplot2::ggplot(aes(
+    x = body_mass_norm, y = bill_depth_norm, 
+    colour = factor(bm_bd_bclust))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_manual(values = c("#d95f02", "#1b9e77")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+::::::
+
+
+
+## Density based clustering
+
+Density-based spatial clustering of applications with noise (DBSCAN)
+
+- start from a random unclustered point
+  - proceed by aggregating its neighbours to the same cluster
+    - as long as they are within a certain distance `eps`
+- once no more objects can be added
+  - select another random point
+  - and start aggregating again to a new cluster
+
+**Limitation**: selection of `eps`
+
+<font size="4"> 
+Ester, M., Kriegel, H.P., Sander, J. and Xu, X., 1996, August. Density-based spatial clustering of applications with noise. In Int. Conf. Knowledge Discovery and Data Mining (Vol. 240, p. 6).
+</font>
+  
+## dbscan::dbscan
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_dbscan_result <- 
+  penguins_norm %>%
+  dplyr::select(body_mass_norm, bill_depth_norm) %>%
+  dbscan::dbscan(
+    eps = 1, 
+    minPts = 5
+  )
+
+penguins_bm_bd_dbscan <- 
+  penguins_norm %>%
+  tibble::add_column(
+    bm_bd_dbscan = 
+      penguins_dbscan_result %$% 
+      cluster
+  )
+```
+
+
+
+## DBSCAN result
+
+Using: `dbscan(eps = 1, minPts = 5)`
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_dbscan %>%
+  ggplot2::ggplot(aes(x = body_mass_norm, y = bill_depth_norm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_dbscan %>%
+  ggplot2::ggplot(aes(
+    x = body_mass_norm, y = bill_depth_norm, 
+    colour = factor(bm_bd_dbscan))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_manual(values = c("#d95f02", "#1b9e77")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+::::::
+
+
+## DBSCAN result
+
+Using: `dbscan(eps = 0.5, minPts = 5)`
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins_dbscan_result2 <- penguins_norm %>%
+  dplyr::select(body_mass_norm, bill_depth_norm) %>%
+  dbscan::dbscan(eps = 0.5, minPts = 5)
+
+penguins_bm_bd_dbscan2 <- penguins_norm %>%
+  tibble::add_column(bm_bd_dbscan = penguins_dbscan_result2 %$% cluster)
+```
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_dbscan2 %>%
+  ggplot2::ggplot(aes(x = body_mass_norm, y = bill_depth_norm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_dbscan2 %>%
+  ggplot(aes(
+    x = body_mass_norm, y = bill_depth_norm, 
+    colour = factor(bm_bd_dbscan))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_manual(values = c("#d95f02", "#1b9e77", "#7570b3")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+::::::
+
+
+## DBSCAN result
+
+Using: `dbscan(eps = 0.1, minPts = 5)`
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins_dbscan_result3 <- penguins_norm %>%
+  dplyr::select(body_mass_norm, bill_depth_norm) %>%
+  dbscan::dbscan(eps = 0.1, minPts = 5)
+
+penguins_bm_bd_dbscan3 <- penguins_norm %>%
+  tibble::add_column(bm_bd_dbscan = penguins_dbscan_result3 %$% cluster)
+```
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_dbscan3 %>%
+  ggplot2::ggplot(aes(x = body_mass_norm, y = bill_depth_norm)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
+penguins_bm_bd_dbscan3 %>%
+  ggplot2::ggplot(aes(
+    x = body_mass_norm, y = bill_depth_norm, 
+    colour = factor(bm_bd_dbscan))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_brewer(palette = "Dark2") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+:::
+::::::
+
+
+## Not alwasy that easy...
+
+```{r, include=FALSE, message=FALSE, warning=FALSE}
+penguins_norm_bills <-
+  palmerpenguins::penguins %>%
+  dplyr::filter(
+    !is.na(bill_length_mm) | 
+      !is.na(bill_depth_mm)
+  ) %>%
+  dplyr::mutate(
+    bill_length_norm = 
+      scale(bill_length_mm),
+    bill_depth_norm = 
+      scale(bill_depth_mm)
+  )
+
+# K-means
+penguins_norm_bills_kmeans <- 
+ penguins_norm_bills %>%
+  dplyr::select(bill_length_norm, bill_depth_norm) %>%
+  stats::kmeans(centers = 3,  iter.max = 50)
+
+penguins_norm_bills <- 
+  penguins_norm_bills %>%
+  tibble::add_column(bills_kmeans = penguins_norm_bills_kmeans %$% cluster)
+
+# Hierarchical
+penguins_norm_bills_hclust <- 
+  penguins_norm_bills %>%
+  dplyr::select(bill_length_norm, bill_depth_norm) %>%
+  stats::dist(method="euclidean") %>%
+  stats::hclust(method="ward.D2")
+
+penguins_norm_bills <- 
+  penguins_norm_bills %>%
+  tibble::add_column(bills_hclust = stats::cutree(penguins_norm_bills_hclust, k = 3))
+
+
+# Bagged
+penguins_norm_bills_bclust <- 
+  penguins_norm_bills %>%
+  dplyr::select(bill_length_norm, bill_depth_norm) %>%
+  e1071::bclust(hclust.method="ward.D2", resample = TRUE)
+
+penguins_norm_bills <- 
+  penguins_norm_bills %>%
+  tibble::add_column(bills_bclust = e1071::clusters.bclust(penguins_norm_bills_bclust, 3))
+
+
+# DBSCAN
+penguins_norm_bills_dbscan <- 
+  penguins_norm_bills %>%
+  dplyr::select(bill_length_norm, bill_depth_norm) %>%
+  dbscan::dbscan(eps = 0.2, minPts = 5)
+
+penguins_norm_bills <- 
+  penguins_norm_bills %>%
+  tibble::add_column(bills_dbscan = penguins_norm_bills_dbscan %$% cluster)
+```
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 2.75}
+penguins_norm_bills %>%
+  ggplot2::ggplot(aes(
+    x = bill_length_norm, y = bill_depth_norm, 
+    colour = factor(bills_kmeans))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_brewer(palette = "Dark2") +
+  ggplot2::ggtitle("K-means") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "none")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 2.75}
+penguins_norm_bills %>%
+  ggplot2::ggplot(aes(
+    x = bill_length_norm, y = bill_depth_norm, 
+    colour = factor(bills_hclust))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_brewer(palette = "Dark2") +
+  ggtitle("Hierarchical") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "none")
+```
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 2.75}
+penguins_norm_bills %>%
+  ggplot2::ggplot(aes(
+    x = bill_length_norm, y = bill_depth_norm, 
+    colour = factor(bills_bclust))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_brewer(palette = "Dark2") +
+  ggplot2::ggtitle("Bagged") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "none")
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 2.75}
+penguins_norm_bills %>%
+  ggplot2::ggplot(aes(
+    x = bill_length_norm, y = bill_depth_norm, 
+    colour = factor(bills_dbscan))) +
+  ggplot2::geom_point() +
+  ggplot2::scale_color_brewer(palette = "Dark2") +
+  ggplot2::ggtitle("DBSCAN") +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "none")
+```
+
+:::
+::::::
+
+
+
+## Summary
+
+Hierarchical and density-based clustering
+
+- Hierarchical
+- Mixed 
+- Density-based
+
+**Next**: Practical session
+
+- Geodemographic classification
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

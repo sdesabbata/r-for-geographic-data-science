@@ -1,0 +1,255 @@
+---
+title: "Lecture 211"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Join operations
+
+
+
+## Recap
+
+**Prev**: Selection and manipulation
+
+- Data frames and tibbles
+- Data selection and filtering
+- Data manipulation
+
+**Now**: Join operations
+
+- Joining data
+- dplyr join functions
+
+
+## Example
+
+```{r, echo=TRUE}
+cities <- data.frame(
+  city_name = c("Barcelona", "London", "Rome", "Los Angeles"),
+  country_name = c("Spain", "UK", "Italy", "US"),
+  city_pop_M = c(1.62, 8.98, 4.34, 3.99)
+)
+
+cities_area <-data.frame(
+  city_name = c("Barcelona", "London", "Rome", "Munich"),
+  city_area_km2 = c(101, 1572, 496, 310)
+)
+```
+
+## Example
+
+```{r, echo=FALSE}
+library(knitr)
+
+knitr::kable(cities)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+knitr::kable(cities_area)
+```
+
+
+
+
+
+## Joining data
+
+Tables can be joined (or 'merged')
+
+- information from two tables can be combined
+- specifying **column(s) from two tables with common values**
+    - usually one with a unique identifier of an entity
+- rows having the same value are joined
+- depending on parameters
+    - a row from one table can be merged with multiple rows from the other table
+    - rows with no matching values in the other table can be retained
+- `merge` base function or join functions in `dplyr`
+
+
+
+## Join types
+
+<center>
+ ![](images/joins.png){width=75%}
+
+<center>
+
+
+
+## dplyr joins
+
+`dplyr` provides [a series of join verbs](https://dplyr.tidyverse.org/reference/join.html)
+
+- **Mutating joins**
+  - `inner_join`: inner join
+  - `left_join`: left join
+  - `right_join`: right join
+  - `full_join`: full join
+- **Nesting joins**
+  - `nest_join`: all rows columns from left table, plus a column of tibbles with matching from right
+- **Filtering joins** (keep only columns from left)
+  - `semi_join`: , rows from left where match with right
+  - `anti_join`: rows from left where no match with right
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+## dplyr::full_join
+
+- `full_join` combines all the available data
+
+```{r, echo=TRUE, eval=FALSE}
+dplyr::full_join(
+  # first argument, left table
+  # second argument, right table
+  cities, cities_area, 
+  # specify which column to be matched
+  by = c("city_name" = "city_name")
+  )
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::full_join(cities_area) %>%
+  knitr::kable()
+```
+
+
+## Pipes and shorthands
+
+When using (all) join verbs in `dplyr`
+
+```{r, echo=TRUE, eval=FALSE}
+# using pipe, left table is "coming down the pipe"
+cities %>% 
+  dplyr::full_join(cities_area, by = c("city_name" = "city_name"))
+
+# if no columns specified, columns with the same name are matched
+cities %>% 
+  dplyr::full_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::full_join(cities_area) %>%
+  knitr::kable()
+```
+
+
+
+## dplyr::left_join
+
+- keeps all the data from the **left** table
+  - first argument or *"coming down the pipe"*
+- rows from the right table without a match are dropped
+  - second argument (or first when using *pipes*)
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  dplyr::left_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::left_join(cities_area) %>%
+  knitr::kable()
+```
+
+
+
+## dplyr::right_join
+
+- keeps all the data from the **right** table
+  - second argument (or first when using *pipes*)
+- rows from the left table without a match are dropped
+  - first argument or *"coming down the pipe"*
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  dplyr::right_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::right_join(cities_area) %>%
+  knitr::kable()
+```
+
+
+
+
+## dplyr::inner_join
+
+- keeps only rows that have a match in **both** tables
+- rows without a match either way are dropped
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  dplyr::inner_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::inner_join(cities_area) %>%
+  knitr::kable()
+```
+
+
+
+## dplyr::semi_join and anti_join
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  dplyr::semi_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::semi_join(cities_area) %>%
+  knitr::kable()
+```
+
+<br/>
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  dplyr::anti_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  dplyr::anti_join(cities_area) %>%
+  knitr::kable()
+```
+
+
+
+## Summary
+
+Join operations
+
+- Joining data
+- dplyr join functions
+
+**Next**: Tidy-up your data
+
+- Wide and long data
+- Re-shape data
+- Handle missing values
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

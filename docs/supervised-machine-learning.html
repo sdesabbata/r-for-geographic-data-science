@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Supervised machine learning | Practical session materials | granolarr</title>
+  <meta name="description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Supervised machine learning | Practical session materials | granolarr" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://sdesabbata.github.io/granolarr/" />
+  
+  <meta property="og:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="github-repo" content="sdesabbata/granolarr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Supervised machine learning | Practical session materials | granolarr" />
+  
+  <meta name="twitter:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  
+
+<meta name="author" content="Stefano De Sabbata" />
+
+
+<meta name="date" content="2021-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="regression-analysis.html"/>
+<link rel="next" href="unsupervised-machine-learning.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#session-info"><i class="fa fa-check"></i>Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-r-programming-language"><i class="fa fa-check"></i><b>1.1</b> The R programming language</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.1.1</b> Using RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#interpreting-values"><i class="fa fa-check"></i><b>1.2</b> Interpreting values</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#variables"><i class="fa fa-check"></i><b>1.3</b> Variables</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-types"><i class="fa fa-check"></i><b>1.4</b> Basic types</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#numeric"><i class="fa fa-check"></i><b>1.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#logical"><i class="fa fa-check"></i><b>1.4.2</b> Logical</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#character"><i class="fa fa-check"></i><b>1.4.3</b> Character</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidyverse"><i class="fa fa-check"></i><b>1.5</b> Tidyverse</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#stringr"><i class="fa fa-check"></i><b>1.5.1</b> stringr</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-pipe-operator"><i class="fa fa-check"></i><b>1.5.2</b> The pipe operator</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#coding-style"><i class="fa fa-check"></i><b>1.6</b> Coding style</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.1"><i class="fa fa-check"></i><b>1.7</b> Exercise 104.1</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.2"><i class="fa fa-check"></i><b>1.8</b> Exercise 104.2</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>2</b> R programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="r-programming.html"><a href="r-programming.html#r-scripts"><i class="fa fa-check"></i><b>2.1</b> R Scripts</a></li>
+<li class="chapter" data-level="2.2" data-path="r-programming.html"><a href="r-programming.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="r-programming.html"><a href="r-programming.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="r-programming.html"><a href="r-programming.html#conditional-statements"><i class="fa fa-check"></i><b>2.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="2.5" data-path="r-programming.html"><a href="r-programming.html#loops"><i class="fa fa-check"></i><b>2.5</b> Loops</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="r-programming.html"><a href="r-programming.html#conditional-loops"><i class="fa fa-check"></i><b>2.5.1</b> Conditional Loops</a></li>
+<li class="chapter" data-level="2.5.2" data-path="r-programming.html"><a href="r-programming.html#deterministic-loops"><i class="fa fa-check"></i><b>2.5.2</b> Deterministic Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="r-programming.html"><a href="r-programming.html#exercise-114.1"><i class="fa fa-check"></i><b>2.6</b> Exercise 114.1</a></li>
+<li class="chapter" data-level="2.7" data-path="r-programming.html"><a href="r-programming.html#function-definition"><i class="fa fa-check"></i><b>2.7</b> Function definition</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-programming.html"><a href="r-programming.html#functions-and-control-structures"><i class="fa fa-check"></i><b>2.7.1</b> Functions and control structures</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="r-programming.html"><a href="r-programming.html#exercise-114.2"><i class="fa fa-check"></i><b>2.8</b> Exercise 114.2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html"><i class="fa fa-check"></i><b>3</b> Data wrangling Pt. 1</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#install-libraries"><i class="fa fa-check"></i><b>3.2</b> Install libraries</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#loading-r-scripts"><i class="fa fa-check"></i><b>3.2.1</b> Loading R scripts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#summarise"><i class="fa fa-check"></i><b>3.3.1</b> Summarise</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#select-and-filter"><i class="fa fa-check"></i><b>3.3.2</b> Select and filter</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#mutate"><i class="fa fa-check"></i><b>3.3.3</b> Mutate</a></li>
+<li class="chapter" data-level="3.3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#arrange"><i class="fa fa-check"></i><b>3.3.4</b> Arrange</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation-example"><i class="fa fa-check"></i><b>3.4</b> Data manipulation example</a></li>
+<li class="chapter" data-level="3.5" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#exercise-204.1"><i class="fa fa-check"></i><b>3.5</b> Exercise 204.1</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html"><i class="fa fa-check"></i><b>4</b> Data wrangling Pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#table-manipulation"><i class="fa fa-check"></i><b>4.1</b> Table manipulation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#long-and-wide-formats"><i class="fa fa-check"></i><b>4.1.1</b> Long and wide formats</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join"><i class="fa fa-check"></i><b>4.1.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#read-and-write-data"><i class="fa fa-check"></i><b>4.2</b> Read and write data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#file-paths"><i class="fa fa-check"></i><b>4.2.1</b> File paths</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#data-wrangling-example"><i class="fa fa-check"></i><b>4.3</b> Data wrangling example</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#re-shaping"><i class="fa fa-check"></i><b>4.3.1</b> Re-shaping</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join-1"><i class="fa fa-check"></i><b>4.3.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.1"><i class="fa fa-check"></i><b>4.4</b> Exercise 214.1</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.2"><i class="fa fa-check"></i><b>4.5</b> Exercise 214.2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>5</b> Reproducibility</a><ul>
+<li class="chapter" data-level="5.1" data-path="reproducibility.html"><a href="reproducibility.html#markdown"><i class="fa fa-check"></i><b>5.1</b> Markdown</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="reproducibility.html"><a href="reproducibility.html#r-markdown"><i class="fa fa-check"></i><b>5.1.1</b> R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.1"><i class="fa fa-check"></i><b>5.2</b> Exercise 224.1</a></li>
+<li class="chapter" data-level="5.3" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.2"><i class="fa fa-check"></i><b>5.3</b> Exercise 224.2</a></li>
+<li class="chapter" data-level="5.4" data-path="reproducibility.html"><a href="reproducibility.html#git"><i class="fa fa-check"></i><b>5.4</b> Git</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="reproducibility.html"><a href="reproducibility.html#git-and-rstudio"><i class="fa fa-check"></i><b>5.4.1</b> Git and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.3"><i class="fa fa-check"></i><b>5.5</b> Exercise 224.3</a></li>
+<li class="chapter" data-level="5.6" data-path="reproducibility.html"><a href="reproducibility.html#cloning-granolarr"><i class="fa fa-check"></i><b>5.6</b> Cloning granolarr</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#gglot2-recap"><i class="fa fa-check"></i><b>6.2</b> GGlot2 recap</a></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data-visualisation"><i class="fa fa-check"></i><b>6.3</b> Data visualisation</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#distributions"><i class="fa fa-check"></i><b>6.3.1</b> Distributions</a></li>
+<li class="chapter" data-level="6.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>6.3.2</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.1"><i class="fa fa-check"></i><b>6.4</b> Exercise 304.1</a></li>
+<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploratory-statistics"><i class="fa fa-check"></i><b>6.5</b> Exploratory statistics</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.2"><i class="fa fa-check"></i><b>6.6</b> Exercise 304.2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comparing-data.html"><a href="comparing-data.html"><i class="fa fa-check"></i><b>7</b> Comparing data</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="comparing-data.html"><a href="comparing-data.html#anova"><i class="fa fa-check"></i><b>7.2</b> ANOVA</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>7.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.1"><i class="fa fa-check"></i><b>7.3</b> Exercise 314.1</a></li>
+<li class="chapter" data-level="7.4" data-path="comparing-data.html"><a href="comparing-data.html#correlation"><i class="fa fa-check"></i><b>7.4</b> Correlation</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.2"><i class="fa fa-check"></i><b>7.5</b> Exercise 314.2</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>8</b> Regression analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-regression"><i class="fa fa-check"></i><b>8.1</b> Simple regression</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>8.1.1</b> Example</a></li>
+<li class="chapter" data-level="8.1.2" data-path="regression-analysis.html"><a href="regression-analysis.html#checking-assumptions"><i class="fa fa-check"></i><b>8.1.2</b> Checking assumptions</a></li>
+<li class="chapter" data-level="8.1.3" data-path="regression-analysis.html"><a href="regression-analysis.html#how-to-report"><i class="fa fa-check"></i><b>8.1.3</b> How to report</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="regression-analysis.html"><a href="regression-analysis.html#multiple-regression"><i class="fa fa-check"></i><b>8.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>8.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="regression-analysis.html"><a href="regression-analysis.html#exercise-324.1"><i class="fa fa-check"></i><b>8.3</b> Exercise 324.1</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-networks"><i class="fa fa-check"></i><b>9.1.1</b> Artificial neural networks</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines"><i class="fa fa-check"></i><b>9.1.2</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#confusion-matrices"><i class="fa fa-check"></i><b>9.1.3</b> Confusion matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>9.2</b> Examples</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#data"><i class="fa fa-check"></i><b>9.2.1</b> Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#logistic-regression"><i class="fa fa-check"></i><b>9.2.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines-1"><i class="fa fa-check"></i><b>9.2.3</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#kernels"><i class="fa fa-check"></i><b>9.2.4</b> Kernels</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-network"><i class="fa fa-check"></i><b>9.2.5</b> Artificial neural network</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#exercise-404.1"><i class="fa fa-check"></i><b>9.3</b> Exercise 404.1</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>10</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means"><i class="fa fa-check"></i><b>10.1.1</b> K-means</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#number-of-clusters"><i class="fa fa-check"></i><b>10.1.2</b> Number of clusters</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#geodemographic-classification"><i class="fa fa-check"></i><b>10.1.3</b> Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#terrace-and-semi-detached-houses"><i class="fa fa-check"></i><b>10.2.1</b> Terrace and semi-detached houses</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters"><i class="fa fa-check"></i><b>10.2.2</b> Interpreting the clusters</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#a-geodemographic-of-dwelling-types"><i class="fa fa-check"></i><b>10.2.3</b> A geodemographic of dwelling types</a></li>
+<li class="chapter" data-level="10.2.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters-1"><i class="fa fa-check"></i><b>10.2.4</b> Interpreting the clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#exercise-414.1"><i class="fa fa-check"></i><b>10.3</b> Exercise 414.1</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical session materials | granolarr</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="supervised-machine-learning" class="section level1">
+<h1><span class="header-section-number">9</span> Supervised machine learning</h1>
+<p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
+<p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<p>The field of <strong>machine learning</strong> sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), <em>“the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience.”</em></p>
+<p>Machine learning approaches are divided into two main types.</p>
+<ul>
+<li><strong>Supervised</strong>:
+<ul>
+<li>training of a <em>“predictive”</em> model from data;</li>
+<li>one (or more) attribute of the dataset is used to “predict” another attribute.</li>
+</ul></li>
+<li><strong>Unsupervised</strong>:
+<ul>
+<li>discovery of <em>descriptive</em> patterns in data;</li>
+<li>commonly used in data mining.</li>
+</ul></li>
+</ul>
+<p>Classification is one of the classic supervised machine learning tasks, where algorithms are used to learn (i.e., model) the relationship between a series of input values (a.k.a. predictors, independent variables) and output categorical values or labels (a.k.a. outcome, dependent variable). A model trained on a training dataset can learn the relationship between the input and the labels, and then be used to label new, unlabeled data.</p>
+<div id="artificial-neural-networks" class="section level3">
+<h3><span class="header-section-number">9.1.1</span> Artificial neural networks</h3>
+<p>Artificial neural networks (ANNs) are one of the most studied approaches in supervised machine learning, and the term actually defines a large set of different approaches. These model aims to simulate a simplistic version of a brain made of artificial neurons. Each artificial neuron combines a series of input values into one output values, using a series of weights (one per input value) and an activation function. The aim of the model is to learn an optimal set of weights that, once combined with the input values, generates the correct output value. The latter is also influenced by the activation function, which modulates the final result.</p>
+<center>
+<img src="images/artificial_neuron.png" style="width:50.0%" />
+</center>
+<p>Each neuron is effectively a regression model. The input values are the predictors (or independent variables), the output is the outcome (or dependent variable), and the weights are the coefficients (see also previous practical on regression models). The selection of the activation function defines the regression model. As ANNs are commonly used for classification, one of the most common activation functions used is the sigmoid, thus rendering every single neuron a logistic regression.</p>
+<p>An instance of an ANN is defined by its topology (number of layers and nodes), activation functions and the algorithm used to train the network. The selection of all those parameters renders the construction of ANNs a very complex task, and the quality of the result frequently relies on the experience of the data scientist.</p>
+<ul>
+<li>Number of layers
+<ul>
+<li>Single-layer network: one node of input variable one node per category of the output variable, effectively a logistic regression.</li>
+<li>Multi-layer network: adds one hidden layer, which aims to capture hidden <em>“features”</em> of the data, as combinations of the input values, and use that for the final classification.</li>
+<li>Deep neural networks: several hidden layers, each aiming to capture more and more complex <em>“features”</em> of the data.</li>
+</ul></li>
+<li>Number of nodes
+<ul>
+<li>The number of nodes needs to be selected for each one of the hidden layers.</li>
+</ul></li>
+</ul>
+</div>
+<div id="support-vector-machines" class="section level3">
+<h3><span class="header-section-number">9.1.2</span> Support vector machines</h3>
+<p>Support vector machines (SVMs) are another very common approach to supervised classification. SVMs perform the classification task by partitioning the data space into regions separated by hyperplanes. For instance, in a bi-dimensional space, a hyperplane is a line, and the algorithm is designed to find the line that best separates two groups of data. Computationally, the process is not dissimilar to linear regression.</p>
+</div>
+<div id="confusion-matrices" class="section level3">
+<h3><span class="header-section-number">9.1.3</span> Confusion matrices</h3>
+<p>Once a classification model has been created, the next step is validation. The latter can involve different approaches and procedures, but one of the most common and simple approaches is to split the data between a training and a testing set. The model is trained on the training set and then validated using the testing set. Both sets will contain both the input values (predictors) and the output values (outcome).</p>
+<p>The model trained using the training set can be used to predict the values for the testing set. The outcome of the prediction can be compared to the actual categories in the testing dataset. A <strong>confusion matrix</strong> is a representation of the correspondence between actual values and predicted values in the testing dataset, including:</p>
+<ul>
+<li>true positive: correctly classified as the first (positive) class;</li>
+<li>true negative: correctly classified as the second (negative) class;</li>
+<li>false positive: incorrectly classified as the first (positive) class;</li>
+<li>false negative: incorrectly classified as the second (negative) class.</li>
+</ul>
+<p>The number of true and false positive and negatives are used to calculate a number of performance measures. The simplest measures of performance are <em>accuracy</em> and <em>error rate</em>.</p>
+<p><span class="math display">\[
+accuracy = \frac{true\ positive + true\ negative}{total\ number\ of\ cases}
+\]</span>
+<span class="math display">\[
+error\ rate = 1 - accuracy
+\]</span></p>
+<p>There are also a number of additional measures that can provide further insight into the quality of the prediction, such as <em>sensitivity</em> (true positive rate) and <em>specificity</em> (true negative rate). If the model has been created to predict a binary categorical variable, based on the definition above (the first category is positive, the second category is negative), sensitivity is a measure of quality in predicting the first category, and specificity is a measure of quality in predicting the second category.</p>
+<p><span class="math display">\[
+sensitivity = \frac{true\ positive}{true\ positive + false\ negative} = \frac{correct\ 1st}{all\ 1st}
+\]</span></p>
+<p><span class="math display">\[
+specificity = \frac{true\ negative}{true\ negative + false\ positive} = \frac{correct\ 2nd}{all\ 2nd}
+\]</span></p>
+<p>Two further, similar measures are <em>precision</em> and <em>recall</em>. A model with high precision is a model that can be trusted to make a correct prediction when identifying an observation as being part of the first category. The formula for recall is the same used for sensitivity, but in this case, it has a different interpretation, derived from the computer science literature on search engines, where a model with high recall is able to correctly retrieve most items of the specified category. Note that both precision and recall are dependent on which one of two categories is defined as being the first.</p>
+<p><span class="math display">\[
+precision = \frac{true\ positive}{true\ positive + false\ positive} = \frac{correct\ 1st}{predicted\ as\ 1st}
+\]</span></p>
+<p><span class="math display">\[
+recall = \frac{true\ positive}{true\ positive + false\ negative} = \frac{correct\ 1st}{all\ 1st}
+\]</span>
+Precision and recall can also be combined into a single measure of performance called <em>F-score</em> (a.k.a., <em>F-measure</em> or <em>F1</em>).</p>
+<p><span class="math display">\[
+F-score = \frac{2 \times precision \times recall}{precision + recall}
+\]</span>
+Finally, the <em>kappa statistic</em> (the most common being <a href="https://en.wikipedia.org/wiki/Cohen%27s_kappa">Cohen’s kappa</a>) is an additional measure of accuracy, which measures the agreement between prediction and actual values, while also accounting for the probability of correct prediction by chance.</p>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2><span class="header-section-number">9.2</span> Examples</h2>
+<p>The two examples below explore the relation between some of the variables from the United Kingdom 2011 Census included among the 167 initial variables used to create the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification</a> (<a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a>) and the <a href="https://geoportal.statistics.gov.uk/datasets/rural-urban-classification-2011-of-output-areas-in-england-and-wales">Rural Urban Classification (2011) of Output Areas in England and Wales</a> created by the <a href="https://geoportal.statistics.gov.uk/">Office for National Statistics</a>. The various examples and models explore whether it is possible to learn the rural-urban distinction by using some of those census variables, in the Local Authority Districts (LADs) in Leicestershire (excluding the city of Leicester itself.</p>
+<p>The code below uses the libraries <code>caret</code>, <code>e1071</code> and <code>neuralnet</code>. Please install them before continuing with the practical.</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="supervised-machine-learning.html#cb282-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;caret&quot;</span>)</span>
+<span id="cb282-2"><a href="supervised-machine-learning.html#cb282-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;e1071&quot;</span>)</span>
+<span id="cb282-3"><a href="supervised-machine-learning.html#cb282-3"></a><span class="kw">install.packages</span>(<span class="st">&quot;neuralnet&quot;</span>)</span></code></pre></div>
+<div id="data" class="section level3">
+<h3><span class="header-section-number">9.2.1</span> Data</h3>
+<p>The examples use the same data seen in previous practicals, but for the 7 LADs in Leicestershire outside the boundaries of the city of Leicester: Blaby, Charnwood, Harborough, Hinckley and Bosworth, Melton, North West Leicestershire, and Oadby and Wigston. Those data are loaded from the <code>2011_OAC_Raw_uVariables_Leicestershire.csv</code>. The second part of the code extracts the data of the Rural Urban Classification (2011) from the compressed file <code>RUC11_OA11_EW.zip</code>, loads the extracted data and finally deletes them.</p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="supervised-machine-learning.html#cb283-1"></a><span class="co"># Libraries</span></span>
+<span id="cb283-2"><a href="supervised-machine-learning.html#cb283-2"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb283-3"><a href="supervised-machine-learning.html#cb283-3"></a><span class="kw">library</span>(magrittr)</span>
+<span id="cb283-4"><a href="supervised-machine-learning.html#cb283-4"></a></span>
+<span id="cb283-5"><a href="supervised-machine-learning.html#cb283-5"></a><span class="co"># 2011 OAC data for Leicestershire (excl. Leicester)</span></span>
+<span id="cb283-6"><a href="supervised-machine-learning.html#cb283-6"></a>liec_shire_2011OAC &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;2011_OAC_Raw_uVariables_Leicestershire.csv&quot;</span>)</span>
+<span id="cb283-7"><a href="supervised-machine-learning.html#cb283-7"></a></span>
+<span id="cb283-8"><a href="supervised-machine-learning.html#cb283-8"></a><span class="co"># Rural Urban Classification (2011)</span></span>
+<span id="cb283-9"><a href="supervised-machine-learning.html#cb283-9"></a><span class="co"># &gt;&gt;&gt; Note that if you upload the file to RStudio Server</span></span>
+<span id="cb283-10"><a href="supervised-machine-learning.html#cb283-10"></a><span class="co"># &gt;&gt;&gt; the file will be automatically unzipped</span></span>
+<span id="cb283-11"><a href="supervised-machine-learning.html#cb283-11"></a><span class="co"># &gt;&gt;&gt; thus the unzip and unlink instrcutions are not necessary</span></span>
+<span id="cb283-12"><a href="supervised-machine-learning.html#cb283-12"></a><span class="kw">unzip</span>(<span class="st">&quot;RUC11_OA11_EW.zip&quot;</span>)</span>
+<span id="cb283-13"><a href="supervised-machine-learning.html#cb283-13"></a>ru_class_<span class="dv">2011</span> &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;RUC11_OA11_EW.csv&quot;</span>)</span>
+<span id="cb283-14"><a href="supervised-machine-learning.html#cb283-14"></a><span class="kw">unlink</span>(<span class="st">&quot;RUC11_OA11_EW.csv&quot;</span>)</span></code></pre></div>
+<p>We can then join the two datasets and create a simplified, binary rural - urban classification, that is used in the examples below.</p>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="supervised-machine-learning.html#cb284-1"></a>liec_shire_2011OAC_RU &lt;-</span>
+<span id="cb284-2"><a href="supervised-machine-learning.html#cb284-2"></a><span class="st">  </span>liec_shire_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb284-3"><a href="supervised-machine-learning.html#cb284-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">left_join</span>(ru_class_<span class="dv">2011</span>) <span class="op">%&gt;%</span></span>
+<span id="cb284-4"><a href="supervised-machine-learning.html#cb284-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb284-5"><a href="supervised-machine-learning.html#cb284-5"></a>    <span class="dt">rural_urban =</span> </span>
+<span id="cb284-6"><a href="supervised-machine-learning.html#cb284-6"></a>      forcats<span class="op">::</span><span class="kw">fct_recode</span>(</span>
+<span id="cb284-7"><a href="supervised-machine-learning.html#cb284-7"></a>        RUC11CD,</span>
+<span id="cb284-8"><a href="supervised-machine-learning.html#cb284-8"></a>        <span class="dt">urban =</span> <span class="st">&quot;C1&quot;</span>,</span>
+<span id="cb284-9"><a href="supervised-machine-learning.html#cb284-9"></a>        <span class="dt">rural =</span> <span class="st">&quot;D1&quot;</span>,</span>
+<span id="cb284-10"><a href="supervised-machine-learning.html#cb284-10"></a>        <span class="dt">rural =</span> <span class="st">&quot;E1&quot;</span>,</span>
+<span id="cb284-11"><a href="supervised-machine-learning.html#cb284-11"></a>        <span class="dt">rural =</span> <span class="st">&quot;F1&quot;</span></span>
+<span id="cb284-12"><a href="supervised-machine-learning.html#cb284-12"></a>      ) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb284-13"><a href="supervised-machine-learning.html#cb284-13"></a><span class="st">      </span>forcats<span class="op">::</span><span class="kw">fct_relevel</span>(</span>
+<span id="cb284-14"><a href="supervised-machine-learning.html#cb284-14"></a>        <span class="kw">c</span>(<span class="st">&quot;rural&quot;</span>, <span class="st">&quot;urban&quot;</span>)</span>
+<span id="cb284-15"><a href="supervised-machine-learning.html#cb284-15"></a>      )</span>
+<span id="cb284-16"><a href="supervised-machine-learning.html#cb284-16"></a>  )</span></code></pre></div>
+</div>
+<div id="logistic-regression" class="section level3">
+<h3><span class="header-section-number">9.2.2</span> Logistic regression</h3>
+<p>Can we predict whether an Output Area (OA) is urban or rural, solely based on its population density?</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="supervised-machine-learning.html#cb285-1"></a>liec_shire_2011OAC_RU <span class="op">%&gt;%</span></span>
+<span id="cb285-2"><a href="supervised-machine-learning.html#cb285-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb285-3"><a href="supervised-machine-learning.html#cb285-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb285-4"><a href="supervised-machine-learning.html#cb285-4"></a>      <span class="dt">x =</span> u006, </span>
+<span id="cb285-5"><a href="supervised-machine-learning.html#cb285-5"></a>      <span class="dt">y =</span> rural_urban</span>
+<span id="cb285-6"><a href="supervised-machine-learning.html#cb285-6"></a>    )</span>
+<span id="cb285-7"><a href="supervised-machine-learning.html#cb285-7"></a>  ) <span class="op">+</span></span>
+<span id="cb285-8"><a href="supervised-machine-learning.html#cb285-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(</span>
+<span id="cb285-9"><a href="supervised-machine-learning.html#cb285-9"></a>    <span class="kw">aes</span>(</span>
+<span id="cb285-10"><a href="supervised-machine-learning.html#cb285-10"></a>      <span class="dt">color =</span> rural_urban,</span>
+<span id="cb285-11"><a href="supervised-machine-learning.html#cb285-11"></a>      <span class="dt">shape =</span> rural_urban</span>
+<span id="cb285-12"><a href="supervised-machine-learning.html#cb285-12"></a>    )</span>
+<span id="cb285-13"><a href="supervised-machine-learning.html#cb285-13"></a>  ) <span class="op">+</span></span>
+<span id="cb285-14"><a href="supervised-machine-learning.html#cb285-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;deepskyblue2&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>)) <span class="op">+</span></span>
+<span id="cb285-15"><a href="supervised-machine-learning.html#cb285-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_x_log10</span>() <span class="op">+</span></span>
+<span id="cb285-16"><a href="supervised-machine-learning.html#cb285-16"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="404_P_SupervisedLearning_files/figure-html/unnamed-chunk-6-1.png" width="576" /></p>
+<p>The two patters in the plot above seem quite close even when plotted using a logarithmically transformed x-axis. As a first step, we can extract from the dataset only the data we need, and create a logarithmic transformation of the population density value. To be able to perform a simple validatin our model, we can divide that data in a training (80% of the dataset) and a testing set (20% of the dataset).</p>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="supervised-machine-learning.html#cb286-1"></a><span class="co"># Data for logit model</span></span>
+<span id="cb286-2"><a href="supervised-machine-learning.html#cb286-2"></a>ru_logit_data &lt;-</span>
+<span id="cb286-3"><a href="supervised-machine-learning.html#cb286-3"></a><span class="st">  </span>liec_shire_2011OAC_RU <span class="op">%&gt;%</span></span>
+<span id="cb286-4"><a href="supervised-machine-learning.html#cb286-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(OA11CD, u006, rural_urban) <span class="op">%&gt;%</span></span>
+<span id="cb286-5"><a href="supervised-machine-learning.html#cb286-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb286-6"><a href="supervised-machine-learning.html#cb286-6"></a>    <span class="dt">density_log =</span> <span class="kw">log10</span>(u006)</span>
+<span id="cb286-7"><a href="supervised-machine-learning.html#cb286-7"></a>  )</span>
+<span id="cb286-8"><a href="supervised-machine-learning.html#cb286-8"></a></span>
+<span id="cb286-9"><a href="supervised-machine-learning.html#cb286-9"></a><span class="co"># Training set</span></span>
+<span id="cb286-10"><a href="supervised-machine-learning.html#cb286-10"></a>ru_logit_data_trainig &lt;-</span>
+<span id="cb286-11"><a href="supervised-machine-learning.html#cb286-11"></a><span class="st">  </span>ru_logit_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb286-12"><a href="supervised-machine-learning.html#cb286-12"></a><span class="st">  </span><span class="kw">slice_sample</span>(<span class="dt">prop =</span> <span class="fl">0.8</span>)</span>
+<span id="cb286-13"><a href="supervised-machine-learning.html#cb286-13"></a></span>
+<span id="cb286-14"><a href="supervised-machine-learning.html#cb286-14"></a><span class="co"># Testing set</span></span>
+<span id="cb286-15"><a href="supervised-machine-learning.html#cb286-15"></a>ru_logit_data_testing &lt;-<span class="st"> </span></span>
+<span id="cb286-16"><a href="supervised-machine-learning.html#cb286-16"></a><span class="st">  </span>ru_logit_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb286-17"><a href="supervised-machine-learning.html#cb286-17"></a><span class="st">  </span><span class="kw">anti_join</span>(ru_logit_data_trainig)</span></code></pre></div>
+<p>We can then compute the logit model using the <code>stats::glm</code> function and specifying <code>binomial()</code> as <code>family</code>. The summary of the model highlights how the model is significant, but <code>Residual deviance</code> is fairly close to the <code>Null deviance</code> (null model), which is not a good sign.</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="supervised-machine-learning.html#cb287-1"></a>ru_logit_model &lt;-<span class="st"> </span></span>
+<span id="cb287-2"><a href="supervised-machine-learning.html#cb287-2"></a><span class="st">  </span>ru_logit_data_trainig <span class="op">%$%</span></span>
+<span id="cb287-3"><a href="supervised-machine-learning.html#cb287-3"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">glm</span>(</span>
+<span id="cb287-4"><a href="supervised-machine-learning.html#cb287-4"></a>    rural_urban <span class="op">~</span><span class="st"> </span></span>
+<span id="cb287-5"><a href="supervised-machine-learning.html#cb287-5"></a><span class="st">      </span>density_log, </span>
+<span id="cb287-6"><a href="supervised-machine-learning.html#cb287-6"></a>    <span class="dt">family =</span> <span class="kw">binomial</span>()</span>
+<span id="cb287-7"><a href="supervised-machine-learning.html#cb287-7"></a>  )</span>
+<span id="cb287-8"><a href="supervised-machine-learning.html#cb287-8"></a></span>
+<span id="cb287-9"><a href="supervised-machine-learning.html#cb287-9"></a>ru_logit_model <span class="op">%&gt;%</span><span class="st">  </span></span>
+<span id="cb287-10"><a href="supervised-machine-learning.html#cb287-10"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Call:
+## stats::glm(formula = rural_urban ~ density_log, family = binomial())
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.2033  -0.5645   0.5223   0.6457   2.0829  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  -1.3218     0.1312  -10.07   &lt;2e-16 ***
+## density_log   1.8592     0.1005   18.50   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 2063.6  on 1667  degrees of freedom
+## Residual deviance: 1574.7  on 1666  degrees of freedom
+## AIC: 1578.7
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>As per other regression models, it would be necessary to test the assumptions of the logit model and the overall distribution of the residuals. However, as this model only has one predictor, we will confine our performance analysis to simple validation.</p>
+<p>We can test the performance of the model through a validation exercise, using the testing dataset. Finally, we can compare the results of the prediction with the original data using a confusion matrix.</p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="supervised-machine-learning.html#cb289-1"></a>ru_logit_prediction &lt;-<span class="st"> </span></span>
+<span id="cb289-2"><a href="supervised-machine-learning.html#cb289-2"></a><span class="st">  </span>ru_logit_model <span class="op">%&gt;%</span></span>
+<span id="cb289-3"><a href="supervised-machine-learning.html#cb289-3"></a><span class="st">  </span><span class="co"># Use model to predict values</span></span>
+<span id="cb289-4"><a href="supervised-machine-learning.html#cb289-4"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">predict</span>(</span>
+<span id="cb289-5"><a href="supervised-machine-learning.html#cb289-5"></a>    ru_logit_data_testing, </span>
+<span id="cb289-6"><a href="supervised-machine-learning.html#cb289-6"></a>    <span class="dt">type =</span> <span class="st">&quot;response&quot;</span></span>
+<span id="cb289-7"><a href="supervised-machine-learning.html#cb289-7"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb289-8"><a href="supervised-machine-learning.html#cb289-8"></a><span class="st">  </span><span class="kw">as.numeric</span>()</span>
+<span id="cb289-9"><a href="supervised-machine-learning.html#cb289-9"></a></span>
+<span id="cb289-10"><a href="supervised-machine-learning.html#cb289-10"></a>ru_logit_data_testing &lt;-<span class="st"> </span></span>
+<span id="cb289-11"><a href="supervised-machine-learning.html#cb289-11"></a><span class="st">  </span>ru_logit_data_testing <span class="op">%&gt;%</span></span>
+<span id="cb289-12"><a href="supervised-machine-learning.html#cb289-12"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb289-13"><a href="supervised-machine-learning.html#cb289-13"></a>    <span class="co"># Add column with predicted class</span></span>
+<span id="cb289-14"><a href="supervised-machine-learning.html#cb289-14"></a>    <span class="dt">logit_predicted_ru =</span> </span>
+<span id="cb289-15"><a href="supervised-machine-learning.html#cb289-15"></a>      <span class="co"># Values below 0.5 indicate first factor level (rural)</span></span>
+<span id="cb289-16"><a href="supervised-machine-learning.html#cb289-16"></a>      <span class="co"># Values above 0.5 indicate second factor level (ruban)</span></span>
+<span id="cb289-17"><a href="supervised-machine-learning.html#cb289-17"></a>      <span class="kw">ifelse</span>(</span>
+<span id="cb289-18"><a href="supervised-machine-learning.html#cb289-18"></a>        ru_logit_prediction <span class="op">&lt;=</span><span class="st"> </span><span class="fl">0.5</span>,</span>
+<span id="cb289-19"><a href="supervised-machine-learning.html#cb289-19"></a>        <span class="st">&quot;rural&quot;</span>, <span class="co"># first factor level</span></span>
+<span id="cb289-20"><a href="supervised-machine-learning.html#cb289-20"></a>        <span class="st">&quot;urban&quot;</span>  <span class="co"># second factor level</span></span>
+<span id="cb289-21"><a href="supervised-machine-learning.html#cb289-21"></a>      ) <span class="op">%&gt;%</span></span>
+<span id="cb289-22"><a href="supervised-machine-learning.html#cb289-22"></a><span class="st">      </span>forcats<span class="op">::</span><span class="kw">as_factor</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb289-23"><a href="supervised-machine-learning.html#cb289-23"></a><span class="st">      </span>forcats<span class="op">::</span><span class="kw">fct_relevel</span>(</span>
+<span id="cb289-24"><a href="supervised-machine-learning.html#cb289-24"></a>        <span class="kw">c</span>(<span class="st">&quot;rural&quot;</span>, <span class="st">&quot;urban&quot;</span>)</span>
+<span id="cb289-25"><a href="supervised-machine-learning.html#cb289-25"></a>      )</span>
+<span id="cb289-26"><a href="supervised-machine-learning.html#cb289-26"></a>  )</span>
+<span id="cb289-27"><a href="supervised-machine-learning.html#cb289-27"></a></span>
+<span id="cb289-28"><a href="supervised-machine-learning.html#cb289-28"></a><span class="co"># Load library for confusion matrix</span></span>
+<span id="cb289-29"><a href="supervised-machine-learning.html#cb289-29"></a><span class="kw">library</span>(caret)</span>
+<span id="cb289-30"><a href="supervised-machine-learning.html#cb289-30"></a></span>
+<span id="cb289-31"><a href="supervised-machine-learning.html#cb289-31"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb289-32"><a href="supervised-machine-learning.html#cb289-32"></a>caret<span class="op">::</span><span class="kw">confusionMatrix</span>(</span>
+<span id="cb289-33"><a href="supervised-machine-learning.html#cb289-33"></a>  ru_logit_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(logit_predicted_ru),</span>
+<span id="cb289-34"><a href="supervised-machine-learning.html#cb289-34"></a>  ru_logit_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(rural_urban),</span>
+<span id="cb289-35"><a href="supervised-machine-learning.html#cb289-35"></a>  <span class="dt">mode =</span> <span class="st">&quot;everything&quot;</span></span>
+<span id="cb289-36"><a href="supervised-machine-learning.html#cb289-36"></a>)</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction rural urban
+##      rural    64    31
+##      urban    66   256
+##                                           
+##                Accuracy : 0.7674          
+##                  95% CI : (0.7238, 0.8071)
+##     No Information Rate : 0.6882          
+##     P-Value [Acc &gt; NIR] : 0.0002150       
+##                                           
+##                   Kappa : 0.4148          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.0005561       
+##                                           
+##             Sensitivity : 0.4923          
+##             Specificity : 0.8920          
+##          Pos Pred Value : 0.6737          
+##          Neg Pred Value : 0.7950          
+##               Precision : 0.6737          
+##                  Recall : 0.4923          
+##                      F1 : 0.5689          
+##              Prevalence : 0.3118          
+##          Detection Rate : 0.1535          
+##    Detection Prevalence : 0.2278          
+##       Balanced Accuracy : 0.6921          
+##                                           
+##        &#39;Positive&#39; Class : rural           
+## </code></pre>
+</div>
+<div id="support-vector-machines-1" class="section level3">
+<h3><span class="header-section-number">9.2.3</span> Support vector machines</h3>
+<p>To showcase the use of SVMs, the example below expands on the one above by building a model for urban - rural classification that uses total population and area (logarithmically transformed) as two separate input values, rather than combined as population density. The aim of the SVM is then to find a line that maximises the margin between the two groups shown in the plot below.</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="supervised-machine-learning.html#cb291-1"></a>liec_shire_2011OAC_RU <span class="op">%&gt;%</span></span>
+<span id="cb291-2"><a href="supervised-machine-learning.html#cb291-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb291-3"><a href="supervised-machine-learning.html#cb291-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb291-4"><a href="supervised-machine-learning.html#cb291-4"></a>      <span class="dt">x =</span> u006, </span>
+<span id="cb291-5"><a href="supervised-machine-learning.html#cb291-5"></a>      <span class="dt">y =</span> Total_Population</span>
+<span id="cb291-6"><a href="supervised-machine-learning.html#cb291-6"></a>    )</span>
+<span id="cb291-7"><a href="supervised-machine-learning.html#cb291-7"></a>  ) <span class="op">+</span></span>
+<span id="cb291-8"><a href="supervised-machine-learning.html#cb291-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(</span>
+<span id="cb291-9"><a href="supervised-machine-learning.html#cb291-9"></a>    <span class="kw">aes</span>(</span>
+<span id="cb291-10"><a href="supervised-machine-learning.html#cb291-10"></a>      <span class="dt">color =</span> rural_urban,</span>
+<span id="cb291-11"><a href="supervised-machine-learning.html#cb291-11"></a>      <span class="dt">shape =</span> rural_urban</span>
+<span id="cb291-12"><a href="supervised-machine-learning.html#cb291-12"></a>    )</span>
+<span id="cb291-13"><a href="supervised-machine-learning.html#cb291-13"></a>  ) <span class="op">+</span></span>
+<span id="cb291-14"><a href="supervised-machine-learning.html#cb291-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;deepskyblue2&quot;</span>, <span class="st">&quot;darkgreen&quot;</span>)) <span class="op">+</span></span>
+<span id="cb291-15"><a href="supervised-machine-learning.html#cb291-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_x_log10</span>() <span class="op">+</span></span>
+<span id="cb291-16"><a href="supervised-machine-learning.html#cb291-16"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_y_log10</span>() <span class="op">+</span></span>
+<span id="cb291-17"><a href="supervised-machine-learning.html#cb291-17"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="404_P_SupervisedLearning_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<p>The plot illustrates how the two variables are skewed (note that the axes are logarithmically transformed) and that the two groups are not linearly separable. We can thus follow a procedure similar to the one seen above: extract the necessary data; split the data between training and testing for validation; build the model; predict the values for the testing set and interpret the confusion matrix.</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="supervised-machine-learning.html#cb292-1"></a><span class="co"># Data for SVM model</span></span>
+<span id="cb292-2"><a href="supervised-machine-learning.html#cb292-2"></a>ru_svm_data &lt;-</span>
+<span id="cb292-3"><a href="supervised-machine-learning.html#cb292-3"></a><span class="st">  </span>liec_shire_2011OAC_RU <span class="op">%&gt;%</span></span>
+<span id="cb292-4"><a href="supervised-machine-learning.html#cb292-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(OA11CD, Total_Population, u006, rural_urban) <span class="op">%&gt;%</span></span>
+<span id="cb292-5"><a href="supervised-machine-learning.html#cb292-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb292-6"><a href="supervised-machine-learning.html#cb292-6"></a>    <span class="dt">area_log =</span> <span class="kw">log10</span>(u006),</span>
+<span id="cb292-7"><a href="supervised-machine-learning.html#cb292-7"></a>    <span class="dt">population_log =</span> <span class="kw">log10</span>(Total_Population)</span>
+<span id="cb292-8"><a href="supervised-machine-learning.html#cb292-8"></a>  )</span>
+<span id="cb292-9"><a href="supervised-machine-learning.html#cb292-9"></a></span>
+<span id="cb292-10"><a href="supervised-machine-learning.html#cb292-10"></a><span class="co"># Training set</span></span>
+<span id="cb292-11"><a href="supervised-machine-learning.html#cb292-11"></a>ru_svm_data_trainig &lt;-</span>
+<span id="cb292-12"><a href="supervised-machine-learning.html#cb292-12"></a><span class="st">  </span>ru_svm_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb292-13"><a href="supervised-machine-learning.html#cb292-13"></a><span class="st">  </span><span class="kw">slice_sample</span>(<span class="dt">prop =</span> <span class="fl">0.8</span>)</span>
+<span id="cb292-14"><a href="supervised-machine-learning.html#cb292-14"></a></span>
+<span id="cb292-15"><a href="supervised-machine-learning.html#cb292-15"></a><span class="co"># Testing set</span></span>
+<span id="cb292-16"><a href="supervised-machine-learning.html#cb292-16"></a>ru_svm_data_testing &lt;-<span class="st"> </span></span>
+<span id="cb292-17"><a href="supervised-machine-learning.html#cb292-17"></a><span class="st">  </span>ru_svm_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb292-18"><a href="supervised-machine-learning.html#cb292-18"></a><span class="st">  </span><span class="kw">anti_join</span>(ru_svm_data_trainig)</span>
+<span id="cb292-19"><a href="supervised-machine-learning.html#cb292-19"></a></span>
+<span id="cb292-20"><a href="supervised-machine-learning.html#cb292-20"></a><span class="co"># Load library for svm function</span></span>
+<span id="cb292-21"><a href="supervised-machine-learning.html#cb292-21"></a><span class="kw">library</span>(e1071)</span>
+<span id="cb292-22"><a href="supervised-machine-learning.html#cb292-22"></a></span>
+<span id="cb292-23"><a href="supervised-machine-learning.html#cb292-23"></a><span class="co"># Build the model</span></span>
+<span id="cb292-24"><a href="supervised-machine-learning.html#cb292-24"></a>ru_svm_model &lt;-<span class="st"> </span></span>
+<span id="cb292-25"><a href="supervised-machine-learning.html#cb292-25"></a><span class="st">  </span>ru_svm_data_trainig <span class="op">%$%</span></span>
+<span id="cb292-26"><a href="supervised-machine-learning.html#cb292-26"></a><span class="st">  </span>e1071<span class="op">::</span><span class="kw">svm</span>(</span>
+<span id="cb292-27"><a href="supervised-machine-learning.html#cb292-27"></a>    rural_urban <span class="op">~</span><span class="st"> </span></span>
+<span id="cb292-28"><a href="supervised-machine-learning.html#cb292-28"></a><span class="st">      </span>area_log <span class="op">+</span><span class="st"> </span>population_log, </span>
+<span id="cb292-29"><a href="supervised-machine-learning.html#cb292-29"></a>    <span class="co"># Use a simple linear hyperplane</span></span>
+<span id="cb292-30"><a href="supervised-machine-learning.html#cb292-30"></a>    <span class="dt">kernel =</span> <span class="st">&quot;linear&quot;</span>, </span>
+<span id="cb292-31"><a href="supervised-machine-learning.html#cb292-31"></a>    <span class="co"># Scale the data</span></span>
+<span id="cb292-32"><a href="supervised-machine-learning.html#cb292-32"></a>    <span class="dt">scale =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb292-33"><a href="supervised-machine-learning.html#cb292-33"></a>    <span class="co"># Cost value for observations</span></span>
+<span id="cb292-34"><a href="supervised-machine-learning.html#cb292-34"></a>    <span class="co"># crossing the hyperplane</span></span>
+<span id="cb292-35"><a href="supervised-machine-learning.html#cb292-35"></a>    <span class="dt">cost =</span> <span class="dv">10</span></span>
+<span id="cb292-36"><a href="supervised-machine-learning.html#cb292-36"></a>  )</span>
+<span id="cb292-37"><a href="supervised-machine-learning.html#cb292-37"></a></span>
+<span id="cb292-38"><a href="supervised-machine-learning.html#cb292-38"></a><span class="co"># Predict the values for the testing dataset</span></span>
+<span id="cb292-39"><a href="supervised-machine-learning.html#cb292-39"></a>ru_svm_prediction &lt;-</span>
+<span id="cb292-40"><a href="supervised-machine-learning.html#cb292-40"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">predict</span>(</span>
+<span id="cb292-41"><a href="supervised-machine-learning.html#cb292-41"></a>    ru_svm_model,</span>
+<span id="cb292-42"><a href="supervised-machine-learning.html#cb292-42"></a>    ru_svm_data_testing <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb292-43"><a href="supervised-machine-learning.html#cb292-43"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(area_log, population_log)</span>
+<span id="cb292-44"><a href="supervised-machine-learning.html#cb292-44"></a>  )</span>
+<span id="cb292-45"><a href="supervised-machine-learning.html#cb292-45"></a></span>
+<span id="cb292-46"><a href="supervised-machine-learning.html#cb292-46"></a><span class="co"># Add predicted values to the table</span></span>
+<span id="cb292-47"><a href="supervised-machine-learning.html#cb292-47"></a>ru_svm_data_testing &lt;-</span>
+<span id="cb292-48"><a href="supervised-machine-learning.html#cb292-48"></a><span class="st">  </span>ru_svm_data_testing <span class="op">%&gt;%</span></span>
+<span id="cb292-49"><a href="supervised-machine-learning.html#cb292-49"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb292-50"><a href="supervised-machine-learning.html#cb292-50"></a>    <span class="dt">svm_predicted_ru =</span> ru_svm_prediction</span>
+<span id="cb292-51"><a href="supervised-machine-learning.html#cb292-51"></a>  )</span>
+<span id="cb292-52"><a href="supervised-machine-learning.html#cb292-52"></a></span>
+<span id="cb292-53"><a href="supervised-machine-learning.html#cb292-53"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb292-54"><a href="supervised-machine-learning.html#cb292-54"></a>caret<span class="op">::</span><span class="kw">confusionMatrix</span>(</span>
+<span id="cb292-55"><a href="supervised-machine-learning.html#cb292-55"></a>  ru_svm_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(svm_predicted_ru),</span>
+<span id="cb292-56"><a href="supervised-machine-learning.html#cb292-56"></a>  ru_svm_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(rural_urban),</span>
+<span id="cb292-57"><a href="supervised-machine-learning.html#cb292-57"></a>  <span class="dt">mode =</span> <span class="st">&quot;everything&quot;</span></span>
+<span id="cb292-58"><a href="supervised-machine-learning.html#cb292-58"></a>  )</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction rural urban
+##      rural    77    26
+##      urban    62   252
+##                                           
+##                Accuracy : 0.789           
+##                  95% CI : (0.7466, 0.8272)
+##     No Information Rate : 0.6667          
+##     P-Value [Acc &gt; NIR] : 2.554e-08       
+##                                           
+##                   Kappa : 0.4923          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 0.0001907       
+##                                           
+##             Sensitivity : 0.5540          
+##             Specificity : 0.9065          
+##          Pos Pred Value : 0.7476          
+##          Neg Pred Value : 0.8025          
+##               Precision : 0.7476          
+##                  Recall : 0.5540          
+##                      F1 : 0.6364          
+##              Prevalence : 0.3333          
+##          Detection Rate : 0.1847          
+##    Detection Prevalence : 0.2470          
+##       Balanced Accuracy : 0.7302          
+##                                           
+##        &#39;Positive&#39; Class : rural           
+## </code></pre>
+<p>As a third more complex example, we can explore how to build a model for rural - urban classification using the presence of the five different types of dwelling as input variables. The confusion matrix below clearly illustrates that a simple linear SVM is not adequate to construct such a model.</p>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="supervised-machine-learning.html#cb294-1"></a><span class="co"># Data for SVM model</span></span>
+<span id="cb294-2"><a href="supervised-machine-learning.html#cb294-2"></a>ru_dwellings_data &lt;-</span>
+<span id="cb294-3"><a href="supervised-machine-learning.html#cb294-3"></a><span class="st">  </span>liec_shire_2011OAC_RU <span class="op">%&gt;%</span></span>
+<span id="cb294-4"><a href="supervised-machine-learning.html#cb294-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
+<span id="cb294-5"><a href="supervised-machine-learning.html#cb294-5"></a>    OA11CD, rural_urban, Total_Dwellings,</span>
+<span id="cb294-6"><a href="supervised-machine-learning.html#cb294-6"></a>    u086<span class="op">:</span>u090</span>
+<span id="cb294-7"><a href="supervised-machine-learning.html#cb294-7"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb294-8"><a href="supervised-machine-learning.html#cb294-8"></a><span class="st">  </span><span class="co"># scale across</span></span>
+<span id="cb294-9"><a href="supervised-machine-learning.html#cb294-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb294-10"><a href="supervised-machine-learning.html#cb294-10"></a>    dplyr<span class="op">::</span><span class="kw">across</span>( </span>
+<span id="cb294-11"><a href="supervised-machine-learning.html#cb294-11"></a>      u086<span class="op">:</span>u090,</span>
+<span id="cb294-12"><a href="supervised-machine-learning.html#cb294-12"></a>      scale</span>
+<span id="cb294-13"><a href="supervised-machine-learning.html#cb294-13"></a>      <span class="co">#function(x){ (x / Total_Dwellings) * 100 }</span></span>
+<span id="cb294-14"><a href="supervised-machine-learning.html#cb294-14"></a>    )</span>
+<span id="cb294-15"><a href="supervised-machine-learning.html#cb294-15"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb294-16"><a href="supervised-machine-learning.html#cb294-16"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(</span>
+<span id="cb294-17"><a href="supervised-machine-learning.html#cb294-17"></a>    <span class="dt">scaled_detached =</span> u086,</span>
+<span id="cb294-18"><a href="supervised-machine-learning.html#cb294-18"></a>    <span class="dt">scaled_semidetached =</span> u087,</span>
+<span id="cb294-19"><a href="supervised-machine-learning.html#cb294-19"></a>    <span class="dt">scaled_terraced =</span> u088,</span>
+<span id="cb294-20"><a href="supervised-machine-learning.html#cb294-20"></a>    <span class="dt">scaled_flats =</span> u089,	</span>
+<span id="cb294-21"><a href="supervised-machine-learning.html#cb294-21"></a>    <span class="dt">scaled_carava_tmp =</span> u090</span>
+<span id="cb294-22"><a href="supervised-machine-learning.html#cb294-22"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb294-23"><a href="supervised-machine-learning.html#cb294-23"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Total_Dwellings)</span>
+<span id="cb294-24"><a href="supervised-machine-learning.html#cb294-24"></a></span>
+<span id="cb294-25"><a href="supervised-machine-learning.html#cb294-25"></a><span class="co"># Training set</span></span>
+<span id="cb294-26"><a href="supervised-machine-learning.html#cb294-26"></a>ru_dwellings_data_trainig &lt;-</span>
+<span id="cb294-27"><a href="supervised-machine-learning.html#cb294-27"></a><span class="st">  </span>ru_dwellings_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb294-28"><a href="supervised-machine-learning.html#cb294-28"></a><span class="st">  </span><span class="kw">slice_sample</span>(<span class="dt">prop =</span> <span class="fl">0.8</span>)</span>
+<span id="cb294-29"><a href="supervised-machine-learning.html#cb294-29"></a></span>
+<span id="cb294-30"><a href="supervised-machine-learning.html#cb294-30"></a><span class="co"># Testing set</span></span>
+<span id="cb294-31"><a href="supervised-machine-learning.html#cb294-31"></a>ru_dwellings_data_testing &lt;-<span class="st"> </span></span>
+<span id="cb294-32"><a href="supervised-machine-learning.html#cb294-32"></a><span class="st">  </span>ru_dwellings_data <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb294-33"><a href="supervised-machine-learning.html#cb294-33"></a><span class="st">  </span><span class="kw">anti_join</span>(ru_dwellings_data_trainig)</span>
+<span id="cb294-34"><a href="supervised-machine-learning.html#cb294-34"></a></span>
+<span id="cb294-35"><a href="supervised-machine-learning.html#cb294-35"></a><span class="co"># Build the model</span></span>
+<span id="cb294-36"><a href="supervised-machine-learning.html#cb294-36"></a>ru_dwellings_svm_model &lt;-<span class="st"> </span></span>
+<span id="cb294-37"><a href="supervised-machine-learning.html#cb294-37"></a><span class="st">  </span>ru_dwellings_data_trainig <span class="op">%$%</span></span>
+<span id="cb294-38"><a href="supervised-machine-learning.html#cb294-38"></a><span class="st">  </span>e1071<span class="op">::</span><span class="kw">svm</span>(</span>
+<span id="cb294-39"><a href="supervised-machine-learning.html#cb294-39"></a>    rural_urban <span class="op">~</span><span class="st"> </span></span>
+<span id="cb294-40"><a href="supervised-machine-learning.html#cb294-40"></a><span class="st">      </span>scaled_detached <span class="op">+</span><span class="st"> </span>scaled_semidetached <span class="op">+</span><span class="st"> </span>scaled_terraced <span class="op">+</span><span class="st"> </span></span>
+<span id="cb294-41"><a href="supervised-machine-learning.html#cb294-41"></a><span class="st">      </span>scaled_flats <span class="op">+</span><span class="st"> </span>scaled_carava_tmp, </span>
+<span id="cb294-42"><a href="supervised-machine-learning.html#cb294-42"></a>    <span class="co"># Use a simple linear hyperplane</span></span>
+<span id="cb294-43"><a href="supervised-machine-learning.html#cb294-43"></a>    <span class="dt">kernel =</span> <span class="st">&quot;linear&quot;</span>,</span>
+<span id="cb294-44"><a href="supervised-machine-learning.html#cb294-44"></a>    <span class="co"># Cost value for observations</span></span>
+<span id="cb294-45"><a href="supervised-machine-learning.html#cb294-45"></a>    <span class="co"># crossing the hyperplane</span></span>
+<span id="cb294-46"><a href="supervised-machine-learning.html#cb294-46"></a>    <span class="dt">cost =</span> <span class="dv">10</span></span>
+<span id="cb294-47"><a href="supervised-machine-learning.html#cb294-47"></a>  )</span>
+<span id="cb294-48"><a href="supervised-machine-learning.html#cb294-48"></a></span>
+<span id="cb294-49"><a href="supervised-machine-learning.html#cb294-49"></a><span class="co"># Predict the values for the testing dataset</span></span>
+<span id="cb294-50"><a href="supervised-machine-learning.html#cb294-50"></a>ru_dwellings_svm_prediction &lt;-</span>
+<span id="cb294-51"><a href="supervised-machine-learning.html#cb294-51"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">predict</span>(</span>
+<span id="cb294-52"><a href="supervised-machine-learning.html#cb294-52"></a>    ru_dwellings_svm_model,</span>
+<span id="cb294-53"><a href="supervised-machine-learning.html#cb294-53"></a>    ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb294-54"><a href="supervised-machine-learning.html#cb294-54"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(scaled_detached<span class="op">:</span>scaled_carava_tmp)</span>
+<span id="cb294-55"><a href="supervised-machine-learning.html#cb294-55"></a>  )</span>
+<span id="cb294-56"><a href="supervised-machine-learning.html#cb294-56"></a></span>
+<span id="cb294-57"><a href="supervised-machine-learning.html#cb294-57"></a><span class="co"># Add predicted values to the table</span></span>
+<span id="cb294-58"><a href="supervised-machine-learning.html#cb294-58"></a>ru_dwellings_data_testing &lt;-</span>
+<span id="cb294-59"><a href="supervised-machine-learning.html#cb294-59"></a><span class="st">  </span>ru_dwellings_data_testing <span class="op">%&gt;%</span></span>
+<span id="cb294-60"><a href="supervised-machine-learning.html#cb294-60"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb294-61"><a href="supervised-machine-learning.html#cb294-61"></a>    <span class="dt">dwellings_svm_predicted_ru =</span> ru_dwellings_svm_prediction</span>
+<span id="cb294-62"><a href="supervised-machine-learning.html#cb294-62"></a>  )</span>
+<span id="cb294-63"><a href="supervised-machine-learning.html#cb294-63"></a></span>
+<span id="cb294-64"><a href="supervised-machine-learning.html#cb294-64"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb294-65"><a href="supervised-machine-learning.html#cb294-65"></a>caret<span class="op">::</span><span class="kw">confusionMatrix</span>(</span>
+<span id="cb294-66"><a href="supervised-machine-learning.html#cb294-66"></a>  ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(dwellings_svm_predicted_ru),</span>
+<span id="cb294-67"><a href="supervised-machine-learning.html#cb294-67"></a>  ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(rural_urban),</span>
+<span id="cb294-68"><a href="supervised-machine-learning.html#cb294-68"></a>  <span class="dt">mode =</span> <span class="st">&quot;everything&quot;</span></span>
+<span id="cb294-69"><a href="supervised-machine-learning.html#cb294-69"></a>  )</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction rural urban
+##      rural     0     0
+##      urban   137   280
+##                                           
+##                Accuracy : 0.6715          
+##                  95% CI : (0.6241, 0.7164)
+##     No Information Rate : 0.6715          
+##     P-Value [Acc &gt; NIR] : 0.5232          
+##                                           
+##                   Kappa : 0               
+##                                           
+##  Mcnemar&#39;s Test P-Value : &lt;2e-16          
+##                                           
+##             Sensitivity : 0.0000          
+##             Specificity : 1.0000          
+##          Pos Pred Value :    NaN          
+##          Neg Pred Value : 0.6715          
+##               Precision :     NA          
+##                  Recall : 0.0000          
+##                      F1 :     NA          
+##              Prevalence : 0.3285          
+##          Detection Rate : 0.0000          
+##    Detection Prevalence : 0.0000          
+##       Balanced Accuracy : 0.5000          
+##                                           
+##        &#39;Positive&#39; Class : rural           
+## </code></pre>
+</div>
+<div id="kernels" class="section level3">
+<h3><span class="header-section-number">9.2.4</span> Kernels</h3>
+<p>Instead of relying on simple linear hyperplanes, we can use the <em>“kernel trick”</em> to project the data into a higher-dimensional space, which might allow groups to be (more easily) linearly separable.</p>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="supervised-machine-learning.html#cb296-1"></a><span class="co"># Build a second model</span></span>
+<span id="cb296-2"><a href="supervised-machine-learning.html#cb296-2"></a><span class="co"># using a radial kernel</span></span>
+<span id="cb296-3"><a href="supervised-machine-learning.html#cb296-3"></a>ru_dwellings_svm_radial_model &lt;-<span class="st"> </span></span>
+<span id="cb296-4"><a href="supervised-machine-learning.html#cb296-4"></a><span class="st">  </span>ru_dwellings_data_trainig <span class="op">%$%</span></span>
+<span id="cb296-5"><a href="supervised-machine-learning.html#cb296-5"></a><span class="st">  </span>e1071<span class="op">::</span><span class="kw">svm</span>(</span>
+<span id="cb296-6"><a href="supervised-machine-learning.html#cb296-6"></a>    rural_urban <span class="op">~</span><span class="st"> </span></span>
+<span id="cb296-7"><a href="supervised-machine-learning.html#cb296-7"></a><span class="st">      </span>scaled_detached <span class="op">+</span><span class="st"> </span>scaled_semidetached <span class="op">+</span><span class="st"> </span>scaled_terraced <span class="op">+</span><span class="st"> </span></span>
+<span id="cb296-8"><a href="supervised-machine-learning.html#cb296-8"></a><span class="st">      </span>scaled_flats <span class="op">+</span><span class="st"> </span>scaled_carava_tmp, </span>
+<span id="cb296-9"><a href="supervised-machine-learning.html#cb296-9"></a>    <span class="co"># Use a radial kernel</span></span>
+<span id="cb296-10"><a href="supervised-machine-learning.html#cb296-10"></a>    <span class="dt">kernel =</span> <span class="st">&quot;radial&quot;</span>,</span>
+<span id="cb296-11"><a href="supervised-machine-learning.html#cb296-11"></a>    <span class="co"># Cost value for observations</span></span>
+<span id="cb296-12"><a href="supervised-machine-learning.html#cb296-12"></a>    <span class="co"># crossing the hyperplane</span></span>
+<span id="cb296-13"><a href="supervised-machine-learning.html#cb296-13"></a>    <span class="dt">cost =</span> <span class="dv">10</span></span>
+<span id="cb296-14"><a href="supervised-machine-learning.html#cb296-14"></a>  )</span>
+<span id="cb296-15"><a href="supervised-machine-learning.html#cb296-15"></a></span>
+<span id="cb296-16"><a href="supervised-machine-learning.html#cb296-16"></a><span class="co"># Predict the values for the testing dataset</span></span>
+<span id="cb296-17"><a href="supervised-machine-learning.html#cb296-17"></a>ru_svm_dwellings_radial_prediction &lt;-</span>
+<span id="cb296-18"><a href="supervised-machine-learning.html#cb296-18"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">predict</span>(</span>
+<span id="cb296-19"><a href="supervised-machine-learning.html#cb296-19"></a>    ru_dwellings_svm_radial_model,</span>
+<span id="cb296-20"><a href="supervised-machine-learning.html#cb296-20"></a>    ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb296-21"><a href="supervised-machine-learning.html#cb296-21"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(scaled_detached<span class="op">:</span>scaled_carava_tmp)</span>
+<span id="cb296-22"><a href="supervised-machine-learning.html#cb296-22"></a>  )</span>
+<span id="cb296-23"><a href="supervised-machine-learning.html#cb296-23"></a></span>
+<span id="cb296-24"><a href="supervised-machine-learning.html#cb296-24"></a><span class="co"># Add predicted values to the table</span></span>
+<span id="cb296-25"><a href="supervised-machine-learning.html#cb296-25"></a>ru_dwellings_data_testing &lt;-</span>
+<span id="cb296-26"><a href="supervised-machine-learning.html#cb296-26"></a><span class="st">  </span>ru_dwellings_data_testing <span class="op">%&gt;%</span></span>
+<span id="cb296-27"><a href="supervised-machine-learning.html#cb296-27"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb296-28"><a href="supervised-machine-learning.html#cb296-28"></a>    <span class="dt">dwellings_radial_predicted_ru =</span> ru_svm_dwellings_radial_prediction</span>
+<span id="cb296-29"><a href="supervised-machine-learning.html#cb296-29"></a>  )</span>
+<span id="cb296-30"><a href="supervised-machine-learning.html#cb296-30"></a></span>
+<span id="cb296-31"><a href="supervised-machine-learning.html#cb296-31"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb296-32"><a href="supervised-machine-learning.html#cb296-32"></a>caret<span class="op">::</span><span class="kw">confusionMatrix</span>(</span>
+<span id="cb296-33"><a href="supervised-machine-learning.html#cb296-33"></a>  ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(dwellings_radial_predicted_ru),</span>
+<span id="cb296-34"><a href="supervised-machine-learning.html#cb296-34"></a>  ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(rural_urban),</span>
+<span id="cb296-35"><a href="supervised-machine-learning.html#cb296-35"></a>  <span class="dt">mode =</span> <span class="st">&quot;everything&quot;</span></span>
+<span id="cb296-36"><a href="supervised-machine-learning.html#cb296-36"></a>  )</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction rural urban
+##      rural    43    22
+##      urban    94   258
+##                                           
+##                Accuracy : 0.7218          
+##                  95% CI : (0.6761, 0.7643)
+##     No Information Rate : 0.6715          
+##     P-Value [Acc &gt; NIR] : 0.01534         
+##                                           
+##                   Kappa : 0.2718          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 4.334e-11       
+##                                           
+##             Sensitivity : 0.3139          
+##             Specificity : 0.9214          
+##          Pos Pred Value : 0.6615          
+##          Neg Pred Value : 0.7330          
+##               Precision : 0.6615          
+##                  Recall : 0.3139          
+##                      F1 : 0.4257          
+##              Prevalence : 0.3285          
+##          Detection Rate : 0.1031          
+##    Detection Prevalence : 0.1559          
+##       Balanced Accuracy : 0.6176          
+##                                           
+##        &#39;Positive&#39; Class : rural           
+## </code></pre>
+</div>
+<div id="artificial-neural-network" class="section level3">
+<h3><span class="header-section-number">9.2.5</span> Artificial neural network</h3>
+<p>Finally, we can explore the construction of an ANN for the same input and output variables seen in the previous example, and compare which one of the two approaches produces better results. The example below creates a multi-layer ANN, using two hidden layers, with five and two nodes, respectively.</p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="supervised-machine-learning.html#cb298-1"></a><span class="co"># Load library for ANNs</span></span>
+<span id="cb298-2"><a href="supervised-machine-learning.html#cb298-2"></a><span class="kw">library</span>(neuralnet)</span>
+<span id="cb298-3"><a href="supervised-machine-learning.html#cb298-3"></a></span>
+<span id="cb298-4"><a href="supervised-machine-learning.html#cb298-4"></a><span class="co"># Build a third model</span></span>
+<span id="cb298-5"><a href="supervised-machine-learning.html#cb298-5"></a><span class="co"># using an ANN</span></span>
+<span id="cb298-6"><a href="supervised-machine-learning.html#cb298-6"></a>ru_dwellings_nnet_model &lt;-</span>
+<span id="cb298-7"><a href="supervised-machine-learning.html#cb298-7"></a><span class="st">  </span>neuralnet<span class="op">::</span><span class="kw">neuralnet</span>(</span>
+<span id="cb298-8"><a href="supervised-machine-learning.html#cb298-8"></a>    rural_urban <span class="op">~</span><span class="st"> </span></span>
+<span id="cb298-9"><a href="supervised-machine-learning.html#cb298-9"></a><span class="st">      </span>scaled_detached <span class="op">+</span><span class="st"> </span>scaled_semidetached <span class="op">+</span><span class="st"> </span>scaled_terraced <span class="op">+</span><span class="st"> </span></span>
+<span id="cb298-10"><a href="supervised-machine-learning.html#cb298-10"></a><span class="st">      </span>scaled_flats <span class="op">+</span><span class="st"> </span>scaled_carava_tmp,</span>
+<span id="cb298-11"><a href="supervised-machine-learning.html#cb298-11"></a>    <span class="dt">data =</span> ru_dwellings_data_trainig,</span>
+<span id="cb298-12"><a href="supervised-machine-learning.html#cb298-12"></a>    <span class="co"># Use 2 hidden layers</span></span>
+<span id="cb298-13"><a href="supervised-machine-learning.html#cb298-13"></a>    <span class="dt">hidden =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">2</span>),</span>
+<span id="cb298-14"><a href="supervised-machine-learning.html#cb298-14"></a>    <span class="co"># Max num of steps for training</span></span>
+<span id="cb298-15"><a href="supervised-machine-learning.html#cb298-15"></a>    <span class="dt">stepmax =</span> <span class="dv">1000000</span></span>
+<span id="cb298-16"><a href="supervised-machine-learning.html#cb298-16"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="supervised-machine-learning.html#cb299-1"></a>ru_dwellings_nnet_model <span class="op">%&gt;%</span><span class="st">  </span><span class="kw">plot</span>(<span class="dt">rep =</span> <span class="st">&quot;best&quot;</span>)</span></code></pre></div>
+<p><img src="404_P_SupervisedLearning_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="supervised-machine-learning.html#cb300-1"></a><span class="co"># Predict the values for the testing dataset</span></span>
+<span id="cb300-2"><a href="supervised-machine-learning.html#cb300-2"></a>ru_dwellings_nnet_prediction &lt;-</span>
+<span id="cb300-3"><a href="supervised-machine-learning.html#cb300-3"></a><span class="st">  </span>neuralnet<span class="op">::</span><span class="kw">compute</span>(</span>
+<span id="cb300-4"><a href="supervised-machine-learning.html#cb300-4"></a>    ru_dwellings_nnet_model,</span>
+<span id="cb300-5"><a href="supervised-machine-learning.html#cb300-5"></a>    ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb300-6"><a href="supervised-machine-learning.html#cb300-6"></a><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(scaled_detached<span class="op">:</span>scaled_carava_tmp)</span>
+<span id="cb300-7"><a href="supervised-machine-learning.html#cb300-7"></a>  )</span>
+<span id="cb300-8"><a href="supervised-machine-learning.html#cb300-8"></a></span>
+<span id="cb300-9"><a href="supervised-machine-learning.html#cb300-9"></a><span class="co"># Derive predicted categories</span></span>
+<span id="cb300-10"><a href="supervised-machine-learning.html#cb300-10"></a>ru_dwellings_nnet_predicted_categories &lt;-</span>
+<span id="cb300-11"><a href="supervised-machine-learning.html#cb300-11"></a><span class="st">  </span><span class="co"># from the prediction object</span></span>
+<span id="cb300-12"><a href="supervised-machine-learning.html#cb300-12"></a><span class="st">  </span>ru_dwellings_nnet_prediction <span class="op">%$%</span></span>
+<span id="cb300-13"><a href="supervised-machine-learning.html#cb300-13"></a><span class="st">  </span><span class="co"># extract the result</span></span>
+<span id="cb300-14"><a href="supervised-machine-learning.html#cb300-14"></a><span class="st">  </span><span class="co"># which is a matrix of probabilities</span></span>
+<span id="cb300-15"><a href="supervised-machine-learning.html#cb300-15"></a><span class="st">  </span><span class="co"># for each object and category</span></span>
+<span id="cb300-16"><a href="supervised-machine-learning.html#cb300-16"></a><span class="st">  </span>net.result <span class="op">%&gt;%</span></span>
+<span id="cb300-17"><a href="supervised-machine-learning.html#cb300-17"></a><span class="st">  </span><span class="co"># select the column (thus the category)</span></span>
+<span id="cb300-18"><a href="supervised-machine-learning.html#cb300-18"></a><span class="st">  </span><span class="co"># with higher probability</span></span>
+<span id="cb300-19"><a href="supervised-machine-learning.html#cb300-19"></a><span class="st">  </span>max.col <span class="op">%&gt;%</span></span>
+<span id="cb300-20"><a href="supervised-machine-learning.html#cb300-20"></a><span class="st">  </span><span class="co"># recode columns values as</span></span>
+<span id="cb300-21"><a href="supervised-machine-learning.html#cb300-21"></a><span class="st">  </span><span class="co"># rural or urban</span></span>
+<span id="cb300-22"><a href="supervised-machine-learning.html#cb300-22"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">recode</span>(</span>
+<span id="cb300-23"><a href="supervised-machine-learning.html#cb300-23"></a>    <span class="st">`</span><span class="dt">1</span><span class="st">`</span> =<span class="st"> &quot;rural&quot;</span>,</span>
+<span id="cb300-24"><a href="supervised-machine-learning.html#cb300-24"></a>    <span class="st">`</span><span class="dt">2</span><span class="st">`</span> =<span class="st"> &quot;urban&quot;</span></span>
+<span id="cb300-25"><a href="supervised-machine-learning.html#cb300-25"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb300-26"><a href="supervised-machine-learning.html#cb300-26"></a><span class="st">  </span>forcats<span class="op">::</span><span class="kw">as_factor</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb300-27"><a href="supervised-machine-learning.html#cb300-27"></a><span class="st">  </span>forcats<span class="op">::</span><span class="kw">fct_relevel</span>(</span>
+<span id="cb300-28"><a href="supervised-machine-learning.html#cb300-28"></a>    <span class="kw">c</span>(<span class="st">&quot;rural&quot;</span>, <span class="st">&quot;urban&quot;</span>)</span>
+<span id="cb300-29"><a href="supervised-machine-learning.html#cb300-29"></a>  )</span>
+<span id="cb300-30"><a href="supervised-machine-learning.html#cb300-30"></a></span>
+<span id="cb300-31"><a href="supervised-machine-learning.html#cb300-31"></a><span class="co"># Add predicted values to the table</span></span>
+<span id="cb300-32"><a href="supervised-machine-learning.html#cb300-32"></a>ru_dwellings_data_testing &lt;-</span>
+<span id="cb300-33"><a href="supervised-machine-learning.html#cb300-33"></a><span class="st">  </span>ru_dwellings_data_testing <span class="op">%&gt;%</span></span>
+<span id="cb300-34"><a href="supervised-machine-learning.html#cb300-34"></a><span class="st">  </span>tibble<span class="op">::</span><span class="kw">add_column</span>(</span>
+<span id="cb300-35"><a href="supervised-machine-learning.html#cb300-35"></a>    <span class="dt">dwellings_nnet_predicted_ru =</span> </span>
+<span id="cb300-36"><a href="supervised-machine-learning.html#cb300-36"></a>      ru_dwellings_nnet_predicted_categories</span>
+<span id="cb300-37"><a href="supervised-machine-learning.html#cb300-37"></a>  )</span>
+<span id="cb300-38"><a href="supervised-machine-learning.html#cb300-38"></a></span>
+<span id="cb300-39"><a href="supervised-machine-learning.html#cb300-39"></a><span class="co"># Confusion matrix</span></span>
+<span id="cb300-40"><a href="supervised-machine-learning.html#cb300-40"></a>caret<span class="op">::</span><span class="kw">confusionMatrix</span>(</span>
+<span id="cb300-41"><a href="supervised-machine-learning.html#cb300-41"></a>  ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(dwellings_nnet_predicted_ru),</span>
+<span id="cb300-42"><a href="supervised-machine-learning.html#cb300-42"></a>  ru_dwellings_data_testing <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(rural_urban),</span>
+<span id="cb300-43"><a href="supervised-machine-learning.html#cb300-43"></a>  <span class="dt">mode =</span> <span class="st">&quot;everything&quot;</span></span>
+<span id="cb300-44"><a href="supervised-machine-learning.html#cb300-44"></a>  )</span></code></pre></div>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction rural urban
+##      rural    52    28
+##      urban    85   252
+##                                           
+##                Accuracy : 0.729           
+##                  95% CI : (0.6836, 0.7711)
+##     No Information Rate : 0.6715          
+##     P-Value [Acc &gt; NIR] : 0.006496        
+##                                           
+##                   Kappa : 0.3128          
+##                                           
+##  Mcnemar&#39;s Test P-Value : 1.379e-07       
+##                                           
+##             Sensitivity : 0.3796          
+##             Specificity : 0.9000          
+##          Pos Pred Value : 0.6500          
+##          Neg Pred Value : 0.7478          
+##               Precision : 0.6500          
+##                  Recall : 0.3796          
+##                      F1 : 0.4793          
+##              Prevalence : 0.3285          
+##          Detection Rate : 0.1247          
+##    Detection Prevalence : 0.1918          
+##       Balanced Accuracy : 0.6398          
+##                                           
+##        &#39;Positive&#39; Class : rural           
+## </code></pre>
+</div>
+</div>
+<div id="exercise-404.1" class="section level2">
+<h2><span class="header-section-number">9.3</span> Exercise 404.1</h2>
+<p><strong>Question 404.1.1:</strong> Create an SVM model capable of classifying areas in Leicester and Leicestershire as rural or urban based on the series of variables that relate to <em>“Economic Activity”</em> among the 167 initial variables used to create the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification</a> (<a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a>).</p>
+<p><strong>Question 404.1.2:</strong> Create an ANN using the same input and output values used in Question 404.1.1.</p>
+<p><strong>Question 404.1.3:</strong> Assess which one of the two models preforms a better classification.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="regression-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="unsupervised-machine-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["granolarr_practical_session_materials.pdf", "PDF"], ["granolarr_practical_session_materials.epub", "EPUB"]],
+"toc": {
+"collapse": "subsection"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

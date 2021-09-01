@@ -1,0 +1,258 @@
+---
+title: "Lecture 202"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Selection and filtering
+
+
+
+## Recap
+
+**Prev**: Data Frames
+
+- Data Frames
+- Tibbles
+
+**Now**: Data selection and filtering
+
+- dplyr
+- dplyr::select
+- dplyr::filter
+
+
+
+## dplyr
+
+The `dplyr` (pronounced *dee-ply-er*) library is part of `tidyverse` and it offers a grammar for data manipulation
+
+- `select`: select specific columns
+- `filter`: select specific rows
+- `arrange`: arrange rows in a particular order
+- `summarise`: calculate aggregated values (e.g., mean, max, etc)
+- `group_by`: group data based on common column values
+- `mutate`: add columns
+- `join`: merge tables (`tibbles` or `data.frames`)
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+
+## Example dataset
+
+The library `nycflights13` contains a dataset storing data about all the flights departed from New York City in 2013
+<!--
+```{r, echo=TRUE, eval=FALSE}
+install.packages("nycflights13")
+```
+-->
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+library(nycflights13)
+
+nycflights13::flights
+```
+```{r, echo=FALSE}
+library(nycflights13)
+
+nycflights13::flights %>% 
+  print(n= 3, width = 70)
+```
+
+
+
+## Selecting table columns
+
+Columns of **data frames** and **tibbles** can be selected
+
+- specifying the column index
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights[, c(13, 14)]
+```
+
+- specifying the column name
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights[, c("origin", "dest")]
+```
+```{r, echo=FALSE}
+nycflights13::flights[, c("origin", "dest")] %>% 
+  print(n = 3)
+```
+
+
+
+## dplyr::select
+
+`select` can be used to specify which columns to retain
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  dplyr::select( 
+    origin, dest, dep_delay, arr_delay, year:day
+  )
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::select( 
+    origin, dest, dep_delay, arr_delay, year:day
+  ) %>% 
+  print(n = 5)
+```
+
+
+## dplyr::select
+
+... or whichones to drop, using - in front of the column name
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>% 
+  dplyr::select(-arr_delay)
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::select(
+    origin, dest, dep_delay, arr_delay, year:day
+  ) %>% 
+  dplyr::select(
+    -arr_delay
+  ) %>% 
+  print(n = 3)
+```
+
+
+## Logical filtering
+
+Conditional statements can be used to filter a vector
+
+- i.e. to retain only certain values
+- where the specified value is `TRUE`
+
+```{r, echo=TRUE}
+a_numeric_vector <- -3:3
+a_numeric_vector
+a_numeric_vector[c(FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)]
+```
+
+
+
+## Conditional filtering
+
+As a conditional expression results in a logic vector...
+
+```{r, echo=TRUE}
+a_numeric_vector > 0
+```
+
+<br/>
+... conditional expressions can be used for filtering
+
+```{r, echo=TRUE}
+a_numeric_vector[a_numeric_vector > 0]
+```
+
+
+
+## Filtering data frames
+
+The same approach can be applied to **data frames** and **tibbles**
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights$month
+```
+```{r, echo=FALSE}
+capture.output(nycflights13::flights$month)[1] %>% str_trunc(52) %>% cat()
+```
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights$month == 11
+```
+```{r, echo=FALSE}
+capture.output(nycflights13::flights$month == 11)[1] %>% str_trunc(52) %>% cat()
+```
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights[nycflights13::flights$month == 11, ]
+```
+```{r, echo=FALSE}
+nycflights13::flights[nycflights13::flights$month == 11, ] %>% 
+  print(n = 1, width = 52)
+```
+
+
+
+## dplyr::filter
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  # Flights in November
+  dplyr::filter(month == 11)
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::filter(month == 11) %>%
+  print(n = 3, width = 52)
+```
+
+
+
+
+## Select and filter
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  # Select the columns you need
+  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>% 
+  # Drop arr_delay... because you don't need it after all
+  dplyr::select(-arr_delay) %>%
+  # Filter in only November flights
+  dplyr::filter(month == 11)
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>%
+  dplyr::select(-arr_delay) %>%
+  dplyr::filter(month == 11) %>%
+  print(n = 3, width = 52)
+```
+
+
+
+## Summary
+
+Data selection and filtering
+
+- dplyr
+- dplyr::select
+- dplyr::filter
+
+**Next**: Data manipulation
+
+- dplyr::arrange
+- dplyr::summarise
+- dplyr::group_by
+- dplyr::mutate
+
+
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

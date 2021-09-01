@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 Exploratory data analysis | Practical session materials | granolarr</title>
+  <meta name="description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 Exploratory data analysis | Practical session materials | granolarr" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://sdesabbata.github.io/granolarr/" />
+  
+  <meta property="og:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="github-repo" content="sdesabbata/granolarr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 Exploratory data analysis | Practical session materials | granolarr" />
+  
+  <meta name="twitter:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  
+
+<meta name="author" content="Stefano De Sabbata" />
+
+
+<meta name="date" content="2021-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="reproducibility.html"/>
+<link rel="next" href="comparing-data.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#session-info"><i class="fa fa-check"></i>Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-r-programming-language"><i class="fa fa-check"></i><b>1.1</b> The R programming language</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.1.1</b> Using RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#interpreting-values"><i class="fa fa-check"></i><b>1.2</b> Interpreting values</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#variables"><i class="fa fa-check"></i><b>1.3</b> Variables</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-types"><i class="fa fa-check"></i><b>1.4</b> Basic types</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#numeric"><i class="fa fa-check"></i><b>1.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#logical"><i class="fa fa-check"></i><b>1.4.2</b> Logical</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#character"><i class="fa fa-check"></i><b>1.4.3</b> Character</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidyverse"><i class="fa fa-check"></i><b>1.5</b> Tidyverse</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#stringr"><i class="fa fa-check"></i><b>1.5.1</b> stringr</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-pipe-operator"><i class="fa fa-check"></i><b>1.5.2</b> The pipe operator</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#coding-style"><i class="fa fa-check"></i><b>1.6</b> Coding style</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.1"><i class="fa fa-check"></i><b>1.7</b> Exercise 104.1</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.2"><i class="fa fa-check"></i><b>1.8</b> Exercise 104.2</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>2</b> R programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="r-programming.html"><a href="r-programming.html#r-scripts"><i class="fa fa-check"></i><b>2.1</b> R Scripts</a></li>
+<li class="chapter" data-level="2.2" data-path="r-programming.html"><a href="r-programming.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="r-programming.html"><a href="r-programming.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="r-programming.html"><a href="r-programming.html#conditional-statements"><i class="fa fa-check"></i><b>2.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="2.5" data-path="r-programming.html"><a href="r-programming.html#loops"><i class="fa fa-check"></i><b>2.5</b> Loops</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="r-programming.html"><a href="r-programming.html#conditional-loops"><i class="fa fa-check"></i><b>2.5.1</b> Conditional Loops</a></li>
+<li class="chapter" data-level="2.5.2" data-path="r-programming.html"><a href="r-programming.html#deterministic-loops"><i class="fa fa-check"></i><b>2.5.2</b> Deterministic Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="r-programming.html"><a href="r-programming.html#exercise-114.1"><i class="fa fa-check"></i><b>2.6</b> Exercise 114.1</a></li>
+<li class="chapter" data-level="2.7" data-path="r-programming.html"><a href="r-programming.html#function-definition"><i class="fa fa-check"></i><b>2.7</b> Function definition</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-programming.html"><a href="r-programming.html#functions-and-control-structures"><i class="fa fa-check"></i><b>2.7.1</b> Functions and control structures</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="r-programming.html"><a href="r-programming.html#exercise-114.2"><i class="fa fa-check"></i><b>2.8</b> Exercise 114.2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html"><i class="fa fa-check"></i><b>3</b> Data wrangling Pt. 1</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#install-libraries"><i class="fa fa-check"></i><b>3.2</b> Install libraries</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#loading-r-scripts"><i class="fa fa-check"></i><b>3.2.1</b> Loading R scripts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#summarise"><i class="fa fa-check"></i><b>3.3.1</b> Summarise</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#select-and-filter"><i class="fa fa-check"></i><b>3.3.2</b> Select and filter</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#mutate"><i class="fa fa-check"></i><b>3.3.3</b> Mutate</a></li>
+<li class="chapter" data-level="3.3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#arrange"><i class="fa fa-check"></i><b>3.3.4</b> Arrange</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation-example"><i class="fa fa-check"></i><b>3.4</b> Data manipulation example</a></li>
+<li class="chapter" data-level="3.5" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#exercise-204.1"><i class="fa fa-check"></i><b>3.5</b> Exercise 204.1</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html"><i class="fa fa-check"></i><b>4</b> Data wrangling Pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#table-manipulation"><i class="fa fa-check"></i><b>4.1</b> Table manipulation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#long-and-wide-formats"><i class="fa fa-check"></i><b>4.1.1</b> Long and wide formats</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join"><i class="fa fa-check"></i><b>4.1.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#read-and-write-data"><i class="fa fa-check"></i><b>4.2</b> Read and write data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#file-paths"><i class="fa fa-check"></i><b>4.2.1</b> File paths</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#data-wrangling-example"><i class="fa fa-check"></i><b>4.3</b> Data wrangling example</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#re-shaping"><i class="fa fa-check"></i><b>4.3.1</b> Re-shaping</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join-1"><i class="fa fa-check"></i><b>4.3.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.1"><i class="fa fa-check"></i><b>4.4</b> Exercise 214.1</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.2"><i class="fa fa-check"></i><b>4.5</b> Exercise 214.2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>5</b> Reproducibility</a><ul>
+<li class="chapter" data-level="5.1" data-path="reproducibility.html"><a href="reproducibility.html#markdown"><i class="fa fa-check"></i><b>5.1</b> Markdown</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="reproducibility.html"><a href="reproducibility.html#r-markdown"><i class="fa fa-check"></i><b>5.1.1</b> R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.1"><i class="fa fa-check"></i><b>5.2</b> Exercise 224.1</a></li>
+<li class="chapter" data-level="5.3" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.2"><i class="fa fa-check"></i><b>5.3</b> Exercise 224.2</a></li>
+<li class="chapter" data-level="5.4" data-path="reproducibility.html"><a href="reproducibility.html#git"><i class="fa fa-check"></i><b>5.4</b> Git</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="reproducibility.html"><a href="reproducibility.html#git-and-rstudio"><i class="fa fa-check"></i><b>5.4.1</b> Git and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.3"><i class="fa fa-check"></i><b>5.5</b> Exercise 224.3</a></li>
+<li class="chapter" data-level="5.6" data-path="reproducibility.html"><a href="reproducibility.html#cloning-granolarr"><i class="fa fa-check"></i><b>5.6</b> Cloning granolarr</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#gglot2-recap"><i class="fa fa-check"></i><b>6.2</b> GGlot2 recap</a></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data-visualisation"><i class="fa fa-check"></i><b>6.3</b> Data visualisation</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#distributions"><i class="fa fa-check"></i><b>6.3.1</b> Distributions</a></li>
+<li class="chapter" data-level="6.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>6.3.2</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.1"><i class="fa fa-check"></i><b>6.4</b> Exercise 304.1</a></li>
+<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploratory-statistics"><i class="fa fa-check"></i><b>6.5</b> Exploratory statistics</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.2"><i class="fa fa-check"></i><b>6.6</b> Exercise 304.2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comparing-data.html"><a href="comparing-data.html"><i class="fa fa-check"></i><b>7</b> Comparing data</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="comparing-data.html"><a href="comparing-data.html#anova"><i class="fa fa-check"></i><b>7.2</b> ANOVA</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>7.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.1"><i class="fa fa-check"></i><b>7.3</b> Exercise 314.1</a></li>
+<li class="chapter" data-level="7.4" data-path="comparing-data.html"><a href="comparing-data.html#correlation"><i class="fa fa-check"></i><b>7.4</b> Correlation</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.2"><i class="fa fa-check"></i><b>7.5</b> Exercise 314.2</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>8</b> Regression analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-regression"><i class="fa fa-check"></i><b>8.1</b> Simple regression</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>8.1.1</b> Example</a></li>
+<li class="chapter" data-level="8.1.2" data-path="regression-analysis.html"><a href="regression-analysis.html#checking-assumptions"><i class="fa fa-check"></i><b>8.1.2</b> Checking assumptions</a></li>
+<li class="chapter" data-level="8.1.3" data-path="regression-analysis.html"><a href="regression-analysis.html#how-to-report"><i class="fa fa-check"></i><b>8.1.3</b> How to report</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="regression-analysis.html"><a href="regression-analysis.html#multiple-regression"><i class="fa fa-check"></i><b>8.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>8.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="regression-analysis.html"><a href="regression-analysis.html#exercise-324.1"><i class="fa fa-check"></i><b>8.3</b> Exercise 324.1</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-networks"><i class="fa fa-check"></i><b>9.1.1</b> Artificial neural networks</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines"><i class="fa fa-check"></i><b>9.1.2</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#confusion-matrices"><i class="fa fa-check"></i><b>9.1.3</b> Confusion matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>9.2</b> Examples</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#data"><i class="fa fa-check"></i><b>9.2.1</b> Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#logistic-regression"><i class="fa fa-check"></i><b>9.2.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines-1"><i class="fa fa-check"></i><b>9.2.3</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#kernels"><i class="fa fa-check"></i><b>9.2.4</b> Kernels</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-network"><i class="fa fa-check"></i><b>9.2.5</b> Artificial neural network</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#exercise-404.1"><i class="fa fa-check"></i><b>9.3</b> Exercise 404.1</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>10</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means"><i class="fa fa-check"></i><b>10.1.1</b> K-means</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#number-of-clusters"><i class="fa fa-check"></i><b>10.1.2</b> Number of clusters</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#geodemographic-classification"><i class="fa fa-check"></i><b>10.1.3</b> Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#terrace-and-semi-detached-houses"><i class="fa fa-check"></i><b>10.2.1</b> Terrace and semi-detached houses</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters"><i class="fa fa-check"></i><b>10.2.2</b> Interpreting the clusters</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#a-geodemographic-of-dwelling-types"><i class="fa fa-check"></i><b>10.2.3</b> A geodemographic of dwelling types</a></li>
+<li class="chapter" data-level="10.2.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters-1"><i class="fa fa-check"></i><b>10.2.4</b> Interpreting the clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#exercise-414.1"><i class="fa fa-check"></i><b>10.3</b> Exercise 414.1</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical session materials | granolarr</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exploratory-data-analysis" class="section level1">
+<h1><span class="header-section-number">6</span> Exploratory data analysis</h1>
+<p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
+<p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p>This practical showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the <code>u011</code> variable from the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification (2011OAC)</a> dataset. Create a new R project for this practical session and create a new RMarkdown document to replicate the analysis in this document.</p>
+<p>Once the document is set up, start by adding the first R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for the practical session.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="exploratory-data-analysis.html#cb207-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb207-2"><a href="exploratory-data-analysis.html#cb207-2"></a><span class="kw">library</span>(knitr)</span>
+<span id="cb207-3"><a href="exploratory-data-analysis.html#cb207-3"></a>leicester_2011OAC &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;2011_OAC_Raw_uVariables_Leicester.csv&quot;</span>)</span></code></pre></div>
+</div>
+<div id="gglot2-recap" class="section level2">
+<h2><span class="header-section-number">6.2</span> GGlot2 recap</h2>
+<p>As seen in the practical session 401, the <a href="https://ggplot2.tidyverse.org"><code>ggplot2</code> library</a> is part of the Tidyverse, and it offers a series of functions for creating graphics <strong>declaratively</strong>, based on the concepts outlined in the Grammar of Graphics. While the <code>dplyr</code> library offers functionalities that cover <em>data manipulation</em> and <em>variable transformations</em>, the <code>ggplot2</code> library offers functionalities that allow to specify elements, define guides, and apply scale and coordinate system transformations.</p>
+<ul>
+<li><strong>Marks</strong> can be specified in <code>ggplot2</code> using the <a href="https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms"><code>geom_</code> functions</a>.</li>
+<li>The mapping of variables (table columns) to <strong>visual variables</strong> can be specified in <code>ggplot2</code> using the <a href="https://ggplot2.tidyverse.org/reference/aes.html"><code>aes</code> element</a>.</li>
+<li>Furthermore, the <code>ggplot2</code> library:
+<ul>
+<li>automatically adds all necessary <strong>guides</strong> using default table column names, and additional functions can be used to overwrite the defaults;</li>
+<li>provides a wide range of <a href="https://ggplot2.tidyverse.org/reference/index.html#section-scales"><code>scale_</code> functions</a> that can be used to control the <strong>scales</strong> of all visual variables;</li>
+<li>provides a series of <a href="https://ggplot2.tidyverse.org/reference/index.html#section-coordinate-systems"><code>coord_</code> fucntions</a> that allow transforming the <strong>coordinate system</strong>.</li>
+</ul></li>
+</ul>
+<p>Check out the <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> reference</a> for all the details about the functions and options discussed below.</p>
+</div>
+<div id="data-visualisation" class="section level2">
+<h2><span class="header-section-number">6.3</span> Data visualisation</h2>
+<div id="distributions" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Distributions</h3>
+<p>We start the analysis with a simple histogram, to explore the distribution of the variable <code>u011</code>. RMarkdown allows specifying the height (as well as the width) of the figure as an option for the R snipped, as shown in the example typed out in plain text below.</p>
+<pre><code>```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
+leicester_2011OAC %&gt;%
+  ggplot2::ggplot(
+    aes(
+      x = u011
+    )
+  ) +
+  ggplot2::geom_histogram(binwidth = 5) +
+  ggplot2::theme_bw()
+```</code></pre>
+<p>The snipped and barchart is included in output documents, as shown below.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="exploratory-data-analysis.html#cb209-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb209-2"><a href="exploratory-data-analysis.html#cb209-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb209-3"><a href="exploratory-data-analysis.html#cb209-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb209-4"><a href="exploratory-data-analysis.html#cb209-4"></a>      <span class="dt">x =</span> u011</span>
+<span id="cb209-5"><a href="exploratory-data-analysis.html#cb209-5"></a>    )</span>
+<span id="cb209-6"><a href="exploratory-data-analysis.html#cb209-6"></a>  ) <span class="op">+</span></span>
+<span id="cb209-7"><a href="exploratory-data-analysis.html#cb209-7"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb209-8"><a href="exploratory-data-analysis.html#cb209-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship.</p>
+<p>For instance, the barchart above can be enhanced through the use of the visual variable colour and the <code>fill</code> option. The graphic below uses a few options seen in the practical session 401 to create a stacked barchart, where sections of each bar are filled with the colour associated with a 2011OAC supergroup.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="exploratory-data-analysis.html#cb210-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb210-2"><a href="exploratory-data-analysis.html#cb210-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb210-3"><a href="exploratory-data-analysis.html#cb210-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb210-4"><a href="exploratory-data-analysis.html#cb210-4"></a>      <span class="dt">x =</span> u011,</span>
+<span id="cb210-5"><a href="exploratory-data-analysis.html#cb210-5"></a>      <span class="dt">fill =</span> <span class="kw">fct_reorder</span>(supgrpname, supgrpcode)</span>
+<span id="cb210-6"><a href="exploratory-data-analysis.html#cb210-6"></a>    )</span>
+<span id="cb210-7"><a href="exploratory-data-analysis.html#cb210-7"></a>  ) <span class="op">+</span></span>
+<span id="cb210-8"><a href="exploratory-data-analysis.html#cb210-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">5</span>) <span class="op">+</span></span>
+<span id="cb210-9"><a href="exploratory-data-analysis.html#cb210-9"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;Leicester&#39;s young adults&quot;</span>) <span class="op">+</span></span>
+<span id="cb210-10"><a href="exploratory-data-analysis.html#cb210-10"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">labs</span>(</span>
+<span id="cb210-11"><a href="exploratory-data-analysis.html#cb210-11"></a>    <span class="dt">fill =</span> <span class="st">&quot;2011 Output Area</span><span class="ch">\n</span><span class="st">Classification</span><span class="ch">\n</span><span class="st">(supergroups)&quot;</span></span>
+<span id="cb210-12"><a href="exploratory-data-analysis.html#cb210-12"></a>  ) <span class="op">+</span></span>
+<span id="cb210-13"><a href="exploratory-data-analysis.html#cb210-13"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Residents aged 20 to 24&quot;</span>) <span class="op">+</span></span>
+<span id="cb210-14"><a href="exploratory-data-analysis.html#cb210-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Count&quot;</span>) <span class="op">+</span></span>
+<span id="cb210-15"><a href="exploratory-data-analysis.html#cb210-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_manual</span>(</span>
+<span id="cb210-16"><a href="exploratory-data-analysis.html#cb210-16"></a>    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#e41a1c&quot;</span>, <span class="st">&quot;#f781bf&quot;</span>, <span class="st">&quot;#ff7f00&quot;</span>, <span class="st">&quot;#a65628&quot;</span>, <span class="st">&quot;#984ea3&quot;</span>, <span class="st">&quot;#377eb8&quot;</span>, <span class="st">&quot;#ffff33&quot;</span>)</span>
+<span id="cb210-17"><a href="exploratory-data-analysis.html#cb210-17"></a>  ) <span class="op">+</span></span>
+<span id="cb210-18"><a href="exploratory-data-analysis.html#cb210-18"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>However, the graphic above is not extremely clear. A boxplot and a violin plot created from the same data are shown below. In both cases, the parameter <code>axis.text.x</code> of the function theme is set to <code>element_text(angle = 90, hjust = 1)</code> in order to orientate the labels on the x-axis vertically, as the supergroup names are rather long, and they would overlap one-another if set horizontally on the x-axis. In both cases, the option <code>fig.height</code> of the R snippet in RMarkdown should be set to a higher value (e.g., <code>5</code>) to allow for sufficient room for the supergroup names.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="exploratory-data-analysis.html#cb211-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb211-2"><a href="exploratory-data-analysis.html#cb211-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb211-3"><a href="exploratory-data-analysis.html#cb211-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb211-4"><a href="exploratory-data-analysis.html#cb211-4"></a>      <span class="dt">x =</span> <span class="kw">fct_reorder</span>(supgrpname, supgrpcode),</span>
+<span id="cb211-5"><a href="exploratory-data-analysis.html#cb211-5"></a>      <span class="dt">y =</span> u011,</span>
+<span id="cb211-6"><a href="exploratory-data-analysis.html#cb211-6"></a>      <span class="dt">fill =</span> <span class="kw">fct_reorder</span>(supgrpname, supgrpcode)</span>
+<span id="cb211-7"><a href="exploratory-data-analysis.html#cb211-7"></a>    )</span>
+<span id="cb211-8"><a href="exploratory-data-analysis.html#cb211-8"></a>  ) <span class="op">+</span></span>
+<span id="cb211-9"><a href="exploratory-data-analysis.html#cb211-9"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb211-10"><a href="exploratory-data-analysis.html#cb211-10"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Leicester&#39;s young adults&quot;</span>) <span class="op">+</span></span>
+<span id="cb211-11"><a href="exploratory-data-analysis.html#cb211-11"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">labs</span>(</span>
+<span id="cb211-12"><a href="exploratory-data-analysis.html#cb211-12"></a>    <span class="dt">fill =</span> <span class="st">&quot;2011 Output Area</span><span class="ch">\n</span><span class="st">Classification</span><span class="ch">\n</span><span class="st">(supergroups)&quot;</span></span>
+<span id="cb211-13"><a href="exploratory-data-analysis.html#cb211-13"></a>  ) <span class="op">+</span></span>
+<span id="cb211-14"><a href="exploratory-data-analysis.html#cb211-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;2011 Output Area Classification (supergroups)&quot;</span>) <span class="op">+</span></span>
+<span id="cb211-15"><a href="exploratory-data-analysis.html#cb211-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Residents aged 20 to 24&quot;</span>) <span class="op">+</span></span>
+<span id="cb211-16"><a href="exploratory-data-analysis.html#cb211-16"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_manual</span>(</span>
+<span id="cb211-17"><a href="exploratory-data-analysis.html#cb211-17"></a>    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#e41a1c&quot;</span>, <span class="st">&quot;#f781bf&quot;</span>, <span class="st">&quot;#ff7f00&quot;</span>, <span class="st">&quot;#a65628&quot;</span>, <span class="st">&quot;#984ea3&quot;</span>, <span class="st">&quot;#377eb8&quot;</span>, <span class="st">&quot;#ffff33&quot;</span>)</span>
+<span id="cb211-18"><a href="exploratory-data-analysis.html#cb211-18"></a>  ) <span class="op">+</span></span>
+<span id="cb211-19"><a href="exploratory-data-analysis.html#cb211-19"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb211-20"><a href="exploratory-data-analysis.html#cb211-20"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="exploratory-data-analysis.html#cb212-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb212-2"><a href="exploratory-data-analysis.html#cb212-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb212-3"><a href="exploratory-data-analysis.html#cb212-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb212-4"><a href="exploratory-data-analysis.html#cb212-4"></a>      <span class="dt">x =</span> <span class="kw">fct_reorder</span>(supgrpname, supgrpcode),</span>
+<span id="cb212-5"><a href="exploratory-data-analysis.html#cb212-5"></a>      <span class="dt">y =</span> u011,</span>
+<span id="cb212-6"><a href="exploratory-data-analysis.html#cb212-6"></a>      <span class="dt">fill =</span> <span class="kw">fct_reorder</span>(supgrpname, supgrpcode)</span>
+<span id="cb212-7"><a href="exploratory-data-analysis.html#cb212-7"></a>    )</span>
+<span id="cb212-8"><a href="exploratory-data-analysis.html#cb212-8"></a>  ) <span class="op">+</span></span>
+<span id="cb212-9"><a href="exploratory-data-analysis.html#cb212-9"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_violin</span>() <span class="op">+</span></span>
+<span id="cb212-10"><a href="exploratory-data-analysis.html#cb212-10"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Leicester&#39;s young adults&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-11"><a href="exploratory-data-analysis.html#cb212-11"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">labs</span>(</span>
+<span id="cb212-12"><a href="exploratory-data-analysis.html#cb212-12"></a>    <span class="dt">fill =</span> <span class="st">&quot;2011 Output Area</span><span class="ch">\n</span><span class="st">Classification</span><span class="ch">\n</span><span class="st">(supergroups)&quot;</span></span>
+<span id="cb212-13"><a href="exploratory-data-analysis.html#cb212-13"></a>  ) <span class="op">+</span></span>
+<span id="cb212-14"><a href="exploratory-data-analysis.html#cb212-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;2011 Output Area Classification (supergroups)&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-15"><a href="exploratory-data-analysis.html#cb212-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Residents aged 20 to 24&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-16"><a href="exploratory-data-analysis.html#cb212-16"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_fill_manual</span>(</span>
+<span id="cb212-17"><a href="exploratory-data-analysis.html#cb212-17"></a>    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#e41a1c&quot;</span>, <span class="st">&quot;#f781bf&quot;</span>, <span class="st">&quot;#ff7f00&quot;</span>, <span class="st">&quot;#a65628&quot;</span>, <span class="st">&quot;#984ea3&quot;</span>, <span class="st">&quot;#377eb8&quot;</span>, <span class="st">&quot;#ffff33&quot;</span>)</span>
+<span id="cb212-18"><a href="exploratory-data-analysis.html#cb212-18"></a>  ) <span class="op">+</span></span>
+<span id="cb212-19"><a href="exploratory-data-analysis.html#cb212-19"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb212-20"><a href="exploratory-data-analysis.html#cb212-20"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="relationships" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Relationships</h3>
+<p>The first barchart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare <code>u011</code> to <code>Total_Population</code>, for instance, through a scatterplot such as the one seen in the practical session 401, reported below.</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="exploratory-data-analysis.html#cb213-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb213-2"><a href="exploratory-data-analysis.html#cb213-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb213-3"><a href="exploratory-data-analysis.html#cb213-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb213-4"><a href="exploratory-data-analysis.html#cb213-4"></a>      <span class="dt">x =</span> Total_Population,</span>
+<span id="cb213-5"><a href="exploratory-data-analysis.html#cb213-5"></a>      <span class="dt">y =</span> u011,</span>
+<span id="cb213-6"><a href="exploratory-data-analysis.html#cb213-6"></a>      <span class="dt">colour =</span> <span class="kw">fct_reorder</span>(supgrpname, supgrpcode)</span>
+<span id="cb213-7"><a href="exploratory-data-analysis.html#cb213-7"></a>    )</span>
+<span id="cb213-8"><a href="exploratory-data-analysis.html#cb213-8"></a>  ) <span class="op">+</span></span>
+<span id="cb213-9"><a href="exploratory-data-analysis.html#cb213-9"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb213-10"><a href="exploratory-data-analysis.html#cb213-10"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggtitle</span>(<span class="st">&quot;Leicester&#39;s young adults&quot;</span>) <span class="op">+</span></span>
+<span id="cb213-11"><a href="exploratory-data-analysis.html#cb213-11"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">labs</span>(</span>
+<span id="cb213-12"><a href="exploratory-data-analysis.html#cb213-12"></a>    <span class="dt">colour =</span> <span class="st">&quot;2011 Output Area</span><span class="ch">\n</span><span class="st">Classification</span><span class="ch">\n</span><span class="st">(supergroups)&quot;</span></span>
+<span id="cb213-13"><a href="exploratory-data-analysis.html#cb213-13"></a>  ) <span class="op">+</span></span>
+<span id="cb213-14"><a href="exploratory-data-analysis.html#cb213-14"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">xlab</span>(<span class="st">&quot;Total number of residents&quot;</span>) <span class="op">+</span></span>
+<span id="cb213-15"><a href="exploratory-data-analysis.html#cb213-15"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ylab</span>(<span class="st">&quot;Residents aged 20 to 24&quot;</span>) <span class="op">+</span></span>
+<span id="cb213-16"><a href="exploratory-data-analysis.html#cb213-16"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_y_log10</span>() <span class="op">+</span></span>
+<span id="cb213-17"><a href="exploratory-data-analysis.html#cb213-17"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_colour_brewer</span>(<span class="dt">palette =</span> <span class="st">&quot;Set1&quot;</span>) <span class="op">+</span></span>
+<span id="cb213-18"><a href="exploratory-data-analysis.html#cb213-18"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">scale_colour_manual</span>(</span>
+<span id="cb213-19"><a href="exploratory-data-analysis.html#cb213-19"></a>    <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;#e41a1c&quot;</span>, <span class="st">&quot;#f781bf&quot;</span>, <span class="st">&quot;#ff7f00&quot;</span>, <span class="st">&quot;#a65628&quot;</span>, <span class="st">&quot;#984ea3&quot;</span>, <span class="st">&quot;#377eb8&quot;</span>, <span class="st">&quot;#ffff33&quot;</span>)</span>
+<span id="cb213-20"><a href="exploratory-data-analysis.html#cb213-20"></a>  ) <span class="op">+</span></span>
+<span id="cb213-21"><a href="exploratory-data-analysis.html#cb213-21"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exercise-304.1" class="section level2">
+<h2><span class="header-section-number">6.4</span> Exercise 304.1</h2>
+<p><strong>Question 304.1.1:</strong> Which one of the boxplot or violin plot above do you think better illustrate the different distributions, and what do the two graphics say about the distribution of people aged 20 to 24 in Leicester? Write a short answer in your RMarkdown document (max 200 words).</p>
+<p><strong>Question 304.1.2:</strong> Create a jittered points plot (see <a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html"><code>geom_jitter</code></a>) visualisation illustrating the same data shown in the boxplot and violin plot above.</p>
+<p><strong>Question 304.1.3:</strong> Create the code necessary to calculate a new column named <code>perc_age_20_to_24</code>, which is the percentage of people aged 20 to 24 (i.e., <code>u011</code>) over total population per OA <code>Total_Population</code>, and create a boxplot visualising the distribution of the variable per 2011OAC supergroup.</p>
+</div>
+<div id="exploratory-statistics" class="section level2">
+<h2><span class="header-section-number">6.5</span> Exploratory statistics</h2>
+<p>The graphics above provide preliminary evidence that the distribution of people aged 20 to 24 might, in fact, be different in different 2011 supergroups. In the remainder of the practical session, we are going to explore that hypothesis further. First, load the necessary statistical libraries.</p>
+<p>The code below calculates the percentage of people aged 20 to 24 (i.e., <code>u011</code>) over total population per OA, but it also recodes (see <a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a>) the names of the 2011OAC supergroups to a shorter 2-letter version, which is useful for the tables presented further below.</p>
+<p>Only the OA code, the recoded 2011OAC supergroup name, and the newly created <code>perc_age_20_to_24</code> are retained in the new table <code>leic_2011OAC_20to24</code>. Such a step is sometimes useful as stepping stone for further analysis and can make the code easier to read further down the line. Sometimes it is also a necessary step when interacting with certain libraries, which are not fully compatible with Tidyverse libraries, such as <code>leveneTest</code>.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="exploratory-data-analysis.html#cb214-1"></a>leic_2011OAC_20to24 &lt;-<span class="st"> </span>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb214-2"><a href="exploratory-data-analysis.html#cb214-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb214-3"><a href="exploratory-data-analysis.html#cb214-3"></a>    <span class="dt">perc_age_20_to_24 =</span> (u011 <span class="op">/</span><span class="st"> </span>Total_Population) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>,</span>
+<span id="cb214-4"><a href="exploratory-data-analysis.html#cb214-4"></a>    <span class="dt">supgrpname =</span> dplyr<span class="op">::</span><span class="kw">recode</span>(supgrpname, </span>
+<span id="cb214-5"><a href="exploratory-data-analysis.html#cb214-5"></a>      <span class="st">`</span><span class="dt">Suburbanites</span><span class="st">`</span> =<span class="st"> &quot;SU&quot;</span>,</span>
+<span id="cb214-6"><a href="exploratory-data-analysis.html#cb214-6"></a>      <span class="st">`</span><span class="dt">Cosmopolitans</span><span class="st">`</span> =<span class="st"> &quot;CP&quot;</span>,</span>
+<span id="cb214-7"><a href="exploratory-data-analysis.html#cb214-7"></a>      <span class="st">`</span><span class="dt">Multicultural Metropolitans</span><span class="st">`</span> =<span class="st"> &quot;MM&quot;</span>,</span>
+<span id="cb214-8"><a href="exploratory-data-analysis.html#cb214-8"></a>      <span class="st">`</span><span class="dt">Ethnicity Central</span><span class="st">`</span> =<span class="st"> &quot;EC&quot;</span>,</span>
+<span id="cb214-9"><a href="exploratory-data-analysis.html#cb214-9"></a>      <span class="st">`</span><span class="dt">Constrained City Dwellers</span><span class="st">`</span> =<span class="st"> &quot;CD&quot;</span>,</span>
+<span id="cb214-10"><a href="exploratory-data-analysis.html#cb214-10"></a>      <span class="st">`</span><span class="dt">Hard-Pressed Living</span><span class="st">`</span> =<span class="st"> &quot;HP&quot;</span>,</span>
+<span id="cb214-11"><a href="exploratory-data-analysis.html#cb214-11"></a>      <span class="st">`</span><span class="dt">Urbanites</span><span class="st">`</span> =<span class="st"> &quot;UR&quot;</span></span>
+<span id="cb214-12"><a href="exploratory-data-analysis.html#cb214-12"></a>    )</span>
+<span id="cb214-13"><a href="exploratory-data-analysis.html#cb214-13"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb214-14"><a href="exploratory-data-analysis.html#cb214-14"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(OA11CD, supgrpname, perc_age_<span class="dv">20</span>_to_<span class="dv">24</span>)</span>
+<span id="cb214-15"><a href="exploratory-data-analysis.html#cb214-15"></a></span>
+<span id="cb214-16"><a href="exploratory-data-analysis.html#cb214-16"></a>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb214-17"><a href="exploratory-data-analysis.html#cb214-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice_head</span>(<span class="dt">n =</span> <span class="dv">5</span>) <span class="op">%&gt;%</span></span>
+<span id="cb214-18"><a href="exploratory-data-analysis.html#cb214-18"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">OA11CD</th>
+<th align="left">supgrpname</th>
+<th align="right">perc_age_20_to_24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00069517</td>
+<td align="left">SU</td>
+<td align="right">4.153355</td>
+</tr>
+<tr class="even">
+<td align="left">E00069514</td>
+<td align="left">CP</td>
+<td align="right">30.650155</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169516</td>
+<td align="left">MM</td>
+<td align="right">12.316716</td>
+</tr>
+<tr class="even">
+<td align="left">E00169048</td>
+<td align="left">MM</td>
+<td align="right">6.956522</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169044</td>
+<td align="left">MM</td>
+<td align="right">6.211180</td>
+</tr>
+</tbody>
+</table>
+<div id="descriptive-statistics" class="section level3">
+<h3><span class="header-section-number">6.5.1</span> Descriptive statistics</h3>
+<p>The first step of any statistical analysis or modelling should be to explore the <em>“shape”</em> of the data involved, by looking at the descriptive statistics of all variables involved. The function <code>stat.desc</code> of the <code>pastecs</code> library provides three series of descriptive statistics.</p>
+<ul>
+<li><code>base</code>:
+<ul>
+<li><code>nbr.val</code>: overall number of values in the dataset;</li>
+<li><code>nbr.null</code>: number of <code>NULL</code> values – NULL is often returned by expressions and functions whose values are undefined;</li>
+<li><code>nbr.na</code>: number of <code>NA</code>s – missing value indicator;</li>
+</ul></li>
+<li><code>desc</code>:
+<ul>
+<li><code>min</code> (see also <code>min</code> function): <strong>minimum</strong> value in the dataset;</li>
+<li><code>max</code> (see also <code>max</code> function): <strong>minimum</strong> value in the dataset;</li>
+<li><code>range</code>: difference between <code>min</code> and <code>max</code> (different from <code>range()</code>);</li>
+<li><code>sum</code> (see also <code>sum</code> function): sum of the values in the dataset;</li>
+<li><code>median</code> (see also <code>median</code> function): <strong>median</strong>, that is the value separating the higher half from the lower half the values</li>
+<li><code>mean</code> (see also <code>mean</code> function): <strong>arithmetic mean</strong>, that is <code>sum</code> over the number of values not <code>NA</code>;</li>
+<li><code>SE.mean</code>: <strong>standard error of the mean</strong> – estimation of the variability of the mean calculated on different samples of the data (see also <em>central limit theorem</em>);</li>
+<li><code>CI.mean.0.95</code>: <strong>95% confidence interval of the mean</strong> – indicates that there is a 95% probability that the actual mean is within that distance from the sample mean;</li>
+<li><code>var</code>: <strong>variance</strong> (<span class="math inline">\(\sigma^2\)</span>), it quantifies the amount of variation as the average of squared distances from the mean;</li>
+<li><code>std.dev</code>: <strong>standard deviation</strong> (<span class="math inline">\(\sigma\)</span>), it quantifies the amount of variation as the square root of the variance;</li>
+<li><code>coef.var</code>: <strong>variation coefficient</strong> it quantifies the amount of variation as the standard deviation divided by the mean;</li>
+</ul></li>
+<li><code>norm</code> (default is <code>FALSE</code>, use <code>norm = TRUE</code> to include it in the output):
+<ul>
+<li><code>skewness</code>: <strong>skewness</strong> value indicates
+<ul>
+<li>positive: the distribution is skewed towards the left;</li>
+<li>negative: the distribution is skewed towards the right;</li>
+</ul></li>
+<li><code>kurtosis</code>: <strong>kurtosis</strong> value indicates:
+<ul>
+<li>positive: heavy-tailed distribution;</li>
+<li>negative: flat distribution;</li>
+</ul></li>
+<li><code>skew.2SE</code> and <code>kurt.2SE</code>: skewness and kurtosis divided by 2 standard errors. If greater than 1, the respective statistics is significant (<em>p &lt; .05</em>);</li>
+<li><code>normtest.W</code>: test statistics for the <strong>Shapiro–Wilk test</strong> for normality;</li>
+<li><code>normtest.p</code>: significance for the <strong>Shapiro–Wilk test</strong> for normality.</li>
+</ul></li>
+</ul>
+<p>The Shapiro–Wilk test compares the distribution of a variable with a normal distribution having the same mean and standard deviation. The null hypothesis of the Shapiro–Wilk test is that the sample is normally distributed, thus if <code>normtest.p</code> is lower than <code>0.01</code> (i.e., <em>p &lt; .01</em>), the test indicates that the distribution is most probably not normal. The threshold to accept or reject a hypothesis is arbitrary and based on conventions, where <em>p &lt; .01</em> is the most commonly accepted threshold, or <em>p &lt; .05</em> for relatively small data sample (e.g., 30 cases).</p>
+<p>The next step is thus to apply the <code>stat.desc</code> to the variable we are currently exploring (i.e., <code>perc_age_20_to_24</code>), including the <code>norm</code> section.</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="exploratory-data-analysis.html#cb215-1"></a>leic_2011OAC_20to24_stat_desc &lt;-<span class="st"> </span>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb215-2"><a href="exploratory-data-analysis.html#cb215-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_age_<span class="dv">20</span>_to_<span class="dv">24</span>) <span class="op">%&gt;%</span></span>
+<span id="cb215-3"><a href="exploratory-data-analysis.html#cb215-3"></a><span class="st">  </span>pastecs<span class="op">::</span><span class="kw">stat.desc</span>(<span class="dt">norm =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb215-4"><a href="exploratory-data-analysis.html#cb215-4"></a>  </span>
+<span id="cb215-5"><a href="exploratory-data-analysis.html#cb215-5"></a>leic_2011OAC_20to24_stat_desc <span class="op">%&gt;%</span></span>
+<span id="cb215-6"><a href="exploratory-data-analysis.html#cb215-6"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">perc_age_20_to_24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">nbr.val</td>
+<td align="right">969.000</td>
+</tr>
+<tr class="even">
+<td align="left">nbr.null</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">nbr.na</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="even">
+<td align="left">min</td>
+<td align="right">1.064</td>
+</tr>
+<tr class="odd">
+<td align="left">max</td>
+<td align="right">60.751</td>
+</tr>
+<tr class="even">
+<td align="left">range</td>
+<td align="right">59.687</td>
+</tr>
+<tr class="odd">
+<td align="left">sum</td>
+<td align="right">10238.502</td>
+</tr>
+<tr class="even">
+<td align="left">median</td>
+<td align="right">7.514</td>
+</tr>
+<tr class="odd">
+<td align="left">mean</td>
+<td align="right">10.566</td>
+</tr>
+<tr class="even">
+<td align="left">SE.mean</td>
+<td align="right">0.304</td>
+</tr>
+<tr class="odd">
+<td align="left">CI.mean.0.95</td>
+<td align="right">0.596</td>
+</tr>
+<tr class="even">
+<td align="left">var</td>
+<td align="right">89.386</td>
+</tr>
+<tr class="odd">
+<td align="left">std.dev</td>
+<td align="right">9.454</td>
+</tr>
+<tr class="even">
+<td align="left">coef.var</td>
+<td align="right">0.895</td>
+</tr>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">2.710</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">17.249</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">7.707</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">24.549</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.645</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.000</td>
+</tr>
+</tbody>
+</table>
+<p>The table above tells us that all 969 OA in Leicester have a valid value for the variable <code>perc_age_20_to_24</code>, as no <code>NULL</code> nor <code>NA</code> value have been found. The values vary from about 1% to almost 61%, with an average value of 11% of the population in an OA aged between 20 and 24.</p>
+<p>The short paragraph above is reporting on the values on the table, taking advantage of two features of RMarkdown. First, the output of the <code>stat.desc</code> function in the snippet further above is stored in the variable <code>leic_2011OAC_20to24_stat_desc</code>, which is then a valid variable for the rest of the document. Second, RMarkdown allows for in-line R snippets, that can also refer to variables defined in any snippet above the text. As such, the source of the paragraph above reads as below, with the in-line R snipped opened by a single grave accent (i.e., <code>`</code>) followed by a lowercase <code>r</code> and closed by another single grave accent.</p>
+<p>Having included all the code above into an RMarkdown document, copy the text below verbatim into the same RMarkdown document and make sure that you understand how the code in the in-line R snippets works.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="exploratory-data-analysis.html#cb216-1"></a>The table above tells us that all <span class="st">`</span><span class="dt">r &quot;\u0060r leic_2011OAC_20to24_stat_desc[</span><span class="ch">\&quot;</span><span class="dt">nbr.val</span><span class="ch">\&quot;</span><span class="dt">,</span></span>
+<span id="cb216-2"><a href="exploratory-data-analysis.html#cb216-2"></a><span class="ch">\&quot;</span><span class="dt">perc_age_20_to_24</span><span class="ch">\&quot;</span><span class="dt">] %&gt;% round(digits = 0)\u0060&quot;</span><span class="st">`</span> OA <span class="cf">in</span> Leicester have a valid </span>
+<span id="cb216-3"><a href="exploratory-data-analysis.html#cb216-3"></a>value <span class="cf">for</span> the variable <span class="st">`</span><span class="dt">perc_age_20_to_24</span><span class="st">`</span>, as no <span class="st">`</span><span class="dt">r &quot;\u0060NULL\u0060&quot;</span><span class="st">`</span> nor <span class="st">`</span><span class="dt">r </span></span>
+<span id="cb216-4"><a href="exploratory-data-analysis.html#cb216-4"></a><span class="dt">&quot;\u0060NA\u0060&quot;</span><span class="st">`</span> value have been found.The values vary from about <span class="st">`</span><span class="dt">r &quot;\u0060r </span></span>
+<span id="cb216-5"><a href="exploratory-data-analysis.html#cb216-5"></a><span class="dt">leic_2011OAC_20to24_stat_desc[</span><span class="ch">\&quot;</span><span class="dt">min</span><span class="ch">\&quot;</span><span class="dt">, </span><span class="ch">\&quot;</span><span class="dt">perc_age_20_to_24</span><span class="ch">\&quot;</span><span class="dt">] %&gt;% round(digits = </span></span>
+<span id="cb216-6"><a href="exploratory-data-analysis.html#cb216-6"></a><span class="dt">0)\u0060&quot;</span><span class="st">`</span>% to almost <span class="st">`</span><span class="dt">r &quot;\u0060r leic_2011OAC_20to24_stat_desc[</span><span class="ch">\&quot;</span><span class="dt">max</span><span class="ch">\&quot;</span><span class="dt">, </span></span>
+<span id="cb216-7"><a href="exploratory-data-analysis.html#cb216-7"></a><span class="ch">\&quot;</span><span class="dt">perc_age_20_to_24</span><span class="ch">\&quot;</span><span class="dt">] %&gt;% round(digits = 0)\u0060&quot;</span><span class="st">`</span>%, with an average value of </span>
+<span id="cb216-8"><a href="exploratory-data-analysis.html#cb216-8"></a><span class="st">`</span><span class="dt">r &quot;\u0060r leic_2011OAC_20to24_stat_desc[</span><span class="ch">\&quot;</span><span class="dt">mean</span><span class="ch">\&quot;</span><span class="dt">, </span><span class="ch">\&quot;</span><span class="dt">perc_age_20_to_24</span><span class="ch">\&quot;</span><span class="dt">] %&gt;% </span></span>
+<span id="cb216-9"><a href="exploratory-data-analysis.html#cb216-9"></a><span class="dt">round(digits = 0)\u0060&quot;</span><span class="st">`</span>% of the population <span class="cf">in</span> an OA aged between <span class="dv">20</span> and <span class="fl">24.</span> </span></code></pre></div>
+<p>If the data described by statistics presented in the table above was a random sample of a population, the 95% confidence interval <code>CI.mean.0.95</code> would indicate that we can be 95% confident that the actual mean of the distribution is somewhere between 10.566 <code>-</code> 0.596 <code>=</code> 9.97% and 10.566 <code>+</code> 0.596 <code>=</code> 11.162%.</p>
+<p>However, this is not a sample. Thus the statistical interpretation is not valid, in the same way that the <code>sum</code> values doesn’t make sense, as it is the sum of a series of percentages.</p>
+<p>Both <code>skew.2SE</code> and <code>kurt.2SE</code> are greater than <code>1</code>, which indicate that the <code>skewness</code> and <code>kurtosis</code> values are significant (<em>p &lt; .05</em>). The <code>skewness</code> is positive, which indicates that the distribution is skewed towards the left (low values). The <code>kurtosis</code> is positive, which indicates that the distribution is heavy-tailed.</p>
+<p>As such, <code>perc_age_20_to_24</code> having a heavy-tailed distribution skewed towards low values, it is not surprising that the <code>normtest.p</code> value indicates that the Shapiro–Wilk test is significant, which indicates that the distribution is not normal.</p>
+<p>The code below present the output of the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/shapiro.test"><code>shapiro.test</code> function</a>, which only present the outcome of a Shapiro–Wilk test on the values provided as input. The output values are the same as the values reported by the <code>norm</code> section of <code>stat.desc</code>. Note that the <code>shapiro.test</code> function require the argument to be a numeric vector. Thus the <a href="https://dplyr.tidyverse.org/reference/pull.html"><code>pull</code> function</a> must be used to extract the <code>perc_age_20_to_24</code> column from <code>leic_2011OAC_20to24</code> as a vector, whereas using <code>select</code> with a single column name as the argument would produce as output a table with a single column.</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="exploratory-data-analysis.html#cb217-1"></a>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb217-2"><a href="exploratory-data-analysis.html#cb217-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">pull</span>(perc_age_<span class="dv">20</span>_to_<span class="dv">24</span>) <span class="op">%&gt;%</span></span>
+<span id="cb217-3"><a href="exploratory-data-analysis.html#cb217-3"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.64491, p-value &lt; 2.2e-16</code></pre>
+<p>The two code snippets below can be used to visualise a density-based histogram including the shape of a normal distribution having the same mean and standard deviation, and a Q-Q plot, to visually confirm the fact that <code>perc_age_20_to_24</code> is not normally distributed.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="exploratory-data-analysis.html#cb219-1"></a>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb219-2"><a href="exploratory-data-analysis.html#cb219-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb219-3"><a href="exploratory-data-analysis.html#cb219-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb219-4"><a href="exploratory-data-analysis.html#cb219-4"></a>      <span class="dt">x =</span> perc_age_<span class="dv">20</span>_to_<span class="dv">24</span></span>
+<span id="cb219-5"><a href="exploratory-data-analysis.html#cb219-5"></a>    )</span>
+<span id="cb219-6"><a href="exploratory-data-analysis.html#cb219-6"></a>  ) <span class="op">+</span></span>
+<span id="cb219-7"><a href="exploratory-data-analysis.html#cb219-7"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_histogram</span>(</span>
+<span id="cb219-8"><a href="exploratory-data-analysis.html#cb219-8"></a>    <span class="kw">aes</span>(</span>
+<span id="cb219-9"><a href="exploratory-data-analysis.html#cb219-9"></a>      <span class="dt">y =</span>..density..</span>
+<span id="cb219-10"><a href="exploratory-data-analysis.html#cb219-10"></a>    ),</span>
+<span id="cb219-11"><a href="exploratory-data-analysis.html#cb219-11"></a>    <span class="dt">binwidth =</span> <span class="dv">5</span></span>
+<span id="cb219-12"><a href="exploratory-data-analysis.html#cb219-12"></a>  ) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb219-13"><a href="exploratory-data-analysis.html#cb219-13"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">stat_function</span>(</span>
+<span id="cb219-14"><a href="exploratory-data-analysis.html#cb219-14"></a>    <span class="dt">fun =</span> dnorm, </span>
+<span id="cb219-15"><a href="exploratory-data-analysis.html#cb219-15"></a>    <span class="dt">args =</span> <span class="kw">list</span>(</span>
+<span id="cb219-16"><a href="exploratory-data-analysis.html#cb219-16"></a>      <span class="dt">mean =</span> leic_2011OAC_20to24 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(perc_age_<span class="dv">20</span>_to_<span class="dv">24</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mean</span>(),</span>
+<span id="cb219-17"><a href="exploratory-data-analysis.html#cb219-17"></a>      <span class="dt">sd =</span> leic_2011OAC_20to24 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(perc_age_<span class="dv">20</span>_to_<span class="dv">24</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sd</span>()</span>
+<span id="cb219-18"><a href="exploratory-data-analysis.html#cb219-18"></a>    ),</span>
+<span id="cb219-19"><a href="exploratory-data-analysis.html#cb219-19"></a>    <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">1</span></span>
+<span id="cb219-20"><a href="exploratory-data-analysis.html#cb219-20"></a>  )</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-13-1.png" width="288" /></p>
+<p>A Q-Q plot in R can be created using a variety of functions. In the example below, the plot is created using the <a href="https://ggplot2.tidyverse.org/reference/geom_qq.html"><code>stat_qq</code> and <code>stat_qq_line</code> functions</a> of the <code>ggplot2</code> library. Note that the <code>perc_age_20_to_24</code> variable is mapped to a particular option of <code>aes</code> that is <code>sample</code>.</p>
+<p>If <code>perc_age_20_to_24</code> had been normally distributed, the dots in the Q-Q plot would be distributed straight on the line included in the plot.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="exploratory-data-analysis.html#cb220-1"></a>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb220-2"><a href="exploratory-data-analysis.html#cb220-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb220-3"><a href="exploratory-data-analysis.html#cb220-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb220-4"><a href="exploratory-data-analysis.html#cb220-4"></a>      <span class="dt">sample =</span> perc_age_<span class="dv">20</span>_to_<span class="dv">24</span></span>
+<span id="cb220-5"><a href="exploratory-data-analysis.html#cb220-5"></a>    )</span>
+<span id="cb220-6"><a href="exploratory-data-analysis.html#cb220-6"></a>  ) <span class="op">+</span></span>
+<span id="cb220-7"><a href="exploratory-data-analysis.html#cb220-7"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">stat_qq</span>() <span class="op">+</span></span>
+<span id="cb220-8"><a href="exploratory-data-analysis.html#cb220-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">stat_qq_line</span>()</span></code></pre></div>
+<p><img src="304_P_Exploratory_files/figure-html/unnamed-chunk-14-1.png" width="288" /></p>
+</div>
+</div>
+<div id="exercise-304.2" class="section level2">
+<h2><span class="header-section-number">6.6</span> Exercise 304.2</h2>
+<p>Create a new RMarkdown document, and add the code necessary to recreate the table <code>leic_2011OAC_20to24</code> used in the example above. Use the code below to re-shape the table <code>leic_2011OAC_20to24</code> by pivoting the <code>perc_age_20_to_24</code> column wider into multiple columns using <code>supgrpname</code> as new column names.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="exploratory-data-analysis.html#cb221-1"></a>leic_2011OAC_20to24_supgrp &lt;-<span class="st"> </span>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb221-2"><a href="exploratory-data-analysis.html#cb221-2"></a><span class="st">  </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</span>
+<span id="cb221-3"><a href="exploratory-data-analysis.html#cb221-3"></a>    <span class="dt">names_from =</span> supgrpname,</span>
+<span id="cb221-4"><a href="exploratory-data-analysis.html#cb221-4"></a>    <span class="dt">values_from =</span> perc_age_<span class="dv">20</span>_to_<span class="dv">24</span></span>
+<span id="cb221-5"><a href="exploratory-data-analysis.html#cb221-5"></a>  )</span></code></pre></div>
+<p>That manipulation creates one column per supergroup, containing the <code>perc_age_20_to_24</code> if the OA is part of that supergroup, or an <code>NA</code> value if the OA is not part of the supergroup. The transformation is illustrated in the two tables below. The first shows an extract from the original <code>leic_2011OAC_20to24</code> dataset, followed by the wide version <code>leic_2011OAC_20to24_supgrp</code>.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="exploratory-data-analysis.html#cb222-1"></a>leic_2011OAC_20to24 <span class="op">%&gt;%</span></span>
+<span id="cb222-2"><a href="exploratory-data-analysis.html#cb222-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice_min</span>(OA11CD, <span class="dt">n =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb222-3"><a href="exploratory-data-analysis.html#cb222-3"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">OA11CD</th>
+<th align="left">supgrpname</th>
+<th align="right">perc_age_20_to_24</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00068657</td>
+<td align="left">HP</td>
+<td align="right">6.053</td>
+</tr>
+<tr class="even">
+<td align="left">E00068658</td>
+<td align="left">MM</td>
+<td align="right">6.964</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068659</td>
+<td align="left">MM</td>
+<td align="right">8.383</td>
+</tr>
+<tr class="even">
+<td align="left">E00068660</td>
+<td align="left">MM</td>
+<td align="right">4.643</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068661</td>
+<td align="left">MM</td>
+<td align="right">10.625</td>
+</tr>
+<tr class="even">
+<td align="left">E00068662</td>
+<td align="left">MM</td>
+<td align="right">8.284</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068663</td>
+<td align="left">MM</td>
+<td align="right">8.357</td>
+</tr>
+<tr class="even">
+<td align="left">E00068664</td>
+<td align="left">MM</td>
+<td align="right">3.597</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068665</td>
+<td align="left">MM</td>
+<td align="right">7.068</td>
+</tr>
+<tr class="even">
+<td align="left">E00068666</td>
+<td align="left">MM</td>
+<td align="right">5.864</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="exploratory-data-analysis.html#cb223-1"></a>leic_2011OAC_20to24_supgrp <span class="op">%&gt;%</span></span>
+<span id="cb223-2"><a href="exploratory-data-analysis.html#cb223-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">slice_min</span>(OA11CD, <span class="dt">n =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb223-3"><a href="exploratory-data-analysis.html#cb223-3"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">OA11CD</th>
+<th align="right">SU</th>
+<th align="right">CP</th>
+<th align="right">MM</th>
+<th align="right">EC</th>
+<th align="right">CD</th>
+<th align="right">HP</th>
+<th align="right">UR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00068657</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">6.053</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068658</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">6.964</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068659</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">8.383</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068660</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">4.643</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068661</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">10.625</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068662</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">8.284</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068663</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">8.357</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068664</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">3.597</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068665</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">7.068</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068666</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">5.864</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question 304.2.1:</strong> The code below uses the newly created <code>leic_2011OAC_20to24_supgrp</code> table to calculate the descriptive statistics calculated for the variable <code>leic_2011OAC_20to24</code> for each supergroup. Is <code>leic_2011OAC_20to24</code> normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="exploratory-data-analysis.html#cb224-1"></a>leic_2011OAC_20to24_supgrp <span class="op">%&gt;%</span></span>
+<span id="cb224-2"><a href="exploratory-data-analysis.html#cb224-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>OA11CD) <span class="op">%&gt;%</span></span>
+<span id="cb224-3"><a href="exploratory-data-analysis.html#cb224-3"></a><span class="st">  </span>pastecs<span class="op">::</span><span class="kw">stat.desc</span>(<span class="dt">norm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb224-4"><a href="exploratory-data-analysis.html#cb224-4"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">SU</th>
+<th align="right">CP</th>
+<th align="right">MM</th>
+<th align="right">EC</th>
+<th align="right">CD</th>
+<th align="right">HP</th>
+<th align="right">UR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">nbr.val</td>
+<td align="right">54.000</td>
+<td align="right">83.000</td>
+<td align="right">573.000</td>
+<td align="right">57.000</td>
+<td align="right">36.000</td>
+<td align="right">101.000</td>
+<td align="right">65.000</td>
+</tr>
+<tr class="even">
+<td align="left">nbr.null</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">nbr.na</td>
+<td align="right">915.000</td>
+<td align="right">886.000</td>
+<td align="right">396.000</td>
+<td align="right">912.000</td>
+<td align="right">933.000</td>
+<td align="right">868.000</td>
+<td align="right">904.000</td>
+</tr>
+<tr class="even">
+<td align="left">min</td>
+<td align="right">1.462</td>
+<td align="right">3.141</td>
+<td align="right">2.490</td>
+<td align="right">2.066</td>
+<td align="right">1.064</td>
+<td align="right">1.515</td>
+<td align="right">2.256</td>
+</tr>
+<tr class="odd">
+<td align="left">max</td>
+<td align="right">9.562</td>
+<td align="right">60.751</td>
+<td align="right">52.507</td>
+<td align="right">36.299</td>
+<td align="right">12.963</td>
+<td align="right">11.261</td>
+<td align="right">13.505</td>
+</tr>
+<tr class="even">
+<td align="left">range</td>
+<td align="right">8.100</td>
+<td align="right">57.609</td>
+<td align="right">50.018</td>
+<td align="right">34.233</td>
+<td align="right">11.899</td>
+<td align="right">9.746</td>
+<td align="right">11.249</td>
+</tr>
+<tr class="odd">
+<td align="left">sum</td>
+<td align="right">295.867</td>
+<td align="right">2646.551</td>
+<td align="right">5214.286</td>
+<td align="right">838.415</td>
+<td align="right">252.108</td>
+<td align="right">619.266</td>
+<td align="right">372.010</td>
+</tr>
+<tr class="even">
+<td align="left">median</td>
+<td align="right">5.476</td>
+<td align="right">30.457</td>
+<td align="right">7.880</td>
+<td align="right">10.881</td>
+<td align="right">6.854</td>
+<td align="right">6.053</td>
+<td align="right">5.380</td>
+</tr>
+<tr class="odd">
+<td align="left">mean</td>
+<td align="right">5.479</td>
+<td align="right">31.886</td>
+<td align="right">9.100</td>
+<td align="right">14.709</td>
+<td align="right">7.003</td>
+<td align="right">6.131</td>
+<td align="right">5.723</td>
+</tr>
+<tr class="even">
+<td align="left">SE.mean</td>
+<td align="right">0.233</td>
+<td align="right">1.574</td>
+<td align="right">0.230</td>
+<td align="right">1.373</td>
+<td align="right">0.471</td>
+<td align="right">0.172</td>
+<td align="right">0.264</td>
+</tr>
+<tr class="odd">
+<td align="left">CI.mean.0.95</td>
+<td align="right">0.467</td>
+<td align="right">3.131</td>
+<td align="right">0.452</td>
+<td align="right">2.751</td>
+<td align="right">0.956</td>
+<td align="right">0.341</td>
+<td align="right">0.528</td>
+</tr>
+<tr class="even">
+<td align="left">var</td>
+<td align="right">2.929</td>
+<td align="right">205.556</td>
+<td align="right">30.285</td>
+<td align="right">107.523</td>
+<td align="right">7.983</td>
+<td align="right">2.980</td>
+<td align="right">4.545</td>
+</tr>
+<tr class="odd">
+<td align="left">std.dev</td>
+<td align="right">1.712</td>
+<td align="right">14.337</td>
+<td align="right">5.503</td>
+<td align="right">10.369</td>
+<td align="right">2.825</td>
+<td align="right">1.726</td>
+<td align="right">2.132</td>
+</tr>
+<tr class="even">
+<td align="left">coef.var</td>
+<td align="right">0.312</td>
+<td align="right">0.450</td>
+<td align="right">0.605</td>
+<td align="right">0.705</td>
+<td align="right">0.403</td>
+<td align="right">0.282</td>
+<td align="right">0.372</td>
+</tr>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">0.005</td>
+<td align="right">0.067</td>
+<td align="right">3.320</td>
+<td align="right">0.633</td>
+<td align="right">0.322</td>
+<td align="right">0.124</td>
+<td align="right">1.042</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">0.008</td>
+<td align="right">0.127</td>
+<td align="right">16.266</td>
+<td align="right">1.001</td>
+<td align="right">0.410</td>
+<td align="right">0.258</td>
+<td align="right">1.753</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">-0.391</td>
+<td align="right">-0.825</td>
+<td align="right">15.143</td>
+<td align="right">-1.009</td>
+<td align="right">-0.142</td>
+<td align="right">0.220</td>
+<td align="right">1.441</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">-0.306</td>
+<td align="right">-0.789</td>
+<td align="right">37.156</td>
+<td align="right">-0.810</td>
+<td align="right">-0.093</td>
+<td align="right">0.231</td>
+<td align="right">1.229</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.991</td>
+<td align="right">0.980</td>
+<td align="right">0.684</td>
+<td align="right">0.889</td>
+<td align="right">0.965</td>
+<td align="right">0.993</td>
+<td align="right">0.937</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.954</td>
+<td align="right">0.239</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.310</td>
+<td align="right">0.886</td>
+<td align="right">0.002</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Question 304.2.2:</strong> Write the code necessary to test again the normality of <code>leic_2011OAC_20to24</code> for the supergroups where the analysis conducted for Question 304.2.1 indicated they are normal, using the function <code>shapiro.test</code>, and draw the respective Q-Q plot.</p>
+<p><strong>Question 304.2.3:</strong> Observe the output of the Levene’s test executed below. What does the result tell you about the variance of <code>perc_age_20_to_24</code> in supergroups?</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="exploratory-data-analysis.html#cb225-1"></a>car<span class="op">::</span><span class="kw">leveneTest</span>(leic_2011OAC_20to24<span class="op">$</span>perc_age_<span class="dv">20</span>_to_<span class="dv">24</span>, leic_2011OAC_20to24<span class="op">$</span>supgrpname)</span></code></pre></div>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##        Df F value    Pr(&gt;F)    
+## group   6  62.011 &lt; 2.2e-16 ***
+##       962                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="reproducibility.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="comparing-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["granolarr_practical_session_materials.pdf", "PDF"], ["granolarr_practical_session_materials.epub", "EPUB"]],
+"toc": {
+"collapse": "subsection"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

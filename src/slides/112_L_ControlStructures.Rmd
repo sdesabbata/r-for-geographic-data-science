@@ -1,0 +1,205 @@
+---
+title: "Lecture 112"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Control structures
+
+
+
+## Recap
+
+**Prev**: Data types
+
+- Vectors
+- Factors
+- Matrices and arrays
+- Lists
+
+**Now**: Control structures
+
+- Conditional statements
+- Loops
+
+
+
+## If
+
+Format: **if** (*condition*) *statement*
+
+- *condition*: expression returning a logic value (`TRUE` or `FALSE`)
+- *statement*: any valid R statement
+- *statement* only executed if *condition* is `TRUE`
+
+
+```{r, echo=TRUE}
+a_value <- -7
+if (a_value < 0) cat("Negative")
+a_value <- 8
+if (a_value < 0) cat("Negative")
+```
+
+
+## Else
+Format: **if** (*condition*) *statement1* **else** *statement2*
+
+- *condition*: expression returning a logic value (`TRUE` or `FALSE`)
+- *statement1* and *statement2*: any valid R statements
+- *statement1*  executed if *condition* is `TRUE`
+- *statement2*  executed if *condition* is `FALSE`
+
+
+```{r, echo=TRUE}
+a_value <- -7
+if (a_value < 0) cat("Negative") else cat("Positive")
+a_value <- 8
+if (a_value < 0) cat("Negative") else cat("Positive")
+```
+
+<!--
+## Example
+
+```{r, echo=TRUE}
+x <- 10
+if (is.numeric(x) & (!(x < 0) & (x != 0)) ) cat("greater than zero")
+```
+-->
+
+
+## Code blocks
+
+**Code blocks** allow to encapsulate **several** statements in a single group
+
+- `{` and `}` contain code blocks
+- the statements are execute together
+
+```{r, echo=TRUE}
+first_value <- 8
+second_value <- 5
+if (first_value > second_value) {
+  cat("First is greater than second\n") 
+  difference <- first_value - second_value
+  cat("Their difference is ", difference)
+}
+```
+
+
+
+## Loops
+Loops are a fundamental component of (procedural) programming.
+
+
+There are two main types of loops:
+
+- **conditional** loops are executed as long as a defined condition holds true
+    - construct `while`
+    - construct `repeat`
+- **deterministic** loops are executed a pre-determined number of times
+    - construct `for`
+
+
+## While
+
+The *while* construct can be defined using the `while` reserved word, followed by the conditional statement between simple brackets, and a code block. The instructions in the code block are re-executed as long as the result of the evaluation of the conditional statement is `TRUE`.
+
+```{r, echo=TRUE}
+current_value <- 0
+
+while (current_value < 3) {
+  cat("Current value is", current_value, "\n")
+  current_value <- current_value + 1
+}
+```
+
+<!--
+## Repeat
+
+The *repeat* construct can be defined using the `repeat` reserved word, followed by a code block. The instructions in the code block are re-executed until the command `break` is given. The latter is currently given through an `if` construct, which tests the condition that would stop the loop.
+
+```{r, echo=TRUE}
+current_value <- 0
+
+repeat {
+  cat("Current value is", current_value, "\n")
+  current_value <- current_value + 1
+  if (current_value >= 3) break
+}
+```
+
+
+## While vs Repeat
+The difference between `while` and `repeat` is mostly syntactical.
+
+- Sometimes one or the other might fit better with the algorithm you have in mind
+- Use the one that comes easier to you in the given situation
+-->
+
+## For
+
+The *for* construct can be defined using the `for` reserved word, followed by the definition of an **iterator**. The iterator is a variable which is temporarily assigned with the current element of a vector, as the construct iterates through all elements of the vector. This definition is followed by a code block, whose instructions are re-executed once for each element of the vector.
+
+```{r, echo=TRUE}
+cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
+for (city in cities) {
+  cat("Do you live in", city, "?\n")
+}
+```
+
+
+## For
+
+It is common practice to create a vector of integers on the spot in order to execute a certain sequence of steps a pre-defined number of times.
+
+```{r, echo=TRUE}
+for (i in 1:3) {
+  cat("This is exectuion number", i, ":\n")
+  cat("    See you later!\n")
+}
+```
+
+
+## Loops with conditional statements
+
+```{r, echo=TRUE}
+3:0
+#Example: countdown!
+for (i in 3:0) {
+  if (i == 0) {
+    cat("Go!\n")
+  } else {
+    cat(i, "\n")
+  }
+}
+```
+
+
+
+## Summary
+
+Control structures
+
+- Conditional statements
+- Loops
+
+**Next**: Functions
+
+- Defining functions
+- Scope of a variable
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

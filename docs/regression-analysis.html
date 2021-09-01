@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Regression analysis | Practical session materials | granolarr</title>
+  <meta name="description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Regression analysis | Practical session materials | granolarr" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://sdesabbata.github.io/granolarr/" />
+  
+  <meta property="og:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="github-repo" content="sdesabbata/granolarr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Regression analysis | Practical session materials | granolarr" />
+  
+  <meta name="twitter:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  
+
+<meta name="author" content="Stefano De Sabbata" />
+
+
+<meta name="date" content="2021-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="comparing-data.html"/>
+<link rel="next" href="supervised-machine-learning.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#session-info"><i class="fa fa-check"></i>Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-r-programming-language"><i class="fa fa-check"></i><b>1.1</b> The R programming language</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.1.1</b> Using RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#interpreting-values"><i class="fa fa-check"></i><b>1.2</b> Interpreting values</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#variables"><i class="fa fa-check"></i><b>1.3</b> Variables</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-types"><i class="fa fa-check"></i><b>1.4</b> Basic types</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#numeric"><i class="fa fa-check"></i><b>1.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#logical"><i class="fa fa-check"></i><b>1.4.2</b> Logical</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#character"><i class="fa fa-check"></i><b>1.4.3</b> Character</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidyverse"><i class="fa fa-check"></i><b>1.5</b> Tidyverse</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#stringr"><i class="fa fa-check"></i><b>1.5.1</b> stringr</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-pipe-operator"><i class="fa fa-check"></i><b>1.5.2</b> The pipe operator</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#coding-style"><i class="fa fa-check"></i><b>1.6</b> Coding style</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.1"><i class="fa fa-check"></i><b>1.7</b> Exercise 104.1</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.2"><i class="fa fa-check"></i><b>1.8</b> Exercise 104.2</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>2</b> R programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="r-programming.html"><a href="r-programming.html#r-scripts"><i class="fa fa-check"></i><b>2.1</b> R Scripts</a></li>
+<li class="chapter" data-level="2.2" data-path="r-programming.html"><a href="r-programming.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="r-programming.html"><a href="r-programming.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="r-programming.html"><a href="r-programming.html#conditional-statements"><i class="fa fa-check"></i><b>2.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="2.5" data-path="r-programming.html"><a href="r-programming.html#loops"><i class="fa fa-check"></i><b>2.5</b> Loops</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="r-programming.html"><a href="r-programming.html#conditional-loops"><i class="fa fa-check"></i><b>2.5.1</b> Conditional Loops</a></li>
+<li class="chapter" data-level="2.5.2" data-path="r-programming.html"><a href="r-programming.html#deterministic-loops"><i class="fa fa-check"></i><b>2.5.2</b> Deterministic Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="r-programming.html"><a href="r-programming.html#exercise-114.1"><i class="fa fa-check"></i><b>2.6</b> Exercise 114.1</a></li>
+<li class="chapter" data-level="2.7" data-path="r-programming.html"><a href="r-programming.html#function-definition"><i class="fa fa-check"></i><b>2.7</b> Function definition</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-programming.html"><a href="r-programming.html#functions-and-control-structures"><i class="fa fa-check"></i><b>2.7.1</b> Functions and control structures</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="r-programming.html"><a href="r-programming.html#exercise-114.2"><i class="fa fa-check"></i><b>2.8</b> Exercise 114.2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html"><i class="fa fa-check"></i><b>3</b> Data wrangling Pt. 1</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#install-libraries"><i class="fa fa-check"></i><b>3.2</b> Install libraries</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#loading-r-scripts"><i class="fa fa-check"></i><b>3.2.1</b> Loading R scripts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#summarise"><i class="fa fa-check"></i><b>3.3.1</b> Summarise</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#select-and-filter"><i class="fa fa-check"></i><b>3.3.2</b> Select and filter</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#mutate"><i class="fa fa-check"></i><b>3.3.3</b> Mutate</a></li>
+<li class="chapter" data-level="3.3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#arrange"><i class="fa fa-check"></i><b>3.3.4</b> Arrange</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation-example"><i class="fa fa-check"></i><b>3.4</b> Data manipulation example</a></li>
+<li class="chapter" data-level="3.5" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#exercise-204.1"><i class="fa fa-check"></i><b>3.5</b> Exercise 204.1</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html"><i class="fa fa-check"></i><b>4</b> Data wrangling Pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#table-manipulation"><i class="fa fa-check"></i><b>4.1</b> Table manipulation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#long-and-wide-formats"><i class="fa fa-check"></i><b>4.1.1</b> Long and wide formats</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join"><i class="fa fa-check"></i><b>4.1.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#read-and-write-data"><i class="fa fa-check"></i><b>4.2</b> Read and write data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#file-paths"><i class="fa fa-check"></i><b>4.2.1</b> File paths</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#data-wrangling-example"><i class="fa fa-check"></i><b>4.3</b> Data wrangling example</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#re-shaping"><i class="fa fa-check"></i><b>4.3.1</b> Re-shaping</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join-1"><i class="fa fa-check"></i><b>4.3.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.1"><i class="fa fa-check"></i><b>4.4</b> Exercise 214.1</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.2"><i class="fa fa-check"></i><b>4.5</b> Exercise 214.2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>5</b> Reproducibility</a><ul>
+<li class="chapter" data-level="5.1" data-path="reproducibility.html"><a href="reproducibility.html#markdown"><i class="fa fa-check"></i><b>5.1</b> Markdown</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="reproducibility.html"><a href="reproducibility.html#r-markdown"><i class="fa fa-check"></i><b>5.1.1</b> R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.1"><i class="fa fa-check"></i><b>5.2</b> Exercise 224.1</a></li>
+<li class="chapter" data-level="5.3" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.2"><i class="fa fa-check"></i><b>5.3</b> Exercise 224.2</a></li>
+<li class="chapter" data-level="5.4" data-path="reproducibility.html"><a href="reproducibility.html#git"><i class="fa fa-check"></i><b>5.4</b> Git</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="reproducibility.html"><a href="reproducibility.html#git-and-rstudio"><i class="fa fa-check"></i><b>5.4.1</b> Git and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.3"><i class="fa fa-check"></i><b>5.5</b> Exercise 224.3</a></li>
+<li class="chapter" data-level="5.6" data-path="reproducibility.html"><a href="reproducibility.html#cloning-granolarr"><i class="fa fa-check"></i><b>5.6</b> Cloning granolarr</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#gglot2-recap"><i class="fa fa-check"></i><b>6.2</b> GGlot2 recap</a></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data-visualisation"><i class="fa fa-check"></i><b>6.3</b> Data visualisation</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#distributions"><i class="fa fa-check"></i><b>6.3.1</b> Distributions</a></li>
+<li class="chapter" data-level="6.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>6.3.2</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.1"><i class="fa fa-check"></i><b>6.4</b> Exercise 304.1</a></li>
+<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploratory-statistics"><i class="fa fa-check"></i><b>6.5</b> Exploratory statistics</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.2"><i class="fa fa-check"></i><b>6.6</b> Exercise 304.2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comparing-data.html"><a href="comparing-data.html"><i class="fa fa-check"></i><b>7</b> Comparing data</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="comparing-data.html"><a href="comparing-data.html#anova"><i class="fa fa-check"></i><b>7.2</b> ANOVA</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>7.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.1"><i class="fa fa-check"></i><b>7.3</b> Exercise 314.1</a></li>
+<li class="chapter" data-level="7.4" data-path="comparing-data.html"><a href="comparing-data.html#correlation"><i class="fa fa-check"></i><b>7.4</b> Correlation</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.2"><i class="fa fa-check"></i><b>7.5</b> Exercise 314.2</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>8</b> Regression analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-regression"><i class="fa fa-check"></i><b>8.1</b> Simple regression</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>8.1.1</b> Example</a></li>
+<li class="chapter" data-level="8.1.2" data-path="regression-analysis.html"><a href="regression-analysis.html#checking-assumptions"><i class="fa fa-check"></i><b>8.1.2</b> Checking assumptions</a></li>
+<li class="chapter" data-level="8.1.3" data-path="regression-analysis.html"><a href="regression-analysis.html#how-to-report"><i class="fa fa-check"></i><b>8.1.3</b> How to report</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="regression-analysis.html"><a href="regression-analysis.html#multiple-regression"><i class="fa fa-check"></i><b>8.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>8.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="regression-analysis.html"><a href="regression-analysis.html#exercise-324.1"><i class="fa fa-check"></i><b>8.3</b> Exercise 324.1</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-networks"><i class="fa fa-check"></i><b>9.1.1</b> Artificial neural networks</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines"><i class="fa fa-check"></i><b>9.1.2</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#confusion-matrices"><i class="fa fa-check"></i><b>9.1.3</b> Confusion matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>9.2</b> Examples</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#data"><i class="fa fa-check"></i><b>9.2.1</b> Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#logistic-regression"><i class="fa fa-check"></i><b>9.2.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines-1"><i class="fa fa-check"></i><b>9.2.3</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#kernels"><i class="fa fa-check"></i><b>9.2.4</b> Kernels</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-network"><i class="fa fa-check"></i><b>9.2.5</b> Artificial neural network</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#exercise-404.1"><i class="fa fa-check"></i><b>9.3</b> Exercise 404.1</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>10</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means"><i class="fa fa-check"></i><b>10.1.1</b> K-means</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#number-of-clusters"><i class="fa fa-check"></i><b>10.1.2</b> Number of clusters</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#geodemographic-classification"><i class="fa fa-check"></i><b>10.1.3</b> Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#terrace-and-semi-detached-houses"><i class="fa fa-check"></i><b>10.2.1</b> Terrace and semi-detached houses</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters"><i class="fa fa-check"></i><b>10.2.2</b> Interpreting the clusters</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#a-geodemographic-of-dwelling-types"><i class="fa fa-check"></i><b>10.2.3</b> A geodemographic of dwelling types</a></li>
+<li class="chapter" data-level="10.2.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters-1"><i class="fa fa-check"></i><b>10.2.4</b> Interpreting the clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#exercise-414.1"><i class="fa fa-check"></i><b>10.3</b> Exercise 414.1</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical session materials | granolarr</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="regression-analysis" class="section level1">
+<h1><span class="header-section-number">8</span> Regression analysis</h1>
+<p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
+<p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
+<div id="simple-regression" class="section level2">
+<h2><span class="header-section-number">8.1</span> Simple regression</h2>
+<p>The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable <span class="math inline">\(Y\)</span> based on one predictor variable <span class="math inline">\(X_1\)</span>, by estimating the intercept <span class="math inline">\(b_0\)</span> and coefficient (slope) <span class="math inline">\(b_1\)</span>, and accounting for a reasonable amount of error <span class="math inline">\(\epsilon\)</span>.</p>
+<p><span class="math display">\[Y_i = (b_0 + b_1 * X_{i1}) + \epsilon_i \]</span></p>
+<p>Least squares is the most commonly used approach to generate a regression model. This model fits a line to minimise the squared values of the <strong>residuals</strong> (errors), which are calculated as the squared difference between observed values the values predicted by the model.</p>
+<p><span class="math display">\[redidual = \sum(observed - model)^2\]</span></p>
+<p>A model is considered <strong>robust</strong> if the residuals do not show particular trends, which would indicate that <em>“something”</em> is interfering with the model. In particular, the assumption of the regression model are:</p>
+<ul>
+<li><strong>linearity:</strong> the relationship is actually linear;</li>
+<li><strong>normality</strong> of residuals: standard residuals are normally distributed with mean <code>0</code>;</li>
+<li><strong>homoscedasticity</strong> of residuals: at each level of the predictor variable(s) the variance of the standard residuals should be the same (<em>homo-scedasticity</em>) rather than different (<em>hetero-scedasticity</em>);</li>
+<li><strong>independence</strong> of residuals: adjacent standard residuals are not correlated.</li>
+</ul>
+<div id="example" class="section level3">
+<h3><span class="header-section-number">8.1.1</span> Example</h3>
+<p>The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the <code>nycflights13</code> dataset for the flight on November 20th, 2013. The scatterplot below seems to indicate that the relationship is indeed linear.</p>
+<p><span class="math display">\[arr\_delay_i = (Intercept + Coefficient_{dep\_delay} * dep\_delay_{i1}) + \epsilon_i \]</span></p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="regression-analysis.html#cb249-1"></a><span class="co"># Load the library</span></span>
+<span id="cb249-2"><a href="regression-analysis.html#cb249-2"></a><span class="kw">library</span>(nycflights13)</span>
+<span id="cb249-3"><a href="regression-analysis.html#cb249-3"></a></span>
+<span id="cb249-4"><a href="regression-analysis.html#cb249-4"></a><span class="co"># November 20th, 2013</span></span>
+<span id="cb249-5"><a href="regression-analysis.html#cb249-5"></a>flights_nov_<span class="dv">20</span> &lt;-<span class="st"> </span>nycflights13<span class="op">::</span>flights <span class="op">%&gt;%</span></span>
+<span id="cb249-6"><a href="regression-analysis.html#cb249-6"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(dep_delay), <span class="op">!</span><span class="kw">is.na</span>(arr_delay), month <span class="op">==</span><span class="st"> </span><span class="dv">11</span>, day <span class="op">==</span><span class="dv">20</span>) </span></code></pre></div>
+<center>
+<img src="324_P_Regression_files/figure-html/unnamed-chunk-3-1.png" width="384" />
+</center>
+<p>The code below generates the model using the function <code>lm</code>, and the function <code>summary</code> to obtain the summary of the results of the test. The model and summary are saved in the variables <code>delay_model</code> and <code>delay_model_summary</code>, respectively, for further use below. The variable <code>delay_model_summary</code> can then be called directly to visualise the result of the test.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="regression-analysis.html#cb250-1"></a><span class="co"># Classic R coding version</span></span>
+<span id="cb250-2"><a href="regression-analysis.html#cb250-2"></a><span class="co"># delay_model &lt;- lm(arr_delay ~ dep_delay, data = flights_nov_20)</span></span>
+<span id="cb250-3"><a href="regression-analysis.html#cb250-3"></a><span class="co"># delay_model_summary &lt;- summary(delay_model)</span></span>
+<span id="cb250-4"><a href="regression-analysis.html#cb250-4"></a></span>
+<span id="cb250-5"><a href="regression-analysis.html#cb250-5"></a><span class="co"># Load magrittr library to use %$%</span></span>
+<span id="cb250-6"><a href="regression-analysis.html#cb250-6"></a><span class="kw">library</span>(magrittr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;magrittr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:purrr&#39;:
+## 
+##     set_names</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     extract</code></pre>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="regression-analysis.html#cb254-1"></a>delay_model &lt;-<span class="st"> </span>flights_nov_<span class="dv">20</span> <span class="op">%$%</span></span>
+<span id="cb254-2"><a href="regression-analysis.html#cb254-2"></a><span class="st">  </span><span class="kw">lm</span>(arr_delay <span class="op">~</span><span class="st"> </span>dep_delay) </span>
+<span id="cb254-3"><a href="regression-analysis.html#cb254-3"></a></span>
+<span id="cb254-4"><a href="regression-analysis.html#cb254-4"></a>delay_model_summary &lt;-<span class="st"> </span>delay_model <span class="op">%&gt;%</span></span>
+<span id="cb254-5"><a href="regression-analysis.html#cb254-5"></a><span class="st">  </span><span class="kw">summary</span>()</span>
+<span id="cb254-6"><a href="regression-analysis.html#cb254-6"></a></span>
+<span id="cb254-7"><a href="regression-analysis.html#cb254-7"></a>delay_model_summary</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = arr_delay ~ dep_delay)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -43.906  -9.022  -1.758   8.678  57.052 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -4.96717    0.43748  -11.35   &lt;2e-16 ***
+## dep_delay    1.04229    0.01788   58.28   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 13.62 on 972 degrees of freedom
+## Multiple R-squared:  0.7775,	Adjusted R-squared:  0.7773 
+## F-statistic:  3397 on 1 and 972 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The image below highlights the important values in the output: the adjusted <span class="math inline">\(R^2\)</span> value; the model significance value <code>p-value</code> and the related F-statistic information <code>F-statistic</code>; the intercept and <code>dep_delay</code> coefficient estimates in the <code>Estimate</code> column and the related significance values of in the column <code>Pr(&gt;|t|)</code>.</p>
+<center>
+<img src="images/Regression_output_annotated.png" style="width:70.0%" />
+</center>
+<p>The output indicates:</p>
+<ul>
+<li><strong>p-value: &lt; 2.2e-16</strong>: <span class="math inline">\(p&lt;.001\)</span> the model is significant;
+<ul>
+<li>derived by comparing the calulated <strong>F-statistic</strong> value to F distribution 3396.74 having specified degrees of freedom (1, 972);</li>
+<li>Report as: <span class="math inline">\(F(1, 972) = 3396.74\)</span></li>
+</ul></li>
+<li><strong>Adjusted R-squared: 0.7773</strong>: the departure delay can account for 77.73% of the arrival delay;</li>
+<li><strong>Coefficients</strong>:
+<ul>
+<li>Intercept estimate -4.9672 is significant;</li>
+<li><code>dep_delay</code> coefficient (slope) estimate 1.0423 is significant.</li>
+</ul></li>
+</ul>
+<center>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="regression-analysis.html#cb256-1"></a>flights_nov_<span class="dv">20</span> <span class="op">%&gt;%</span></span>
+<span id="cb256-2"><a href="regression-analysis.html#cb256-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> dep_delay, <span class="dt">y =</span> arr_delay)) <span class="op">+</span></span>
+<span id="cb256-3"><a href="regression-analysis.html#cb256-3"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw">coord_fixed</span>(<span class="dt">ratio =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb256-4"><a href="regression-analysis.html#cb256-4"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_abline</span>(<span class="dt">intercept =</span> <span class="fl">4.0943</span>, <span class="dt">slope =</span> <span class="fl">1.04229</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<img src="324_P_Regression_files/figure-html/unnamed-chunk-5-1.png" width="384" />
+</center>
+</div>
+<div id="checking-assumptions" class="section level3">
+<h3><span class="header-section-number">8.1.2</span> Checking assumptions</h3>
+<div id="normality" class="section level4">
+<h4><span class="header-section-number">8.1.2.1</span> Normality</h4>
+<p>The Shapiro-Wilk test can be used to check for the normality of standard residuals. The test should be not significant for robust models. In the example below, the standard residuals are <em>not</em> normally distributed. However, the plot further below does show that the distribution of the residuals is not far away from a normal distribution.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="regression-analysis.html#cb257-1"></a>delay_model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb257-2"><a href="regression-analysis.html#cb257-2"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">rstandard</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb257-3"><a href="regression-analysis.html#cb257-3"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.98231, p-value = 1.73e-09</code></pre>
+<center>
+<img src="324_P_Regression_files/figure-html/unnamed-chunk-7-1.png" width="576" />
+</center>
+</div>
+<div id="homoscedasticity" class="section level4">
+<h4><span class="header-section-number">8.1.2.2</span> Homoscedasticity</h4>
+<p>The Breusch-Pagan test can be used to check for the homoscedasticity of standard residuals. The test should be not significant for robust models. In the example below, the standard residuals are homoscedastic.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="regression-analysis.html#cb259-1"></a><span class="kw">library</span>(lmtest)</span>
+<span id="cb259-2"><a href="regression-analysis.html#cb259-2"></a></span>
+<span id="cb259-3"><a href="regression-analysis.html#cb259-3"></a>delay_model <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb259-4"><a href="regression-analysis.html#cb259-4"></a><span class="st">  </span>lmtest<span class="op">::</span><span class="kw">bptest</span>()</span></code></pre></div>
+<pre><code>## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 0.017316, df = 1, p-value = 0.8953</code></pre>
+</div>
+<div id="independence" class="section level4">
+<h4><span class="header-section-number">8.1.2.3</span> Independence</h4>
+<p>The Durbin-Watson test can be used to check for the independence of residuals. The test should be statistic should be close to 2 (between 1 and 3) and not significant for robust models. In the example below, the standard residuals might not be completely independent. Note, however, that the result depends on the order of the data.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="regression-analysis.html#cb261-1"></a><span class="co"># Also part of the library lmtest</span></span>
+<span id="cb261-2"><a href="regression-analysis.html#cb261-2"></a>delay_model <span class="op">%&gt;%</span></span>
+<span id="cb261-3"><a href="regression-analysis.html#cb261-3"></a><span class="st">  </span>lmtest<span class="op">::</span><span class="kw">dwtest</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Durbin-Watson test
+## 
+## data:  .
+## DW = 1.8731, p-value = 0.02358
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+</div>
+<div id="plots" class="section level4">
+<h4><span class="header-section-number">8.1.2.4</span> Plots</h4>
+<p>The <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/plot.lm"><code>plot.lm</code> function</a> can be used to further explore the residuals visuallly. Usage is illustrated below. The <em>Residuals vs Fitted</em> and <em>Scale-Location</em> plot provide an insight into the homoscedasticity of the residuals, the <em>Normal Q-Q</em> plot provides an illustration of the normality of the residuals, and the <em>Residuals vs Leverage</em> can be useful to identify exceptional cases (e.g., Cook’s distance greater than 1).</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="regression-analysis.html#cb263-1"></a>delay_model <span class="op">%&gt;%</span></span>
+<span id="cb263-2"><a href="regression-analysis.html#cb263-2"></a><span class="st">  </span><span class="kw">plot</span>(<span class="dt">which =</span> <span class="kw">c</span>(<span class="dv">1</span>))</span></code></pre></div>
+<p><img src="324_P_Regression_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="regression-analysis.html#cb264-1"></a>delay_model <span class="op">%&gt;%</span></span>
+<span id="cb264-2"><a href="regression-analysis.html#cb264-2"></a><span class="st">  </span><span class="kw">plot</span>(<span class="dt">which =</span> <span class="kw">c</span>(<span class="dv">2</span>))</span></code></pre></div>
+<p><img src="324_P_Regression_files/figure-html/unnamed-chunk-10-2.png" width="576" /></p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="regression-analysis.html#cb265-1"></a>delay_model <span class="op">%&gt;%</span></span>
+<span id="cb265-2"><a href="regression-analysis.html#cb265-2"></a><span class="st">  </span><span class="kw">plot</span>(<span class="dt">which =</span> <span class="kw">c</span>(<span class="dv">3</span>))</span></code></pre></div>
+<p><img src="324_P_Regression_files/figure-html/unnamed-chunk-10-3.png" width="576" /></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="regression-analysis.html#cb266-1"></a>delay_model <span class="op">%&gt;%</span></span>
+<span id="cb266-2"><a href="regression-analysis.html#cb266-2"></a><span class="st">  </span><span class="kw">plot</span>(<span class="dt">which =</span> <span class="kw">c</span>(<span class="dv">5</span>))</span></code></pre></div>
+<img src="324_P_Regression_files/figure-html/unnamed-chunk-10-4.png" width="576" />
+</center>
+</div>
+</div>
+<div id="how-to-report" class="section level3">
+<h3><span class="header-section-number">8.1.3</span> How to report</h3>
+<p>Overall, we can say that the delay model computed above is fit (<span class="math inline">\(F(1, 972) = 3396.74\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 0.02\)</span>, <span class="math inline">\(p =0.9\)</span>), and the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.87\)</span>, <span class="math inline">\(p =0.02\)</span>), but they are not normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 0.98\)</span>, <span class="math inline">\(p &lt; .001\)</span>).</p>
+<p>The <a href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer"><code>stargazer</code> function of the <code>stargazer</code> library</a> can be applied to the model <code>delay_model</code> to generate a nicer output in RMarkdown PDF documents by including <code>results = "asis"</code> in the R snippet option.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="regression-analysis.html#cb267-1"></a><span class="co"># Install stargazer if not yet installed</span></span>
+<span id="cb267-2"><a href="regression-analysis.html#cb267-2"></a><span class="co"># install.packages(&quot;stargazer&quot;)</span></span>
+<span id="cb267-3"><a href="regression-analysis.html#cb267-3"></a></span>
+<span id="cb267-4"><a href="regression-analysis.html#cb267-4"></a><span class="kw">library</span>(stargazer)</span>
+<span id="cb267-5"><a href="regression-analysis.html#cb267-5"></a></span>
+<span id="cb267-6"><a href="regression-analysis.html#cb267-6"></a><span class="co"># Not rendered in bookdown</span></span>
+<span id="cb267-7"><a href="regression-analysis.html#cb267-7"></a><span class="kw">stargazer</span>(delay_model, <span class="dt">header =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+
+</div>
+</div>
+<div id="multiple-regression" class="section level2">
+<h2><span class="header-section-number">8.2</span> Multiple regression</h2>
+<p>The multiple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable <span class="math inline">\(Y\)</span> based on two or more predictor variables <span class="math inline">\(X_1 \dots X_M\)</span>, by estimating the intercept <span class="math inline">\(b_0\)</span> and the coefficients (slopes) <span class="math inline">\(b_1 \dots b_M\)</span>, and accounting for a reasonable amount of error <span class="math inline">\(\epsilon\)</span>.</p>
+<p><span class="math display">\[Y_i = (b_0 + b_1 * X_{i1} + b_2 * X_{i2} + \dots + b_M * X_{iM}) + \epsilon_i \]</span></p>
+<p>The assumptions are the same as the simple regression, plus the assumption of <strong>no multicollinearity</strong>: if two or more predictor variables are used in the model, each pair of variables not correlated. This assumption can be tested by checking the variance inflation factor (VIF). If the largest VIF value is greater than 10 or the average VIF is substantially greater than 1, there might be an issue of multicollinearity.</p>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">8.2.1</span> Example</h3>
+<p>The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (<code>u121</code>) in Leicester, using the number of people in different industry sectors as predictors.</p>
+<p>For instance, occupations such as electricity, gas, steam and air conditioning supply (<code>u144</code>) require to travel some distances with equipment, thus the related variable <code>u144</code> is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport.</p>
+<p>A multiple regression model can be specified in a similar way as a simple regression model, using the same <code>lm</code> function, but adding the additional predictor variables using a <code>+</code> operator.</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="regression-analysis.html#cb268-1"></a>leicester_2011OAC &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;2011_OAC_Raw_uVariables_Leicester.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="regression-analysis.html#cb269-1"></a><span class="co"># Select and </span></span>
+<span id="cb269-2"><a href="regression-analysis.html#cb269-2"></a><span class="co"># normalise variables</span></span>
+<span id="cb269-3"><a href="regression-analysis.html#cb269-3"></a>leicester_2011OAC_transp &lt;-</span>
+<span id="cb269-4"><a href="regression-analysis.html#cb269-4"></a><span class="st">  </span>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb269-5"><a href="regression-analysis.html#cb269-5"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
+<span id="cb269-6"><a href="regression-analysis.html#cb269-6"></a>    OA11CD, </span>
+<span id="cb269-7"><a href="regression-analysis.html#cb269-7"></a>    Total_Pop_No_NI_Students_<span class="dv">16</span>_to_<span class="dv">74</span>, Total_Employment_<span class="dv">16</span>_to_<span class="dv">74</span>, </span>
+<span id="cb269-8"><a href="regression-analysis.html#cb269-8"></a>    u121, u141<span class="op">:</span>u158</span>
+<span id="cb269-9"><a href="regression-analysis.html#cb269-9"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb269-10"><a href="regression-analysis.html#cb269-10"></a><span class="st">  </span><span class="co"># percentage method of travel</span></span>
+<span id="cb269-11"><a href="regression-analysis.html#cb269-11"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb269-12"><a href="regression-analysis.html#cb269-12"></a>    <span class="dt">u121 =</span> (u121 <span class="op">/</span><span class="st"> </span>Total_Pop_No_NI_Students_<span class="dv">16</span>_to_<span class="dv">74</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span></span>
+<span id="cb269-13"><a href="regression-analysis.html#cb269-13"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb269-14"><a href="regression-analysis.html#cb269-14"></a><span class="st">  </span><span class="co"># percentage across industry sector columns</span></span>
+<span id="cb269-15"><a href="regression-analysis.html#cb269-15"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb269-16"><a href="regression-analysis.html#cb269-16"></a>    dplyr<span class="op">::</span><span class="kw">across</span>( </span>
+<span id="cb269-17"><a href="regression-analysis.html#cb269-17"></a>      u141<span class="op">:</span>u158,</span>
+<span id="cb269-18"><a href="regression-analysis.html#cb269-18"></a>      <span class="cf">function</span>(x){ (x <span class="op">/</span><span class="st"> </span>Total_Employment_<span class="dv">16</span>_to_<span class="dv">74</span>) <span class="op">*</span><span class="st"> </span><span class="dv">100</span> }</span>
+<span id="cb269-19"><a href="regression-analysis.html#cb269-19"></a>    )</span>
+<span id="cb269-20"><a href="regression-analysis.html#cb269-20"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb269-21"><a href="regression-analysis.html#cb269-21"></a><span class="st">  </span><span class="co"># rename columns</span></span>
+<span id="cb269-22"><a href="regression-analysis.html#cb269-22"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename_with</span>(</span>
+<span id="cb269-23"><a href="regression-analysis.html#cb269-23"></a>    <span class="cf">function</span>(x){ <span class="kw">paste0</span>(<span class="st">&quot;perc_&quot;</span>, x) },</span>
+<span id="cb269-24"><a href="regression-analysis.html#cb269-24"></a>    <span class="kw">c</span>(u121, u141<span class="op">:</span>u158)</span>
+<span id="cb269-25"><a href="regression-analysis.html#cb269-25"></a>  )</span>
+<span id="cb269-26"><a href="regression-analysis.html#cb269-26"></a></span>
+<span id="cb269-27"><a href="regression-analysis.html#cb269-27"></a><span class="co"># Selected variables</span></span>
+<span id="cb269-28"><a href="regression-analysis.html#cb269-28"></a></span>
+<span id="cb269-29"><a href="regression-analysis.html#cb269-29"></a><span class="co"># perc_u120: Method of Travel to Work, Private Transport</span></span>
+<span id="cb269-30"><a href="regression-analysis.html#cb269-30"></a><span class="co"># perc_u142: Industry Sector, Mining and quarrying</span></span>
+<span id="cb269-31"><a href="regression-analysis.html#cb269-31"></a><span class="co"># perc_u144: Industry Sector, Electricity, gas, steam and air conditioning ...</span></span>
+<span id="cb269-32"><a href="regression-analysis.html#cb269-32"></a><span class="co"># perc_u146: Industry Sector, Construction</span></span>
+<span id="cb269-33"><a href="regression-analysis.html#cb269-33"></a><span class="co"># perc_u149: Industry Sector, Accommodation and food service activities</span></span>
+<span id="cb269-34"><a href="regression-analysis.html#cb269-34"></a></span>
+<span id="cb269-35"><a href="regression-analysis.html#cb269-35"></a><span class="co"># Create model</span></span>
+<span id="cb269-36"><a href="regression-analysis.html#cb269-36"></a>commuting_model1 &lt;-<span class="st"> </span></span>
+<span id="cb269-37"><a href="regression-analysis.html#cb269-37"></a><span class="st">  </span>leicester_2011OAC_transp <span class="op">%$%</span></span>
+<span id="cb269-38"><a href="regression-analysis.html#cb269-38"></a><span class="st">  </span><span class="kw">lm</span>(</span>
+<span id="cb269-39"><a href="regression-analysis.html#cb269-39"></a>    perc_u121 <span class="op">~</span><span class="st"> </span></span>
+<span id="cb269-40"><a href="regression-analysis.html#cb269-40"></a><span class="st">      </span>perc_u142 <span class="op">+</span><span class="st"> </span>perc_u144 <span class="op">+</span><span class="st"> </span>perc_u146 <span class="op">+</span><span class="st"> </span>perc_u149</span>
+<span id="cb269-41"><a href="regression-analysis.html#cb269-41"></a>  )</span>
+<span id="cb269-42"><a href="regression-analysis.html#cb269-42"></a></span>
+<span id="cb269-43"><a href="regression-analysis.html#cb269-43"></a><span class="co"># Print summary</span></span>
+<span id="cb269-44"><a href="regression-analysis.html#cb269-44"></a>commuting_model1 <span class="op">%&gt;%</span></span>
+<span id="cb269-45"><a href="regression-analysis.html#cb269-45"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = perc_u121 ~ perc_u142 + perc_u144 + perc_u146 + 
+##     perc_u149)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -35.315  -6.598  -0.244   6.439  31.472 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 37.12690    0.94148  39.434  &lt; 2e-16 ***
+## perc_u142    3.74768    1.21255   3.091  0.00205 ** 
+## perc_u144    1.16865    0.25328   4.614 4.48e-06 ***
+## perc_u146    1.05408    0.09335  11.291  &lt; 2e-16 ***
+## perc_u149   -1.56948    0.08435 -18.606  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.481 on 964 degrees of freedom
+## Multiple R-squared:  0.3846,	Adjusted R-squared:  0.3821 
+## F-statistic: 150.6 on 4 and 964 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="regression-analysis.html#cb271-1"></a><span class="co"># Not rendered in bookdown</span></span>
+<span id="cb271-2"><a href="regression-analysis.html#cb271-2"></a><span class="kw">stargazer</span>(commuting_model1, <span class="dt">header=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="regression-analysis.html#cb272-1"></a>commuting_model1 <span class="op">%&gt;%</span></span>
+<span id="cb272-2"><a href="regression-analysis.html#cb272-2"></a><span class="st">  </span><span class="kw">rstandard</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb272-3"><a href="regression-analysis.html#cb272-3"></a><span class="st">  </span><span class="kw">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99889, p-value = 0.8307</code></pre>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="regression-analysis.html#cb274-1"></a>commuting_model1 <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb274-2"><a href="regression-analysis.html#cb274-2"></a><span class="st">  </span><span class="kw">bptest</span>()</span></code></pre></div>
+<pre><code>## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 28.403, df = 4, p-value = 1.033e-05</code></pre>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="regression-analysis.html#cb276-1"></a>commuting_model1 <span class="op">%&gt;%</span></span>
+<span id="cb276-2"><a href="regression-analysis.html#cb276-2"></a><span class="st">  </span><span class="kw">dwtest</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Durbin-Watson test
+## 
+## data:  .
+## DW = 1.835, p-value = 0.004908
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="regression-analysis.html#cb278-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb278-2"><a href="regression-analysis.html#cb278-2"></a></span>
+<span id="cb278-3"><a href="regression-analysis.html#cb278-3"></a>commuting_model1 <span class="op">%&gt;%</span></span>
+<span id="cb278-4"><a href="regression-analysis.html#cb278-4"></a><span class="st">  </span><span class="kw">vif</span>()</span></code></pre></div>
+<pre><code>## perc_u142 perc_u144 perc_u146 perc_u149 
+##  1.006906  1.016578  1.037422  1.035663</code></pre>
+<p>The output above suggests that the model is fit (<span class="math inline">\(F(4, 964) = 150.62\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that a model based on the presence of people working in the four selected industry sectors can account for 38.21% of the number of people using private transportation to commute to work. However the model is only partially robust. The residuals are normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 1\)</span>, <span class="math inline">\(p =0.83\)</span>) and there seems to be no multicollinearity with average VIF <span class="math inline">\(1.02\)</span>, but the residuals don’t satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 28.4\)</span>, <span class="math inline">\(p &lt; .001\)</span>), nor the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.84\)</span>, <span class="math inline">\(p &lt; .01\)</span>).</p>
+<p>The coefficient values calculated by the <code>lm</code> functions are important to create the model, and provide useful information. For instance, the coefficient for the variable <code>perc_u144</code> is <code>1.169</code>, which indicates that if the presence of people working in electricity, gas, steam and air conditioning supply increases by one percentage point, the number of people using private transportation to commute to work increases by <code>1.169</code> percentage points, according to the model. The coefficients also indicate that the presence of people working in accommodation and food service activities actually has a negative impact (in the context of the variables selected for the model) on the number of people using private transportation to commute to work.</p>
+<p>In this example, all variables use the same unit and are of a similar type, which makes interpreting the model relatively simple. When that is not the case, it can be useful to look at the standardized <span class="math inline">\(\beta\)</span>, which provide the same information but measured in terms of standard deviation, which make comparisons between variables of different types easier to draw. For instance, the values calculated below using the function <code>lm.beta</code> of the library <code>lm.beta</code> indicate that if the presence of people working in construction has the highest impact on the outcome varaible. If the presence of people working in construction increases by one standard deviation, the number of people using private transportation to commute to work increases by <code>0.29</code> standard deviations, according to the model.</p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="regression-analysis.html#cb280-1"></a><span class="co"># Install lm.beta library if necessary</span></span>
+<span id="cb280-2"><a href="regression-analysis.html#cb280-2"></a><span class="co"># install.packages(&quot;lm.beta&quot;)</span></span>
+<span id="cb280-3"><a href="regression-analysis.html#cb280-3"></a><span class="kw">library</span>(lm.beta)</span>
+<span id="cb280-4"><a href="regression-analysis.html#cb280-4"></a></span>
+<span id="cb280-5"><a href="regression-analysis.html#cb280-5"></a><span class="kw">lm.beta</span>(commuting_model1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = perc_u121 ~ perc_u142 + perc_u144 + perc_u146 + 
+##     perc_u149)
+## 
+## Standardized Coefficients::
+## (Intercept)   perc_u142   perc_u144   perc_u146   perc_u149 
+##  0.00000000  0.07836017  0.11754058  0.29057993 -0.47841083</code></pre>
+</div>
+</div>
+<div id="exercise-324.1" class="section level2">
+<h2><span class="header-section-number">8.3</span> Exercise 324.1</h2>
+<p><strong>Question 324.1.1:</strong> Create a model having as outcome variable the presence of people using private transport for commuting to work, and using a stepwise <em>“both”</em> approach, having all the variables created for the example above and related to the presence of people working in different industry sectors (<code>perc_u141 to perc_u158</code>) as scope.</p>
+<p><strong>Question 324.1.2:</strong> Is the presence of people using public transportation to commute to work statistically, linearly related to mean age (<code>u020</code>)?</p>
+<p><strong>Question 324.1.3:</strong> Is the presence of people using public transportation to commute to work statistically, linearly related to (a subset of) the age structure categories (<code>u007</code> to <code>u019</code>)?</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="comparing-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="supervised-machine-learning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["granolarr_practical_session_materials.pdf", "PDF"], ["granolarr_practical_session_materials.epub", "EPUB"]],
+"toc": {
+"collapse": "subsection"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

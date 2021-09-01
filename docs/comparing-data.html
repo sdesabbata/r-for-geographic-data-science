@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Comparing data | Practical session materials | granolarr</title>
+  <meta name="description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Comparing data | Practical session materials | granolarr" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://sdesabbata.github.io/granolarr/" />
+  
+  <meta property="og:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  <meta name="github-repo" content="sdesabbata/granolarr" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Comparing data | Practical session materials | granolarr" />
+  
+  <meta name="twitter:description" content="Geographic data science reproducible teaching resource in R, Practical session materials" />
+  
+
+<meta name="author" content="Stefano De Sabbata" />
+
+
+<meta name="date" content="2021-08-31" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="exploratory-data-analysis.html"/>
+<link rel="next" href="regression-analysis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#session-info"><i class="fa fa-check"></i>Session info</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-r-programming-language"><i class="fa fa-check"></i><b>1.1</b> The R programming language</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.1.1</b> Using RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#interpreting-values"><i class="fa fa-check"></i><b>1.2</b> Interpreting values</a></li>
+<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#variables"><i class="fa fa-check"></i><b>1.3</b> Variables</a></li>
+<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-types"><i class="fa fa-check"></i><b>1.4</b> Basic types</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#numeric"><i class="fa fa-check"></i><b>1.4.1</b> Numeric</a></li>
+<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#logical"><i class="fa fa-check"></i><b>1.4.2</b> Logical</a></li>
+<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#character"><i class="fa fa-check"></i><b>1.4.3</b> Character</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidyverse"><i class="fa fa-check"></i><b>1.5</b> Tidyverse</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#stringr"><i class="fa fa-check"></i><b>1.5.1</b> stringr</a></li>
+<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-pipe-operator"><i class="fa fa-check"></i><b>1.5.2</b> The pipe operator</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#coding-style"><i class="fa fa-check"></i><b>1.6</b> Coding style</a></li>
+<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.1"><i class="fa fa-check"></i><b>1.7</b> Exercise 104.1</a></li>
+<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.2"><i class="fa fa-check"></i><b>1.8</b> Exercise 104.2</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>2</b> R programming</a><ul>
+<li class="chapter" data-level="2.1" data-path="r-programming.html"><a href="r-programming.html#r-scripts"><i class="fa fa-check"></i><b>2.1</b> R Scripts</a></li>
+<li class="chapter" data-level="2.2" data-path="r-programming.html"><a href="r-programming.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="r-programming.html"><a href="r-programming.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="r-programming.html"><a href="r-programming.html#conditional-statements"><i class="fa fa-check"></i><b>2.4</b> Conditional statements</a></li>
+<li class="chapter" data-level="2.5" data-path="r-programming.html"><a href="r-programming.html#loops"><i class="fa fa-check"></i><b>2.5</b> Loops</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="r-programming.html"><a href="r-programming.html#conditional-loops"><i class="fa fa-check"></i><b>2.5.1</b> Conditional Loops</a></li>
+<li class="chapter" data-level="2.5.2" data-path="r-programming.html"><a href="r-programming.html#deterministic-loops"><i class="fa fa-check"></i><b>2.5.2</b> Deterministic Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="r-programming.html"><a href="r-programming.html#exercise-114.1"><i class="fa fa-check"></i><b>2.6</b> Exercise 114.1</a></li>
+<li class="chapter" data-level="2.7" data-path="r-programming.html"><a href="r-programming.html#function-definition"><i class="fa fa-check"></i><b>2.7</b> Function definition</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="r-programming.html"><a href="r-programming.html#functions-and-control-structures"><i class="fa fa-check"></i><b>2.7.1</b> Functions and control structures</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="r-programming.html"><a href="r-programming.html#exercise-114.2"><i class="fa fa-check"></i><b>2.8</b> Exercise 114.2</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html"><i class="fa fa-check"></i><b>3</b> Data wrangling Pt. 1</a><ul>
+<li class="chapter" data-level="3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a></li>
+<li class="chapter" data-level="3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#install-libraries"><i class="fa fa-check"></i><b>3.2</b> Install libraries</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#loading-r-scripts"><i class="fa fa-check"></i><b>3.2.1</b> Loading R scripts</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#summarise"><i class="fa fa-check"></i><b>3.3.1</b> Summarise</a></li>
+<li class="chapter" data-level="3.3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#select-and-filter"><i class="fa fa-check"></i><b>3.3.2</b> Select and filter</a></li>
+<li class="chapter" data-level="3.3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#mutate"><i class="fa fa-check"></i><b>3.3.3</b> Mutate</a></li>
+<li class="chapter" data-level="3.3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#arrange"><i class="fa fa-check"></i><b>3.3.4</b> Arrange</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation-example"><i class="fa fa-check"></i><b>3.4</b> Data manipulation example</a></li>
+<li class="chapter" data-level="3.5" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#exercise-204.1"><i class="fa fa-check"></i><b>3.5</b> Exercise 204.1</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html"><i class="fa fa-check"></i><b>4</b> Data wrangling Pt. 2</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#table-manipulation"><i class="fa fa-check"></i><b>4.1</b> Table manipulation</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#long-and-wide-formats"><i class="fa fa-check"></i><b>4.1.1</b> Long and wide formats</a></li>
+<li class="chapter" data-level="4.1.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join"><i class="fa fa-check"></i><b>4.1.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#read-and-write-data"><i class="fa fa-check"></i><b>4.2</b> Read and write data</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#file-paths"><i class="fa fa-check"></i><b>4.2.1</b> File paths</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#data-wrangling-example"><i class="fa fa-check"></i><b>4.3</b> Data wrangling example</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#re-shaping"><i class="fa fa-check"></i><b>4.3.1</b> Re-shaping</a></li>
+<li class="chapter" data-level="4.3.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join-1"><i class="fa fa-check"></i><b>4.3.2</b> Join</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.1"><i class="fa fa-check"></i><b>4.4</b> Exercise 214.1</a></li>
+<li class="chapter" data-level="4.5" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.2"><i class="fa fa-check"></i><b>4.5</b> Exercise 214.2</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>5</b> Reproducibility</a><ul>
+<li class="chapter" data-level="5.1" data-path="reproducibility.html"><a href="reproducibility.html#markdown"><i class="fa fa-check"></i><b>5.1</b> Markdown</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="reproducibility.html"><a href="reproducibility.html#r-markdown"><i class="fa fa-check"></i><b>5.1.1</b> R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.1"><i class="fa fa-check"></i><b>5.2</b> Exercise 224.1</a></li>
+<li class="chapter" data-level="5.3" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.2"><i class="fa fa-check"></i><b>5.3</b> Exercise 224.2</a></li>
+<li class="chapter" data-level="5.4" data-path="reproducibility.html"><a href="reproducibility.html#git"><i class="fa fa-check"></i><b>5.4</b> Git</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="reproducibility.html"><a href="reproducibility.html#git-and-rstudio"><i class="fa fa-check"></i><b>5.4.1</b> Git and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.3"><i class="fa fa-check"></i><b>5.5</b> Exercise 224.3</a></li>
+<li class="chapter" data-level="5.6" data-path="reproducibility.html"><a href="reproducibility.html#cloning-granolarr"><i class="fa fa-check"></i><b>5.6</b> Cloning granolarr</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#gglot2-recap"><i class="fa fa-check"></i><b>6.2</b> GGlot2 recap</a></li>
+<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data-visualisation"><i class="fa fa-check"></i><b>6.3</b> Data visualisation</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#distributions"><i class="fa fa-check"></i><b>6.3.1</b> Distributions</a></li>
+<li class="chapter" data-level="6.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>6.3.2</b> Relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.1"><i class="fa fa-check"></i><b>6.4</b> Exercise 304.1</a></li>
+<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploratory-statistics"><i class="fa fa-check"></i><b>6.5</b> Exploratory statistics</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Descriptive statistics</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.2"><i class="fa fa-check"></i><b>6.6</b> Exercise 304.2</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="comparing-data.html"><a href="comparing-data.html"><i class="fa fa-check"></i><b>7</b> Comparing data</a><ul>
+<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
+<li class="chapter" data-level="7.2" data-path="comparing-data.html"><a href="comparing-data.html#anova"><i class="fa fa-check"></i><b>7.2</b> ANOVA</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>7.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.1"><i class="fa fa-check"></i><b>7.3</b> Exercise 314.1</a></li>
+<li class="chapter" data-level="7.4" data-path="comparing-data.html"><a href="comparing-data.html#correlation"><i class="fa fa-check"></i><b>7.4</b> Correlation</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.2"><i class="fa fa-check"></i><b>7.5</b> Exercise 314.2</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>8</b> Regression analysis</a><ul>
+<li class="chapter" data-level="8.1" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-regression"><i class="fa fa-check"></i><b>8.1</b> Simple regression</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>8.1.1</b> Example</a></li>
+<li class="chapter" data-level="8.1.2" data-path="regression-analysis.html"><a href="regression-analysis.html#checking-assumptions"><i class="fa fa-check"></i><b>8.1.2</b> Checking assumptions</a></li>
+<li class="chapter" data-level="8.1.3" data-path="regression-analysis.html"><a href="regression-analysis.html#how-to-report"><i class="fa fa-check"></i><b>8.1.3</b> How to report</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="regression-analysis.html"><a href="regression-analysis.html#multiple-regression"><i class="fa fa-check"></i><b>8.2</b> Multiple regression</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>8.2.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="regression-analysis.html"><a href="regression-analysis.html#exercise-324.1"><i class="fa fa-check"></i><b>8.3</b> Exercise 324.1</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a><ul>
+<li class="chapter" data-level="9.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-networks"><i class="fa fa-check"></i><b>9.1.1</b> Artificial neural networks</a></li>
+<li class="chapter" data-level="9.1.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines"><i class="fa fa-check"></i><b>9.1.2</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.1.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#confusion-matrices"><i class="fa fa-check"></i><b>9.1.3</b> Confusion matrices</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>9.2</b> Examples</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#data"><i class="fa fa-check"></i><b>9.2.1</b> Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#logistic-regression"><i class="fa fa-check"></i><b>9.2.2</b> Logistic regression</a></li>
+<li class="chapter" data-level="9.2.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines-1"><i class="fa fa-check"></i><b>9.2.3</b> Support vector machines</a></li>
+<li class="chapter" data-level="9.2.4" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#kernels"><i class="fa fa-check"></i><b>9.2.4</b> Kernels</a></li>
+<li class="chapter" data-level="9.2.5" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-network"><i class="fa fa-check"></i><b>9.2.5</b> Artificial neural network</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#exercise-404.1"><i class="fa fa-check"></i><b>9.3</b> Exercise 404.1</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>10</b> Unsupervised machine learning</a><ul>
+<li class="chapter" data-level="10.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means"><i class="fa fa-check"></i><b>10.1.1</b> K-means</a></li>
+<li class="chapter" data-level="10.1.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#number-of-clusters"><i class="fa fa-check"></i><b>10.1.2</b> Number of clusters</a></li>
+<li class="chapter" data-level="10.1.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#geodemographic-classification"><i class="fa fa-check"></i><b>10.1.3</b> Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#terrace-and-semi-detached-houses"><i class="fa fa-check"></i><b>10.2.1</b> Terrace and semi-detached houses</a></li>
+<li class="chapter" data-level="10.2.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters"><i class="fa fa-check"></i><b>10.2.2</b> Interpreting the clusters</a></li>
+<li class="chapter" data-level="10.2.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#a-geodemographic-of-dwelling-types"><i class="fa fa-check"></i><b>10.2.3</b> A geodemographic of dwelling types</a></li>
+<li class="chapter" data-level="10.2.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters-1"><i class="fa fa-check"></i><b>10.2.4</b> Interpreting the clusters</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#exercise-414.1"><i class="fa fa-check"></i><b>10.3</b> Exercise 414.1</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Practical session materials | granolarr</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="comparing-data" class="section level1">
+<h1><span class="header-section-number">7</span> Comparing data</h1>
+<p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
+<p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">7.1</span> Introduction</h2>
+<p>The first part of this practical guides you through the ANOVA (analysis of variance) and regression analysis seen in the lecture, the last part showcases a multiple regression analysis. Create a new R project for this practical session and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="comparing-data.html#cb227-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb227-2"><a href="comparing-data.html#cb227-2"></a><span class="kw">library</span>(magrittr)</span>
+<span id="cb227-3"><a href="comparing-data.html#cb227-3"></a><span class="kw">library</span>(knitr)</span></code></pre></div>
+<p>As many of the functions used in the analyses below are part of the oldest libraries developed for R, they have not been developed to be easily compatible with the Tidyverse and the <code>%&gt;%</code> operator. Fortunately, the <a href="https://magrittr.tidyverse.org/index.html"><code>magrittr</code> library</a> (loaded above) does not only define the <code>%&gt;%</code> operator seen so far, but also the <a href="https://magrittr.tidyverse.org/reference/exposition.html">exposition pipe operator <code>%$%</code></a>, which exposes the columns of the data.frame on the left of the operator to the expression on the right of the operator. That is, <code>%$%</code> allows to refer to the column of the data.frame directly in the subsequent expression. As such, the lines below expose the column <code>Petal.Length</code> of the data.frame <code>iris</code> and to pass it on to the <code>mean</code> function using different approaches, but they are all equivalent in their outcome.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="comparing-data.html#cb228-1"></a><span class="co"># Classic R approach</span></span>
+<span id="cb228-2"><a href="comparing-data.html#cb228-2"></a><span class="kw">mean</span>(iris<span class="op">$</span>Petal.Length) </span></code></pre></div>
+<pre><code>## [1] 3.758</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="comparing-data.html#cb230-1"></a><span class="co"># Using %&gt;% pipe</span></span>
+<span id="cb230-2"><a href="comparing-data.html#cb230-2"></a>iris<span class="op">$</span>Petal.Length <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb230-3"><a href="comparing-data.html#cb230-3"></a><span class="st">  </span><span class="kw">mean</span>()  </span></code></pre></div>
+<pre><code>## [1] 3.758</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="comparing-data.html#cb232-1"></a><span class="co"># Using %&gt;% pipe and %$% exposition pipe</span></span>
+<span id="cb232-2"><a href="comparing-data.html#cb232-2"></a>iris <span class="op">%$%</span><span class="st"> </span>Petal.Length <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb232-3"><a href="comparing-data.html#cb232-3"></a><span class="st">  </span><span class="kw">mean</span>() </span></code></pre></div>
+<pre><code>## [1] 3.758</code></pre>
+</div>
+<div id="anova" class="section level2">
+<h2><span class="header-section-number">7.2</span> ANOVA</h2>
+<p>The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the t-test, which has the same objective but allows to test only two groups.</p>
+<p>The ANOVA test has the following assumptions:</p>
+<ul>
+<li>normally distributed values in groups
+<ul>
+<li>especially if groups have different sizes</li>
+</ul></li>
+<li>homogeneity of variance of values in groups
+<ul>
+<li>if groups have different sizes</li>
+</ul></li>
+<li>independence of groups</li>
+</ul>
+<div id="example" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Example</h3>
+<p>The example seen in the lecture illustrates how ANOVA can be used to verify that the three different species of iris in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"><code>iris</code> dataset</a> have different petal length.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="comparing-data.html#cb234-1"></a>iris <span class="op">%&gt;%</span></span>
+<span id="cb234-2"><a href="comparing-data.html#cb234-2"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">ggplot</span>(</span>
+<span id="cb234-3"><a href="comparing-data.html#cb234-3"></a>    <span class="kw">aes</span>(</span>
+<span id="cb234-4"><a href="comparing-data.html#cb234-4"></a>      <span class="dt">x =</span> Species, </span>
+<span id="cb234-5"><a href="comparing-data.html#cb234-5"></a>      <span class="dt">y =</span> Petal.Length</span>
+<span id="cb234-6"><a href="comparing-data.html#cb234-6"></a>    )</span>
+<span id="cb234-7"><a href="comparing-data.html#cb234-7"></a>  ) <span class="op">+</span></span>
+<span id="cb234-8"><a href="comparing-data.html#cb234-8"></a><span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<p><img src="314_P_ComparingData_files/figure-html/unnamed-chunk-3-1.png" width="384" /></p>
+<p>ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to <code>0.05</code>.</p>
+<p>The three Shapiro–Wilk tests below are all not significant, which indicates that all three groups have normally distributed values.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="comparing-data.html#cb235-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Species <span class="op">==</span><span class="st"> &quot;setosa&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(Petal.Length) <span class="op">%&gt;%</span><span class="st"> </span>stats<span class="op">::</span><span class="kw">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.95498, p-value = 0.05481</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="comparing-data.html#cb237-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Species <span class="op">==</span><span class="st"> &quot;versicolor&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(Petal.Length) <span class="op">%&gt;%</span><span class="st"> </span>stats<span class="op">::</span><span class="kw">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.966, p-value = 0.1585</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="comparing-data.html#cb239-1"></a>iris <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">filter</span>(Species <span class="op">==</span><span class="st"> &quot;virginica&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">pull</span>(Petal.Length) <span class="op">%&gt;%</span><span class="st"> </span>stats<span class="op">::</span><span class="kw">shapiro.test</span>()</span></code></pre></div>
+<pre><code>## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96219, p-value = 0.1098</code></pre>
+<p>We can thus conduct the ANOVA test using the function <code>aov</code>, and the function <code>summary</code> to obtain the summary of the results of the test.</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="comparing-data.html#cb241-1"></a><span class="co"># Classic R coding approach (not using %$%)</span></span>
+<span id="cb241-2"><a href="comparing-data.html#cb241-2"></a><span class="co"># iris_anova &lt;- aov(Petal.Length ~ Species, data = iris)</span></span>
+<span id="cb241-3"><a href="comparing-data.html#cb241-3"></a><span class="co"># summary(iris_anova)</span></span>
+<span id="cb241-4"><a href="comparing-data.html#cb241-4"></a></span>
+<span id="cb241-5"><a href="comparing-data.html#cb241-5"></a>iris <span class="op">%$%</span></span>
+<span id="cb241-6"><a href="comparing-data.html#cb241-6"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">aov</span>(Petal.Length <span class="op">~</span><span class="st"> </span>Species) <span class="op">%&gt;%</span></span>
+<span id="cb241-7"><a href="comparing-data.html#cb241-7"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## Species       2  437.1  218.55    1180 &lt;2e-16 ***
+## Residuals   147   27.2    0.19                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The difference is significant F(2, 147) = 1180.16, <em>p</em> &lt; .01.</p>
+<p>The image below highlights the important values in the output: the significance value <code>Pr(&gt;F)</code>; the F-statistic value <code>F value</code>; and the two degrees of freedom values for the F-statistic in the <code>Df</code> column.</p>
+<center>
+<img src="images/ANOVA_output_annotated.png" style="width:70.0%" />
+</center>
+</div>
+</div>
+<div id="exercise-314.1" class="section level2">
+<h2><span class="header-section-number">7.3</span> Exercise 314.1</h2>
+<p><strong>Question 314.1.1:</strong> Load the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset. Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<p><strong>Question 314.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<p><strong>Question 314.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
+</div>
+<div id="correlation" class="section level2">
+<h2><span class="header-section-number">7.4</span> Correlation</h2>
+<p>The term <strong>correlation</strong> is used to refer to a series of a standardised measures of covariance, which can be used to statistically assess whether two variables are related or not.</p>
+<p>Furthermore, if two variables are related, such measures can identify whether they are:</p>
+<ul>
+<li>positively related:
+<ul>
+<li>entities with <em>high values</em> in one tend to have <em>high values</em> in the other;</li>
+<li>entities with <em>low values</em> in one tend to have <em>low values</em> in the other;</li>
+</ul></li>
+<li>negatively:
+<ul>
+<li>entities with <em>high values</em> in one tend to have <em>low values</em> in the other;</li>
+<li>entities with <em>low values</em> in one tend to have <em>high values</em> in the other.</li>
+</ul></li>
+</ul>
+<p>Correlation can be calculated in many ways, but there are three approaches which are by far the most common. They all start from the null hypothesis that there is no relationship between the variables. Thus, if the p-value is above a pre-defined significance threshold, the null hypothesis is rejected, and the conclusion is that there is a relationship between the two variables.</p>
+<p>If the test is significant is the case:</p>
+<ul>
+<li>a <strong>positive</strong> correlation value indicates a positive relationship;</li>
+<li>a <strong>negative</strong> correlation value indicates a negative relationship;</li>
+<li>the <strong>square</strong> of the correlation value can be taken as an indication of the percentage of shared variance between the two variables.</li>
+</ul>
+<p>However, each one has different assumptions about the variables’ distribution and thus implements the same general ideal measure in a different way:</p>
+<ul>
+<li>if two variables are <strong>normally distributed</strong>:
+<ul>
+<li><em>Pearson’s r</em>;</li>
+</ul></li>
+<li>if two variables are <strong>not normally distributed</strong>:
+<ul>
+<li>if there are <strong>no ties among values</strong>:
+<ul>
+<li><em>Spearman’s rho</em>;</li>
+</ul></li>
+<li>if there are <strong>ties among values</strong>:
+<ul>
+<li><em>Kendall’s tau</em>.</li>
+</ul></li>
+</ul></li>
+</ul>
+<div id="example-1" class="section level3">
+<h3><span class="header-section-number">7.4.1</span> Example</h3>
+<p>When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: <em>“do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?”</em></p>
+<p>That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?</p>
+<p><img src="314_P_ComparingData_files/figure-html/unnamed-chunk-8-1.png" width="336" /></p>
+<p>The dataset used to create the 2011 Output Area Classification (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.</p>
+<ul>
+<li><code>u089</code>: count of flats per Output Area (OA). The statistical unit for this variable is <code>Household_Spaces</code>. As OAs vary in size and composition, we can use <code>Total_Household_Spaces</code> to calculate the percentage of flats per OA, which is a more stable measure.
+<ul>
+<li><code>perc_flats = (u089 / Total_Household_Spaces) * 100</code></li>
+</ul></li>
+<li><code>u118</code>: 2 or more cars or vans in household. The statistical unit for this variable is <code>Household</code>. As OAs vary in size and composition, we can use <code>Total_Household_Spaces</code> to calculate the percentage of households per OA with 2 or more cars or vans, which is a more stable measure.
+<ul>
+<li><code>perc_2ormore_cars = (u118 / Total_Households) * 100</code></li>
+</ul></li>
+</ul>
+<p>The process of transforming variables to be within a certain range (such as a percentage, thus using a <code>[0..100]</code> range, or a <code>[0..1]</code> range) is commonly referred to as <strong>normalisation</strong>. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as <strong>standardisation</strong>. However, note that these terms are sometime used interchangably.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="comparing-data.html#cb243-1"></a>flats_and_cars &lt;-</span>
+<span id="cb243-2"><a href="comparing-data.html#cb243-2"></a><span class="st">  </span>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb243-3"><a href="comparing-data.html#cb243-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb243-4"><a href="comparing-data.html#cb243-4"></a>    <span class="dt">perc_flats =</span> (u089 <span class="op">/</span><span class="st"> </span>Total_Household_Spaces) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>,</span>
+<span id="cb243-5"><a href="comparing-data.html#cb243-5"></a>    <span class="dt">perc_2ormore_cars =</span> (u118 <span class="op">/</span><span class="st"> </span>Total_Households) <span class="op">*</span><span class="st"> </span><span class="dv">100</span></span>
+<span id="cb243-6"><a href="comparing-data.html#cb243-6"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb243-7"><a href="comparing-data.html#cb243-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(</span>
+<span id="cb243-8"><a href="comparing-data.html#cb243-8"></a>    OA11CD, supgrpname, supgrpcode,</span>
+<span id="cb243-9"><a href="comparing-data.html#cb243-9"></a>    perc_flats, perc_2ormore_cars</span>
+<span id="cb243-10"><a href="comparing-data.html#cb243-10"></a>  )</span></code></pre></div>
+<p>Plotting the two variables together in a scatterplot reveals a pattern. Indeed, a very low percentage of households living in flats own two or more cars. However, the proportion of households owning two or more cars who live in the suburbs seem to span almost throughout the whole range, from zero to 80%. That seems to indicate some level of negative relationship, but the picture is clearly far less clear-cut as we might have initially assumed. The initial assumption about car ownership for households living in flats seems to hold, but we probably didn’t consider the situation in the suburbs with sufficient care.</p>
+<p><img src="314_P_ComparingData_files/figure-html/unnamed-chunk-10-1.png" width="576" /></p>
+<p>The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed.</p>
+<p>As there are 969 OAs in Leicester, we can set the significance threshold to <code>0.01</code>. The results of the <code>stats::shapiro.test</code> functions below show that neither of the two variables are normally distributed. Transforming the variables using the <em>inverse hyperbolic sine</em> still does not result in normally distributed variables. Thus, we should discard <em>Pearson’s r</em> as an option to explore the correlation between the two variables.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="comparing-data.html#cb244-1"></a>flats_and_cars <span class="op">%&gt;%</span></span>
+<span id="cb244-2"><a href="comparing-data.html#cb244-2"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(perc_flats, perc_2ormore_cars) <span class="op">%&gt;%</span></span>
+<span id="cb244-3"><a href="comparing-data.html#cb244-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">mutate</span>(</span>
+<span id="cb244-4"><a href="comparing-data.html#cb244-4"></a>    <span class="dt">ihs_perc_flats =</span> <span class="kw">asinh</span>(perc_flats),</span>
+<span id="cb244-5"><a href="comparing-data.html#cb244-5"></a>    <span class="dt">ihs_perc_2omcars =</span> <span class="kw">asinh</span>(perc_2ormore_cars)</span>
+<span id="cb244-6"><a href="comparing-data.html#cb244-6"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb244-7"><a href="comparing-data.html#cb244-7"></a><span class="st">  </span>pastecs<span class="op">::</span><span class="kw">stat.desc</span>(<span class="dt">basic =</span> <span class="ot">FALSE</span>, <span class="dt">desc =</span> <span class="ot">FALSE</span>, <span class="dt">norm =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span></span>
+<span id="cb244-8"><a href="comparing-data.html#cb244-8"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">perc_flats</th>
+<th align="right">perc_2ormore_cars</th>
+<th align="right">ihs_perc_flats</th>
+<th align="right">ihs_perc_2omcars</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">1.5621906</td>
+<td align="right">0.9075026</td>
+<td align="right">-0.0927406</td>
+<td align="right">-0.9460022</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">9.9417094</td>
+<td align="right">5.7753049</td>
+<td align="right">-0.5901967</td>
+<td align="right">-6.0203149</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">1.3282688</td>
+<td align="right">0.4588571</td>
+<td align="right">-1.1009004</td>
+<td align="right">1.6988166</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">4.2308489</td>
+<td align="right">1.4615680</td>
+<td align="right">-3.5066270</td>
+<td align="right">5.4111309</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.7443821</td>
+<td align="right">0.9328442</td>
+<td align="right">0.9572430</td>
+<td align="right">0.9514757</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+<p>The next step is to assess whether there are ties among the values in the two variables. The code below fist counts the number of cases per value. Then it counts the number of values for which the number of cases is greater than one.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="comparing-data.html#cb245-1"></a>ties_perc_flats &lt;-</span>
+<span id="cb245-2"><a href="comparing-data.html#cb245-2"></a><span class="st">  </span>flats_and_cars <span class="op">%&gt;%</span></span>
+<span id="cb245-3"><a href="comparing-data.html#cb245-3"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(perc_flats) <span class="op">%&gt;%</span></span>
+<span id="cb245-4"><a href="comparing-data.html#cb245-4"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb245-5"><a href="comparing-data.html#cb245-5"></a><span class="st">  </span><span class="co"># Specify wt = n() to count rows</span></span>
+<span id="cb245-6"><a href="comparing-data.html#cb245-6"></a><span class="st">  </span><span class="co"># otherwise n is taken as weight</span></span>
+<span id="cb245-7"><a href="comparing-data.html#cb245-7"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(<span class="dt">wt =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb245-8"><a href="comparing-data.html#cb245-8"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">pull</span>(n)</span>
+<span id="cb245-9"><a href="comparing-data.html#cb245-9"></a></span>
+<span id="cb245-10"><a href="comparing-data.html#cb245-10"></a>ties_perc_2ormore_cars &lt;-</span>
+<span id="cb245-11"><a href="comparing-data.html#cb245-11"></a><span class="st">  </span>flats_and_cars <span class="op">%&gt;%</span></span>
+<span id="cb245-12"><a href="comparing-data.html#cb245-12"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(perc_2ormore_cars) <span class="op">%&gt;%</span></span>
+<span id="cb245-13"><a href="comparing-data.html#cb245-13"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb245-14"><a href="comparing-data.html#cb245-14"></a><span class="st">  </span><span class="co"># Specify wt = n() to count rows</span></span>
+<span id="cb245-15"><a href="comparing-data.html#cb245-15"></a><span class="st">  </span><span class="co"># otherwise n is taken as weight</span></span>
+<span id="cb245-16"><a href="comparing-data.html#cb245-16"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(<span class="dt">wt =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb245-17"><a href="comparing-data.html#cb245-17"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">pull</span>(n)</span></code></pre></div>
+<p>The variable <code>perc_flats</code> has 127 values with ties and <code>perc_2ormore_cars</code> has 115 values with ties. As such, using <em>Spearman’s rho</em> is not advisable and <em>Kendall’s tau</em> should be used. As above, we can set the significance threshold to <code>0.01</code>.</p>
+<p>Finally, we can run the <code>stats::cor.test</code> function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="comparing-data.html#cb246-1"></a>flats_and_cars_corKendall &lt;-</span>
+<span id="cb246-2"><a href="comparing-data.html#cb246-2"></a><span class="st">  </span>flats_and_cars <span class="op">%$%</span></span>
+<span id="cb246-3"><a href="comparing-data.html#cb246-3"></a><span class="st">  </span>stats<span class="op">::</span><span class="kw">cor.test</span>(</span>
+<span id="cb246-4"><a href="comparing-data.html#cb246-4"></a>    perc_flats, perc_2ormore_cars, </span>
+<span id="cb246-5"><a href="comparing-data.html#cb246-5"></a>    <span class="dt">method =</span> <span class="st">&quot;kendall&quot;</span></span>
+<span id="cb246-6"><a href="comparing-data.html#cb246-6"></a>  )</span>
+<span id="cb246-7"><a href="comparing-data.html#cb246-7"></a></span>
+<span id="cb246-8"><a href="comparing-data.html#cb246-8"></a>flats_and_cars_corKendall</span></code></pre></div>
+<pre><code>## 
+## 	Kendall&#39;s rank correlation tau
+## 
+## data:  perc_flats and perc_2ormore_cars
+## z = -19.026, p-value &lt; 2.2e-16
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##        tau 
+## -0.4094335</code></pre>
+<pre><code>The percentage of flats and the percentage of households 
+owning 2 or more cars or vans per OA in the city of Leicester 
+are negative related, as the relationship is significant 
+(`p-value &lt; 0.01`) and the correlation value is negative 
+(`tau =` -0.41). The two variables share 16.8% of variance. We can thus conclude 
+that there is significant but very weak relationship 
+between the two variables.</code></pre>
+<p>The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negative related, as the relationship is significant (<code>p-value &lt; 0.01</code>) and the correlation value is negative (<code>tau =</code> -0.41). The two variables share 16.8% of variance. We can thus conclude that there is significant but very weak relationship between the two variables.</p>
+</div>
+</div>
+<div id="exercise-314.2" class="section level2">
+<h2><span class="header-section-number">7.5</span> Exercise 314.2</h2>
+<p><strong>Question 314.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
+<p><strong>Question 314.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="exploratory-data-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="regression-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": [["granolarr_practical_session_materials.pdf", "PDF"], ["granolarr_practical_session_materials.epub", "EPUB"]],
+"toc": {
+"collapse": "subsection"
+},
+"search": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

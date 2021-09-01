@@ -1,0 +1,371 @@
+---
+title: "Lecture 311"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+<style type="text/css">
+.small_r_all pre{
+  font-size: 16px;
+  line-height: 18px;
+}
+.small_r_output pre:not(.prettyprint){
+  font-size: 16px;
+  line-height: 18px;
+}
+.verysmall_r_output pre:not(.prettyprint){
+  font-size: 12px;
+  line-height: 14px;
+}
+</style>
+
+
+
+# Comparing groups
+
+
+## Recap
+
+**Prev**: Exploratory data analysis
+
+- 301 Lecture Data visualisation
+- 302 Lecture Descriptive statistics
+- 303 Lecture Exploring assumptions
+- 304 Practical session
+
+**Now**: Comparing groups
+
+- T-test
+- ANOVA
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(nycflights13)
+```
+
+
+
+## Iris
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+A classic R dataset
+
+- 3 species of iris
+- 50 flowers per species
+- 4 measurements
+  - sepal length and width
+  - petal length and width
+
+<br/>
+Fisher, R.A., 1936. The use of multiple measurements in taxonomic problems. Annals of eugenics, 7(2), pp.179-188.
+
+:::
+
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
+iris %>%
+  ggplot2::ggplot(
+    aes(
+      x = Species, 
+      y = Petal.Length
+    )
+  ) +
+  ggplot2::geom_boxplot()
+```
+
+:::
+::::::
+
+
+
+## Independent T-test
+
+Are two group means  different?
+
+- null hypothesis
+  - there is **no difference** between the groups
+- if *p-value* (significance) below threshold (e.g., `0.05` or `0.01`)
+  - **group means are different**
+- assumptions
+    - normally distributed values in groups
+    - homogeneity of variance of values in groups
+      - if groups have different sizes
+    - independence of groups
+      - e.g. different conditions of an experiment
+
+
+
+## Independent T-test
+
+Independent T-test as a general linear model
+
+**General linear model**
+
+- observation $i$ can be predicted by a $model$ (predictors)
+- accounting for some amount of error
+
+$$outcome_i = (model) + error_i $$
+
+**Independent T-test**
+
+- groups is the predictor (categorical variable)
+- single observation value as group mean plus error
+
+$$outcome_i = (group\ mean) + error_i $$
+
+
+## Example: Petal lengths
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+Are the petal lengths of *versicolor* and *virginica* different?
+
+1. Check assumptions
+    1. Indipendent groups: ok
+    2. normal distribution: check using Shapiro-Wilk test
+    3. homogeneity of variance: not necessary
+2. Run T-test
+    1. `stats::t.test`
+
+:::
+
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
+iris %>%
+  dplyr::filter(Species %in% c("versicolor", "virginica")) %>%
+  ggplot2::ggplot(
+    aes(
+      x = Species, 
+      y = Petal.Length
+    )
+  ) +
+  ggplot2::geom_boxplot()
+```
+
+:::
+::::::
+
+
+
+## Assumptions: normality
+
+Values are normally distributed for both groups
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+iris %>% dplyr::filter(Species == "versicolor") %>% 
+  dplyr::pull(Petal.Length) %>% stats::shapiro.test()
+
+iris %>% dplyr::filter(Species == "virginica") %>% 
+  dplyr::pull(Petal.Length) %>% stats::shapiro.test()
+```
+
+</div>
+
+
+
+## stats::t.test
+
+The test is significant, the group means are different
+
+<div class="small_r_output">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+iris %>%
+  dplyr::filter(Species %in% c("versicolor", "virginica")) %$%
+  stats::t.test(Petal.Length ~ Species)
+```
+
+</div>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+iris_t_test <- iris %>%
+  dplyr::filter(Species %in% c("versicolor", "virginica")) %$%
+  stats::t.test(Petal.Length ~ Species)
+```
+
+How to report: 
+
+- *t*(`r iris_t_test %$% parameter[["df"]] %>% round(digits = 2)`) = `r iris_t_test %$% statistic[["t"]] %>% round(digits = 2)`, *p* < .01
+
+
+
+## ANalysis Of VAriance
+
+ANOVA is similar to the T-tests, but more than two groups
+
+- null hypothesis
+  - there is **no difference** between the groups
+- if *p-value* (significance) below threshold (e.g., `0.05` or `0.01`)
+  - **group means are different**
+- assumptions
+    - normally distributed values in groups
+        - especially if groups have different sizes
+    - homogeneity of variance of values in groups
+      - if groups have different sizes
+    - independence of groups
+      - e.g. different conditions of an experiment
+      
+      
+
+## ANalysis Of VAriance
+
+ANOVA as a general linear model
+
+**General linear model**
+
+- observation $i$ can be predicted by a $model$ (predictors)
+- accounting for some amount of error
+
+$$outcome_i = (model) + error_i $$
+
+**ANOVA**
+
+- groups is the predictor (categorical variable)
+- single observation value as group mean plus error
+
+$$outcome_i = (group\ mean) + error_i $$
+
+
+
+## Example: Petal lengths
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 80%;" data-latex="{0.5\textwidth}"}
+
+Are the petal lengths different between all three species?
+
+1. Check assumptions
+    1. Indipendent groups: ok
+    2. normal distribution: check using Shapiro-Wilk test
+    3. homogeneity of variance: not necessary
+2. Run ANOVA
+    1. `stats::aov`
+
+:::
+
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
+iris %>%
+  ggplot2::ggplot(
+    aes(
+      x = Species, 
+      y = Petal.Length
+    )
+  ) +
+  ggplot2::geom_boxplot()
+```
+
+:::
+::::::
+
+
+
+## Assumptions: normality
+
+We already checked normality for *versicolor* and *virginica*.
+
+Are values for *setosa* normally distributed?
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+iris %>% dplyr::filter(Species == "setosa") %>% 
+  dplyr::pull(Petal.Length) %>% stats::shapiro.test()
+```
+
+</div>
+
+Values are normally distributed for all three groups
+
+- although significance for *setosa* is borderline
+
+
+## stats::aov
+
+The test is significant, the group means are different
+
+<div class="small_r_output">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+iris %$%
+  stats::aov(Petal.Length ~ Species) %>%
+  summary()
+```
+
+</div>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+iris_anova_summary <- iris %$%
+  stats::aov(Petal.Length ~ Species) %>%
+  summary()
+```
+
+How to report:
+
+- *F*(`r iris_anova_summary[[1]] %$% Df[1] %>% round(digits = 2)`, `r iris_anova_summary[[1]] %$% Df[2] %>% round(digits = 2)`) = `r iris_anova_summary[[1]][1, 4] %>% round(digits = 2)`, *p* < .01
+
+<!--
+
+## Homogeneity of variance
+
+Just double-checking...
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(car)
+
+iris %$%
+  leveneTest(Petal.Length, Species)
+```
+
+</div>
+
+The test significant
+
+- the variance in petal length is different in different species
+-->
+
+
+## Summary
+
+Comparing groups
+
+- T-test
+- ANOVA
+
+**Next**: Correlation
+
+- Pearson’s r
+- Spearman’s rho
+- Kendall’s tau
+- Pairs panel
+- Chi-square
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

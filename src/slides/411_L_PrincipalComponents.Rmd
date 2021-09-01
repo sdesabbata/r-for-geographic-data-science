@@ -1,0 +1,238 @@
+---
+title: "Lecture 411"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+<style type="text/css">
+.small_r_all pre{
+  font-size: 16px;
+  line-height: 18px;
+}
+.small_r_output pre:not(.prettyprint){
+  font-size: 16px;
+  line-height: 18px;
+}
+.verysmall_r_output pre:not(.prettyprint){
+  font-size: 12px;
+  line-height: 14px;
+}
+</style>
+
+
+
+# Principal Component Analysis
+
+## Recap
+
+**Prev**: Comparing data
+
+- 401 Lecture Introduction to Machine Learning
+- 402 Lecture Artificial Neural Networks
+- 403 Lecture Support vector machines
+- 404 Practical session
+
+**Now**: Principal Component Analysis
+
+- Principal components
+- `stats::prcomp`
+- Dimensionality reduction
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(palmerpenguins)
+library(patchwork)
+```
+
+
+## Principal components
+
+**Principal component** are 
+
+- a set of directions orthogonal to each other
+- that best fit a set of data
+
+Can be interpreted as a *"re-projection"* of the data
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 8, fig.height = 3}
+penguins_original_plot <-
+ palmerpenguins::penguins %>%
+  ggplot2::ggplot(
+    aes(
+      x = flipper_length_mm, 
+      y = body_mass_g
+    )
+  ) +
+  ggplot2::geom_point(
+    aes(
+      color = species,
+      hape = species
+    ),
+    size = 2
+  ) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "none")
+
+penguins_fb_pca <-
+  palmerpenguins::penguins %>%
+  dplyr::select(flipper_length_mm, body_mass_g) %>%
+  dplyr::filter(!is.na(flipper_length_mm)) %>%
+  stats::prcomp(center = TRUE,scale. = TRUE) %$%
+  x %>%
+  as.data.frame()
+
+penguins_rotated_plot <-
+  palmerpenguins::penguins %>%
+  dplyr::filter(!is.na(flipper_length_mm)) %>%
+  dplyr::bind_cols(
+    penguins_fb_pca
+  ) %>%
+  dplyr::rename(
+    `Direction 1` = PC1,
+    `Direction 2` = PC2
+  ) %>%
+  ggplot2::ggplot(
+    aes(
+      x = `Direction 1`, 
+      y = `Direction 2`
+    )
+  ) +
+  ggplot2::geom_point(
+    aes(
+      color = species,
+      hape = species
+    ),
+    size = 2
+  ) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  #ggplot2::coord_fixed(ratio = 1) +
+  ylim(-2, 2) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "none")
+
+(penguins_original_plot | penguins_rotated_plot)
+```
+
+
+## Dimensionality reduction
+
+Alternatively, principal components can be interpreted as 
+
+- **lower-dimensional** representation of the data
+
+Especially useful when working numerous variables
+
+- a limited number of principal components can be retained
+  - most variance maintained
+  - distance in data space approximated
+  - high-dimensional data can be more easily plotted 
+- commonly used as dimensionality reduction step
+  - supervised learning models
+    - linear regression
+  - clustering
+  
+
+## stats::prcomp
+
+Principal component analysis on body mass, flipper length, and bill length and depth
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_pca <-
+  palmerpenguins::penguins %>%
+  dplyr::select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g) %>%
+  # remove missing data
+  dplyr::filter(
+    !is.na(bill_length_mm) | !is.na(bill_depth_mm) |
+    !is.na(flipper_length_mm) | !is.na(body_mass_g)
+  ) %>%
+  stats::prcomp(center = TRUE, scale. = TRUE) 
+
+summary(penguins_pca)
+```
+
+</div>
+
+The first component alone explains `r (summary(penguins_pca)$importance[3, 1] * 100) %>% round(digits = 2)`% of variance, and the first two together explain `r (summary(penguins_pca)$importance[3, 2] * 100) %>% round(digits = 2)`% of variance
+
+
+
+## PCA results
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_with_pca <- palmerpenguins::penguins %>%
+  dplyr::filter(!is.na(bill_length_mm) | !is.na(bill_depth_mm) | 
+                !is.na(flipper_length_mm) | !is.na(body_mass_g)) %>%
+  dplyr::bind_cols(
+      penguins_pca %$% x %>% as.data.frame()
+  )
+```
+
+</div>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 5, fig.height = 3.5}
+penguins_with_pca %>%
+  ggplot2::ggplot(
+    aes(
+      x = PC1, 
+      y = PC2
+    )
+  ) +
+  ggplot2::geom_point(
+    aes(
+      color = species,
+      hape = species
+    ),
+    size = 2
+  ) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw() +
+  ggplot2::theme(legend.position = "bottom")
+```
+
+
+## Plotting PCA
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 8, fig.height = 4}
+library(factoextra)
+
+penguins_pca %>% fviz_pca_biplot(label = "var")
+```
+
+
+## Summary
+
+Principal Component Analysis
+
+- Principal components
+- `stats::prcomp`
+- Interpretation
+
+**Next**: Centroid-based clustering
+
+- K-means
+- Fuzzy c-means
+- Geodemographic classification
+
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

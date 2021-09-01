@@ -1,0 +1,42 @@
+---
+title: "Practical session materials | granolarr"
+author: "Stefano De Sabbata"
+date: "`r Sys.Date()`"
+description: "Geographic data science reproducible teaching resource in R, Practical session materials"
+url: 'https://sdesabbata.github.io/granolarr/'
+github-repo: "sdesabbata/granolarr"
+site: bookdown::bookdown_site
+documentclass: book
+biblio-style: apalike
+output:
+  bookdown::gitbook:
+    config:
+      toc:
+        before: |
+          <li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+        after: |
+          <li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+      search: yes
+      download:
+        - ["granolarr_practical_session_materials.pdf", "PDF"]
+        - ["granolarr_practical_session_materials.epub", "EPUB"]
+  bookdown::pdf_book:
+     latex_engine: xelatex
+---
+
+# Preface {-}
+
+*[Stefano De Sabbata](https://stefanodesabbata.com)*
+
+[This work](https://github.com/sdesabbata/GY7702) is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html). Contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence).
+
+This book contains the *practical sessions* component of [granolarr](https://github.com/sdesabbata/granolarr), a repository of reproducible materials to teach geographic information and data science in R. Part of the materials are derived from the practical sessions for the module [GY7702 Practical Programming in R](https://sdesabbata.github.io/GY7702/) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2019) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/), by [Dr Stefano De Sabbata](https://stefanodesabbata.com/).
+
+This book was created using [R](https://www.r-project.org/), [RStudio](https://www.rstudio.com/), [RMarkdown](https://rmarkdown.rstudio.com/), [Bookdown](https://bookdown.org/), and [GitHub](https://github.com/sdesabbata).
+
+
+
+## Session info {-}
+```{r}
+sessionInfo()
+```

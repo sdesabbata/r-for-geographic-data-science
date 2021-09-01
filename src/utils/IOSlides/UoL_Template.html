@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>$if(title-prefix)$$title-prefix$ - $endif$$pagetitle$</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="generator" content="pandoc" />
+
+
+
+$if(date-meta)$
+  <meta name="date" content="$date-meta$" />
+$endif$
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <base target="_blank">
+
+  <script type="text/javascript">
+    var SLIDE_CONFIG = {
+      // Slide settings
+      settings: {
+        $if(title)$
+        title: '$title$',
+        $endif$
+        $if(subtitle)$
+        subtitle: '$subtitle$',
+        $endif$
+        useBuilds: true,
+        usePrettify: true,
+        enableSlideAreas: true,
+        enableTouch: true,
+        $if(analytics)$
+        analytics: '$analytics$',
+        $endif$
+      },
+
+      // Author information
+      presenters: [
+      $for(author)$
+      {
+        name: $if(author.name)$ '$author.name$' $else$ '$author$' $endif$,
+        company: '$author.company$',
+        email: '$author.email$',
+        www: '$author.www$',
+        twitter: '$author.twitter$',
+        github: '$author.github$'
+      },
+      $endfor$
+      ]
+    };
+  </script>
+
+$for(header-includes)$
+  $header-includes$
+$endfor$
+
+  <style type="text/css">
+  
+    a {
+      color: #1C407A;
+      text-decoration: none;
+      border-bottom: 1px solid #1C407A;
+    }
+
+    b, strong {
+      font-weight: bold;
+      /*color: #b9202f;*/
+    }
+
+    em {
+      font-style: italic;
+    }
+
+    slides > slide {
+      -webkit-transition: all $transition$s ease-in-out;
+      -moz-transition: all $transition$s ease-in-out;
+      -o-transition: all $transition$s ease-in-out;
+      transition: all $transition$s ease-in-out;
+    }
+    
+    slides > slide {
+      /*background: white;*/
+      background: #EBE3E1;
+	    color: rgba(0,0,0,0.8);
+    }
+    slides > slide > article {
+	    /* color: #515b70; */ 
+	    color: rgba(0,0,0,0.8);
+	  }
+	  
+	  .title-slide {
+	    background-image: url(../../assets/images/granolarr_banner_001_slides_opening.png); 
+	    background-size: cover; 
+	    background-position: center;
+	  }
+	  .title-slide > hgroup h1 {
+	    /* color: #515b70; */ 
+	    /* color: #57101A; */
+	    /*color: #960018; */
+	    /*color: rgba(0,0,0,0.8);*/
+	    color: rgba(255,255,255,0.8);
+	  }
+	  .title-slide > hgroup h2 {
+	    /* color: #515b70; */ 
+	    /*color: rgba(0,0,0,0.8);*/
+	    color: rgba(255,255,255,0.8);
+	  }
+	  .title-slide > hgroup p {
+	    /* color: #515b70; */ 
+	    /*color: rgba(0,0,0,0.8);*/
+	    color: rgba(255,255,255,0.8);
+	  }
+	  .title-slide > hgroup a {
+	    /* color: #515b70; */ 
+	    /*color: rgba(0,0,0,0.8);*/
+	    color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.8);
+	  }
+	  
+	  slides > slide.dark {
+      /* background: #1F4070 !important; */
+      background: #57101A !important;
+    }
+    .segue h2 {
+      color: #F8F5F4;
+      font-size: 60px;
+    }
+	  
+	  slides > slide > article > pre{
+	    width: 100%;
+	    padding: 10px 10px 10px 10px;
+	    left: 0px;
+	    background: #F8F5F4 !important;
+	  }
+	  slides > slide > article > div > pre{
+	    width: 100%;
+	    padding: 10px 10px 10px 10px;
+	    left: 0px;
+	    background: #F8F5F4 !important;
+	  }
+	  
+	  .prettyprint{
+	    background: #F8F5F4 !important;
+	    color: rgba(0,0,0,0.8) !important;
+	  }
+	  .prettyprint .str, .prettyprint .atv {
+      color: #005C35;
+    }
+    .prettyprint .com {
+      color: #525252;
+      font-style: italic;
+    }
+    .prettyprint .pun, .prettyprint .opn, .prettyprint .clo {
+      color: #4C4C4C;
+    }
+
+	  h2, h3{
+	    /* color: #b9202f; */
+	    /* color: rgba(0,0,0,0.8); */
+	    /* color: #57101A; */
+	    color: #960018;
+	  }
+	  
+	  table.rmdtable th{
+	    background: rgba(0,0,0,0.8);
+	    color: #F8F5F4;
+	    padding: 5px;
+	  }
+	  table.rmdtable td{
+	    padding: 5px;
+	  }
+	  table.rmdtable tr:nth-child(odd){
+	    background: #F8F5F4 !important;
+	  }
+	  
+	  .img80 img{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+	    width: 80%;
+	    border: 1px solid black; 
+	  }
+
+    .img50 img{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+	    width: 50%;
+	    border: 1px solid black; 
+	  }
+
+    .auto-fadein {
+      -webkit-transition: opacity 0.6s ease-in;
+      -webkit-transition-delay: $transition$s;
+      -moz-transition: opacity 0.6s ease-in $transition$s;
+      -o-transition: opacity 0.6s ease-in $transition$s;
+      transition: opacity 0.6s ease-in $transition$s;
+      opacity: 0;
+    }
+    
+
+$if(logo)$
+    slides > slide:not(.nobackground):before {
+      font-size: 12pt;
+      content: "";
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background: url($logo$) no-repeat 0 50%;
+      /* To use if you want just the uni crest */
+      /*background: url("../../src/utils/IOSlides/uol_favicon.png") no-repeat 0 50%;*/ 
+      /* Changing size to 100px to get the uni logo visible */
+      /*-webkit-background-size: 30px 30px;*/
+      /*-moz-background-size: 30px 30px;*/
+      /*-o-background-size: 30px 30px;*/
+      /*background-size: 30px 30px;*/
+      -webkit-background-size: 100px;
+      -moz-background-size: 100px;
+      -o-background-size: 100px;
+      background-size: 100px;
+      padding-left: 40px;
+      height: 30px;
+      /* Adding width 100px to get the uni logo visible */
+      width: 100px;
+      line-height: 1.9;
+    }
+$endif$
+  </style>
+
+$for(css)$
+  <link rel="stylesheet" href="$css$" $if(html5)$$else$type="text/css" $endif$/>
+$endfor$
+
+</head>
+
+<body style="opacity: 0">
+
+$if(widescreen)$
+<slides class="layout-widescreen">
+$else$
+<slides>
+$endif$
+
+$if(include-before)$
+  $for(include-before)$
+    $include-before$
+  $endfor$
+$else$
+  <slide class="title-slide segue nobackground">
+    $if(logo)$
+    <img src="$logo$" width="300px" style="margin-top: 30px">
+    $endif$
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter>
+        $author.name$<br/>
+        $author.company$
+        $author.email$
+      </p>
+      $if(date)$
+      <p style="margin-top: 6px; margin-left: -2px;">$date$</p>
+      $endif$
+    </hgroup>
+  </slide>
+$endif$
+
+RENDERED_SLIDES
+
+$for(include-after)$
+  $include-after$
+$endfor$
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+$if(mathjax-url)$
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "$mathjax-url$";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+$endif$
+
+<!-- map slide visiblity events into shiny -->
+<script>
+  (function() {
+    if (window.jQuery) {
+       window.jQuery(document).on('slideleave', function(e) {
+         window.jQuery(e.target).trigger('hidden');
+      });
+       window.jQuery(document).on('slideenter', function(e) {
+         window.jQuery(e.target).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

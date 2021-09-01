@@ -1,0 +1,403 @@
+---
+title: "Lecture 303"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Exploring assumptions
+
+
+## Recap
+
+**Prev**: Descriptive statistics
+
+- stat.desc
+- dplyr::across
+
+**Next**: Exploring assumptions
+
+- Normality
+- Skewness and kurtosis
+- Homogeneity of variance
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)
+library(knitr)
+library(pastecs)
+library(palmerpenguins)
+```
+
+
+## Normal distribution
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 50%;" data-latex="{0.5\textwidth}"}
+
+- characterized by the bell-shaped curve 
+- majority of values lie around the centre of the distribution
+- the further the values are from the centre, the lower their frequency
+- about 95% of values within 2 standard deviations from the mean
+
+:::
+
+::: {.col style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, fig.height=6, fig.width=6, out.width='100%'}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+
+plot(x, hx, type="l", xlab="Values",
+  ylab="Density", main="Normal distribution")
+```
+
+:::
+::::::
+
+
+## Density histogram
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+```{r, echo=TRUE, eval=FALSE}
+palmerpenguins::penguins %>% 
+  ggplot2::ggplot(
+    aes(x = flipper_length_mm)
+  ) +
+  ggplot2::geom_histogram(
+    aes(
+      y =..density..
+    )
+  ) + 
+  ggplot2::stat_function(
+    fun = dnorm, 
+    args = list(
+      # mean and stddev
+      # calculations
+      # omitted here
+      mean = ...,
+      sd = ... ),
+    colour = "black", size = 1)
+```
+
+
+:::
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5.5, fig.width = 4, out.width='100%'}
+palmerpenguins::penguins %>% 
+  ggplot2::ggplot(
+    aes(
+      x = flipper_length_mm
+    )
+  ) +
+  ggplot2::geom_histogram(
+    aes(
+      y =..density..
+    ),
+  ) + 
+  ggplot2::stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = palmerpenguins::penguins %>% dplyr::filter(!is.na(flipper_length_mm)) %>% dplyr::pull(flipper_length_mm) %>% mean(),
+      sd = palmerpenguins::penguins %>% dplyr::filter(!is.na(flipper_length_mm)) %>% dplyr::pull(flipper_length_mm) %>% sd()),
+    colour = "red", size = 1)
+```
+
+:::
+::::::
+
+
+## Q-Q plot
+
+Values against the cumulative probability of a particular distribution (in this case, *normal* distribution)
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+
+```{r, echo=TRUE, eval=FALSE}
+palmerpenguins::penguins %>% 
+  ggplot2::ggplot(
+    aes(
+      sample = 
+        flipper_length_mm
+    )
+  ) +
+  ggplot2::stat_qq() +
+  ggplot2::stat_qq_line()
+```
+
+:::
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 4}
+palmerpenguins::penguins %>% 
+  ggplot2::ggplot(
+    aes(sample = flipper_length_mm)
+  ) +
+  ggplot2::stat_qq() +
+  ggplot2::stat_qq_line()
+```
+
+
+:::
+::::::
+
+
+## Normality
+
+**Shapiro–Wilk test** compares the distribution of a variable with a normal distribution having same mean and standard deviation
+
+- If significant, the distribution is not normal
+- `shapiro.test` function in `stats`
+- or `normtest` values in `pastecs::stat.desc`
+
+```{r, echo=TRUE}
+palmerpenguins::penguins %>% 
+  dplyr::pull(flipper_length_mm) %>%
+  stats::shapiro.test()
+```
+
+
+
+## Significance
+
+Most statistical tests are based on the idea of hypothesis testing
+
+- a **null hypothesis** is set
+- the data are fit into a statistical model
+- the model is assessed with a **test statistic**
+- the **significance** is the probability of obtaining that test statistic value by chance
+
+The threshold to accept or reject an hypotheis is arbitrary and based on conventions (e.g., *p < .01* or *p < .05*)
+
+**Example:** The null hypotheis of the Shapiro–Wilk test is that the sample is normally distributed and *p < .01* indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
+
+
+## Example
+
+The *flipper length* of **Adelie** penguins **is normally distributed**
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+```{r, echo=TRUE}
+palmerpenguins::penguins %>% 
+  filter(
+    species == "Adelie"
+  ) %>%
+  dplyr::pull(
+    flipper_length_mm
+  ) %>%
+  stats::shapiro.test()
+```
+
+:::
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5.5, fig.width = 4, out.width='100%'}
+palmerpenguins::penguins %>% 
+  filter(species == "Adelie") %>%
+  ggplot2::ggplot(
+    aes(
+      x = flipper_length_mm
+    )
+  ) +
+  ggplot2::geom_histogram(
+    aes(
+      y =..density..
+    ),
+  ) + 
+  ggplot2::stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = palmerpenguins::penguins %>% dplyr::filter(!is.na(flipper_length_mm) & species == "Adelie") %>% dplyr::pull(flipper_length_mm) %>% mean(),
+      sd = palmerpenguins::penguins %>% dplyr::filter(!is.na(flipper_length_mm) & species == "Adelie") %>% dplyr::pull(flipper_length_mm) %>% sd()),
+    colour = "red", size = 1)
+```
+
+:::
+::::::
+
+## Example
+
+The *flipper length* of **Adelie** penguins **is normally distributed**
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+```{r, echo=TRUE}
+palmerpenguins::penguins %>% 
+  filter(
+    species == "Adelie"
+  ) %>%
+  dplyr::pull(
+    flipper_length_mm
+  ) %>%
+  stats::shapiro.test()
+```
+
+:::
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5.5, fig.width = 4, out.width='100%'}
+palmerpenguins::penguins %>% 
+  filter(species == "Adelie") %>%
+  ggplot2::ggplot(
+    aes(sample = flipper_length_mm)
+  ) +
+  ggplot2::stat_qq() +
+  ggplot2::stat_qq_line()
+```
+
+:::
+::::::
+
+
+
+## Skewness and kurtosis
+
+In a normal distribution, *skewness* and *kurtosis* should be **zero**
+
+- `skewness`: **skewness** value indicates
+  - positive: the distribution is skewed towards the left
+  - negative: the distribution is skewed towards the right
+- `kurtosis`: **kurtosis** value indicates
+  - positive: heavy-tailed distribution
+  - negative: flat distribution
+- `skew.2SE` and `kurt.2SE`: skewness and kurtosis divided by 2 standard errors. Therefore
+  - if `> 1` (or `< -1`) then the stat significant *(p < .05)*
+  - if `> 1.29` (or `< -1.29`) then stat significant *(p < .01)*
+
+
+
+## Example
+
+*Flipper length* is not normally distributed
+
+- skewed left (skewness positive, `skew.2SE > 1.29`)
+- flat distribution (kurtosis negative, `kurt.2SE < -1.29`)
+
+```{r, echo=TRUE, eval=FALSE}
+palmerpenguins::penguins %>% 
+  dplyr::select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE)
+```
+```{r, echo=FALSE}
+palmerpenguins::penguins %>% 
+  dplyr::select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  knitr::kable()
+```
+
+
+## Example
+
+Values are instead not significant for **Adelie** penguins
+
+- both `skew.2SE` and `kurt.2SE` between `-1` and `1`
+
+```{r, echo=TRUE, eval=FALSE}
+palmerpenguins::penguins %>% 
+  filter(species == "Adelie") %>%
+  dplyr::select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE)
+```
+```{r, echo=FALSE}
+palmerpenguins::penguins %>% 
+  filter(species == "Adelie") %>%
+  dplyr::select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  knitr::kable()
+```
+
+
+
+## Homogeneity of variance
+
+**Levene’s test** for equality of variance in different levels
+
+- If significant, the variance is different in different levels
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 60%" data-latex="{0.5\textwidth}"}
+
+```{r, echo=TRUE, eval=FALSE}
+library(car)
+palmerpenguins::penguins %>% 
+  car::leveneTest(
+    body_mass_g ~ species, data = .
+  )
+```
+
+:::
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %>% 
+  ggplot2::ggplot(
+    aes(
+      x = species, 
+      y = body_mass_g
+    )
+  ) +
+  ggplot2::geom_boxplot()
+```
+
+:::
+::::::
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(car)
+
+palmerpenguins::penguins %>% 
+ car::leveneTest(body_mass_g ~ species, data = .)
+```
+
+
+## Summary
+
+Exploring assumptions
+
+- Normality
+- Skewness and kurtosis
+- Homogeneity of variance
+
+**Next**: Practical session
+
+- Data visualisation
+- Descriptive statistics
+- Exploring assumptions
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

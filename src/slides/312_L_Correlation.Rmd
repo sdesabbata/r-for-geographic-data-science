@@ -1,0 +1,432 @@
+---
+title: "Lecture 312"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/sdesabbata/granolarr\">github.com/sdesabbata/granolarr</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
+output:
+  ioslides_presentation:
+    template: ../utils/IOSlides/UoL_Template.html
+    logo: ../../src/utils/IOSlides/uol_logo.png
+    css: ../utils/RMarkdown/rmarkdown_classes.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+<style type="text/css">
+.small_r_all pre{
+  font-size: 16px;
+  line-height: 18px;
+}
+.small_r_all pre:not(.prettyprint){
+  font-size: 16px;
+  line-height: 18px;
+}
+.verysmall_r_all pre:not(.prettyprint){
+  font-size: 12px;
+  line-height: 14px;
+}
+.veryverysmall_r_all pre:not(.prettyprint){
+  font-size: 10px;
+  line-height: 10px;
+}
+</style>
+
+
+
+# Correlation
+
+
+## Recap
+
+**Prev**: Comparing groups
+
+- T-test
+- ANOVA
+
+**Now**: Correlation
+
+- Pearson’s r
+- Spearman’s rho
+- Kendall’s tau
+- Pairs panel
+- Chi-square
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(nycflights13)
+```
+
+
+
+## Correlation
+
+Two continuous variables can be
+
+- not related at all
+- related
+    - positively: 
+      - entities with *high values* in one 
+      - tend to have *high values* in the other
+    - negatively: 
+      - entities with *high values* in one 
+      - tend to have *low values* in the other
+
+**Correlation** is a standardised measure of covariance
+
+
+## Correlation
+
+Three different approaches
+
+- **Pearson's r**
+  - if two variables are **normally distributed**
+- **Spearman’s rho**
+  - if two variables are **not normally distributed**
+- **Kendall’s tau**
+  - if **not normally distributed** 
+  - and there are a **large number of ties**
+
+
+
+## Example
+
+Are flipper length and body mass related in Chinstrap penguins?
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+palmerpenguins::penguins %>%
+  dplyr::filter(species == "Chinstrap") %>%
+  ggplot2::ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw()
+```
+</center>
+
+
+
+## Pearson’s r
+
+If  two variables are **normally distributed**, use **Pearson's r**
+
+- null hypothesis
+  - there is no relationship between the variables
+- assumptions
+  - variables are normally distributed
+
+The square of the correlation value indicates the percentage of shared variance
+
+
+## Assumptions: normality
+
+Flipper length and body mass are normally distributed in Chinstrap penguins
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %>%
+  dplyr::filter(species == "Chinstrap") %>%
+  dplyr::pull(flipper_length_mm) %>% stats::shapiro.test()
+
+palmerpenguins::penguins %>%
+  dplyr::filter(species == "Chinstrap") %>%
+  dplyr::pull(body_mass_g) %>% stats::shapiro.test()
+```
+
+</div>
+
+
+## stats::cor.test
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %>%
+  dplyr::filter(species == "Chinstrap") %$%
+  stats::cor.test(flipper_length_mm, body_mass_g) ->
+  chinstrap_flip_mass_cor
+```
+
+- Flipper length and body mass are related
+  - `p-value < 0.01`
+- sharing `r ((chinstrap_flip_mass_cor$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance
+  - `r chinstrap_flip_mass_cor$estimate %>% round(digits = 3)` `^ 2 =` `r chinstrap_flip_mass_cor$estimate ^ 2 %>% round(digits = 3)`
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %>%
+  dplyr::filter(species == "Chinstrap") %$%
+  stats::cor.test(flipper_length_mm, body_mass_g)
+```
+
+</div>
+
+
+## Example
+
+But, are flipper length and body mass related in penguins (without considering species as separated groups)?
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+palmerpenguins::penguins %>%
+  ggplot2::ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  ggplot2::geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  ggplot2::scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  ggplot2::theme_bw()
+```
+</center>
+
+
+
+## Assumptions: normality
+
+Flipper length and body mass are not normally distributed when all penguins are taken into account as a single group
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %>%
+  dplyr::pull(flipper_length_mm) %>% stats::shapiro.test()
+
+palmerpenguins::penguins %>%
+  dplyr::pull(body_mass_g) %>% stats::shapiro.test()
+```
+
+</div>
+
+
+## Spearman’s rho
+
+If  two variables are **not normally distrib.**, use **Spearman’s rho**
+
+- null hypothesis
+  - there is no relationship between the variables
+- non-parametric
+  - uses full dataset to calculate the statistics
+  - rather than estimate key parameters of distributions from data
+- based on rank difference
+- assumptions
+  - ties are uncommon
+
+The square of the correlation value indicates the percentage of shared variance
+
+
+## stats::cor.test (method = "spearman")
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %$%
+  stats::cor.test(flipper_length_mm, body_mass_g, method = "spearman") ->
+  allpenguins_flip_mass_cor
+```
+
+- Flipper length and body mass are related
+  - `p-value < 0.01`
+- sharing `r ((allpenguins_flip_mass_cor$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance
+  - `r allpenguins_flip_mass_cor$estimate %>% round(digits = 3)` `^ 2 =` `r allpenguins_flip_mass_cor$estimate ^ 2 %>% round(digits = 3)`
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %$%
+  stats::cor.test(flipper_length_mm, body_mass_g, method = "spearman")
+```
+
+</div>
+
+
+## Correlation with ties
+
+Spearman's rho
+
+- `Cannot compute exact p-value with ties`
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, eval=FALSE}
+palmerpenguins::penguins %$%
+  stats::cor.test(flipper_length_mm, body_mass_g, method = "spearman")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+## Warning in cor.test.default(flipper_length_mm, body_mass_g, method = "spearman"):
+##  Cannot compute exact p-value with ties
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %$%
+  stats::cor.test(flipper_length_mm, body_mass_g, method = "spearman")
+```
+
+</div>
+
+
+## Kendall’s tau
+
+If  two variables are **not normally distributed** and there are **many ties**, use **Kendall’s tau**
+
+- null hypothesis
+  - there is no relationship between the variables
+- non-parametric
+- based on rank difference
+- no assumptions
+- less *powerful*
+  - even if there is a relationship, significance might be high
+
+The square of the correlation value indicates the percentage of shared variance
+
+
+## stats::cor.test (method = "kendall")
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %$%
+  stats::cor.test(flipper_length_mm, body_mass_g, method = "kendall")->
+  allpenguins_flip_mass_cor_kendall
+```
+
+- Flipper length and body mass are related
+  - `p-value < 0.01`
+- sharing `r ((allpenguins_flip_mass_cor_kendall$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance
+  - `r allpenguins_flip_mass_cor_kendall$estimate %>% round(digits = 3)` `^ 2 =` `r allpenguins_flip_mass_cor_kendall$estimate ^ 2 %>% round(digits = 3)`
+
+<div class="small_r_all">
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %$%
+  stats::cor.test(flipper_length_mm, body_mass_g, method = "kendall")
+```
+
+</div>
+
+
+
+## psych::pairs.panels
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 60%;" data-latex="{0.5\textwidth}"}
+
+Combining: 
+
+- histograms
+- scatter plots 
+- correlations
+
+<div class="small_r_all">
+
+```{r, eval=FALSE, echo=TRUE, message=FALSE, warning=FALSE}
+library(psych)
+
+palmerpenguins::penguins %>%
+  dplyr::select(
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm, 
+    body_mass_g
+  ) %>%
+  psych::pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+
+## Signif.: 0 '***' 0.001 '**' 0.01
+## 0.01 '*' 0.05 0.05 '.' 0.1 ' ' 1
+```
+
+</div>
+
+:::
+
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+
+<center>
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+library(psych)
+
+palmerpenguins::penguins %>%
+  dplyr::select(
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm, 
+    body_mass_g
+  ) %>%
+  psych::pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+
+</center>
+
+:::
+::::::
+
+</div>
+
+
+
+## Chi-squre
+
+How to test the correlation between two **categorical** variables?
+
+Chi-square test:
+
+- null hypothesis
+  - there is no relationship between the variables
+- non-parametric
+- based on cross-tabulated expected counts
+- no assumptions
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+library(gmodels)
+palmerpenguins::penguins %$%
+  gmodels::CrossTable(
+    island, species, chisq = TRUE, expected = TRUE, prop.c = FALSE, 
+    prop.t = FALSE, prop.chisq = FALSE, sresid = TRUE, format = "SPSS")
+```
+
+
+## gmodels::CrossTable
+
+There is a relationship (`p-value < 0.01`), different islands have different amounts of penguins from different species
+
+<div class="veryverysmall_r_all">
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(gmodels)
+
+palmerpenguins::penguins %$%
+  gmodels::CrossTable(island, species, chisq = TRUE, expected = TRUE, prop.c = FALSE, prop.t = FALSE, prop.chisq = FALSE, sresid = TRUE, format = "SPSS")
+```
+
+</div>
+
+
+
+## Summary
+
+Correlation
+
+- Pearson’s r
+- Spearman’s rho
+- Kendall’s tau
+- Pairs plot
+- Chi-square
+
+**Next**: Data transformations
+
+- Z-scores
+- Logarithmic transformations
+- Inverse hyperbolic sine transformations
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
