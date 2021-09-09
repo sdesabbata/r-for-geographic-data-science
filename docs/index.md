@@ -2,27 +2,14 @@
 title: "R for Geographic Data Science"
 author: "Stefano De Sabbata"
 date: "2021-09-09"
-description: "R for Geographic Data Science"
-url: 'https://sdesabbata.github.io/granolarr/'
-github-repo: "sdesabbata/granolarr"
 site: bookdown::bookdown_site
 documentclass: book
+description: "R for Geographic Data Science"
+url: 'https://sdesabbata.github.io/granolarr/'
 biblio-style: apalike
-output:
-  bookdown::gitbook:
-    config:
-      toc:
-        before: |
-          <li><a href="https://https://sdesabbata.github.io/r-for-geographic-data-science/">R for Geographic Data Science</a></li>
-        after: |
-          <li><a href="https://https://sdesabbata.github.io/r-for-geographic-data-science/">R for Geographic Data Science</a></li>
-      search: yes
-      download:
-        - ["DeSabbata_R-for-geographic-data-science.pdf", "PDF"]
-        - ["DeSabbata_R-for-geographic-data-science.epub", "EPUB"]
-  bookdown::pdf_book:
-     latex_engine: xelatex
+csl: chicago-fullnote-bibliography.csl
 ---
+
 
 # Preface {-}
 
@@ -43,12 +30,12 @@ sessionInfo()
 ```
 
 ```
-## R version 4.0.2 (2020-06-22)
+## R version 4.1.1 (2021-08-10)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04 LTS
+## Running under: Ubuntu 20.04.3 LTS
 ## 
 ## Matrix products: default
-## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-openmp/libopenblasp-r0.3.8.so
+## BLAS/LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.8.so
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -62,8 +49,12 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] compiler_4.0.2  magrittr_1.5    bookdown_0.20   htmltools_0.5.0
-##  [5] tools_4.0.2     yaml_2.2.1      stringi_1.4.6   rmarkdown_2.3  
-##  [9] knitr_1.29      stringr_1.4.0   digest_0.6.25   xfun_0.16      
-## [13] rlang_0.4.7     evaluate_0.14
+##  [1] knitr_1.33      xml2_1.3.2      magrittr_2.0.1  downlit_0.2.1  
+##  [5] R6_2.5.1        rlang_0.4.11    fastmap_1.1.0   fansi_0.5.0    
+##  [9] stringr_1.4.0   tools_4.1.1     xfun_0.25       utf8_1.2.2     
+## [13] jquerylib_0.1.4 htmltools_0.5.2 ellipsis_0.3.2  yaml_2.2.1     
+## [17] digest_0.6.27   tibble_3.1.4    lifecycle_1.0.0 crayon_1.4.1   
+## [21] bookdown_0.23   sass_0.4.0      vctrs_0.3.8     fs_1.5.0       
+## [25] evaluate_0.14   rmarkdown_2.10  stringi_1.7.4   compiler_4.1.1 
+## [29] bslib_0.2.5.1   pillar_1.6.2    jsonlite_1.7.2  pkgconfig_2.0.3
 ```

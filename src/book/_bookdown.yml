@@ -1,0 +1,8 @@
+book_filename: "DeSabbata_R-for-geographic-data-science"
+new_session: true
+before_chapter_script: _common_before.R
+after_chapter_script: _common_after.R
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "

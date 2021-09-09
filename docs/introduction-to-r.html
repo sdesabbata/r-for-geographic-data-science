@@ -1,315 +1,89 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Introduction to R | R for Geographic Data Science</title>
-  <meta name="description" content="1 Introduction to R | R for Geographic Data Science" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="1 Introduction to R | R for Geographic Data Science" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="https://sdesabbata.github.io/granolarr/" />
-  
-  <meta property="og:description" content="1 Introduction to R | R for Geographic Data Science" />
-  <meta name="github-repo" content="sdesabbata/granolarr" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Introduction to R | R for Geographic Data Science" />
-  
-  <meta name="twitter:description" content="1 Introduction to R | R for Geographic Data Science" />
-  
-
-<meta name="author" content="Stefano De Sabbata" />
-
-
-<meta name="date" content="2021-09-09" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="index.html"/>
-<link rel="next" href="r-programming.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-
-<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-
-
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Introduction to R | R for Geographic Data Science</title>
+<meta name="author" content="Stefano De Sabbata">
+<meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  2.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Introduction to R | R for Geographic Data Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://sdesabbata.github.io/granolarr/introduction-to-r.html">
+<meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  2.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Introduction to R | R for Geographic Data Science">
+<meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  2.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="bs4_style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="https://https://sdesabbata.github.io/r-for-geographic-data-science/">R for Geographic Data Science</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#session-info"><i class="fa fa-check"></i>Session info</a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>1</b> Introduction to R</a><ul>
-<li class="chapter" data-level="1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-r-programming-language"><i class="fa fa-check"></i><b>1.1</b> The R programming language</a><ul>
-<li class="chapter" data-level="1.1.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#using-rstudio"><i class="fa fa-check"></i><b>1.1.1</b> Using RStudio</a></li>
-</ul></li>
-<li class="chapter" data-level="1.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#interpreting-values"><i class="fa fa-check"></i><b>1.2</b> Interpreting values</a></li>
-<li class="chapter" data-level="1.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#variables"><i class="fa fa-check"></i><b>1.3</b> Variables</a></li>
-<li class="chapter" data-level="1.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-types"><i class="fa fa-check"></i><b>1.4</b> Basic types</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#numeric"><i class="fa fa-check"></i><b>1.4.1</b> Numeric</a></li>
-<li class="chapter" data-level="1.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#logical"><i class="fa fa-check"></i><b>1.4.2</b> Logical</a></li>
-<li class="chapter" data-level="1.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#character"><i class="fa fa-check"></i><b>1.4.3</b> Character</a></li>
-</ul></li>
-<li class="chapter" data-level="1.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidyverse"><i class="fa fa-check"></i><b>1.5</b> Tidyverse</a><ul>
-<li class="chapter" data-level="1.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#stringr"><i class="fa fa-check"></i><b>1.5.1</b> stringr</a></li>
-<li class="chapter" data-level="1.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#the-pipe-operator"><i class="fa fa-check"></i><b>1.5.2</b> The pipe operator</a></li>
-</ul></li>
-<li class="chapter" data-level="1.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#coding-style"><i class="fa fa-check"></i><b>1.6</b> Coding style</a></li>
-<li class="chapter" data-level="1.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.1"><i class="fa fa-check"></i><b>1.7</b> Exercise 104.1</a></li>
-<li class="chapter" data-level="1.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#exercise-104.2"><i class="fa fa-check"></i><b>1.8</b> Exercise 104.2</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="r-programming.html"><a href="r-programming.html"><i class="fa fa-check"></i><b>2</b> R programming</a><ul>
-<li class="chapter" data-level="2.1" data-path="r-programming.html"><a href="r-programming.html#r-scripts"><i class="fa fa-check"></i><b>2.1</b> R Scripts</a></li>
-<li class="chapter" data-level="2.2" data-path="r-programming.html"><a href="r-programming.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
-<li class="chapter" data-level="2.3" data-path="r-programming.html"><a href="r-programming.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
-<li class="chapter" data-level="2.4" data-path="r-programming.html"><a href="r-programming.html#conditional-statements"><i class="fa fa-check"></i><b>2.4</b> Conditional statements</a></li>
-<li class="chapter" data-level="2.5" data-path="r-programming.html"><a href="r-programming.html#loops"><i class="fa fa-check"></i><b>2.5</b> Loops</a><ul>
-<li class="chapter" data-level="2.5.1" data-path="r-programming.html"><a href="r-programming.html#conditional-loops"><i class="fa fa-check"></i><b>2.5.1</b> Conditional Loops</a></li>
-<li class="chapter" data-level="2.5.2" data-path="r-programming.html"><a href="r-programming.html#deterministic-loops"><i class="fa fa-check"></i><b>2.5.2</b> Deterministic Loops</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="r-programming.html"><a href="r-programming.html#exercise-114.1"><i class="fa fa-check"></i><b>2.6</b> Exercise 114.1</a></li>
-<li class="chapter" data-level="2.7" data-path="r-programming.html"><a href="r-programming.html#function-definition"><i class="fa fa-check"></i><b>2.7</b> Function definition</a><ul>
-<li class="chapter" data-level="2.7.1" data-path="r-programming.html"><a href="r-programming.html#functions-and-control-structures"><i class="fa fa-check"></i><b>2.7.1</b> Functions and control structures</a></li>
-</ul></li>
-<li class="chapter" data-level="2.8" data-path="r-programming.html"><a href="r-programming.html#exercise-114.2"><i class="fa fa-check"></i><b>2.8</b> Exercise 114.2</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html"><i class="fa fa-check"></i><b>3</b> Data wrangling Pt. 1</a><ul>
-<li class="chapter" data-level="3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#r-projects"><i class="fa fa-check"></i><b>3.1</b> R Projects</a></li>
-<li class="chapter" data-level="3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#install-libraries"><i class="fa fa-check"></i><b>3.2</b> Install libraries</a><ul>
-<li class="chapter" data-level="3.2.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#loading-r-scripts"><i class="fa fa-check"></i><b>3.2.1</b> Loading R scripts</a></li>
-</ul></li>
-<li class="chapter" data-level="3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation"><i class="fa fa-check"></i><b>3.3</b> Data manipulation</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#summarise"><i class="fa fa-check"></i><b>3.3.1</b> Summarise</a></li>
-<li class="chapter" data-level="3.3.2" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#select-and-filter"><i class="fa fa-check"></i><b>3.3.2</b> Select and filter</a></li>
-<li class="chapter" data-level="3.3.3" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#mutate"><i class="fa fa-check"></i><b>3.3.3</b> Mutate</a></li>
-<li class="chapter" data-level="3.3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#arrange"><i class="fa fa-check"></i><b>3.3.4</b> Arrange</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#data-manipulation-example"><i class="fa fa-check"></i><b>3.4</b> Data manipulation example</a></li>
-<li class="chapter" data-level="3.5" data-path="data-wrangling-pt-1.html"><a href="data-wrangling-pt-1.html#exercise-204.1"><i class="fa fa-check"></i><b>3.5</b> Exercise 204.1</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html"><i class="fa fa-check"></i><b>4</b> Data wrangling Pt. 2</a><ul>
-<li class="chapter" data-level="4.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#table-manipulation"><i class="fa fa-check"></i><b>4.1</b> Table manipulation</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#long-and-wide-formats"><i class="fa fa-check"></i><b>4.1.1</b> Long and wide formats</a></li>
-<li class="chapter" data-level="4.1.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join"><i class="fa fa-check"></i><b>4.1.2</b> Join</a></li>
-</ul></li>
-<li class="chapter" data-level="4.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#read-and-write-data"><i class="fa fa-check"></i><b>4.2</b> Read and write data</a><ul>
-<li class="chapter" data-level="4.2.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#file-paths"><i class="fa fa-check"></i><b>4.2.1</b> File paths</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#data-wrangling-example"><i class="fa fa-check"></i><b>4.3</b> Data wrangling example</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#re-shaping"><i class="fa fa-check"></i><b>4.3.1</b> Re-shaping</a></li>
-<li class="chapter" data-level="4.3.2" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#join-1"><i class="fa fa-check"></i><b>4.3.2</b> Join</a></li>
-</ul></li>
-<li class="chapter" data-level="4.4" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.1"><i class="fa fa-check"></i><b>4.4</b> Exercise 214.1</a></li>
-<li class="chapter" data-level="4.5" data-path="data-wrangling-pt-2.html"><a href="data-wrangling-pt-2.html#exercise-214.2"><i class="fa fa-check"></i><b>4.5</b> Exercise 214.2</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="reproducibility.html"><a href="reproducibility.html"><i class="fa fa-check"></i><b>5</b> Reproducibility</a><ul>
-<li class="chapter" data-level="5.1" data-path="reproducibility.html"><a href="reproducibility.html#markdown"><i class="fa fa-check"></i><b>5.1</b> Markdown</a><ul>
-<li class="chapter" data-level="5.1.1" data-path="reproducibility.html"><a href="reproducibility.html#r-markdown"><i class="fa fa-check"></i><b>5.1.1</b> R Markdown</a></li>
-</ul></li>
-<li class="chapter" data-level="5.2" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.1"><i class="fa fa-check"></i><b>5.2</b> Exercise 224.1</a></li>
-<li class="chapter" data-level="5.3" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.2"><i class="fa fa-check"></i><b>5.3</b> Exercise 224.2</a></li>
-<li class="chapter" data-level="5.4" data-path="reproducibility.html"><a href="reproducibility.html#git"><i class="fa fa-check"></i><b>5.4</b> Git</a><ul>
-<li class="chapter" data-level="5.4.1" data-path="reproducibility.html"><a href="reproducibility.html#git-and-rstudio"><i class="fa fa-check"></i><b>5.4.1</b> Git and RStudio</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="reproducibility.html"><a href="reproducibility.html#exercise-224.3"><i class="fa fa-check"></i><b>5.5</b> Exercise 224.3</a></li>
-<li class="chapter" data-level="5.6" data-path="reproducibility.html"><a href="reproducibility.html#cloning-granolarr"><i class="fa fa-check"></i><b>5.6</b> Cloning granolarr</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory data analysis</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
-<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#gglot2-recap"><i class="fa fa-check"></i><b>6.2</b> GGlot2 recap</a></li>
-<li class="chapter" data-level="6.3" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#data-visualisation"><i class="fa fa-check"></i><b>6.3</b> Data visualisation</a><ul>
-<li class="chapter" data-level="6.3.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#distributions"><i class="fa fa-check"></i><b>6.3.1</b> Distributions</a></li>
-<li class="chapter" data-level="6.3.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#relationships"><i class="fa fa-check"></i><b>6.3.2</b> Relationships</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.1"><i class="fa fa-check"></i><b>6.4</b> Exercise 304.1</a></li>
-<li class="chapter" data-level="6.5" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exploratory-statistics"><i class="fa fa-check"></i><b>6.5</b> Exploratory statistics</a><ul>
-<li class="chapter" data-level="6.5.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#descriptive-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Descriptive statistics</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#exercise-304.2"><i class="fa fa-check"></i><b>6.6</b> Exercise 304.2</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="comparing-data.html"><a href="comparing-data.html"><i class="fa fa-check"></i><b>7</b> Comparing data</a><ul>
-<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>7.1</b> Introduction</a></li>
-<li class="chapter" data-level="7.2" data-path="comparing-data.html"><a href="comparing-data.html#anova"><i class="fa fa-check"></i><b>7.2</b> ANOVA</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>7.2.1</b> Example</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.1"><i class="fa fa-check"></i><b>7.3</b> Exercise 314.1</a></li>
-<li class="chapter" data-level="7.4" data-path="comparing-data.html"><a href="comparing-data.html#correlation"><i class="fa fa-check"></i><b>7.4</b> Correlation</a><ul>
-<li class="chapter" data-level="7.4.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>7.4.1</b> Example</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="comparing-data.html"><a href="comparing-data.html#exercise-314.2"><i class="fa fa-check"></i><b>7.5</b> Exercise 314.2</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="regression-analysis.html"><a href="regression-analysis.html"><i class="fa fa-check"></i><b>8</b> Regression analysis</a><ul>
-<li class="chapter" data-level="8.1" data-path="regression-analysis.html"><a href="regression-analysis.html#simple-regression"><i class="fa fa-check"></i><b>8.1</b> Simple regression</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="comparing-data.html"><a href="comparing-data.html#example"><i class="fa fa-check"></i><b>8.1.1</b> Example</a></li>
-<li class="chapter" data-level="8.1.2" data-path="regression-analysis.html"><a href="regression-analysis.html#checking-assumptions"><i class="fa fa-check"></i><b>8.1.2</b> Checking assumptions</a></li>
-<li class="chapter" data-level="8.1.3" data-path="regression-analysis.html"><a href="regression-analysis.html#how-to-report"><i class="fa fa-check"></i><b>8.1.3</b> How to report</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="regression-analysis.html"><a href="regression-analysis.html#multiple-regression"><i class="fa fa-check"></i><b>8.2</b> Multiple regression</a><ul>
-<li class="chapter" data-level="8.2.1" data-path="comparing-data.html"><a href="comparing-data.html#example-1"><i class="fa fa-check"></i><b>8.2.1</b> Example</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="regression-analysis.html"><a href="regression-analysis.html#exercise-324.1"><i class="fa fa-check"></i><b>8.3</b> Exercise 324.1</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html"><i class="fa fa-check"></i><b>9</b> Supervised machine learning</a><ul>
-<li class="chapter" data-level="9.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a><ul>
-<li class="chapter" data-level="9.1.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-networks"><i class="fa fa-check"></i><b>9.1.1</b> Artificial neural networks</a></li>
-<li class="chapter" data-level="9.1.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines"><i class="fa fa-check"></i><b>9.1.2</b> Support vector machines</a></li>
-<li class="chapter" data-level="9.1.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#confusion-matrices"><i class="fa fa-check"></i><b>9.1.3</b> Confusion matrices</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>9.2</b> Examples</a><ul>
-<li class="chapter" data-level="9.2.1" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#data"><i class="fa fa-check"></i><b>9.2.1</b> Data</a></li>
-<li class="chapter" data-level="9.2.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#logistic-regression"><i class="fa fa-check"></i><b>9.2.2</b> Logistic regression</a></li>
-<li class="chapter" data-level="9.2.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#support-vector-machines-1"><i class="fa fa-check"></i><b>9.2.3</b> Support vector machines</a></li>
-<li class="chapter" data-level="9.2.4" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#kernels"><i class="fa fa-check"></i><b>9.2.4</b> Kernels</a></li>
-<li class="chapter" data-level="9.2.5" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#artificial-neural-network"><i class="fa fa-check"></i><b>9.2.5</b> Artificial neural network</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#exercise-404.1"><i class="fa fa-check"></i><b>9.3</b> Exercise 404.1</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html"><i class="fa fa-check"></i><b>10</b> Unsupervised machine learning</a><ul>
-<li class="chapter" data-level="10.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#introduction"><i class="fa fa-check"></i><b>10.1</b> Introduction</a><ul>
-<li class="chapter" data-level="10.1.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#k-means"><i class="fa fa-check"></i><b>10.1.1</b> K-means</a></li>
-<li class="chapter" data-level="10.1.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#number-of-clusters"><i class="fa fa-check"></i><b>10.1.2</b> Number of clusters</a></li>
-<li class="chapter" data-level="10.1.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#geodemographic-classification"><i class="fa fa-check"></i><b>10.1.3</b> Geodemographic Classification</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="supervised-machine-learning.html"><a href="supervised-machine-learning.html#examples"><i class="fa fa-check"></i><b>10.2</b> Examples</a><ul>
-<li class="chapter" data-level="10.2.1" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#terrace-and-semi-detached-houses"><i class="fa fa-check"></i><b>10.2.1</b> Terrace and semi-detached houses</a></li>
-<li class="chapter" data-level="10.2.2" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters"><i class="fa fa-check"></i><b>10.2.2</b> Interpreting the clusters</a></li>
-<li class="chapter" data-level="10.2.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#a-geodemographic-of-dwelling-types"><i class="fa fa-check"></i><b>10.2.3</b> A geodemographic of dwelling types</a></li>
-<li class="chapter" data-level="10.2.4" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#interpreting-the-clusters-1"><i class="fa fa-check"></i><b>10.2.4</b> Interpreting the clusters</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="unsupervised-machine-learning.html"><a href="unsupervised-machine-learning.html#exercise-414.1"><i class="fa fa-check"></i><b>10.3</b> Exercise 414.1</a></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://https://sdesabbata.github.io/r-for-geographic-data-science/">R for Geographic Data Science</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Geographic Data Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R for Geographic Data Science</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="active" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="" href="r-programming.html"><span class="header-section-number">3</span> R programming</a></li>
+<li class="book-part">Data wrangling</li>
+<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">5</span> Selection and manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">6</span> Table operations</a></li>
+<li><a class="" href="reproducibility.html"><span class="header-section-number">7</span> Reproducibility</a></li>
+<li class="book-part">Data analysis</li>
+<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">9</span> Exploratory data analysis</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">10</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">11</span> Regression analysis</a></li>
+<li class="book-part">Machine learning</li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">13</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">14</span> Unsupervised machine learning</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/sdesabbata/r-for-geographic-data-science">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="introduction-to-r" class="section level1">
-<h1><span class="header-section-number">1</span> Introduction to R</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction-to-r" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Introduction to R<a class="anchor" aria-label="anchor" href="#introduction-to-r"><i class="fas fa-link"></i></a>
+</h1>
 <p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
 <p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</p>
-<div id="the-r-programming-language" class="section level2">
-<h2><span class="header-section-number">1.1</span> The R programming language</h2>
+<div id="the-r-programming-language" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> The R programming language<a class="anchor" aria-label="anchor" href="#the-r-programming-language"><i class="fas fa-link"></i></a>
+</h2>
 <p>As mentioned in Lecture 1, <strong><a href="https://www.r-project.org/">R</a></strong> was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand. R is a free, open-source implementation of the <strong>S</strong> statistical programming language initially created at the Bell Labs. At its core, R is a functional programming language (its main functionalities revolve around defining and executing functions). However it now supports, and it is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
 <p>In simple terms, nowadays, programming in R mostly focuses on devising a series of instructions to execute a task – most commonly, loading and analysing a dataset.</p>
 <p>As such, R can be used to program by creating sequences of <strong>instructions</strong> involving <strong>variables</strong> – which are named entities that can store values. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (<em>if/else</em>) and loops, which will be the topic of the next practical session. Instructions can also be grouped in <strong>functions</strong>, which we will also see in the next practical session.</p>
 <p>R is <strong>interpreted</strong>, not compiled. Which means that an R interpreter (if you are using R Studio, the R interpreter is simply hidden in the backend and R Studio is the frontend that allows you to interact with the interpreter) receives an instruction you write in R, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.</p>
-<div id="using-rstudio" class="section level3">
-<h3><span class="header-section-number">1.1.1</span> Using RStudio</h3>
+<div id="using-rstudio" class="section level3" number="2.1.1">
+<h3>
+<span class="header-section-number">2.1.1</span> Using RStudio<a class="anchor" aria-label="anchor" href="#using-rstudio"><i class="fas fa-link"></i></a>
+</h3>
 <p>As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the <em>Console</em> – as well as the R script editor, when a script is being edited. The <em>Console</em> in an input/output window into the R interpreter, where instructions can be typed, and the computed output is shown.</p>
 <p>For instance, if you type in the <em>Console</em></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-to-r.html#cb3-1"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <p>the R interpreter understands that as an instruction to sum one to one, and produces the result (as the materials for this module are created in RMarkdown, the output of the computation is always preceded by ‘##’).</p>
 <pre><code>## [1] 2</code></pre>
 <p>Note how the output value <code>2</code> is preceded by <code>[1]</code>, which indicates that the output is constituted by only one element. If the output is constituted by more than one element, as the list of numbers below, each row of the output is preceded by the index of the first element of the output.</p>
@@ -318,70 +92,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>On the right side, you find two groups of panels. On the top-right, the main element is the <em>Environment</em> panel, which is a representation of the current state of the interpreter’s memory, and as such, it shows all the stored variables, datasets, and functions. On the bottom-right, you find the <em>Files</em> panel, which shows file system (file and folders on your computer or the server), as well as the <em>Help</em> panel, which shows you the help pages when required. We will discuss the other panels later on in the practical sessions.</p>
 </div>
 </div>
-<div id="interpreting-values" class="section level2">
-<h2><span class="header-section-number">1.2</span> Interpreting values</h2>
+<div id="interpreting-values" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Interpreting values<a class="anchor" aria-label="anchor" href="#interpreting-values"><i class="fas fa-link"></i></a>
+</h2>
 <p>When a value is typed in the <em>Console</em>, the interpreter simply returns the same value. In the examples below, <code>2</code> is a simple numeric value, while <code>"String value"</code> is a textual value, which in R is referred to as a <em>character</em> value and in programming is also commonly referred to as a <em>string</em> (short for <em>a string of characters</em>).</p>
 <p>Numeric example:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction-to-r.html#cb6-1"></a><span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">2</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Character example:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction-to-r.html#cb8-1"></a><span class="st">&quot;String value&quot;</span></span></code></pre></div>
-<pre><code>## [1] &quot;String value&quot;</code></pre>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"String value"</span></code></pre></div>
+<pre><code>## [1] "String value"</code></pre>
 <p>Note how character values need to start and end with a single or double quote (<code>'</code> or <code>"</code>), which are not part of the information themselves. The <a href="https://style.tidyverse.org/syntax.html">Tidyverse Style Guide</a> suggests always to use the double quote (<code>"</code>), so we will use those in this module.</p>
 <p>Anything that follows a <code>#</code> symbol is considered a <em>comment</em> and the interpreter ignores it.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction-to-r.html#cb10-1"></a><span class="co"># hi, I am a comment, please ignore me</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># hi, I am a comment, please ignore me</span></code></pre></div>
 <p>As mentioned above, the interpreter understands <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html">simple operations on numeric values</a>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction-to-r.html#cb11-1"></a><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>There are also a large number of pre-defined functions, e.g., square-root: <code>sqrt</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction-to-r.html#cb13-1"></a><span class="kw">sqrt</span>(<span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.414214</code></pre>
 <p>Functions are collected and stored in <em>libraries</em> (sometimes referred to as <em>packages</em>), which contains related functions. Libraries can range anywhere from the <code>base</code> library, which includes the <code>sqrt</code> function above, to the <code>rgdal</code> library, which contains implementations of the <a href="https://gdal.org/">GDAL (Geospatial Data Abstraction Library)</a> functionalities for R.</p>
 </div>
-<div id="variables" class="section level2">
-<h2><span class="header-section-number">1.3</span> Variables</h2>
-<p>A variable can be defined using an <strong>identifier</strong> (e.g., <code>a_variable</code>) on the left of an <strong>assignment operator</strong> <code>&lt;-</code>, followed by the object to be linked to the identifier, such as a <strong>value</strong> (e.g., <code>1</code>) to be assigned on the right. The value of the variable can be tested/invoked by simply specifying the <strong>identifier</strong>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introduction-to-r.html#cb15-1"></a>a_variable &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb15-2"><a href="introduction-to-r.html#cb15-2"></a>a_variable</span></code></pre></div>
+<div id="variables" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Variables<a class="anchor" aria-label="anchor" href="#variables"><i class="fas fa-link"></i></a>
+</h2>
+<p>A variable can be defined using an <strong>identifier</strong> (e.g., <code>a_variable</code>) on the left of an <strong>assignment operator</strong> <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, followed by the object to be linked to the identifier, such as a <strong>value</strong> (e.g., <code>1</code>) to be assigned on the right. The value of the variable can be tested/invoked by simply specifying the <strong>identifier</strong>.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="va">a_variable</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>If you type <code>a_variable &lt;- 1</code> in the <em>Console</em> in RStudio, a new element appears in the <em>Environment</em> panel, representing the new variable in the memory. The left part of the entry contains the identifier <code>a_variable</code>, and the right part contains the value assigned to the variable <code>a_variable</code>, that is <code>1</code>.</p>
 <p>It is not necessary to provide a value directly. The right part of the assignment can be a <strong>call to a function</strong>. In that case, the function is <strong>executed</strong> on the provided input and <strong>the result is assigned to the variable</strong>.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="introduction-to-r.html#cb17-1"></a>a_variable &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="dv">4</span>)</span>
-<span id="cb17-2"><a href="introduction-to-r.html#cb17-2"></a>a_variable</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>
+<span class="va">a_variable</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<p>Note how if you type <code>a_variable &lt;- sqrt(4)</code> in the <em>Console</em> in RStudio, the element in the <em>Environment</em> panel changes to reflect the new value assigned to the variable <code>a_variable</code>, which is now the result of <code>sqrt(4)</code>, that is 2.</p>
+<p>Note how if you type <code>a_variable &lt;- sqrt(4)</code> in the <em>Console</em> in RStudio, the element in the <em>Environment</em> panel changes to reflect the new value assigned to the variable <code>a_variable</code>, which is now the result of <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt(4)</a></code>, that is 2.</p>
 <p>In the example below, another variable named <code>another_variable</code> is created and summed to <code>a_variable</code>, saving the result in <code>sum_of_two_variables</code>. The square root of that sum is then stored in the variable <code>square_root_of_sum</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="introduction-to-r.html#cb19-1"></a>another_variable &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb19-2"><a href="introduction-to-r.html#cb19-2"></a>another_variable</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">another_variable</span> <span class="op">&lt;-</span> <span class="fl">4</span>
+<span class="va">another_variable</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="introduction-to-r.html#cb21-1"></a>sum_of_two_variables &lt;-<span class="st"> </span>a_variable <span class="op">+</span><span class="st"> </span>another_variable</span>
-<span id="cb21-2"><a href="introduction-to-r.html#cb21-2"></a></span>
-<span id="cb21-3"><a href="introduction-to-r.html#cb21-3"></a>square_root_of_sum &lt;-<span class="st"> </span><span class="kw">sqrt</span>(sum_of_two_variables)</span>
-<span id="cb21-4"><a href="introduction-to-r.html#cb21-4"></a>square_root_of_sum</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sum_of_two_variables</span> <span class="op">&lt;-</span> <span class="va">a_variable</span> <span class="op">+</span> <span class="va">another_variable</span>
+
+<span class="va">square_root_of_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">sum_of_two_variables</span><span class="op">)</span>
+<span class="va">square_root_of_sum</span></code></pre></div>
 <pre><code>## [1] 2.44949</code></pre>
 </div>
-<div id="basic-types" class="section level2">
-<h2><span class="header-section-number">1.4</span> Basic types</h2>
-<div id="numeric" class="section level3">
-<h3><span class="header-section-number">1.4.1</span> Numeric</h3>
+<div id="basic-types" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Basic types<a class="anchor" aria-label="anchor" href="#basic-types"><i class="fas fa-link"></i></a>
+</h2>
+<div id="numeric" class="section level3" number="2.4.1">
+<h3>
+<span class="header-section-number">2.4.1</span> Numeric<a class="anchor" aria-label="anchor" href="#numeric"><i class="fas fa-link"></i></a>
+</h3>
 <p>The <em>numeric</em> type represents numbers (both integers and reals).</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="introduction-to-r.html#cb23-1"></a>a_number &lt;-<span class="st"> </span><span class="fl">1.41</span></span>
-<span id="cb23-2"><a href="introduction-to-r.html#cb23-2"></a><span class="kw">is.numeric</span>(a_number)</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">1.41</span>
+<span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="introduction-to-r.html#cb25-1"></a><span class="kw">is.integer</span>(a_number)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction-to-r.html#cb27-1"></a><span class="kw">is.double</span>(a_number) <span class="co"># i.e., is real</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span> <span class="co"># i.e., is real</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Base numeric operators.</p>
-<table>
-<thead>
-<tr class="header">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
 <th>Operator</th>
 <th>Meaning</th>
 <th>Example</th>
 <th>Output</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>+</td>
@@ -396,7 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>3</td>
 </tr>
 <tr class="odd">
-<td><code>*</code></td>
+<td><code><a href="https://rdrr.io/r/base/Arithmetic.html">*</a></code></td>
 <td>Product</td>
 <td><code>5*2</code></td>
 <td>10</td>
@@ -426,55 +218,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>25</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p>Some pre-defined functions in R:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="introduction-to-r.html#cb29-1"></a><span class="kw">abs</span>(<span class="op">-</span><span class="dv">2</span>) <span class="co"># Absolute value</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="co"># Absolute value</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="introduction-to-r.html#cb31-1"></a><span class="kw">ceiling</span>(<span class="fl">3.475</span>) <span class="co"># Upper round</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fl">3.475</span><span class="op">)</span> <span class="co"># Upper round</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="introduction-to-r.html#cb33-1"></a><span class="kw">floor</span>(<span class="fl">3.475</span>) <span class="co"># Lower round</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fl">3.475</span><span class="op">)</span> <span class="co"># Lower round</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction-to-r.html#cb35-1"></a><span class="kw">trunc</span>(<span class="fl">5.99</span>) <span class="co"># Truncate</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="fl">5.99</span><span class="op">)</span> <span class="co"># Truncate</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction-to-r.html#cb37-1"></a><span class="kw">log10</span>(<span class="dv">100</span>) <span class="co"># Logarithm 10</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="co"># Logarithm 10</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="introduction-to-r.html#cb39-1"></a><span class="kw">log</span>(<span class="kw">exp</span>(<span class="dv">2</span>)) <span class="co"># Natural logarithm and e</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># Natural logarithm and e</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Use simple brackets to specify the order of execution. If not specified the default order is: rise to power first, then multiplication and division, sum and subtraction last.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="introduction-to-r.html#cb41-1"></a>a_number &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb41-2"><a href="introduction-to-r.html#cb41-2"></a>(a_number <span class="op">+</span><span class="st"> </span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">1</span>
+<span class="op">(</span><span class="va">a_number</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="introduction-to-r.html#cb43-1"></a>a_number <span class="op">+</span><span class="st"> </span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_number</span> <span class="op">+</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="introduction-to-r.html#cb45-1"></a>a_number <span class="op">+</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span><span class="dv">3</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_number</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <p>The object <code>NaN</code> (<em>Not a Number</em>) is returned by R when the result of an operation is not a number.</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="introduction-to-r.html#cb47-1"></a><span class="dv">0</span> <span class="op">/</span><span class="st"> </span><span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">0</span> <span class="op">/</span> <span class="fl">0</span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction-to-r.html#cb49-1"></a><span class="kw">is.nan</span>(<span class="dv">0</span> <span class="op">/</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="fl">0</span> <span class="op">/</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>That is not to be confused with the object <code>NA</code> (<em>Not Available</em>), which is returned for missing data.</p>
 </div>
-<div id="logical" class="section level3">
-<h3><span class="header-section-number">1.4.2</span> Logical</h3>
+<div id="logical" class="section level3" number="2.4.2">
+<h3>
+<span class="header-section-number">2.4.2</span> Logical<a class="anchor" aria-label="anchor" href="#logical"><i class="fas fa-link"></i></a>
+</h3>
 <p>The <em>logical</em> type encodes two truth values: True and False.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="introduction-to-r.html#cb51-1"></a>logical_var &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
-<span id="cb51-2"><a href="introduction-to-r.html#cb51-2"></a><span class="kw">is.logical</span>(logical_var)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">logical_var</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span>
+<span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">logical_var</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="introduction-to-r.html#cb53-1"></a><span class="kw">isTRUE</span>(logical_var)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">logical_var</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="introduction-to-r.html#cb55-1"></a><span class="kw">as.logical</span>(<span class="dv">0</span>) <span class="co"># TRUE if not zero</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span> <span class="co"># TRUE if not zero</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Basic logic operators</p>
-<table>
-<thead>
-<tr class="header">
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
 <th>Operator</th>
 <th>Meaning</th>
 <th>Example</th>
 <th>Output</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>==</td>
@@ -531,117 +337,152 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <td>TRUE</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 </div>
-<div id="character" class="section level3">
-<h3><span class="header-section-number">1.4.3</span> Character</h3>
+<div id="character" class="section level3" number="2.4.3">
+<h3>
+<span class="header-section-number">2.4.3</span> Character<a class="anchor" aria-label="anchor" href="#character"><i class="fas fa-link"></i></a>
+</h3>
 <p>The <em>character</em> type represents text objects, including single characters and character strings (that is text objects longer than one character, commonly referred to simply as <em>strings</em> in computer science).</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-r.html#cb57-1"></a>a_string &lt;-<span class="st"> &quot;Hello world!&quot;</span></span>
-<span id="cb57-2"><a href="introduction-to-r.html#cb57-2"></a><span class="kw">is.character</span>(a_string)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_string</span> <span class="op">&lt;-</span> <span class="st">"Hello world!"</span>
+<span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">a_string</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="introduction-to-r.html#cb59-1"></a><span class="kw">is.numeric</span>(a_string)</span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_string</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="introduction-to-r.html#cb61-1"></a><span class="kw">as.character</span>(<span class="dv">2</span>) <span class="co"># type conversion  (a.k.a. casting)</span></span></code></pre></div>
-<pre><code>## [1] &quot;2&quot;</code></pre>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="introduction-to-r.html#cb63-1"></a><span class="kw">as.numeric</span>(<span class="st">&quot;2&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co"># type conversion  (a.k.a. casting)</span></code></pre></div>
+<pre><code>## [1] "2"</code></pre>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="introduction-to-r.html#cb65-1"></a><span class="kw">as.numeric</span>(<span class="st">&quot;Ciao&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="st">"Ciao"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
 </div>
 </div>
-<div id="tidyverse" class="section level2">
-<h2><span class="header-section-number">1.5</span> Tidyverse</h2>
+<div id="tidyverse" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Tidyverse<a class="anchor" aria-label="anchor" href="#tidyverse"><i class="fas fa-link"></i></a>
+</h2>
 <p>As mentioned in the lecture, libraries are collections of functions and/or datasets. Libraries can be installed in R using the function <code>install.packages</code> or using <code>Tool &gt; Install Packages...</code> in RStudio.</p>
 <p>The meta-library <a href="https://www.tidyverse.org/">Tidyverse</a> contains the following libraries:</p>
 <ul>
-<li><a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</li>
-<li><a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.</li>
-<li><a href="https://tidyr.tidyverse.org/"><code>tidyr</code></a> provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.</li>
-<li><a href="https://readr.tidyverse.org/"><code>readr</code></a> provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.</li>
-<li><a href="https://purrr.tidyverse.org/"><code>purrr</code></a> enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive.</li>
-<li><a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code.</li>
-<li><a href="https://stringr.tidyverse.org/"><code>stringr</code></a> provides a cohesive set of functions designed to make working with strings as easy as possible. It is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations.</li>
-<li><a href="https://forcats.tidyverse.org/"><code>forcats</code></a> provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.</li>
+<li>
+<a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a> is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</li>
+<li>
+<a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.</li>
+<li>
+<a href="https://tidyr.tidyverse.org/"><code>tidyr</code></a> provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.</li>
+<li>
+<a href="https://readr.tidyverse.org/"><code>readr</code></a> provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes.</li>
+<li>
+<a href="https://purrr.tidyverse.org/"><code>purrr</code></a> enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive.</li>
+<li>
+<a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code.</li>
+<li>
+<a href="https://stringr.tidyverse.org/"><code>stringr</code></a> provides a cohesive set of functions designed to make working with strings as easy as possible. It is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations.</li>
+<li>
+<a href="https://forcats.tidyverse.org/"><code>forcats</code></a> provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.</li>
 </ul>
 <p>A library can be loaded using the function <code>library</code>, as shown below (note the name of the library is not quoted). Once a library is installed on a computer, you don’t need to install it again, but every script needs to load all the library that it uses. Once a library is loaded, all its functions can be used.</p>
 <p><strong>Important</strong>: it is always necessary to load the <code>tidyverse</code> meta-library if you want to use the <code>stringr</code> functions or the pipe operator <code>%&gt;%</code>.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-to-r.html#cb68-1"></a><span class="kw">library</span>(tidyverse)</span></code></pre></div>
-<div id="stringr" class="section level3">
-<h3><span class="header-section-number">1.5.1</span> stringr</h3>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<div id="stringr" class="section level3" number="2.5.1">
+<h3>
+<span class="header-section-number">2.5.1</span> stringr<a class="anchor" aria-label="anchor" href="#stringr"><i class="fas fa-link"></i></a>
+</h3>
 <p>The code below presents the same examples used in the lecture session to demonstrate the use of <code>stringr</code> functions.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-to-r.html#cb69-1"></a><span class="kw">str_length</span>(<span class="st">&quot;Leicester&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">str_length</span><span class="op">(</span><span class="st">"Leicester"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="introduction-to-r.html#cb71-1"></a><span class="kw">str_detect</span>(<span class="st">&quot;Leicester&quot;</span>, <span class="st">&quot;e&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">str_detect</span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"e"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="introduction-to-r.html#cb73-1"></a><span class="kw">str_replace_all</span>(<span class="st">&quot;Leicester&quot;</span>, <span class="st">&quot;e&quot;</span>, <span class="st">&quot;x&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Lxicxstxr&quot;</code></pre>
+<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">str_replace_all</span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"e"</span>, <span class="st">"x"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "Lxicxstxr"</code></pre>
 </div>
-<div id="the-pipe-operator" class="section level3">
-<h3><span class="header-section-number">1.5.2</span> The pipe operator</h3>
+<div id="the-pipe-operator" class="section level3" number="2.5.2">
+<h3>
+<span class="header-section-number">2.5.2</span> The pipe operator<a class="anchor" aria-label="anchor" href="#the-pipe-operator"><i class="fas fa-link"></i></a>
+</h3>
 <p>The pipe operator is useful to outline more complex operations, step by step (see also <a href="https://r4ds.had.co.nz/pipes.html">R for Data Science, Chapter 18</a>). The pipe operator <code>%&gt;%</code></p>
 <ul>
 <li>takes the result from one function</li>
 <li>and passes it to the next function</li>
-<li>as the <strong>first argument</strong></li>
+<li>as the <strong>first argument</strong>
+</li>
 <li>that doesn’t need to be included in the code anymore</li>
 </ul>
 <p>The code below shows a simple example. The number <code>2</code> is taken as input for the first pipe that passes it on as the first argument to the function <code>sqrt</code>. The output value <code>1.41</code> is then taken as input for the second pipe, that passes it on as the first argument to the function <code>trunc</code>. The final output <code>1</code> is finally returned.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="introduction-to-r.html#cb75-1"></a><span class="dv">2</span> <span class="op">%&gt;%</span></span>
-<span id="cb75-2"><a href="introduction-to-r.html#cb75-2"></a><span class="st">  </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span></span>
-<span id="cb75-3"><a href="introduction-to-r.html#cb75-3"></a><span class="st">  </span><span class="kw">trunc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">2</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>The image below graphically illustrates how the pipe operator works, compared to the same procedure executed using two temporary variables that are used to store temporary values.</p>
 <center>
 <div class="figure">
-<img src="images/PipeOperator.png" style="width:80.0%" alt="" />
-<p class="caption">Illustration of how the pipe operator works</p>
+<img src="images/PipeOperator.png" style="width:80.0%" alt=""><p class="caption">Illustration of how the pipe operator works</p>
 </div>
 </center>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="introduction-to-r.html#cb77-1"></a><span class="kw">sqrt</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></span>
-<span id="cb77-2"><a href="introduction-to-r.html#cb77-2"></a><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p>The first step of a sequence of pipes can be a value, a variable, or a function including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function <code>round</code>, which also allows for a second argument <code>digits = 2</code>. Note that, when using the pipe operator, only the nominally second argument is provided to the function <code>round</code> – that is <code>round(digits = 2)</code></p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="introduction-to-r.html#cb78-1"></a><span class="co"># No pipe, using variables</span></span>
-<span id="cb78-2"><a href="introduction-to-r.html#cb78-2"></a>tmp_variable_A &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb78-3"><a href="introduction-to-r.html#cb78-3"></a>tmp_variable_B &lt;-<span class="st"> </span><span class="kw">sqrt</span>(tmp_variable_A)</span>
-<span id="cb78-4"><a href="introduction-to-r.html#cb78-4"></a><span class="kw">round</span>(tmp_variable_B, <span class="dt">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb78-5"><a href="introduction-to-r.html#cb78-5"></a></span>
-<span id="cb78-6"><a href="introduction-to-r.html#cb78-6"></a><span class="co"># No pipe, using functions only</span></span>
-<span id="cb78-7"><a href="introduction-to-r.html#cb78-7"></a><span class="kw">round</span>(<span class="kw">sqrt</span>(<span class="dv">2</span>), <span class="dt">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb78-8"><a href="introduction-to-r.html#cb78-8"></a></span>
-<span id="cb78-9"><a href="introduction-to-r.html#cb78-9"></a><span class="co"># Pipe starting from a value</span></span>
-<span id="cb78-10"><a href="introduction-to-r.html#cb78-10"></a><span class="dv">2</span> <span class="op">%&gt;%</span></span>
-<span id="cb78-11"><a href="introduction-to-r.html#cb78-11"></a><span class="st">  </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span></span>
-<span id="cb78-12"><a href="introduction-to-r.html#cb78-12"></a><span class="st">  </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb78-13"><a href="introduction-to-r.html#cb78-13"></a></span>
-<span id="cb78-14"><a href="introduction-to-r.html#cb78-14"></a><span class="co"># Pipe starting from a variable</span></span>
-<span id="cb78-15"><a href="introduction-to-r.html#cb78-15"></a>the_value_two &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb78-16"><a href="introduction-to-r.html#cb78-16"></a>the_value_two <span class="op">%&gt;%</span></span>
-<span id="cb78-17"><a href="introduction-to-r.html#cb78-17"></a><span class="st">  </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span></span>
-<span id="cb78-18"><a href="introduction-to-r.html#cb78-18"></a><span class="st">  </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb78-19"><a href="introduction-to-r.html#cb78-19"></a></span>
-<span id="cb78-20"><a href="introduction-to-r.html#cb78-20"></a><span class="co"># Pipe starting from a function</span></span>
-<span id="cb78-21"><a href="introduction-to-r.html#cb78-21"></a><span class="kw">sqrt</span>(<span class="dv">2</span>) <span class="op">%&gt;%</span></span>
-<span id="cb78-22"><a href="introduction-to-r.html#cb78-22"></a><span class="st"> </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p>A complex operation created through the use of <code>%&gt;%</code> can be used on the right side of <code>&lt;-</code>, to assign the outcome of the operation to a variable.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="introduction-to-r.html#cb79-1"></a>sqrt_of_two &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">%&gt;%</span></span>
-<span id="cb79-2"><a href="introduction-to-r.html#cb79-2"></a><span class="st">  </span><span class="kw">sqrt</span>() <span class="op">%&gt;%</span></span>
-<span id="cb79-3"><a href="introduction-to-r.html#cb79-3"></a><span class="st">  </span><span class="kw">round</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+ <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>The first step of a sequence of pipes can be a value, a variable, or a function including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function <code>round</code>, which also allows for a second argument <code>digits = 2</code>. Note that, when using the pipe operator, only the nominally second argument is provided to the function <code>round</code> – that is <code><a href="https://rdrr.io/r/base/Round.html">round(digits = 2)</a></code></p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># No pipe, using variables</span>
+<span class="va">tmp_variable_A</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="va">tmp_variable_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">tmp_variable_A</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">tmp_variable_B</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># No pipe, using functions only</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># Pipe starting from a value</span>
+<span class="fl">2</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># Pipe starting from a variable</span>
+<span class="va">the_value_two</span> <span class="op">&lt;-</span> <span class="fl">2</span>
+<span class="va">the_value_two</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>
+
+<span class="co"># Pipe starting from a function</span>
+<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+ <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>A complex operation created through the use of <code>%&gt;%</code> can be used on the right side of <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, to assign the outcome of the operation to a variable.</p>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sqrt_of_two</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="coding-style" class="section level2">
-<h2><span class="header-section-number">1.6</span> Coding style</h2>
+<div id="coding-style" class="section level2" number="2.6">
+<h2>
+<span class="header-section-number">2.6</span> Coding style<a class="anchor" aria-label="anchor" href="#coding-style"><i class="fas fa-link"></i></a>
+</h2>
 <p>Study the <a href="http://style.tidyverse.org/">Tidyverse Style Guide (style.tidyverse.org)</a> and use it consistently!</p>
 </div>
-<div id="exercise-104.1" class="section level2">
-<h2><span class="header-section-number">1.7</span> Exercise 104.1</h2>
+<div id="exercise-104.1" class="section level2" number="2.7">
+<h2>
+<span class="header-section-number">2.7</span> Exercise 104.1<a class="anchor" aria-label="anchor" href="#exercise-104.1"><i class="fas fa-link"></i></a>
+</h2>
 <p><strong>Question 104.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
 <p><strong>Question 104.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
 <p><strong>Question 104.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
 <p><strong>Question 104.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
 </div>
-<div id="exercise-104.2" class="section level2">
-<h2><span class="header-section-number">1.8</span> Exercise 104.2</h2>
+<div id="exercise-104.2" class="section level2" number="2.8">
+<h2>
+<span class="header-section-number">2.8</span> Exercise 104.2<a class="anchor" aria-label="anchor" href="#exercise-104.2"><i class="fas fa-link"></i></a>
+</h2>
 <p>Answer the question below, consulting the <a href="https://stringr.tidyverse.org/reference/index.html"><code>stringr</code> library reference (stringr.tidyverse.org/reference)</a> as necessary</p>
 <p><strong>Question 104.2.1:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and transforms it all in uppercase.</p>
 <p><strong>Question 104.2.2:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and truncates it, leaving only 10 characters.</p>
@@ -650,65 +491,60 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Preface</a></div>
+<div class="next"><a href="r-programming.html"><span class="header-section-number">3</span> R programming</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-r"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li>
+<a class="nav-link" href="#the-r-programming-language"><span class="header-section-number">2.1</span> The R programming language</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#using-rstudio"><span class="header-section-number">2.1.1</span> Using RStudio</a></li></ul>
+</li>
+<li><a class="nav-link" href="#interpreting-values"><span class="header-section-number">2.2</span> Interpreting values</a></li>
+<li><a class="nav-link" href="#variables"><span class="header-section-number">2.3</span> Variables</a></li>
+<li>
+<a class="nav-link" href="#basic-types"><span class="header-section-number">2.4</span> Basic types</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#numeric"><span class="header-section-number">2.4.1</span> Numeric</a></li>
+<li><a class="nav-link" href="#logical"><span class="header-section-number">2.4.2</span> Logical</a></li>
+<li><a class="nav-link" href="#character"><span class="header-section-number">2.4.3</span> Character</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#tidyverse"><span class="header-section-number">2.5</span> Tidyverse</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#stringr"><span class="header-section-number">2.5.1</span> stringr</a></li>
+<li><a class="nav-link" href="#the-pipe-operator"><span class="header-section-number">2.5.2</span> The pipe operator</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#coding-style"><span class="header-section-number">2.6</span> Coding style</a></li>
+<li><a class="nav-link" href="#exercise-104.1"><span class="header-section-number">2.7</span> Exercise 104.1</a></li>
+<li><a class="nav-link" href="#exercise-104.2"><span class="header-section-number">2.8</span> Exercise 104.2</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r-programming.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/100_Introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/100_Introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-09.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": [["DeSabbata_R-for-geographic-data-science.pdf", "PDF"], ["DeSabbata_R-for-geographic-data-science.epub", "EPUB"]],
-"toc": {
-"collapse": "subsection"
-},
-"search": true
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -720,7 +556,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

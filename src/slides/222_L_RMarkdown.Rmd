@@ -150,7 +150,7 @@ library(nycflights13)
 
 nycflights13::flights %>% 
   dplyr::select(year:day, origin, dest, flight) %>%
-  dplyr::slice_head(1) %>% 
+  dplyr::slice_head(n = 1) %>% 
   knitr::kable()
 ```
 

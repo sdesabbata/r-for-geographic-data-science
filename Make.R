@@ -62,7 +62,8 @@ file.copy(paste0(Sys.getenv("RGDS_HOME"), "/src/images"), paste0(Sys.getenv("RGD
 # Change working directory to the Practicals folder
 setwd(paste0(Sys.getenv("RGDS_HOME"), "/src/book"))
 # Render the book
-bookdown::render_book("index.Rmd", c("bookdown::gitbook", "bookdown::pdf_book", "bookdown::epub_book"), new_session = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/"), quiet = TRUE)
+#bookdown::render_book("index.Rmd", c("bookdown::gitbook", "bookdown::pdf_book", "bookdown::epub_book"), new_session = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/"), quiet = TRUE)
+bookdown::render_book("index.Rmd", c("bookdown::bs4_book"), new_session = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/"), quiet = TRUE)
 # Change back working directory
 setwd(Sys.getenv("RGDS_HOME"))
 
