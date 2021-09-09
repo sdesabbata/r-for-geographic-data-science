@@ -71,18 +71,18 @@ unlink(paste0(Sys.getenv("RGDS_HOME"), "/src/book/images"), recursive=TRUE)
 
 # Rename pdf and epub files
 
-now_for_filename <- 
-  lubridate::now() %>% 
-  str_replace_all(":", "-")  %>% 
-  str_replace_all(" ", "_")
+# now_for_filename <- 
+#   lubridate::now() %>% 
+#   str_replace_all(":", "-")  %>% 
+#   str_replace_all(" ", "_")
 
 file.rename(
   paste0(Sys.getenv("RGDS_HOME"), "/docs/_main.pdf"), 
-  paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science_", now_for_filename, ".pdf")
+  paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science.pdf")
 )
 file.rename(
   paste0(Sys.getenv("RGDS_HOME"), "/docs/_main.epub"), 
-  paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science_", now_for_filename, ".epub")
+  paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science.epub")
 )
 
 cat("\n\n>>> done. <<<\n\n")

@@ -6,7 +6,6 @@ output:
   ioslides_presentation:
     widescreen: true
     template: ../utils/IOSlides/UoL_Template.html
-    logo: ../../src/utils/IOSlides/uol_logo.png
     css: ../utils/RMarkdown/rmarkdown_classes.css
 ---
 
@@ -44,7 +43,7 @@ One of the most widely used programming languages and an effective tool for *(ge
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col data-latex="{0.7\textwidth}"}
 
 - data wrangling
 - statistical analysis
@@ -55,9 +54,9 @@ One of the most widely used programming languages and an effective tool for *(ge
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col data-latex="{0.3\textwidth}"}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 4, fig.width = 4}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 2, fig.width = 2}
 ifelse(!dir.exists(file.path(Sys.getenv("RGDS_HOME"), "tmp")), dir.create(file.path(Sys.getenv("RGDS_HOME"), "tmp")), FALSE)
 
 if (!dir.exists(file.path("./tmp", "E06000016"))) {

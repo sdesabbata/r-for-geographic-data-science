@@ -1,8 +1,8 @@
 ---
-title: "Practical session materials | granolarr"
+title: "R for Geographic Data Science"
 author: "Stefano De Sabbata"
 date: "2021-09-09"
-description: "Geographic data science reproducible teaching resource in R, Practical session materials"
+description: "R for Geographic Data Science"
 url: 'https://sdesabbata.github.io/granolarr/'
 github-repo: "sdesabbata/granolarr"
 site: bookdown::bookdown_site
@@ -13,13 +13,13 @@ output:
     config:
       toc:
         before: |
-          <li><a href="https://sdesabbata.github.io/granolarr/practicals/bookdown/">Practicals | granolarr</a></li>
+          <li><a href="https://https://sdesabbata.github.io/r-for-geographic-data-science/">R for Geographic Data Science</a></li>
         after: |
-          <li><a href="https://sdesabbata.github.io/granolarr/">granolarr</a></li>
+          <li><a href="https://https://sdesabbata.github.io/r-for-geographic-data-science/">R for Geographic Data Science</a></li>
       search: yes
       download:
-        - ["granolarr_practical_session_materials.pdf", "PDF"]
-        - ["granolarr_practical_session_materials.epub", "EPUB"]
+        - ["DeSabbata_R-for-geographic-data-science.pdf", "PDF"]
+        - ["DeSabbata_R-for-geographic-data-science.epub", "EPUB"]
   bookdown::pdf_book:
      latex_engine: xelatex
 ---

@@ -1,5 +1,5 @@
 # Base image https://hub.docker.com/r/rocker/ml
-FROM rocker/geospatial:4.0.2
+FROM rocker/geospatial:4.1.1
 
 # create an R user
 ENV USER rstudio
