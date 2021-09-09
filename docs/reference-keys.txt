@@ -1,4 +1,3 @@
-part-getting-started
 introduction-to-r
 the-r-programming-language
 using-rstudio
@@ -26,7 +25,6 @@ exercise-114.1
 function-definition
 functions-and-control-structures
 exercise-114.2
-part-data-wrangling
 selection-and-manipulation
 r-projects
 install-libraries
@@ -58,7 +56,6 @@ git
 git-and-rstudio
 exercise-224.3
 cloning-granolarr
-part-data-analysis
 exploratory-data-analysis
 introduction
 gglot2-recap
@@ -89,7 +86,6 @@ how-to-report
 multiple-regression
 example-3
 exercise-324.1
-part-machine-learning
 supervised-machine-learning
 introduction-2
 artificial-neural-networks

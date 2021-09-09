@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 10 Comparing data | R for Geographic Data Science</title>
+<title>Chapter 7 Comparing data | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  10.1 Introduction The first...">
+<meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  7.1 Introduction The first...">
 <meta name="generator" content="bookdown 0.23 with bs4_book()">
-<meta property="og:title" content="Chapter 10 Comparing data | R for Geographic Data Science">
+<meta property="og:title" content="Chapter 7 Comparing data | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/granolarr/comparing-data.html">
-<meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  10.1 Introduction The first...">
+<meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  7.1 Introduction The first...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 10 Comparing data | R for Geographic Data Science">
-<meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  10.1 Introduction The first...">
+<meta name="twitter:title" content="Chapter 7 Comparing data | R for Geographic Data Science">
+<meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  7.1 Introduction The first...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -42,19 +42,19 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Preface</a></li>
 <li class="book-part">Getting started</li>
-<li><a class="" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
-<li><a class="" href="r-programming.html"><span class="header-section-number">3</span> R programming</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
 <li class="book-part">Data wrangling</li>
-<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">5</span> Selection and manipulation</a></li>
-<li><a class="" href="table-operations.html"><span class="header-section-number">6</span> Table operations</a></li>
-<li><a class="" href="reproducibility.html"><span class="header-section-number">7</span> Reproducibility</a></li>
+<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li><a class="" href="reproducibility.html"><span class="header-section-number">5</span> Reproducibility</a></li>
 <li class="book-part">Data analysis</li>
-<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">9</span> Exploratory data analysis</a></li>
-<li><a class="active" href="comparing-data.html"><span class="header-section-number">10</span> Comparing data</a></li>
-<li><a class="" href="regression-analysis.html"><span class="header-section-number">11</span> Regression analysis</a></li>
+<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
+<li><a class="active" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">13</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">14</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,15 +62,15 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="comparing-data" class="section level1" number="10">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="comparing-data" class="section level1" number="7">
 <h1>
-<span class="header-section-number">10</span> Comparing data<a class="anchor" aria-label="anchor" href="#comparing-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7</span> Comparing data<a class="anchor" aria-label="anchor" href="#comparing-data"><i class="fas fa-link"></i></a>
 </h1>
 <p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
 <p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
-<div id="introduction-1" class="section level2" number="10.1">
+<div id="introduction-1" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">10.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The first part of this practical guides you through the ANOVA (analysis of variance) and regression analysis seen in the lecture, the last part showcases a multiple regression analysis. Create a new R project for this practical session and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.</p>
 <div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
@@ -93,9 +93,9 @@
   <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <pre><code>## [1] 3.758</code></pre>
 </div>
-<div id="anova" class="section level2" number="10.2">
+<div id="anova" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">10.2</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
 </h2>
 <p>The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the t-test, which has the same objective but allows to test only two groups.</p>
 <p>The ANOVA test has the following assumptions:</p>
@@ -112,9 +112,9 @@
 </li>
 <li>independence of groups</li>
 </ul>
-<div id="example" class="section level3" number="10.2.1">
+<div id="example" class="section level3" number="7.2.1">
 <h3>
-<span class="header-section-number">10.2.1</span> Example<a class="anchor" aria-label="anchor" href="#example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2.1</span> Example<a class="anchor" aria-label="anchor" href="#example"><i class="fas fa-link"></i></a>
 </h3>
 <p>The example seen in the lecture illustrates how ANOVA can be used to verify that the three different species of iris in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"><code>iris</code> dataset</a> have different petal length.</p>
 <div class="sourceCode" id="cb234"><pre class="downlit sourceCode r">
@@ -171,17 +171,17 @@
 </center>
 </div>
 </div>
-<div id="exercise-314.1" class="section level2" number="10.3">
+<div id="exercise-314.1" class="section level2" number="7.3">
 <h2>
-<span class="header-section-number">10.3</span> Exercise 314.1<a class="anchor" aria-label="anchor" href="#exercise-314.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3</span> Exercise 314.1<a class="anchor" aria-label="anchor" href="#exercise-314.1"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 314.1.1:</strong> Load the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset. Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
 <p><strong>Question 314.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
 <p><strong>Question 314.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
 </div>
-<div id="correlation" class="section level2" number="10.4">
+<div id="correlation" class="section level2" number="7.4">
 <h2>
-<span class="header-section-number">10.4</span> Correlation<a class="anchor" aria-label="anchor" href="#correlation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4</span> Correlation<a class="anchor" aria-label="anchor" href="#correlation"><i class="fas fa-link"></i></a>
 </h2>
 <p>The term <strong>correlation</strong> is used to refer to a series of a standardised measures of covariance, which can be used to statistically assess whether two variables are related or not.</p>
 <p>Furthermore, if two variables are related, such measures can identify whether they are:</p>
@@ -231,9 +231,9 @@
 </ul>
 </li>
 </ul>
-<div id="example-1" class="section level3" number="10.4.1">
+<div id="example-1" class="section level3" number="7.4.1">
 <h3>
-<span class="header-section-number">10.4.1</span> Example<a class="anchor" aria-label="anchor" href="#example-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4.1</span> Example<a class="anchor" aria-label="anchor" href="#example-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: <em>“do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?”</em></p>
 <p>That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?</p>
@@ -380,9 +380,9 @@ between the two variables.</code></pre>
 <p>The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negative related, as the relationship is significant (<code>p-value &lt; 0.01</code>) and the correlation value is negative (<code>tau =</code> -0.41). The two variables share 16.8% of variance. We can thus conclude that there is significant but very weak relationship between the two variables.</p>
 </div>
 </div>
-<div id="exercise-314.2" class="section level2" number="10.5">
+<div id="exercise-314.2" class="section level2" number="7.5">
 <h2>
-<span class="header-section-number">10.5</span> Exercise 314.2<a class="anchor" aria-label="anchor" href="#exercise-314.2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.5</span> Exercise 314.2<a class="anchor" aria-label="anchor" href="#exercise-314.2"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 314.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
 <p><strong>Question 314.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
@@ -390,21 +390,21 @@ between the two variables.</code></pre>
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="exploratory-data-analysis.html"><span class="header-section-number">9</span> Exploratory data analysis</a></div>
-<div class="next"><a href="regression-analysis.html"><span class="header-section-number">11</span> Regression analysis</a></div>
+<div class="prev"><a href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></div>
+<div class="next"><a href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#comparing-data"><span class="header-section-number">10</span> Comparing data</a></li>
-<li><a class="nav-link" href="#introduction-1"><span class="header-section-number">10.1</span> Introduction</a></li>
+<li><a class="nav-link" href="#comparing-data"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="nav-link" href="#introduction-1"><span class="header-section-number">7.1</span> Introduction</a></li>
 <li>
-<a class="nav-link" href="#anova"><span class="header-section-number">10.2</span> ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example"><span class="header-section-number">10.2.1</span> Example</a></li></ul>
+<a class="nav-link" href="#anova"><span class="header-section-number">7.2</span> ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example"><span class="header-section-number">7.2.1</span> Example</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-314.1"><span class="header-section-number">10.3</span> Exercise 314.1</a></li>
+<li><a class="nav-link" href="#exercise-314.1"><span class="header-section-number">7.3</span> Exercise 314.1</a></li>
 <li>
-<a class="nav-link" href="#correlation"><span class="header-section-number">10.4</span> Correlation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-1"><span class="header-section-number">10.4.1</span> Example</a></li></ul>
+<a class="nav-link" href="#correlation"><span class="header-section-number">7.4</span> Correlation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-1"><span class="header-section-number">7.4.1</span> Example</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-314.2"><span class="header-section-number">10.5</span> Exercise 314.2</a></li>
+<li><a class="nav-link" href="#exercise-314.2"><span class="header-section-number">7.5</span> Exercise 314.2</a></li>
 </ul>
 
       <div class="book-extra">

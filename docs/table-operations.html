@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 6 Table operations | R for Geographic Data Science</title>
+<title>Chapter 4 Table operations | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
 <meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0. This section illustrates the...">
 <meta name="generator" content="bookdown 0.23 with bs4_book()">
-<meta property="og:title" content="Chapter 6 Table operations | R for Geographic Data Science">
+<meta property="og:title" content="Chapter 4 Table operations | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/granolarr/table-operations.html">
 <meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0. This section illustrates the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 6 Table operations | R for Geographic Data Science">
+<meta name="twitter:title" content="Chapter 4 Table operations | R for Geographic Data Science">
 <meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0. This section illustrates the...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -42,19 +42,19 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Preface</a></li>
 <li class="book-part">Getting started</li>
-<li><a class="" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
-<li><a class="" href="r-programming.html"><span class="header-section-number">3</span> R programming</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
 <li class="book-part">Data wrangling</li>
-<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">5</span> Selection and manipulation</a></li>
-<li><a class="active" href="table-operations.html"><span class="header-section-number">6</span> Table operations</a></li>
-<li><a class="" href="reproducibility.html"><span class="header-section-number">7</span> Reproducibility</a></li>
+<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
+<li><a class="active" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li><a class="" href="reproducibility.html"><span class="header-section-number">5</span> Reproducibility</a></li>
 <li class="book-part">Data analysis</li>
-<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">9</span> Exploratory data analysis</a></li>
-<li><a class="" href="comparing-data.html"><span class="header-section-number">10</span> Comparing data</a></li>
-<li><a class="" href="regression-analysis.html"><span class="header-section-number">11</span> Regression analysis</a></li>
+<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">13</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">14</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,9 +62,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="table-operations" class="section level1" number="6">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="table-operations" class="section level1" number="4">
 <h1>
-<span class="header-section-number">6</span> Table operations<a class="anchor" aria-label="anchor" href="#table-operations"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4</span> Table operations<a class="anchor" aria-label="anchor" href="#table-operations"><i class="fas fa-link"></i></a>
 </h1>
 <p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
 <p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>. Contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>.</p>
@@ -72,13 +72,13 @@
 <div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></code></pre></div>
-<div id="table-manipulation" class="section level2" number="6.1">
+<div id="table-manipulation" class="section level2" number="4.1">
 <h2>
-<span class="header-section-number">6.1</span> Table manipulation<a class="anchor" aria-label="anchor" href="#table-manipulation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1</span> Table manipulation<a class="anchor" aria-label="anchor" href="#table-manipulation"><i class="fas fa-link"></i></a>
 </h2>
-<div id="long-and-wide-formats" class="section level3" number="6.1.1">
+<div id="long-and-wide-formats" class="section level3" number="4.1.1">
 <h3>
-<span class="header-section-number">6.1.1</span> Long and wide formats<a class="anchor" aria-label="anchor" href="#long-and-wide-formats"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.1</span> Long and wide formats<a class="anchor" aria-label="anchor" href="#long-and-wide-formats"><i class="fas fa-link"></i></a>
 </h3>
 <p>Tabular data are usually presented in two different formats.</p>
 <ul>
@@ -272,9 +272,9 @@
 </tbody>
 </table></div>
 </div>
-<div id="join" class="section level3" number="6.1.2">
+<div id="join" class="section level3" number="4.1.2">
 <h3>
-<span class="header-section-number">6.1.2</span> Join<a class="anchor" aria-label="anchor" href="#join"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2</span> Join<a class="anchor" aria-label="anchor" href="#join"><i class="fas fa-link"></i></a>
 </h3>
 <p>A join operation combines two tables into one by matching rows that have the same values in the specified column. This operation is usually executed on columns containing identifiers, which are matched through different tables containing different data about the same real-world entities. For instance, the table below presents the telephone prefixes for two cities. That information can be combined with the data present in the wide-formatted table above through a join operation on the columns containing the city names. As the two tables do not contain all the same cities, if a full join operation is executed, some cells have no values assigned.</p>
 <div class="inline-table"><table class="table table-sm">
@@ -650,9 +650,9 @@
 </table></div>
 </div>
 </div>
-<div id="read-and-write-data" class="section level2" number="6.2">
+<div id="read-and-write-data" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">6.2</span> Read and write data<a class="anchor" aria-label="anchor" href="#read-and-write-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Read and write data<a class="anchor" aria-label="anchor" href="#read-and-write-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <a href="https://readr.tidyverse.org/index.html"><code>readr</code> library</a> (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats.</p>
 <p>Download from Blackboard (or the <a href="https://github.com/sdesabbata/granolarr/tree/master/data">data</a> folder of the repository) the following files:</p>
@@ -729,9 +729,9 @@ Note that the `~` in the path below indicates the home folder -- a different pat
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">supgrpname</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpcode</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"Leicester_Suburbanites.csv"</span><span class="op">)</span></code></pre></div>
-<div id="file-paths" class="section level3" number="6.2.1">
+<div id="file-paths" class="section level3" number="4.2.1">
 <h3>
-<span class="header-section-number">6.2.1</span> File paths<a class="anchor" aria-label="anchor" href="#file-paths"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1</span> File paths<a class="anchor" aria-label="anchor" href="#file-paths"><i class="fas fa-link"></i></a>
 </h3>
 <p>File paths can be specified in two different ways:</p>
 <ul>
@@ -776,13 +776,13 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="data-wrangling-example" class="section level2" number="6.3">
+<div id="data-wrangling-example" class="section level2" number="4.3">
 <h2>
-<span class="header-section-number">6.3</span> Data wrangling example<a class="anchor" aria-label="anchor" href="#data-wrangling-example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3</span> Data wrangling example<a class="anchor" aria-label="anchor" href="#data-wrangling-example"><i class="fas fa-link"></i></a>
 </h2>
-<div id="re-shaping" class="section level3" number="6.3.1">
+<div id="re-shaping" class="section level3" number="4.3.1">
 <h3>
-<span class="header-section-number">6.3.1</span> Re-shaping<a class="anchor" aria-label="anchor" href="#re-shaping"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1</span> Re-shaping<a class="anchor" aria-label="anchor" href="#re-shaping"><i class="fas fa-link"></i></a>
 </h3>
 <p>The IMD 2015 data are in a <em>long</em> format, which means that every area is represented by more than one row: the column <code>Value</code> presents the value; the column <code>IndicesOfDeprivation</code> indicates which index the value refers to; the column <code>Measurement</code> indicates whether the value is a score, rank, or decile. The code below illustrates the data format used for the <code>IndicesOfDeprivation</code> table, and showing the rows for the LSOA including the University of Leicester (feature code <code>E01013649</code>).</p>
 <div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
@@ -1080,9 +1080,9 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </tr></tbody>
 </table></div>
 </div>
-<div id="join-1" class="section level3" number="6.3.2">
+<div id="join-1" class="section level3" number="4.3.2">
 <h3>
-<span class="header-section-number">6.3.2</span> Join<a class="anchor" aria-label="anchor" href="#join-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.2</span> Join<a class="anchor" aria-label="anchor" href="#join-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>As discussed above, two tables can be joined using a common column of identifiers. We can thus join the 2011 OAC and the IMD 2015 datasets into a single table. The LSOA code included in the 2011 OAC table is used to match that information with the corresponding row in the IMD 2015. The resulting table provides all the information from the 2011 OAC for each OA, plus the Index of Multiple Deprivations decile for the LSOA containing each OA.</p>
 <p>That operation can be carried out using the function <code>inner_join</code>, and specifying the common column (or columns, if more than one is to be used as identifier) as argument of <code>by</code>. Note that using <code>inner_join</code> would result in dropping any row which doesn’t have a match in the other table, either way. In this case, that should not happen, as all OAs are part of an LSOA, and any LSOA contains at least one OA.</p>
@@ -1441,18 +1441,18 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </table></div>
 </div>
 </div>
-<div id="exercise-214.1" class="section level2" number="6.4">
+<div id="exercise-214.1" class="section level2" number="4.4">
 <h2>
-<span class="header-section-number">6.4</span> Exercise 214.1<a class="anchor" aria-label="anchor" href="#exercise-214.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4</span> Exercise 214.1<a class="anchor" aria-label="anchor" href="#exercise-214.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Extend the code in the script <code>Data_Wrangling_Example.R</code> to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
 <p><strong>Question 214.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.</p>
 <p><strong>Question 214.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.</p>
 <p><strong>Question 214.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.</p>
 </div>
-<div id="exercise-214.2" class="section level2" number="6.5">
+<div id="exercise-214.2" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">6.5</span> Exercise 214.2<a class="anchor" aria-label="anchor" href="#exercise-214.2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Exercise 214.2<a class="anchor" aria-label="anchor" href="#exercise-214.2"><i class="fas fa-link"></i></a>
 </h2>
 <p>Extend the code in the script <code>Data_Wrangling_Example.R</code> to include the code necessary to solve the questions below.</p>
 <p><strong>Question 214.2.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> and <code>tidyr</code> libraries to generate a long format of the <code>leicester_2011OAC_IMD2015</code> table only including the values (census variables) used in <em>Question 214.1.3</em>.</p>
@@ -1467,29 +1467,29 @@ A full R Script including the code for the analysis presented in this practical 
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="selection-and-manipulation.html"><span class="header-section-number">5</span> Selection and manipulation</a></div>
-<div class="next"><a href="reproducibility.html"><span class="header-section-number">7</span> Reproducibility</a></div>
+<div class="prev"><a href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></div>
+<div class="next"><a href="reproducibility.html"><span class="header-section-number">5</span> Reproducibility</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#table-operations"><span class="header-section-number">6</span> Table operations</a></li>
+<li><a class="nav-link" href="#table-operations"><span class="header-section-number">4</span> Table operations</a></li>
 <li>
-<a class="nav-link" href="#table-manipulation"><span class="header-section-number">6.1</span> Table manipulation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#long-and-wide-formats"><span class="header-section-number">6.1.1</span> Long and wide formats</a></li>
-<li><a class="nav-link" href="#join"><span class="header-section-number">6.1.2</span> Join</a></li>
+<a class="nav-link" href="#table-manipulation"><span class="header-section-number">4.1</span> Table manipulation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#long-and-wide-formats"><span class="header-section-number">4.1.1</span> Long and wide formats</a></li>
+<li><a class="nav-link" href="#join"><span class="header-section-number">4.1.2</span> Join</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#read-and-write-data"><span class="header-section-number">6.2</span> Read and write data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#file-paths"><span class="header-section-number">6.2.1</span> File paths</a></li></ul>
+<a class="nav-link" href="#read-and-write-data"><span class="header-section-number">4.2</span> Read and write data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#file-paths"><span class="header-section-number">4.2.1</span> File paths</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#data-wrangling-example"><span class="header-section-number">6.3</span> Data wrangling example</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#re-shaping"><span class="header-section-number">6.3.1</span> Re-shaping</a></li>
-<li><a class="nav-link" href="#join-1"><span class="header-section-number">6.3.2</span> Join</a></li>
+<a class="nav-link" href="#data-wrangling-example"><span class="header-section-number">4.3</span> Data wrangling example</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#re-shaping"><span class="header-section-number">4.3.1</span> Re-shaping</a></li>
+<li><a class="nav-link" href="#join-1"><span class="header-section-number">4.3.2</span> Join</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercise-214.1"><span class="header-section-number">6.4</span> Exercise 214.1</a></li>
-<li><a class="nav-link" href="#exercise-214.2"><span class="header-section-number">6.5</span> Exercise 214.2</a></li>
+<li><a class="nav-link" href="#exercise-214.1"><span class="header-section-number">4.4</span> Exercise 214.1</a></li>
+<li><a class="nav-link" href="#exercise-214.2"><span class="header-section-number">4.5</span> Exercise 214.2</a></li>
 </ul>
 
       <div class="book-extra">

@@ -1,7 +1,7 @@
 bookdown::bs4_book:
   css: bs4_style.css
   theme:
-    primary: "#960018"
+    primary: "#66023C"
   repo: https://github.com/sdesabbata/r-for-geographic-data-science
 bookdown::pdf_book:
   includes:

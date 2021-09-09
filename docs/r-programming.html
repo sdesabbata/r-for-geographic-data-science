@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 3 R programming | R for Geographic Data Science</title>
+<title>Chapter 2 R programming | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  3.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations...">
+<meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  2.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations...">
 <meta name="generator" content="bookdown 0.23 with bs4_book()">
-<meta property="og:title" content="Chapter 3 R programming | R for Geographic Data Science">
+<meta property="og:title" content="Chapter 2 R programming | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/granolarr/r-programming.html">
-<meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  3.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations...">
+<meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  2.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 3 R programming | R for Geographic Data Science">
-<meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  3.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations...">
+<meta name="twitter:title" content="Chapter 2 R programming | R for Geographic Data Science">
+<meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  2.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -42,19 +42,19 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Preface</a></li>
 <li class="book-part">Getting started</li>
-<li><a class="" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
-<li><a class="active" href="r-programming.html"><span class="header-section-number">3</span> R programming</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="active" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
 <li class="book-part">Data wrangling</li>
-<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">5</span> Selection and manipulation</a></li>
-<li><a class="" href="table-operations.html"><span class="header-section-number">6</span> Table operations</a></li>
-<li><a class="" href="reproducibility.html"><span class="header-section-number">7</span> Reproducibility</a></li>
+<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li><a class="" href="reproducibility.html"><span class="header-section-number">5</span> Reproducibility</a></li>
 <li class="book-part">Data analysis</li>
-<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">9</span> Exploratory data analysis</a></li>
-<li><a class="" href="comparing-data.html"><span class="header-section-number">10</span> Comparing data</a></li>
-<li><a class="" href="regression-analysis.html"><span class="header-section-number">11</span> Regression analysis</a></li>
+<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">13</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">14</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -62,15 +62,15 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-programming" class="section level1" number="3">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-programming" class="section level1" number="2">
 <h1>
-<span class="header-section-number">3</span> R programming<a class="anchor" aria-label="anchor" href="#r-programming"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2</span> R programming<a class="anchor" aria-label="anchor" href="#r-programming"><i class="fas fa-link"></i></a>
 </h1>
 <p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
 <p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</p>
-<div id="r-scripts" class="section level2" number="3.1">
+<div id="r-scripts" class="section level2" number="2.1">
 <h2>
-<span class="header-section-number">3.1</span> R Scripts<a class="anchor" aria-label="anchor" href="#r-scripts"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1</span> R Scripts<a class="anchor" aria-label="anchor" href="#r-scripts"><i class="fas fa-link"></i></a>
 </h2>
 <p>The RStudio Console is handy to interact with the R interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or scripts to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter and editing past instructions when you want to change something. A better option to create programs or data analysis script of any significant size is to use the RStudio integrated editor to create an <em>R script</em>.</p>
 <p>To create an R script, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second simply calculates the square root of two.</p>
@@ -89,9 +89,9 @@
 <p>Alternatively, you can click on a specific line or select one or more lines, and click <em>Run</em> to execute only the selected line(s).</p>
 <p>Delete the two lines calculating the square root of two and defining the variable <code>a_variable</code> from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it, rather than using the Console.</p>
 </div>
-<div id="vectors" class="section level2" number="3.2">
+<div id="vectors" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">3.2</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
 </h2>
 <p>Vectors can be defined in R by using the function <code>c</code>, which takes as parameters the items to be stored in the vector – stored in the order in which they are provided.</p>
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
@@ -167,9 +167,9 @@
 <pre><code>##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
 ##  [9] 3.000000 3.162278</code></pre>
 </div>
-<div id="filtering" class="section level2" number="3.3">
+<div id="filtering" class="section level2" number="2.3">
 <h2>
-<span class="header-section-number">3.3</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
 </h2>
 <p>As seen in the first practical session, a conditional statement entered in the Console is evaluated for the provided input, and a logical value (<code>TRUE</code> or <code>FALSE</code>) is provided as output. Similarly, if the provided input is a vector, the conditional statement is evaluated for each element of the vector, and a vector of logical values is returned – which contains the respective results of the conditional statements for each element.</p>
 <div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
@@ -199,9 +199,9 @@
 <code class="sourceCode R"><span class="va">minus_two_to_two</span><span class="op">[</span><span class="va">minus_two_to_two</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
 </div>
-<div id="conditional-statements" class="section level2" number="3.4">
+<div id="conditional-statements" class="section level2" number="2.4">
 <h2>
-<span class="header-section-number">3.4</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
 </h2>
 <p>Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested and the part of the procedure to execute in the case the condition is true is included in a <em>code block</em>.</p>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
@@ -249,14 +249,14 @@
 <span class="op">}</span></code></pre></div>
 <pre><code>## Negative</code></pre>
 </div>
-<div id="loops" class="section level2" number="3.5">
+<div id="loops" class="section level2" number="2.5">
 <h2>
-<span class="header-section-number">3.5</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
 </h2>
 <p>Loops are another core component of (procedural) programming and implement the idea of solving a problem or executing a task by performing the same set of steps a number of times. There are two main kinds of loops in R - <strong>deterministic</strong> and <strong>conditional</strong> loops. The former is executed a fixed number of times, specified at the beginning of the loop. The latter is executed until a specific condition is met. Both deterministic and conditional loops are extremely important in working with vectors.</p>
-<div id="conditional-loops" class="section level3" number="3.5.1">
+<div id="conditional-loops" class="section level3" number="2.5.1">
 <h3>
-<span class="header-section-number">3.5.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>In R, conditional loops can be implemented using <code>while</code> and <code>repeat</code>. The difference between the two is mostly syntactical: the first tests the condition first and then execute the related code block if the condition is true; the second executes the code block until a <code>break</code> command is given (usually through a conditional statement).</p>
 <div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
@@ -279,9 +279,9 @@
 <pre><code>## 0 
 ## 1</code></pre>
 </div>
-<div id="deterministic-loops" class="section level3" number="3.5.2">
+<div id="deterministic-loops" class="section level3" number="2.5.2">
 <h3>
-<span class="header-section-number">3.5.2</span> Deterministic Loops<a class="anchor" aria-label="anchor" href="#deterministic-loops"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5.2</span> Deterministic Loops<a class="anchor" aria-label="anchor" href="#deterministic-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>The deterministic loop executes the subsequent code block iterating through the elements of a provided vector. During each iteration (i.e., execution of the code block), the current element of the vector (<em><vector></vector></em> in the definition below) is assigned to the variable in the statement (<em><var></var></em> in the definition below), and it can be used in the code block.</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="r-programming.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="sc">&lt;</span>VAR<span class="sc">&gt;</span> <span class="cf">in</span> <span class="sc">&lt;</span>VECTOR<span class="sc">&gt;</span>) {</span>
@@ -315,18 +315,18 @@
 ##     Step2: How is it going?</code></pre>
 </div>
 </div>
-<div id="exercise-114.1" class="section level2" number="3.6">
+<div id="exercise-114.1" class="section level2" number="2.6">
 <h2>
-<span class="header-section-number">3.6</span> Exercise 114.1<a class="anchor" aria-label="anchor" href="#exercise-114.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6</span> Exercise 114.1<a class="anchor" aria-label="anchor" href="#exercise-114.1"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 114.1.1:</strong> Use the modulo operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> to create a conditional statement that prints <code>"Even"</code> if a number is even and <code>"Odd"</code> if a number is odd.</p>
 <p><strong>Question 114.1.2:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that executes the conditional statement for all numbers from 1 to 10.</p>
 <p><strong>Question 114.1.3:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that prints the name of cities in odd positions (i.e., first, third, fifth) in the vector <code><a href="https://rdrr.io/r/base/c.html">c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</a></code>.</p>
 <p><strong>Question 114.1.4:</strong> Write the code necessary to print the name of the cities in the vector <code><a href="https://rdrr.io/r/base/c.html">c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</a></code> as many times as their position in the vector (i.e., once for the first city, two times for the second, and so on and so forth).</p>
 </div>
-<div id="function-definition" class="section level2" number="3.7">
+<div id="function-definition" class="section level2" number="2.7">
 <h2>
-<span class="header-section-number">3.7</span> Function definition<a class="anchor" aria-label="anchor" href="#function-definition"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7</span> Function definition<a class="anchor" aria-label="anchor" href="#function-definition"><i class="fas fa-link"></i></a>
 </h2>
 <p>Recall from the lecture that <em>an</em> <strong>algorithm</strong> <em>or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation</em> (Cutland, 1980). A <strong>program</strong> is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more <strong>function</strong>s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.</p>
 <p>The code below is a simple function with one parameter. The function simply calculates the square root of a number. Add the code below to your script and run that portion of the script (or type the code into the Console).</p>
@@ -340,9 +340,9 @@
 <div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div id="functions-and-control-structures" class="section level3" number="3.7.1">
+<div id="functions-and-control-structures" class="section level3" number="2.7.1">
 <h3>
-<span class="header-section-number">3.7.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.7.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
 </h3>
 <p>One issue when writing functions is making sure that the data that has been given to the data is the right kind. For example, what happens when you try to compute the cube root of a negative number?</p>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
@@ -386,9 +386,9 @@
 <p>Finally, <code>cat</code> is a printing function, that instructs R to display the provided argument (in this case, the phrase within quotes) as output in the Console. The <code>\n</code> in <code>cat</code> tells R to add a <em>newline</em> when printing out the warning.</p>
 </div>
 </div>
-<div id="exercise-114.2" class="section level2" number="3.8">
+<div id="exercise-114.2" class="section level2" number="2.8">
 <h2>
-<span class="header-section-number">3.8</span> Exercise 114.2<a class="anchor" aria-label="anchor" href="#exercise-114.2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.8</span> Exercise 114.2<a class="anchor" aria-label="anchor" href="#exercise-114.2"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 114.2.1:</strong> Write a function that calculates the areas of a circle, taking the radius as the first parameter.</p>
 <p><strong>Question 114.2.2:</strong> Write a function that calculates the volume of a cylinder, taking the radius of the base as the first parameter and the height as the second parameter. The function should call the function defined above and multiply the returned value by the height to calculate the result.</p>
@@ -468,28 +468,31 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 
 </div>
 </div>
+
+
+
   <div class="chapter-nav">
-<div class="prev"><a href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></div>
-<div class="next"><a href="selection-and-manipulation.html"><span class="header-section-number">5</span> Selection and manipulation</a></div>
+<div class="prev"><a href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></div>
+<div class="next"><a href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#r-programming"><span class="header-section-number">3</span> R programming</a></li>
-<li><a class="nav-link" href="#r-scripts"><span class="header-section-number">3.1</span> R Scripts</a></li>
-<li><a class="nav-link" href="#vectors"><span class="header-section-number">3.2</span> Vectors</a></li>
-<li><a class="nav-link" href="#filtering"><span class="header-section-number">3.3</span> Filtering</a></li>
-<li><a class="nav-link" href="#conditional-statements"><span class="header-section-number">3.4</span> Conditional statements</a></li>
+<li><a class="nav-link" href="#r-programming"><span class="header-section-number">2</span> R programming</a></li>
+<li><a class="nav-link" href="#r-scripts"><span class="header-section-number">2.1</span> R Scripts</a></li>
+<li><a class="nav-link" href="#vectors"><span class="header-section-number">2.2</span> Vectors</a></li>
+<li><a class="nav-link" href="#filtering"><span class="header-section-number">2.3</span> Filtering</a></li>
+<li><a class="nav-link" href="#conditional-statements"><span class="header-section-number">2.4</span> Conditional statements</a></li>
 <li>
-<a class="nav-link" href="#loops"><span class="header-section-number">3.5</span> Loops</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#conditional-loops"><span class="header-section-number">3.5.1</span> Conditional Loops</a></li>
-<li><a class="nav-link" href="#deterministic-loops"><span class="header-section-number">3.5.2</span> Deterministic Loops</a></li>
+<a class="nav-link" href="#loops"><span class="header-section-number">2.5</span> Loops</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conditional-loops"><span class="header-section-number">2.5.1</span> Conditional Loops</a></li>
+<li><a class="nav-link" href="#deterministic-loops"><span class="header-section-number">2.5.2</span> Deterministic Loops</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercise-114.1"><span class="header-section-number">3.6</span> Exercise 114.1</a></li>
+<li><a class="nav-link" href="#exercise-114.1"><span class="header-section-number">2.6</span> Exercise 114.1</a></li>
 <li>
-<a class="nav-link" href="#function-definition"><span class="header-section-number">3.7</span> Function definition</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functions-and-control-structures"><span class="header-section-number">3.7.1</span> Functions and control structures</a></li></ul>
+<a class="nav-link" href="#function-definition"><span class="header-section-number">2.7</span> Function definition</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functions-and-control-structures"><span class="header-section-number">2.7.1</span> Functions and control structures</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-114.2"><span class="header-section-number">3.8</span> Exercise 114.2</a></li>
+<li><a class="nav-link" href="#exercise-114.2"><span class="header-section-number">2.8</span> Exercise 114.2</a></li>
 </ul>
 
       <div class="book-extra">

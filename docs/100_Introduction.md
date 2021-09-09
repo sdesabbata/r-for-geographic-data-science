@@ -1,4 +1,4 @@
-# (PART\*) Getting started
+# (PART\*) Getting started {-}
 
 # Introduction to R
 
