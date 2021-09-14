@@ -10,11 +10,13 @@
 <meta name="generator" content="bookdown 0.23 with bs4_book()">
 <meta property="og:title" content="Chapter 10 Unsupervised machine learning | R for Geographic Data Science">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://sdesabbata.github.io/granolarr/unsupervised-machine-learning.html">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/unsupervised-machine-learning.html">
+<meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  10.1 Introduction The field...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 10 Unsupervised machine learning | R for Geographic Data Science">
 <meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0. Contains public sector information licensed under the Open Government Licence v3.0.  10.1 Introduction The field...">
+<meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -40,14 +42,15 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
 <li class="book-part">Data wrangling</li>
 <li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
 <li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
-<li><a class="" href="reproducibility.html"><span class="header-section-number">5</span> Reproducibility</a></li>
+<li><a class="" href="reproducibility-1.html"><span class="header-section-number">5</span> Reproducibility</a></li>
 <li class="book-part">Data analysis</li>
 <li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
 <li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
@@ -129,7 +132,7 @@
 <span class="header-section-number">10.2</span> Examples<a class="anchor" aria-label="anchor" href="#examples-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The two examples below explore the creation of simple geodemographic classifications for the city of Leicester, using a few variables from the United Kingdom 2011 Census and included among the 167 initial variables that <a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a> have taken into account in creating the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification</a>.</p>
-<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
 <pre><code>## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
@@ -139,7 +142,7 @@
 <pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()</code></pre>
-<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: 'magrittr'</code></pre>
@@ -149,9 +152,9 @@
 <pre><code>## The following object is masked from 'package:tidyr':
 ## 
 ##     extract</code></pre>
-<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/cluster/">cluster</a></span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></code></pre></div>
 <p>The variables that we are going to take into account are the five ones listed below, plus the total count for their statistical unit, that is <code>Total_Dwellings</code>.</p>
 <ul>
@@ -167,7 +170,7 @@
 <code>u090</code>: Caravan or other mobile or temporary structure</li>
 </ul>
 <p>The code below extracts the necessary variables from the original dataset and applies the normalisation steps across all the five variables listed above. Finally, the columns are renamed with more user-friendly names and adding <code>perc_</code> in front of the column name.</p>
-<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">&lt;-</span>
   <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
@@ -195,7 +198,7 @@
     <span class="va">detached</span><span class="op">:</span><span class="va">carava_tmp</span>
   <span class="op">)</span></code></pre></div>
 <p>The first step of k-means is to select some observations at random as initial centroids. As a result, every time we run the computation, the starting point will be slightly different, and so might be the result. In particular, it is likely that the cluster order might chance (i.e., what was cluster <code>1</code> one time might be cluster <code>3</code> the next), although the overall result should be stable. Nevertheless, to make this document more reproducible, we can set a <em>“seed”</em> for the generation of random numbers. That will ensure that the observations selected at random will be the same, and thus the results will be the same. That can be done in R, using the function <code>set.seed</code> and providing a number (any relatively large number will do) as <em>“seed”</em>.</p>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">20201208</span><span class="op">)</span></code></pre></div>
 <div id="terrace-and-semi-detached-houses" class="section level3" number="10.2.1">
 <h3>
@@ -209,7 +212,7 @@
 <code>u088</code>(now <code>terraced</code>): Terraced (including end-terrace)</li>
 </ul>
 <p>As a first step, we can explore the relationship between the two variables. The code below illustrates the use of the <a href="https://ggobi.github.io/ggally/articles/ggpairs.html"><code>ggpairs</code></a> of the <a href="https://ggobi.github.io/ggally/"><code>GGally</code></a> library, which provides additional and more complex plots on top of the <code>ggplot2</code> framework.</p>
-<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("GGally")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span>
 
@@ -223,7 +226,7 @@
 <p>The scatterplot above seems to indicate that at least three clusters might exist in the data. One with a lot of semi-detached and few terraced house (top-left corner of the scatterplot); one with a lot of terraced and few semi-detached houses (bottom-right corner of the scatterplot); and one with very few of both classes (bottom-left corner of the scatterplot).</p>
 <p>However, there are clearly many OAs which populate the area in between those three groups. So, what is the best approach to cluster those OAs?</p>
 <p>The code below illustrates how to create three plots. The first follows the elbow method heuristic. The second and the third take a similar approach but using the silhouette and gap statistic.</p>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get only the data necessary for testing</span>
 <span class="va">data_for_testing</span> <span class="op">&lt;-</span>
   <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
@@ -253,7 +256,7 @@
     <span class="fu">cluster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span>
       <span class="va">data_for_testing</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">extract</a></span><span class="op">(</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/magrittr/man/aliases.html">extract</a></span><span class="op">(</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co"># Calculate the gap statistic using bootstrapping</span>
@@ -264,7 +267,7 @@
     K.max <span class="op">=</span> <span class="fl">15</span>, <span class="co"># max number of clusters</span>
     B <span class="op">=</span> <span class="fl">50</span>      <span class="co"># number of samples</span>
   <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plots</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_wcss</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"WCSS"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -272,14 +275,14 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-1.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_silhouette</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Silhouette"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-2.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_gap</span><span class="op">[[</span><span class="st">"Tab"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="st">"gap"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Gap"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
@@ -288,7 +291,7 @@
 <pre><code>## integer(0)</code></pre>
 <p>Based on the WCSS plot, the number of clusters k best fitting the data could range between <code>k = 3</code> and <code>k = 6</code>, which are all around the inflation point (elbow) of the line. The silhouette plot shows a local maximum at <code>k = 3</code> and <code>k = 6</code>, which indicates that the observations best fit within their clusters when 3 or 6 clusters are created. The gap statistic steadily increases until it reaches a plateau around <code>k = 5</code>. That indicates that clustering improves as we move from 2 to 5 clusters, but the quality doesn’t increase as much afterwards. The value for <code>k = 6</code> (which is the value suggested by the other two heuristics) is a local minimum, but still the difference with neighbouring values is relatively small.</p>
 <p>Overall, the heuristics seem to indicate that <code>k = 3</code> could lead to a good clustering result. However, the gap statistic indicates that those three clusters would not be very compact. That is probably due to the fact that the observations at center of the scatterplot seen above are rather uniformally distributed over the space between the three main clusters. As such, chosing <code>k = 6</code> clusters might be the best fitting approach in this case. We can then calculate the clusters for <code>k = 6</code> as shown below.</p>
-<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">terr_sede_kmeans</span> <span class="op">&lt;-</span> <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span>centers <span class="op">=</span> <span class="fl">6</span>, iter.max <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
@@ -304,7 +307,7 @@
 <span class="header-section-number">10.2.2</span> Interpreting the clusters<a class="anchor" aria-label="anchor" href="#interpreting-the-clusters"><i class="fas fa-link"></i></a>
 </h3>
 <p>After the clustering has been completed, we can analyse the results through a visual analysis. For instance, we can plot the two original variables, along with the computed clusters as illustrated below.</p>
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span>, <span class="va">terr_sede_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
@@ -314,7 +317,7 @@
   <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
 <p>Another common approach in interpreting the results is to create <em>heatmaps</em> for the average values of the variables used in the clustering process for each cluster.</p>
-<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">terr_sede_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
@@ -327,17 +330,17 @@
     names_to <span class="op">=</span> <span class="st">"clustering_dimension"</span>,
     values_to <span class="op">=</span> <span class="st">"value"</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>
     <span class="fu">aes</span><span class="op">(</span>
       x <span class="op">=</span> <span class="va">clustering_dimension</span>,
       y <span class="op">=</span> <span class="va">terr_sede_cluster</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Clustering dimension"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Cluster"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Clustering dimension"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Cluster"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-11-1.png" width="480"></div>
 <p>The plot above, clearly illustrates how cluster 6 has a high percentage of semi-detached houses and a low percentages of terraced houses. Cluster 2 has a high percentage of terraced houses and a low percentages of semi-detached houses. Cluster 4 has a low percentage of both semi-detached and terraced houses. Those are the three clusters that we first identified from the first scatterplot above.</p>
 <p>Moreover, the clustering process identifies cluster 1, which includes similar percentages of semi-detached and terraced houses; as well as cluster 5, including mostly semi-detached but also some terraced houses, and cluster 3, including mostly terraced but also some semi-detached houses.</p>
@@ -348,7 +351,7 @@
 </h3>
 <p>The case study above is useful as a simple example of how to create a geodemographic classification, but possibly not the most interesting analysis due to the limited number of variables used. In this section, we explore the creation of a geodemographic of dwelling types in the city of Leicester, using all five variables available in the original dataset.</p>
 <p>As before we can start from a visual analysis of the data. The relationship between the different variables generally resembles the one seen between semi-detached and terraced houses seen in the example above, except for caravans and mobile or temporary structures, which seem fairly rare in Leicester. No variable seems to be particularly well correlated to any other. Thus all variables should be included in the classification, as they all have the potential to contribute relevant information.</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
@@ -357,7 +360,7 @@
   <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-12-1.png" width="432"></div>
 <p>In order to identify the number of clusters <code>k</code> which best fits the data, we can use the elbow method, along with the silhouette and gap statistic measures, as seen in the previous example. The only difference is that in this case <code>data_for_testing</code> will include all five variables.</p>
-<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Data for elbow method</span>
 <span class="va">data_for_testing</span> <span class="op">&lt;-</span>
   <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
@@ -387,7 +390,7 @@
     <span class="fu">cluster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/silhouette.html">silhouette</a></span><span class="op">(</span>
       <span class="va">data_for_testing</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">extract</a></span><span class="op">(</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span>
+    <span class="fu">magrittr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/magrittr/man/aliases.html">extract</a></span><span class="op">(</span>, <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
 
 <span class="co"># Calculate the gap statistic using bootstrapping</span>
@@ -395,7 +398,7 @@
   <span class="fu">cluster</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cluster/man/clusGap.html">clusGap</a></span><span class="op">(</span><span class="va">data_for_testing</span>, FUN <span class="op">=</span> <span class="va">kmeans</span>, 
     K.max <span class="op">=</span> <span class="fl">15</span>, B <span class="op">=</span> <span class="fl">50</span>
   <span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Plots</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_wcss</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"WCSS"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -403,14 +406,14 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-1.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
-<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_silhouette</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Silhouette"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-2.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
-<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_gap</span><span class="op">[[</span><span class="st">"Tab"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="st">"gap"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Gap"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
@@ -418,7 +421,7 @@
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-3.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <p>As in the previous example, the elbow method (i.e., WCSS), silhouette and gap statistic seem to indicate that <code>k = 3</code> or <code>k = 6</code> might be the best choice. Let’s see what the result is when choosing <code>k = 6</code>.</p>
-<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dwellings_kmeans</span> <span class="op">&lt;-</span> <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span>
@@ -440,7 +443,7 @@
 <span class="header-section-number">10.2.4</span> Interpreting the clusters<a class="anchor" aria-label="anchor" href="#interpreting-the-clusters-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>A first exploratory plot of the clusters seems to reveal clusters that closely resemble those seen in the first example above.</p>
-<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span>, <span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
@@ -450,7 +453,7 @@
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-16-1.png" width="576"></div>
 <div style="page-break-after: always;"></div>
 <p>As in the previous example, we can use an <em>“heatmap”</em> plot to explore how the clusters are characterised by the variables used in the clustering process (see also Exercise 414.1.1 below).</p>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dwellings_cluster_avgs</span> <span class="op">&lt;-</span>
   <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -472,22 +475,22 @@
     names_to <span class="op">=</span> <span class="st">"clustering_dimension"</span>,
     values_to <span class="op">=</span> <span class="st">"value"</span>
   <span class="op">)</span>  <span class="op">%&gt;%</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span>
     <span class="fu">aes</span><span class="op">(</span>
       x <span class="op">=</span> <span class="va">clustering_dimension</span>,
       y <span class="op">=</span> <span class="va">dwellings_cluster</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html">geom_tile</a></span><span class="op">(</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_tile.html">geom_tile</a></span><span class="op">(</span>
     <span class="fu">aes</span><span class="op">(</span>
       fill <span class="op">=</span> <span class="va">value</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Clustering dimension"</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Cluster"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Clustering dimension"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Cluster"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/theme.html">theme</a></span><span class="op">(</span>
     axis.text.x <span class="op">=</span> 
       <span class="fu">element_text</span><span class="op">(</span>
         angle <span class="op">=</span> <span class="fl">90</span>, 
@@ -497,7 +500,7 @@
     <span class="op">)</span></code></pre></div>
 <div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-17-1.png" width="384"></div>
 <p>Another very common approach to explore the characteristics of the clusters created through k-means for the geodemongraphic classification is to use radar charts (also known as spider charts, web charts or polar charts), which can be created in R using a number of libraries, including the <code>radarchart</code> of the <code>fmsb</code> library.</p>
-<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("fmsb")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://minato.sip21c.org/msb/">fmsb</a></span><span class="op">)</span>
 
@@ -573,7 +576,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-11.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

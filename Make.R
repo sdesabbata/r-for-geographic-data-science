@@ -5,7 +5,7 @@
 # Licensed under the GNU General Public License v3.0 https://www.gnu.org/licenses/gpl-3.0.html
 ##########
 
-cat("\n\n>>> Making granolarr <<<\n\n")
+cat("\n\n>>> Making R for Geographic Data Science <<<\n\n")
 
 # Un comment the install.packages command below
 # if Tidyverse is not installed
@@ -49,12 +49,9 @@ if (length(args) == 0) {
 # Make clean
 source(paste0(Sys.getenv("RGDS_HOME"), "/Make_Clean.R"))
 
-# Step 1: execute the scripts
-#
+# Step 1: Book
 
-# Step 3-2: Compile the practical files to bookdown
-
-cat("\n\n>>> Rendering Practical sessions bookdown... <<<\n\n")
+cat("\n\n>>> Rendering book... <<<\n\n")
 
 # Copy images directory to contents folder for local compile of bookdown
 file.copy(paste0(Sys.getenv("RGDS_HOME"), "/src/images"), paste0(Sys.getenv("RGDS_HOME"), "/src/book/"), recursive=TRUE)
@@ -88,76 +85,78 @@ file.rename(
 
 cat("\n\n>>> done. <<<\n\n")
 
-cat("\n\n>>> granolarr is ready! <<<\n\n")
 
+# Step 2: Lecture slides
 
-# Step 2-1: Compile the lecture files to html slides
-
+cat("\n\n>>> Rendering lecture slides... <<<\n\n")
 
 # Copy images directory to contents folder for local compile of bookdown
 file.copy(paste0(Sys.getenv("RGDS_HOME"), "/src/images"), paste0(Sys.getenv("RGDS_HOME"), "/src/slides/"), recursive=TRUE)
 
-cat("\n\n>>> Rendering 101_L_Introduction.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/101_L_Introduction.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 102_L_CoreConcepts.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/102_L_CoreConcepts.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 103_L_Tidyverse.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/103_L_Tidyverse.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 111_L_DataTypes.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/111_L_DataTypes.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 112_L_ControlStructures.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/112_L_ControlStructures.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 113_L_Functions.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/113_L_Functions.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 201_L_DataFrames.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/201_L_DataFrames.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 202_L_SelectionFiltering.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/202_L_SelectionFiltering.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 203_L_DataManipulation.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/203_L_DataManipulation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 211_L_DataJoin.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/211_L_DataJoin.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 212_L_TidyData.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/212_L_TidyData.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 213_L_ReadWrite.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/213_L_ReadWrite.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 221_L_Reproducibility.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/221_L_Reproducibility.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 222_L_RMarkdown.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/222_L_RMarkdown.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 223_L_Git.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/223_L_Git.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 301_L_DataVisualisation.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/301_L_DataVisualisation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 302_L_DescriptiveStats.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/302_L_DescriptiveStats.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 303_L_ExploringAssumptions.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/303_L_ExploringAssumptions.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 311_L_ComparingMeans.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/311_L_ComparingMeans.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 312_L_Correlation.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/312_L_Correlation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 313_L_DataTransformations.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/313_L_DataTransformations.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 321_L_Regression.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/321_L_Regression.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 322_L_RegressionMultiple.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/322_L_RegressionMultiple.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 323_L_RegressionLogistic.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/323_L_RegressionComparing.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 401_L_MachineLearningIntro.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/401_L_MachineLearningIntro.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 402_L_NeuralNetworks.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/402_L_NeuralNetworks.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 403_L_SupportVectorMachines.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/403_L_SupportVectorMachines.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 411_L_PrincipalComponents.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/411_L_PrincipalComponents.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 412_L_ClusteringCentroid.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/412_L_ClusteringCentroid.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-cat("\n\n>>> Rendering 413_L_ClusteringHierarchicalDensity.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/413_L_ClusteringHierarchicalDensity.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 101-introduction.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/101-introduction.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 102-core-concepts.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/102-core-concepts.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 103-tidyverse.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/103-tidyverse.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 111-data-types.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/111-data-types.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 112-control-structures.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/112-control-structures.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 113-functions.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/113-functions.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 201-data-frames.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/201-data-frames.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 202-selection-filtering.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/202-selection-filtering.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 203-data-manipulation.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/203-data-manipulation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 211-data-join.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/211-data-join.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 212-tidy-data.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/212-tidy-data.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 213-read-write.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/213-read-write.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 221-reproducibility.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/221-reproducibility.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 222-rmarkdown.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/222-rmarkdown.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 223-git.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/223-git.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 301-data-visualisation.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/301-data-visualisation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 302-descriptive-stats.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/302-descriptive-stats.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 303-exploring-assumptions.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/303-exploring-assumptions.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 311-comparing-means.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/311-comparing-means.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 312-correlation.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/312-correlation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 313-data-transformations.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/313-data-transformations.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 321-regression.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/321-regression.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 322-regression-multiple.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/322-regression-multiple.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 323-regression-comparing.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/323-regression-comparing.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 401-machine-learning-intro.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/401-machine-learning-intro.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 402-neural-networks.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/402-neural-networks.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 403-support-vector-machines.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/403-support-vector-machines.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 411-principal-components.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/411-principal-components.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 412-clustering-centroid.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/412-clustering-centroid.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 413-clustering-hierarchical-density.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/413-clustering-hierarchical-density.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
 
 # Delete temporary images directory
 unlink(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/images"), recursive=TRUE)
 
+cat("\n\n>>> done. <<<\n\n")
+
+cat("\n\n>>> R for Geographic Data Science is ready! <<<\n\n\n")

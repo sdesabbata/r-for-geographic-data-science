@@ -10,11 +10,13 @@
 <meta name="generator" content="bookdown 0.23 with bs4_book()">
 <meta property="og:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://sdesabbata.github.io/granolarr/introduction-to-r.html">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/introduction-to-r.html">
+<meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  1.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
 <meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  1.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -40,14 +42,15 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Preface</a></li>
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="active" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
 <li class="book-part">Data wrangling</li>
 <li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
 <li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
-<li><a class="" href="reproducibility.html"><span class="header-section-number">5</span> Reproducibility</a></li>
+<li><a class="" href="reproducibility-1.html"><span class="header-section-number">5</span> Reproducibility</a></li>
 <li class="book-part">Data analysis</li>
 <li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
 <li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
@@ -82,7 +85,7 @@
 </h3>
 <p>As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the <em>Console</em> – as well as the R script editor, when a script is being edited. The <em>Console</em> in an input/output window into the R interpreter, where instructions can be typed, and the computed output is shown.</p>
 <p>For instance, if you type in the <em>Console</em></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <p>the R interpreter understands that as an instruction to sum one to one, and produces the result (as the materials for this module are created in RMarkdown, the output of the computation is always preceded by ‘##’).</p>
 <pre><code>## [1] 2</code></pre>
@@ -98,23 +101,23 @@
 </h2>
 <p>When a value is typed in the <em>Console</em>, the interpreter simply returns the same value. In the examples below, <code>2</code> is a simple numeric value, while <code>"String value"</code> is a textual value, which in R is referred to as a <em>character</em> value and in programming is also commonly referred to as a <em>string</em> (short for <em>a string of characters</em>).</p>
 <p>Numeric example:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">2</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Character example:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="st">"String value"</span></code></pre></div>
 <pre><code>## [1] "String value"</code></pre>
 <p>Note how character values need to start and end with a single or double quote (<code>'</code> or <code>"</code>), which are not part of the information themselves. The <a href="https://style.tidyverse.org/syntax.html">Tidyverse Style Guide</a> suggests always to use the double quote (<code>"</code>), so we will use those in this module.</p>
 <p>Anything that follows a <code>#</code> symbol is considered a <em>comment</em> and the interpreter ignores it.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># hi, I am a comment, please ignore me</span></code></pre></div>
 <p>As mentioned above, the interpreter understands <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html">simple operations on numeric values</a>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>There are also a large number of pre-defined functions, e.g., square-root: <code>sqrt</code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.414214</code></pre>
 <p>Functions are collected and stored in <em>libraries</em> (sometimes referred to as <em>packages</em>), which contains related functions. Libraries can range anywhere from the <code>base</code> library, which includes the <code>sqrt</code> function above, to the <code>rgdal</code> library, which contains implementations of the <a href="https://gdal.org/">GDAL (Geospatial Data Abstraction Library)</a> functionalities for R.</p>
@@ -124,23 +127,23 @@
 <span class="header-section-number">1.3</span> Variables<a class="anchor" aria-label="anchor" href="#variables"><i class="fas fa-link"></i></a>
 </h2>
 <p>A variable can be defined using an <strong>identifier</strong> (e.g., <code>a_variable</code>) on the left of an <strong>assignment operator</strong> <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, followed by the object to be linked to the identifier, such as a <strong>value</strong> (e.g., <code>1</code>) to be assigned on the right. The value of the variable can be tested/invoked by simply specifying the <strong>identifier</strong>.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">a_variable</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>If you type <code>a_variable &lt;- 1</code> in the <em>Console</em> in RStudio, a new element appears in the <em>Environment</em> panel, representing the new variable in the memory. The left part of the entry contains the identifier <code>a_variable</code>, and the right part contains the value assigned to the variable <code>a_variable</code>, that is <code>1</code>.</p>
 <p>It is not necessary to provide a value directly. The right part of the assignment can be a <strong>call to a function</strong>. In that case, the function is <strong>executed</strong> on the provided input and <strong>the result is assigned to the variable</strong>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">4</span><span class="op">)</span>
 <span class="va">a_variable</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Note how if you type <code>a_variable &lt;- sqrt(4)</code> in the <em>Console</em> in RStudio, the element in the <em>Environment</em> panel changes to reflect the new value assigned to the variable <code>a_variable</code>, which is now the result of <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt(4)</a></code>, that is 2.</p>
 <p>In the example below, another variable named <code>another_variable</code> is created and summed to <code>a_variable</code>, saving the result in <code>sum_of_two_variables</code>. The square root of that sum is then stored in the variable <code>square_root_of_sum</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">another_variable</span> <span class="op">&lt;-</span> <span class="fl">4</span>
 <span class="va">another_variable</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sum_of_two_variables</span> <span class="op">&lt;-</span> <span class="va">a_variable</span> <span class="op">+</span> <span class="va">another_variable</span>
 
 <span class="va">square_root_of_sum</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">sum_of_two_variables</span><span class="op">)</span>
@@ -156,14 +159,14 @@
 <span class="header-section-number">1.4.1</span> Numeric<a class="anchor" aria-label="anchor" href="#numeric"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <em>numeric</em> type represents numbers (both integers and reals).</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">1.41</span>
 <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span> <span class="co"># i.e., is real</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Base numeric operators.</p>
@@ -220,40 +223,40 @@
 </tbody>
 </table></div>
 <p>Some pre-defined functions in R:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="co"># Absolute value</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fl">3.475</span><span class="op">)</span> <span class="co"># Upper round</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fl">3.475</span><span class="op">)</span> <span class="co"># Lower round</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="fl">5.99</span><span class="op">)</span> <span class="co"># Truncate</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="co"># Logarithm 10</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># Natural logarithm and e</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Use simple brackets to specify the order of execution. If not specified the default order is: rise to power first, then multiplication and division, sum and subtraction last.</p>
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="op">(</span><span class="va">a_number</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_number</span> <span class="op">+</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_number</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <p>The object <code>NaN</code> (<em>Not a Number</em>) is returned by R when the result of an operation is not a number.</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">0</span> <span class="op">/</span> <span class="fl">0</span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="fl">0</span> <span class="op">/</span> <span class="fl">0</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>That is not to be confused with the object <code>NA</code> (<em>Not Available</em>), which is returned for missing data.</p>
@@ -263,14 +266,14 @@
 <span class="header-section-number">1.4.2</span> Logical<a class="anchor" aria-label="anchor" href="#logical"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <em>logical</em> type encodes two truth values: True and False.</p>
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">logical_var</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span>
 <span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">logical_var</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">logical_var</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span> <span class="co"># TRUE if not zero</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>Basic logic operators</p>
@@ -344,20 +347,20 @@
 <span class="header-section-number">1.4.3</span> Character<a class="anchor" aria-label="anchor" href="#character"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <em>character</em> type represents text objects, including single characters and character strings (that is text objects longer than one character, commonly referred to simply as <em>strings</em> in computer science).</p>
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_string</span> <span class="op">&lt;-</span> <span class="st">"Hello world!"</span>
 <span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">a_string</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_string</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co"># type conversion  (a.k.a. casting)</span></code></pre></div>
 <pre><code>## [1] "2"</code></pre>
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="st">"Ciao"</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
@@ -389,20 +392,20 @@
 </ul>
 <p>A library can be loaded using the function <code>library</code>, as shown below (note the name of the library is not quoted). Once a library is installed on a computer, you don’t need to install it again, but every script needs to load all the library that it uses. Once a library is loaded, all its functions can be used.</p>
 <p><strong>Important</strong>: it is always necessary to load the <code>tidyverse</code> meta-library if you want to use the <code>stringr</code> functions or the pipe operator <code>%&gt;%</code>.</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <div id="stringr" class="section level3" number="1.5.1">
 <h3>
 <span class="header-section-number">1.5.1</span> stringr<a class="anchor" aria-label="anchor" href="#stringr"><i class="fas fa-link"></i></a>
 </h3>
 <p>The code below presents the same examples used in the lecture session to demonstrate the use of <code>stringr</code> functions.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">str_length</span><span class="op">(</span><span class="st">"Leicester"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">str_detect</span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"e"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">str_replace_all</span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"e"</span>, <span class="st">"x"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Lxicxstxr"</code></pre>
 </div>
@@ -419,7 +422,7 @@
 <li>that doesn’t need to be included in the code anymore</li>
 </ul>
 <p>The code below shows a simple example. The number <code>2</code> is taken as input for the first pipe that passes it on as the first argument to the function <code>sqrt</code>. The output value <code>1.41</code> is then taken as input for the second pipe, that passes it on as the first argument to the function <code>trunc</code>. The final output <code>1</code> is finally returned.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">2</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -430,11 +433,11 @@
 <img src="images/PipeOperator.png" style="width:80.0%" alt=""><p class="caption">Illustration of how the pipe operator works</p>
 </div>
 </center>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>The first step of a sequence of pipes can be a value, a variable, or a function including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function <code>round</code>, which also allows for a second argument <code>digits = 2</code>. Note that, when using the pipe operator, only the nominally second argument is provided to the function <code>round</code> – that is <code><a href="https://rdrr.io/r/base/Round.html">round(digits = 2)</a></code></p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># No pipe, using variables</span>
 <span class="va">tmp_variable_A</span> <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="va">tmp_variable_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">tmp_variable_A</span><span class="op">)</span>
@@ -458,7 +461,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>A complex operation created through the use of <code>%&gt;%</code> can be used on the right side of <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, to assign the outcome of the operation to a variable.</p>
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sqrt_of_two</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
@@ -492,7 +495,7 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="index.html">Preface</a></div>
+<div class="prev"><a href="preface.html">Preface</a></div>
 <div class="next"><a href="r-programming.html"><span class="header-section-number">2</span> R programming</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
@@ -536,7 +539,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-11.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-14.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

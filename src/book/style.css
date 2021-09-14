@@ -5,16 +5,26 @@ zp.caption {
 p code {
   white-space: inherit;
   background-color: #F8F5F4 !important;
+  background-image: none !important;
 }
 pre {
   word-break: normal;
   word-wrap: normal;
   background-color: #F8F5F4 !important;
+  background-image: none !important;
 }
 pre code {
   white-space: inherit;
   background-color: #F8F5F4 !important;
+  background-image: none !important;
 }
 .nav-link.active {
   background-color: #F8F5F4 !important;
+}
+
+.figure {
+    border-top: 0px solid #EBE3E1;
+    border-bottom: 0px solid #EBE3E1;
+    border-right: 0px solid #EBE3E1;
+    border-left: 0px solid #EBE3E1;
 }
