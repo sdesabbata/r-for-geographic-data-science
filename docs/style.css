@@ -4,22 +4,22 @@ zp.caption {
 }
 p code {
   white-space: inherit;
-  background-color: #F8F5F4 !important;
+  background-color: #FFF8F4 !important;
   background-image: none !important;
 }
 pre {
   word-break: normal;
   word-wrap: normal;
-  background-color: #F8F5F4 !important;
+  background-color: #FFF8F4 !important;
   background-image: none !important;
 }
 pre code {
   white-space: inherit;
-  background-color: #F8F5F4 !important;
+  background-color: #FFF8F4 !important;
   background-image: none !important;
 }
 .nav-link.active {
-  background-color: #F8F5F4 !important;
+  background-color: #FFF8F4 !important;
 }
 
 .figure {

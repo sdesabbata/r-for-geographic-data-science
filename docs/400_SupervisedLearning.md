@@ -232,20 +232,20 @@ ru_logit_model %>%
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.1928  -0.5705   0.5236   0.6484   2.0722  
+## -2.1465  -0.6429   0.5494   0.6701   2.0205  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -1.3021     0.1312  -9.923   <2e-16 ***
-## density_log   1.8452     0.1008  18.312   <2e-16 ***
+## (Intercept) -1.22273    0.12445  -9.825   <2e-16 ***
+## density_log  1.73940    0.09559  18.197   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2057.1  on 1667  degrees of freedom
-## Residual deviance: 1585.0  on 1666  degrees of freedom
-## AIC: 1589
+##     Null deviance: 2096.1  on 1667  degrees of freedom
+## Residual deviance: 1641.2  on 1666  degrees of freedom
+## AIC: 1645.2
 ## 
 ## Number of Fisher Scoring iterations: 4
 ```
@@ -299,31 +299,31 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    69    26
-##      urban    65   257
-##                                          
-##                Accuracy : 0.7818         
-##                  95% CI : (0.739, 0.8205)
-##     No Information Rate : 0.6787         
-##     P-Value [Acc > NIR] : 2.067e-06      
-##                                          
-##                   Kappa : 0.4582         
-##                                          
-##  Mcnemar's Test P-Value : 6.791e-05      
-##                                          
-##             Sensitivity : 0.5149         
-##             Specificity : 0.9081         
-##          Pos Pred Value : 0.7263         
-##          Neg Pred Value : 0.7981         
-##               Precision : 0.7263         
-##                  Recall : 0.5149         
-##                      F1 : 0.6026         
-##              Prevalence : 0.3213         
-##          Detection Rate : 0.1655         
-##    Detection Prevalence : 0.2278         
-##       Balanced Accuracy : 0.7115         
-##                                          
-##        'Positive' Class : rural          
+##      rural    56    17
+##      urban    53   291
+##                                           
+##                Accuracy : 0.8321          
+##                  95% CI : (0.7927, 0.8667)
+##     No Information Rate : 0.7386          
+##     P-Value [Acc > NIR] : 3.689e-06       
+##                                           
+##                   Kappa : 0.5133          
+##                                           
+##  Mcnemar's Test P-Value : 2.873e-05       
+##                                           
+##             Sensitivity : 0.5138          
+##             Specificity : 0.9448          
+##          Pos Pred Value : 0.7671          
+##          Neg Pred Value : 0.8459          
+##               Precision : 0.7671          
+##                  Recall : 0.5138          
+##                      F1 : 0.6154          
+##              Prevalence : 0.2614          
+##          Detection Rate : 0.1343          
+##    Detection Prevalence : 0.1751          
+##       Balanced Accuracy : 0.7293          
+##                                           
+##        'Positive' Class : rural           
 ## 
 ```
 
@@ -423,29 +423,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    52    29
-##      urban    63   273
+##      rural    57    21
+##      urban    62   277
 ##                                           
-##                Accuracy : 0.7794          
-##                  95% CI : (0.7365, 0.8183)
-##     No Information Rate : 0.7242          
-##     P-Value [Acc > NIR] : 0.0059945       
+##                Accuracy : 0.801           
+##                  95% CI : (0.7594, 0.8382)
+##     No Information Rate : 0.7146          
+##     P-Value [Acc > NIR] : 3.455e-05       
 ##                                           
-##                   Kappa : 0.392           
+##                   Kappa : 0.4557          
 ##                                           
-##  Mcnemar's Test P-Value : 0.0005807       
+##  Mcnemar's Test P-Value : 1.131e-05       
 ##                                           
-##             Sensitivity : 0.4522          
-##             Specificity : 0.9040          
-##          Pos Pred Value : 0.6420          
-##          Neg Pred Value : 0.8125          
-##               Precision : 0.6420          
-##                  Recall : 0.4522          
-##                      F1 : 0.5306          
-##              Prevalence : 0.2758          
-##          Detection Rate : 0.1247          
-##    Detection Prevalence : 0.1942          
-##       Balanced Accuracy : 0.6781          
+##             Sensitivity : 0.4790          
+##             Specificity : 0.9295          
+##          Pos Pred Value : 0.7308          
+##          Neg Pred Value : 0.8171          
+##               Precision : 0.7308          
+##                  Recall : 0.4790          
+##                      F1 : 0.5787          
+##              Prevalence : 0.2854          
+##          Detection Rate : 0.1367          
+##    Detection Prevalence : 0.1871          
+##       Balanced Accuracy : 0.7043          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -532,12 +532,12 @@ caret::confusionMatrix(
 ##           Reference
 ## Prediction rural urban
 ##      rural     0     0
-##      urban   114   303
+##      urban   117   300
 ##                                           
-##                Accuracy : 0.7266          
-##                  95% CI : (0.6811, 0.7689)
-##     No Information Rate : 0.7266          
-##     P-Value [Acc > NIR] : 0.5252          
+##                Accuracy : 0.7194          
+##                  95% CI : (0.6736, 0.7621)
+##     No Information Rate : 0.7194          
+##     P-Value [Acc > NIR] : 0.5249          
 ##                                           
 ##                   Kappa : 0               
 ##                                           
@@ -546,11 +546,11 @@ caret::confusionMatrix(
 ##             Sensitivity : 0.0000          
 ##             Specificity : 1.0000          
 ##          Pos Pred Value :    NaN          
-##          Neg Pred Value : 0.7266          
+##          Neg Pred Value : 0.7194          
 ##               Precision :     NA          
 ##                  Recall : 0.0000          
 ##                      F1 :     NA          
-##              Prevalence : 0.2734          
+##              Prevalence : 0.2806          
 ##          Detection Rate : 0.0000          
 ##    Detection Prevalence : 0.0000          
 ##       Balanced Accuracy : 0.5000          
@@ -609,29 +609,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    42    20
-##      urban    72   283
+##      rural    41    22
+##      urban    76   278
 ##                                           
-##                Accuracy : 0.7794          
-##                  95% CI : (0.7365, 0.8183)
-##     No Information Rate : 0.7266          
-##     P-Value [Acc > NIR] : 0.008085        
+##                Accuracy : 0.765           
+##                  95% CI : (0.7213, 0.8049)
+##     No Information Rate : 0.7194          
+##     P-Value [Acc > NIR] : 0.0205          
 ##                                           
-##                   Kappa : 0.3526          
+##                   Kappa : 0.3225          
 ##                                           
-##  Mcnemar's Test P-Value : 1.054e-07       
+##  Mcnemar's Test P-Value : 8.612e-08       
 ##                                           
-##             Sensitivity : 0.3684          
-##             Specificity : 0.9340          
-##          Pos Pred Value : 0.6774          
-##          Neg Pred Value : 0.7972          
-##               Precision : 0.6774          
-##                  Recall : 0.3684          
-##                      F1 : 0.4773          
-##              Prevalence : 0.2734          
-##          Detection Rate : 0.1007          
-##    Detection Prevalence : 0.1487          
-##       Balanced Accuracy : 0.6512          
+##             Sensitivity : 0.35043         
+##             Specificity : 0.92667         
+##          Pos Pred Value : 0.65079         
+##          Neg Pred Value : 0.78531         
+##               Precision : 0.65079         
+##                  Recall : 0.35043         
+##                      F1 : 0.45556         
+##              Prevalence : 0.28058         
+##          Detection Rate : 0.09832         
+##    Detection Prevalence : 0.15108         
+##       Balanced Accuracy : 0.63855         
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -726,29 +726,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    43    29
-##      urban    71   274
+##      rural    42    22
+##      urban    75   278
 ##                                           
-##                Accuracy : 0.7602          
-##                  95% CI : (0.7162, 0.8004)
-##     No Information Rate : 0.7266          
-##     P-Value [Acc > NIR] : 0.06757         
+##                Accuracy : 0.7674          
+##                  95% CI : (0.7238, 0.8071)
+##     No Information Rate : 0.7194          
+##     P-Value [Acc > NIR] : 0.01552         
 ##                                           
-##                   Kappa : 0.318           
+##                   Kappa : 0.3314          
 ##                                           
-##  Mcnemar's Test P-Value : 4.132e-05       
+##  Mcnemar's Test P-Value : 1.293e-07       
 ##                                           
-##             Sensitivity : 0.3772          
-##             Specificity : 0.9043          
-##          Pos Pred Value : 0.5972          
-##          Neg Pred Value : 0.7942          
-##               Precision : 0.5972          
-##                  Recall : 0.3772          
-##                      F1 : 0.4624          
-##              Prevalence : 0.2734          
-##          Detection Rate : 0.1031          
-##    Detection Prevalence : 0.1727          
-##       Balanced Accuracy : 0.6407          
+##             Sensitivity : 0.3590          
+##             Specificity : 0.9267          
+##          Pos Pred Value : 0.6562          
+##          Neg Pred Value : 0.7875          
+##               Precision : 0.6562          
+##                  Recall : 0.3590          
+##                      F1 : 0.4641          
+##              Prevalence : 0.2806          
+##          Detection Rate : 0.1007          
+##    Detection Prevalence : 0.1535          
+##       Balanced Accuracy : 0.6428          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
