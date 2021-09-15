@@ -362,7 +362,7 @@
 <code class="sourceCode R"><span class="co"># Option 1: without using the pipe operator</span>
 
 <span class="co"># full join verb</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">full_join</a></span><span class="op">(</span>
     <span class="co"># left table</span>
     <span class="va">city_info_wide</span>,
     <span class="co"># right table</span>
@@ -411,7 +411,7 @@
 <span class="co"># Same result as Option 1</span>
 
 <span class="co"># full join verb</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">full_join</a></span><span class="op">(</span>
     <span class="co"># left table</span>
     <span class="va">city_info_wide</span>,
     <span class="co"># right table</span>
@@ -461,7 +461,7 @@
 <span class="co"># left table</span>
 <span class="va">city_info_wide</span> <span class="op">%&gt;%</span>
   <span class="co"># full join verb</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">full_join</a></span><span class="op">(</span>
     <span class="co"># right table</span>
     <span class="va">city_telephone_prexix</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
@@ -506,7 +506,7 @@
 <span class="co"># left table</span>
 <span class="va">city_info_wide</span> <span class="op">%&gt;%</span>
   <span class="co"># full join verb</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">full_join</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">full_join</a></span><span class="op">(</span>
     <span class="co"># right table</span>
     <span class="va">city_telephone_prexix</span>,
     <span class="co"># columns to match</span>
@@ -551,7 +551,7 @@
 <span class="co"># Using syntax similar to Option 1 above</span>
 
 <span class="co"># left join</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">left_join</a></span><span class="op">(</span>
     <span class="co"># left table</span>
     <span class="va">city_info_wide</span>, 
     <span class="co"># right table</span>
@@ -590,7 +590,7 @@
 <span class="co"># Using syntax similar to Option 2 above</span>
 
 <span class="co"># right join verb</span>
-<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">right_join</a></span><span class="op">(</span>
+<span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">right_join</a></span><span class="op">(</span>
     <span class="co"># left table</span>
     <span class="va">city_info_wide</span>, 
     <span class="co"># right table</span>
@@ -630,7 +630,7 @@
 <span class="co"># left table</span>
 <span class="va">city_info_wide</span> <span class="op">%&gt;%</span>
   <span class="co"># inner join</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate-joins.html">inner_join</a></span><span class="op">(</span>
     <span class="co"># right table</span>
     <span class="va">city_telephone_prexix</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
@@ -676,8 +676,8 @@ Note that the `~` in the path below indicates the home folder -- a different pat
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span>
 
 <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span> 
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>,<span class="va">LSOA11CD</span>, <span class="va">supgrpcode</span>,<span class="va">supgrpname</span>,<span class="va">Total_Population</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>,<span class="va">LSOA11CD</span>, <span class="va">supgrpcode</span>,<span class="va">supgrpname</span>,<span class="va">Total_Population</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -729,8 +729,8 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </ol>
 <div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">supgrpname</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpcode</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">supgrpname</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpcode</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"Leicester_Suburbanites.csv"</span><span class="op">)</span></code></pre></div>
 <div id="file-paths" class="section level3" number="4.2.1">
 <h3>
@@ -790,8 +790,8 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <p>The IMD 2015 data are in a <em>long</em> format, which means that every area is represented by more than one row: the column <code>Value</code> presents the value; the column <code>IndicesOfDeprivation</code> indicates which index the value refers to; the column <code>Measurement</code> indicates whether the value is a score, rank, or decile. The code below illustrates the data format used for the <code>IndicesOfDeprivation</code> table, and showing the rows for the LSOA including the University of Leicester (feature code <code>E01013649</code>).</p>
 <div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndicesOfDeprivation</span>, <span class="va">Measurement</span>, <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndicesOfDeprivation</span>, <span class="va">Measurement</span>, <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
@@ -995,18 +995,18 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015_decile_wide</span> <span class="op">&lt;-</span> <span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="co"># Select only Socres</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Measurement</span> <span class="op">==</span> <span class="st">"Decile"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">Measurement</span> <span class="op">==</span> <span class="st">"Decile"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># Trim names of IndicesOfDeprivation</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
     IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\s"</span>, <span class="st">""</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
     IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"[:punct:]"</span>, <span class="st">""</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
     IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\("</span>, <span class="st">""</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
     IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\)"</span>, <span class="st">""</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># Spread</span>
@@ -1015,7 +1015,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
     values_from <span class="op">=</span> <span class="va">Value</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># Drop columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">DateCode</span>, <span class="op">-</span><span class="va">Measurement</span>, <span class="op">-</span><span class="va">Units</span><span class="op">)</span></code></pre></div>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">DateCode</span>, <span class="op">-</span><span class="va">Measurement</span>, <span class="op">-</span><span class="va">Units</span><span class="op">)</span></code></pre></div>
 <p>Let’s compare the columns of the original <em>long</em> IMD 2015 dataset with the <em>wide</em> dataset created above, using the function <code>colnames</code>.</p>
 <div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span> 
@@ -1045,12 +1045,12 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Original long IMD 2015 dataset</span>
 <span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span>
     <span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span>,
     <span class="va">IndicesOfDeprivation</span> <span class="op">==</span> <span class="st">"Index of Multiple Deprivation (IMD)"</span>,
     <span class="va">Measurement</span> <span class="op">==</span> <span class="st">"Decile"</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndicesOfDeprivation</span>, <span class="va">Measurement</span>, <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndicesOfDeprivation</span>, <span class="va">Measurement</span>, <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -1069,8 +1069,8 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># New wide IMD 2015 dataset</span>
 <span class="va">leicester_IMD2015_decile_wide</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -1103,8 +1103,8 @@ Note that the `~` in the path below indicates the home folder -- a different pat
   <span class="co"># as the previous join as combined </span>
   <span class="co"># LSOA11CD and FeatureCode</span>
   <span class="co"># into one, name LSOA11CD</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">LSOA11CD</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">LSOA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">LSOA11CD</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">LSOA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -1149,7 +1149,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <p>Once the result is stored into the variable <code>leicester_2011OAC_IMD2015</code>, further analysis can be carried out. For instance, <code>count</code> can be used to count how many OAs fall into each 2011 OAC supergroup and decile of the Index of Multiple Deprivations.</p>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/count.html">count</a></span><span class="op">(</span><span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
@@ -1393,8 +1393,8 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <p>As another example, the code below can be used to group OAs based on the decile and then calculate the percentage of adults not in employment using the <code>u074</code> (<em>No adults in employment in household: With dependent children</em>) and <code>u075</code> (<em>No adults in employment in household: No dependent children</em>) variables from the 2011 OAC dataset.</p>
 <div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span><span class="op">(</span>
     adults_not_empl_perc <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u074</span> <span class="op">+</span> <span class="va">u075</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>

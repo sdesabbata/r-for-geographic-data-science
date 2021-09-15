@@ -173,19 +173,19 @@
 <div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">&lt;-</span>
   <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span>
     <span class="va">OA11CD</span>, <span class="va">Total_Dwellings</span>,
     <span class="va">u086</span><span class="op">:</span><span class="va">u090</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># scale across</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html">across</a></span><span class="op">(</span> 
       <span class="va">u086</span><span class="op">:</span><span class="va">u090</span>,
       <span class="co">#scale</span>
       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="va">Total_Dwellings</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">}</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/rename.html">rename</a></span><span class="op">(</span>
     detached <span class="op">=</span> <span class="va">u086</span>,
     semidetached <span class="op">=</span> <span class="va">u087</span>,
     terraced <span class="op">=</span> <span class="va">u088</span>,
@@ -193,7 +193,7 @@
     carava_tmp <span class="op">=</span> <span class="va">u090</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># rename columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/rename.html">rename_with</a></span><span class="op">(</span>
     <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"perc_"</span>, <span class="va">x</span><span class="op">)</span> <span class="op">}</span>,
     <span class="va">detached</span><span class="op">:</span><span class="va">carava_tmp</span>
   <span class="op">)</span></code></pre></div>
@@ -217,7 +217,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span>
 
 <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
     upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
@@ -230,7 +230,7 @@
 <code class="sourceCode R"><span class="co"># Get only the data necessary for testing</span>
 <span class="va">data_for_testing</span> <span class="op">&lt;-</span>
   <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span>
 
 <span class="co"># Calculate WCSS and silhouette</span>
 <span class="co"># for k = 2 to 15</span>
@@ -293,7 +293,7 @@
 <p>Overall, the heuristics seem to indicate that <code>k = 3</code> could lead to a good clustering result. However, the gap statistic indicates that those three clusters would not be very compact. That is probably due to the fact that the observations at center of the scatterplot seen above are rather uniformally distributed over the space between the three main clusters. As such, chosing <code>k = 6</code> clusters might be the best fitting approach in this case. We can then calculate the clusters for <code>k = 6</code> as shown below.</p>
 <div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">terr_sede_kmeans</span> <span class="op">&lt;-</span> <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span>centers <span class="op">=</span> <span class="fl">6</span>, iter.max <span class="op">=</span> <span class="fl">50</span><span class="op">)</span>
 
 <span class="va">leicester_dwellings</span> <span class="op">&lt;-</span> 
@@ -309,7 +309,7 @@
 <p>After the clustering has been completed, we can analyse the results through a visual analysis. For instance, we can plot the two original variables, along with the computed clusters as illustrated below.</p>
 <div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span>, <span class="va">terr_sede_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_semidetached</span>, <span class="va">perc_terraced</span>, <span class="va">terr_sede_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
     mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">terr_sede_cluster</span><span class="op">)</span>,
     upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,
@@ -320,11 +320,11 @@
 <div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">terr_sede_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span><span class="op">(</span>
     avg_perc_semidetached <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">perc_semidetached</span><span class="op">)</span>, 
     avg_perc_terraced <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">perc_terraced</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">terr_sede_cluster</span>, <span class="va">avg_perc_semidetached</span>, <span class="va">avg_perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">terr_sede_cluster</span>, <span class="va">avg_perc_semidetached</span>, <span class="va">avg_perc_terraced</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
     cols <span class="op">=</span> <span class="op">-</span><span class="va">terr_sede_cluster</span>,
     names_to <span class="op">=</span> <span class="st">"clustering_dimension"</span>,
@@ -353,7 +353,7 @@
 <p>As before we can start from a visual analysis of the data. The relationship between the different variables generally resembles the one seen between semi-detached and terraced houses seen in the example above, except for caravans and mobile or temporary structures, which seem fairly rare in Leicester. No variable seems to be particularly well correlated to any other. Thus all variables should be included in the classification, as they all have the potential to contribute relevant information.</p>
 <div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
     upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
@@ -364,7 +364,7 @@
 <code class="sourceCode R"><span class="co"># Data for elbow method</span>
 <span class="va">data_for_testing</span> <span class="op">&lt;-</span>
   <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span>
 
 <span class="co"># Calculate WCSS and silhouette</span>
 <span class="co"># for k = 2 to 15</span>
@@ -423,7 +423,7 @@
 <p>As in the previous example, the elbow method (i.e., WCSS), silhouette and gap statistic seem to indicate that <code>k = 3</code> or <code>k = 6</code> might be the best choice. Let’s see what the result is when choosing <code>k = 6</code>.</p>
 <div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dwellings_kmeans</span> <span class="op">&lt;-</span> <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/kmeans.html">kmeans</a></span><span class="op">(</span>
     centers <span class="op">=</span> <span class="fl">6</span>, 
     iter.max <span class="op">=</span> <span class="fl">50</span>
@@ -445,7 +445,7 @@
 <p>A first exploratory plot of the clusters seems to reveal clusters that closely resemble those seen in the first example above.</p>
 <div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span>, <span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span>, <span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span>
     mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">dwellings_cluster</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
@@ -457,14 +457,14 @@
 <code class="sourceCode R"><span class="va">dwellings_cluster_avgs</span> <span class="op">&lt;-</span>
   <span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
   <span class="fu">group_by</span><span class="op">(</span><span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span><span class="op">(</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html">across</a></span><span class="op">(</span>
       <span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span>,
       <span class="va">mean</span>
     <span class="op">)</span> 
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># rename columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/rename.html">rename_with</a></span><span class="op">(</span>
     <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"avg_"</span>, <span class="va">x</span><span class="op">)</span> <span class="op">}</span>,
     <span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span>
   <span class="op">)</span>
@@ -514,8 +514,8 @@
     <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">5</span><span class="op">)</span>, <span class="co"># max 100% for 5 variables</span>
     <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span><span class="op">)</span>,   <span class="co"># min 0% for 5 variables</span>
     <span class="va">dwellings_cluster_avgs</span> <span class="op">%&gt;%</span>
-      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dwellings_cluster</span> <span class="op">==</span> <span class="va">cluster_number</span><span class="op">)</span> <span class="op">%&gt;%</span>
-      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">dwellings_cluster</span> <span class="op">==</span> <span class="va">cluster_number</span><span class="op">)</span> <span class="op">%&gt;%</span>
+      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">dwellings_cluster</span><span class="op">)</span> <span class="op">%&gt;%</span>
       <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="op">)</span>
     <span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">fmsb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fmsb/man/radarchart.html">radarchart</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Cluster"</span>, <span class="va">cluster_number</span><span class="op">)</span><span class="op">)</span>

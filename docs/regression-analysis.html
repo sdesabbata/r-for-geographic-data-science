@@ -102,7 +102,7 @@
 
 <span class="co"># November 20th, 2013</span>
 <span class="va">flights_nov_20</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>, <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span>, <span class="va">day</span> <span class="op">==</span><span class="fl">20</span><span class="op">)</span> </code></pre></div>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>, <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span>, <span class="va">day</span> <span class="op">==</span><span class="fl">20</span><span class="op">)</span> </code></pre></div>
 <center>
 <img src="320_Regression_files/figure-html/unnamed-chunk-3-1.png" width="384">
 </center>
@@ -296,24 +296,24 @@
 <span class="co"># normalise variables</span>
 <span class="va">leicester_2011OAC_transp</span> <span class="op">&lt;-</span>
   <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span>
     <span class="va">OA11CD</span>, 
     <span class="va">Total_Pop_No_NI_Students_16_to_74</span>, <span class="va">Total_Employment_16_to_74</span>, 
     <span class="va">u121</span>, <span class="va">u141</span><span class="op">:</span><span class="va">u158</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># percentage method of travel</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
     u121 <span class="op">=</span> <span class="op">(</span><span class="va">u121</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># percentage across industry sector columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html">across</a></span><span class="op">(</span> 
       <span class="va">u141</span><span class="op">:</span><span class="va">u158</span>,
       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="va">Total_Employment_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">}</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># rename columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/rename.html">rename_with</a></span><span class="op">(</span>
     <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"perc_"</span>, <span class="va">x</span><span class="op">)</span> <span class="op">}</span>,
     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">u121</span>, <span class="va">u141</span><span class="op">:</span><span class="va">u158</span><span class="op">)</span>
   <span class="op">)</span>
