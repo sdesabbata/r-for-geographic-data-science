@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 1 Introduction to R | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  1.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<meta name="description" content="Print this chapter In this first chapter, I am going to provide you with a brief introduction to R, the programming language that will be the focus of the module, as well as the tool that we are...">
 <meta name="generator" content="bookdown 0.23 with bs4_book()">
 <meta property="og:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/introduction-to-r.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  1.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<meta property="og:description" content="Print this chapter In this first chapter, I am going to provide you with a brief introduction to R, the programming language that will be the focus of the module, as well as the tool that we are...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
-<meta name="twitter:description" content="Stefano De Sabbata This work is licensed under the GNU General Public License v3.0.  1.1 The R programming language As mentioned in Lecture 1, R was created in 1992 by Ross Ihaka and Robert...">
+<meta name="twitter:description" content="Print this chapter In this first chapter, I am going to provide you with a brief introduction to R, the programming language that will be the focus of the module, as well as the tool that we are...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -69,13 +69,13 @@
 <h1>
 <span class="header-section-number">1</span> Introduction to R<a class="anchor" aria-label="anchor" href="#introduction-to-r"><i class="fas fa-link"></i></a>
 </h1>
-<p><em><a href="https://stefanodesabbata.com">Stefano De Sabbata</a></em></p>
-<p><a href="https://github.com/sdesabbata/granolarr">This work</a> is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0</a>.</p>
+<p><a href="javascript:if(window.print)window.print()">Print this chapter</a></p>
+<p>In this first chapter, I am going to provide you with a brief introduction to R, the programming language that will be the focus of the module, as well as the tool that we are going to use to do data science.</p>
 <div id="the-r-programming-language" class="section level2" number="1.1">
 <h2>
 <span class="header-section-number">1.1</span> The R programming language<a class="anchor" aria-label="anchor" href="#the-r-programming-language"><i class="fas fa-link"></i></a>
 </h2>
-<p>As mentioned in Lecture 1, <strong><a href="https://www.r-project.org/">R</a></strong> was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand. R is a free, open-source implementation of the <strong>S</strong> statistical programming language initially created at the Bell Labs. At its core, R is a functional programming language (its main functionalities revolve around defining and executing functions). However it now supports, and it is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
+<p><strong><a href="https://www.r-project.org/">R</a></strong> was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand. R is a free, open-source implementation of the <strong>S</strong> statistical programming language initially created at the Bell Labs. At its core, R is a functional programming language (its main functionalities revolve around defining and executing functions). However it now supports, and it is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
 <p>In simple terms, nowadays, programming in R mostly focuses on devising a series of instructions to execute a task – most commonly, loading and analysing a dataset.</p>
 <p>As such, R can be used to program by creating sequences of <strong>instructions</strong> involving <strong>variables</strong> – which are named entities that can store values. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (<em>if/else</em>) and loops, which will be the topic of the next practical session. Instructions can also be grouped in <strong>functions</strong>, which we will also see in the next practical session.</p>
 <p>R is <strong>interpreted</strong>, not compiled. Which means that an R interpreter (if you are using R Studio, the R interpreter is simply hidden in the backend and R Studio is the frontend that allows you to interact with the interpreter) receives an instruction you write in R, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.</p>
@@ -491,6 +491,7 @@
 <p><strong>Question 104.2.2:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and truncates it, leaving only 10 characters.</p>
 <p><strong>Question 104.2.3:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and truncates it, leaving only 10 characters and using no ellipsis.</p>
 <p><strong>Question 104.2.4:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and manipulates to leave only the string <code>"I like R"</code>.</p>
+<p><em><a href="https://sdesabbata.github.io/">Stefano De Sabbata</a></em> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</p>
 
 </div>
 </div>

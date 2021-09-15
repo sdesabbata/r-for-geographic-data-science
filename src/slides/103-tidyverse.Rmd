@@ -1,6 +1,6 @@
 ---
 title: "Lecture 103"
-author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/r-for-geographic-data-science/granolarr\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>text and code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/r-for-geographic-data-science/granolarr\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
 date: "`r Sys.Date()`"
 output:
   ioslides_presentation:

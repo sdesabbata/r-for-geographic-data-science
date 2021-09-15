@@ -185,3 +185,8 @@ sessionInfo()
 ## [25] evaluate_0.14   rmarkdown_2.10  stringi_1.7.4   compiler_4.1.1 
 ## [29] bslib_0.2.5.1   pillar_1.6.2    jsonlite_1.7.2  pkgconfig_2.0.3
 ```
+
+
+
+
+*[Stefano De Sabbata](https://sdesabbata.github.io/)* -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).

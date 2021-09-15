@@ -1,15 +1,16 @@
 # (PART\*) Getting started {-}
 
+
+
 # Introduction to R
 
-*[Stefano De Sabbata](https://stefanodesabbata.com)*
+<a href="javascript:if(window.print)window.print()">Print this chapter</a>
 
-[This work](https://github.com/sdesabbata/granolarr) is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html). 
-
+In this first chapter, I am going to provide you with a brief introduction to R, the programming language that will be the focus of the module, as well as the tool that we are going to use to do data science.
 
 ## The R programming language
 
-As mentioned in Lecture 1, **[R](https://www.r-project.org/)** was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand. R is a free, open-source implementation of the **S** statistical programming language initially created at the Bell Labs. At its core, R is a functional programming language (its main functionalities revolve around defining and executing functions). However it now supports, and it is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
+**[R](https://www.r-project.org/)** was created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand. R is a free, open-source implementation of the **S** statistical programming language initially created at the Bell Labs. At its core, R is a functional programming language (its main functionalities revolve around defining and executing functions). However it now supports, and it is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
 
 In simple terms, nowadays, programming in R mostly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
 
@@ -560,3 +561,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 
 **Question 104.2.4:** Write a piece of code using the pipe operator and the `stringr` library that takes as input the string `"I like programming in R"`, and manipulates to leave only the string `"I like R"`.
 
+
+
+
+*[Stefano De Sabbata](https://sdesabbata.github.io/)* -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).

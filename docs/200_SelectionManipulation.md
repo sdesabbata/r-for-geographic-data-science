@@ -2,10 +2,6 @@
 
 # Selection and manipulation
 
-*[Stefano De Sabbata](https://stefanodesabbata.com)*
-
-[This work](https://github.com/sdesabbata/granolarr) is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html). Contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence).
-
 
 
 ## R Projects
@@ -350,3 +346,7 @@ Extend the code in the script `My_script_Practical_204.R` to include the code ne
 
 **Question 204.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.
 
+
+
+
+*[Stefano De Sabbata](https://sdesabbata.github.io/)* -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).

@@ -1,9 +1,5 @@
 # Unsupervised machine learning
 
-*[Stefano De Sabbata](https://stefanodesabbata.com)*
-
-[This work](https://github.com/sdesabbata/granolarr) is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.html). Contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence).
-
 ## Introduction
 
 The field of **machine learning** sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), *"the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience."*
@@ -586,3 +582,5 @@ Finally, we can map the cluster cartographically to analyse their spatial distri
 **Question 414.1.3:** Create a geodemographic classification for the city of Leicester based on the presence of peoples in the different age groups included in the `2011_OAC_Raw_uVariables_Leicester.csv` dataset (`u007` to `u019`).
 
 
+
+*[Stefano De Sabbata](https://sdesabbata.github.io/)* -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
