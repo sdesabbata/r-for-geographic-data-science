@@ -6,20 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 8 Regression analysis | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="8.1 Simple regression The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable \(Y\) based on one predictor...">
-<meta name="generator" content="bookdown 0.23 with bs4_book()">
+<meta name="description" content="Print this chapter  8.1 Simple regression The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable \(Y\) based...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 8 Regression analysis | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/regression-analysis.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="8.1 Simple regression The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable \(Y\) based on one predictor...">
+<meta property="og:description" content="Print this chapter  8.1 Simple regression The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable \(Y\) based...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 8 Regression analysis | R for Geographic Data Science">
-<meta name="twitter:description" content="8.1 Simple regression The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable \(Y\) based on one predictor...">
+<meta name="twitter:description" content="Print this chapter  8.1 Simple regression The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable \(Y\) based...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.2.5.1/tabs.js"></script><script src="libs/bs3compat-0.2.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
@@ -69,6 +69,7 @@
 <h1>
 <span class="header-section-number">8</span> Regression analysis<a class="anchor" aria-label="anchor" href="#regression-analysis"><i class="fas fa-link"></i></a>
 </h1>
+<p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <div id="simple-regression" class="section level2" number="8.1">
 <h2>
 <span class="header-section-number">8.1</span> Simple regression<a class="anchor" aria-label="anchor" href="#simple-regression"><i class="fas fa-link"></i></a>
@@ -100,7 +101,7 @@
 
 <span class="co"># November 20th, 2013</span>
 <span class="va">flights_nov_20</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>, <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span>, <span class="va">day</span> <span class="op">==</span><span class="fl">20</span><span class="op">)</span> </code></pre></div>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>, <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span>, <span class="va">day</span> <span class="op">==</span><span class="fl">20</span><span class="op">)</span> </code></pre></div>
 <center>
 <img src="320_Regression_files/figure-html/unnamed-chunk-3-1.png" width="384">
 </center>
@@ -294,24 +295,24 @@
 <span class="co"># normalise variables</span>
 <span class="va">leicester_2011OAC_transp</span> <span class="op">&lt;-</span>
   <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span>
     <span class="va">OA11CD</span>, 
     <span class="va">Total_Pop_No_NI_Students_16_to_74</span>, <span class="va">Total_Employment_16_to_74</span>, 
     <span class="va">u121</span>, <span class="va">u141</span><span class="op">:</span><span class="va">u158</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># percentage method of travel</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     u121 <span class="op">=</span> <span class="op">(</span><span class="va">u121</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># percentage across industry sector columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/across.html">across</a></span><span class="op">(</span> 
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span> 
       <span class="va">u141</span><span class="op">:</span><span class="va">u158</span>,
       <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="va">Total_Employment_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">}</span>
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># rename columns</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/rename.html">rename_with</a></span><span class="op">(</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span>
     <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"perc_"</span>, <span class="va">x</span><span class="op">)</span> <span class="op">}</span>,
     <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">u121</span>, <span class="va">u141</span><span class="op">:</span><span class="va">u158</span><span class="op">)</span>
   <span class="op">)</span>
@@ -419,7 +420,8 @@
 <p><strong>Question 324.1.1:</strong> Create a model having as outcome variable the presence of people using private transport for commuting to work, and using a stepwise <em>“both”</em> approach, having all the variables created for the example above and related to the presence of people working in different industry sectors (<code>perc_u141 to perc_u158</code>) as scope.</p>
 <p><strong>Question 324.1.2:</strong> Is the presence of people using public transportation to commute to work statistically, linearly related to mean age (<code>u020</code>)?</p>
 <p><strong>Question 324.1.3:</strong> Is the presence of people using public transportation to commute to work statistically, linearly related to (a subset of) the age structure categories (<code>u007</code> to <code>u019</code>)?</p>
-<p><em><a href="https://sdesabbata.github.io/">Stefano De Sabbata</a></em> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</p>
+<hr>
+<p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
 </div>
 </div>

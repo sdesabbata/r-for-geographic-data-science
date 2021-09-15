@@ -1,5 +1,8 @@
 # Preface {-}
 
+<br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
+
+
 ## Lecture slides {-}
 
 1. **R coding**
@@ -46,6 +49,7 @@
         - 411 [Principal Component Analysis](slides/411-principal-components.html)
         - 412 [Centroid-based clustering](slides/412-clustering-centroid.html)
         - 413 [Hierarchical and density-based clustering](slides/413-clustering-hierarchical-density.html)
+
 
 
 ## Reference books {-}
@@ -176,17 +180,17 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.33      xml2_1.3.2      magrittr_2.0.1  downlit_0.2.1  
+##  [1] knitr_1.34      xml2_1.3.2      magrittr_2.0.1  downlit_0.2.1  
 ##  [5] R6_2.5.1        rlang_0.4.11    fastmap_1.1.0   fansi_0.5.0    
 ##  [9] stringr_1.4.0   tools_4.1.1     xfun_0.25       utf8_1.2.2     
 ## [13] jquerylib_0.1.4 htmltools_0.5.2 ellipsis_0.3.2  yaml_2.2.1     
 ## [17] digest_0.6.27   tibble_3.1.4    lifecycle_1.0.0 crayon_1.4.1   
-## [21] bookdown_0.23   sass_0.4.0      vctrs_0.3.8     fs_1.5.0       
+## [21] bookdown_0.24   sass_0.4.0      vctrs_0.3.8     fs_1.5.0       
 ## [25] evaluate_0.14   rmarkdown_2.10  stringi_1.7.4   compiler_4.1.1 
-## [29] bslib_0.2.5.1   pillar_1.6.2    jsonlite_1.7.2  pkgconfig_2.0.3
+## [29] bslib_0.3.0     pillar_1.6.2    jsonlite_1.7.2  pkgconfig_2.0.3
 ```
 
 
+---
 
-
-*[Stefano De Sabbata](https://sdesabbata.github.io/)* -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+<small>by [Stefano De Sabbata](https://sdesabbata.github.io/) -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).</small>

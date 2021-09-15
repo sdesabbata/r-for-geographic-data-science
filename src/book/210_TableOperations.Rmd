@@ -1,5 +1,6 @@
 # Table operations
 
+<br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
 This section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex example, loading and wrangling with data related to the [2011 Output Area Classification](https://github.com/geogale/2011OAC) and the [Indexes of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015).
@@ -530,6 +531,6 @@ A full R Script including the code for the analysis presented in this practical 
 
 -->
 
+---
 
-
-*[Stefano De Sabbata](https://sdesabbata.github.io/)* -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).
+<small>by [Stefano De Sabbata](https://sdesabbata.github.io/) -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).</small>
