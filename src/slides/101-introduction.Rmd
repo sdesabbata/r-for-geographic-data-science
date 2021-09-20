@@ -56,7 +56,7 @@ One of the most widely used programming languages and an effective tool for *(ge
 
 ::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 3, fig.width = 3}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 3.5, fig.width = 3.5}
 ifelse(!dir.exists(file.path(Sys.getenv("RGDS_HOME"), "tmp")), dir.create(file.path(Sys.getenv("RGDS_HOME"), "tmp")), FALSE)
 
 if (!dir.exists(file.path("./tmp", "E06000016"))) {
@@ -77,8 +77,8 @@ tm_shape(leic_2011OAC) +
     bg.color = "#FFF0E2", 
     frame = FALSE) +
   tm_credits(
-    "Contains public sectorinformation licensed\nunder the Open Government Licence v3.0", 
-    size = 0.5, 
+    "Contains public sectorin formation licensed\nunder the Open Government Licence v3.0", 
+    size = 0.4, 
     position = c("right", "bottom")
   )
 
