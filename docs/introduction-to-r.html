@@ -142,15 +142,19 @@
 <span class="va">sum_of_two_variables</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 </div>
-<div id="algorithms-and-functions" class="section level3" number="1.2.3">
+<div id="algorithms" class="section level3" number="1.2.3">
 <h3>
-<span class="header-section-number">1.2.3</span> Algorithms and functions<a class="anchor" aria-label="anchor" href="#algorithms-and-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.2.3</span> Algorithms<a class="anchor" aria-label="anchor" href="#algorithms"><i class="fas fa-link"></i></a>
 </h3>
 <p>Any operation that can be executed using a computer is called an <strong>algorithm</strong>. To be more precise, <a href="https://www.cambridge.org/highereducation/books/computability/E8F085FDBECB8280F7723D71C1D2EE1C#overview">Cutland (1980)</a> defined an algorithm as <em>“a mechanical rule, or automatic method, or program for performing some mathematical operation”</em>.</p>
 <p>The instructions you get to mount your Ikea furniture can be thought as an algorithm, an effective procedure to perform the operation of mounting your furniture, and you are playing the part of the computer executing the algorithm.</p>
 <p>A <strong>program</strong> is a set of instructions implementing an abstract algorithm into a specific language – let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and usually consist of one or more functions.</p>
+</div>
+<div id="functions" class="section level3" number="1.2.4">
+<h3>
+<span class="header-section-number">1.2.4</span> Functions<a class="anchor" aria-label="anchor" href="#functions"><i class="fas fa-link"></i></a>
+</h3>
 <p>You can think of a <strong>function</strong> as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each one designed to complete a sub-task, that combined perform the entire task.</p>
-<p>To summarise, abstract algorithms are implemented as programs using variables and one or more functions.</p>
 <p>Functions can be <strong>invoked</strong> by specifying the <strong>function name</strong> along with the <strong>arguments</strong> (input values) between simple brackets. Each argument corresponds to a <strong>parameter</strong> (i.e., an internal variable used within the function to run the operation, as we will see this in more detail later on in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., to find the square root of a number or to calculate a linear regression). For instance, <code>sqrt</code> is the pre-defined function in <code>R</code> that performs the operation of computing the square root of a number. As such, the instruction <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt(2)</a></code> is telling the <code>R</code> interpreter to run the function that calculates the square root using <code>2</code> as the input value. The function will return <code>1.414214</code>, the square root of <code>2</code>, as the output.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
@@ -171,8 +175,14 @@
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
-<p>As we start to introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best if you always aimed for a code that is as easy to read and understand as possible. In this book, I will follow the <a href="http://style.tidyverse.org/">Tidyverse Style Guide (style.tidyverse.org)</a> – study the Tidyverse Style Guide and use it consistently.</p>
-<p>Functions can be collected and stored in <em>libraries</em> (sometimes referred to as <em>packages</em>), which contains related functions. For instance, the <code>base</code> library in <code>R</code> includes the <code>sqrt</code> function above, and the <code>rgdal</code> library, which contains implementations of the <a href="https://gdal.org/">GDAL (Geospatial Data Abstraction Library)</a> functionalities for <code>R</code>.</p>
+<p>As we start to introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best if you always aimed for a code that is as easy to read and understand as possible.</p>
+<p>In this book, I will follow the <a href="http://style.tidyverse.org/">Tidyverse Style Guide (style.tidyverse.org)</a>. Study the Tidyverse Style Guide and use it consistently.</p>
+</div>
+<div id="libraries" class="section level3" number="1.2.5">
+<h3>
+<span class="header-section-number">1.2.5</span> Libraries<a class="anchor" aria-label="anchor" href="#libraries"><i class="fas fa-link"></i></a>
+</h3>
+<p>Functions can be collected and stored in <em>libraries</em> (sometimes referred to as <em>packages</em>), which contains related functions, and sometimes, datasets. For instance, the <code>base</code> library in <code>R</code> includes the <code>sqrt</code> function above, and the <code>rgdal</code> library, which contains implementations of the <a href="https://gdal.org/">GDAL (Geospatial Data Abstraction Library)</a> functionalities for <code>R</code>. Libraries can be installed in <code>R</code> using the function <code>install.packages</code> or using <code>Tool &gt; Install Packages...</code> in RStudio.</p>
 </div>
 </div>
 <div id="basic-types" class="section level2" number="1.3">
@@ -395,7 +405,6 @@
 <h2>
 <span class="header-section-number">1.4</span> Tidyverse<a class="anchor" aria-label="anchor" href="#tidyverse"><i class="fas fa-link"></i></a>
 </h2>
-<p>As mentioned above, libraries are collections of functions and/or datasets. Libraries can be installed in <code>R</code> using the function <code>install.packages</code> or using <code>Tool &gt; Install Packages...</code> in RStudio.</p>
 <p>The meta-library <a href="https://www.tidyverse.org/">Tidyverse</a> contains the following libraries:</p>
 <ul>
 <li>
@@ -529,7 +538,9 @@
 <a class="nav-link" href="#core-concepts"><span class="header-section-number">1.2</span> Core concepts</a><ul class="nav navbar-nav">
 <li><a class="nav-link" href="#values"><span class="header-section-number">1.2.1</span> Values</a></li>
 <li><a class="nav-link" href="#variables"><span class="header-section-number">1.2.2</span> Variables</a></li>
-<li><a class="nav-link" href="#algorithms-and-functions"><span class="header-section-number">1.2.3</span> Algorithms and functions</a></li>
+<li><a class="nav-link" href="#algorithms"><span class="header-section-number">1.2.3</span> Algorithms</a></li>
+<li><a class="nav-link" href="#functions"><span class="header-section-number">1.2.4</span> Functions</a></li>
+<li><a class="nav-link" href="#libraries"><span class="header-section-number">1.2.5</span> Libraries</a></li>
 </ul>
 </li>
 <li>

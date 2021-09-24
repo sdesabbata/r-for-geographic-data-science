@@ -4,7 +4,9 @@ using-rstudio
 core-concepts
 values
 variables
-algorithms-and-functions
+algorithms
+functions
+libraries
 basic-types
 numeric
 logical

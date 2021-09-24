@@ -99,7 +99,7 @@ sum_of_two_variables <- a_variable + another_variable
 sum_of_two_variables
 ```
 
-### Algorithms and functions
+### Algorithms
 
 Any operation that can be executed using a computer is called an **algorithm**. To be more precise, [Cutland (1980)](https://www.cambridge.org/highereducation/books/computability/E8F085FDBECB8280F7723D71C1D2EE1C#overview) defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"*. 
 
@@ -107,9 +107,9 @@ The instructions you get to mount your Ikea furniture can be thought as an algor
 
 A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and usually consist of one or more functions. 
 
-You can think of a **function** as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each one designed to complete a sub-task, that combined perform the entire task. 
+### Functions
 
-To summarise, abstract algorithms are implemented as programs using variables and one or more functions.
+You can think of a **function** as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each one designed to complete a sub-task, that combined perform the entire task. 
 
 Functions can be **invoked** by specifying the **function name** along with the **arguments** (input values) between simple brackets. Each argument corresponds to a **parameter** (i.e., an internal variable used within the function to run the operation, as we will see this in more detail later on in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., to find the square root of a number or to calculate a linear regression). For instance, `sqrt` is the pre-defined function in `R` that performs the operation of computing the square root of a number. As such, the instruction `sqrt(2)` is telling the `R` interpreter to run the function that calculates the square root using `2` as the input value. The function will return `1.414214`, the square root of `2`, as the output. 
 
@@ -137,9 +137,14 @@ Functions can also be used as arguments of functions. Instead of first calculati
 round(sqrt(2), digits = 2)
 ```
 
-As we start to introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best if you always aimed for a code that is as easy to read and understand as possible. In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/) -- study the Tidyverse Style Guide and use it consistently.
+As we start to introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best if you always aimed for a code that is as easy to read and understand as possible. 
 
-Functions can be collected and stored in *libraries* (sometimes referred to as *packages*), which contains related functions. For instance, the `base` library in `R` includes the `sqrt` function above, and the `rgdal` library, which contains implementations of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities for `R`.
+In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/). Study the Tidyverse Style Guide and use it consistently.
+
+### Libraries
+
+Functions can be collected and stored in *libraries* (sometimes referred to as *packages*), which contains related functions, and sometimes, datasets. For instance, the `base` library in `R` includes the `sqrt` function above, and the `rgdal` library, which contains implementations of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities for `R`. Libraries can be installed in `R` using the function `install.packages` or using `Tool > Install Packages...` in RStudio. 
+
 
 
 ## Basic types
@@ -239,8 +244,6 @@ as.numeric("Ciao")
 
 
 ## Tidyverse
-
-As mentioned above, libraries are collections of functions and/or datasets. Libraries can be installed in `R` using the function `install.packages` or using `Tool > Install Packages...` in RStudio. 
 
 The meta-library [Tidyverse](https://www.tidyverse.org/) contains the following libraries:
 
