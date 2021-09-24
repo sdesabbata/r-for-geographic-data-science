@@ -1,8 +1,10 @@
 introduction-to-r
 the-r-programming-language
 using-rstudio
-interpreting-values
+core-concepts
+values
 variables
+algorithms-and-functions
 basic-types
 numeric
 logical
@@ -10,7 +12,6 @@ character
 tidyverse
 stringr
 the-pipe-operator
-coding-style
 exercise-104.1
 exercise-104.2
 r-programming

@@ -2,8 +2,12 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
+This book is a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2021/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2021) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). The module is composed of four units, each one two or three weeks long. Each Monday, I will publish three 20-minute lecture videos, along with the assigned reading, that will introduce you to the topics of the week. Please watch the lecture and then complete the reading before the practical sessions on Thursday. The practical session  will provide you the opportunity to apply what you have seen in the videos and read in the materials. The materials will include exercises that you will complete on your own time, after the practical session. If you have questions, please contact me via email or come along to office hours.
+
 
 ## Lecture slides {-}
+
+The slides used in the lectures are available as web-based slides at the pages linked below. 
 
 1. **R coding**
     - **100 Introduction**
@@ -54,12 +58,14 @@
 
 ## Reference books {-}
 
-Suggested reading
+Each week you will be assigned with some reading from the books listed below. In particular, we will be using [*R for Data Science*](https://r4ds.had.co.nz/) by Garrett Grolemund and Hadley Wickham and [*Programming Skills for Data Science*](https://www.pearson.com/us/higher-education/program/Freeman-Programming-Skills-for-Data-Science-Start-Writing-Code-to-Wrangle-Analyze-and-Visualize-Data-with-R/PGM2047488.html) by Michael Freeman and Joel Ross for the first two units, and *Discovering Statistics Using R* by Andy Field, Jeremy Miles and Zoë Field, and [*Machine Learning with R: Expert techniques for predictive modeling*](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781788295864) by Brett Lantz for the third and fourth unit. For a sneak peek at how to use R for geographic information analysis, I can suggest  *An Introduction to R for Spatial Analysis and Mapping* by Chris Brunsdon and Lex Comber and *Geocomputation with R* by Robin Lovelace.
+
+### Suggested reading {-}
 
 - *R for Data Science* by Garrett Grolemund and Hadley Wickham, O'Reilly Media, 2016. See [online book](https://r4ds.had.co.nz/).
 - *Machine Learning with R: Expert techniques for predictive modeling* by Brett Lantz, Packt Publishing, 2019. See book [webpage](https://subscription.packtpub.com/book/big_data_and_business_intelligence/9781788295864).
 
-Further reading
+### Further reading {-}
 
 - *Programming Skills for Data Science: Start Writing Code to Wrangle, Analyze, and Visualize Data with R* by Michael Freeman and Joel Ross, Addison-Wesley, 2019. See book [webpage](https://www.pearson.com/us/higher-education/program/Freeman-Programming-Skills-for-Data-Science-Start-Writing-Code-to-Wrangle-Analyze-and-Visualize-Data-with-R/PGM2047488.html) and [repository](https://programming-for-data-science.github.io/).
 - *The Art of R Programming: A Tour of Statistical Software Design* by Norman Matloff, No Starch Press, 2011. See book [webpage](https://nostarch.com/artofr.htm).
