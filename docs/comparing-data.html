@@ -43,7 +43,6 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
@@ -58,6 +57,10 @@
 <li class="book-part">Machine learning</li>
 <li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
 <li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li class="book-part">Postface</li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -128,7 +131,7 @@
     <span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="310_ComparingData_files/figure-html/unnamed-chunk-3-1.png" width="384"></div>
+<div class="inline-figure"><img src="310-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384"></div>
 <p>ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to <code>0.05</code>.</p>
 <p>The three Shapiro–Wilk tests below are all not significant, which indicates that all three groups have normally distributed values.</p>
 <div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
@@ -239,7 +242,7 @@
 </h3>
 <p>When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: <em>“do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?”</em></p>
 <p>That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?</p>
-<div class="inline-figure"><img src="310_ComparingData_files/figure-html/unnamed-chunk-8-1.png" width="336"></div>
+<div class="inline-figure"><img src="310-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="336"></div>
 <p>The dataset used to create the 2011 Output Area Classification (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.</p>
 <ul>
 <li>
@@ -268,7 +271,7 @@
     <span class="va">perc_flats</span>, <span class="va">perc_2ormore_cars</span>
   <span class="op">)</span></code></pre></div>
 <p>Plotting the two variables together in a scatterplot reveals a pattern. Indeed, a very low percentage of households living in flats own two or more cars. However, the proportion of households owning two or more cars who live in the suburbs seem to span almost throughout the whole range, from zero to 80%. That seems to indicate some level of negative relationship, but the picture is clearly far less clear-cut as we might have initially assumed. The initial assumption about car ownership for households living in flats seems to hold, but we probably didn’t consider the situation in the suburbs with sufficient care.</p>
-<div class="inline-figure"><img src="310_ComparingData_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
+<div class="inline-figure"><img src="310-comparing-data_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
 <p>The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed.</p>
 <p>As there are 969 OAs in Leicester, we can set the significance threshold to <code>0.01</code>. The results of the <code><a href="https://rdrr.io/r/stats/shapiro.test.html">stats::shapiro.test</a></code> functions below show that neither of the two variables are normally distributed. Transforming the variables using the <em>inverse hyperbolic sine</em> still does not result in normally distributed variables. Thus, we should discard <em>Pearson’s r</em> as an option to explore the correlation between the two variables.</p>
 <div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
@@ -413,8 +416,8 @@ between the two variables.</code></pre>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/310_ComparingData.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/310_ComparingData.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/310-comparing-data.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/310-comparing-data.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -426,7 +429,7 @@ between the two variables.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-24.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

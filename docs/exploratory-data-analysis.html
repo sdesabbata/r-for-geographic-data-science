@@ -43,7 +43,6 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
@@ -58,6 +57,10 @@
 <li class="book-part">Machine learning</li>
 <li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
 <li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li class="book-part">Postface</li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -129,7 +132,7 @@ leicester_2011OAC %&gt;%
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <p>If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship.</p>
 <p>For instance, the barchart above can be enhanced through the use of the visual variable colour and the <code>fill</code> option. The graphic below uses a few options seen in the practical session 401 to create a stacked barchart, where sections of each bar are filled with the colour associated with a 2011OAC supergroup.</p>
 <div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
@@ -151,7 +154,7 @@ leicester_2011OAC %&gt;%
     values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#e41a1c"</span>, <span class="st">"#f781bf"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"#a65628"</span>, <span class="st">"#984ea3"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#ffff33"</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>However, the graphic above is not extremely clear. A boxplot and a violin plot created from the same data are shown below. In both cases, the parameter <code>axis.text.x</code> of the function theme is set to <code>element_text(angle = 90, hjust = 1)</code> in order to orientate the labels on the x-axis vertically, as the supergroup names are rather long, and they would overlap one-another if set horizontally on the x-axis. In both cases, the option <code>fig.height</code> of the R snippet in RMarkdown should be set to a higher value (e.g., <code>5</code>) to allow for sufficient room for the supergroup names.</p>
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
@@ -174,7 +177,7 @@ leicester_2011OAC %&gt;%
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 <div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>
@@ -196,7 +199,7 @@ leicester_2011OAC %&gt;%
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 </div>
 <div id="relationships" class="section level3" number="6.3.2">
 <h3>
@@ -225,7 +228,7 @@ leicester_2011OAC %&gt;%
     values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#e41a1c"</span>, <span class="st">"#f781bf"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"#a65628"</span>, <span class="st">"#984ea3"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#ffff33"</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 </div>
 </div>
 <div id="exercise-304.1" class="section level2" number="6.4">
@@ -511,7 +514,7 @@ leicester_2011OAC %&gt;%
     <span class="op">)</span>,
     colour <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">1</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-13-1.png" width="288"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-13-1.png" width="288"></div>
 <p>A Q-Q plot in R can be created using a variety of functions. In the example below, the plot is created using the <a href="https://ggplot2.tidyverse.org/reference/geom_qq.html"><code>stat_qq</code> and <code>stat_qq_line</code> functions</a> of the <code>ggplot2</code> library. Note that the <code>perc_age_20_to_24</code> variable is mapped to a particular option of <code>aes</code> that is <code>sample</code>.</p>
 <p>If <code>perc_age_20_to_24</code> had been normally distributed, the dots in the Q-Q plot would be distributed straight on the line included in the plot.</p>
 <div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
@@ -523,7 +526,7 @@ leicester_2011OAC %&gt;%
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="300_Exploratory_files/figure-html/unnamed-chunk-14-1.png" width="288"></div>
+<div class="inline-figure"><img src="300-exploratory_files/figure-html/unnamed-chunk-14-1.png" width="288"></div>
 </div>
 </div>
 <div id="exercise-304.2" class="section level2" number="6.6">
@@ -978,8 +981,8 @@ leicester_2011OAC %&gt;%
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/300_Exploratory.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/300_Exploratory.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/300-exploratory.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/300-exploratory.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -991,7 +994,7 @@ leicester_2011OAC %&gt;%
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-24.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

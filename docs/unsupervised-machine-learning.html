@@ -43,7 +43,6 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
@@ -58,6 +57,10 @@
 <li class="book-part">Machine learning</li>
 <li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
 <li><a class="active" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li class="book-part">Postface</li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -221,7 +224,7 @@
     upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-6-1.png" width="288"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-6-1.png" width="288"></div>
 <p>The scatterplot above seems to indicate that at least three clusters might exist in the data. One with a lot of semi-detached and few terraced house (top-left corner of the scatterplot); one with a lot of terraced and few semi-detached houses (bottom-right corner of the scatterplot); and one with very few of both classes (bottom-left corner of the scatterplot).</p>
 <p>However, there are clearly many OAs which populate the area in between those three groups. So, what is the best approach to cluster those OAs?</p>
 <p>The code below illustrates how to create three plots. The first follows the elbow method heuristic. The second and the third take a similar approach but using the silhouette and gap statistic.</p>
@@ -272,21 +275,21 @@
      ylab<span class="op">=</span><span class="st">"WCSS"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-1.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-8-1.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_silhouette</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Silhouette"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-2.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-8-2.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_gap</span><span class="op">[[</span><span class="st">"Tab"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="st">"gap"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Gap"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-3.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-8-3.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <p>Based on the WCSS plot, the number of clusters k best fitting the data could range between <code>k = 3</code> and <code>k = 6</code>, which are all around the inflation point (elbow) of the line. The silhouette plot shows a local maximum at <code>k = 3</code> and <code>k = 6</code>, which indicates that the observations best fit within their clusters when 3 or 6 clusters are created. The gap statistic steadily increases until it reaches a plateau around <code>k = 5</code>. That indicates that clustering improves as we move from 2 to 5 clusters, but the quality doesn’t increase as much afterwards. The value for <code>k = 6</code> (which is the value suggested by the other two heuristics) is a local minimum, but still the difference with neighbouring values is relatively small.</p>
 <p>Overall, the heuristics seem to indicate that <code>k = 3</code> could lead to a good clustering result. However, the gap statistic indicates that those three clusters would not be very compact. That is probably due to the fact that the observations at center of the scatterplot seen above are rather uniformally distributed over the space between the three main clusters. As such, chosing <code>k = 6</code> clusters might be the best fitting approach in this case. We can then calculate the clusters for <code>k = 6</code> as shown below.</p>
@@ -314,7 +317,7 @@
     upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
 <p>Another common approach in interpreting the results is to create <em>heatmaps</em> for the average values of the variables used in the clustering process for each cluster.</p>
 <div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_dwellings</span> <span class="op">%&gt;%</span>
@@ -340,7 +343,7 @@
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"Cluster"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">"inferno"</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-11-1.png" width="480"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-11-1.png" width="480"></div>
 <p>The plot above, clearly illustrates how cluster 6 has a high percentage of semi-detached houses and a low percentages of terraced houses. Cluster 2 has a high percentage of terraced houses and a low percentages of semi-detached houses. Cluster 4 has a low percentage of both semi-detached and terraced houses. Those are the three clusters that we first identified from the first scatterplot above.</p>
 <p>Moreover, the clustering process identifies cluster 1, which includes similar percentages of semi-detached and terraced houses; as well as cluster 5, including mostly semi-detached but also some terraced houses, and cluster 3, including mostly terraced but also some semi-detached houses.</p>
 </div>
@@ -357,7 +360,7 @@
     upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-12-1.png" width="432"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-12-1.png" width="432"></div>
 <p>In order to identify the number of clusters <code>k</code> which best fits the data, we can use the elbow method, along with the silhouette and gap statistic measures, as seen in the previous example. The only difference is that in this case <code>data_for_testing</code> will include all five variables.</p>
 <div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Data for elbow method</span>
@@ -403,21 +406,21 @@
      ylab<span class="op">=</span><span class="st">"WCSS"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-1.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-14-1.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_silhouette</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Silhouette"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-2.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-14-2.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="va">testing_gap</span><span class="op">[[</span><span class="st">"Tab"</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">2</span><span class="op">:</span><span class="fl">15</span>, <span class="st">"gap"</span><span class="op">]</span>, type<span class="op">=</span><span class="st">"b"</span>, xlab<span class="op">=</span><span class="st">"Number of Clusters"</span>, 
      ylab<span class="op">=</span><span class="st">"Gap"</span>, xlim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">3</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fl">6</span>, col <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-3.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-14-3.png" width="576"></div>
 <pre><code>## integer(0)</code></pre>
 <p>As in the previous example, the elbow method (i.e., WCSS), silhouette and gap statistic seem to indicate that <code>k = 3</code> or <code>k = 6</code> might be the best choice. Let’s see what the result is when choosing <code>k = 6</code>.</p>
 <div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
@@ -449,7 +452,7 @@
     mapping <span class="op">=</span> <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">dwellings_cluster</span><span class="op">)</span>,
     lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-16-1.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-16-1.png" width="576"></div>
 <div style="page-break-after: always;"></div>
 <p>As in the previous example, we can use an <em>“heatmap”</em> plot to explore how the clusters are characterised by the variables used in the clustering process (see also Exercise 414.1.1 below).</p>
 <div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
@@ -497,7 +500,7 @@
         hjust<span class="op">=</span><span class="fl">1</span>
       <span class="op">)</span>
     <span class="op">)</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-17-1.png" width="384"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-17-1.png" width="384"></div>
 <p>Another very common approach to explore the characteristics of the clusters created through k-means for the geodemongraphic classification is to use radar charts (also known as spider charts, web charts or polar charts), which can be created in R using a number of libraries, including the <code>radarchart</code> of the <code>fmsb</code> library.</p>
 <div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("fmsb")</span>
@@ -519,10 +522,10 @@
     <span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu">fmsb</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fmsb/man/radarchart.html">radarchart</a></span><span class="op">(</span>title <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Cluster"</span>, <span class="va">cluster_number</span><span class="op">)</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/figures-side-1.png" width="576"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/figures-side-1.png" width="576"></div>
 <p>The radar charts are very effective in visualising the values for multiple varaibles, as long as the variables are all of similar type, value and range. In this case, as all values are percentages, radar chart are very effective in illustrating which variables have particularly high averages in each cluster.</p>
 <p>Finally, we can map the cluster cartographically to analyse their spatial distribution.</p>
-<div class="inline-figure"><img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
+<div class="inline-figure"><img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-19-1.png" width="672"></div>
 </div>
 </div>
 <div id="exercise-414.1" class="section level2" number="10.3">
@@ -537,9 +540,12 @@
 
 </div>
 </div>
+
+
+
   <div class="chapter-nav">
 <div class="prev"><a href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></div>
-<div class="empty"></div>
+<div class="next"><a href="lecture-slides.html">Lecture slides</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -564,8 +570,8 @@
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/410_UnsupervisedLearning.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/410_UnsupervisedLearning.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/410-unsupervised-learning.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/410-unsupervised-learning.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -577,7 +583,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-24.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -40,7 +40,7 @@ flights_nov_20 <- nycflights13::flights %>%
 
 
 <center>
-<img src="320_Regression_files/figure-html/unnamed-chunk-3-1.png" width="384" />
+<img src="320-regression_files/figure-html/unnamed-chunk-3-1.png" width="384" />
 </center>
 
 The code below generates the model using the function `lm`, and the function `summary` to obtain the summary of the results of the test. The model and summary are saved in the variables `delay_model` and `delay_model_summary`, respectively, for further use below. The variable `delay_model_summary` can then be called directly to visualise the result of the test.
@@ -128,7 +128,7 @@ flights_nov_20 %>%
   ggplot2::geom_abline(intercept = 4.0943, slope = 1.04229, color="red")
 ```
 
-<img src="320_Regression_files/figure-html/unnamed-chunk-5-1.png" width="384" />
+<img src="320-regression_files/figure-html/unnamed-chunk-5-1.png" width="384" />
 </center>
 
 ### Checking assumptions
@@ -153,7 +153,7 @@ delay_model %>%
 ```
 
 <center>
-<img src="320_Regression_files/figure-html/unnamed-chunk-7-1.png" width="576" />
+<img src="320-regression_files/figure-html/unnamed-chunk-7-1.png" width="576" />
 </center>
 
 #### Homoscedasticity
@@ -206,28 +206,28 @@ delay_model %>%
   plot(which = c(1))
 ```
 
-<img src="320_Regression_files/figure-html/unnamed-chunk-10-1.png" width="576" />
+<img src="320-regression_files/figure-html/unnamed-chunk-10-1.png" width="576" />
 
 ```r
 delay_model %>%
   plot(which = c(2))
 ```
 
-<img src="320_Regression_files/figure-html/unnamed-chunk-10-2.png" width="576" />
+<img src="320-regression_files/figure-html/unnamed-chunk-10-2.png" width="576" />
 
 ```r
 delay_model %>%
   plot(which = c(3))
 ```
 
-<img src="320_Regression_files/figure-html/unnamed-chunk-10-3.png" width="576" />
+<img src="320-regression_files/figure-html/unnamed-chunk-10-3.png" width="576" />
 
 ```r
 delay_model %>%
   plot(which = c(5))
 ```
 
-<img src="320_Regression_files/figure-html/unnamed-chunk-10-4.png" width="576" />
+<img src="320-regression_files/figure-html/unnamed-chunk-10-4.png" width="576" />
 </center>
 
 ### How to report

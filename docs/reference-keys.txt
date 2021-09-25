@@ -1,6 +1,7 @@
 introduction-to-r
 the-r-programming-language
 using-rstudio
+coding-style
 core-concepts
 values
 variables

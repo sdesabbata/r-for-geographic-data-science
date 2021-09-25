@@ -45,6 +45,11 @@ Note how the output value `2` is preceded by `[1]`, which indicates that the out
 
 On the right side, you find two groups of panels. On the top-right, the main element is the *Environment* panel, which is a representation of the current state of the interpreter's memory, and as such, it shows all the stored variables, datasets, and functions. On the bottom-right, you find the *Files* panel, which shows file system (file and folders on your computer or the server), as well as the *Help* panel, which shows you the help pages when required. We will discuss the other panels later on in the practical sessions.
 
+### Coding style
+
+A coding style is a set of rules and guidelines to write programming code designed to ensure that the code is easy to read, understand, and consistent over time. Following a good coding style is essential when writing code that others will read -- for instance, if you work in a team, publish your code or submit your code as a piece of coursework -- and ensure you will understand your code in a few-month time. Following a good coding style is also an essential step towards reproducibility, as we will see in a later chapter.
+
+In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/). Study the Tidyverse Style Guide and use it consistently.
 
 ## Core concepts
 
@@ -101,11 +106,11 @@ sum_of_two_variables
 
 ### Algorithms
 
-Any operation that can be executed using a computer is called an **algorithm**. To be more precise, [Cutland (1980)](https://www.cambridge.org/highereducation/books/computability/E8F085FDBECB8280F7723D71C1D2EE1C#overview) defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"*. 
+Any operation that can be executed using a computer is called an **algorithm**. To be more precise, @cutland_1980 defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"* (Cutland, 1980, p. 7) [@cutland_1980]. 
 
 The instructions you get to mount your Ikea furniture can be thought as an algorithm, an effective procedure to perform the operation of mounting your furniture, and you are playing the part of the computer executing the algorithm.
 
-A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and usually consist of one or more functions. 
+A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and functions. 
 
 ### Functions
 
@@ -139,7 +144,7 @@ round(sqrt(2), digits = 2)
 
 As we start to introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best if you always aimed for a code that is as easy to read and understand as possible. 
 
-In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/). Study the Tidyverse Style Guide and use it consistently.
+In the next chapter, we will see how you can create functions yourself.
 
 ### Libraries
 
@@ -245,7 +250,7 @@ as.numeric("Ciao")
 
 ## Tidyverse
 
-The meta-library [Tidyverse](https://www.tidyverse.org/) contains the following libraries:
+The meta-library [Tidyverse](https://www.tidyverse.org/) [@tidyverse2019] contains the following libraries:
 
 - [`ggplot2`](https://ggplot2.tidyverse.org/) is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 - [`dplyr`](https://dplyr.tidyverse.org/) provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges. 

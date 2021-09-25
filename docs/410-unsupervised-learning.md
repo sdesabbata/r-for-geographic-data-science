@@ -180,7 +180,7 @@ leicester_dwellings %>%
   )
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-6-1.png" width="288" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-6-1.png" width="288" />
 
 The scatterplot above seems to indicate that at least three clusters might exist in the data. One with a lot of semi-detached and few terraced house (top-left corner of the scatterplot); one with a lot of terraced and few semi-detached houses (bottom-right corner of the scatterplot); and one with very few of both classes (bottom-left corner of the scatterplot).
 
@@ -241,7 +241,7 @@ abline(v = 3, col = "red") +
 abline(v = 6, col = "red")
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-1.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-8-1.png" width="576" />
 
 ```
 ## integer(0)
@@ -254,7 +254,7 @@ abline(v = 3, col = "red") +
 abline(v = 6, col = "red")
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-2.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-8-2.png" width="576" />
 
 ```
 ## integer(0)
@@ -267,7 +267,7 @@ abline(v = 3, col = "red") +
 abline(v = 6, col = "red")
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-8-3.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-8-3.png" width="576" />
 
 ```
 ## integer(0)
@@ -305,7 +305,7 @@ leicester_dwellings %>%
   )
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-10-1.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-10-1.png" width="576" />
 
 Another common approach in interpreting the results is to create *heatmaps* for the average values of the variables used in the clustering process for each cluster.
 
@@ -336,7 +336,7 @@ leicester_dwellings %>%
   ggplot2::theme_bw()
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-11-1.png" width="480" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-11-1.png" width="480" />
 
 The plot above, clearly illustrates how cluster 6 has a high percentage of semi-detached houses and a low percentages of terraced houses. Cluster 2 has a high percentage of terraced houses and a low percentages of semi-detached houses. Cluster 4 has a low percentage of both semi-detached and terraced houses. Those are the three clusters that we first identified from the first scatterplot above.
 
@@ -358,7 +358,7 @@ leicester_dwellings %>%
   )
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-12-1.png" width="432" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-12-1.png" width="432" />
 
 In order to identify the number of clusters `k` which best fits the data, we can use the elbow method, along with the silhouette and gap statistic measures, as seen in the previous example. The only difference is that in this case `data_for_testing` will include all five variables.
 
@@ -412,7 +412,7 @@ abline(v = 3, col = "red") +
 abline(v = 6, col = "red")
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-1.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-14-1.png" width="576" />
 
 ```
 ## integer(0)
@@ -425,7 +425,7 @@ abline(v = 3, col = "red") +
 abline(v = 6, col = "red")
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-2.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-14-2.png" width="576" />
 
 ```
 ## integer(0)
@@ -438,7 +438,7 @@ abline(v = 3, col = "red") +
 abline(v = 6, col = "red")
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-14-3.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-14-3.png" width="576" />
 
 ```
 ## integer(0)
@@ -481,7 +481,7 @@ leicester_dwellings %>%
   )
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-16-1.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-16-1.png" width="576" />
 
 \newpage
 
@@ -535,7 +535,7 @@ dwellings_cluster_avgs %>%
     )
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-17-1.png" width="384" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-17-1.png" width="384" />
 
 Another very common approach to explore the characteristics of the clusters created through k-means for the geodemongraphic classification is to use radar charts (also known as spider charts, web charts or polar charts), which can be created in R using a number of libraries, including the `radarchart` of the `fmsb` library.
 
@@ -562,7 +562,7 @@ for(cluster_number in 1:6){
 }
 ```
 
-<img src="410_UnsupervisedLearning_files/figure-html/figures-side-1.png" width="576" />
+<img src="410-unsupervised-learning_files/figure-html/figures-side-1.png" width="576" />
 
 The radar charts are very effective in visualising the values for multiple varaibles, as long as the variables are all of similar type, value and range. In this case, as all values are percentages, radar chart are very effective in illustrating which variables have particularly high averages in each cluster.
 
@@ -570,7 +570,7 @@ Finally, we can map the cluster cartographically to analyse their spatial distri
 
 
 
-<img src="410_UnsupervisedLearning_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="410-unsupervised-learning_files/figure-html/unnamed-chunk-19-1.png" width="672" />
 
 
 

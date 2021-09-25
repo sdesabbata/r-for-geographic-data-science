@@ -74,7 +74,7 @@ iris %>%
   ggplot2::geom_boxplot()
 ```
 
-<img src="310_ComparingData_files/figure-html/unnamed-chunk-3-1.png" width="384" />
+<img src="310-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384" />
 
 ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to `0.05`.
 
@@ -198,7 +198,7 @@ When studying how people live in cities, a number of questions might arise about
 
 That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?
 
-<img src="310_ComparingData_files/figure-html/unnamed-chunk-8-1.png" width="336" />
+<img src="310-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="336" />
 
 The dataset used to create the 2011 Output Area Classification (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.
 
@@ -225,7 +225,7 @@ flats_and_cars <-
 
 Plotting the two variables together in a scatterplot reveals a pattern. Indeed, a very low percentage of households living in flats own two or more cars. However, the proportion of households owning two or more cars who live in the suburbs seem to span almost throughout the whole range, from zero to 80%. That seems to indicate some level of negative relationship, but the picture is clearly far less clear-cut as we might have initially assumed. The initial assumption about car ownership for households living in flats seems to hold, but we probably didn't consider the situation in the suburbs with sufficient care.
 
-<img src="310_ComparingData_files/figure-html/unnamed-chunk-10-1.png" width="576" />
+<img src="310-comparing-data_files/figure-html/unnamed-chunk-10-1.png" width="576" />
 
 The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed. 
 

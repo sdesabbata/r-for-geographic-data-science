@@ -43,7 +43,6 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
 <li><a class="active" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
@@ -58,6 +57,10 @@
 <li class="book-part">Machine learning</li>
 <li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
 <li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li class="book-part">Postface</li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -353,7 +356,7 @@
 <p>That probably wasn’t the answer you wanted. As you might remember <code>NaN</code> (<em>Not a Number</em>) is the value return when a mathematical expression is numerically indeterminate. In this case, this is actually due to a shortcoming with the <code><a href="https://rdrr.io/r/base/Arithmetic.html">^</a></code> operator in R, which only works for positive base values. In fact -7 is a perfectly valid cube root of -343, since (-7)x(-7)x(-7) = -343.</p>
 <p>To work around this limitation, we can state a conditional rule:</p>
 <ul>
-<li>If <code>x &lt; 0</code>: calculate the cube root of x ‘normally’.</li>
+<li>If <code>x &lt; 0</code>: calculate the cube root of x ‘normally.’</li>
 <li>Otherwise: work out the cube root of the positive number, then change it to negative.</li>
 </ul>
 <p>Those kinds of situations can be dealt with in an R function by using an <code>if</code> statement, as shown below. Note how the operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> (i.e., the symbol minus) is here used to obtain the inverse of a number, in the same way as <code>-1</code> is the inverse of the number <code>1</code>.</p>
@@ -501,8 +504,8 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/110_RProgramming.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/110_RProgramming.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/master/110-R-programming.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/master/110-R-programming.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -514,7 +517,7 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-24.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
