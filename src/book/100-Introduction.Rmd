@@ -86,7 +86,7 @@ As mentioned above, the interpreter understands [simple operations on numeric va
 
 ### Variables
 
-In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier), and a value that can vary -- hence the name variable. When programming you can define a variable by naming it with an **identifier**, and providing a **value** that can be stored in the variable. At any point after that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allows to save the result of a piece of computation and to retrieve it later on for further analysis. 
+In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier), and a value that can vary -- hence the name variable. When programming you can define a variable by naming it with an **identifier**, and providing a **value** that can be stored in the variable. At any point after that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow to save the result of a piece of computation and to retrieve it later on for further analysis. 
 
 A variable can be defined in `R` using an identifier (e.g., `a_variable`) on the left of an **assignment operator** `<-`, followed by the object to be linked to the identifier, such as a value (e.g., `1`) to be assigned on the right. The value of the variable can be invoked by simply specifying the identifier.
 
@@ -110,7 +110,7 @@ Any operation that can be executed using a computer is called an **algorithm**. 
 
 The instructions you get to mount your Ikea furniture can be thought as an algorithm, an effective procedure to perform the operation of mounting your furniture, and you are playing the part of the computer executing the algorithm.
 
-A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and functions. 
+A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and functions. Programs that are interpreted rather than compiles, as it is the case of `R`, are also referred to as **scripts**.
 
 ### Functions
 
