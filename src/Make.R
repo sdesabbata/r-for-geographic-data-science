@@ -47,7 +47,7 @@ if (length(args) == 0) {
 
 
 # Make clean
-source(paste0(Sys.getenv("RGDS_HOME"), "/Make_Clean.R"))
+source(paste0(Sys.getenv("RGDS_HOME"), "/src/Make_Clean.R"))
 
 # Step 1: Book
 

@@ -1,1 +1,0 @@
-docker stop r-for-geographic-data-science:0.1
