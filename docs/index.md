@@ -56,9 +56,9 @@ You can find me on Twitter at [\@maps4thought](https://twitter.com/maps4thought)
 
 ### Instructor {-}
 
-You can now reproduce R for Geographic Data Science using [Docker](https://www.docker.com/). First [install Docker](https://docs.docker.com/get-docker/) on your system, [install Git](https://git-scm.com/downloads) if not already installed, and [clone this repository from GitHub](https://github.com/sdesabbata/r-for-geographic-data-science). You can then either build the sdesabbata/r-for-geographic-data-science image running the `src/Docker_Build.sh` script in the root directory of the repository or simply [pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub](https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science).
+You can now reproduce R for Geographic Data Science using [Docker](https://www.docker.com/). First [install Docker](https://docs.docker.com/get-docker/) on your system, [install Git](https://git-scm.com/downloads) if not already installed, and [clone this repository from GitHub](https://github.com/sdesabbata/r-for-geographic-data-science). You can then either build the sdesabbata/r-for-geographic-data-science image running the `src/Docker_Build.sh` script you can find in the [repository](https://github.com/sdesabbata/r-for-geographic-data-science) or simply [pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub](https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science).
 
-You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script `src/Docker_Make.sh` (`src/Docker_Make_WinPowerShell.sh` on Windows using PowerShell) from the repository folder. The script will instantiate a Docker container for the sdesabbata/r-for-geographic-data-science image, bind mount the repository folder to the container and execute `src/Make.R` on the container, clearing and re-making all the materials. The data used in the materials can be re-created from the original open data using the scripts in `src/utils`, as described in `data/README.md`.
+You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script `src/Docker_Make.sh` (`src/Docker_Make_WinPowerShell.sh` on Windows using PowerShell). The script will instantiate a Docker container for the `sdesabbata/r-for-geographic-data-science` image, bind mount the repository folder to the container and execute `src/Make.R` on the container, clearing and re-making all the materials. The data used in the materials can be re-created from the original open data using the scripts in `src/utils`, as described in `data/README.md`.
 
 For instance, in a unix-based system like Linux or Mac OS, you can reproduce R for Geographic Data Science using the following four commands:
 
@@ -67,6 +67,9 @@ For instance, in a unix-based system like Linux or Mac OS, you can reproduce R f
 docker pull sdesabbata/r-for-geographic-data-science:latest
 git clone https://github.com/sdesabbata/r-for-geographic-data-science.git
 cd r-for-geographic-data-science
+
+# follow the instructions in data/README.md before continuing
+
 ./src/Docker_Make.sh
 ```
 
@@ -97,7 +100,7 @@ You can edit the materials in the `r-for-geographic-data-science` repository fol
 
 As a learner, you can use [Docker](https://www.docker.com/) to follow the practical sessions instructions and complete the exercises. First [install Docker](https://docs.docker.com/get-docker/) on your system, [install Git](https://git-scm.com/downloads) if not already installed, and [clone this repository from GitHub](https://github.com/sdesabbata/r-for-geographic-data-science). 
 
-You can then either build the sdesabbata/r-for-geographic-data-science image running the `src/Docker_Build.sh` script in the root directory of the repository or simply [pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub](https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science).You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script `src/Docker_RStudio_Start.sh` (`src/Docker_RStudio_Start_WinPowerShell.sh` on Windows using PowerShell) from the repository folder. 
+You can then either build the `sdesabbata/r-for-geographic-data-science` image running the `src/Docker_Build.sh` script you can find in the [repository](https://github.com/sdesabbata/r-for-geographic-data-science) or simply [pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub](https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science).You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script `src/Docker_RStudio_Start.sh` (`src/Docker_RStudio_Start_WinPowerShell.sh` on Windows using PowerShell) from the repository folder. 
 
 
 For instance, in a unix-based system like Linux or Mac OS, you can set up and start the r-for-geographic-data-science container using the following four commands:
@@ -107,10 +110,13 @@ For instance, in a unix-based system like Linux or Mac OS, you can set up and st
 docker pull sdesabbata/r-for-geographic-data-science:latest
 git clone https://github.com/sdesabbata/r-for-geographic-data-science.git
 cd r-for-geographic-data-science
+
+# follow the instructions in data/README.md before continuing
+
 ./src/Docker_RStudio_Start.sh
 ```
 
-The `src/Docker_RStudio_Start.sh` script will first create a `my_r-for-geographic-data-science` folder in the parent directory of the root directory of the repository (if it doesn't exitst). The script will then instantiate a Docker container for the sdesabbata/r-for-geographic-data-science image, bind mount the `my_r-for-geographic-data-science` folder and the `r-for-geographic-data-science` repository folder to the container and start an RStudio Server.
+The `src/Docker_RStudio_Start.sh` script will first create a `my_r-for-geographic-data-science` folder in the parent directory of the root directory of the repository (if it doesn't exitst). The script will then instantiate a Docker container for the `sdesabbata/r-for-geographic-data-science` image, bind mount the `my_r-for-geographic-data-science` folder and the `r-for-geographic-data-science` repository folder to the container and start an RStudio Server.
 
 Using your browser, you can access the RStudio Server running from the Docker container by typing `127.0.0.1:28787` in your address bar, and using `rstudio` as username and `rstudio` as password. As the `my_r-for-geographic-data-science` folder is binded, everything that you will save in the the `my_r-for-geographic-data-science` folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.
 
