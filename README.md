@@ -23,3 +23,67 @@ The book and lecture slides use `#FFF0E2` as background colour to avoid the use 
 This repository includes teaching materials that were created by me ([Dr Stefano De Sabbata](https://stefanodesabbata.com)) for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2021/gy7702), while working at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). I would also like to acknowledge the contributions made to parts of these materials by [Prof Chris Brunsdon](https://www.maynoothuniversity.ie/people/chris-brunsdon) and [Prof Lex Comber](https://environment.leeds.ac.uk/geography/staff/1020/professor-lex-comber) (see also [An Introduction to R for Spatial Analysis and Mapping](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031), Sage, 2015), [Dr Marc Padilla](https://scholar.google.com/citations?hl=en&user=NSxM1aEAAAAJ), and [Dr Nick Tate](https://www2.le.ac.uk/departments/geography/people/njt9), who convened previous versions of the module at the University of Leicester.
 
 Last but not least, I would like to acknowledge the miriad of small contributions by users of many plaftforms, including the [Stack Exchange Network](https://stackexchange.com/) (e.g., [Stack Overflow](https://stackoverflow.com/), provided under [Creative Commons Attribution-Share Alike 2.5 Generic License](https://creativecommons.org/licenses/by-sa/2.5/)), who have both asked and answered many of the questions I had while coding this book. It would be impossible to trace back all their contributors through the pages, scripts and years, but they are there. The learning materials were created using [R](https://www.r-project.org/), [RStudio](https://www.rstudio.com/), [RMarkdown](https://rmarkdown.rstudio.com/) and [Bookdown](https://bookdown.org/) (with many thanks to [Yihui Xie](https://yihui.org/) for those fantastic tools and related documentation), and [GitHub](https://github.com/sdesabbata).
+
+
+
+## Reproducibility
+
+### Instructor
+
+You can now reproduce R for Geographic Data Science using [Docker](https://www.docker.com/). First [install Docker](https://docs.docker.com/get-docker/) on your system, [install Git](https://git-scm.com/downloads) if not already installed, and [clone this repository from GitHub](https://github.com/sdesabbata/r-for-geographic-data-science). You can then either build the sdesabbata/r-for-geographic-data-science image running the `Docker_Build.sh` script in the root directory of the repository or simply [pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub](https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science).
+
+You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script `Docker_Make.sh` (`Docker_Make_WinPowerShell.sh` on Windows using PowerShell) from the repository folder. The script will instantiate a Docker container for the sdesabbata/r-for-geographic-data-science image, bind mount the repository folder to the container and execute `Make.R` on the container, clearing and re-making all the materials. The data used in the materials can be re-created from the original open data using the scripts in `src/utils`, as described in `data/README.md`.
+
+For instance, in a unix-based system like Linux or Mac OS, you can reproduce R for Geographic Data Science using the following four commands:
+
+```{bash, echo=TRUE, eval=FALSE}
+docker pull sdesabbata/r-for-geographic-data-science:latest
+git clone https://github.com/sdesabbata/r-for-geographic-data-science.git
+cd r-for-geographic-data-science
+./src/Docker_Make.sh
+```
+
+This approach should allow not simply to use the materials as they are, but to easily edit and create your own version in the same computational environment. To develop your own materials, simply modify the code in the repository and run the `Docker_Make.sh` from the repository folder again to obtain the updated materials. 
+
+The [RMarkdown](https://rmarkdown.rstudio.com/) code used to create the materials for the lectures and practical sessions can be found in the `src/lectures` and `src/practicals` folders, respectively. Both folders contain one RMarkdown file per session which contains the headings necessary to create the respective html slides  (compiled to `docs/lectures/html`) and pdf documents (compiled to `docs/practicals/pdf`), whereas the main corpus of the materials can be found in the files included in the respective `contents` folders. The latter files are also used directly to generate the [Bookdown](https://bookdown.org/) version of the materials (which are compiled to `docs/lectures/bookdown` and `docs/practicals/bookdown`). The `docs` folder also contains the files used to generate the [GitHub Pages](https://pages.github.com/) website using the [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) Jekyll theme. The `utils` folder also contains the IOSlides templates and some style classes used in the RMarkdown code.
+
+```{bash, echo=TRUE, eval=FALSE}
+.
+├── data
+├── docs
+    └── slides
+└── src
+    ├── book
+    ├── images
+    ├── practicals
+    ├── slides
+    └── utils
+        ├── IOSlides
+        └── RMarkdown
+```
+
+You can edit the materials in the `r-for-geographic-data-science` repository folder using RStudio or another editor on your computer and then compile the new materials using Docker. Alternatively, you can follow the *learner* instructions below to start RStudio Server using Docker, and develop your materials in the same environment in which they will be compiled. The first option might be quicker for minor edits, whereas the latter option might be preferable for substantial modifications, and especially when you might need to test your code.
+
+
+### Learner
+
+As a learner, you can use [Docker](https://www.docker.com/) to follow the practical sessions instructions and complete the exercises. First [install Docker](https://docs.docker.com/get-docker/) on your system, [install Git](https://git-scm.com/downloads) if not already installed, and [clone this repository from GitHub](https://github.com/sdesabbata/r-for-geographic-data-science). 
+
+You can then either build the sdesabbata/r-for-geographic-data-science image running the `Docker_Build.sh` script in the root directory of the repository or simply [pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub](https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science).You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script `Docker_RStudio_Start.sh` (`Docker_RStudio_Start_WinPowerShell.sh` on Windows using PowerShell) from the repository folder. 
+
+
+For instance, in a unix-based system like Linux or Mac OS, you can set up and start the r-for-geographic-data-science container using the following four commands:
+
+```{bash, echo=TRUE, eval=FALSE}
+docker pull sdesabbata/r-for-geographic-data-science:latest
+git clone https://github.com/sdesabbata/r-for-geographic-data-science.git
+cd r-for-geographic-data-science
+./src/Docker_RStudio_Start.sh
+```
+
+The `Docker_RStudio_Start.sh` script will first create a `my_r-for-geographic-data-science` folder in the parent directory of the root directory of the repository (if it doesn't exitst). The script will then instantiate a Docker container for the sdesabbata/r-for-geographic-data-science image, bind mount the `my_r-for-geographic-data-science` folder and the `r-for-geographic-data-science` repository folder to the container and start an RStudio Server.
+
+Using your browser, you can access the RStudio Server running from the Docker container by typing `127.0.0.1:28787` in your address bar, and using `rstudio` as username and `rstudio` as password. As the `my_r-for-geographic-data-science` folder is binded, everything that you will save in the the `my_r-for-geographic-data-science` folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.
+
+To stop the Docker container, running the script `Docker_RStudio_Stop.sh` (same on Windows using PowerShell) from the repository folder.
+
