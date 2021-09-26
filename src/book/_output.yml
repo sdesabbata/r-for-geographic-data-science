@@ -4,7 +4,10 @@ bookdown::bs4_book:
     primary: "#66023C"
     fg: "#000000"
     bg: "#FFF0E2"
-  repo: https://github.com/sdesabbata/r-for-geographic-data-science
+  repo:
+    base: https://github.com/sdesabbata/r-for-geographic-data-science
+    branch: main
+    subdir: src/book
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
