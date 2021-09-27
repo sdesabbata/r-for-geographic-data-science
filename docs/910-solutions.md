@@ -2,7 +2,7 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-## Solutions 104
+## Solutions 104 {-}
 
 Note that you can add sections to your code, such as the "Intro" section below by selecting Code > Insert Section... from the top menu in RStudio. Those will then be visible on a right panel in  the RStudio integrated editor if you select Code > Show Document Outline from the top menu. Code sections can help to visually organise your code and the Document Outline allows you to select a section and jump to it in the code.
 
@@ -28,7 +28,7 @@ library(magrittr)
 
 
 
-### Solutions 104.1
+### Solutions 104.1 {-}
 
 **Question 104.1.1:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.
 
@@ -119,7 +119,7 @@ library(magrittr)
 
 
 
-### Solutions 104.2
+### Solutions 104.2 {-}
 
 Answer the question below, consulting the [`stringr` library reference (stringr.tidyverse.org/reference)](https://stringr.tidyverse.org/reference/index.html) as necessary
 
@@ -212,7 +212,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 
 
 
-## Solutions 114
+## Solutions 114 {-}
 
 
 ```r
@@ -222,7 +222,7 @@ library(tidyverse)
 
 
 
-### Solutions 114.1
+### Solutions 114.1 {-}
 
 **Question 114.1.1:** Use the modulo operator `%%` to create a conditional statement that prints `"Even"` if a number is even and `"Odd"` if a number is odd.
 
@@ -306,7 +306,7 @@ rm(second_iterator)
 
 
 
-### Solutions 114.2
+### Solutions 114.2 {-}
 
 **Question 114.2.1:** Write a function that calculates the areas of a circle, taking the radius as the first parameter.
 
@@ -377,9 +377,9 @@ silly_function(cities, 1:3)
 ```
 
 
-## Solutions 204
+## Solutions 204 {-}
 
-### Solutions 204.1
+### Solutions 204.1 {-}
 
 Extend the code in the script `My_script_Practical_204.R` to include the code necessary to solve the questions below.
 
@@ -459,9 +459,9 @@ nycflights13::flights %>%
 ```
 
 
-## Solutions 214
+## Solutions 214 {-}
 
-### Solutions 214.1
+### Solutions 214.1 {-}
 
 Extend the code in the script `Data_Wrangling_Example.R` (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
 
@@ -555,7 +555,7 @@ leicester_2011OAC_IMD2015 %>%
 ```
 
 
-### Solutions 214.2
+### Solutions 214.2 {-}
 
 Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below.
 
