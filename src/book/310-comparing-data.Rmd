@@ -38,7 +38,7 @@ The ANOVA test has the following assumptions:
     - if groups have different sizes
 - independence of groups
 
-### Example
+### ANOVA example
 
 The example seen in the lecture illustrates how ANOVA can be used to verify that the three different species of iris in the [`iris` dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html) have different petal length.
 
@@ -137,7 +137,7 @@ However, each one has different assumptions about the variables' distribution an
   - if there are **ties among values**:
     - *Kendall’s tau*.
 
-### Example
+### Correlation analysis example
 
 When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: *"do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?"*
 

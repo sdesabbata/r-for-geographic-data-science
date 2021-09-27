@@ -52,7 +52,7 @@ The [paper](http://josis.net/index.php/josis/article/view/232/150) provides a de
 
 Once the clustering is completed, the final step in geodemographic classification is the interpretation of the resulting cluster, which is commonly done by observing the average values of the variables for each cluster.
 
-## Examples
+## Unsupervised learning examples
 
 The two examples below explore the creation of simple geodemographic classifications for the city of Leicester, using a few variables from the United Kingdom 2011 Census and included among the 167 initial variables that [Gale *et al.*, 2016](http://josis.net/index.php/josis/article/view/232/150) have taken into account in creating the [2011 Output Area Classification](https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/). 
 

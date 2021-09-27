@@ -2,6 +2,7 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
+This chapter discusses some of the fundamental building blocks of programming and how they are implemented in `R`. The sections below introduce **vectors**, which are complex `R` objects which can hold more than one value, and how to handle them before moving on to illustrate the use of **conditional statements** and code **loops**. However, those constructs require a bit more than the single lines of code we have seen so far. As such, we start the chapter by introducing **scripts**.
 
 ## R Scripts
 
@@ -33,6 +34,8 @@ Delete the two lines calculating the square root of two and defining the variabl
 
 
 ## Vectors
+
+Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**.
 
 Vectors can be defined in R by using the function `c`, which takes as parameters the items to be stored in the vector -- stored in the order in which they are provided. 
 
