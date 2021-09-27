@@ -99,9 +99,9 @@
 <li>
 <strong>independence</strong> of residuals: adjacent standard residuals are not correlated.</li>
 </ul>
-<div id="example-2" class="section level3" number="8.1.1">
+<div id="simple-regression-example" class="section level3" number="8.1.1">
 <h3>
-<span class="header-section-number">8.1.1</span> Example<a class="anchor" aria-label="anchor" href="#example-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.1</span> Simple regression example<a class="anchor" aria-label="anchor" href="#simple-regression-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the <code>nycflights13</code> dataset for the flight on November 20th, 2013. The scatterplot below seems to indicate that the relationship is indeed linear.</p>
 <p><span class="math display">\[arr\_delay_i = (Intercept + Coefficient_{dep\_delay} * dep\_delay_{i1}) + \epsilon_i \]</span></p>
@@ -191,9 +191,9 @@
 <img src="320-regression_files/figure-html/unnamed-chunk-5-1.png" width="384">
 </center>
 </div>
-<div id="checking-assumptions" class="section level3" number="8.1.2">
+<div id="checking-regression-assumptions" class="section level3" number="8.1.2">
 <h3>
-<span class="header-section-number">8.1.2</span> Checking assumptions<a class="anchor" aria-label="anchor" href="#checking-assumptions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.2</span> Checking regression assumptions<a class="anchor" aria-label="anchor" href="#checking-regression-assumptions"><i class="fas fa-link"></i></a>
 </h3>
 <div id="normality" class="section level4" number="8.1.2.1">
 <h4>
@@ -268,9 +268,9 @@
 <img src="320-regression_files/figure-html/unnamed-chunk-10-4.png" width="576">
 </div>
 </div>
-<div id="how-to-report" class="section level3" number="8.1.3">
+<div id="how-to-report-a-simple-regression" class="section level3" number="8.1.3">
 <h3>
-<span class="header-section-number">8.1.3</span> How to report<a class="anchor" aria-label="anchor" href="#how-to-report"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.1.3</span> How to report a simple regression<a class="anchor" aria-label="anchor" href="#how-to-report-a-simple-regression"><i class="fas fa-link"></i></a>
 </h3>
 <p>Overall, we can say that the delay model computed above is fit (<span class="math inline">\(F(1, 972) = 3396.74\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 0.02\)</span>, <span class="math inline">\(p =0.9\)</span>), and the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.87\)</span>, <span class="math inline">\(p =0.02\)</span>), but they are not normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 0.98\)</span>, <span class="math inline">\(p &lt; .001\)</span>).</p>
 <p>The <a href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer"><code>stargazer</code> function of the <code>stargazer</code> library</a> can be applied to the model <code>delay_model</code> to generate a nicer output in RMarkdown PDF documents by including <code>results = "asis"</code> in the R snippet option.</p>
@@ -291,9 +291,9 @@
 <p>The multiple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable <span class="math inline">\(Y\)</span> based on two or more predictor variables <span class="math inline">\(X_1 \dots X_M\)</span>, by estimating the intercept <span class="math inline">\(b_0\)</span> and the coefficients (slopes) <span class="math inline">\(b_1 \dots b_M\)</span>, and accounting for a reasonable amount of error <span class="math inline">\(\epsilon\)</span>.</p>
 <p><span class="math display">\[Y_i = (b_0 + b_1 * X_{i1} + b_2 * X_{i2} + \dots + b_M * X_{iM}) + \epsilon_i \]</span></p>
 <p>The assumptions are the same as the simple regression, plus the assumption of <strong>no multicollinearity</strong>: if two or more predictor variables are used in the model, each pair of variables not correlated. This assumption can be tested by checking the variance inflation factor (VIF). If the largest VIF value is greater than 10 or the average VIF is substantially greater than 1, there might be an issue of multicollinearity.</p>
-<div id="example-3" class="section level3" number="8.2.1">
+<div id="multiple-regression-example" class="section level3" number="8.2.1">
 <h3>
-<span class="header-section-number">8.2.1</span> Example<a class="anchor" aria-label="anchor" href="#example-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">8.2.1</span> Multiple regression example<a class="anchor" aria-label="anchor" href="#multiple-regression-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (<code>u121</code>) in Leicester, using the number of people in different industry sectors as predictors.</p>
 <p>For instance, occupations such as electricity, gas, steam and air conditioning supply (<code>u144</code>) require to travel some distances with equipment, thus the related variable <code>u144</code> is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport.</p>
@@ -447,13 +447,13 @@
 <li><a class="nav-link" href="#regression-analysis"><span class="header-section-number">8</span> Regression analysis</a></li>
 <li>
 <a class="nav-link" href="#simple-regression"><span class="header-section-number">8.1</span> Simple regression</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#example-2"><span class="header-section-number">8.1.1</span> Example</a></li>
-<li><a class="nav-link" href="#checking-assumptions"><span class="header-section-number">8.1.2</span> Checking assumptions</a></li>
-<li><a class="nav-link" href="#how-to-report"><span class="header-section-number">8.1.3</span> How to report</a></li>
+<li><a class="nav-link" href="#simple-regression-example"><span class="header-section-number">8.1.1</span> Simple regression example</a></li>
+<li><a class="nav-link" href="#checking-regression-assumptions"><span class="header-section-number">8.1.2</span> Checking regression assumptions</a></li>
+<li><a class="nav-link" href="#how-to-report-a-simple-regression"><span class="header-section-number">8.1.3</span> How to report a simple regression</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#multiple-regression"><span class="header-section-number">8.2</span> Multiple regression</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#example-3"><span class="header-section-number">8.2.1</span> Example</a></li></ul>
+<a class="nav-link" href="#multiple-regression"><span class="header-section-number">8.2</span> Multiple regression</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#multiple-regression-example"><span class="header-section-number">8.2.1</span> Multiple regression example</a></li></ul>
 </li>
 <li><a class="nav-link" href="#exercise-324.1"><span class="header-section-number">8.3</span> Exercise 324.1</a></li>
 </ul>

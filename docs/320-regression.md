@@ -22,7 +22,7 @@ A model is considered **robust** if the residuals do not show particular trends,
 - **homoscedasticity** of residuals: at each level of the predictor variable(s) the variance of the standard residuals should be the same (*homo-scedasticity*) rather than different (*hetero-scedasticity*);
 - **independence** of residuals: adjacent standard residuals are not correlated.
 
-### Example
+### Simple regression example
 
 The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the `nycflights13` dataset for the flight on November 20th, 2013. The scatterplot below seems to indicate that the relationship is indeed linear.
 
@@ -131,7 +131,7 @@ flights_nov_20 %>%
 <img src="320-regression_files/figure-html/unnamed-chunk-5-1.png" width="384" />
 </center>
 
-### Checking assumptions
+### Checking regression assumptions
 
 #### Normality
 
@@ -230,7 +230,7 @@ delay_model %>%
 <img src="320-regression_files/figure-html/unnamed-chunk-10-4.png" width="576" />
 </center>
 
-### How to report
+### How to report a simple regression
 
 Overall, we can say that the delay model computed above is fit ($F(1, 972) = 3396.74$, $p < .001$), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 0.02$, $p =0.9$), and the independence assumption (Durbin-Watson test, $DW = 1.87$, $p =0.02$), but they are not normally distributed (Shapiro-Wilk test, $W =  0.98$, $p < .001$).
 
@@ -284,7 +284,7 @@ $$Y_i = (b_0 + b_1 * X_{i1} + b_2 * X_{i2} + \dots + b_M * X_{iM}) + \epsilon_i 
 
 The assumptions are the same as the simple regression, plus the assumption of **no multicollinearity**: if two or more predictor variables are used in the model, each pair of variables not correlated. This assumption can be tested by checking the variance inflation factor (VIF). If the largest VIF value is greater than 10 or the average VIF is substantially greater than 1, there might be an issue of multicollinearity.
 
-### Example
+### Multiple regression example
 
 The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (`u121`) in Leicester, using the number of people in different industry sectors as predictors. 
 

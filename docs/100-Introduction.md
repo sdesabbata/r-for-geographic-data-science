@@ -6,7 +6,7 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-In this first chapter, I will provide you with a brief introduction to `R`, the programming language that will be the focus of the module, and the tool that we are going to use to do data science.
+We start this chapter with a brief introduction to `R`, the programming language that will be the focus of the module, and the tool that we are going to use to do data science.
 
 `R` is one of the [most widely used programming languages nowadays](https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr), along with Python, especially in geographic and satellite data science. I don't personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find `R` more effective and powerful in data manipulation, statistical analysis, visualisation and mapping -- which is the key reason why this book focuses on `R`. At the same time, beyond the mere details of syntax, the languages are not too different, and they are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.
 
@@ -587,8 +587,6 @@ sqrt_of_two <- 2 %>%
   sqrt() %>%
   round(digits = 2)
 ```
-
-
 
 
 

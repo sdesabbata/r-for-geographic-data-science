@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 Selection and manipulation | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Print this chapter  3.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects. Those are specialised files that RStudio can use to...">
+<meta name="description" content="Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects. Those are specialised files that...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Selection and manipulation | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/selection-and-manipulation.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Print this chapter  3.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects. Those are specialised files that RStudio can use to...">
+<meta property="og:description" content="Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects. Those are specialised files that...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 Selection and manipulation | R for Geographic Data Science">
-<meta name="twitter:description" content="Print this chapter  3.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects. Those are specialised files that RStudio can use to...">
+<meta name="twitter:description" content="Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects. Those are specialised files that...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -80,10 +80,14 @@
 <span class="header-section-number">3</span> Selection and manipulation<a class="anchor" aria-label="anchor" href="#selection-and-manipulation"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<div id="r-projects" class="section level2" number="3.1">
+<div id="r-workflow" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">3.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> R workflow<a class="anchor" aria-label="anchor" href="#r-workflow"><i class="fas fa-link"></i></a>
 </h2>
+<div id="r-projects" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
+</h3>
 <p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
 <p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
 <p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_204</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
@@ -95,10 +99,10 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></code></pre></div>
 <p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_script_Practical_204.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>.</p>
 </div>
-<div id="install-libraries" class="section level2" number="3.2">
-<h2>
-<span class="header-section-number">3.2</span> Install libraries<a class="anchor" aria-label="anchor" href="#install-libraries"><i class="fas fa-link"></i></a>
-</h2>
+<div id="install-libraries" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Install libraries<a class="anchor" aria-label="anchor" href="#install-libraries"><i class="fas fa-link"></i></a>
+</h3>
 <p>RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with.</p>
 <p>The remainder of this practical requires the library <code>nycflights13</code>. To install it, select <em>Tools &gt; Install Packages…</em> from the top menu. Insert <code>nycflights13</code> in the <em>Packages (separate multiple with space or comma)</em> field and click install. RStudio will automatically execute the command <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("nycflights13")</a></code> (so, no need to execute that yourself) and install the required library.</p>
 <p>As usual, use the function <code>library</code> to load the newly installed library.</p>
@@ -108,9 +112,10 @@
 <div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span></code></pre></div>
 <p>Add both lines above to your R script, as well as the code snippets provided as an example below.</p>
-<div id="loading-r-scripts" class="section level3" number="3.2.1">
+</div>
+<div id="loading-r-scripts" class="section level3" number="3.1.3">
 <h3>
-<span class="header-section-number">3.2.1</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.3</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
 </h3>
 <p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
 <div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
@@ -126,9 +131,9 @@
 <p>Executing the <code>Practical_204_RS_main.R</code> instructs the interpreter first to run the <code>Practical_204_RS_functions.R</code> script, thus creating the <code>cube_root</code> function, and then invoke the function using <code>27</code> as an argument, thus returning again <code>3</code>. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.</p>
 </div>
 </div>
-<div id="data-manipulation" class="section level2" number="3.3">
+<div id="data-manipulation" class="section level2" number="3.2">
 <h2>
-<span class="header-section-number">3.3</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation"><i class="fas fa-link"></i></a>
 </h2>
 <p>The analysis below uses the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> library (also part of the Tidyverse), which it offers a grammar for data manipulation.</p>
 <p>For instance, the function <code>count</code> can be used to count the number rows of a data frame. The code below provides <code>flights_from_nyc</code> as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column.</p>
@@ -175,9 +180,9 @@
 </tbody>
 </table></div>
 <p>As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
-<div id="summarise" class="section level3" number="3.3.1">
+<div id="summarise" class="section level3" number="3.2.1">
 <h3>
-<span class="header-section-number">3.3.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
 <p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation).</p>
 <p>In the example below, the function <code>sum</code> is applied to the column <code>distance</code> to calculate <code>distance_traveled_from</code> (the total distance travelled by flights starting from each airport).</p>
@@ -209,9 +214,9 @@
 </tbody>
 </table></div>
 </div>
-<div id="select-and-filter" class="section level3" number="3.3.2">
+<div id="select-and-filter" class="section level3" number="3.2.2">
 <h3>
-<span class="header-section-number">3.3.2</span> Select and filter<a class="anchor" aria-label="anchor" href="#select-and-filter"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.2</span> Select and filter<a class="anchor" aria-label="anchor" href="#select-and-filter"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>select</code> can be used to select some <strong>columns</strong> to output. For instance in the code below, the function <code>select</code> is used to select the columns <code>origin</code>, <code>dest</code>, and <code>dep_delay</code>, in combination with the function <code>slice_head</code>, which can be used to include only the first <code>n</code> rows (<code>5</code> in the example below) to output.</p>
 <div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
@@ -314,9 +319,9 @@
 </table></div>
 <p>Notice how <code>filter</code> is used in combination with <code>select</code>. All functions in the <code>dplyr</code> library can be combined, in any other order that makes logical sense. However, if the <code>select</code> step didn’t include <code>month</code>, that same column couldn’t have been used in the <code>filter</code> step.</p>
 </div>
-<div id="mutate" class="section level3" number="3.3.3">
+<div id="mutate" class="section level3" number="3.2.3">
 <h3>
-<span class="header-section-number">3.3.3</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.3</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>mutate</code> can be used to add a new column to an output table. The <code>mutate</code> step in the code below adds a new column <code>air_time_hours</code> to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by <code>60</code>.</p>
 <div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
@@ -374,9 +379,9 @@
 </tbody>
 </table></div>
 </div>
-<div id="arrange" class="section level3" number="3.3.4">
+<div id="arrange" class="section level3" number="3.2.4">
 <h3>
-<span class="header-section-number">3.3.4</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.4</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.</p>
 <div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
@@ -546,9 +551,9 @@
 <p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value <code>21</code> in the example above.</p>
 </div>
 </div>
-<div id="data-manipulation-example" class="section level2" number="3.4">
+<div id="data-manipulation-example" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">3.4</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
 </h2>
 <p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.</p>
 <ol style="list-style-type: decimal">
@@ -618,9 +623,9 @@
 </tbody>
 </table></div>
 </div>
-<div id="exercise-204.1" class="section level2" number="3.5">
+<div id="exercise-204.1" class="section level2" number="3.4">
 <h2>
-<span class="header-section-number">3.5</span> Exercise 204.1<a class="anchor" aria-label="anchor" href="#exercise-204.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4</span> Exercise 204.1<a class="anchor" aria-label="anchor" href="#exercise-204.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Extend the code in the script <code>My_script_Practical_204.R</code> to include the code necessary to solve the questions below.</p>
 <p><strong>Question 204.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
@@ -638,20 +643,23 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#selection-and-manipulation"><span class="header-section-number">3</span> Selection and manipulation</a></li>
-<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.1</span> R Projects</a></li>
 <li>
-<a class="nav-link" href="#install-libraries"><span class="header-section-number">3.2</span> Install libraries</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.2.1</span> Loading R scripts</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#data-manipulation"><span class="header-section-number">3.3</span> Data manipulation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.3.1</span> Summarise</a></li>
-<li><a class="nav-link" href="#select-and-filter"><span class="header-section-number">3.3.2</span> Select and filter</a></li>
-<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.3.3</span> Mutate</a></li>
-<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.3.4</span> Arrange</a></li>
+<a class="nav-link" href="#r-workflow"><span class="header-section-number">3.1</span> R workflow</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.1.1</span> R Projects</a></li>
+<li><a class="nav-link" href="#install-libraries"><span class="header-section-number">3.1.2</span> Install libraries</a></li>
+<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.1.3</span> Loading R scripts</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.4</span> Data manipulation example</a></li>
-<li><a class="nav-link" href="#exercise-204.1"><span class="header-section-number">3.5</span> Exercise 204.1</a></li>
+<li>
+<a class="nav-link" href="#data-manipulation"><span class="header-section-number">3.2</span> Data manipulation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.2.1</span> Summarise</a></li>
+<li><a class="nav-link" href="#select-and-filter"><span class="header-section-number">3.2.2</span> Select and filter</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.2.3</span> Mutate</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.2.4</span> Arrange</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.3</span> Data manipulation example</a></li>
+<li><a class="nav-link" href="#exercise-204.1"><span class="header-section-number">3.4</span> Exercise 204.1</a></li>
 </ul>
 
       <div class="book-extra">

@@ -5,7 +5,9 @@
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
-## R Projects
+## R workflow
+
+### R Projects
 
 RStudio provides an extremely useful functionality to organise all your code and data, that is **R Projects**. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on -- *Environment*, *History*, working directory, and much more, as we will see in the coming weeks.
 
@@ -29,7 +31,7 @@ From the top menu, select *File > Save*, type in *My_script_Practical_204.R* (ma
 
 
 
-## Install libraries
+### Install libraries
 
 RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with.
 

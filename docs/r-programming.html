@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 R programming | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Print this chapter  2.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations and commands. However, moving from simple instructions to an...">
+<meta name="description" content="Print this chapter This chapter discusses some of the fundamental building blocks of programming and how they are implemented in R. The sections below introduce vectors, which are complex R...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 2 R programming | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/r-programming.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Print this chapter  2.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations and commands. However, moving from simple instructions to an...">
+<meta property="og:description" content="Print this chapter This chapter discusses some of the fundamental building blocks of programming and how they are implemented in R. The sections below introduce vectors, which are complex R...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 R programming | R for Geographic Data Science">
-<meta name="twitter:description" content="Print this chapter  2.1 R Scripts The RStudio Console is handy to interact with the R interpreter and obtain results of operations and commands. However, moving from simple instructions to an...">
+<meta name="twitter:description" content="Print this chapter This chapter discusses some of the fundamental building blocks of programming and how they are implemented in R. The sections below introduce vectors, which are complex R...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -80,6 +80,7 @@
 <span class="header-section-number">2</span> R programming<a class="anchor" aria-label="anchor" href="#r-programming"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
+<p>This chapter discusses some of the fundamental building blocks of programming and how they are implemented in <code>R</code>. The sections below introduce <strong>vectors</strong>, which are complex <code>R</code> objects which can hold more than one value, and how to handle them before moving on to illustrate the use of <strong>conditional statements</strong> and code <strong>loops</strong>. However, those constructs require a bit more than the single lines of code we have seen so far. As such, we start the chapter by introducing <strong>scripts</strong>.</p>
 <div id="r-scripts" class="section level2" number="2.1">
 <h2>
 <span class="header-section-number">2.1</span> R Scripts<a class="anchor" aria-label="anchor" href="#r-scripts"><i class="fas fa-link"></i></a>
@@ -105,6 +106,7 @@
 <h2>
 <span class="header-section-number">2.2</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
 </h2>
+<p>Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In <code>R</code>, they are referred to as <strong>vectors</strong>.</p>
 <p>Vectors can be defined in R by using the function <code>c</code>, which takes as parameters the items to be stored in the vector – stored in the order in which they are provided.</p>
 <div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span>
