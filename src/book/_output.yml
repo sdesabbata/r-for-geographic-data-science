@@ -8,6 +8,8 @@ bookdown::bs4_book:
     base: https://github.com/sdesabbata/r-for-geographic-data-science
     branch: main
     subdir: src/book
+  includes:
+    in_header: [../utils/ga.html]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

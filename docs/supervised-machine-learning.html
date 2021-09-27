@@ -20,7 +20,13 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2Y0M0936JL');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -276,20 +282,20 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.2082  -0.5742   0.5202   0.6467   2.0633  
+## -2.1569  -0.6085   0.5416   0.6683   2.0349  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)  -1.2814     0.1277  -10.03   &lt;2e-16 ***
-## density_log   1.8445     0.0990   18.63   &lt;2e-16 ***
+## (Intercept) -1.24651    0.12760  -9.769   &lt;2e-16 ***
+## density_log  1.76411    0.09742  18.109   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2070.0  on 1667  degrees of freedom
-## Residual deviance: 1578.1  on 1666  degrees of freedom
-## AIC: 1582.1
+##     Null deviance: 2080.9  on 1667  degrees of freedom
+## Residual deviance: 1625.7  on 1666  degrees of freedom
+## AIC: 1629.7
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>As per other regression models, it would be necessary to test the assumptions of the logit model and the overall distribution of the residuals. However, as this model only has one predictor, we will confine our performance analysis to simple validation.</p>
@@ -335,29 +341,29 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    56    24
-##      urban    70   267
+##      rural    65    28
+##      urban    54   270
 ##                                           
-##                Accuracy : 0.7746          
-##                  95% CI : (0.7314, 0.8138)
-##     No Information Rate : 0.6978          
-##     P-Value [Acc &gt; NIR] : 0.0002858       
+##                Accuracy : 0.8034          
+##                  95% CI : (0.7619, 0.8404)
+##     No Information Rate : 0.7146          
+##     P-Value [Acc &gt; NIR] : 2.097e-05       
 ##                                           
-##                   Kappa : 0.4038          
+##                   Kappa : 0.484           
 ##                                           
-##  Mcnemar's Test P-Value : 3.461e-06       
+##  Mcnemar's Test P-Value : 0.005766        
 ##                                           
-##             Sensitivity : 0.4444          
-##             Specificity : 0.9175          
-##          Pos Pred Value : 0.7000          
-##          Neg Pred Value : 0.7923          
-##               Precision : 0.7000          
-##                  Recall : 0.4444          
-##                      F1 : 0.5437          
-##              Prevalence : 0.3022          
-##          Detection Rate : 0.1343          
-##    Detection Prevalence : 0.1918          
-##       Balanced Accuracy : 0.6810          
+##             Sensitivity : 0.5462          
+##             Specificity : 0.9060          
+##          Pos Pred Value : 0.6989          
+##          Neg Pred Value : 0.8333          
+##               Precision : 0.6989          
+##                  Recall : 0.5462          
+##                      F1 : 0.6132          
+##              Prevalence : 0.2854          
+##          Detection Rate : 0.1559          
+##    Detection Prevalence : 0.2230          
+##       Balanced Accuracy : 0.7261          
 ##                                           
 ##        'Positive' Class : rural           
 ## </code></pre>
@@ -450,31 +456,31 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    73    17
-##      urban    72   255
-##                                           
-##                Accuracy : 0.7866          
-##                  95% CI : (0.7441, 0.8249)
-##     No Information Rate : 0.6523          
-##     P-Value [Acc &gt; NIR] : 1.504e-09       
-##                                           
-##                   Kappa : 0.4838          
-##                                           
-##  Mcnemar's Test P-Value : 1.041e-08       
-##                                           
-##             Sensitivity : 0.5034          
-##             Specificity : 0.9375          
-##          Pos Pred Value : 0.8111          
-##          Neg Pred Value : 0.7798          
-##               Precision : 0.8111          
-##                  Recall : 0.5034          
-##                      F1 : 0.6213          
-##              Prevalence : 0.3477          
-##          Detection Rate : 0.1751          
-##    Detection Prevalence : 0.2158          
-##       Balanced Accuracy : 0.7205          
-##                                           
-##        'Positive' Class : rural           
+##      rural    58    18
+##      urban    75   266
+##                                          
+##                Accuracy : 0.777          
+##                  95% CI : (0.7339, 0.816)
+##     No Information Rate : 0.6811         
+##     P-Value [Acc &gt; NIR] : 9.459e-06      
+##                                          
+##                   Kappa : 0.4206         
+##                                          
+##  Mcnemar's Test P-Value : 6.363e-09      
+##                                          
+##             Sensitivity : 0.4361         
+##             Specificity : 0.9366         
+##          Pos Pred Value : 0.7632         
+##          Neg Pred Value : 0.7801         
+##               Precision : 0.7632         
+##                  Recall : 0.4361         
+##                      F1 : 0.5550         
+##              Prevalence : 0.3189         
+##          Detection Rate : 0.1391         
+##    Detection Prevalence : 0.1823         
+##       Balanced Accuracy : 0.6864         
+##                                          
+##        'Positive' Class : rural          
 ## </code></pre>
 <p>As a third more complex example, we can explore how to build a model for rural - urban classification using the presence of the five different types of dwelling as input variables. The confusion matrix below clearly illustrates that a simple linear SVM is not adequate to construct such a model.</p>
 <div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
@@ -552,12 +558,12 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ##           Reference
 ## Prediction rural urban
 ##      rural     0     0
-##      urban   143   274
+##      urban   137   280
 ##                                           
-##                Accuracy : 0.6571          
-##                  95% CI : (0.6093, 0.7026)
-##     No Information Rate : 0.6571          
-##     P-Value [Acc &gt; NIR] : 0.5227          
+##                Accuracy : 0.6715          
+##                  95% CI : (0.6241, 0.7164)
+##     No Information Rate : 0.6715          
+##     P-Value [Acc &gt; NIR] : 0.5232          
 ##                                           
 ##                   Kappa : 0               
 ##                                           
@@ -566,11 +572,11 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ##             Sensitivity : 0.0000          
 ##             Specificity : 1.0000          
 ##          Pos Pred Value :    NaN          
-##          Neg Pred Value : 0.6571          
+##          Neg Pred Value : 0.6715          
 ##               Precision :     NA          
 ##                  Recall : 0.0000          
 ##                      F1 :     NA          
-##              Prevalence : 0.3429          
+##              Prevalence : 0.3285          
 ##          Detection Rate : 0.0000          
 ##    Detection Prevalence : 0.0000          
 ##       Balanced Accuracy : 0.5000          
@@ -624,29 +630,29 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    43    25
-##      urban   100   249
+##      rural    31    17
+##      urban   106   263
 ##                                           
-##                Accuracy : 0.7002          
-##                  95% CI : (0.6538, 0.7439)
-##     No Information Rate : 0.6571          
-##     P-Value [Acc &gt; NIR] : 0.03447         
+##                Accuracy : 0.705           
+##                  95% CI : (0.6587, 0.7484)
+##     No Information Rate : 0.6715          
+##     P-Value [Acc &gt; NIR] : 0.0787          
 ##                                           
-##                   Kappa : 0.2395          
+##                   Kappa : 0.1985          
 ##                                           
-##  Mcnemar's Test P-Value : 3.622e-11       
+##  Mcnemar's Test P-Value : 2.11e-15        
 ##                                           
-##             Sensitivity : 0.3007          
-##             Specificity : 0.9088          
-##          Pos Pred Value : 0.6324          
-##          Neg Pred Value : 0.7135          
-##               Precision : 0.6324          
-##                  Recall : 0.3007          
-##                      F1 : 0.4076          
-##              Prevalence : 0.3429          
-##          Detection Rate : 0.1031          
-##    Detection Prevalence : 0.1631          
-##       Balanced Accuracy : 0.6047          
+##             Sensitivity : 0.22628         
+##             Specificity : 0.93929         
+##          Pos Pred Value : 0.64583         
+##          Neg Pred Value : 0.71274         
+##               Precision : 0.64583         
+##                  Recall : 0.22628         
+##                      F1 : 0.33514         
+##              Prevalence : 0.32854         
+##          Detection Rate : 0.07434         
+##    Detection Prevalence : 0.11511         
+##       Balanced Accuracy : 0.58278         
 ##                                           
 ##        'Positive' Class : rural           
 ## </code></pre>
@@ -725,29 +731,29 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    62    27
-##      urban    81   247
+##      rural    54    28
+##      urban    83   252
 ##                                           
-##                Accuracy : 0.741           
-##                  95% CI : (0.6961, 0.7824)
-##     No Information Rate : 0.6571          
-##     P-Value [Acc &gt; NIR] : 0.0001389       
+##                Accuracy : 0.7338          
+##                  95% CI : (0.6886, 0.7756)
+##     No Information Rate : 0.6715          
+##     P-Value [Acc &gt; NIR] : 0.003466        
 ##                                           
-##                   Kappa : 0.3683          
+##                   Kappa : 0.3278          
 ##                                           
-##  Mcnemar's Test P-Value : 3.398e-07       
+##  Mcnemar's Test P-Value : 2.968e-07       
 ##                                           
-##             Sensitivity : 0.4336          
-##             Specificity : 0.9015          
-##          Pos Pred Value : 0.6966          
-##          Neg Pred Value : 0.7530          
-##               Precision : 0.6966          
-##                  Recall : 0.4336          
-##                      F1 : 0.5345          
-##              Prevalence : 0.3429          
-##          Detection Rate : 0.1487          
-##    Detection Prevalence : 0.2134          
-##       Balanced Accuracy : 0.6675          
+##             Sensitivity : 0.3942          
+##             Specificity : 0.9000          
+##          Pos Pred Value : 0.6585          
+##          Neg Pred Value : 0.7522          
+##               Precision : 0.6585          
+##                  Recall : 0.3942          
+##                      F1 : 0.4932          
+##              Prevalence : 0.3285          
+##          Detection Rate : 0.1295          
+##    Detection Prevalence : 0.1966          
+##       Balanced Accuracy : 0.6471          
 ##                                           
 ##        'Positive' Class : rural           
 ## </code></pre>
@@ -806,7 +812,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-26.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

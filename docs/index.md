@@ -1,7 +1,7 @@
 ---
 title: "R for Geographic Data Science"
 author: "Stefano De Sabbata"
-date: "2021-09-26"
+date: "2021-09-27"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [references.bib, packages.bib]
