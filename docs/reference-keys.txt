@@ -1,6 +1,6 @@
 introduction-to-r
 the-r-programming-language
-using-rstudio
+rstudio
 coding-style
 core-concepts
 values
@@ -59,7 +59,7 @@ exercise-224.2
 git
 git-and-rstudio
 exercise-224.3
-cloning-granolarr
+cloning-this-book
 exploratory-data-analysis
 introduction
 gglot2-recap
@@ -119,3 +119,8 @@ solutions-104.2
 solutions-114
 solutions-114.1
 solutions-114.2
+solutions-204
+solutions-204.1
+solutions-214
+solutions-214.1
+solutions-214.2

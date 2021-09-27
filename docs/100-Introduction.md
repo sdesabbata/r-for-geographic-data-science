@@ -12,18 +12,18 @@ In this first chapter, I will provide you with a brief introduction to `R`, the 
 
 ## The R programming language
 
-**[`R`](https://www.r-project.org/)** was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at the Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
+**[`R`](https://www.r-project.org/)**[@R-base] was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at the Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
 
 In simple terms, nowadays, programming in `R` mainly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
 
 As such, R can be used to program by creating sequences of **instructions** involving **variables** -- which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (*if/else*) and loops, which will be the topic of the next practical session. Instructions can also be grouped into **functions**, which we will see in more detail in next chapter.
 
-`R` is **interpreted**, not compiled. This means that an `R` interpreter (if you are using RStudio, the `R` interpreter is hidden in the backend, and RStudio is the frontend that allows you to interact with the interpreter) receives an instruction you write in `R`, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.
+`R` is **interpreted**, not compiled. This means that an `R` interpreter receives an instruction you write in `R`, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.
 
 
-### Using RStudio
+### RStudio
 
-As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the *Console* -- and the `R` script editor, when a script is being edited. The *Console* in an input/output window into the `R` interpreter, where you can type instructions and see the resulting output. 
+[RStudio](https://www.rstudio.com/) is probably the most popular [Integrated Development Environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) for `R`. When using RStudio, the `R` interpreter is hidden in the backend, and RStudio is the frontend application that allows you to interact with the interpreter. As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the *Console* -- and the `R` script editor, when a script is being edited. The *Console* in an input/output window into the `R` interpreter, where you can type instructions and see the resulting output. 
 
 For instance, if you type in the *Console*
 
@@ -143,7 +143,7 @@ sum_of_two_variables
 
 ### Algorithms
 
-Any operation that can be executed using a computer is called an **algorithm**. To be more precise, @cutland_1980 defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"* (Cutland, 1980, p. 7) [@cutland_1980]. 
+Any operation that can be executed using a computer is called an **algorithm**. To be more precise, @cutland_1980 defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"* (Cutland, 1980, p. 7[@cutland_1980]). 
 
 The instructions you get to mount your Ikea furniture can be thought of as an algorithm, an effective procedure to perform the operation of mounting your furniture. You are playing the part of the computer executing the algorithm.
 
@@ -467,7 +467,7 @@ as.numeric("Ciao")
 
 The meta-library [Tidyverse](https://www.tidyverse.org/) [@tidyverse2019] contains the following libraries:
 
-- [`ggplot2`](https://ggplot2.tidyverse.org/) is a system for declaratively creating graphics based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+- [`ggplot2`](https://ggplot2.tidyverse.org/) [@ggplot2] is a system for declaratively creating graphics based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 - [`dplyr`](https://dplyr.tidyverse.org/) provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges. 
 - [`tidyr`](https://tidyr.tidyverse.org/) provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.
 - [`readr`](https://readr.tidyverse.org/) provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. 

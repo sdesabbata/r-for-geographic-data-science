@@ -505,7 +505,54 @@ leicester_2011OAC_IMD2015 %>%
 
 ## Exercise 214.1
 
-Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
+Extend the code in the script `Data_Wrangling_Example.R` (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
+
+```{r, echo=TRUE, eval=FALSE}
+# Data_Wrangling_Example.R 
+
+# Load the tidyverse
+library(tidyverse)
+
+# Load 2011 OAC data
+leicester_2011OAC <- 
+  readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+# Load Indexes of Multiple deprivation data
+leicester_IMD2015 <- 
+  readr::read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
+
+leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
+  # Select only Socres
+  dplyr::filter(Measurement == "Decile") %>%
+  # Trim names of IndicesOfDeprivation
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
+  ) %>%
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
+  ) %>%
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
+  ) %>%
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
+  ) %>%
+  # Spread
+  pivot_wider(
+    names_from = IndicesOfDeprivation,
+    values_from = Value
+  ) %>%
+  # Drop columns
+  dplyr::select(-DateCode, -Measurement, -Units)
+
+# Join
+leicester_2011OAC_IMD2015 <- 
+  leicester_2011OAC %>%
+  inner_join(
+    leicester_IMD2015_decile_wide, 
+    by = c("LSOA11CD" = "FeatureCode")
+  )
+```
 
 **Question 214.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.
 

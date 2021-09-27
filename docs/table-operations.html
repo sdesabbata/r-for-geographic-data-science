@@ -1457,7 +1457,52 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <h2>
 <span class="header-section-number">4.4</span> Exercise 214.1<a class="anchor" aria-label="anchor" href="#exercise-214.1"><i class="fas fa-link"></i></a>
 </h2>
-<p>Extend the code in the script <code>Data_Wrangling_Example.R</code> to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
+<p>Extend the code in the script <code>Data_Wrangling_Example.R</code> (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Data_Wrangling_Example.R </span>
+
+<span class="co"># Load the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+
+<span class="co"># Load 2011 OAC data</span>
+<span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> 
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span>
+
+<span class="co"># Load Indexes of Multiple deprivation data</span>
+<span class="va">leicester_IMD2015</span> <span class="op">&lt;-</span> 
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/IndexesMultipleDeprivation2015_Leicester.csv"</span><span class="op">)</span>
+
+<span class="va">leicester_IMD2015_decile_wide</span> <span class="op">&lt;-</span> <span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
+  <span class="co"># Select only Socres</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Measurement</span> <span class="op">==</span> <span class="st">"Decile"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># Trim names of IndicesOfDeprivation</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\s"</span>, <span class="st">""</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"[:punct:]"</span>, <span class="st">""</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\("</span>, <span class="st">""</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    IndicesOfDeprivation <span class="op">=</span> <span class="fu">str_replace_all</span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\)"</span>, <span class="st">""</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># Spread</span>
+  <span class="fu">pivot_wider</span><span class="op">(</span>
+    names_from <span class="op">=</span> <span class="va">IndicesOfDeprivation</span>,
+    values_from <span class="op">=</span> <span class="va">Value</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># Drop columns</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">DateCode</span>, <span class="op">-</span><span class="va">Measurement</span>, <span class="op">-</span><span class="va">Units</span><span class="op">)</span>
+
+<span class="co"># Join</span>
+<span class="va">leicester_2011OAC_IMD2015</span> <span class="op">&lt;-</span> 
+  <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
+  <span class="fu">inner_join</span><span class="op">(</span>
+    <span class="va">leicester_IMD2015_decile_wide</span>, 
+    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LSOA11CD"</span> <span class="op">=</span> <span class="st">"FeatureCode"</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
 <p><strong>Question 214.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.</p>
 <p><strong>Question 214.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.</p>
 <p><strong>Question 214.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.</p>

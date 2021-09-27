@@ -10,6 +10,7 @@ description: "R for Geographic Data Science"
 repo: "https://github.com/sdesabbata/r-for-geographic-data-science"
 url: "https://sdesabbata.github.io/r-for-geographic-data-science/"
 biblio-style: apalike
+link-citations: true
 csl: chicago-fullnote-bibliography.csl
 ---
 
@@ -17,7 +18,7 @@ csl: chicago-fullnote-bibliography.csl
 
 # Welcome {-}
 
-<img src="images/r-for-geographic-data-science-cover.png" class="cover" width="250" height="328"/>This book is an introduction to geographic data science using `R`, which I designed as a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2021/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2021) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). As such, it is very much *a work in progress*.
+<img src="images/r-for-geographic-data-science-cover.png" class="cover" width="250" height="328"/>This book is an introduction to geographic data science using `R` [@R-base], which I designed as a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2021/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2021) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). As such, it is very much *a work in progress*.
 
 
 
@@ -74,7 +75,7 @@ cd r-for-geographic-data-science
 
 This approach should allow not simply to use the materials but to easily edit and create your version in the same computational environment. To develop your materials, modify the code in the repository and run the `src/Docker_Make.sh` from the repository folder again to obtain the updated materials. 
 
-The [RMarkdown](https://rmarkdown.rstudio.com/) code used to create the materials for this book and the lecture slides can be found in the `src/book` and `src/slides` folders, respectively. The files are used to generate the [Bookdown](https://bookdown.org/) book and [IOSlides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) slides. The `src/utils` folder contains the IOSlides templates and some style classes used in the RMarkdown code.
+The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to create the materials for this book and the lecture slides can be found in the `src/book` and `src/slides` folders, respectively. The files are used to generate the [Bookdown](https://bookdown.org/) [@R-bookdown] book and [IOSlides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) slides. The `src/utils` folder contains the IOSlides templates and some style classes used in the RMarkdown code.
 
 ```{bash, echo=TRUE, eval=FALSE}
 .

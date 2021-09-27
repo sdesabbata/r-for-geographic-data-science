@@ -137,11 +137,28 @@ As illustrated in the image below, when working with a git repository, the most 
 
 ### Git and RStudio
 
-In RStudio Server, in the *Files* tab of the bottom-left panel, click on *Home* to make sure you are in your home folder -- if you are working on your own computer, create a folder for granolarr wherever most convenient. Click on *New Folder* and enter *Repos* (short for repositories) in the prompt dialogue, to create a folder named *Repos*. 
+In RStudio Server, in the *Files* tab of the bottom-left panel, click on *Home* to make sure you are in your home folder -- if you are working on your own computer, create a folder for GY7702 wherever most convenient. Click on *New Folder* and enter `repos` (short for repositories) in the prompt dialogue, to create a folder named `repos`. 
 
-Create a GitHub account at [github.com](https://github.com/), if you don't have one, and create a new repository named *my-granolarr*, following the instructions available on the [GitHub help pages](https://help.github.com/en/articles/creating-a-new-repository). Make sure you tick the box next to *Initialize this repository with a README*, which adds a `README.md` markdown file to your repository.
+If you don't have a GitHub account, create one at [github.com](https://github.com/). In RStudio, use `create_github_token` as shown below, and follow the instructions to generate a GitHub personal access token (PAT) that will allow you to synchronise your project to and from GitHub. Alternatively, you can follow GitHub's instructions on how to [create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
 
-Once the repository has been created, GitHub will take you to the repository page. Copy the link to the repository `.git` file by clicking on the green *Clone or download* button and copying the `https` URL there available. Back to RStudio Server, select *File > New Project...* from the top menu and select *Version Control* and then *Git* from the *New Project* panel. Paste the copied URL in the *Repository URL* field, select the *Repos* folder created above as folder for *Create project as subdirectory of*, and click *Create Project*. RStudio might ask you for your GitHub username and password at this point.
+```{r, echo=TRUE, eval=FALSE}
+usethis::create_github_token()
+```
+
+In RStudio, use `gitcreds_set` as shown below, and follow the instructions to store the GitHub PAT generated above locally.
+
+```{r, echo=TRUE, eval=FALSE}
+gitcreds::gitcreds_set()
+```
+
+Create a new repository named *my-GY7702*, following the instructions available on the [GitHub help pages](https://help.github.com/en/articles/creating-a-new-repository). Make sure you select the option to create a **Private** repository and tick the following options under the heading *Initialize this repository with*:
+
+- *Add a README file*, which adds a `README.md` markdown file to your repository, that you can use to describe your repository and its contents;
+- *Add .gitignore* selecting the `R` template, which adds a `.gitignore`, that describes which files should not be copied to the repository, such as the `R` working environment;
+- optionally *Choose a license* -- that is not crucial if the repository is private, but it is good practice to include one;
+    - common open-source licenses for code are the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) and the [MIT License](https://opensource.org/licenses/MIT).
+
+Once the repository has been created, GitHub will take you to the repository page. Copy the link to the repository `.git` file by clicking on the green *Code* button and copying the `https` URL there available. Back to RStudio Server, select *File > New Project...* from the top menu and select *Version Control* and then *Git* from the *New Project* panel. Paste the copied URL in the *Repository URL* field, select the `repos` folder created above as folder for *Create project as subdirectory of*, and click *Create Project*. RStudio might ask you for your GitHub username and password at this point.
 
 Before continuing, you need to record your identity with the Git system installed on the RStudio Server, for it to be able to communicate with the GitHub's server. Open the *Terminal* tab in RStudio (if not visible, select *Tools > Terminal > New Terminal* from the top menu). First, paste the command below substituting `you@example.com` with your university email (make sure to maintain the double quotes) and press the return button.
 
@@ -155,7 +172,7 @@ Then, paste the command below substituting `Your Name` with your name (make sure
 git config --global user.name "Your Name"
 ```
 
-RStudio should have now switched to a new R project linked to you *my-granolarr* repository. In the RStudio *File* tab in the bottom-right panel, navigate to the file created for the exercises above, select the files and copy them in the folder of the new project (in the *File* tab, *More > Copy To...*).
+RStudio should have now switched to a new R project linked to you *my-GY7702* repository. In the RStudio *File* tab in the bottom-right panel, navigate to the file created for the exercises above, select the files and copy them in the folder of the new project (in the *File* tab, *More > Copy To...*).
 
 Check the now available *Git* tab on the top-right panel, and you should see at least the newly copied files marked as untracked. Tick the checkboxes in the *Staged* column to stage the files, then click on the *Commit* button. 
 
@@ -178,23 +195,23 @@ Your analysis should include:
 
 
 
-## Cloning granolarr
+## Cloning this book
 
-You can follow the steps listed below to clone the granolarr repository.
+You can follow the steps listed below to clone the this book's repository.
 
-1. Create a folder named `Repos` in your home directory. If you are working on RStudio Server, in the *Files* panel, click on the `Home` button (second bar, next to the house icon), then click on `New Folder`, enter the name `Repos` and click `Ok`.
+1. Create a folder named `repos` in your home directory. If you are working on RStudio Server, in the *Files* panel, click on the `Home` button (second bar, next to the house icon), then click on `New Folder`, enter the name `repos` and click `Ok`.
 
 2. In RStudio or RStudio Server select `File > New Project...`
 
 3. Select `Version Control` and then `Git` (you might need to set up Git first if you are working on your own computer)
 
-4. Copy `https://github.com/sdesabbata/granolarr.git` in the `Repository URL` field and select the Repos folder for the field `Create project as subdirectory of`, and click on `Create Project`.
+4. Copy `https://github.com/sdesabbata/r-for-geographic-data-science` in the `Repository URL` field and select the `repos` folder for the field `Create project as subdirectory of`, and click on `Create Project`.
 
 5. Have a look around
 
-6. Click on the project name `granolarr` on the top-left of the interface and select `Close Project` to close the project.
+6. Click on the project name `r-for-geographic-data-science` on the top-left of the interface and select `Close Project` to close the project.
 
-As granolarr is a public repository, you can clone it, edit it as you wish and push it to your own copy of the repository. However, contributing your edits to the original repository would require a few further steps. Check out the [GitHub help pages](https://help.github.com/en/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork) if you are interested.
+As this book's repository is public, you can clone it, edit it as you wish and push it to your own copy of the repository. However, contributing your edits to the original repository would require a few further steps. Check out the [GitHub help pages](https://help.github.com/en/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork) if you are interested.
 
 
 ---
