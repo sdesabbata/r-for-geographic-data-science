@@ -6,24 +6,24 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-In this first chapter, I am going to provide you with a brief introduction to `R`, the programming language that will be the focus of the module, as well as the tool that we are going to use to do data science. 
+In this first chapter, I will provide you with a brief introduction to `R`, the programming language that will be the focus of the module, and the tool that we are going to use to do data science.
 
-`R` is one of the [most widely used programming languages nowadays](https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr), especially in geographic and satellite data science, along with Python. I don't personally have a strong preference for either, and actually use both fairly regularly and in combination with each other. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that make it easier to complete the task that you are set to do. For instance, Python has great libraries for programming deep neural networks, while I find `R` more effective and powerful in data manipulation, statistical analysis, visualisation and mapping -- which is the key reason why this book focuses on `R`. At the same time, beyond the mere details of syntax, the languages are not too different, and they are becoming more and more easy to integrate. Most of principles and approaches covered in this book can be applied when using Python, just using a different syntax.
+`R` is one of the [most widely used programming languages nowadays](https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr), along with Python, especially in geographic and satellite data science. I don't personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find `R` more effective and powerful in data manipulation, statistical analysis, visualisation and mapping -- which is the key reason why this book focuses on `R`. At the same time, beyond the mere details of syntax, the languages are not too different, and they are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.
 
 ## The R programming language
 
-**[`R`](https://www.r-project.org/)** was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at the Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However it now supports, and it is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
+**[`R`](https://www.r-project.org/)** was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at the Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
 
-In simple terms, nowadays, programming in `R` mostly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
+In simple terms, nowadays, programming in `R` mainly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
 
-As such, R can be used to program by creating sequences of **instructions** involving **variables** -- which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (*if/else*) and loops, which will be the topic of the next practical session. Instructions can also be grouped in **functions**, which we will also see in the next practical session.
+As such, R can be used to program by creating sequences of **instructions** involving **variables** -- which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (*if/else*) and loops, which will be the topic of the next practical session. Instructions can also be grouped into **functions**, which we will see in more detail in next chapter.
 
-`R` is **interpreted**, not compiled. Which means that an `R` interpreter (if you are using RStudio, the `R` interpreter is simply hidden in the backend and RStudio is the frontend that allows you to interact with the interpreter) receives an instruction you write in `R`, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.
+`R` is **interpreted**, not compiled. This means that an `R` interpreter (if you are using RStudio, the `R` interpreter is hidden in the backend, and RStudio is the frontend that allows you to interact with the interpreter) receives an instruction you write in `R`, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.
 
 
 ### Using RStudio
 
-As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the *Console* -- as well as the `R` script editor, when a script is being edited. The *Console* in an input/output window into the `R` interpreter, where instructions can be typed, and the computed output is shown. 
+As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the *Console* -- and the `R` script editor, when a script is being edited. The *Console* in an input/output window into the `R` interpreter, where you can type instructions and see the resulting output. 
 
 For instance, if you type in the *Console*
 
@@ -32,14 +32,14 @@ For instance, if you type in the *Console*
 1 + 1
 ```
 
-the `R` interpreter understands that as an instruction to sum one to one, and produces the result (as the materials for this module are created in RMarkdown, the output of the computation is always preceded by '##').
+the `R` interpreter understands that as an instruction to sum `1` to `1` and returns the following result as output.
 
 
 ```
 ## [1] 2
 ```
 
-Note how the output value `2` is preceded by `[1]`, which indicates that the output is constituted by only one element. If the output is constituted by more than one element, as the list of numbers below, each row of the output is preceded by the index of the first element of the output.
+As these materials are created in RMarkdown, the output of the computation is always preceded by `##`. Note how the output value `2` is preceded by `[1]`, which indicates that the output is constituted by only one element. If the output is constituted by more than one element, as the list of numbers below, each row of the output is preceded by the index of the first element of the output.
 
 
 ```
@@ -47,11 +47,11 @@ Note how the output value `2` is preceded by `[1]`, which indicates that the out
 ## [20] 400
 ```
 
-On the right side, you find two groups of panels. On the top-right, the main element is the *Environment* panel, which is a representation of the current state of the interpreter's memory, and as such, it shows all the stored variables, datasets, and functions. On the bottom-right, you find the *Files* panel, which shows file system (file and folders on your computer or the server), as well as the *Help* panel, which shows you the help pages when required. We will discuss the other panels later on in the practical sessions.
+On the right side, you find two groups of panels. On the top-right, the main element is the *Environment* panel, which represents of the current state of the interpreter's memory, showing all the information available for computation. For instance, that is where you will be able to see datasets loaded for analysis. On the bottom-right, you find the *Files* panel, which shows the file system (file and folders on your computer or the server), as well as the *Help* panel, which shows you the help pages when required. We will discuss the other panels later on in the practical sessions.
 
 ### Coding style
 
-A coding style is a set of rules and guidelines to write programming code designed to ensure that the code is easy to read, understand, and consistent over time. Following a good coding style is essential when writing code that others will read -- for instance, if you work in a team, publish your code or submit your code as a piece of coursework -- and ensure you will understand your code in a few-month time. Following a good coding style is also an essential step towards reproducibility, as we will see in a later chapter.
+A coding style is a set of rules and guidelines to write programming code designed to ensure that the code is easy to read, understand, and consistent over time. Following a good coding style is essential when writing code that others will read -- for instance, if you work in a team, publish your code or submit your code as a piece of coursework -- and it ensures you will understand your code in a few months. Following a good coding style is also an essential step towards reproducibility, as we will see in a later chapter.
 
 In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/). Study the Tidyverse Style Guide and use it consistently.
 
@@ -59,7 +59,7 @@ In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](ht
 
 ### Values
 
-When a value is typed in the *Console*, the interpreter simply returns the same value. In the examples below, `2` is a simple numeric value, while `"String value"` is a textual value, which in `R` is referred to as a *character* value and in programming is also commonly referred to as a *string* (short for *a string of characters*). 
+When a value is typed in the *Console*, the interpreter returns the same value. In the examples below, `2` is a simple numeric value, while `"String value"` is a textual value, which in `R` is referred to as a *character* value and in programming is also commonly referred to as a *string* (short for *a string of characters*). 
 
 Numeric example:
 
@@ -83,9 +83,9 @@ Character example:
 ## [1] "String value"
 ```
 
-Note how character values need to start and end with a single or double quote (`'` or `"`), which are not part of the information themselves. The [Tidyverse Style Guide](https://style.tidyverse.org/syntax.html) suggests always to use the double quote (`"`), so we will use those in this module.
+Note how character values need to start and end with a single or double quote (`'` or `"`), which are not part of the information themselves. The [Tidyverse Style Guide](https://style.tidyverse.org/syntax.html) suggests always using the double quote (`"`), so we will use those in this module.
 
-Anything that follows a `#` symbol is considered a *comment* and the interpreter ignores it.
+Anything that follows a `#` symbol is considered a *comment*, and the interpreter ignores it.
 
 
 ```r
@@ -106,7 +106,7 @@ As mentioned above, the interpreter understands [simple operations on numeric va
 
 ### Variables
 
-In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier), and a value that can vary -- hence the name variable. When programming you can define a variable by naming it with an **identifier**, and providing a **value** that can be stored in the variable. At any point after that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow to save the result of a piece of computation and to retrieve it later on for further analysis. 
+In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary -- hence the name variable. When programming, you can define a variable by naming it with an **identifier** and providing a **value** to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow to save the result of a piece of computation and to retrieve it later on for further analysis. 
 
 A variable can be defined in `R` using an identifier (e.g., `a_variable`) on the left of an **assignment operator** `<-`, followed by the object to be linked to the identifier, such as a value (e.g., `1`) to be assigned on the right. The value of the variable can be invoked by simply specifying the identifier.
 
@@ -145,15 +145,17 @@ sum_of_two_variables
 
 Any operation that can be executed using a computer is called an **algorithm**. To be more precise, @cutland_1980 defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"* (Cutland, 1980, p. 7) [@cutland_1980]. 
 
-The instructions you get to mount your Ikea furniture can be thought as an algorithm, an effective procedure to perform the operation of mounting your furniture, and you are playing the part of the computer executing the algorithm.
+The instructions you get to mount your Ikea furniture can be thought of as an algorithm, an effective procedure to perform the operation of mounting your furniture. You are playing the part of the computer executing the algorithm.
 
-A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definitions, algorithms (and thus the programs that implement them) can use variables and functions. Programs that are interpreted rather than compiles, as it is the case of `R`, are also referred to as **scripts**.
+A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definition, algorithms (and thus the programs that implement them) can use variables and functions. As is the case for `R`, programs that are interpreted rather than compiled are also referred to as **scripts**.
 
 ### Functions
 
-You can think of a **function** as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each one designed to complete a sub-task, that combined perform the entire task. 
+You can think of a **function** as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each designed to complete a sub-task, which combined perform the entire task. 
 
-Functions can be **invoked** by specifying the **function name** along with the **arguments** (input values) between simple brackets. Each argument corresponds to a **parameter** (i.e., an internal variable used within the function to run the operation, as we will see this in more detail later on in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., to find the square root of a number or to calculate a linear regression). For instance, `sqrt` is the pre-defined function in `R` that performs the operation of computing the square root of a number. As such, the instruction `sqrt(2)` is telling the `R` interpreter to run the function that calculates the square root using `2` as the input value. The function will return `1.414214`, the square root of `2`, as the output. 
+You can **invoke** a function by specifying the **function name** along with the **arguments** (input values) between simple brackets. Each argument corresponds to a **parameter** (i.e., an internal variable used within the function to run the operation, as we will see in more detail later in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., finding the square root of a number or calculating a linear regression). 
+
+For instance, `sqrt` is the pre-defined function in `R` that computes the square root of a number. The instruction `sqrt(2)` tells the `R` interpreter to run the function that calculates the square root using `2` as the input value. The function will return `1.414214`, the square root of `2`, as the output. 
 
 
 ```r
@@ -195,7 +197,7 @@ round(sqrt_of_two, digits = 2)
 ## [1] 1.41
 ```
 
-Functions can also be used as arguments of functions. Instead of first calculating the square root of two, saving the value in a variable, and then using the variable as the first argument of `round`, we can directly add the function `sqrt` and its own argument as the first argument of the function `round`.
+Functions can also be used as arguments of functions. Instead of first calculating the square root of two, saving the value in a variable, and then using the variable as the first argument of `round`, we can directly add the function `sqrt` and its argument as the first argument of the function `round`.
 
 
 ```r
@@ -206,13 +208,16 @@ round(sqrt(2), digits = 2)
 ## [1] 1.41
 ```
 
-As we start to introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best if you always aimed for a code that is as easy to read and understand as possible. 
-
 In the next chapter, we will see how you can create functions yourself.
+
+As we introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best to always aim for a code that is as easy to read and understand as possible. An essential step in ensuring that is to follow coding style guidelines closely.
+
 
 ### Libraries
 
-Functions can be collected and stored in *libraries* (sometimes referred to as *packages*), which contains related functions, and sometimes, datasets. For instance, the `base` library in `R` includes the `sqrt` function above, and the `rgdal` library, which contains implementations of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities for `R`. Libraries can be installed in `R` using the function `install.packages` or using `Tool > Install Packages...` in RStudio. 
+Functions can be collected and stored in *libraries* (sometimes referred to as *packages*), containing related functions and sometimes datasets. For instance, the `base` library in `R` includes the `sqrt` function above, and the `rgdal` library, which contains implementations of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities for `R`. 
+
+Libraries can be installed in `R` using the function `install.packages` or using `Tool > Install Packages...` in RStudio. 
 
 
 
@@ -462,7 +467,7 @@ as.numeric("Ciao")
 
 The meta-library [Tidyverse](https://www.tidyverse.org/) [@tidyverse2019] contains the following libraries:
 
-- [`ggplot2`](https://ggplot2.tidyverse.org/) is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+- [`ggplot2`](https://ggplot2.tidyverse.org/) is a system for declaratively creating graphics based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
 - [`dplyr`](https://dplyr.tidyverse.org/) provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges. 
 - [`tidyr`](https://tidyr.tidyverse.org/) provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.
 - [`readr`](https://readr.tidyverse.org/) provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. 
@@ -471,7 +476,7 @@ The meta-library [Tidyverse](https://www.tidyverse.org/) [@tidyverse2019] contai
 - [`stringr`](https://stringr.tidyverse.org/) provides a cohesive set of functions designed to make working with strings as easy as possible. It is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations. 
 - [`forcats`](https://forcats.tidyverse.org/) provides a suite of useful tools that solve common problems with factors. `R` uses factors to handle categorical variables, variables that have a fixed and known set of possible values.
 
-A library can be loaded using the function `library`, as shown below (note the name of the library is not quoted). Once a library is installed on a computer, you don't need to install it again, but every script needs to load all the library that it uses. Once a library is loaded, all its functions can be used.
+A library can be loaded using the function `library`, as shown below (note the name of the library is not quoted). Once a library is installed on a computer, you don't need to install it again, but every script needs to load all the libraries that it uses. Once a library is loaded, all its functions can be used.
 
 **Important**: it is always necessary to load the `tidyverse` meta-library if you want to use the `stringr` functions or the pipe operator `%>%`.
 
@@ -520,7 +525,7 @@ The pipe operator is useful to outline more complex operations, step by step (se
 - as the **first argument**
 - that doesn't need to be included in the code anymore
 
-The code below shows a simple example. The number `2` is taken as input for the first pipe that passes it on as the first argument to the function `sqrt`. The output value `1.41` is then taken as input for the second pipe, that passes it on as the first argument to the function `trunc`. The final output `1` is finally returned.
+The code below shows a simple example. The number `2` is taken as input for the first pipe that passes it on as the first argument to the function `sqrt`. The output value `1.41` is then taken as input for the second pipe, which passes it on as the first argument to the function `trunc`. The final output `1` is finally returned.
 
 
 ```r
@@ -546,7 +551,7 @@ sqrt(2) %>%
  round(digits = 2)
 ```
 
-The first step of a sequence of pipes can be a value, a variable, or a function including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function `round`, which also allows for a second argument `digits = 2`. Note that, when using the pipe operator, only the nominally second argument is provided to the function `round` -- that is `round(digits = 2)`
+The first step of a sequence of pipes can be a value, a variable, or a function, including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function `round`, which also allows for a second argument: `digits = 2`. Note that, when using the pipe operator, only the nominally second argument is provided to the function `round` -- that is `round(digits = 2)`
 
 
 ```r

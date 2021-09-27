@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Solutions | R for Geographic Data Science</title>
+<meta name="author" content="Stefano De Sabbata">
+<meta name="description" content="Print this chapter  10.4 Solutions 104 Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Solutions | R for Geographic Data Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/solutions.html">
+<meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<meta property="og:description" content="Print this chapter  10.4 Solutions 104 Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Solutions | R for Geographic Data Science">
+<meta name="twitter:description" content="Print this chapter  10.4 Solutions 104 Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will...">
+<meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2Y0M0936JL');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Geographic Data Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
+<li class="book-part">Data wrangling</li>
+<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li><a class="" href="reproducibility-1.html"><span class="header-section-number">5</span> Reproducibility</a></li>
+<li class="book-part">Data analysis</li>
+<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
+<li class="book-part">Machine learning</li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="active" href="solutions.html">Solutions</a></li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/sdesabbata/r-for-geographic-data-science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="solutions" class="section level1 unnumbered">
+<h1>Solutions<a class="anchor" aria-label="anchor" href="#solutions"><i class="fas fa-link"></i></a>
+</h1>
+<p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
+<div id="solutions-104" class="section level2" number="10.4">
+<h2>
+<span class="header-section-number">10.4</span> Solutions 104<a class="anchor" aria-label="anchor" href="#solutions-104"><i class="fas fa-link"></i></a>
+</h2>
+<p>Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will then be visible on a right panel in the RStudio integrated editor if you select Code &gt; Show Document Outline from the top menu. Code sections can help to visually organise your code and the Document Outline allows you to select a section and jump to it in the code.</p>
+<p>The code below deletes all variable and function currently defined in the environment, which is generally good practice, to avoid your script interacting with objects left over from previous sessions.</p>
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Load the necessary libraries.</p>
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Load the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+
+<span class="co"># Load magrittr</span>
+<span class="co"># necessary for options 3 and 4 </span>
+<span class="co"># of my answer to Question 104.2.4</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></code></pre></div>
+<div id="solutions-104.1" class="section level3" number="10.4.1">
+<h3>
+<span class="header-section-number">10.4.1</span> Solutions 104.1<a class="anchor" aria-label="anchor" href="#solutions-104.1"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Question 104.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1632</span> <span class="op">%&gt;%</span>
+  <span class="co"># calculate the logarithm to the base 10</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># highest integer number lower than the value</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># check whether it is an integer</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="co"># The answer is FALSE</span>
+  <span class="co"># as the value is still of type numeric</span>
+  <span class="co"># rather than type integer</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># The code below replicates the procedure above</span>
+<span class="co"># but checking the value data type</span>
+<span class="fl">1632</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># The code below replicates the procedure above</span>
+<span class="co"># but using as.integer to transfor the value</span>
+<span class="co"># to an integer type</span>
+<span class="fl">1632</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># As above but checking whether the value is an integer</span>
+<span class="fl">1632</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 104.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fl">1632</span> <span class="op">%&gt;%</span>
+  <span class="co"># calculate the square root</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># lowest integer number higher than the value</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># check whether it is an integer</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 104.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
+<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"1632"</span> <span class="op">%&gt;%</span>
+  <span class="co"># transform it into a number</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># check whether the result is Not a Number</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 104.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"-16.32"</span> <span class="op">%&gt;%</span>
+  <span class="co"># transform it into a number</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># take the absolute value</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># truncate</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># check whether the result is Not Available</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="solutions-104.2" class="section level3" number="10.4.2">
+<h3>
+<span class="header-section-number">10.4.2</span> Solutions 104.2<a class="anchor" aria-label="anchor" href="#solutions-104.2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Answer the question below, consulting the <a href="https://stringr.tidyverse.org/reference/index.html"><code>stringr</code> library reference (stringr.tidyverse.org/reference)</a> as necessary</p>
+<p><strong>Question 104.2.1:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and transforms it all in uppercase.</p>
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># transforms it all in uppercase</span>
+  <span class="fu">str_to_upper</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 104.2.2:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and truncates it, leaving only 10 characters.</p>
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># truncate leaving only 10 characters</span>
+  <span class="fu">str_trunc</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 104.2.3:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and truncates it, leaving only 10 characters and using no ellipsis.</p>
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># truncate</span>
+  <span class="fu">str_trunc</span><span class="op">(</span>
+    <span class="co"># leaving only 10 characters</span>
+    <span class="fl">10</span>,
+    <span class="co"># no ellipsis</span>
+    ellipsis <span class="op">=</span> <span class="st">""</span>
+  <span class="op">)</span></code></pre></div>
+<p><strong>Question 104.2.4:</strong> Write a piece of code using the pipe operator and the <code>stringr</code> library that takes as input the string <code>"I like programming in R"</code>, and manipulates to leave only the string <code>"I like R"</code>.</p>
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Option 1</span>
+<span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># using remove</span>
+  <span class="fu">str_remove</span><span class="op">(</span><span class="st">"programming in "</span><span class="op">)</span>
+
+<span class="co"># Option 2</span>
+<span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># using replace</span>
+  <span class="fu">str_replace</span><span class="op">(</span><span class="st">"programming in "</span>, <span class="st">""</span><span class="op">)</span>
+
+<span class="co"># Option 3</span>
+<span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># create two sub-strings</span>
+  <span class="fu">str_sub</span><span class="op">(</span>
+    <span class="co"># the first starting from the first character</span>
+    <span class="co"># the second starting from the last character</span>
+    start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>,
+    <span class="co"># the first ending at the sixth character</span>
+    <span class="co"># the secondending at the last character</span>
+    end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">6</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="co"># join the two strings into one</span>
+  <span class="co"># using a single space to separate them</span>
+  <span class="fu">str_c</span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span>
+
+<span class="co"># Option 4</span>
+<span class="st">"I like programming in R"</span> <span class="op">%&gt;%</span>
+  <span class="co"># split the string at each space</span>
+  <span class="fu">str_split</span><span class="op">(</span><span class="st">" "</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="co"># that will create a list with one element</span>
+  <span class="co"># that is the vector of strings resulting</span>
+  <span class="co"># from the split</span>
+  <span class="co"># to extract that element</span>
+  <span class="co"># use extract2 from magrittr</span>
+  <span class="co"># equivalent to [[1]]</span>
+  <span class="co"># https://magrittr.tidyverse.org/reference/aliases.html</span>
+  <span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">extract2</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># extract the first, second and fifth elements</span>
+  <span class="co"># from the vector</span>
+  <span class="co"># use extract2 from magrittr</span>
+  <span class="co"># equivalent to [c(1, 2, 5)]</span>
+  <span class="co"># https://magrittr.tidyverse.org/reference/aliases.html</span>
+  <span class="fu"><a href="https://magrittr.tidyverse.org/reference/aliases.html">extract</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># join the two strings into one</span>
+  <span class="co"># using a single space to separate them</span>
+  <span class="fu">str_c</span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></code></pre></div>
+</div>
+</div>
+<div id="solutions-114" class="section level2" number="10.5">
+<h2>
+<span class="header-section-number">10.5</span> Solutions 114<a class="anchor" aria-label="anchor" href="#solutions-114"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Load the tidyverse</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<div id="solutions-114.1" class="section level3" number="10.5.1">
+<h3>
+<span class="header-section-number">10.5.1</span> Solutions 114.1<a class="anchor" aria-label="anchor" href="#solutions-114.1"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Question 114.1.1:</strong> Use the modulo operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> to create a conditional statement that prints <code>"Even"</code> if a number is even and <code>"Odd"</code> if a number is odd.</p>
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">number_for_test</span> <span class="op">&lt;-</span> <span class="fl">7</span>
+
+<span class="co"># If a number modulo 2 is 0 then the nuber is even</span>
+<span class="kw">if</span> <span class="op">(</span><span class="va">number_for_test</span> <span class="op">%%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Even\n"</span><span class="op">)</span>
+<span class="co"># otherwise it is odd</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Odd\n"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p><strong>Question 114.1.2:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that executes the conditional statement for all numbers from 1 to 10.</p>
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">iterator</span> <span class="op">%%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Even\n"</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Odd\n"</span><span class="op">)</span>
+  <span class="op">}</span>
+  
+<span class="op">}</span>
+<span class="co"># After the loop delete the iterator</span>
+<span class="co"># just to be on the safe side :)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">iterator</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 114.1.3:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that prints the name of cities in odd positions (i.e., first, third, fifth) in the vector <code><a href="https://rdrr.io/r/base/c.html">c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</a></code>.</p>
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Birmingham"</span>, <span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span>, <span class="st">"Wolverhampton"</span><span class="op">)</span>
+
+<span class="co"># for each index in the vecotr cities</span>
+<span class="co"># i.e., 1 to length of the vector</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Testing for odd number intead of even</span>
+  <span class="co"># thus checking if the result is 1 rather than 0</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">iterator</span> <span class="op">%%</span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">cities</span><span class="op">[</span><span class="va">iterator</span><span class="op">]</span>, <span class="st">"\n"</span><span class="op">)</span>
+  <span class="op">}</span>
+  
+<span class="op">}</span>
+<span class="co"># After the loop delete the iterator</span>
+<span class="co"># just to be on the safe side :)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">iterator</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 114.1.4:</strong> Write the code necessary to print the name of the cities in the vector <code><a href="https://rdrr.io/r/base/c.html">c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</a></code> as many times as their position in the vector (i.e., once for the first city, two times for the second, and so on and so forth).</p>
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># for each index in the vecotr cities</span>
+<span class="co"># i.e., 1 to length of the vector</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># need a second iterator!</span>
+  <span class="co"># to print the name of the city as many </span>
+  <span class="co"># times as 1 to the current value if the iterator above</span>
+  <span class="kw">for</span> <span class="op">(</span><span class="va">second_iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">iterator</span><span class="op">)</span><span class="op">{</span>
+    <span class="co"># Let's keep the city name on the sam line</span>
+    <span class="co"># just addid a space between occurencies</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">cities</span><span class="op">[</span><span class="va">iterator</span><span class="op">]</span>, <span class="st">" "</span><span class="op">)</span>
+  <span class="op">}</span>
+  <span class="co"># Once we are done printing one city name</span>
+  <span class="co"># then go to new line</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="co"># After the loop delete both iterators</span>
+<span class="co"># just to be on the safe side :)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">iterator</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">second_iterator</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="solutions-114.2" class="section level3" number="10.5.2">
+<h3>
+<span class="header-section-number">10.5.2</span> Solutions 114.2<a class="anchor" aria-label="anchor" href="#solutions-114.2"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Question 114.2.1:</strong> Write a function that calculates the areas of a circle, taking the radius as the first parameter.</p>
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">area_of_a_circle</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">circle_radius</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># the area of a circle is equal to</span>
+  <span class="co"># pi times radius squared</span>
+  <span class="va">circle_area</span> <span class="op">&lt;-</span> <span class="va">pi</span> <span class="op">*</span> <span class="op">(</span><span class="va">circle_radius</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>
+  <span class="co"># return the value</span>
+  <span class="va">circle_area</span>
+<span class="op">}</span>
+
+<span class="co"># Test</span>
+<span class="fu">area_of_a_circle</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 114.2.2:</strong> Write a function that calculates the volume of a cylinder, taking the radius of the base as the first parameter and the height as the second parameter. The function should call the function defined above and multiply the returned value by the height to calculate the result.</p>
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">volume_of_a_cilinder</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">base_radius</span>, <span class="va">cilinder_height</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># call the function defined above to calculate the area</span>
+  <span class="va">base_area</span> <span class="op">&lt;-</span> <span class="fu">area_of_a_circle</span><span class="op">(</span><span class="va">base_radius</span><span class="op">)</span>
+  <span class="co"># then calculate volume</span>
+  <span class="va">cilinder_volume</span> <span class="op">&lt;-</span> <span class="va">base_area</span> <span class="op">*</span> <span class="va">cilinder_height</span>
+  <span class="co"># return the value</span>
+  <span class="va">cilinder_volume</span>
+<span class="op">}</span>
+
+<span class="co"># Test</span>
+<span class="fu">volume_of_a_cilinder</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 114.2.3:</strong> Write a function with two parameters, a vector of numbers and a vector of characters (text). The function should check that the input has the correct data type. If all the numbers in the first vector are greater than zero, return the elements of the second vector from the first to the length of the first vector.</p>
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">silly_function</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">num_vector</span>, <span class="va">chr_vector</span><span class="op">)</span> <span class="op">{</span>
+  <span class="co"># Check vector types</span>
+  <span class="co"># Note that you can use logic operators</span>
+  <span class="co"># to combine conditional statements</span>
+  <span class="co"># and the function all</span>
+  <span class="co"># to check if the condition is true for all the elements of the vector</span>
+  <span class="kw">if</span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">num_vector</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">chr_vector</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span>
+    <span class="co"># Check if all numbers greater than zero</span>
+    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">num_vector</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
+      <span class="co"># Subset the vector to return</span>
+      <span class="va">chr_vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">num_vector</span><span class="op">)</span><span class="op">]</span>
+    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"That's low...\n"</span><span class="op">)</span>
+    <span class="op">}</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Those values seem highly inappropriate!\n"</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span>
+
+<span class="co"># Test 1</span>
+<span class="fu">silly_function</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">cities</span><span class="op">)</span>
+
+<span class="co"># Test 3</span>
+<span class="fu">silly_function</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, <span class="va">cities</span><span class="op">)</span>
+
+<span class="co"># Test 3</span>
+<span class="fu">silly_function</span><span class="op">(</span><span class="va">cities</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></code></pre></div>
+<hr>
+<p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></div>
+<div class="next"><a href="lecture-slides.html">Lecture slides</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#solutions">Solutions</a></li>
+<li>
+<a class="nav-link" href="#solutions-104"><span class="header-section-number">10.4</span> Solutions 104</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#solutions-104.1"><span class="header-section-number">10.4.1</span> Solutions 104.1</a></li>
+<li><a class="nav-link" href="#solutions-104.2"><span class="header-section-number">10.4.2</span> Solutions 104.2</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#solutions-114"><span class="header-section-number">10.5</span> Solutions 114</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#solutions-114.1"><span class="header-section-number">10.5.1</span> Solutions 114.1</a></li>
+<li><a class="nav-link" href="#solutions-114.2"><span class="header-section-number">10.5.2</span> Solutions 114.2</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/910-solutions.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/910-solutions.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-27.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
