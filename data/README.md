@@ -27,6 +27,8 @@ Please create a `storage` folder in the main repository folder before following 
         - run: `src/utils/Create_IMD2015_Leicester_dataset.R`.
 - CDRC's [Census Residential Data Pack 2011: Leicester](https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip)
     - Source: [ESRC Consumer Data Research Centre](https://data.cdrc.ac.uk/) licensed under the [Open Government Licence v.3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/); Contains National Statistics data Crown copyright and database right 2015; Contains Ordnance Survey data Crown copyright and database right 2015.
+    - Pre-processing:
+        - download in the `data` folder.
 - [Rural Urban Classification (2011) of Output Areas in England and Wales](https://geoportal.statistics.gov.uk/datasets/3ce248e9651f4dc094f84a4c5de18655/about)
     - Source: [Office for National Statistics](https://geoportal.statistics.gov.uk/) licensed under the [Open Government Licence v.3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/); Contains OS data © Crown copyright and database right 2016.
     - Pre-processing:
