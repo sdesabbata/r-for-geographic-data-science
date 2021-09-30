@@ -198,7 +198,7 @@ When studying how people live in cities, a number of questions might arise about
 
 That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?
 
-<img src="310-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="336" />
+<img src="310-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="384" />
 
 The dataset used to create the 2011 Output Area Classification (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.
 

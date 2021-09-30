@@ -508,7 +508,7 @@ leicester_ggmap +
     #legend.position = "none",
     panel.border = element_rect(colour = "black", fill=NA, size=1)
   ) +
-  ggplot2::labs(caption = "Contains public sector information from Office for National Statistics and Ordnance Survey licensed under the\nOpen Government Licence v3.0. Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.")
+  ggplot2::labs(caption = "Source: CDRC 2011 OAC Geodata Pack by the ESRC Consumer Data Research Centre; Contains National Statistics\ndata Crown copyright and database right 2015; Contains Ordnance Survey data Crown copyright and database\nright 2015. Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.")
 ```
 
 ```{r, include=FALSE}

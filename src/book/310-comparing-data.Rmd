@@ -143,7 +143,7 @@ When studying how people live in cities, a number of questions might arise about
 
 That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 3.5, fig.width = 3.5}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 4, fig.width = 4}
 ifelse(!dir.exists(file.path(Sys.getenv("RGDS_HOME"), "tmp")), dir.create(file.path(Sys.getenv("RGDS_HOME"), "tmp")), FALSE)
 
 if (!dir.exists(file.path("./tmp", "E06000016"))) {
@@ -180,8 +180,8 @@ leic_2011OAC_shp %>%
     legend.position = c("left","bottom")
   ) +
   tmap::tm_credits(
-    "Contains public sectorinformation licensed\nunder the Open Government Licence v3.0",
-    size = 0.5,
+    "Source: CDRC 2011 OAC Geodata Pack by the ESRC Consumer\nDataResearch Centre; Contains National Statistics data Crown\ncopyright and database right 2015; Contains Ordnance Survey\ndata Crown copyright and database right 2015",
+    size = 0.3,
     position = c("right", "bottom")
   )
 
