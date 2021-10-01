@@ -12,6 +12,7 @@ basic-types
 numeric
 logical
 character
+types-and-variables
 tidyverse
 stringr
 the-pipe-operator

@@ -223,6 +223,8 @@ Libraries can be installed in `R` using the function `install.packages` or using
 
 ## Basic types
 
+A value in `R` is an instance of one of three basic types, each encoding a fundamentally different type of information: `numeric` encoding numbers; `logical` encoding truth values (also known as Boolean values); and character encoding text. Each type has its characteristics and related operations, as discussed below. 
+
 ### Numeric
 
 The *numeric* type represents numbers (both integers and reals).
@@ -461,6 +463,55 @@ as.numeric("Ciao")
 ```
 ## [1] NA
 ```
+
+### Types and variables
+
+A variable storing a value of a given type is said to have the same type. However, variables in `R` don't have an assigned type themselves. That means that a variable can be assigned a numeric value first and then changed to a character value. 
+
+
+```r
+a_variable <- 1.41
+a_variable
+```
+
+```
+## [1] 1.41
+```
+
+```r
+is.numeric(a_variable)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+a_variable <- "Hello world!"
+a_variable
+```
+
+```
+## [1] "Hello world!"
+```
+
+```r
+is.character(a_variable)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+is.numeric(a_variable)
+```
+
+```
+## [1] FALSE
+```
+
+To be more precise, many programming languages require to *declare* a variable. That is, to state the type of a variable before it can be used. Variable declaration was particularly common in older programming languages such as `C` and `Java`. `R` does not require to declare variables types.
 
 
 ## Tidyverse

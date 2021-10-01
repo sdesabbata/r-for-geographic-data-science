@@ -208,6 +208,7 @@
 <h2>
 <span class="header-section-number">1.3</span> Basic types<a class="anchor" aria-label="anchor" href="#basic-types"><i class="fas fa-link"></i></a>
 </h2>
+<p>A value in <code>R</code> is an instance of one of three basic types, each encoding a fundamentally different type of information: <code>numeric</code> encoding numbers; <code>logical</code> encoding truth values (also known as Boolean values); and character encoding text. Each type has its characteristics and related operations, as discussed below.</p>
 <div id="numeric" class="section level3" number="1.3.1">
 <h3>
 <span class="header-section-number">1.3.1</span> Numeric<a class="anchor" aria-label="anchor" href="#numeric"><i class="fas fa-link"></i></a>
@@ -419,6 +420,30 @@
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
 </div>
+<div id="types-and-variables" class="section level3" number="1.3.4">
+<h3>
+<span class="header-section-number">1.3.4</span> Types and variables<a class="anchor" aria-label="anchor" href="#types-and-variables"><i class="fas fa-link"></i></a>
+</h3>
+<p>A variable storing a value of a given type is said to have the same type. However, variables in <code>R</code> don’t have an assigned type themselves. That means that a variable can be assigned a numeric value first and then changed to a character value.</p>
+<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fl">1.41</span>
+<span class="va">a_variable</span></code></pre></div>
+<pre><code>## [1] 1.41</code></pre>
+<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_variable</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="st">"Hello world!"</span>
+<span class="va">a_variable</span></code></pre></div>
+<pre><code>## [1] "Hello world!"</code></pre>
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">a_variable</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_variable</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>To be more precise, many programming languages require to <em>declare</em> a variable. That is, to state the type of a variable before it can be used. Variable declaration was particularly common in older programming languages such as <code>C</code> and <code>Java</code>. <code>R</code> does not require to declare variables types.</p>
+</div>
 </div>
 <div id="tidyverse" class="section level2" number="1.4">
 <h2>
@@ -445,20 +470,20 @@
 </ul>
 <p>A library can be loaded using the function <code>library</code>, as shown below (note the name of the library is not quoted). Once a library is installed on a computer, you don’t need to install it again, but every script needs to load all the libraries that it uses. Once a library is loaded, all its functions can be used.</p>
 <p><strong>Important</strong>: it is always necessary to load the <code>tidyverse</code> meta-library if you want to use the <code>stringr</code> functions or the pipe operator <code>%&gt;%</code>.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <div id="stringr" class="section level3" number="1.4.1">
 <h3>
 <span class="header-section-number">1.4.1</span> stringr<a class="anchor" aria-label="anchor" href="#stringr"><i class="fas fa-link"></i></a>
 </h3>
 <p>The code below presents the same examples used in the lecture session to demonstrate the use of <code>stringr</code> functions.</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">str_length</span><span class="op">(</span><span class="st">"Leicester"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">str_detect</span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"e"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">str_replace_all</span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"e"</span>, <span class="st">"x"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Lxicxstxr"</code></pre>
 </div>
@@ -475,7 +500,7 @@
 <li>that doesn’t need to be included in the code anymore</li>
 </ul>
 <p>The code below shows a simple example. The number <code>2</code> is taken as input for the first pipe that passes it on as the first argument to the function <code>sqrt</code>. The output value <code>1.41</code> is then taken as input for the second pipe, which passes it on as the first argument to the function <code>trunc</code>. The final output <code>1</code> is finally returned.</p>
-<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">2</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -486,11 +511,11 @@
 <img src="images/PipeOperator.png" style="width:80.0%" alt=""><p class="caption">Illustration of how the pipe operator works</p>
 </div>
 </center>
-<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>The first step of a sequence of pipes can be a value, a variable, or a function, including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function <code>round</code>, which also allows for a second argument: <code>digits = 2</code>. Note that, when using the pipe operator, only the nominally second argument is provided to the function <code>round</code> – that is <code><a href="https://rdrr.io/r/base/Round.html">round(digits = 2)</a></code></p>
-<div class="sourceCode" id="cb87"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># No pipe, using variables</span>
 <span class="va">tmp_variable_A</span> <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="va">tmp_variable_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">tmp_variable_A</span><span class="op">)</span>
@@ -514,7 +539,7 @@
 <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>A complex operation created through the use of <code>%&gt;%</code> can be used on the right side of <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, to assign the outcome of the operation to a variable.</p>
-<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sqrt_of_two</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
@@ -571,6 +596,7 @@
 <li><a class="nav-link" href="#numeric"><span class="header-section-number">1.3.1</span> Numeric</a></li>
 <li><a class="nav-link" href="#logical"><span class="header-section-number">1.3.2</span> Logical</a></li>
 <li><a class="nav-link" href="#character"><span class="header-section-number">1.3.3</span> Character</a></li>
+<li><a class="nav-link" href="#types-and-variables"><span class="header-section-number">1.3.4</span> Types and variables</a></li>
 </ul>
 </li>
 <li>
@@ -598,7 +624,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-30.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-10-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

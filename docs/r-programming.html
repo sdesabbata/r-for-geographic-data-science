@@ -87,7 +87,7 @@
 </h2>
 <p>The RStudio Console is handy to interact with the R interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or scripts to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter and editing past instructions when you want to change something. A better option to create programs or data analysis script of any significant size is to use the RStudio integrated editor to create an <em>R script</em>.</p>
 <p>To create an R script, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second simply calculates the square root of two.</p>
-<div class="sourceCode" id="cb89"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load the Tidyverse</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 
@@ -96,7 +96,7 @@
 <pre><code>## [1] 1.414214</code></pre>
 <p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_first_script.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>. That is your first R script, congratulations!</p>
 <p>New lines of code can be added to the file, and the whole script can then be executed. Edit the file by adding the line of code shown below, and save it. Then click the <em>Source</em> button on the top-right of the editor to execute the file. What happens the first time? What happens if you click <em>Source</em> again?</p>
-<div class="sourceCode" id="cb91"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># First variable in a script</span>
 <span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="st">"This is my first script"</span></code></pre></div>
 <p>Alternatively, you can click on a specific line or select one or more lines, and click <em>Run</em> to execute only the selected line(s).</p>
@@ -108,75 +108,75 @@
 </h2>
 <p>Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In <code>R</code>, they are referred to as <strong>vectors</strong>.</p>
 <p>Vectors can be defined in R by using the function <code>c</code>, which takes as parameters the items to be stored in the vector – stored in the order in which they are provided.</p>
-<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>Once the vector has been created and assigned to an identifier, elements within the vector can be retrieved by specifying the identifier, followed by square brackets, and the <em>index</em> (or indices as we will see further below) of the elements to be retrieved – remember that indices start from 1.</p>
-<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Retrieve the third city</span>
 <span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] "Lincoln"</code></pre>
 <p>To retrieve any subset of a vector (i.e., not just one element), specify an integer vector containing the indices of interest (rather than a single integer value) between square brackets.</p>
-<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Retrieve first and third city</span>
 <span class="va">east_midlands_cities</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] "Derby"   "Lincoln"</code></pre>
 <p>The operator <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> can be used to create integer vectors, starting from the number specified before the operator to the number specified after the operator.</p>
-<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create a vector containing integers between 2 and 4</span>
 <span class="va">two_to_four</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>
 <span class="va">two_to_four</span></code></pre></div>
 <pre><code>## [1] 2 3 4</code></pre>
-<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Retrieve cities between the second and the fourth</span>
 <span class="va">east_midlands_cities</span><span class="op">[</span><span class="va">two_to_four</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] "Leicester"  "Lincoln"    "Nottingham"</code></pre>
-<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># As the second element of two_to_four is 3...</span>
 <span class="va">two_to_four</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># the following command will retrieve the third city</span>
 <span class="va">east_midlands_cities</span><span class="op">[</span><span class="va">two_to_four</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] "Lincoln"</code></pre>
-<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create a vector with cities from the previous vector</span>
 <span class="va">selected_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></code></pre></div>
 <p>The functions <code>seq</code> and <code>rep</code> can also be used to create vectors, as illustrated below.</p>
-<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1]  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0
 ## [16]  8.5  9.0  9.5 10.0</code></pre>
-<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1]  1.0  2.8  4.6  6.4  8.2 10.0</code></pre>
-<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Ciao"</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] "Ciao" "Ciao" "Ciao" "Ciao"</code></pre>
 <p>The logical operators <code>any</code> and <code>all</code> can be used to test conditional statements on the vector. The former returns <code>TRUE</code> if at least one element satisfies the statement, the second returns <code>TRUE</code> if all elements satisfy the condition</p>
-<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">east_midlands_cities</span> <span class="op">==</span> <span class="st">"Leicester"</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
 <span class="va">my_sequence</span></code></pre></div>
 <pre><code>## [1]  1.0  2.5  4.0  5.5  7.0  8.5 10.0</code></pre>
-<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">my_sequence</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">my_sequence</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>All built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.</p>
-<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">one_to_ten</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
 <span class="va">one_to_ten</span></code></pre></div>
 <pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">one_to_ten</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
 <pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
-<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">one_to_ten</span><span class="op">)</span></code></pre></div>
 <pre><code>##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
 ##  [9] 3.000000 3.162278</code></pre>
@@ -186,30 +186,30 @@
 <span class="header-section-number">2.3</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
 </h2>
 <p>As seen in the first practical session, a conditional statement entered in the Console is evaluated for the provided input, and a logical value (<code>TRUE</code> or <code>FALSE</code>) is provided as output. Similarly, if the provided input is a vector, the conditional statement is evaluated for each element of the vector, and a vector of logical values is returned – which contains the respective results of the conditional statements for each element.</p>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_three</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">3</span>
 <span class="va">minus_three</span> <span class="op">&gt;</span> <span class="fl">0</span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_three_to_three</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">3</span><span class="op">:</span><span class="fl">3</span>
 <span class="va">minus_three_to_three</span></code></pre></div>
 <pre><code>## [1] -3 -2 -1  0  1  2  3</code></pre>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_three_to_three</span> <span class="op">&gt;</span> <span class="fl">0</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
 <p>A subset of the elements of a vector can also be selected by providing a vector of logical values between brackets after the identifier. A new vector returned, containing only the values for which a <code>TRUE</code> value has been specified correspondingly.</p>
-<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_two_to_two</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span>
 <span class="va">minus_two_to_two</span></code></pre></div>
 <pre><code>## [1] -2 -1  0  1  2</code></pre>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_two_to_two</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] -2 -1  2</code></pre>
 <p>As the result of evaluating the conditional statement on a vector is a vector of logical values, this can be used to filter vectors based on conditional statements. If a conditional statement is provided between square brackets (after the vector identifier, instead of an index), a new vector is returned, which contains only the elements for which the conditional statement is true.</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_two_to_two</span> <span class="op">&gt;</span> <span class="fl">0</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">minus_two_to_two</span><span class="op">[</span><span class="va">minus_two_to_two</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span></code></pre></div>
 <pre><code>## [1] 1 2</code></pre>
 </div>
@@ -218,14 +218,14 @@
 <span class="header-section-number">2.4</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
 </h2>
 <p>Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested and the part of the procedure to execute in the case the condition is true is included in a <em>code block</em>.</p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">25</span>
 
 <span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>A simple conditional statement can be created using <code>if</code> as in the example above. A more complex structure can be created using both <code>if</code> and <code>else</code>, to provide not only a procedure to execute in case the condition is true, but also an alternative procedure, to be executed when the condition is false.</p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">12</span>
 
 <span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span>
@@ -235,7 +235,7 @@
 <span class="op">}</span></code></pre></div>
 <pre><code>## Today is not warm</code></pre>
 <p>Finally, conditional statements can be <strong>nested</strong>. That is, a conditional statement can be included as part of the code block to be executed after the condition is tested. For instance, in the example below, a second conditional statement is included in the code block to be executed in the case the condition is false.</p>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">5</span>
 
 <span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span>
@@ -249,7 +249,7 @@
 <span class="op">}</span></code></pre></div>
 <pre><code>## This is really cold!</code></pre>
 <p>Similarly, the first example seen in the lecture should be coded as follows.</p>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span>
 
 <span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
@@ -273,7 +273,7 @@
 <span class="header-section-number">2.5.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>In R, conditional loops can be implemented using <code>while</code> and <code>repeat</code>. The difference between the two is mostly syntactical: the first tests the condition first and then execute the related code block if the condition is true; the second executes the code block until a <code>break</code> command is given (usually through a conditional statement).</p>
-<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 <span class="co"># Keep printing as long as x is smaller than 2</span>
 <span class="kw">while</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span>
@@ -282,7 +282,7 @@
 <span class="op">}</span></code></pre></div>
 <pre><code>## 0 
 ## 1</code></pre>
-<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 <span class="co"># Keep printing, if x is greater or equal than 2 than stop</span>
 <span class="kw">repeat</span> <span class="op">{</span>
@@ -298,11 +298,11 @@
 <span class="header-section-number">2.5.2</span> Deterministic Loops<a class="anchor" aria-label="anchor" href="#deterministic-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>The deterministic loop executes the subsequent code block iterating through the elements of a provided vector. During each iteration (i.e., execution of the code block), the current element of the vector (<em><vector></vector></em> in the definition below) is assigned to the variable in the statement (<em><var></var></em> in the definition below), and it can be used in the code block.</p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="r-programming.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="sc">&lt;</span>VAR<span class="sc">&gt;</span> <span class="cf">in</span> <span class="sc">&lt;</span>VECTOR<span class="sc">&gt;</span>) {</span>
-<span id="cb152-2"><a href="r-programming.html#cb152-2" aria-hidden="true" tabindex="-1"></a>    ... code <span class="cf">in</span> loop ... </span>
-<span id="cb152-3"><a href="r-programming.html#cb152-3" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="r-programming.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="sc">&lt;</span>VAR<span class="sc">&gt;</span> <span class="cf">in</span> <span class="sc">&lt;</span>VECTOR<span class="sc">&gt;</span>) {</span>
+<span id="cb162-2"><a href="r-programming.html#cb162-2" aria-hidden="true" tabindex="-1"></a>    ... code <span class="cf">in</span> loop ... </span>
+<span id="cb162-3"><a href="r-programming.html#cb162-3" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
 <p>It is, for instance, possible to iterate over a vector and print each of its elements.</p>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span>
 <span class="kw">for</span> <span class="op">(</span><span class="va">city</span> <span class="kw">in</span> <span class="va">east_midlands_cities</span><span class="op">)</span><span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">city</span>, <span class="st">"\n"</span><span class="op">)</span>
@@ -312,7 +312,7 @@
 ## Lincoln 
 ## Nottingham</code></pre>
 <p>It is common practice to create a vector of integers on the spot (e.g., using the <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> operator) to execute a certain sequence of steps a pre-defined number of times.</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Exectuion number"</span>, <span class="va">iterator</span>, <span class="st">":\n"</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step1: Hi!\n"</span><span class="op">)</span>
@@ -344,14 +344,14 @@
 </h2>
 <p>Recall from the lecture that <em>an</em> <strong>algorithm</strong> <em>or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation</em> (Cutland, 1980). A <strong>program</strong> is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more <strong>function</strong>s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.</p>
 <p>The code below is a simple function with one parameter. The function simply calculates the square root of a number. Add the code below to your script and run that portion of the script (or type the code into the Console).</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span>
    <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>
    <span class="va">result</span>
 <span class="op">}</span></code></pre></div>
 <p>Once the definition of a function has been executed, the function becomes part of the environment, and it should be visible in the Environment panel, in a subsection titled <em>Functions</em>. Thereafter, the function can be called from the Console, from other portions of the script, as well as from other scripts.</p>
 <p>If you type the instruction below in the <em>Console</em>, or add it to the script and run it, the function is called using <code>27</code> as an argument, thus returning <code>3</code>.</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb168"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <div id="functions-and-control-structures" class="section level3" number="2.7.1">
@@ -359,7 +359,7 @@
 <span class="header-section-number">2.7.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
 </h3>
 <p>One issue when writing functions is making sure that the data that has been given to the data is the right kind. For example, what happens when you try to compute the cube root of a negative number?</p>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 <p>That probably wasn’t the answer you wanted. As you might remember <code>NaN</code> (<em>Not a Number</em>) is the value return when a mathematical expression is numerically indeterminate. In this case, this is actually due to a shortcoming with the <code><a href="https://rdrr.io/r/base/Arithmetic.html">^</a></code> operator in R, which only works for positive base values. In fact -7 is a perfectly valid cube root of -343, since (-7)x(-7)x(-7) = -343.</p>
@@ -369,7 +369,7 @@
 <li>Otherwise: work out the cube root of the positive number, then change it to negative.</li>
 </ul>
 <p>Those kinds of situations can be dealt with in an R function by using an <code>if</code> statement, as shown below. Note how the operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> (i.e., the symbol minus) is here used to obtain the inverse of a number, in the same way as <code>-1</code> is the inverse of the number <code>1</code>.</p>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span>
     <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span>
         <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> 
@@ -383,7 +383,7 @@
 <span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></code></pre></div>
 <p>However, other things can go wrong. For example, <code>cube_root("Leicester")</code> would cause an error to occur, <code>Error in x^(1 / 3) : non-numeric argument to binary operator</code>. That shouldn’t be surprising because cube roots only make sense for numbers, not character variables. Thus, it might be helpful if the cube root function could spot this and print a warning explaining the problem, rather than just crashing with a fairly cryptic error message such as the one above, as it does at the moment.</p>
 <p>The function could be re-written to making use of <code>is.numeric</code> in a second conditional statement. If the input value is not numeric, the function returns the value <code>NA</code> (<em>Not Available</em>) instead of a number. Note that here there is an <code>if</code> statement inside another <code>if</code> statement, as it is always possible to nest code blocks – and <code>if</code> within a <code>for</code> within a <code>while</code> within an <code>if</code> within … etc.</p>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span> 
     <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">input_value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
         <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span>
@@ -526,7 +526,7 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-30.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-10-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

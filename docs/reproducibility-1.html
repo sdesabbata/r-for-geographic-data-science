@@ -127,7 +127,7 @@ a_number &lt;- a_number + 1
 a_number &lt;- a_number + 1
 a_number
 ```</code></pre>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">0</span>
 <span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span>
 <span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span>
@@ -194,10 +194,10 @@ The code uses the pipe operator:
 </h3>
 <p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for GY7702 wherever most convenient. Click on <em>New Folder</em> and enter <code>repos</code> (short for repositories) in the prompt dialogue, to create a folder named <code>repos</code>.</p>
 <p>If you don’t have a GitHub account, create one at <a href="https://github.com/">github.com</a>. In RStudio, use <code>create_github_token</code> as shown below, and follow the instructions to generate a GitHub personal access token (PAT) that will allow you to synchronise your project to and from GitHub. Alternatively, you can follow GitHub’s instructions on how to <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">create a personal access token</a>.</p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/github-token.html">create_github_token</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>In RStudio, use <code>gitcreds_set</code> as shown below, and follow the instructions to store the GitHub PAT generated above locally.</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">gitcreds</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gitcreds/man/gitcreds_get.html">gitcreds_set</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Create a new repository named <em>my-GY7702</em>, following the instructions available on the <a href="https://help.github.com/en/articles/creating-a-new-repository">GitHub help pages</a>. Make sure you select the option to create a <strong>Private</strong> repository and tick the following options under the heading <em>Initialize this repository with</em>:</p>
 <ul>
@@ -291,7 +291,7 @@ The code uses the pipe operator:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-09-30.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-10-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
