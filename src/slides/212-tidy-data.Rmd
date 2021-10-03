@@ -24,7 +24,6 @@ library(knitr)
 
 # Tidy data
 
-<p style="color: white">**CONTENT WARNING:**<br/>Some of the data used in these slides discuss issues that some people might find distressing: **disease**.</p>
 
 
 ## Recap
@@ -311,24 +310,10 @@ city_info_long_noNAs %>%
 
 Finally, some analysis or visualisation procedures might require a *complete* table
 
-:::::: {.cols data-latex=""}
-
-::: {.col data-latex="{0.5\textwidth}"}
-
 - where missing values are represented as NAs
-- for instance, when creating a map (as in [this example](https://sdesabbata.github.io/covid-19-uk-analysis/))
+- for instance, when creating a map
   - you might want to use a specific colour for missing values
   - rather than a missing polygon
-  
-:::
-
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
-
-![](images/covid19_cases_uk_7DayRateNew_anim_20200307.png)
-
-:::
-
-::::::
 
 
 
