@@ -21,3 +21,7 @@ install.packages("neuralnet")
 install.packages("kernlab")
 install.packages("ROCR")
 install.packages("pROC")
+
+# dev libs
+install.packages("devtools")
+devtools::install_github("hadley/emo")

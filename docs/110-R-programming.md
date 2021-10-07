@@ -2,13 +2,13 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-This chapter discusses some of the fundamental building blocks of programming and how they are implemented in `R`. The sections below introduce **vectors**, which are complex `R` objects which can hold more than one value, and how to handle them before moving on to illustrate the use of **conditional statements** and code **loops**. However, those constructs require a bit more than the single lines of code we have seen so far. As such, we start the chapter by introducing **scripts**.
+This chapter discusses some of the fundamental building blocks of programming and how they are implemented in `R`. The sections below introduce **vectors** -- which are complex `R` objects that can hold more than one value -- and how to handle them, before moving on to illustrate the use of **conditional statements** and code **loops**. However, those constructs require a bit more than the single lines of code we have seen so far. As such, we start the chapter by introducing **scripts**.
 
 ## R Scripts
 
-The RStudio Console is handy to interact with the R interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or scripts to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter and editing past instructions when you want to change something. A better option to create programs or data analysis script of any significant size is to use the RStudio integrated editor to create an *R script*.
+The RStudio Console is handy to interact with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis script of any significant size is to use the RStudio integrated editor to create an `R` script.
 
-To create an R script, select from the top menu *File > New File > R Script*. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the `tidyverse` library, whereas the second simply calculates the square root of two.
+To create an `R` script, select from the top menu *File > New File > R Script*. That opens the embedded RStudio editor and a new empty `R` script folder. Copy the two lines below into the file. The first loads the `tidyverse` library, whereas the second simply calculates the square root of two.
 
 
 ```r
@@ -23,17 +23,25 @@ library(tidyverse)
 ## [1] 1.414214
 ```
 
-From the top menu, select *File > Save*, type in *My_first_script.R* (make sure to include the underscore and the *.R* extension) as *File name*, and click *Save*. That is your first R script, congratulations!
+As you can see, a comment precedes each line, describing what the subsequent command does. Adequately commenting the code is a fundamental practice in programming. As this is a learning resource, the comments in the examples below are use to explain *"what"* the subsequent lines of code do. However, comments should generally focus on *"how"* a procedure (i.e., an algorithm) is implemented in a set of instructions (i.e., a section of the script) and crucially on *"why"* the procedure has been implemented in a specific way. We will see more complex examples in the rest of this book.
 
-New lines of code can be added to the file, and the whole script can then be executed. Edit the file by adding the line of code shown below, and save it. Then click the *Source* button on the top-right of the editor to execute the file. What happens the first time? What happens if you click *Source* again?
+From the top menu, select *File > Save*, type in `My_first_script.R` (make sure to include the underscore and the `.R` extension) as *File name*, and click *Save*. Finally, click the *Source* button on the top-right of the editor. 
+
+Congratulations, you have executed your first `R` script! 😊👍
+
+New lines of code can be added to the file, and the whole script can then be executed. For instance, you can edit the file by adding the lines of code shown below, and save it. 
+
+**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of script? What happens if you click *Source* a third time?
 
 
 ```r
-# First variable in a script
-a_variable <- "This is my first script"
+# First variable in a script:
+# the line below uses the Sys.time of the base library 
+# to obtain the current time as a character string
+current_time <- Sys.time()
 ```
 
-Alternatively, you can click on a specific line or select one or more lines, and click *Run* to execute only the selected line(s).
+RStudio also allows to select one or more lines, and click *Run* to execute only the selected lines, or the line where the cursor currently is.
 
 Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it, rather than using the Console.
 
@@ -41,9 +49,9 @@ Delete the two lines calculating the square root of two and defining the variabl
 
 ## Vectors
 
-Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**.
+Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**^[The term *list* has a specific meaning in `R`. Don't use the term *list* to refer to *vectors*.].
 
-Vectors can be defined in R by using the function `c`, which takes as parameters the items to be stored in the vector -- stored in the order in which they are provided. 
+Vectors can be defined in R by using the function `c`, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided. 
 
 
 ```r
@@ -55,7 +63,7 @@ length(east_midlands_cities)
 ## [1] 4
 ```
 
-Once the vector has been created and assigned to an identifier, elements within the vector can be retrieved by specifying the identifier, followed by square brackets, and the *index* (or indices as we will see further below) of the elements to be retrieved -- remember that indices start from 1.
+Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets, and the *index* (or indices as we will see further below) of the elements to be retrieved. Indices start from `1`, so the index of the first element is `1`, the index of the second element is `2`, and so on and so forth^[That is different from many programming languages, where the index of the first element is `0`.].
 
 
 ```r
@@ -67,7 +75,7 @@ east_midlands_cities[3]
 ## [1] "Lincoln"
 ```
 
-To retrieve any subset of a vector (i.e., not just one element), specify an integer vector containing the indices of interest (rather than a single integer value) between square brackets. 
+To retrieve any subset of a vector (i.e., more than one element), you can specify an integer vector containing the indices (rather than a single integer value) of the items of interest between square brackets. 
 
 
 ```r
@@ -154,7 +162,7 @@ rep("Ciao", 4)
 ```
 
 
-The logical operators `any` and `all` can be used to test conditional statements on the vector. The former returns `TRUE` if at least one element satisfies the statement, the second returns `TRUE` if all elements satisfy the condition
+The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement, the second returns `TRUE` if all elements satisfy the condition
 
 
 ```r
@@ -191,7 +199,7 @@ all(my_sequence > 5)
 ```
 
 
-All built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.
+Functions and operators can be applied to vectors in the same way as they would be applied to simple values. For instance, all built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.
 
 
 ```r
@@ -220,11 +228,23 @@ sqrt(one_to_ten)
 ##  [9] 3.000000 3.162278
 ```
 
+Similarly, string functions can be applied to vectors containing character values. For instance, the code below uses `str_length` to obtain a vector of numeric values representing the lenghts of the city names included in the vector of character values `east_midlands_cities`.
+
+
+```r
+east_midlands_cities %>%
+  str_length()
+```
+
+```
+## [1]  5  9  7 10
+```
+
 
 
 ## Filtering
 
-As seen in the first practical session, a conditional statement entered in the Console is evaluated for the provided input, and a logical value (`TRUE` or `FALSE`) is provided as output. Similarly, if the provided input is a vector, the conditional statement is evaluated for each element of the vector, and a vector of logical values is returned -- which contains the respective results of the conditional statements for each element.
+As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (`TRUE` or `FALSE`) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned -- which contains the respective results of the conditions for each element.
 
 
 ```r
@@ -273,7 +293,7 @@ minus_two_to_two[c(TRUE, TRUE, FALSE, FALSE, TRUE)]
 ## [1] -2 -1  2
 ```
 
-As the result of evaluating the conditional statement on a vector is a vector of logical values, this can be used to filter vectors based on conditional statements. If a conditional statement is provided between square brackets (after the vector identifier, instead of an index), a new vector is returned, which contains only the elements for which the conditional statement is true. 
+As the result of evaluating the condition on a vector is a vector of logical values, this can be used to filter vectors based on conditions. If a condition is provided between square brackets (after the vector identifier, instead of an index), a new vector is returned, which contains only the elements for which the condition is true. 
 
 
 ```r

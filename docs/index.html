@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="Welcome | R for Geographic Data Science">
 <meta name="twitter:description" content="Welcome | R for Geographic Data Science">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.10/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
@@ -108,7 +108,7 @@ part of the steering committee of <a href="http://gisruk.org/">GIScience Researc
 <div id="instructor" class="section level3 unnumbered">
 <h3>Instructor<a class="anchor" aria-label="anchor" href="#instructor"><i class="fas fa-link"></i></a>
 </h3>
-<p>You can now reproduce R for Geographic Data Science using <a href="https://www.docker.com/">Docker</a>. First, <a href="https://docs.docker.com/get-docker/">install Docker</a> on your system, <a href="https://git-scm.com/downloads">install Git</a> if not already installed, and <a href="https://github.com/sdesabbata/r-for-geographic-data-science">clone this repository from GitHub</a>. You can then either build the sdesabbata/r-for-geographic-data-science image running the <code>src/Docker_Build.sh</code> script you can find in the <a href="https://github.com/sdesabbata/r-for-geographic-data-science">repository</a> or <a href="https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science">pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub</a>.</p>
+<p>You can now reproduce R for Geographic Data Science using <a href="https://www.docker.com/">Docker</a>. First, <a href="https://docs.docker.com/get-docker/">install Docker</a> on your system, <a href="https://git-scm.com/downloads">install Git</a> if not already installed, and <a href="https://github.com/sdesabbata/r-for-geographic-data-science">clone this repository from GitHub</a>. You can then either build the <code>sdesabbata/r-for-geographic-data-science</code> image running the <code>Docker_Build.sh</code> script from the <code>src</code> folder of the <a href="https://github.com/sdesabbata/r-for-geographic-data-science">repository</a> or <a href="https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science">pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub</a>.</p>
 <p>You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script <code>src/Docker_Make.sh</code> (<code>src/Docker_Make_WinPowerShell.sh</code> on Windows using PowerShell). The script will instantiate a Docker container for the <code>sdesabbata/r-for-geographic-data-science</code> image, bind mount the repository folder to the container and execute <code>src/Make.R</code> on the container, clearing and re-making all the materials. The data used in the materials can be re-created from the original open data using the scripts in <code>src/utils</code>, as described in <code>data/README.md</code>.</p>
 <p>For instance, in a Unix-based system like Linux or Mac OS, you can reproduce R for Geographic Data Science using the following four commands:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="index.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull sdesabbata/r-for-geographic-data-science:latest</span>
@@ -138,7 +138,7 @@ part of the steering committee of <a href="http://gisruk.org/">GIScience Researc
 <h3>Learner<a class="anchor" aria-label="anchor" href="#learner"><i class="fas fa-link"></i></a>
 </h3>
 <p>As a learner, you can use <a href="https://www.docker.com/">Docker</a> to follow the practical sessions instructions and complete the exercises. First, <a href="https://docs.docker.com/get-docker/">install Docker</a> on your system, <a href="https://git-scm.com/downloads">install Git</a> if not already installed, and <a href="https://github.com/sdesabbata/r-for-geographic-data-science">clone this repository from GitHub</a>.</p>
-<p>You can then either build the <code>sdesabbata/r-for-geographic-data-science</code> image running the <code>src/Docker_Build.sh</code> script you can find in the <a href="https://github.com/sdesabbata/r-for-geographic-data-science">repository</a> or <a href="https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science">pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub</a>. You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script <code>src/Docker_RStudio_Start.sh</code> (<code>src/Docker_RStudio_Start_WinPowerShell.sh</code> on Windows using PowerShell) from the repository folder.</p>
+<p>You can then either build the <code>sdesabbata/r-for-geographic-data-science</code> image running the <code>Docker_Build.sh</code> script from the <code>src</code> folder of the <a href="https://github.com/sdesabbata/r-for-geographic-data-science">repository</a> or <a href="https://hub.docker.com/repository/docker/sdesabbata/r-for-geographic-data-science">pull the latest sdesabbata/r-for-geographic-data-science image from the Docker Hub</a>. You should now have all the code and the computational environment to reproduce these materials, which can be done by running the script <code>src/Docker_RStudio_Start.sh</code> (<code>src/Docker_RStudio_Start_WinPowerShell.sh</code> on Windows using PowerShell) from the repository folder.</p>
 <p>For instance, in a Unix-based system like Linux or Mac OS, you can set up and start the r-for-geographic-data-science container using the following four commands:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="index.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> pull sdesabbata/r-for-geographic-data-science:latest</span>
 <span id="cb3-2"><a href="index.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/sdesabbata/r-for-geographic-data-science.git</span>
@@ -175,14 +175,14 @@ part of the steering committee of <a href="http://gisruk.org/">GIScience Researc
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] knitr_1.34      xml2_1.3.2      magrittr_2.0.1  downlit_0.2.1  
+##  [1] knitr_1.36      xml2_1.3.2      magrittr_2.0.1  downlit_0.2.1  
 ##  [5] R6_2.5.1        rlang_0.4.11    fastmap_1.1.0   fansi_0.5.0    
-##  [9] stringr_1.4.0   tools_4.1.1     xfun_0.25       utf8_1.2.2     
+##  [9] stringr_1.4.0   tools_4.1.1     xfun_0.26       utf8_1.2.2     
 ## [13] jquerylib_0.1.4 htmltools_0.5.2 ellipsis_0.3.2  yaml_2.2.1     
-## [17] digest_0.6.27   tibble_3.1.4    lifecycle_1.0.0 crayon_1.4.1   
+## [17] digest_0.6.28   tibble_3.1.5    lifecycle_1.0.1 crayon_1.4.1   
 ## [21] bookdown_0.24   sass_0.4.0      vctrs_0.3.8     fs_1.5.0       
-## [25] evaluate_0.14   rmarkdown_2.10  stringi_1.7.4   compiler_4.1.1 
-## [29] bslib_0.3.0     pillar_1.6.2    jsonlite_1.7.2  pkgconfig_2.0.3</code></pre>
+## [25] evaluate_0.14   rmarkdown_2.11  stringi_1.7.5   compiler_4.1.1 
+## [29] bslib_0.3.0     pillar_1.6.3    jsonlite_1.7.2  pkgconfig_2.0.3</code></pre>
 <hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
@@ -227,7 +227,7 @@ part of the steering committee of <a href="http://gisruk.org/">GIScience Researc
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-10-03.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-10-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

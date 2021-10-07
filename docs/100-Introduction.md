@@ -398,7 +398,58 @@ as.logical(0) # TRUE if not zero
 ## [1] FALSE
 ```
 
-Basic logic operators
+`R` provides a series of basic logic operators you can use to evaluate *conditions*. For instance, you can use the logic operator `==` to evaluate the condition `5==2`, which tests whether the value `5` is equal to the value `2`. Conditions can be tested on values as well as on variables.
+
+
+```r
+5==2
+```
+
+```
+## [1] FALSE
+```
+
+```r
+first_value <- 5
+second_value <- 2
+first_value == 5
+```
+
+```
+## [1] TRUE
+```
+
+```r
+first_value == 2
+```
+
+```
+## [1] FALSE
+```
+
+```r
+second_value == 5
+```
+
+```
+## [1] FALSE
+```
+
+```r
+second_value == 2
+```
+
+```
+## [1] TRUE
+```
+
+```r
+first_value == second_value
+```
+
+```
+## [1] FALSE
+```
 
 |Operator|Meaning          |Example         |Output            |
 |--------|-----------------|----------------|------------------|

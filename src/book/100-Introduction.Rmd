@@ -225,7 +225,18 @@ isTRUE(logical_var)
 as.logical(0) # TRUE if not zero
 ```
 
-Basic logic operators
+`R` provides a series of basic logic operators you can use to evaluate *conditions*. For instance, you can use the logic operator `==` to evaluate the condition `5==2`, which tests whether the value `5` is equal to the value `2`. Conditions can be tested on values as well as on variables.
+
+```{r, echo=TRUE}
+5==2
+first_value <- 5
+second_value <- 2
+first_value == 5
+first_value == 2
+second_value == 5
+second_value == 2
+first_value == second_value
+```
 
 |Operator|Meaning          |Example         |Output            |
 |--------|-----------------|----------------|------------------|

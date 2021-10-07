@@ -1,1 +1,1 @@
-docker stop r-for-geographic-data-science
+docker stop rgds-rstudio

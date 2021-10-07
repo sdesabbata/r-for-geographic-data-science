@@ -22,7 +22,7 @@ rm(list = ls())
 
 ## Summary
 
-**Prev**:Control structures
+**Prev**: Control structures
 
 - Conditional statements
 - Loops
@@ -137,7 +137,7 @@ factorial(3)
 
 ## Scope
 
-The **scope of a variable** is the part of code in which the variable is ``visible''
+The **scope of a variable** is the part of code in which the variable is *"visible"*
 
 In R, variables have a **hierarchical** scope:
 

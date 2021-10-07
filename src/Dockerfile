@@ -5,7 +5,7 @@ FROM rocker/geospatial:4.1.1
 ENV USER rstudio
 
 # Install additional required R libraries
-COPY ./src/docker_config/Requirements.R /tmp/Requirements.R
+COPY ./docker_config/Requirements.R /tmp/Requirements.R
 RUN Rscript /tmp/Requirements.R
 
 # Update tlmgr
