@@ -6,7 +6,7 @@ This chapter discusses some of the fundamental building blocks of programming an
 
 ## R Scripts
 
-The RStudio Console is handy to interact with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis script of any significant size is to use the RStudio integrated editor to create an `R` script.
+The RStudio Console is handy to interact with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow you to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis scripts of any significant size is to use the RStudio integrated editor to create an `R` script.
 
 To create an `R` script, select from the top menu *File > New File > R Script*. That opens the embedded RStudio editor and a new empty `R` script folder. Copy the two lines below into the file. The first loads the `tidyverse` library, whereas the second simply calculates the square root of two.
 
@@ -18,15 +18,15 @@ library(tidyverse)
 2 %>% sqrt()
 ```
 
-As you can see, a comment precedes each line, describing what the subsequent command does. Adequately commenting the code is a fundamental practice in programming. As this is a learning resource, the comments in the examples below are use to explain *"what"* the subsequent lines of code do. However, comments should generally focus on *"how"* a procedure (i.e., an algorithm) is implemented in a set of instructions (i.e., a section of the script) and crucially on *"why"* the procedure has been implemented in a specific way. We will see more complex examples in the rest of this book.
+As you can see, a comment precedes each line, describing what the subsequent command does. Adequately commenting the code is a fundamental practice in programming. As this is a learning resource, the comments in the examples below explain *"what"* the subsequent lines of code do. However, comments should generally focus on *"how"* a procedure (i.e., an algorithm) is implemented in a set of instructions (i.e., a section of the script) and crucially on *"why"* the procedure has been implemented in a specific way. We will see more complex examples in the rest of this book.
 
 From the top menu, select *File > Save*, type in `My_first_script.R` (make sure to include the underscore and the `.R` extension) as *File name*, and click *Save*. Finally, click the *Source* button on the top-right of the editor. 
 
 Congratulations, you have executed your first `R` script! `r emo::ji("smiling face with smiling eyes")``r emo::ji("thumbs up")`
 
-New lines of code can be added to the file, and the whole script can then be executed. For instance, you can edit the file by adding the lines of code shown below, and save it. 
+You can then edit the script by adding (for instance) the new lines of code shown below, saving the file, and executing the script's new version.
 
-**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of script? What happens if you click *Source* a third time?
+**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of the script? What happens if you click *Source* a third time?
 
 ```{r, echo=TRUE, eval=FALSE}
 # First variable in a script:
@@ -35,7 +35,7 @@ New lines of code can be added to the file, and the whole script can then be exe
 current_time <- Sys.time()
 ```
 
-RStudio also allows to select one or more lines, and click *Run* to execute only the selected lines, or the line where the cursor currently is.
+RStudio also allows to select one or more lines and click *Run* to execute only the selected lines or the line where the cursor currently is.
 
 Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it, rather than using the Console.
 
@@ -52,7 +52,7 @@ east_midlands_cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
 length(east_midlands_cities)
 ```
 
-Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets, and the *index* (or indices as we will see further below) of the elements to be retrieved. Indices start from `1`, so the index of the first element is `1`, the index of the second element is `2`, and so on and so forth^[That is different from many programming languages, where the index of the first element is `0`.].
+Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the *index* (or indices as we will see further below) of the elements to be retrieved. Indices start from `1`, so the index of the first element is `1`, the index of the second element is `2`, and so on and so forth^[That is different from many programming languages, where the index of the first element is `0`.].
 
 ```{r, echo=TRUE}
 # Retrieve the third city
@@ -153,7 +153,7 @@ minus_two_to_two[minus_two_to_two > 0]
 
 ## Conditional statements
 
-Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested and the part of the procedure to execute in the case the condition is true is included in a *code block*.
+Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested, and the part of the procedure to execute in the case the condition is true is included in a *code block*.
 
 ```{r, echo=TRUE}
 temperature <- 25
@@ -163,7 +163,7 @@ if (temperature > 25) {
 }
 ```
 
-A simple conditional statement can be created using `if` as in the example above. A more complex structure can be created using both `if` and `else`, to provide not only a procedure to execute in case the condition is true, but also an alternative procedure, to be executed when the condition is false.
+A simple conditional statement can be created using `if` as in the example above. A more complex structure can be created using both `if` and `else` to provide not only a procedure to execute in case the condition is true but also an alternative procedure to be executed when the condition is false.
 
 ```{r, echo=TRUE}
 temperature <- 12
@@ -207,6 +207,8 @@ if (a_value == 0) {
 }
 
 ```
+
+
 
 ## Loops
 
@@ -281,7 +283,7 @@ for (iterator in 1:3) {
 
 ## Function definition
 
-Recall from the lecture that *an* **algorithm** *or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation* (Cutland, 1980). A **program** is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more **function**s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.
+Recall from the previous chapter that *an* **algorithm** *or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation* (Cutland, 1980, p. 7[@cutland_1980]). A **program** is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more **function**s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.
 
 The code below is a simple function with one parameter. The function simply calculates the square root of a number. Add the code below to your script and run that portion of the script (or type the code into the Console). 
 
@@ -292,7 +294,7 @@ cube_root <- function (input_value) {
 }
 ```
 
-Once the definition of a function has been executed, the function becomes part of the environment, and it should be visible in the Environment panel, in a subsection titled *Functions*. Thereafter, the function can be called from the Console, from other portions of the script, as well as from other scripts.
+Once the definition of a function has been executed, the function becomes part of the environment, and it should be visible in the Environment panel in a subsection titled *Functions*. Thereafter, the function can be called from the Console, from other portions of the script, as well as from other scripts.
 
 If you type the instruction below in the *Console*, or add it to the script and run it, the function is called using `27` as an argument, thus returning `3`.
 
@@ -309,7 +311,7 @@ One issue when writing functions is making sure that the data that has been give
 cube_root(-343)
 ```
 
-That probably wasn't the answer you wanted. As you might remember `NaN` (*Not a Number*) is the value return when a mathematical expression is numerically indeterminate.  In this case,  this is actually due to a shortcoming with the `^` operator in R,  which only works for positive base values.  In fact -7 is a perfectly valid cube root of -343,  since (-7)x(-7)x(-7) = -343.  
+That probably wasn't the answer you wanted, as `NaN` (*Not a Number*) is the value returned when a mathematical expression is numerically indeterminate.  In this case,  this is actually due to a shortcoming with the `^` operator in R,  which only works for positive base values.  In fact -7 is a perfectly valid cube root of -343,  since (-7)x(-7)x(-7) = -343.  
 
 To work around this limitation, we can state a conditional rule:
 
@@ -353,7 +355,7 @@ cube_root <- function (input_value) {
 }
 ```
 
-Finally, `cat` is a printing function, that instructs R to display the provided argument (in this case, the phrase within quotes) as output in the Console. The `\n` in `cat` tells R to add a *newline* when printing out the warning.
+Finally, `cat` is a printing function that instructs R to display the provided argument (in this case, the phrase within quotes) as output in the Console. The `\n` in `cat` tells R to add a *newline* when printing out the warning.
 
 
 
