@@ -24,6 +24,8 @@ library(knitr)
 
 # Tidy data
 
+<p style="color: white">**CONTENT WARNING:**<br/>Some of the examples used in these slides discuss issues that some people might find distressing: **disease**.</p>
+
 
 
 ## Recap
