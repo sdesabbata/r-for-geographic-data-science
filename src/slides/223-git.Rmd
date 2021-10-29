@@ -59,7 +59,7 @@ A series of snapshots
 - all history stored locally
 
 <center>
-![](images/git_snapshots.png){width=80%}
+![](images/git_snapshots.png){width=70%}
 
 <br/>
 <font size="4">
@@ -78,7 +78,7 @@ When working with a git repository
 - commit what has been staged in a permanent snapshot
 
 <center>
-![](images/git_three_stages.png){width=60%}
+![](images/git_three_stages.png){width=50%}
 
 <br/>
 <font size="4">
@@ -139,7 +139,7 @@ Docker allows to encapsulate and share computational environments
   - only the *"user space"* is simulated
   
 :::
-::: {.col style="width: 40%;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 25%;" data-latex="{0.5\textwidth}"}
 
 ![](images/DockerDiagram_VM.png)
 <br/><br/>
@@ -152,7 +152,7 @@ Docker allows to encapsulate and share computational environments
 ## Virtual machines
 
 :::::: {.cols data-latex=""}
-::: {.col style="width: 100%;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 Virtual machines software (e.g., VMWare) simulate a computer on top of your operative system
 
@@ -163,7 +163,7 @@ Virtual machines software (e.g., VMWare) simulate a computer on top of your oper
 - can be *heavy* to run
 
 :::
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%; text-align: right;" data-latex="{0.5\textwidth}"}
 ![](images/DockerDiagram_VM.png)
 :::
 ::::::
@@ -173,7 +173,7 @@ Virtual machines software (e.g., VMWare) simulate a computer on top of your oper
 ## Docker containers
 
 :::::: {.cols data-latex=""}
-::: {.col style="width: 100%;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 Docker runs *containers*
 
@@ -187,7 +187,7 @@ Docker runs *containers*
   - can also share binaries and libraries
 
 :::
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%; text-align: right;" data-latex="{0.5\textwidth}"}
 ![](images/DockerDiagram_Docker.png)
 :::
 
@@ -212,25 +212,25 @@ Creating a Docker image (from which a container is instantiated)
   - other researchers or developers can run your script **in the exact same computational environment**
 
 
-## granolarr Dockerfile
+## Dockerfile
 
 ```{}
 # Base image https://hub.docker.com/r/rocker/ml
-FROM rocker/geospatial:4.0.2
+FROM rocker/geospatial:4.1.1
 
 # create an R user
 ENV USER rstudio
 
-## Install additional required R libraries
-COPY ./DockerConfig/Requirements.R /tmp/Requirements.R
+# Install additional required R libraries
+COPY ./docker_config/Requirements.R /tmp/Requirements.R
 RUN Rscript /tmp/Requirements.R
 
-## Install additional required TeX libraries
+# Update tlmgr
+RUN tlmgr update --self
+
+# Install additional required TeX libraries
 RUN tlmgr install amsmath
 RUN tlmgr install latex-amsmath-dev
-RUN tlmgr install iftex
-RUN tlmgr install euenc
-RUN tlmgr install fontspec
 ```
 
 [... continues]

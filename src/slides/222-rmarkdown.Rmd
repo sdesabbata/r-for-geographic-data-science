@@ -158,7 +158,7 @@ nycflights13::flights %>%
 ## The Definitive Guide
 
 :::::: {.cols data-latex=""}
-::: {.col style="width: 60%;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 Markdown is a rather simple for a markup language, but still fairly complex, especially when used in combination with R.
 
@@ -172,7 +172,7 @@ J. J. Allaire,<br/>
 Garrett Grolemund.
 
 :::
-::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ![](https://bookdown.org/yihui/rmarkdown/images/cover.png)
 

@@ -152,22 +152,22 @@ A common solution is using **make files**
 
 
 
-## granolarr Mark.R
+## Mark.R
 
-Section of the [*granolarr*](https://sdesabbata.github.io/granolarr/) project make file [Make.R](https://github.com/sdesabbata/granolarr/blob/master/Make.R) that generates the current slides for the lecture session 221
+Section of the [*R for Geographic Data Science*](https://github.com/sdesabbata/r-for-geographic-data-science) project make file [Make.R](https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/Make.R) that generates the current slides for the lecture session 221
 
 ```{}
-cat("\n\n>>> Rendering 221_L_Reproducibility.Rmd <<<\n\n")
+cat("\n\n>>> Rendering 221-reproducibility.Rmd <<<\n\n")
 rmarkdown::render(
-    paste0(
-        Sys.getenv("RGDS_HOME"), 
-        "/src/lectures/221_L_Reproducibility.Rmd"
-    ), 
-    quiet = TRUE, 
-    output_dir = paste0(
-        Sys.getenv("RGDS_HOME"), 
-        "/docs/lectures/html"
-    )
+  paste0(
+    Sys.getenv("RGDS_HOME"), 
+    "/src/slides/221-reproducibility.Rmd"
+  ), 
+  quiet = TRUE, 
+  output_dir = paste0(
+    Sys.getenv("RGDS_HOME"), 
+    "/docs/slides"
+  )
 )
 ```
 

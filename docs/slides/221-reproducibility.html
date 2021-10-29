@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2021-10-28" />
+  <meta name="date" content="2021-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -251,7 +251,7 @@
         
         
       </p>
-            <p style="margin-top: 6px; margin-left: -2px;">2021-10-28</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2021-10-29</p>
           </hgroup>
   </slide>
 
@@ -407,21 +407,21 @@
 </ul></li>
 </ul>
 
-</article></slide><slide class=""><hgroup><h2>granolarr Mark.R</h2></hgroup><article  id="granolarr-mark.r">
+</article></slide><slide class=""><hgroup><h2>Mark.R</h2></hgroup><article  id="mark.r">
 
-<p>Section of the <a href='https://sdesabbata.github.io/granolarr/' title=''><em>granolarr</em></a> project make file <a href='https://github.com/sdesabbata/granolarr/blob/master/Make.R' title=''>Make.R</a> that generates the current slides for the lecture session 221</p>
+<p>Section of the <a href='https://github.com/sdesabbata/r-for-geographic-data-science' title=''><em>R for Geographic Data Science</em></a> project make file <a href='https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/Make.R' title=''>Make.R</a> that generates the current slides for the lecture session 221</p>
 
-<pre >cat(&quot;\n\n&gt;&gt;&gt; Rendering 221_L_Reproducibility.Rmd &lt;&lt;&lt;\n\n&quot;)
+<pre >cat(&quot;\n\n&gt;&gt;&gt; Rendering 221-reproducibility.Rmd &lt;&lt;&lt;\n\n&quot;)
 rmarkdown::render(
-    paste0(
-        Sys.getenv(&quot;RGDS_HOME&quot;), 
-        &quot;/src/lectures/221_L_Reproducibility.Rmd&quot;
-    ), 
-    quiet = TRUE, 
-    output_dir = paste0(
-        Sys.getenv(&quot;RGDS_HOME&quot;), 
-        &quot;/docs/lectures/html&quot;
-    )
+  paste0(
+    Sys.getenv(&quot;RGDS_HOME&quot;), 
+    &quot;/src/slides/221-reproducibility.Rmd&quot;
+  ), 
+  quiet = TRUE, 
+  output_dir = paste0(
+    Sys.getenv(&quot;RGDS_HOME&quot;), 
+    &quot;/docs/slides&quot;
+  )
 )</pre>
 
 </article></slide><slide class=""><hgroup><h2>Future-proof formats</h2></hgroup><article  id="future-proof-formats">
