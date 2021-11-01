@@ -5,7 +5,7 @@
 
 ## Markdown
 
-A essential tool used in creating these materials is [RMarkdown](https://rmarkdown.rstudio.com/) That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
+A essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/) That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
 
 For instance the following markdown code
 
@@ -17,7 +17,7 @@ is rendered as
 
 [This is a link to the University of Leicester](http://le.ac.uk) and **this is in bold**.
 
-The core Markdown notation used in this session is presented below. A full RMarkdown *cheatsheet* is available [here](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
+The core Markdown notation used in this chapter is presented below. A full RMarkdown *cheatsheet* is available [here](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf).
 
 ```mark
 # Header 1
@@ -78,7 +78,7 @@ a_number
 
 ## Exercise 224.1
 
-Create a new R project named *Practical_224* as the directory name. Create an RMarkdown document in RStudio by selecting *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. On the RMarkdown document creation menu, specify "Practical 05" as title and your name as the author, and select *PDF* as default output format. 
+Create a new R project named e.g. *Practical_224* as the directory name. Create an RMarkdown document in RStudio by selecting *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. On the RMarkdown document creation menu, specify "Practical 224" as title and your name as the author, and select *PDF* as default output format. 
 
 The new document should contain the core document information, as in the example below, plus some additional content that simply explains how RMarkdown works.
 
@@ -86,7 +86,7 @@ The new document should contain the core document information, as in the example
 ---
 title: "Practical 224"
 author: "A. Student"
-date: "7 October 2018"
+date: "4 November 2021"
 output: pdf_document
 ---
 ```
@@ -126,7 +126,7 @@ Click on the *Knit* button on the bar above the editor panel (top-left area) in 
 
 ## Exercise 224.2
 
-Create an analysis document based on RMarkdown for each one of the two analyses seen in the practical sessions 3 and 4. For each of the two analyses, within their respective R projects, first, create an RMarkdown document. Then, add the code from the related R script. Finally add additional content such as title, subtitles, and most importantly, some text describing the data used, how the analysis has been done, and the result obtained. Make sure you add appropriate links to the data sources, as available in the practical session materials.
+Create an analysis document based on RMarkdown for each one of the two analyses seen in the chapters [3](200-selection-manipulation) and [4](210-table-operations). For each of the two analyses, within their respective R projects, first, create an RMarkdown document. Then, add the code from the related R script. Finally add additional content such as title, subtitles, and most importantly, some text describing the data used, how the analysis has been done, and the result obtained. Make sure you add appropriate links to the data sources and related license information, as available in the practical session materials.
 
 
 

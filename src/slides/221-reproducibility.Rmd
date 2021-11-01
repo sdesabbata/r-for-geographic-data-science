@@ -183,7 +183,7 @@ Complex formats (e.g., .docx, .xlsx, .shp, ArcGIS .mxd)
 Use the simplest format to **future-proof** your analysis.<br/>**Text files** are the most versatile
 
 - data: .txt, .csv, .tsv
-- analysis: R scrpts, python scripts
+- analysis: R scripts, python scripts
 - write-up: LaTeX, Markdown, HTML
 
 
@@ -197,10 +197,10 @@ Reproducible data analysis is particularly important when working in teams, to s
     - no versioning, branches
 - [Git](https://git-scm.com)
     - free and opensource control system
-    - great to work in teams and share your work publically
+    - great to work in teams and share your work publicly
     - can be more difficult at first
-    - [GitHub](https://github.com) public repositories are free, private ones are not
-    - [GitLab](https://about.gitlab.com/) offers free private repositories
+    - [GitHub](https://github.com) offers free public and private repositories
+    - [GitLab](https://about.gitlab.com/) offers free public and private repositories
 
 
 
