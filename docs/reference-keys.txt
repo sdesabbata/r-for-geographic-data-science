@@ -60,6 +60,7 @@ exercise-224.1
 exercise-224.2
 git
 git-and-rstudio
+how-to-cite-code
 exercise-224.3
 cloning-this-book
 exploratory-data-analysis

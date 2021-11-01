@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 5 Reproducibility | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Print this chapter  5.1 Markdown A essential tool used in creating this book is RMarkdown That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to...">
+<meta name="description" content="Print this chapter According to Christopher Gandrud,12 a quantitative analysis or project can be considered to be reproducible if: “the data and code used to make a finding are available and they...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Reproducibility | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/reproducibility-1.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Print this chapter  5.1 Markdown A essential tool used in creating this book is RMarkdown That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to...">
+<meta property="og:description" content="Print this chapter According to Christopher Gandrud,12 a quantitative analysis or project can be considered to be reproducible if: “the data and code used to make a finding are available and they...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 5 Reproducibility | R for Geographic Data Science">
-<meta name="twitter:description" content="Print this chapter  5.1 Markdown A essential tool used in creating this book is RMarkdown That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to...">
+<meta name="twitter:description" content="Print this chapter According to Christopher Gandrud,12 a quantitative analysis or project can be considered to be reproducible if: “the data and code used to make a finding are available and they...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -80,11 +80,27 @@
 <span class="header-section-number">5</span> Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility-1"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
+<p>According to <span class="citation"><a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref">Christopher Gandrud</a>,<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref"&gt;&lt;em&gt;Reproducible Research with r and RStudio&lt;/em&gt; (Chapman; Hall/CRC, 2018)&lt;/a&gt;.&lt;/p&gt;'><sup>12</sup></a></span> a quantitative analysis or project can be considered to be <strong>reproducible</strong> if: <em>“the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding”</em>. Reproducibility practices are rooted in software engineering, including project design practices (such as <a href="https://en.wikipedia.org/wiki/Scrum_(software_development)">Scrum</a>), software readability principles, testing and versioning.</p>
+<p>In GIScience, programming was essential to interact with early GIS software such as <a href="https://en.wikipedia.org/wiki/ArcInfo">ArcInfo</a> in the 1980s and 1990s, up until the release of the <a href="https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0">ArcGIS 8.0</a> suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development.</p>
+<p>Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the <a href="https://osf.io/numa5/">AGILE Reproducible Paper Guidelines</a> from the <a href="https://agile-online.org/">Association of Geographic Information Laboratories in Europe</a>). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. <span class="citation"><a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref">Alex David Singleton, Seth Spielman, and Chris Brunsdon</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;&lt;span&gt;“Establishing a Framework for Open Geographic Information Science,”&lt;/span&gt; &lt;em&gt;International Journal of Geographical Information Science&lt;/em&gt; 30, no. 8 (2016): 1507–21, &lt;/a&gt;&lt;a href="https://doi.org/10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;https://doi.org/10.1080/13658816.2015.1137579&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a></span> have discussed the issue of reproducibility in GIScience, identifying the following best practices:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>“Data should be accessible within the public domain and available to researchers”</em>.</li>
+<li>
+<em>“Software used should have open code and be scrutable”</em>.</li>
+<li>
+<em>“Workflows should be public and link data, software, methods of analysis and presentation with discursive narrative”</em>.</li>
+<li>
+<em>“The peer review process and academic publishing should require submission of a workflow model and ideally open archiving of those materials necessary for replication”</em>.</li>
+<li>
+<em>“Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances”</em>.</li>
+</ol>
+<p>The rest of the chapter discusses three tools that can help you improve the reproducibility of your code: <a href="https://daringfireball.net/projects/markdown/">Markdown</a>, <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> and <a href="https://git-scm.com/">Git</a>.</p>
 <div id="markdown" class="section level2" number="5.1">
 <h2>
 <span class="header-section-number">5.1</span> Markdown<a class="anchor" aria-label="anchor" href="#markdown"><i class="fas fa-link"></i></a>
 </h2>
-<p>A essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
+<p>A essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> That is an R library that allows you to create scripts that mix the <a href="https://daringfireball.net/projects/markdown/">Markdown</a> mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
 <p>For instance the following markdown code</p>
 <pre class="mark"><code>[This is a link to the University of Leicester](http://le.ac.uk) and **this is in bold**.</code></pre>
 <p>is rendered as</p>
@@ -222,9 +238,16 @@ The code uses the pipe operator:
 <p>Congratulations, you have completed your first commit! Check the repository page on GitHub. If you reload the page, the top bar should show <em>2 commits</em> on the left and your files should now be visible in the file list below. If you click on <em>2 commits</em>, you can see the commit history, including both the initial commit that created the repository and the commit you just completed.</p>
 </div>
 </div>
-<div id="exercise-224.3" class="section level2" number="5.5">
+<div id="how-to-cite-code" class="section level2" number="5.5">
 <h2>
-<span class="header-section-number">5.5</span> Exercise 224.3<a class="anchor" aria-label="anchor" href="#exercise-224.3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.5</span> How to cite code<a class="anchor" aria-label="anchor" href="#how-to-cite-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>The UK’s <a href="https://www.software.ac.uk/about">Software Sustainability Institute</a> provides clear guidance about <a href="https://www.software.ac.uk/how-cite-software">how to cite software</a> written my others. The most important principle outlined in the guidance using software written by others, you should cite and credit their work. That is not always simple or straightforward, especially when working with libraries, as most of them are not linked to related paper, nor provide a <a href="https://www.doi.org/">DOI</a>. In such cases, you should include at least a link to the authors’ website or repository (or CRAN page) in the final report when using a library. For instance, the following links are the Tidyverse <a href="https://tidyverse.tidyverse.org/">website</a>, <a href="https://github.com/tidyverse/tidyverse">repository</a> and <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">CRAN page</a>, but <span class="citation"><a href="references.html#ref-tidyverse2019" role="doc-biblioref">Wickham et al.</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;&lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>14</sup></a></span> also wrote a paper for the <a href="https://joss.theoj.org/">Journal of Open Source Software</a>, so you can also cite their paper,<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;Wickham et al.&lt;/a&gt;&lt;/p&gt;'><sup>15</sup></a></span> e.g., <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">using Bibtex in RMarkdown</a>.</p>
+<p>Appropriate citations are even more important when directly copying or adapting code from others’ work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)’s <a href="https://integrity.mit.edu/"><em>Academic Integrity at MIT: A Handbook for Students</em></a> includes a section on <a href="https://integrity.mit.edu/handbook/writing-code">writing code</a> which provides a good guidance on when and how to properly cite code that you include in your projects or from which you adapt your own code.</p>
+</div>
+<div id="exercise-224.3" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Exercise 224.3<a class="anchor" aria-label="anchor" href="#exercise-224.3"><i class="fas fa-link"></i></a>
 </h2>
 <p>Create a new GitHub repository named <code>GY7702_224_Exercise3</code>. Clone the repository to RStudio Server as a new an R project from that repository. Create an RMarkdown document exploring the presence of the different living arrangements in Leicester among both the different categories of the 2011 Output Area Classification and deciles of Index of Multiple Deprivations, copying the required data into the project folder.</p>
 <p>Your analysis should include:</p>
@@ -235,9 +258,9 @@ The code uses the pipe operator:
 <li>and a discussion of the results within the same document.</li>
 </ul>
 </div>
-<div id="cloning-this-book" class="section level2" number="5.6">
+<div id="cloning-this-book" class="section level2" number="5.7">
 <h2>
-<span class="header-section-number">5.6</span> Cloning this book<a class="anchor" aria-label="anchor" href="#cloning-this-book"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.7</span> Cloning this book<a class="anchor" aria-label="anchor" href="#cloning-this-book"><i class="fas fa-link"></i></a>
 </h2>
 <p>You can follow the steps listed below to clone the this book’s repository.</p>
 <ol style="list-style-type: decimal">
@@ -257,6 +280,7 @@ The code uses the pipe operator:
 
 
 
+
   <div class="chapter-nav">
 <div class="prev"><a href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></div>
 <div class="next"><a href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></div>
@@ -272,8 +296,9 @@ The code uses the pipe operator:
 <li>
 <a class="nav-link" href="#git"><span class="header-section-number">5.4</span> Git</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#git-and-rstudio"><span class="header-section-number">5.4.1</span> Git and RStudio</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-224.3"><span class="header-section-number">5.5</span> Exercise 224.3</a></li>
-<li><a class="nav-link" href="#cloning-this-book"><span class="header-section-number">5.6</span> Cloning this book</a></li>
+<li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">5.5</span> How to cite code</a></li>
+<li><a class="nav-link" href="#exercise-224.3"><span class="header-section-number">5.6</span> Exercise 224.3</a></li>
+<li><a class="nav-link" href="#cloning-this-book"><span class="header-section-number">5.7</span> Cloning this book</a></li>
 </ul>
 
       <div class="book-extra">

@@ -34,7 +34,7 @@ From the top menu, select *File > Save*, type in *My_script_Practical_204.R* (ma
 
 RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with.
 
-The remainder of this practical requires the library `nycflights13`. To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
+The remainder of this practical requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13). To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
 
 As usual, use the function `library` to load the newly installed library.
 

@@ -2,10 +2,24 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
+According to @gandrud2018reproducible, a quantitative analysis or project can be considered to be **reproducible** if: *"the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding"*. Reproducibility practices are rooted in software engineering, including project design practices (such as [Scrum](https://en.wikipedia.org/wiki/Scrum_(software_development))), software readability principles, testing and versioning.
+
+In GIScience, programming was essential to interact with early GIS software such as [ArcInfo](https://en.wikipedia.org/wiki/ArcInfo) in the 1980s and 1990s, up until the release of the [ArcGIS 8.0](https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0) suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development. 
+
+Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the [AGILE Reproducible Paper Guidelines](https://osf.io/numa5/) from the [Association of Geographic Information Laboratories in Europe](https://agile-online.org/)). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. @doi:10.1080/13658816.2015.1137579 have discussed the issue of reproducibility in GIScience, identifying the following best practices:
+
+1. *"Data should be accessible within the public domain and available to researchers"*.
+2. *"Software used should have open code and be scrutable"*.
+3. *"Workflows should be public and link data, software, methods of analysis and presentation with discursive narrative"*.
+4. *"The peer review process and academic publishing should require submission of a workflow model and ideally open archiving of those materials necessary for replication"*.
+5. *"Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances"*.
+
+The rest of the chapter discusses three tools that can help you improve the reproducibility of your code: [Markdown](https://daringfireball.net/projects/markdown/), [RMarkdown](https://rmarkdown.rstudio.com/) and [Git](https://git-scm.com/).
+
 
 ## Markdown
 
-A essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/) That is an R library that allows you to create scripts that mix the Markdown mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
+A essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/) That is an R library that allows you to create scripts that mix the [Markdown](https://daringfireball.net/projects/markdown/) mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
 
 For instance the following markdown code
 
@@ -186,6 +200,13 @@ Check the now available *Git* tab on the top-right panel, and you should see at 
 In the newly opened panel *Commit* window, the top-left section shows the files, and the bottom section shows the edits. Write `My first commit` in the *Commit message* section in the top-right, and click the *Commit* button. A pop-up should notify the completed commit. Close both the pop-up panel, and click the *Push* button on the top-right of the *Commit* window. Another pop-up panel should ask you for your GitHub username and password and then show the executed push operation. Close both the pop-up panel and the *Commit* window.
 
 Congratulations, you have completed your first commit! Check the repository page on GitHub. If you reload the page, the top bar should show *2 commits* on the left and your files should now be visible in the file list below. If you click on *2 commits*, you can see the commit history, including both the initial commit that created the repository and the commit you just completed.
+
+
+## How to cite code
+
+The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written my others. The most important principle outlined in the guidance using software written by others, you should cite and credit their work. That is not always simple or straightforward, especially when working with libraries, as most of them are not linked to related paper, nor provide a [DOI](https://www.doi.org/). In such cases, you should include at least a link to the authors' website or repository (or CRAN page) in the final report when using a library. For instance, the following links are the Tidyverse  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) and [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html), but @tidyverse2019 also wrote a paper for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [@tidyverse2019], e.g., [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
+
+Appropriate citations are even more important when directly copying or adapting code from others' work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)'s [*Academic Integrity at MIT: A Handbook for Students*](https://integrity.mit.edu/) includes a section on [writing code](https://integrity.mit.edu/handbook/writing-code) which provides a good guidance on when and how to properly cite code that you include in your projects or from which you adapt your own code. 
 
 
 
