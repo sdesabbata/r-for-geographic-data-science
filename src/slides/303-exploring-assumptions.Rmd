@@ -73,7 +73,7 @@ plot(x, hx, type="l", xlab="Values",
 
 :::::: {.cols data-latex=""}
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=TRUE, eval=FALSE}
 palmerpenguins::penguins %>% 
@@ -99,7 +99,7 @@ palmerpenguins::penguins %>%
 
 :::
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 40%" data-latex="{0.5\textwidth}"}
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5.5, fig.width = 4, out.width='100%'}
@@ -201,7 +201,7 @@ The *flipper length* of **Adelie** penguins **is normally distributed**
 
 :::::: {.cols data-latex=""}
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=TRUE}
 palmerpenguins::penguins %>% 
@@ -216,7 +216,7 @@ palmerpenguins::penguins %>%
 
 :::
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%" data-latex="{0.5\textwidth}"}
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5.5, fig.width = 4, out.width='100%'}
@@ -249,7 +249,7 @@ The *flipper length* of **Adelie** penguins **is normally distributed**
 
 :::::: {.cols data-latex=""}
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=TRUE}
 palmerpenguins::penguins %>% 
@@ -264,7 +264,7 @@ palmerpenguins::penguins %>%
 
 :::
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%" data-latex="{0.5\textwidth}"}
 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5.5, fig.width = 4, out.width='100%'}
@@ -360,7 +360,7 @@ palmerpenguins::penguins %>%
 
 :::
 
-::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 palmerpenguins::penguins %>% 
