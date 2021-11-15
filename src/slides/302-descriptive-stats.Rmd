@@ -56,7 +56,7 @@ library(palmerpenguins)
 
 
 :::
-::: {.col style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 40%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ![](https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png)
 
@@ -220,6 +220,26 @@ palmerpenguins::penguins %>%
     avg_bill_dpt_mm = mean(bill_depth_mm),
     avg_flip_len_mm = mean(flipper_length_mm),
     avg_body_mass_g = mean(body_mass_g)
+  ) %>%
+  knitr::kable(digits = c(2, 2, 2, 2))
+```
+
+
+
+## dplyr::across
+
+The `dplyr` verb `across` allows to apply `summarise` verbs on multiple columns. You can use...
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+palmerpenguins::penguins %>%
+  # filter out raws with missing data
+  dplyr::filter(!is.na(bill_length_mm)) %>%
+  # summarise
+  dplyr::summarise(
+    dplyr::across(
+      bill_length_mm:body_mass_g, # any vector of column names
+      mean                             # function to be applied
+    )
   ) %>%
   knitr::kable(digits = c(2, 2, 2, 2))
 ```

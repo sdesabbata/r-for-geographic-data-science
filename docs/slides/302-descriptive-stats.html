@@ -10,7 +10,7 @@
 
 
 
-  <meta name="date" content="2021-11-12" />
+  <meta name="date" content="2021-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -251,7 +251,7 @@
         
         
       </p>
-            <p style="margin-top: 6px; margin-left: -2px;">2021-11-12</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2021-11-15</p>
           </hgroup>
   </slide>
 
@@ -285,7 +285,7 @@
 
 <pre class = 'prettyprint lang-r'>library(palmerpenguins)</pre></div>
 
-<div style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}" class="col">
+<div style="width: 40%; text-align: right;" data-latex="{0.5\textwidth}" class="col">
 <img src='https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png' title=''/>
 
 <img src='https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png' title=''/>
@@ -646,6 +646,37 @@ nycflights13::flights %>%
 
 </article></slide><slide class=""><hgroup><h2>dplyr::across</h2></hgroup><article  id="dplyracross-1">
 
+<p>The <code>dplyr</code> verb <code>across</code> allows to apply <code>summarise</code> verbs on multiple columns. You can use…</p>
+
+<pre class = 'prettyprint lang-r'>palmerpenguins::penguins %&gt;%
+  # filter out raws with missing data
+  dplyr::filter(!is.na(bill_length_mm)) %&gt;%
+  # summarise
+  dplyr::summarise(
+    dplyr::across(
+      bill_length_mm:body_mass_g, # any vector of column names
+      mean                             # function to be applied
+    )
+  ) %&gt;%
+  knitr::kable(digits = c(2, 2, 2, 2))</pre>
+
+<table class = 'rmdtable'>
+<tr class="header">
+<th align="right">bill_length_mm</th>
+<th align="right">bill_depth_mm</th>
+<th align="right">flipper_length_mm</th>
+<th align="right">body_mass_g</th>
+</tr>
+<tr class="odd">
+<td align="right">43.92</td>
+<td align="right">17.15</td>
+<td align="right">200.92</td>
+<td align="right">4201.75</td>
+</tr>
+</table>
+
+</article></slide><slide class=""><hgroup><h2>dplyr::across</h2></hgroup><article  id="dplyracross-2">
+
 <p>The verb <code>across</code> can also be used with <code>mutate</code>, to apply the same function to a number of columns</p>
 
 <pre class = 'prettyprint lang-r'>palmerpenguins::penguins %&gt;%
@@ -663,7 +694,7 @@ nycflights13::flights %>%
     flipper_length_in = flipper_length_mm
   )</pre>
 
-</article></slide><slide class=""><hgroup><h2>dplyr::across</h2></hgroup><article  id="dplyracross-2">
+</article></slide><slide class=""><hgroup><h2>dplyr::across</h2></hgroup><article  id="dplyracross-3">
 
 <p>Old columns:</p>
 
