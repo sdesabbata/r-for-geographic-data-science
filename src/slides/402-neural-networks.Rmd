@@ -76,10 +76,10 @@ Supervised learning approach simulating simplistic neurons
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 <center>
-![](images/ANN_description.png){width=60%}
+![](images/ANN_description.png)
 
 <br/>
 <font size="4"> 
@@ -320,7 +320,7 @@ Number of nodes
 
 :::
 
-::: {.col style="width: 40%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 <center>
 ![](images/ANN_description.png)
@@ -368,7 +368,7 @@ The fundamental idea is that *"deeper"* neurons allow for the encoding of more c
 
 :::
 
-::: {.col style="width: 40%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 100%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 <center>
 ![](images/Colored_deep_neural_network-01.png)

@@ -98,7 +98,7 @@ penguins_for_testing <-
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 40%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 
 <center>
@@ -324,7 +324,7 @@ What if classes are *not* linearly separable?
 
 :::
 
-::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 30%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 
 <center>

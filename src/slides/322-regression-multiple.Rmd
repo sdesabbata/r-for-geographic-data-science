@@ -267,7 +267,7 @@ boston_output %$%
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 40%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 <center>
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
@@ -318,7 +318,7 @@ medv_model %>%
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 40%; margin-left:10%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
 medv_model %>% 
