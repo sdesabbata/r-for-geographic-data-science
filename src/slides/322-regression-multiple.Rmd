@@ -116,7 +116,7 @@ Harrison, D., and D. L. Rubinfeld. 1978. [Hedonic Housing Prices and the Demand 
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
 MASS::Boston %>%
@@ -267,7 +267,7 @@ boston_output %$%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 <center>
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
@@ -318,7 +318,7 @@ medv_model %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
 medv_model %>% 

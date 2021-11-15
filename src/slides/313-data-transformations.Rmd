@@ -177,7 +177,7 @@ The number of residents aged 20 to 24 (`u011`) in the areas of Leicester describ
 
 :::
 
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
 leicester_2011OAC %>% 
@@ -213,7 +213,7 @@ mutate(log10_u011 = log10(u011))
 
 :::
 
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
 leicester_2011OAC %>% 
@@ -272,7 +272,7 @@ mutate(ihs_u011 = asinh(u011))
 
 :::
 
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
 leicester_2011OAC %>% 
@@ -331,7 +331,7 @@ mutate(
 
 :::
 
-::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 60%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
 nycflights13::flights %>%

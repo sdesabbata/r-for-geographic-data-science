@@ -39,8 +39,8 @@ The slides used in the lectures are available as web-based slides at the pages l
         - 313 [Data transformations](slides/313-data-transformations.html)
     - **320 Regression models**
         - 321 [Simple regression](slides/321-regression.html)
-        - 322 [Assessing regression assumptions](slides/322-regression-assessing.html)
-        - 323 [Multiple regression](slides/323-regression-multiple.html)
+        - 322 [Multiple Regression](slides/322-regression-multiple.html)
+        - 323 [Comparing regression models](slides/323-regression-comparing.html)
 4. **Machine learning**
     - **400 Supervised**
         - 401 [Introduction to Machine Learning](slides/401-machine-learning-intro.html)

@@ -5,11 +5,9 @@
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
-## Introduction
+This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the `u011` variable from the [2011 Output Area Classification (2011OAC)](https://github.com/geogale/2011OAC) dataset introduced in [chapter 4](https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html#read-and-write-data). 
 
-This practical showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the `u011` variable from the [2011 Output Area Classification (2011OAC)](https://github.com/geogale/2011OAC) dataset. Create a new R project for this practical session and create a new RMarkdown document to replicate the analysis in this document.
- 
-Once the document is set up, start by adding the first R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for the practical session.
+Before continuing, create a new R project in RStudio, and upload the `2011_OAC_Raw_uVariables_Leicester.csv` file to the project folder. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.
 
 
 ```r
@@ -24,7 +22,7 @@ leicester_2011OAC <- read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 
 ## GGlot2 recap
 
-As seen in the practical session 401, the [`ggplot2` library](https://ggplot2.tidyverse.org) is part of the Tidyverse, and it offers a series of functions for creating graphics **declaratively**, based on the concepts outlined in the Grammar of Graphics. While the `dplyr` library offers functionalities that cover *data manipulation* and *variable transformations*, the `ggplot2` library offers functionalities that allow to specify elements, define guides, and apply scale and coordinate system transformations.
+As seen in the introductory chapter, the [`ggplot2` library](https://ggplot2.tidyverse.org) is part of the Tidyverse, and it offers a series of functions for creating graphics **declaratively**, based on the concepts outlined in the Grammar of Graphics. While the `dplyr` library offers functionalities that cover *data manipulation* and *variable transformations*, the `ggplot2` library offers functionalities that allow to specify elements, define guides, and apply scale and coordinate system transformations.
 
 - **Marks** can be specified in `ggplot2` using the [`geom_` functions](https://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms).
 - The mapping of variables (table columns) to **visual variables** can be specified in `ggplot2` using the [`aes` element](https://ggplot2.tidyverse.org/reference/aes.html).
@@ -72,7 +70,7 @@ leicester_2011OAC %>%
 
 If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship. 
 
-For instance, the barchart above can be enhanced through the use of the visual variable colour and the `fill` option. The graphic below uses a few options seen in the practical session 401 to create a stacked barchart, where sections of each bar are filled with the colour associated with a 2011OAC supergroup. 
+For instance, the barchart above can be enhanced through the use of the visual variable colour and the `fill` option. The code creates a stacked barchart where sections of each bar are filled with the colour associated with a 2011OAC supergroup. 
 
 
 ```r
@@ -156,7 +154,7 @@ leicester_2011OAC %>%
 
 ### Relationships
 
-The first barchart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare `u011` to `Total_Population`, for instance, through a scatterplot such as the one seen in the practical session 401, reported below.
+The first barchart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare `u011` to `Total_Population`, for instance, through a scatterplot such as the one below.
 
 
 ```r
@@ -198,7 +196,7 @@ leicester_2011OAC %>%
 
 ## Exploratory statistics
 
-The graphics above provide preliminary evidence that the distribution of people aged 20 to 24 might, in fact, be different in different 2011 supergroups. In the remainder of the practical session, we are going to explore that hypothesis further. First, load the necessary statistical libraries.
+The graphics above provide preliminary evidence that the distribution of people aged 20 to 24 might, in fact, be different in different 2011 supergroups. In the remainder of the chapter, we are going to explore that hypothesis further. First, load the necessary statistical libraries.
 
 
 

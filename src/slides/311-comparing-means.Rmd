@@ -77,7 +77,7 @@ Fisher, R.A., 1936. The use of multiple measurements in taxonomic problems. Anna
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
 iris %>%
@@ -148,7 +148,7 @@ Are the petal lengths of *versicolor* and *virginica* different?
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
 iris %>%
@@ -266,7 +266,7 @@ Are the petal lengths different between all three species?
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
 iris %>%

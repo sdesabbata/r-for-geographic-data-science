@@ -655,7 +655,7 @@ nycflights13::flights %>%
   dplyr::summarise(
     dplyr::across(
       bill_length_mm:body_mass_g, # any vector of column names
-      mean                             # function to be applied
+      mean                        # function to be applied
     )
   ) %&gt;%
   knitr::kable(digits = c(2, 2, 2, 2))</pre>

@@ -64,7 +64,6 @@ how-to-cite-code
 exercise-224.3
 cloning-this-book
 exploratory-data-analysis
-introduction
 gglot2-recap
 data-visualisation
 distributions
@@ -74,7 +73,7 @@ exploratory-statistics
 descriptive-statistics
 exercise-304.2
 comparing-data
-introduction-1
+introduction
 anova
 anova-example
 exercise-314.1
@@ -94,7 +93,7 @@ multiple-regression
 multiple-regression-example
 exercise-324.1
 supervised-machine-learning
-introduction-2
+introduction-1
 artificial-neural-networks
 support-vector-machines
 confusion-matrices
@@ -106,7 +105,7 @@ kernels
 artificial-neural-network
 exercise-404.1
 unsupervised-machine-learning
-introduction-3
+introduction-2
 k-means
 number-of-clusters
 geodemographic-classification

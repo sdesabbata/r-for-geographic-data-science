@@ -78,7 +78,7 @@ penguins_norm <-
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 5, fig.height = 5}
 penguins_norm %>%
@@ -155,7 +155,7 @@ penguins_hclust_result %>%
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_hclust %>%
@@ -170,7 +170,7 @@ penguins_bm_bd_hclust %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_hclust %>%
@@ -230,7 +230,7 @@ penguins_bm_bd_bclust <-
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_bclust %>%
@@ -245,7 +245,7 @@ penguins_bm_bd_bclust %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_bclust %>%
@@ -308,7 +308,7 @@ Using: `dbscan(eps = 1, minPts = 5)`
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_dbscan %>%
@@ -323,7 +323,7 @@ penguins_bm_bd_dbscan %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_dbscan %>%
@@ -356,7 +356,7 @@ penguins_bm_bd_dbscan2 <- penguins_norm %>%
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_dbscan2 %>%
@@ -371,7 +371,7 @@ penguins_bm_bd_dbscan2 %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_dbscan2 %>%
@@ -404,7 +404,7 @@ penguins_bm_bd_dbscan3 <- penguins_norm %>%
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_dbscan3 %>%
@@ -419,7 +419,7 @@ penguins_bm_bd_dbscan3 %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 5}
 penguins_bm_bd_dbscan3 %>%
@@ -498,7 +498,7 @@ penguins_norm_bills <-
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 2.75}
 penguins_norm_bills %>%
@@ -526,7 +526,7 @@ penguins_norm_bills %>%
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 4, fig.height = 2.75}
 penguins_norm_bills %>%

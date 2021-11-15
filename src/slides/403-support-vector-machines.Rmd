@@ -98,7 +98,7 @@ penguins_for_testing <-
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 
 <center>

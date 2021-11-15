@@ -79,7 +79,7 @@ Supervised learning approach simulating simplistic neurons
 ::: {.col data-latex="{0.5\textwidth}"}
 
 <center>
-![](images/ANN_description.png){width=70%}
+![](images/ANN_description.png){width=60%}
 
 <br/>
 <font size="4"> 
@@ -142,7 +142,7 @@ That would render each neuron a **logistic regression model**
 
 :::
 
-::: {.col style="width: 70%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5, fig.width = 4}
 ggplot2::ggplot() + 
@@ -368,7 +368,7 @@ The fundamental idea is that *"deeper"* neurons allow for the encoding of more c
 
 :::
 
-::: {.col style="width: 140%; text-align: right;" data-latex="{0.5\textwidth}"}
+::: {.col style="width: 40%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 <center>
 ![](images/Colored_deep_neural_network-01.png)

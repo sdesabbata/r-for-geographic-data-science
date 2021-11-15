@@ -134,12 +134,11 @@ CC-BY-SA-4.0
 
 :::
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 <center>
 ![](images/DBSCAN-Gaussian-data.png){width=90%}
 
-<br/>
 <font size="4"> 
 by Chire<br/>
 via Wikimedia Commons,<br/>
@@ -171,7 +170,7 @@ Semi-supervised learning
 
 :::::: {.cols data-latex=""}
 
-::: {.col data-latex="{0.5\textwidth}"}
+::: {.col style="width: 80%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 Based on the idea of training agents to learn how to
 
