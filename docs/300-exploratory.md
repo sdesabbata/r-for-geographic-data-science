@@ -314,14 +314,14 @@ Having included all the code above into an RMarkdown document, copy the text bel
 
 
 ```r
-The table above tells us that all `r "\u0060r leic_2011OAC_20to24_stat_desc[\"nbr.val\",
-\"perc_age_20_to_24\"] %>% round(digits = 0)\u0060"` OA in Leicester have a valid 
-value for the variable `perc_age_20_to_24`, as no `r "\u0060NULL\u0060"` nor `r 
-"\u0060NA\u0060"` value have been found.The values vary from about `r "\u0060r 
-leic_2011OAC_20to24_stat_desc[\"min\", \"perc_age_20_to_24\"] %>% round(digits = 
-0)\u0060"`% to almost `r "\u0060r leic_2011OAC_20to24_stat_desc[\"max\", 
-\"perc_age_20_to_24\"] %>% round(digits = 0)\u0060"`%, with an average value of 
-`r "\u0060r leic_2011OAC_20to24_stat_desc[\"mean\", \"perc_age_20_to_24\"] %>% 
+The table above tells us that all `r leic_2011OAC_20to24_stat_desc["nbr.val",
+"perc_age_20_to_24"] %>% round(digits = 0)` OA in Leicester have a valid 
+value for the variable `perc_age_20_to_24`, as no `r NULL` nor `r 
+NA` value have been found.The values vary from about `r 
+leic_2011OAC_20to24_stat_desc["min", "perc_age_20_to_24"] %>% round(digits = 
+0)\u0060"`% to almost `r leic_2011OAC_20to24_stat_desc["max", 
+"perc_age_20_to_24"] %>% round(digits = 0)\u0060"`%, with an average value of 
+`r leic_2011OAC_20to24_stat_desc["mean", "perc_age_20_to_24"] %>% 
 round(digits = 0)\u0060"`% of the population in an OA aged between 20 and 24. 
 ```
 
