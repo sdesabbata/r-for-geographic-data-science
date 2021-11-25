@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Comparing data | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Print this chapter  7.1 Introduction The first part of this practical guides you through the ANOVA (analysis of variance) and regression analysis seen in the lecture, the last part showcases a...">
+<meta name="description" content="Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a correlation analysis using two...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Comparing data | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/comparing-data.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Print this chapter  7.1 Introduction The first part of this practical guides you through the ANOVA (analysis of variance) and regression analysis seen in the lecture, the last part showcases a...">
+<meta property="og:description" content="Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a correlation analysis using two...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Comparing data | R for Geographic Data Science">
-<meta name="twitter:description" content="Print this chapter  7.1 Introduction The first part of this practical guides you through the ANOVA (analysis of variance) and regression analysis seen in the lecture, the last part showcases a...">
+<meta name="twitter:description" content="Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a correlation analysis using two...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -80,11 +80,7 @@
 <span class="header-section-number">7</span> Comparing data<a class="anchor" aria-label="anchor" href="#comparing-data"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<div id="introduction" class="section level2" number="7.1">
-<h2>
-<span class="header-section-number">7.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
-</h2>
-<p>The first part of this practical guides you through the ANOVA (analysis of variance) and regression analysis seen in the lecture, the last part showcases a multiple regression analysis. Create a new R project for this practical session and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.</p>
+<p>The first part of this chapter guides you through an ANOVA (analysis of variance) using the <code>iris</code> dataset, while the second part showcases a correlation analysis using two variables from the dataset used to create the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011OAC). Create a new R project for this chapter and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.</p>
 <div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span>
@@ -104,10 +100,9 @@
 <span class="va">iris</span> <span class="op">%$%</span> <span class="va">Petal.Length</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 <pre><code>## [1] 3.758</code></pre>
-</div>
-<div id="anova" class="section level2" number="7.2">
+<div id="anova" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">7.2</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
 </h2>
 <p>The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the t-test, which has the same objective but allows to test only two groups.</p>
 <p>The ANOVA test has the following assumptions:</p>
@@ -124,9 +119,9 @@
 </li>
 <li>independence of groups</li>
 </ul>
-<div id="anova-example" class="section level3" number="7.2.1">
+<div id="anova-example" class="section level3" number="7.1.1">
 <h3>
-<span class="header-section-number">7.2.1</span> ANOVA example<a class="anchor" aria-label="anchor" href="#anova-example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1.1</span> ANOVA example<a class="anchor" aria-label="anchor" href="#anova-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>The example seen in the lecture illustrates how ANOVA can be used to verify that the three different species of iris in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"><code>iris</code> dataset</a> have different petal length.</p>
 <div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
@@ -183,17 +178,17 @@
 </center>
 </div>
 </div>
-<div id="exercise-314.1" class="section level2" number="7.3">
+<div id="exercise-314.1" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">7.3</span> Exercise 314.1<a class="anchor" aria-label="anchor" href="#exercise-314.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> Exercise 314.1<a class="anchor" aria-label="anchor" href="#exercise-314.1"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 314.1.1:</strong> Load the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset. Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
 <p><strong>Question 314.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
 <p><strong>Question 314.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
 </div>
-<div id="correlation" class="section level2" number="7.4">
+<div id="correlation" class="section level2" number="7.3">
 <h2>
-<span class="header-section-number">7.4</span> Correlation<a class="anchor" aria-label="anchor" href="#correlation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3</span> Correlation<a class="anchor" aria-label="anchor" href="#correlation"><i class="fas fa-link"></i></a>
 </h2>
 <p>The term <strong>correlation</strong> is used to refer to a series of a standardised measures of covariance, which can be used to statistically assess whether two variables are related or not.</p>
 <p>Furthermore, if two variables are related, such measures can identify whether they are:</p>
@@ -243,14 +238,59 @@
 </ul>
 </li>
 </ul>
-<div id="correlation-analysis-example" class="section level3" number="7.4.1">
+<div id="correlation-analysis-example" class="section level3" number="7.3.1">
 <h3>
-<span class="header-section-number">7.4.1</span> Correlation analysis example<a class="anchor" aria-label="anchor" href="#correlation-analysis-example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.3.1</span> Correlation analysis example<a class="anchor" aria-label="anchor" href="#correlation-analysis-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: <em>“do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?”</em></p>
 <p>That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?</p>
 <div class="inline-figure"><img src="310-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="384"></div>
-<p>The dataset used to create the 2011 Output Area Classification (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.</p>
+<p>If you want to replicate the map above, you can download the
+<a href="https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip">Census Residential Data Pack 2011 for Leicester</a> from the <a href="https://data.cdrc.ac.uk/">Consumer Data Research Centre</a> (requires to set up an account) and use the code below after having unzipped the downloaded file. The next semester’s module <a href="https://le.ac.uk/modules/2022/gy7707">GY7707 Geospatial Data Analytics</a> will cover spatial data handling, analysis and mapping in R in detail.</p>
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Load the shapefile data</span>
+<span class="co"># using the library sf</span>
+<span class="co"># https://r-spatial.github.io/sf/</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
+<span class="va">leic_2011OAC_shp</span> <span class="op">&lt;-</span> 
+  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"E06000016/E06000016_Leicester.shp"</span><span class="op">)</span>
+
+<span class="co"># Create the map </span>
+<span class="co"># using the library tmap</span>
+<span class="co"># https://r-tmap.github.io/tmap/</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mtennekes/tmap">tmap</a></span><span class="op">)</span>
+<span class="va">leic_2011OAC_shp</span> <span class="op">%&gt;%</span>
+  <span class="co"># Join shapefile and 2011 OAC data</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span>
+    <span class="va">leicester_2011OAC</span>,
+    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"oa_code"</span> <span class="op">=</span> <span class="st">"OA11CD"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># Calculate percentages</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>perc_flats <span class="op">=</span> <span class="op">(</span><span class="va">u089</span><span class="op">/</span><span class="va">Total_Dwellings</span><span class="op">)</span><span class="op">*</span><span class="fl">100</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="co"># Create the map</span>
+  <span class="fu">tmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_shape.html">tm_shape</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="co"># Define the choropleth aesthetic</span>
+  <span class="fu">tmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_polygons.html">tm_polygons</a></span><span class="op">(</span>
+    <span class="st">"perc_flats"</span>,
+    title <span class="op">=</span> <span class="st">"Percentage\nof flats"</span>,
+    palette <span class="op">=</span> <span class="st">"viridis"</span>,
+    legend.show <span class="op">=</span> <span class="cn">TRUE</span>,
+    border.alpha <span class="op">=</span> <span class="fl">0</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="co"># Define the layout</span>
+  <span class="fu">tmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_layout.html">tm_layout</a></span><span class="op">(</span>
+    frame <span class="op">=</span> <span class="cn">FALSE</span>,
+    legend.title.size<span class="op">=</span><span class="fl">1</span>,
+    legend.text.size <span class="op">=</span> <span class="fl">0.5</span>,
+    legend.position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"left"</span>,<span class="st">"bottom"</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">+</span>
+  <span class="co"># Don't forget the appropriate attribution</span>
+  <span class="fu">tmap</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tmap/man/tm_credits.html">tm_credits</a></span><span class="op">(</span>
+    <span class="st">"Source: CDRC 2011 OAC Geodata Pack by the ESRC Consumer\nDataResearch Centre; Contains National Statistics data Crown\ncopyright and database right 2015; Contains Ordnance Survey\ndata Crown copyright and database right 2015"</span>,
+    size <span class="op">=</span> <span class="fl">0.3</span>,
+    position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="st">"bottom"</span><span class="op">)</span>
+  <span class="op">)</span></code></pre></div>
+<p>The dataset used to create the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.</p>
 <ul>
 <li>
 <code>u089</code>: count of flats per Output Area (OA). The statistical unit for this variable is <code>Household_Spaces</code>. As OAs vary in size and composition, we can use <code>Total_Household_Spaces</code> to calculate the percentage of flats per OA, which is a more stable measure.
@@ -266,7 +306,7 @@
 </li>
 </ul>
 <p>The process of transforming variables to be within a certain range (such as a percentage, thus using a <code>[0..100]</code> range, or a <code>[0..1]</code> range) is commonly referred to as <strong>normalisation</strong>. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as <strong>standardisation</strong>. However, note that these terms are sometime used interchangably.</p>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flats_and_cars</span> <span class="op">&lt;-</span>
   <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
@@ -278,10 +318,10 @@
     <span class="va">perc_flats</span>, <span class="va">perc_2ormore_cars</span>
   <span class="op">)</span></code></pre></div>
 <p>Plotting the two variables together in a scatterplot reveals a pattern. Indeed, a very low percentage of households living in flats own two or more cars. However, the proportion of households owning two or more cars who live in the suburbs seem to span almost throughout the whole range, from zero to 80%. That seems to indicate some level of negative relationship, but the picture is clearly far less clear-cut as we might have initially assumed. The initial assumption about car ownership for households living in flats seems to hold, but we probably didn’t consider the situation in the suburbs with sufficient care.</p>
-<div class="inline-figure"><img src="310-comparing-data_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
+<div class="inline-figure"><img src="310-comparing-data_files/figure-html/unnamed-chunk-11-1.png" width="576"></div>
 <p>The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed.</p>
 <p>As there are 969 OAs in Leicester, we can set the significance threshold to <code>0.01</code>. The results of the <code><a href="https://rdrr.io/r/stats/shapiro.test.html">stats::shapiro.test</a></code> functions below show that neither of the two variables are normally distributed. Transforming the variables using the <em>inverse hyperbolic sine</em> still does not result in normally distributed variables. Thus, we should discard <em>Pearson’s r</em> as an option to explore the correlation between the two variables.</p>
-<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flats_and_cars</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_flats</span>, <span class="va">perc_2ormore_cars</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
@@ -344,7 +384,7 @@
 </tbody>
 </table></div>
 <p>The next step is to assess whether there are ties among the values in the two variables. The code below fist counts the number of cases per value. Then it counts the number of values for which the number of cases is greater than one.</p>
-<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ties_perc_flats</span> <span class="op">&lt;-</span>
   <span class="va">flats_and_cars</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">perc_flats</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -364,7 +404,7 @@
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></code></pre></div>
 <p>The variable <code>perc_flats</code> has 127 values with ties and <code>perc_2ormore_cars</code> has 115 values with ties. As such, using <em>Spearman’s rho</em> is not advisable and <em>Kendall’s tau</em> should be used. As above, we can set the significance threshold to <code>0.01</code>.</p>
 <p>Finally, we can run the <code><a href="https://rdrr.io/r/stats/cor.test.html">stats::cor.test</a></code> function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.</p>
-<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">flats_and_cars_corKendall</span> <span class="op">&lt;-</span>
   <span class="va">flats_and_cars</span> <span class="op">%$%</span>
   <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span>
@@ -392,9 +432,9 @@ between the two variables.</code></pre>
 <p>The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negative related, as the relationship is significant (<code>p-value &lt; 0.01</code>) and the correlation value is negative (<code>tau =</code> -0.41). The two variables share 16.8% of variance. We can thus conclude that there is significant but very weak relationship between the two variables.</p>
 </div>
 </div>
-<div id="exercise-314.2" class="section level2" number="7.5">
+<div id="exercise-314.2" class="section level2" number="7.4">
 <h2>
-<span class="header-section-number">7.5</span> Exercise 314.2<a class="anchor" aria-label="anchor" href="#exercise-314.2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4</span> Exercise 314.2<a class="anchor" aria-label="anchor" href="#exercise-314.2"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 314.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
 <p><strong>Question 314.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
@@ -410,15 +450,14 @@ between the two variables.</code></pre>
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#comparing-data"><span class="header-section-number">7</span> Comparing data</a></li>
-<li><a class="nav-link" href="#introduction"><span class="header-section-number">7.1</span> Introduction</a></li>
 <li>
-<a class="nav-link" href="#anova"><span class="header-section-number">7.2</span> ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#anova-example"><span class="header-section-number">7.2.1</span> ANOVA example</a></li></ul>
+<a class="nav-link" href="#anova"><span class="header-section-number">7.1</span> ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#anova-example"><span class="header-section-number">7.1.1</span> ANOVA example</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-314.1"><span class="header-section-number">7.3</span> Exercise 314.1</a></li>
+<li><a class="nav-link" href="#exercise-314.1"><span class="header-section-number">7.2</span> Exercise 314.1</a></li>
 <li>
-<a class="nav-link" href="#correlation"><span class="header-section-number">7.4</span> Correlation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#correlation-analysis-example"><span class="header-section-number">7.4.1</span> Correlation analysis example</a></li></ul>
+<a class="nav-link" href="#correlation"><span class="header-section-number">7.3</span> Correlation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#correlation-analysis-example"><span class="header-section-number">7.3.1</span> Correlation analysis example</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-314.2"><span class="header-section-number">7.5</span> Exercise 314.2</a></li>
+<li><a class="nav-link" href="#exercise-314.2"><span class="header-section-number">7.4</span> Exercise 314.2</a></li>
 </ul>
 
       <div class="book-extra">
@@ -436,7 +475,7 @@ between the two variables.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-11-15.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-11-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
