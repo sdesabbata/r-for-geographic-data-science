@@ -207,7 +207,7 @@ If you want to replicate the map above, you can download the
 # https://r-spatial.github.io/sf/
 library(sf)
 leic_2011OAC_shp <- 
-  sf::read_sf("E06000016/E06000016_Leicester.shp")
+  sf::read_sf("data/Census_Residential_Data_Pack_2011/Local_Authority_Districts/E06000016/shapefiles/E06000016.shp")
 
 # Create the map 
 # using the library tmap
@@ -250,7 +250,7 @@ The dataset used to create the [2011 Output Area Classification](https://github.
 
 - `u089`: count of flats per Output Area (OA). The statistical unit for this variable is `Household_Spaces`. As OAs vary in size and composition, we can use `Total_Household_Spaces` to calculate the percentage of flats per OA, which is a more stable measure.
   - `perc_flats = (u089 / Total_Household_Spaces) * 100`
-- `u118`: 2 or more cars or vans in household. The statistical unit for this variable is `Household`. As OAs vary in size and composition, we can use `Total_Household_Spaces` to calculate the percentage of households per OA with 2 or more cars or vans, which is a more stable measure.
+- `u118`: 2 or more cars or vans in household. The statistical unit for this variable is `Household`. As OAs vary in size and composition, we can use `Total_Households` to calculate the percentage of households per OA with 2 or more cars or vans, which is a more stable measure.
   - `perc_2ormore_cars = (u118 / Total_Households) * 100`
 
 The process of transforming variables to be within a certain range (such as a percentage, thus using a `[0..100]` range, or a `[0..1]` range) is commonly referred to as **normalisation**. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as **standardisation**. However, note that these terms are sometime used interchangably.

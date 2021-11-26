@@ -253,7 +253,7 @@
 <span class="co"># https://r-spatial.github.io/sf/</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
 <span class="va">leic_2011OAC_shp</span> <span class="op">&lt;-</span> 
-  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"E06000016/E06000016_Leicester.shp"</span><span class="op">)</span>
+  <span class="fu">sf</span><span class="fu">::</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">read_sf</a></span><span class="op">(</span><span class="st">"data/Census_Residential_Data_Pack_2011/Local_Authority_Districts/E06000016/shapefiles/E06000016.shp"</span><span class="op">)</span>
 
 <span class="co"># Create the map </span>
 <span class="co"># using the library tmap</span>
@@ -299,7 +299,7 @@
 </ul>
 </li>
 <li>
-<code>u118</code>: 2 or more cars or vans in household. The statistical unit for this variable is <code>Household</code>. As OAs vary in size and composition, we can use <code>Total_Household_Spaces</code> to calculate the percentage of households per OA with 2 or more cars or vans, which is a more stable measure.
+<code>u118</code>: 2 or more cars or vans in household. The statistical unit for this variable is <code>Household</code>. As OAs vary in size and composition, we can use <code>Total_Households</code> to calculate the percentage of households per OA with 2 or more cars or vans, which is a more stable measure.
 <ul>
 <li><code>perc_2ormore_cars = (u118 / Total_Households) * 100</code></li>
 </ul>
@@ -475,7 +475,7 @@ between the two variables.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-11-25.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-11-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
