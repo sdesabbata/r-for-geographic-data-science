@@ -4,12 +4,9 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-
-## Introduction
-
 The field of **machine learning** sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), *"the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience."*
 
-Machine learning approaches are divided into two main types.
+Machine learning approaches are divided into two main types^[Although, many other types of machine learning exist, such as semi-supervised and reinforcement learning].
 
 - **Supervised**:
     - training of a *"predictive"* model from data;
@@ -21,38 +18,15 @@ Machine learning approaches are divided into two main types.
 
 Classification is one of the classic supervised machine learning tasks, where algorithms are used to learn (i.e., model) the relationship between a series of input values (a.k.a. predictors, independent variables) and output categorical values or labels (a.k.a. outcome, dependent variable). A model trained on a training dataset can learn the relationship between the input and the labels, and then be used to label new, unlabeled data.
 
+This chapters explores three approaches to supervised machine learning approaches to classification:
 
-
-### Artificial neural networks
-
-Artificial neural networks (ANNs) are one of the most studied approaches in supervised machine learning, and the term actually defines a large set of different approaches. These model aims to simulate a simplistic version of a brain made of artificial neurons. Each artificial neuron combines a series of input values into one output values, using a series of weights (one per input value) and an activation function. The aim of the model is to learn an optimal set of weights that, once combined with the input values, generates the correct output value. The latter is also influenced by the activation function, which modulates the final result.
-
-
-
-<center>
-![](images/artificial_neuron.png){width=50%}
-</center>
-
-Each neuron is effectively a regression model. The input values are the predictors (or independent variables), the output is the outcome (or dependent variable), and the weights are the coefficients (see also previous practical on regression models). The selection of the activation function defines the regression model. As ANNs are commonly used for classification, one of the most common activation functions used is the sigmoid, thus rendering every single neuron a logistic regression.
-
-An instance of an ANN is defined by its topology (number of layers and nodes), activation functions and the algorithm used to train the network. The selection of all those parameters renders the construction of ANNs a very complex task, and the quality of the result frequently relies on the experience of the data scientist.
-
-- Number of layers
-  - Single-layer network: one node of input variable one node per category of the output variable, effectively a logistic regression.
-  - Multi-layer network: adds one hidden layer, which aims to capture hidden *"features"* of the data, as combinations of the input values, and use that for the final classification.
-  - Deep neural networks: several hidden layers, each aiming to capture more and more complex *"features"* of the data.
-- Number of nodes
-  - The number of nodes needs to be selected for each one of the hidden layers.
+- logistic regression;
+- support vector machines;
+- artificial neural networks.
 
 
 
-### Support vector machines
-
-Support vector machines (SVMs) are another very common approach to supervised classification. SVMs perform the classification task by partitioning the data space into regions separated by hyperplanes. For instance, in a bi-dimensional space, a hyperplane is a line, and the algorithm is designed to find the line that best separates two groups of data. Computationally, the process is not dissimilar to linear regression.
-
-
-
-### Confusion matrices
+## Confusion matrices
 
 Once a classification model has been created, the next step is validation. The latter can involve different approaches and procedures, but one of the most common and simple approaches is to split the data between a training and a testing set. The model is trained on the training set and then validated using the testing set. Both sets will contain both the input values (predictors) and the output values (outcome).
 
@@ -98,12 +72,13 @@ F-score = \frac{2 \times precision \times recall}{precision + recall}
 $$
 Finally, the *kappa statistic* (the most common being [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa)) is an additional measure of accuracy, which measures the agreement between prediction and actual values, while also accounting for the probability of correct prediction by chance.
 
-## Supervised learning examples
 
+
+## Urban and rural population density
 
 The two examples below explore the relation between some of the variables from the United Kingdom 2011 Census included among the 167 initial variables used to create the [2011 Output Area Classification](https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/) ([Gale *et al.*, 2016](http://josis.net/index.php/josis/article/view/232/150)) and the [Rural Urban Classification (2011) of Output Areas in England and Wales](https://geoportal.statistics.gov.uk/datasets/rural-urban-classification-2011-of-output-areas-in-england-and-wales) created by the [Office for National Statistics](https://geoportal.statistics.gov.uk/). The various examples and models explore whether it is possible to learn the rural-urban distinction by using some of those census variables, in the Local Authority Districts (LADs) in Leicestershire (excluding the city of Leicester itself.
 
-The code below uses the libraries `caret`, `e1071` and `neuralnet`. Please install them before continuing with the practical.
+The code below uses the libraries `caret`, `e1071` and `neuralnet`. Please install them before continuing.
 
 
 ```r
@@ -112,9 +87,7 @@ install.packages("e1071")
 install.packages("neuralnet")
 ```
 
-### Data
-
-The examples use the same data seen in previous practicals, but for the 7 LADs in Leicestershire outside the boundaries of the city of Leicester: Blaby, Charnwood, Harborough, Hinckley and Bosworth, Melton, North West Leicestershire, and Oadby and Wigston. Those data are loaded from the `2011_OAC_Raw_uVariables_Leicestershire.csv`. The second part of the code extracts the data of the Rural Urban Classification (2011) from the compressed file `RUC11_OA11_EW.zip`, loads the extracted data and finally deletes them.
+The examples use the same data seen in previous chapters, but for the 7 LADs in Leicestershire outside the boundaries of the city of Leicester: Blaby, Charnwood, Harborough, Hinckley and Bosworth, Melton, North West Leicestershire, and Oadby and Wigston. Those data are loaded from the `2011_OAC_Raw_uVariables_Leicestershire.csv`. The second part of the code extracts the data of the Rural Urban Classification (2011) from the compressed file `RUC11_OA11_EW.zip`, loads the extracted data and finally deletes them.
 
 
 ```r
@@ -159,7 +132,7 @@ liec_shire_2011OAC_RU <-
 ```
 
 
-### Logistic regression
+## Logistic regression
 
 Can we predict whether an Output Area (OA) is urban or rural, solely based on its population density? 
 
@@ -183,7 +156,7 @@ liec_shire_2011OAC_RU %>%
   ggplot2::theme_bw()
 ```
 
-<img src="400-supervised-learning_files/figure-html/unnamed-chunk-6-1.png" width="576" />
+<img src="400-supervised-learning_files/figure-html/unnamed-chunk-5-1.png" width="576" />
 
 The two patters in the plot above seem quite close even when plotted using a logarithmically transformed x-axis. As a first step, we can extract from the dataset only the data we need, and create a logarithmic transformation of the population density value. To be able to perform a simple validatin our model, we can divide that data in a training (80% of the dataset) and a testing set (20% of the dataset).
 
@@ -231,20 +204,20 @@ ru_logit_model %>%
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.2010  -0.5731   0.5245   0.6554   2.0762  
+## -2.1836  -0.5867   0.5302   0.6574   2.0170  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -1.3770     0.1311   -10.5   <2e-16 ***
-## density_log   1.8844     0.1013    18.6   <2e-16 ***
+## (Intercept) -1.20113    0.12713  -9.448   <2e-16 ***
+## density_log  1.77366    0.09799  18.100   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2090.1  on 1667  degrees of freedom
-## Residual deviance: 1590.6  on 1666  degrees of freedom
-## AIC: 1594.6
+##     Null deviance: 2055.5  on 1667  degrees of freedom
+## Residual deviance: 1604.4  on 1666  degrees of freedom
+## AIC: 1608.4
 ## 
 ## Number of Fisher Scoring iterations: 4
 ```
@@ -298,35 +271,39 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    55    28
-##      urban    58   276
+##      rural    69    23
+##      urban    66   259
 ##                                           
-##                Accuracy : 0.7938          
-##                  95% CI : (0.7517, 0.8316)
-##     No Information Rate : 0.729           
-##     P-Value [Acc > NIR] : 0.001382        
+##                Accuracy : 0.7866          
+##                  95% CI : (0.7441, 0.8249)
+##     No Information Rate : 0.6763          
+##     P-Value [Acc > NIR] : 4.065e-07       
 ##                                           
-##                   Kappa : 0.4305          
+##                   Kappa : 0.4684          
 ##                                           
-##  Mcnemar's Test P-Value : 0.001765        
+##  Mcnemar's Test P-Value : 8.508e-06       
 ##                                           
-##             Sensitivity : 0.4867          
-##             Specificity : 0.9079          
-##          Pos Pred Value : 0.6627          
-##          Neg Pred Value : 0.8263          
-##               Precision : 0.6627          
-##                  Recall : 0.4867          
-##                      F1 : 0.5612          
-##              Prevalence : 0.2710          
-##          Detection Rate : 0.1319          
-##    Detection Prevalence : 0.1990          
-##       Balanced Accuracy : 0.6973          
+##             Sensitivity : 0.5111          
+##             Specificity : 0.9184          
+##          Pos Pred Value : 0.7500          
+##          Neg Pred Value : 0.7969          
+##               Precision : 0.7500          
+##                  Recall : 0.5111          
+##                      F1 : 0.6079          
+##              Prevalence : 0.3237          
+##          Detection Rate : 0.1655          
+##    Detection Prevalence : 0.2206          
+##       Balanced Accuracy : 0.7148          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
 ```
 
-### Support vector machines
+
+
+## Support vector machines
+
+Support vector machines (SVMs) are another very common approach to supervised classification. SVMs perform the classification task by partitioning the data space into regions separated by hyperplanes. For instance, in a bi-dimensional space, a hyperplane is a line, and the algorithm is designed to find the line that best separates two groups of data. Computationally, the process is not dissimilar to linear regression.
 
 To showcase the use of SVMs, the example below expands on the one above by building a model for urban - rural classification that uses total population and area (logarithmically transformed) as two separate input values, rather than combined as population density. The aim of the SVM is then to find a line that maximises the margin between the two groups shown in the plot below.
 
@@ -351,7 +328,7 @@ liec_shire_2011OAC_RU %>%
   ggplot2::theme_bw()
 ```
 
-<img src="400-supervised-learning_files/figure-html/unnamed-chunk-10-1.png" width="576" />
+<img src="400-supervised-learning_files/figure-html/unnamed-chunk-9-1.png" width="576" />
 
 The plot illustrates how the two variables are skewed (note that the axes are logarithmically transformed) and that the two groups are not linearly separable. We can thus follow a procedure similar to the one seen above: extract the necessary data; split the data between training and testing for validation; build the model; predict the values for the testing set and interpret the confusion matrix.
 
@@ -422,29 +399,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    62    24
-##      urban    66   265
+##      rural    54    39
+##      urban    62   262
 ##                                           
-##                Accuracy : 0.7842          
-##                  95% CI : (0.7415, 0.8227)
-##     No Information Rate : 0.693           
-##     P-Value [Acc > NIR] : 2.019e-05       
+##                Accuracy : 0.7578          
+##                  95% CI : (0.7137, 0.7982)
+##     No Information Rate : 0.7218          
+##     P-Value [Acc > NIR] : 0.05503         
 ##                                           
-##                   Kappa : 0.4417          
+##                   Kappa : 0.3577          
 ##                                           
-##  Mcnemar's Test P-Value : 1.548e-05       
+##  Mcnemar's Test P-Value : 0.02859         
 ##                                           
-##             Sensitivity : 0.4844          
-##             Specificity : 0.9170          
-##          Pos Pred Value : 0.7209          
-##          Neg Pred Value : 0.8006          
-##               Precision : 0.7209          
-##                  Recall : 0.4844          
-##                      F1 : 0.5794          
-##              Prevalence : 0.3070          
-##          Detection Rate : 0.1487          
-##    Detection Prevalence : 0.2062          
-##       Balanced Accuracy : 0.7007          
+##             Sensitivity : 0.4655          
+##             Specificity : 0.8704          
+##          Pos Pred Value : 0.5806          
+##          Neg Pred Value : 0.8086          
+##               Precision : 0.5806          
+##                  Recall : 0.4655          
+##                      F1 : 0.5167          
+##              Prevalence : 0.2782          
+##          Detection Rate : 0.1295          
+##    Detection Prevalence : 0.2230          
+##       Balanced Accuracy : 0.6680          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -531,12 +508,12 @@ caret::confusionMatrix(
 ##           Reference
 ## Prediction rural urban
 ##      rural     0     0
-##      urban   130   287
+##      urban   126   291
 ##                                           
-##                Accuracy : 0.6882          
-##                  95% CI : (0.6414, 0.7324)
-##     No Information Rate : 0.6882          
-##     P-Value [Acc > NIR] : 0.5237          
+##                Accuracy : 0.6978          
+##                  95% CI : (0.6513, 0.7416)
+##     No Information Rate : 0.6978          
+##     P-Value [Acc > NIR] : 0.5241          
 ##                                           
 ##                   Kappa : 0               
 ##                                           
@@ -545,11 +522,11 @@ caret::confusionMatrix(
 ##             Sensitivity : 0.0000          
 ##             Specificity : 1.0000          
 ##          Pos Pred Value :    NaN          
-##          Neg Pred Value : 0.6882          
+##          Neg Pred Value : 0.6978          
 ##               Precision :     NA          
 ##                  Recall : 0.0000          
 ##                      F1 :     NA          
-##              Prevalence : 0.3118          
+##              Prevalence : 0.3022          
 ##          Detection Rate : 0.0000          
 ##    Detection Prevalence : 0.0000          
 ##       Balanced Accuracy : 0.5000          
@@ -608,29 +585,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    39    29
-##      urban    91   258
+##      rural    43    35
+##      urban    83   256
 ##                                           
-##                Accuracy : 0.7122          
-##                  95% CI : (0.6662, 0.7552)
-##     No Information Rate : 0.6882          
-##     P-Value [Acc > NIR] : 0.1576          
+##                Accuracy : 0.717           
+##                  95% CI : (0.6712, 0.7598)
+##     No Information Rate : 0.6978          
+##     P-Value [Acc > NIR] : 0.2127          
 ##                                           
-##                   Kappa : 0.2288          
+##                   Kappa : 0.2478          
 ##                                           
-##  Mcnemar's Test P-Value : 2.569e-08       
+##  Mcnemar's Test P-Value : 1.514e-05       
 ##                                           
-##             Sensitivity : 0.30000         
-##             Specificity : 0.89895         
-##          Pos Pred Value : 0.57353         
-##          Neg Pred Value : 0.73926         
-##               Precision : 0.57353         
-##                  Recall : 0.30000         
-##                      F1 : 0.39394         
-##              Prevalence : 0.31175         
-##          Detection Rate : 0.09353         
-##    Detection Prevalence : 0.16307         
-##       Balanced Accuracy : 0.59948         
+##             Sensitivity : 0.3413          
+##             Specificity : 0.8797          
+##          Pos Pred Value : 0.5513          
+##          Neg Pred Value : 0.7552          
+##               Precision : 0.5513          
+##                  Recall : 0.3413          
+##                      F1 : 0.4216          
+##              Prevalence : 0.3022          
+##          Detection Rate : 0.1031          
+##    Detection Prevalence : 0.1871          
+##       Balanced Accuracy : 0.6105          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -638,9 +615,28 @@ caret::confusionMatrix(
 
 
 
-### Artificial neural network
 
-Finally, we can explore the construction of an ANN for the same input and output variables seen in the previous example, and compare which one of the two approaches produces better results. The example below creates a multi-layer ANN, using two hidden layers, with five and two nodes, respectively.
+
+## Artificial neural networks
+
+Artificial neural networks (ANNs) are one of the most studied approaches in supervised machine learning, and the term actually defines a large set of different approaches. These model aims to simulate a simplistic version of a brain made of artificial neurons. Each artificial neuron combines a series of input values into one output values, using a series of weights (one per input value) and an activation function. The aim of the model is to learn an optimal set of weights that, once combined with the input values, generates the correct output value. The latter is also influenced by the activation function, which modulates the final result.
+
+<center>
+![](images/artificial_neuron.png){width=50%}
+</center>
+
+Each neuron is effectively a regression model. The input values are the predictors (or independent variables), the output is the outcome (or dependent variable), and the weights are the coefficients (see also previous chapter on regression models). The selection of the activation function defines the regression model. As ANNs are commonly used for classification, one of the most common activation functions used is the sigmoid, thus rendering every single neuron a logistic regression.
+
+An instance of an ANN is defined by its topology (number of layers and nodes), activation functions and the algorithm used to train the network. The selection of all those parameters renders the construction of ANNs a very complex task, and the quality of the result frequently relies on the experience of the data scientist.
+
+- Number of layers
+  - Single-layer network: one node of input variable one node per category of the output variable, effectively a logistic regression.
+  - Multi-layer network: adds one hidden layer, which aims to capture hidden *"features"* of the data, as combinations of the input values, and use that for the final classification.
+  - Deep neural networks: several hidden layers, each aiming to capture more and more complex *"features"* of the data.
+- Number of nodes
+  - The number of nodes needs to be selected for each one of the hidden layers.
+
+We can explore the construction of an ANN for the same input and output variables seen in the previous example, and compare which one of the two approaches produces better results. The example below creates a multi-layer ANN, using two hidden layers, with five and two nodes, respectively.
 
 
 
@@ -671,7 +667,7 @@ ru_dwellings_nnet_model <-
 ru_dwellings_nnet_model %>%  plot(rep = "best")
 ```
 
-<img src="400-supervised-learning_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="400-supervised-learning_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```r
 # Predict the values for the testing dataset
@@ -725,29 +721,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    50    34
-##      urban    80   253
+##      rural    53    35
+##      urban    73   256
 ##                                           
-##                Accuracy : 0.7266          
-##                  95% CI : (0.6811, 0.7689)
-##     No Information Rate : 0.6882          
-##     P-Value [Acc > NIR] : 0.04938         
+##                Accuracy : 0.741           
+##                  95% CI : (0.6961, 0.7824)
+##     No Information Rate : 0.6978          
+##     P-Value [Acc > NIR] : 0.0296817       
 ##                                           
-##                   Kappa : 0.2947          
+##                   Kappa : 0.3284          
 ##                                           
-##  Mcnemar's Test P-Value : 2.502e-05       
+##  Mcnemar's Test P-Value : 0.0003704       
 ##                                           
-##             Sensitivity : 0.3846          
-##             Specificity : 0.8815          
-##          Pos Pred Value : 0.5952          
-##          Neg Pred Value : 0.7598          
-##               Precision : 0.5952          
-##                  Recall : 0.3846          
-##                      F1 : 0.4673          
-##              Prevalence : 0.3118          
-##          Detection Rate : 0.1199          
-##    Detection Prevalence : 0.2014          
-##       Balanced Accuracy : 0.6331          
+##             Sensitivity : 0.4206          
+##             Specificity : 0.8797          
+##          Pos Pred Value : 0.6023          
+##          Neg Pred Value : 0.7781          
+##               Precision : 0.6023          
+##                  Recall : 0.4206          
+##                      F1 : 0.4953          
+##              Prevalence : 0.3022          
+##          Detection Rate : 0.1271          
+##    Detection Prevalence : 0.2110          
+##       Balanced Accuracy : 0.6502          
 ##                                           
 ##        'Positive' Class : rural           
 ## 

@@ -4,12 +4,9 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-
-## Introduction
-
 The field of **machine learning** sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), *"the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience."*
 
-Machine learning approaches are divided into two main types.
+Machine learning approaches are divided into two main types^[Although, many other types of machine learning exist, such as semi-supervised and reinforcement learning].
 
 - **Supervised**:
     - training of a *"predictive"* model from data;
@@ -21,41 +18,15 @@ Machine learning approaches are divided into two main types.
 
 Classification is one of the classic supervised machine learning tasks, where algorithms are used to learn (i.e., model) the relationship between a series of input values (a.k.a. predictors, independent variables) and output categorical values or labels (a.k.a. outcome, dependent variable). A model trained on a training dataset can learn the relationship between the input and the labels, and then be used to label new, unlabeled data.
 
+This chapters explores three approaches to supervised machine learning approaches to classification:
 
-
-### Artificial neural networks
-
-Artificial neural networks (ANNs) are one of the most studied approaches in supervised machine learning, and the term actually defines a large set of different approaches. These model aims to simulate a simplistic version of a brain made of artificial neurons. Each artificial neuron combines a series of input values into one output values, using a series of weights (one per input value) and an activation function. The aim of the model is to learn an optimal set of weights that, once combined with the input values, generates the correct output value. The latter is also influenced by the activation function, which modulates the final result.
-
-
-```{r, echo=FALSE}
-#, out.width="50%", fig.align = 'center'
-#knitr::include_graphics(paste0(Sys.getenv("RGDS_HOME"), "/src/practicals/images/artificial_neuron.png"))
-```
-<center>
-![](images/artificial_neuron.png){width=50%}
-</center>
-
-Each neuron is effectively a regression model. The input values are the predictors (or independent variables), the output is the outcome (or dependent variable), and the weights are the coefficients (see also previous practical on regression models). The selection of the activation function defines the regression model. As ANNs are commonly used for classification, one of the most common activation functions used is the sigmoid, thus rendering every single neuron a logistic regression.
-
-An instance of an ANN is defined by its topology (number of layers and nodes), activation functions and the algorithm used to train the network. The selection of all those parameters renders the construction of ANNs a very complex task, and the quality of the result frequently relies on the experience of the data scientist.
-
-- Number of layers
-  - Single-layer network: one node of input variable one node per category of the output variable, effectively a logistic regression.
-  - Multi-layer network: adds one hidden layer, which aims to capture hidden *"features"* of the data, as combinations of the input values, and use that for the final classification.
-  - Deep neural networks: several hidden layers, each aiming to capture more and more complex *"features"* of the data.
-- Number of nodes
-  - The number of nodes needs to be selected for each one of the hidden layers.
+- logistic regression;
+- support vector machines;
+- artificial neural networks.
 
 
 
-### Support vector machines
-
-Support vector machines (SVMs) are another very common approach to supervised classification. SVMs perform the classification task by partitioning the data space into regions separated by hyperplanes. For instance, in a bi-dimensional space, a hyperplane is a line, and the algorithm is designed to find the line that best separates two groups of data. Computationally, the process is not dissimilar to linear regression.
-
-
-
-### Confusion matrices
+## Confusion matrices
 
 Once a classification model has been created, the next step is validation. The latter can involve different approaches and procedures, but one of the most common and simple approaches is to split the data between a training and a testing set. The model is trained on the training set and then validated using the testing set. Both sets will contain both the input values (predictors) and the output values (outcome).
 
@@ -101,12 +72,13 @@ F-score = \frac{2 \times precision \times recall}{precision + recall}
 $$
 Finally, the *kappa statistic* (the most common being [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa)) is an additional measure of accuracy, which measures the agreement between prediction and actual values, while also accounting for the probability of correct prediction by chance.
 
-## Supervised learning examples
 
+
+## Urban and rural population density
 
 The two examples below explore the relation between some of the variables from the United Kingdom 2011 Census included among the 167 initial variables used to create the [2011 Output Area Classification](https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/) ([Gale *et al.*, 2016](http://josis.net/index.php/josis/article/view/232/150)) and the [Rural Urban Classification (2011) of Output Areas in England and Wales](https://geoportal.statistics.gov.uk/datasets/rural-urban-classification-2011-of-output-areas-in-england-and-wales) created by the [Office for National Statistics](https://geoportal.statistics.gov.uk/). The various examples and models explore whether it is possible to learn the rural-urban distinction by using some of those census variables, in the Local Authority Districts (LADs) in Leicestershire (excluding the city of Leicester itself.
 
-The code below uses the libraries `caret`, `e1071` and `neuralnet`. Please install them before continuing with the practical.
+The code below uses the libraries `caret`, `e1071` and `neuralnet`. Please install them before continuing.
 
 ```{r, echo=TRUE, eval=FALSE}
 install.packages("caret")
@@ -114,9 +86,7 @@ install.packages("e1071")
 install.packages("neuralnet")
 ```
 
-### Data
-
-The examples use the same data seen in previous practicals, but for the 7 LADs in Leicestershire outside the boundaries of the city of Leicester: Blaby, Charnwood, Harborough, Hinckley and Bosworth, Melton, North West Leicestershire, and Oadby and Wigston. Those data are loaded from the `2011_OAC_Raw_uVariables_Leicestershire.csv`. The second part of the code extracts the data of the Rural Urban Classification (2011) from the compressed file `RUC11_OA11_EW.zip`, loads the extracted data and finally deletes them.
+The examples use the same data seen in previous chapters, but for the 7 LADs in Leicestershire outside the boundaries of the city of Leicester: Blaby, Charnwood, Harborough, Hinckley and Bosworth, Melton, North West Leicestershire, and Oadby and Wigston. Those data are loaded from the `2011_OAC_Raw_uVariables_Leicestershire.csv`. The second part of the code extracts the data of the Rural Urban Classification (2011) from the compressed file `RUC11_OA11_EW.zip`, loads the extracted data and finally deletes them.
 
 ```{r, echo=TRUE, eval=FALSE}
 # Libraries
@@ -169,7 +139,7 @@ liec_shire_2011OAC_RU <-
 ```
 
 
-### Logistic regression
+## Logistic regression
 
 Can we predict whether an Output Area (OA) is urban or rural, solely based on its population density? 
 
@@ -272,7 +242,11 @@ caret::confusionMatrix(
 )
 ```
 
-### Support vector machines
+
+
+## Support vector machines
+
+Support vector machines (SVMs) are another very common approach to supervised classification. SVMs perform the classification task by partitioning the data space into regions separated by hyperplanes. For instance, in a bi-dimensional space, a hyperplane is a line, and the algorithm is designed to find the line that best separates two groups of data. Computationally, the process is not dissimilar to linear regression.
 
 To showcase the use of SVMs, the example below expands on the one above by building a model for urban - rural classification that uses total population and area (logarithmically transformed) as two separate input values, rather than combined as population density. The aim of the SVM is then to find a line that maximises the margin between the two groups shown in the plot below.
 
@@ -479,9 +453,28 @@ caret::confusionMatrix(
 
 
 
-### Artificial neural network
 
-Finally, we can explore the construction of an ANN for the same input and output variables seen in the previous example, and compare which one of the two approaches produces better results. The example below creates a multi-layer ANN, using two hidden layers, with five and two nodes, respectively.
+
+## Artificial neural networks
+
+Artificial neural networks (ANNs) are one of the most studied approaches in supervised machine learning, and the term actually defines a large set of different approaches. These model aims to simulate a simplistic version of a brain made of artificial neurons. Each artificial neuron combines a series of input values into one output values, using a series of weights (one per input value) and an activation function. The aim of the model is to learn an optimal set of weights that, once combined with the input values, generates the correct output value. The latter is also influenced by the activation function, which modulates the final result.
+
+<center>
+![](images/artificial_neuron.png){width=50%}
+</center>
+
+Each neuron is effectively a regression model. The input values are the predictors (or independent variables), the output is the outcome (or dependent variable), and the weights are the coefficients (see also previous chapter on regression models). The selection of the activation function defines the regression model. As ANNs are commonly used for classification, one of the most common activation functions used is the sigmoid, thus rendering every single neuron a logistic regression.
+
+An instance of an ANN is defined by its topology (number of layers and nodes), activation functions and the algorithm used to train the network. The selection of all those parameters renders the construction of ANNs a very complex task, and the quality of the result frequently relies on the experience of the data scientist.
+
+- Number of layers
+  - Single-layer network: one node of input variable one node per category of the output variable, effectively a logistic regression.
+  - Multi-layer network: adds one hidden layer, which aims to capture hidden *"features"* of the data, as combinations of the input values, and use that for the final classification.
+  - Deep neural networks: several hidden layers, each aiming to capture more and more complex *"features"* of the data.
+- Number of nodes
+  - The number of nodes needs to be selected for each one of the hidden layers.
+
+We can explore the construction of an ANN for the same input and output variables seen in the previous example, and compare which one of the two approaches produces better results. The example below creates a multi-layer ANN, using two hidden layers, with five and two nodes, respectively.
 
 ```{r, echo=FALSE, eval=FALSE, message=FALSE, warning=FALSE}
 # Run this code separately 

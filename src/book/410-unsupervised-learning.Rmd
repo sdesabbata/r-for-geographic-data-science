@@ -2,12 +2,7 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-
-## Introduction
-
-The field of **machine learning** sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), *"the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience."*
-
-Machine learning approaches are divided into two main types.
+As discussed in the previous chapter, machine learning approaches are divided into two main types^[Although, many other types of machine learning exist, such as semi-supervised and reinforcement learning].
 
 - **Supervised**:
     - training of a *"predictive"* model from data;
@@ -19,7 +14,7 @@ Machine learning approaches are divided into two main types.
     
 Clustering is a classic unsupervised machine learning task, which aims to *"automatically divides the data into* ***clusters*** *, or groups of similar items"*(Lantz, 2019). In computer science, a wide range of approaches has been developed to tackle clustering. Among those approaches, the two most common are centroid-based approaches (such as k-means) and hierarchical approaches. Other approaches include density-based clustering methods (such as DBSCAN) and mixed approaches (such as bagged clustering), which combine different aspects of centroid-based and hierarchical approaches.
 
-### K-means
+## K-means
 
 The k-mean approach clusters $n$ observations ($x$) in $k$ clusters ($c$) by minimising the within-cluster sum of squares (WCSS) through an iterative process. That is, the algorithm calculates the distance between each observation (i.e., each case, object, row in the table) and the centroid of its cluster. The square values of those distances are summed up for each cluster, and then for the whole dataset. The aim of the algorithm is minimise that value.
 
@@ -42,7 +37,7 @@ For all three heuristics, the best approach would be to calculate those values u
 
 
 
-### Geodemographic Classification
+## Geodemographic Classification
 
 In GIScience, clustering approaches are commonly used to create *geodemographic classifications*. For instance, [Gale *et al.*, 2016](http://josis.net/index.php/josis/article/view/232/150) created the [2011 Output Area Classification (2011 OAC)](https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/) starting from an initial set of 167 prospective variables from the UK Census 2011.
 
@@ -51,8 +46,6 @@ In the process of creating the classification, 86 variables were removed from th
 The [paper](http://josis.net/index.php/josis/article/view/232/150) provides a detail report of the process. In particular, it is interesting to see how the authors applied a process of variable selection involving repeated clustering while excluding one variable, to see how the within cluster sum of square measure (WCSS) would be affected. Variable that produced significantly higher WCSS when excluded were considered for exclusion from the final analysis, in order to increase the homogeneity of the clusters. 
 
 Once the clustering is completed, the final step in geodemographic classification is the interpretation of the resulting cluster, which is commonly done by observing the average values of the variables for each cluster.
-
-## Unsupervised learning examples
 
 The two examples below explore the creation of simple geodemographic classifications for the city of Leicester, using a few variables from the United Kingdom 2011 Census and included among the 167 initial variables that [Gale *et al.*, 2016](http://josis.net/index.php/josis/article/view/232/150) have taken into account in creating the [2011 Output Area Classification](https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/). 
 
@@ -116,7 +109,7 @@ set.seed(20201208)
 ```
 
 
-### Terrace and semi-detached houses
+## Terrace and semi-detached houses
 
 The first example explores how to create a geodemographic classification using only two variables.
 
@@ -266,7 +259,7 @@ The plot above, clearly illustrates how cluster 6 has a high percentage of semi-
 
 Moreover, the clustering process identifies cluster 1, which includes similar percentages of semi-detached and terraced houses; as well as cluster 5, including mostly semi-detached but also some terraced houses, and cluster 3, including mostly terraced but also some semi-detached houses.
 
-### A geodemographic of dwelling types
+## A geodemographic of dwelling types
 
 The case study above is useful as a simple example of how to create a geodemographic classification, but possibly not the most interesting analysis due to the limited number of variables used. In this section, we explore the creation of a geodemographic of dwelling types in the city of Leicester, using all five variables available in the original dataset.
 

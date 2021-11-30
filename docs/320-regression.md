@@ -5,6 +5,10 @@
 
 
 
+This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how to run a regression analysis and (importantly) how to check that the analysis meets the test assumptions and how to report the results in an analysis document.
+
+
+
 ## Simple regression
 
 The simple regression analysis is a supervised machine learning approach to creating a model able to predict the value of one outcome variable $Y$ based on one predictor variable $X_1$, by estimating the intercept $b_0$ and coefficient (slope) $b_1$, and accounting for a reasonable amount of error $\epsilon$. 
