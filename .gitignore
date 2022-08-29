@@ -28,6 +28,7 @@
 
 # Items in Data and tmp folder
 /storage/*
+/releases/*
 /tmp/*
 /tmp/*
 /data/*
