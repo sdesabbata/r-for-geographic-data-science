@@ -6,50 +6,22 @@ This book is a companion for the module [GY7702 R for Data Science](https://le.a
 
 The slides used in the lectures are available as web-based slides at the pages linked below. 
 
-1. **R coding**
-    - **100 Introduction**
-        - 101 [Introduction to R](slides/101-introduction.html)
-        - 102 [Core concepts](slides/102-core-concepts.html)
-        - 103 [Tidyverse](slides/103-tidyverse.html)
-    - **110 R programming**
-        - 111 [Data types (vectors, factors, matrices, arrays, lists)](slides/111-data-types.html)
-        - 112 [Control structures (conditional statements, loops)](slides/112-control-structures.html)
-        - 113 [Functions](slides/113-functions.html)
-2. **Data wrangling**
-    - **200 Selection and manipulation**
-        - 201 [Data Frames](slides/201-data-frames.html)
-        - 202 [Data selection and filtering](slides/202-selection-filtering.html)
-        - 203 [Data manipulation](slides/203-data-manipulation.html)
-    - **210 Table operations**
-        - 211 [Join operations](slides/211-data-join.html)
-        - 212 [Table pivot](slides/212-tidy-data.html)
-        - 213 [Read and write data](slides/213-read-write.html)
-    - **220 Reproducibility**
-        - 221 [Reproducibility](slides/221-reproducibility.html)
-        - 222 [R and Markdown](slides/222-rmarkdown.html)
-        - 223 [Git](slides/223-git.html)
+1. **Introduction to Reproducible Data Science**
+    - 101 [Introduction to R *(draft)*](slides/101-introduction.html)
+    - 102 Reproducible data science
+    - 103 Data manipulation
+    - 104 Table operations
+2. **R Scripting**
+    - 201 Control structures
+    - 202 Functions
 3. **Data analysis**
-    - **300 Exploratory data analysis**
-        - 301 [Data visualisation](slides/301-data-visualisation.html)
-        - 302 [Descriptive statistics](slides/302-descriptive-stats.html)
-        - 303 [Exploring assumptions](slides/303-exploring-assumptions.html)
-    - **310 Comparing data** 
-        - 311 [Comparing groups](slides/311-comparing-means.html)
-        - 312 [Correlation](slides/312-correlation.html)
-        - 313 [Data transformations](slides/313-data-transformations.html)
-    - **320 Regression models**
-        - 321 [Simple regression](slides/321-regression.html)
-        - 322 [Multiple Regression](slides/322-regression-multiple.html)
-        - 323 [Comparing regression models](slides/323-regression-comparing.html)
+    - 301 Exploratory visualisation
+    - 302 Exploratory statistics
+    - 303 Comparing data
+    - 304 Regression models
 4. **Machine learning**
-    - **400 Supervised**
-        - 401 [Introduction to Machine Learning](slides/401-machine-learning-intro.html)
-        - 402 [Artificial Neural Networks](slides/402-neural-networks.html)
-        - 403 [Support vector machines](slides/403-support-vector-machines.html)
-    - **410 Unsupervised**
-        - 411 [Principal Component Analysis](slides/411-principal-components.html)
-        - 412 [Centroid-based clustering](slides/412-clustering-centroid.html)
-        - 413 [Hierarchical and density-based clustering](slides/413-clustering-hierarchical-density.html)
+    - 401 Supervised
+    - 402 Unsupervised
 
 
 ---

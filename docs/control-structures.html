@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Control structures | R for Geographic Data Science</title>
+<meta name="author" content="Stefano De Sabbata">
+<meta name="description" content="This chapter is currently a draft. Print this chapter  5.1 Conditional statements Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Control structures | R for Geographic Data Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/control-structures.html">
+<meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter  5.1 Conditional statements Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Control structures | R for Geographic Data Science">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  5.1 Conditional statements Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part...">
+<meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2Y0M0936JL');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Geographic Data Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></li>
+<li><a class="" href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li class="book-part">R scripting</li>
+<li><a class="active" href="control-structures.html"><span class="header-section-number">5</span> Control structures</a></li>
+<li><a class="" href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></li>
+<li class="book-part">Data analysis</li>
+<li><a class="" href="exploratory-visualisation.html"><span class="header-section-number">7</span> Exploratory visualisation</a></li>
+<li><a class="" href="exploratory-statistics.html"><span class="header-section-number">8</span> Exploratory statistics</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">9</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">10</span> Regression analysis</a></li>
+<li class="book-part">Machine learning</li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">11</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">12</span> Unsupervised machine learning</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="appendix-1.html">Appendix 1</a></li>
+<li><a class="" href="solutions.html">Solutions</a></li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/sdesabbata/r-for-geographic-data-science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="control-structures" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Control structures<a class="anchor" aria-label="anchor" href="#control-structures"><i class="fas fa-link"></i></a>
+</h1>
+<p><br><small><em>This chapter is currently a draft.</em></small></p>
+<p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
+<!--
+This chapter illustrates the use of **conditional statements** and code **loops**. However, those constructs require a bit more than the single lines of code we have seen so far.
+-->
+<div id="conditional-statements" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
+</h2>
+<p>Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested, and the part of the procedure to execute in the case the condition is true is included in a <em>code block</em>.</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">25</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<p>A simple conditional statement can be created using <code>if</code> as in the example above. A more complex structure can be created using both <code>if</code> and <code>else</code> to provide not only a procedure to execute in case the condition is true but also an alternative procedure to be executed when the condition is false.</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">12</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Today is not warm"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## Today is not warm</code></pre>
+<p>Finally, conditional statements can be <strong>nested</strong>. That is, a conditional statement can be included as part of the code block to be executed after the condition is tested. For instance, in the example below, a second conditional statement is included in the code block to be executed in the case the condition is false.</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">5</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"There is a nice temperature today"</span><span class="op">)</span>
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"This is really cold!"</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## This is really cold!</code></pre>
+<p>Similarly, the first example seen in the lecture should be coded as follows.</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span>
+
+<span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Zero"</span><span class="op">)</span>
+<span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Negative"</span><span class="op">)</span> 
+  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Positive"</span><span class="op">)</span>
+  <span class="op">}</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## Negative</code></pre>
+</div>
+<div id="loops" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h2>
+<p>Loops are another core component of (procedural) programming and implement the idea of solving a problem or executing a task by performing the same set of steps a number of times. There are two main kinds of loops in R - <strong>deterministic</strong> and <strong>conditional</strong> loops. The former is executed a fixed number of times, specified at the beginning of the loop. The latter is executed until a specific condition is met. Both deterministic and conditional loops are extremely important in working with vectors.</p>
+<div id="conditional-loops" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R, conditional loops can be implemented using <code>while</code> and <code>repeat</code>. The difference between the two is mostly syntactical: the first tests the condition first and then execute the related code block if the condition is true; the second executes the code block until a <code>break</code> command is given (usually through a conditional statement).</p>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="co"># Keep printing as long as x is smaller than 2</span>
+<span class="kw">while</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">a_value</span>, <span class="st">"\n"</span><span class="op">)</span>
+  <span class="va">a_value</span> <span class="op">&lt;-</span> <span class="va">a_value</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## 0 
+## 1</code></pre>
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="co"># Keep printing, if x is greater or equal than 2 than stop</span>
+<span class="kw">repeat</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">a_value</span>, <span class="st">"\n"</span><span class="op">)</span>
+  <span class="va">a_value</span> <span class="op">&lt;-</span> <span class="va">a_value</span> <span class="op">+</span> <span class="fl">1</span>
+  <span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="kw">break</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## 0 
+## 1</code></pre>
+</div>
+<div id="deterministic-loops" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> Deterministic Loops<a class="anchor" aria-label="anchor" href="#deterministic-loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>The deterministic loop executes the subsequent code block iterating through the elements of a provided vector. During each iteration (i.e., execution of the code block), the current element of the vector (<em><vector></vector></em> in the definition below) is assigned to the variable in the statement (<em><var></var></em> in the definition below), and it can be used in the code block.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="control-structures.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="sc">&lt;</span>VAR<span class="sc">&gt;</span> <span class="cf">in</span> <span class="sc">&lt;</span>VECTOR<span class="sc">&gt;</span>) {</span>
+<span id="cb156-2"><a href="control-structures.html#cb156-2" aria-hidden="true" tabindex="-1"></a>    ... code <span class="cf">in</span> loop ... </span>
+<span id="cb156-3"><a href="control-structures.html#cb156-3" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<p>It is, for instance, possible to iterate over a vector and print each of its elements.</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">city</span> <span class="kw">in</span> <span class="va">east_midlands_cities</span><span class="op">)</span><span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">city</span>, <span class="st">"\n"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## Derby 
+## Leicester 
+## Lincoln 
+## Nottingham</code></pre>
+<p>It is common practice to create a vector of integers on the spot (e.g., using the <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> operator) to execute a certain sequence of steps a pre-defined number of times.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Exectuion number"</span>, <span class="va">iterator</span>, <span class="st">":\n"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step1: Hi!\n"</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step2: How is it going?\n"</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
+<pre><code>## Exectuion number 1 :
+##     Step1: Hi!
+##     Step2: How is it going?
+## Exectuion number 2 :
+##     Step1: Hi!
+##     Step2: How is it going?
+## Exectuion number 3 :
+##     Step1: Hi!
+##     Step2: How is it going?</code></pre>
+</div>
+</div>
+<div id="exercise-114.1" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Exercise 114.1<a class="anchor" aria-label="anchor" href="#exercise-114.1"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Question 114.1.1:</strong> Use the modulo operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></code> to create a conditional statement that prints <code>"Even"</code> if a number is even and <code>"Odd"</code> if a number is odd.</p>
+<p><strong>Question 114.1.2:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that executes the conditional statement for all numbers from 1 to 10.</p>
+<p><strong>Question 114.1.3:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that prints the name of cities in odd positions (i.e., first, third, fifth) in the vector <code><a href="https://rdrr.io/r/base/c.html">c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</a></code>.</p>
+<p><strong>Question 114.1.4:</strong> Write the code necessary to print the name of the cities in the vector <code><a href="https://rdrr.io/r/base/c.html">c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</a></code> as many times as their position in the vector (i.e., once for the first city, two times for the second, and so on and so forth).</p>
+<!--
+## Debugging
+
+The term *bug* is commonly used in computer science to refer to an error, failure, or fault in a system. The term ``debugging'' in programming thus refers to the procedure of searching for mistakes in the code. This procedure can be simply done by re-reading and revising the written code, but R provides a useful command called `debug`, that allows you to follow the execution of the code, and more easily identify mistakes.
+
+Try debugging the function - since it is working properly,  you won't (hopefully!) find any errors,  but that will demonstrate the debug facility, by typing `debug(cube_root)` in the RStudio *Console*.  That tells R that you want to run `cube_root` in debug mode.  Next enter `cube_root(-50)` in the RStudio *Console* and see how repeatedly pressing the return key steps you through the function.  Note particularly what happens at the `if` statement.  
+
+At any stage in the process, you can type an R expression to check its value.  For instance, when you get to the `if` statement, you can enter `input_value > 0` in the RStudio *Console* to see whether it is true or false.  Checking the value of expressions at various points when stepping through the code is a good way of identifying potential bugs or glitches in your code.  Try running through the code for a few other cube root calculations,  by replacing -50 above with different numbers,  to get used to using the debugging facility.  
+
+When you are done, enter `undebug(cube_root)`. That tells R that you are ready to return `cube_root` to running in normal mode.  For further details about the debugger,  enter `help(debug)` in the RStudio *Console*.
+-->
+<!--
+## Exercise 6.2
+
+Create a new R script as part of *Project_06*, named `Data_Wrangling_with_Functions.R`. Copy from the script `Data_Wrangling_Example.R` created in *Project_03* the first part that included loading both datasets, the part that created the tibble `leicester_IMD2015_decile_wide` and the part that left-joined it with `leicester_2011OAC` to create `leicester_2011OAC_IMD2015`.
+
+Add the following snippet of code that uses the `pull` from the `dplyr` library to extract the column `supgrpname` from `leicester_2011OAC` as a vector, and the function `unique` to extract the unique values from the vector. That effectively creates the vector `leicester_2011OAC_supergroups` listing all the names of the supergroups.
+
+
+```r
+leicester_2011OAC_supergroups <- leicester_2011OAC %>%
+  pull(supgrpname) %>%
+  unique()
+```
+
+Extend the code in the script `Data_Wrangling_with_Functions.R` to include the code necessary to solve the questions below -- which as you might notice are a variation on the questions seen in Practical 3.
+
+**Question 6.2.1**: Write a piece of code that loops over the supergroups names in `leicester_2011OAC_supergroups`, and for each one of those generates a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations. **Tip:** use the `print` function at the end of the pipe that generates the table to print each table.
+
+**Question 6.2.2**: Write a piece of code that loops over the supergroups names in `leicester_2011OAC_supergroups`, and for each one of those calculates the overall percentage of EU citizens over total population, and if that percentage is over 5%, then it prints the name of the supergroup. **Tip:** use `pull` at the end of the pipe to extract the calculated percentage.
+
+**Question 6.2.3**: Write a functions named `median_index` with one input parameter `vector_of_numbers` as a numeric vector, implementing the index shown below where $v$ is `vector_of_numbers` and $index$ is the output value of the function. The index tends to `-1` when the median is close to the minimum, and it tends to `1` when the median is close to the maximum. Write a piece of code that extracts a colum of your choice from the `leicester_2011OAC_IMD2015` dataset as a vector and apply the index.
+
+$$index = \frac{median(v)-min(v)}{max(v)-min(v)} - \frac{max(v)-median(v)}{max(v)-min(v)}$$
+
+**Question 6.2.4**: If implemented carelessly, the index above can encounter a problem when all values are the same. In that case, $max(v)-min(v)$ is zero and thus a division by zero might return a `NaN` value. If you haven't done so yet, edit the function to take that case into account and simply return the value `0` in that case. Furthermore, include a check to verify that the input is a numeric vector.
+
+
+## Solutions
+
+
+
+### Exercise 6.1
+
+**Question 6.1.3**: Write a function with two parameters, a vector of numbers and a vector of characters (text). The function should check that the input has the correct data type. If all the numbers in the first vector are larger than zero, return the elements of the second vector from the first to the length of the first vector. 
+
+
+```r
+function_question_1_3 <- function (in_numbers, in_text) {
+  if (is.numeric(in_numbers) & is.character(in_text)) {
+    if (all(in_numbers > 0)) {
+      return(in_text[1:length(in_numbers)])
+    } else {
+      cat("Not all numbers are greater than zero")
+    }
+  }else{
+      cat("Input error")
+  }
+}
+
+# Examples
+function_question_1_3(c(2, 3), c("Derby", "Leicester", "Lincoln", "Nottingham") )
+function_question_1_3(c(3, -1, 0), c("Derby", "Leicester", "Lincoln", "Nottingham") )
+```
+
+### Exercise 6.2
+
+A full R Script is available in the Exercises folder (`docs/exercises`) of the repository (`111_X_Data_Wrangling_with_Functions.R`). Upload the prepared script to your *Practical_111* project folder, click on the uploaded file to open it in a new editor tab and compare it to your script.
+-->
+<hr>
+<p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></div>
+<div class="next"><a href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#control-structures"><span class="header-section-number">5</span> Control structures</a></li>
+<li><a class="nav-link" href="#conditional-statements"><span class="header-section-number">5.1</span> Conditional statements</a></li>
+<li>
+<a class="nav-link" href="#loops"><span class="header-section-number">5.2</span> Loops</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conditional-loops"><span class="header-section-number">5.2.1</span> Conditional Loops</a></li>
+<li><a class="nav-link" href="#deterministic-loops"><span class="header-section-number">5.2.2</span> Deterministic Loops</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#exercise-114.1"><span class="header-section-number">5.3</span> Exercise 114.1</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/201-control-structures.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/201-control-structures.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-09-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 ---
-title: "Lecture 101"
+title: "Lecture 101 (draft)"
 author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/r-for-geographic-data-science/granolarr\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
 date: "`r Sys.Date()`"
 output:
@@ -238,19 +238,242 @@ R provides a series of basic logical operators to test
 ```
 
 
+## Variables
+
+Variables **store data** and can be defined 
+
+- using an *identifier* (e.g., `a_variable`) 
+- on the left of an *assignment operator* `<-`
+- followed by the object to be linked to the identifier
+- such as a *value* (e.g., `1`) 
+
+```{r, echo=TRUE}
+a_variable <- 1
+```
+
+The value of the variable can be invoked by simply specifying the **identifier**.
+
+```{r, echo=TRUE}
+a_variable
+```
+
+
+
+## Data frames
+
+*to-do: incl tibbles*
+
+
+
+## Algorithms and functions
+
+*An* **algorithm** *or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation* (Cutland, 1980).
+
+A **program** is a specific set of instructions that implement an abstract algorithm.
+
+The definition of an algorithm (and thus a program) can consist of one or more **function**s
+
+- set of instructions that preform a task 
+- possibly using an input, possibly returning an output value
+
+Programming languages usually provide pre-defined functions that implement common algorithms (e.g., to find the square root of a number or to calculate a linear regression)
+
+
+
+## Functions
+
+Functions execute complex operations and can be invoked 
+
+- specifying the *function name*
+- the *arguments* (input values) between simple brackets
+    - each *argument* corresponds to a *parameter*
+    - sometimes the *parameter* name must be specified
+
+```{r, echo=TRUE}
+sqrt(2)
+round(1.414214, digits = 2)
+```
+
+
+
+## Functions and variables
+
+- functions can be used on the right side of `<-` 
+- variables and functions can be used as *arguments*
+
+```{r, echo=TRUE}
+sqrt_of_two <- sqrt(2)
+sqrt_of_two
+round(sqrt_of_two, digits = 2)
+round(sqrt(2), digits = 2)
+```
+
+
+
+## Naming
+
+When creating an identifier for a variable or function
+
+- R is a **case sensitive** language
+    - UPPER and lower case are not the same
+    - `a_variable` is different from `a_VARIABLE`
+- names can include
+    -  alphanumeric symbols
+    - `.` and `_`
+- names must start with
+    - a letter
+
+
+
+## Libraries
+
+Once a number of related, reusable functions are created
+
+- they can be collected and stored in **libraries** (a.k.a. *packages*)
+  - `install.packages` is a function that can be used to install libraries (i.e., downloads it on your computer)
+  - `library` is a function that *loads* a library (i.e., makes it available to a script)
+
+Libraries can be of any size and complexity, e.g.:
+
+- `base`: base R functions, including the `sqrt` function above
+- `rgdal`: implementation of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities
+
+
+
+## Tidyverse
+
+The [Tidyverse](https://www.tidyverse.org/) was introduced by statistician [Hadley Wickham](https://t.co/DWqWlxbOKK?amp=1), Chief Scientist at [RStudio](https://rstudio.com/) (worth following him on [twitter](https://twitter.com/hadleywickham)).
+
+*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."* ([Tidyverse homepage](https://www.tidyverse.org/)).
+
+**Core libraries**
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}" style="width: 50%"}
+
+
+- [`tibble`](https://tibble.tidyverse.org/)
+- [`tidyr`](https://tidyr.tidyverse.org/)
+- [`stringr`](https://stringr.tidyverse.org/)
+- [`dplyr`](https://dplyr.tidyverse.org/)
+
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}" style="width: 50%"}
+
+- [`readr`](https://readr.tidyverse.org/)
+- [`ggplot2`](https://ggplot2.tidyverse.org/)
+- [`purrr`](https://purrr.tidyverse.org/)
+- [`forcats`](https://forcats.tidyverse.org/)
+
+:::
+::::::
+
+Also, imports [`magrittr`](https://magrittr.tidyverse.org/), which plays an important role.
+
+## Tidyverse core libraries
+
+The meta-library [Tidyverse](https://www.tidyverse.org/) includes:
+
+- **[`tibble`](https://tibble.tidyverse.org/)** is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code. 
+- **[`tidyr`](https://tidyr.tidyverse.org/)** provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.
+- **[`stringr`](https://stringr.tidyverse.org/)** provides a cohesive set of functions designed to make working with strings as easy as possible. It is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations. 
+
+
+## Tidyverse core libraries
+
+The meta-library [Tidyverse](https://www.tidyverse.org/) includes:
+
+- **[`dplyr`](https://dplyr.tidyverse.org/)** provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges. 
+- **[`readr`](https://readr.tidyverse.org/)** provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. 
+- **[`ggplot2`](https://ggplot2.tidyverse.org/)** is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.
+
+
+
+## Tidyverse core libraries
+
+The meta-library [Tidyverse](https://www.tidyverse.org/) contains the following libraries:
+
+- **[`purrr`](https://purrr.tidyverse.org/)** enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive. 
+- **[`forcats`](https://forcats.tidyverse.org/)** provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.
+
+
+
+## The pipe operator
+
+The [Tidyverse](https://www.tidyverse.org/) (via [`magrittr`](https://magrittr.tidyverse.org/)) also provide a clean and effective way of combining multiple manipulation steps
+
+The pipe operator `%>%`
+
+- takes the result from one function
+- and passes it to the next function
+- as the **first argument**
+- that doesn't need to be included in the code anymore
+
+
+
+## Pipe example
+<center>
+![Pipe operator example and diagram](images/PipeOperator.png){width=100%}
+</center>
+
+
+## Pipe example
+
+The two codes below are equivalent
+
+- the first simply invokes the functions
+- the second uses the pipe operator `%>%`
+
+```{r, echo=TRUE}
+round(sqrt(2), digits = 2)
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+sqrt(2) %>%
+ round(digits = 2)
+```
+
+
+
+## Coding style
+
+A *coding style* is a way of writing the code, including
+
+- how variable and functions are named
+    - lower case and `_`
+- how spaces are used in the code
+- which libraries are used
+
+```{r, echo=TRUE, eval=FALSE}
+# Bad
+X<-round(sqrt(2),2)
+
+#Good
+sqrt_of_two <- sqrt(2) %>%
+ round(digits = 2)
+```
+
+Study the [Tidyverse Style Guid](http://style.tidyverse.org/) and use it consistently!
+
 
 ## Summary
 
 An introduction to R
 
-- Basic types
-- Basic operators
+- The language
+- Core concepts
+- Tidyverse
 
-**Next**: Core concepts
+**Next week**: Reproducible data science
 
-- Variables
-- Functions
-- Libraries
+- Reproducibility
+- Read and write data
+- Select and filter
 
 ```{r cleanup, include=FALSE}
 rm(list = ls())

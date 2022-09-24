@@ -26,13 +26,16 @@
 #/Exercises/*.html
 #/Exercises/*.pdf
 
-# Items in Data and tmp folder
+# Items in data and tmp folder
 /storage/*
 /releases/*
 /tmp/*
 /tmp/*
 /data/*
 !/data/README.md
+
+# Items in the backup folder
+/backup/*
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth

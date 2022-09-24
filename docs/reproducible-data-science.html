@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Reproducible data science | R for Geographic Data Science</title>
+<meta name="author" content="Stefano De Sabbata">
+<meta name="description" content="This chapter is currently a draft. Print this chapter According to Christopher Gandrud,9 a quantitative analysis or project can be considered to be reproducible if: “the data and code used to make...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Reproducible data science | R for Geographic Data Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/reproducible-data-science.html">
+<meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter According to Christopher Gandrud,9 a quantitative analysis or project can be considered to be reproducible if: “the data and code used to make...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Reproducible data science | R for Geographic Data Science">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter According to Christopher Gandrud,9 a quantitative analysis or project can be considered to be reproducible if: “the data and code used to make...">
+<meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2Y0M0936JL');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Geographic Data Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="active" href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></li>
+<li><a class="" href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li class="book-part">R scripting</li>
+<li><a class="" href="control-structures.html"><span class="header-section-number">5</span> Control structures</a></li>
+<li><a class="" href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></li>
+<li class="book-part">Data analysis</li>
+<li><a class="" href="exploratory-visualisation.html"><span class="header-section-number">7</span> Exploratory visualisation</a></li>
+<li><a class="" href="exploratory-statistics.html"><span class="header-section-number">8</span> Exploratory statistics</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">9</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">10</span> Regression analysis</a></li>
+<li class="book-part">Machine learning</li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">11</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">12</span> Unsupervised machine learning</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="appendix-1.html">Appendix 1</a></li>
+<li><a class="" href="solutions.html">Solutions</a></li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/sdesabbata/r-for-geographic-data-science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="reproducible-data-science" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Reproducible data science<a class="anchor" aria-label="anchor" href="#reproducible-data-science"><i class="fas fa-link"></i></a>
+</h1>
+<p><br><small><em>This chapter is currently a draft.</em></small></p>
+<p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
+<p>According to <span class="citation"><a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref">Christopher Gandrud</a>,<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref"&gt;&lt;em&gt;Reproducible Research with r and RStudio&lt;/em&gt; (Chapman; Hall/CRC, 2018)&lt;/a&gt;.&lt;/p&gt;'><sup>9</sup></a></span> a quantitative analysis or project can be considered to be <strong>reproducible</strong> if: <em>“the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding”</em>. Reproducibility practices are rooted in software engineering, including project design practices (such as <a href="https://en.wikipedia.org/wiki/Scrum_(software_development)">Scrum</a>), software readability principles, testing and versioning.</p>
+<p>In GIScience, programming was essential to interact with early GIS software such as <a href="https://en.wikipedia.org/wiki/ArcInfo">ArcInfo</a> in the 1980s and 1990s, up until the release of the <a href="https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0">ArcGIS 8.0</a> suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development.</p>
+<p>Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the <a href="https://osf.io/numa5/">AGILE Reproducible Paper Guidelines</a> from the <a href="https://agile-online.org/">Association of Geographic Information Laboratories in Europe</a>). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. <span class="citation"><a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref">Alex David Singleton, Seth Spielman, and Chris Brunsdon</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;&lt;span&gt;“Establishing a Framework for Open Geographic Information Science,”&lt;/span&gt; &lt;em&gt;International Journal of Geographical Information Science&lt;/em&gt; 30, no. 8 (2016): 1507–21, &lt;/a&gt;&lt;a href="https://doi.org/10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;https://doi.org/10.1080/13658816.2015.1137579&lt;/a&gt;.&lt;/p&gt;'><sup>10</sup></a></span> have discussed the issue of reproducibility in GIScience, identifying the following best practices:</p>
+<ol style="list-style-type: decimal">
+<li>
+<em>“Data should be accessible within the public domain and available to researchers”</em>.</li>
+<li>
+<em>“Software used should have open code and be scrutable”</em>.</li>
+<li>
+<em>“Workflows should be public and link data, software, methods of analysis and presentation with discursive narrative”</em>.</li>
+<li>
+<em>“The peer review process and academic publishing should require submission of a workflow model and ideally open archiving of those materials necessary for replication”</em>.</li>
+<li>
+<em>“Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances”</em>.</li>
+</ol>
+<p>The rest of the chapter discusses three tools that can help you improve the reproducibility of your code: <a href="https://daringfireball.net/projects/markdown/">Markdown</a>, <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> and <a href="https://git-scm.com/">Git</a>.</p>
+<div id="markdown" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Markdown<a class="anchor" aria-label="anchor" href="#markdown"><i class="fas fa-link"></i></a>
+</h2>
+<p>A essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> That is an R library that allows you to create scripts that mix the <a href="https://daringfireball.net/projects/markdown/">Markdown</a> mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
+<p>For instance the following markdown code</p>
+<pre class="mark"><code>[This is a link to the University of Leicester](http://le.ac.uk) and **this is in bold**.</code></pre>
+<p>is rendered as</p>
+<p><a href="http://le.ac.uk">This is a link to the University of Leicester</a> and <strong>this is in bold</strong>.</p>
+<p>The core Markdown notation used in this chapter is presented below. A full RMarkdown <em>cheatsheet</em> is available <a href="https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf">here</a>.</p>
+<pre class="mark"><code># Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+
+**bold**
+*italics*
+
+[This is a link to the University of Leicester](http://le.ac.uk)
+
+- Example list
+    - Main folder
+        - Analysis
+        - Data
+        - Utils
+    - Other bullet point
+- And so on
+    - and so forth
+
+1. These are
+    1. Numeric bullet points
+    2. Number two
+2. Another number two
+3. This is number three</code></pre>
+<div id="r-markdown" class="section level3" number="2.1.1">
+<h3>
+<span class="header-section-number">2.1.1</span> R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"><i class="fas fa-link"></i></a>
+</h3>
+<p>R code can be embedded in RMarkdown documents as in the example below. That results in the code chunk be displayed within the document (as <em>echo=TRUE</em> is specified), followed by the output from the execution of the same code.</p>
+<pre><code>```{r, echo=TRUE}
+a_number &lt;- 0
+a_number &lt;- a_number + 1
+a_number &lt;- a_number + 1
+a_number &lt;- a_number + 1
+a_number
+```</code></pre>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span>
+<span class="va">a_number</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+</div>
+</div>
+<div id="exercise-224.1" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Exercise 224.1<a class="anchor" aria-label="anchor" href="#exercise-224.1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Create a new R project named e.g. <em>Practical_224</em> as the directory name. Create an RMarkdown document in RStudio by selecting <em>File &gt; New File &gt; R Markdown …</em> – this might prompt RStudio to update some packages. On the RMarkdown document creation menu, specify “Practical 224” as title and your name as the author, and select <em>PDF</em> as default output format.</p>
+<p>The new document should contain the core document information, as in the example below, plus some additional content that simply explains how RMarkdown works.</p>
+<pre><code>---
+title: "Practical 224"
+author: "A. Student"
+date: "4 November 2021"
+output: pdf_document
+---</code></pre>
+<p>Delete the contents below the document information and copy the following text below the document information.</p>
+<pre><code># Pipe example
+
+This is my first [RMarkdown](https://rmarkdown.rstudio.com/) document.
+
+```{r, echo=TRUE}
+library(tidyverse)
+```
+
+The code uses the pipe operator:
+
+- takes 2 as input
+- calculates the square root
+- rounds the value
+    - keeping only two digits
+
+```{r, echo=TRUE}
+2 %&gt;%
+  sqrt() %&gt;%
+  round(digits = 2)
+```</code></pre>
+<p>The option <code>echo=TRUE</code> tells RStudio to include the code in the output document, along with the output of the computation. If <code>echo=FALSE</code> is specified, the code will be omitted. If the option <code>message=FALSE</code> and <code>warning=FALSE</code> are added, messages and warnings from R are not displayed in the output document.</p>
+<p>Save the document by selecting <em>File &gt; Save</em> from the main menu. Enter <em>Square_root</em> as file name and click <em>Save</em>. The file is saved using the <em>Rmd</em> (RMarkdown) extension.</p>
+<p>Click on the <em>Knit</em> button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting <em>pdf</em> document. Try adding some of your own code (e.g., using some of the examples above) and Markdown text, and compile the document again.</p>
+</div>
+<div id="reproducible-data-handling" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Reproducible data handling<a class="anchor" aria-label="anchor" href="#reproducible-data-handling"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li><em>to-do: intro</em></li>
+<li><em>to-do: below show examples with pipes as well</em></li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<pre><code>## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
+## ✔ tibble  3.1.5     ✔ dplyr   1.0.7
+## ✔ tidyr   1.1.4     ✔ stringr 1.4.0
+## ✔ readr   2.0.2     ✔ forcats 0.5.1</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<div id="complex-data-types" class="section level3" number="2.3.1">
+<h3>
+<span class="header-section-number">2.3.1</span> Complex data types<a class="anchor" aria-label="anchor" href="#complex-data-types"><i class="fas fa-link"></i></a>
+</h3>
+<p>Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In <code>R</code>, they are referred to as <strong>vectors</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The term &lt;em&gt;list&lt;/em&gt; has a specific meaning in &lt;code&gt;R&lt;/code&gt;. Don’t use the term &lt;em&gt;list&lt;/em&gt; to refer to &lt;em&gt;vectors&lt;/em&gt;.&lt;/p&gt;"><sup>11</sup></a>.</p>
+<p>Vectors can be defined in R by using the function <code>c</code>, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<p>Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the <em>index</em> (or indices as we will see further below) of the elements to be retrieved. Indices start from <code>1</code>, so the index of the first element is <code>1</code>, the index of the second element is <code>2</code>, and so on and so forth<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;That is different from many programming languages, where the index of the first element is &lt;code&gt;0&lt;/code&gt;.&lt;/p&gt;"><sup>12</sup></a>.</p>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve the third city</span>
+<span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "Lincoln"</code></pre>
+<p>To retrieve any subset of a vector (i.e., more than one element), you can specify an integer vector containing the indices (rather than a single integer value) of the items of interest between square brackets.</p>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve first and third city</span>
+<span class="va">east_midlands_cities</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "Derby"   "Lincoln"</code></pre>
+<p>The operator <code><a href="https://rdrr.io/r/base/Colon.html">:</a></code> can be used to create integer vectors, starting from the number specified before the operator to the number specified after the operator.</p>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a vector containing integers between 2 and 4</span>
+<span class="va">two_to_four</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span>
+<span class="va">two_to_four</span></code></pre></div>
+<pre><code>## [1] 2 3 4</code></pre>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Retrieve cities between the second and the fourth</span>
+<span class="va">east_midlands_cities</span><span class="op">[</span><span class="va">two_to_four</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "Leicester"  "Lincoln"    "Nottingham"</code></pre>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># As the second element of two_to_four is 3...</span>
+<span class="va">two_to_four</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># the following command will retrieve the third city</span>
+<span class="va">east_midlands_cities</span><span class="op">[</span><span class="va">two_to_four</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] "Lincoln"</code></pre>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Create a vector with cities from the previous vector</span>
+<span class="va">selected_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></code></pre></div>
+<p>The functions <code>seq</code> and <code>rep</code> can also be used to create vectors, as illustrated below.</p>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1]  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0
+## [16]  8.5  9.0  9.5 10.0</code></pre>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1]  1.0  2.8  4.6  6.4  8.2 10.0</code></pre>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Ciao"</span>, <span class="fl">4</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] "Ciao" "Ciao" "Ciao" "Ciao"</code></pre>
+<p>The logical operators <code>any</code> and <code>all</code> can be used to test conditions on the vector. The former returns <code>TRUE</code> if at least one element satisfies the statement, the second returns <code>TRUE</code> if all elements satisfy the condition</p>
+<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">east_midlands_cities</span> <span class="op">==</span> <span class="st">"Leicester"</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">7</span><span class="op">)</span>
+<span class="va">my_sequence</span></code></pre></div>
+<pre><code>## [1]  1.0  2.5  4.0  5.5  7.0  8.5 10.0</code></pre>
+<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">my_sequence</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">my_sequence</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<p>Functions and operators can be applied to vectors in the same way as they would be applied to simple values. For instance, all built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.</p>
+<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">one_to_ten</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span>
+<span class="va">one_to_ten</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">one_to_ten</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
+<pre><code>##  [1]  2  3  4  5  6  7  8  9 10 11</code></pre>
+<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">one_to_ten</span><span class="op">)</span></code></pre></div>
+<pre><code>##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+##  [9] 3.000000 3.162278</code></pre>
+<p>Similarly, string functions can be applied to vectors containing character values. For instance, the code below uses <code>str_length</code> to obtain a vector of numeric values representing the lenghts of the city names included in the vector of character values <code>east_midlands_cities</code>.</p>
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">str_length</span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">)</span></code></pre></div>
+<pre><code>## [1]  5  9  7 10</code></pre>
+</div>
+<div id="filtering" class="section level3" number="2.3.2">
+<h3>
+<span class="header-section-number">2.3.2</span> Filtering<a class="anchor" aria-label="anchor" href="#filtering"><i class="fas fa-link"></i></a>
+</h3>
+<p>As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (<code>TRUE</code> or <code>FALSE</code>) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned – which contains the respective results of the conditions for each element.</p>
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_three</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">3</span>
+<span class="va">minus_three</span> <span class="op">&gt;</span> <span class="fl">0</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_three_to_three</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">3</span><span class="op">:</span><span class="fl">3</span>
+<span class="va">minus_three_to_three</span></code></pre></div>
+<pre><code>## [1] -3 -2 -1  0  1  2  3</code></pre>
+<div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_three_to_three</span> <span class="op">&gt;</span> <span class="fl">0</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE</code></pre>
+<p>A subset of the elements of a vector can also be selected by providing a vector of logical values between brackets after the identifier. A new vector returned, containing only the values for which a <code>TRUE</code> value has been specified correspondingly.</p>
+<div class="sourceCode" id="cb92"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_two_to_two</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span>
+<span class="va">minus_two_to_two</span></code></pre></div>
+<pre><code>## [1] -2 -1  0  1  2</code></pre>
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_two_to_two</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] -2 -1  2</code></pre>
+<p>As the result of evaluating the condition on a vector is a vector of logical values, this can be used to filter vectors based on conditions. If a condition is provided between square brackets (after the vector identifier, instead of an index), a new vector is returned, which contains only the elements for which the condition is true.</p>
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_two_to_two</span> <span class="op">&gt;</span> <span class="fl">0</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">minus_two_to_two</span><span class="op">[</span><span class="va">minus_two_to_two</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">]</span></code></pre></div>
+<pre><code>## [1] 1 2</code></pre>
+</div>
+<div id="handling-tables" class="section level3" number="2.3.3">
+<h3>
+<span class="header-section-number">2.3.3</span> Handling tables<a class="anchor" aria-label="anchor" href="#handling-tables"><i class="fas fa-link"></i></a>
+</h3>
+<p><em>to-do: re-connect to tidyverse</em></p>
+<p>RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with.</p>
+<p>The remainder of this practical requires the library <a href="https://cran.r-project.org/package=nycflights13"><code>nycflights13</code></a>. To install it, select <em>Tools &gt; Install Packages…</em> from the top menu. Insert <code>nycflights13</code> in the <em>Packages (separate multiple with space or comma)</em> field and click install. RStudio will automatically execute the command <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("nycflights13")</a></code> (so, no need to execute that yourself) and install the required library.</p>
+<p>As usual, use the function <code>library</code> to load the newly installed library.</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></code></pre></div>
+<p>The library <code>nycflights13</code> contains a dataset storing data about all the flights departed from New York City in 2013. The code below, loads the data frame <code>flights</code> from the library <code>nycflights13</code> into the variable <code>flights_from_nyc</code>, using the <code><a href="https://rdrr.io/r/base/ns-dblcolon.html">::</a></code> operator to indicate that the data frame <code>flights</code> is situated within the library <code>nycflights13</code>.</p>
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span></code></pre></div>
+<p>Add both lines above to your R script, as well as the code snippets provided as an example below.</p>
+<p>The function <code>select</code> can be used to select some <strong>columns</strong> to output. For instance in the code below, the function <code>select</code> is used to select the columns <code>origin</code>, <code>dest</code>, and <code>dep_delay</code>, in combination with the function <code>slice_head</code>, which can be used to include only the first <code>n</code> rows (<code>5</code> in the example below) to output.</p>
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">origin</th>
+<th align="left">dest</th>
+<th align="right">dep_delay</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="left">IAH</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">LGA</td>
+<td align="left">IAH</td>
+<td align="right">4</td>
+</tr>
+<tr class="odd">
+<td align="left">JFK</td>
+<td align="left">MIA</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">JFK</td>
+<td align="left">BQN</td>
+<td align="right">-1</td>
+</tr>
+<tr class="odd">
+<td align="left">LGA</td>
+<td align="left">ATL</td>
+<td align="right">-6</td>
+</tr>
+</tbody>
+</table></div>
+<p>The function <code>filter</code> can instead be used to filter <strong>rows</strong> based on a specified condition. In the example below, the output of the <code>filter</code> step only includes the rows where the value of <code>month</code> is <code>11</code> (i.e., the eleventh month, November).</p>
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">origin</th>
+<th align="left">dest</th>
+<th align="right">year</th>
+<th align="right">month</th>
+<th align="right">day</th>
+<th align="right">dep_delay</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">JFK</td>
+<td align="left">PSE</td>
+<td align="right">2013</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">JFK</td>
+<td align="left">SYR</td>
+<td align="right">2013</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">105</td>
+</tr>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="left">CLT</td>
+<td align="right">2013</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">-5</td>
+</tr>
+<tr class="even">
+<td align="left">LGA</td>
+<td align="left">IAH</td>
+<td align="right">2013</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">-6</td>
+</tr>
+<tr class="odd">
+<td align="left">JFK</td>
+<td align="left">MIA</td>
+<td align="right">2013</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">-3</td>
+</tr>
+</tbody>
+</table></div>
+<p>Notice how <code>filter</code> is used in combination with <code>select</code>. All functions in the <code>dplyr</code> library can be combined, in any other order that makes logical sense. However, if the <code>select</code> step didn’t include <code>month</code>, that same column couldn’t have been used in the <code>filter</code> step.</p>
+<!--
+
+## Exercise 224.2
+
+Create an analysis document based on RMarkdown for each one of the two analyses seen in the chapters [3](200-selection-manipulation) and [4](210-table-operations). For each of the two analyses, within their respective R projects, first, create an RMarkdown document. Then, add the code from the related R script. Finally add additional content such as title, subtitles, and most importantly, some text describing the data used, how the analysis has been done, and the result obtained. Make sure you add appropriate links to the data sources and related license information, as available in the practical session materials.
+
+
+
+## Git
+
+Git is a free and opensource version control system. It is commonly used through a server, where a master copy of a project is kept, but it can also be used locally. Git allows storing versions of a project, thus providing file synchronisation, consistency, history browsing, and the creation of multiple branches. For a detailed introduction to Git, please refer to the [Pro Git book, written by Scott Chacon and Ben Straub](https://git-scm.com/book).
+
+As illustrated in the image below, when working with a git repository, the most common approach is to first check-out the latest version from the main repository before start working on any file. Once a series of edits have been made, the edits to stage are selected and then committed in a permanent snapshot. One or more commits can then be pushed to the main repository.
+
+![<a href="https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F">by Scott Chacon and Ben Straub</a>, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">CC BY-NC-SA 3.0</a>](images/git_three_stages.png){width=80%}
+
+
+
+### Git and RStudio
+
+In RStudio Server, in the *Files* tab of the bottom-left panel, click on *Home* to make sure you are in your home folder -- if you are working on your own computer, create a folder for GY7702 wherever most convenient. Click on *New Folder* and enter `repos` (short for repositories) in the prompt dialogue, to create a folder named `repos`. 
+
+If you don't have a GitHub account, create one at [github.com](https://github.com/). In RStudio, use `create_github_token` as shown below, and follow the instructions to generate a GitHub personal access token (PAT) that will allow you to synchronise your project to and from GitHub. Alternatively, you can follow GitHub's instructions on how to [create a personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
+
+```r
+usethis::create_github_token()
+```
+
+In RStudio, use `gitcreds_set` as shown below, and follow the instructions to store the GitHub PAT generated above locally.
+
+
+```r
+gitcreds::gitcreds_set()
+```
+
+Create a new repository named *my-GY7702*, following the instructions available on the [GitHub help pages](https://help.github.com/en/articles/creating-a-new-repository). Make sure you select the option to create a **Private** repository and tick the following options under the heading *Initialize this repository with*:
+
+- *Add a README file*, which adds a `README.md` markdown file to your repository, that you can use to describe your repository and its contents;
+- *Add .gitignore* selecting the `R` template, which adds a `.gitignore`, that describes which files should not be copied to the repository, such as the `R` working environment;
+- optionally *Choose a license* -- that is not crucial if the repository is private, but it is good practice to include one;
+    - common open-source licenses for code are the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0), the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) and the [MIT License](https://opensource.org/licenses/MIT).
+
+Once the repository has been created, GitHub will take you to the repository page. Copy the link to the repository `.git` file by clicking on the green *Code* button and copying the `https` URL there available. Back to RStudio Server, select *File > New Project...* from the top menu and select *Version Control* and then *Git* from the *New Project* panel. Paste the copied URL in the *Repository URL* field, select the `repos` folder created above as folder for *Create project as subdirectory of*, and click *Create Project*. RStudio might ask you for your GitHub username and password at this point.
+
+Before continuing, you need to record your identity with the Git system installed on the RStudio Server, for it to be able to communicate with the GitHub's server. Open the *Terminal* tab in RStudio (if not visible, select *Tools > Terminal > New Terminal* from the top menu). First, paste the command below substituting `you@example.com` with your university email (make sure to maintain the double quotes) and press the return button.
+
+```{}
+git config --global user.email "you@example.com"
+```
+
+Then, paste the command below substituting `Your Name` with your name (make sure to maintain the double quotes) and press the return button.
+
+```{}
+git config --global user.name "Your Name"
+```
+
+RStudio should have now switched to a new R project linked to you *my-GY7702* repository. In the RStudio *File* tab in the bottom-right panel, navigate to the file created for the exercises above, select the files and copy them in the folder of the new project (in the *File* tab, *More > Copy To...*).
+
+Check the now available *Git* tab on the top-right panel, and you should see at least the newly copied files marked as untracked. Tick the checkboxes in the *Staged* column to stage the files, then click on the *Commit* button. 
+
+In the newly opened panel *Commit* window, the top-left section shows the files, and the bottom section shows the edits. Write `My first commit` in the *Commit message* section in the top-right, and click the *Commit* button. A pop-up should notify the completed commit. Close both the pop-up panel, and click the *Push* button on the top-right of the *Commit* window. Close both the pop-up panel and the *Commit* window.
+
+Congratulations, you have completed your first commit! Check the repository page on GitHub. If you reload the page, the top bar should show *2 commits* on the left and your files should now be visible in the file list below. If you click on *2 commits*, you can see the commit history, including both the initial commit that created the repository and the commit you just completed.
+
+-->
+</div>
+</div>
+<div id="how-to-cite-code" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> How to cite code<a class="anchor" aria-label="anchor" href="#how-to-cite-code"><i class="fas fa-link"></i></a>
+</h2>
+<p>The UK’s <a href="https://www.software.ac.uk/about">Software Sustainability Institute</a> provides clear guidance about <a href="https://www.software.ac.uk/how-cite-software">how to cite software</a> written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a <a href="https://www.doi.org/">DOI</a>. In such cases, you should at least include a link to the authors’ website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse’s <a href="https://tidyverse.tidyverse.org/">website</a>, <a href="https://github.com/tidyverse/tidyverse">repository</a> or <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">CRAN page</a> when using the library. However, <span class="citation"><a href="references.html#ref-tidyverse2019" role="doc-biblioref">Wickham et al.</a><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;&lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a></span> also wrote a paper on their work on the Tidyverse for the <a href="https://joss.theoj.org/">Journal of Open Source Software</a>, so you can also cite their paper <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">using Bibtex in RMarkdown</a>.</p>
+<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
+<p>Appropriate citations are even more important when directly copying or adapting code from others’ work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)’s <a href="https://integrity.mit.edu/"><em>Academic Integrity at MIT: A Handbook for Students</em></a> includes a section on <a href="https://integrity.mit.edu/handbook/writing-code">writing code</a> which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly.
+That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.</p>
+<p>It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the <a href="https://www.mendeley.com/guides/harvard-citation-guide/">Harvard Format Citation Guide</a> available <a href="https://www.mendeley.com/">Mendeley</a>’s help pages).
+Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.</p>
+<!--
+
+## Exercise 224.3
+
+Create a new GitHub repository named `GY7702_224_Exercise3`. Clone the repository to RStudio Server as a new an R project from that repository. Create an RMarkdown document exploring the presence of the different living arrangements in Leicester among both the different categories of the 2011 Output Area Classification and deciles of Index of Multiple Deprivations, copying the required data into the project folder. 
+
+Your analysis should include:
+
+- an introduction to the data and the aims of the project;
+- a justification of the analysis methods;
+- the code and related results;
+- and a discussion of the results within the same document.
+
+
+
+## Cloning this book
+
+You can follow the steps listed below to clone the this book's repository.
+
+1. Create a folder named `repos` in your home directory. If you are working on RStudio Server, in the *Files* panel, click on the `Home` button (second bar, next to the house icon), then click on `New Folder`, enter the name `repos` and click `Ok`.
+
+2. In RStudio or RStudio Server select `File > New Project...`
+
+3. Select `Version Control` and then `Git` (you might need to set up Git first if you are working on your own computer)
+
+4. Copy `https://github.com/sdesabbata/r-for-geographic-data-science` in the `Repository URL` field and select the `repos` folder for the field `Create project as subdirectory of`, and click on `Create Project`.
+
+5. Have a look around
+
+6. Click on the project name `r-for-geographic-data-science` on the top-left of the interface and select `Close Project` to close the project.
+
+As this book's repository is public, you can clone it, edit it as you wish and push it to your own copy of the repository. However, contributing your edits to the original repository would require a few further steps. Check out the [GitHub help pages](https://help.github.com/en/articles/committing-changes-to-a-pull-request-branch-created-from-a-fork) if you are interested.
+
+-->
+<hr>
+<p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
+
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></div>
+<div class="next"><a href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reproducible-data-science"><span class="header-section-number">2</span> Reproducible data science</a></li>
+<li>
+<a class="nav-link" href="#markdown"><span class="header-section-number">2.1</span> Markdown</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#r-markdown"><span class="header-section-number">2.1.1</span> R Markdown</a></li></ul>
+</li>
+<li><a class="nav-link" href="#exercise-224.1"><span class="header-section-number">2.2</span> Exercise 224.1</a></li>
+<li>
+<a class="nav-link" href="#reproducible-data-handling"><span class="header-section-number">2.3</span> Reproducible data handling</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#complex-data-types"><span class="header-section-number">2.3.1</span> Complex data types</a></li>
+<li><a class="nav-link" href="#filtering"><span class="header-section-number">2.3.2</span> Filtering</a></li>
+<li><a class="nav-link" href="#handling-tables"><span class="header-section-number">2.3.3</span> Handling tables</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">2.4</span> How to cite code</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/102-reproducibility.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/102-reproducibility.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-09-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

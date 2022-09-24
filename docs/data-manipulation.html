@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Data manipulation | R for Geographic Data Science</title>
+<meta name="author" content="Stefano De Sabbata">
+<meta name="description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Data manipulation | R for Geographic Data Science">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/data-manipulation.html">
+<meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Data manipulation | R for Geographic Data Science">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
+<meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-2Y0M0936JL');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R for Geographic Data Science</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
+<li><a class="" href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></li>
+<li><a class="active" href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></li>
+<li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
+<li class="book-part">R scripting</li>
+<li><a class="" href="control-structures.html"><span class="header-section-number">5</span> Control structures</a></li>
+<li><a class="" href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></li>
+<li class="book-part">Data analysis</li>
+<li><a class="" href="exploratory-visualisation.html"><span class="header-section-number">7</span> Exploratory visualisation</a></li>
+<li><a class="" href="exploratory-statistics.html"><span class="header-section-number">8</span> Exploratory statistics</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">9</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">10</span> Regression analysis</a></li>
+<li class="book-part">Machine learning</li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">11</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">12</span> Unsupervised machine learning</a></li>
+<li class="book-part">Appendices</li>
+<li><a class="" href="appendix-1.html">Appendix 1</a></li>
+<li><a class="" href="solutions.html">Solutions</a></li>
+<li><a class="" href="lecture-slides.html">Lecture slides</a></li>
+<li><a class="" href="reading-list.html">Reading list</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/sdesabbata/r-for-geographic-data-science">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="data-manipulation" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation"><i class="fas fa-link"></i></a>
+</h1>
+<p><br><small><em>This chapter is currently a draft.</em></small></p>
+<p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
+<div id="r-workflow" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> R workflow<a class="anchor" aria-label="anchor" href="#r-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<div id="r-projects" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
+<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
+<p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_204</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
+<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_204</em> folder, which contains only the <em>Practical_204.Rproj</em> file. The <em>Practical_204.Rproj</em> stores all the <em>Environment</em> information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_204</em> folder. Moreover, the <em>Practical_204</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it.</p>
+<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (<em>Practical_204</em>). That also indicates that you are within the <em>Practical_204</em> project. Click on <em>Practical_204</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_204</em> from the list to reactivate the <em>Practical_204</em> project.</p>
+<p>With the <em>Practical_204</em> project activated, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second loads another library that the code below uses to produce well-formatted tables.</p>
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></code></pre></div>
+<p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_script_Practical_204.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>.</p>
+</div>
+<div id="loading-r-scripts" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span>
+   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span>
+   <span class="va">result</span>
+<span class="op">}</span></code></pre></div>
+<p>Create a second R script named <code>Practical_204_RS_main.R</code>, copy the code below in that second R script and save the file.</p>
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Practical_204_RS_functions.R"</span><span class="op">)</span>
+
+<span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></code></pre></div>
+<p>Executing the <code>Practical_204_RS_main.R</code> instructs the interpreter first to run the <code>Practical_204_RS_functions.R</code> script, thus creating the <code>cube_root</code> function, and then invoke the function using <code>27</code> as an argument, thus returning again <code>3</code>. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.</p>
+</div>
+</div>
+<div id="data-manipulation-1" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>The analysis below uses the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> library (also part of the Tidyverse), which it offers a grammar for data manipulation.</p>
+<p>For instance, the function <code>count</code> can be used to count the number rows of a data frame. The code below provides <code>flights_from_nyc</code> as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column.</p>
+<p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is data type similar to data frames, used by all the Tidyverse libraries.</p>
+<p>All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
+<p>In the <code>tibble</code> outputted by the <code>count</code> function below, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">n</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">336776</td>
+</tr></tbody>
+</table></div>
+<p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation.</p>
+<p>The function <code>count</code> can also be used to count the number rows of a table that have the same value for a given column, usually representing a category.</p>
+<p>In the example below, the column name <code>origin</code> is provided as an argument to the function <code>count</code>, so rows representing flights from the same origin are counted together – EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.</p>
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">origin</th>
+<th align="right">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">120835</td>
+</tr>
+<tr class="even">
+<td align="left">JFK</td>
+<td align="right">111279</td>
+</tr>
+<tr class="odd">
+<td align="left">LGA</td>
+<td align="right">104662</td>
+</tr>
+</tbody>
+</table></div>
+<p>As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
+<div id="summarise" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+</h3>
+<p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation).</p>
+<p>In the example below, the function <code>sum</code> is applied to the column <code>distance</code> to calculate <code>distance_traveled_from</code> (the total distance travelled by flights starting from each airport).</p>
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
+    distance_traveled_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">origin</th>
+<th align="right">distance_traveled_from</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">127691515</td>
+</tr>
+<tr class="even">
+<td align="left">JFK</td>
+<td align="right">140906931</td>
+</tr>
+<tr class="odd">
+<td align="left">LGA</td>
+<td align="right">81619161</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="mutate" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+</h3>
+<p>The function <code>mutate</code> can be used to add a new column to an output table. The <code>mutate</code> step in the code below adds a new column <code>air_time_hours</code> to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by <code>60</code>.</p>
+<div class="sourceCode" id="cb111"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    air_time_hours <span class="op">=</span> <span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">flight</th>
+<th align="left">origin</th>
+<th align="left">dest</th>
+<th align="right">air_time</th>
+<th align="right">air_time_hours</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">1545</td>
+<td align="left">EWR</td>
+<td align="left">IAH</td>
+<td align="right">227</td>
+<td align="right">3.783333</td>
+</tr>
+<tr class="even">
+<td align="right">1714</td>
+<td align="left">LGA</td>
+<td align="left">IAH</td>
+<td align="right">227</td>
+<td align="right">3.783333</td>
+</tr>
+<tr class="odd">
+<td align="right">1141</td>
+<td align="left">JFK</td>
+<td align="left">MIA</td>
+<td align="right">160</td>
+<td align="right">2.666667</td>
+</tr>
+<tr class="even">
+<td align="right">725</td>
+<td align="left">JFK</td>
+<td align="left">BQN</td>
+<td align="right">183</td>
+<td align="right">3.050000</td>
+</tr>
+<tr class="odd">
+<td align="right">461</td>
+<td align="left">LGA</td>
+<td align="left">ATL</td>
+<td align="right">116</td>
+<td align="right">1.933333</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="arrange" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+</h3>
+<p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.</p>
+<div class="sourceCode" id="cb112"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">air_time</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>In the examples above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the examples <code>5</code>) rows in a table, based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
+<p>As such, the following code uses <code>slice_max</code> to produce a table including only the 5 rows with the <em>highest</em> air time.</p>
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">flight</th>
+<th align="left">origin</th>
+<th align="left">dest</th>
+<th align="right">air_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">15</td>
+<td align="left">EWR</td>
+<td align="left">HNL</td>
+<td align="right">695</td>
+</tr>
+<tr class="even">
+<td align="right">51</td>
+<td align="left">JFK</td>
+<td align="left">HNL</td>
+<td align="right">691</td>
+</tr>
+<tr class="odd">
+<td align="right">51</td>
+<td align="left">JFK</td>
+<td align="left">HNL</td>
+<td align="right">686</td>
+</tr>
+<tr class="even">
+<td align="right">51</td>
+<td align="left">JFK</td>
+<td align="left">HNL</td>
+<td align="right">686</td>
+</tr>
+<tr class="odd">
+<td align="right">51</td>
+<td align="left">JFK</td>
+<td align="left">HNL</td>
+<td align="right">683</td>
+</tr>
+</tbody>
+</table></div>
+<p>The following code, instead, uses <code>slice_min</code>, thus producing a table including only the 5 rows with the <em>lowest</em> air time.</p>
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">flight</th>
+<th align="left">origin</th>
+<th align="left">dest</th>
+<th align="right">air_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">4368</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">20</td>
+</tr>
+<tr class="even">
+<td align="right">4631</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">20</td>
+</tr>
+<tr class="odd">
+<td align="right">4276</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">4619</td>
+<td align="left">EWR</td>
+<td align="left">PHL</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">4368</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">4619</td>
+<td align="left">EWR</td>
+<td align="left">PHL</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">2132</td>
+<td align="left">LGA</td>
+<td align="left">BOS</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">3650</td>
+<td align="left">JFK</td>
+<td align="left">PHL</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">4118</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">4276</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">4276</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">4276</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">4276</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">4577</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="odd">
+<td align="right">6062</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+<tr class="even">
+<td align="right">3847</td>
+<td align="left">EWR</td>
+<td align="left">BDL</td>
+<td align="right">21</td>
+</tr>
+</tbody>
+</table></div>
+<p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value <code>21</code> in the example above.</p>
+</div>
+</div>
+<div id="data-manipulation-example" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
+</h2>
+<p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.</p>
+<ol style="list-style-type: decimal">
+<li>Start from the <code>flights_from_nyc</code> data.</li>
+<li>Select origin, destination, departure delay, year, month, and day.</li>
+<li>Filter only rows referring to flights in November.</li>
+<li>Filter only rows where departure delay is not (notice that the negation operator <code><a href="https://rdrr.io/r/base/Logic.html">!</a></code> is used) <code>NA</code>.</li>
+</ol>
+<ul>
+<li>That is necessary because the function <code>mean</code> would return <code>NA</code> as output if any of the values in the column is <code>NA</code>.</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li>Group by destination.</li>
+<li>Calculated the average delay per destination.</li>
+<li>Add a column with the delay calculated in hours (minutes over 60).</li>
+<li>Sort the table by <em>descending</em> delay (note that <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> is used before the column name).</li>
+<li>Only show the first 5 rows.</li>
+<li>Create a well-formatted table.</li>
+</ol>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">flights_from_nyc</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
+    avg_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
+    avg_dep_delay_hours <span class="op">=</span> <span class="va">avg_dep_delay</span> <span class="op">/</span> <span class="fl">60</span>
+  <span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">avg_dep_delay_hours</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">dest</th>
+<th align="right">avg_dep_delay</th>
+<th align="right">avg_dep_delay_hours</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">SBN</td>
+<td align="right">67.50000</td>
+<td align="right">1.1250000</td>
+</tr>
+<tr class="even">
+<td align="left">BDL</td>
+<td align="right">26.66667</td>
+<td align="right">0.4444444</td>
+</tr>
+<tr class="odd">
+<td align="left">CAK</td>
+<td align="right">19.70909</td>
+<td align="right">0.3284848</td>
+</tr>
+<tr class="even">
+<td align="left">BHM</td>
+<td align="right">19.61905</td>
+<td align="right">0.3269841</td>
+</tr>
+<tr class="odd">
+<td align="left">DSM</td>
+<td align="right">16.14815</td>
+<td align="right">0.2691358</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="exercise-204.1" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Exercise 204.1<a class="anchor" aria-label="anchor" href="#exercise-204.1"><i class="fas fa-link"></i></a>
+</h2>
+<p>Extend the code in the script <code>My_script_Practical_204.R</code> to include the code necessary to solve the questions below.</p>
+<p><strong>Question 204.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<p><strong>Question 204.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time (<strong>tip</strong>: use manipulate to create a new column that takes the result of <code>arr_delay / air_time</code>) calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<p><strong>Question 204.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.</p>
+<hr>
+<p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></div>
+<div class="next"><a href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#data-manipulation"><span class="header-section-number">3</span> Data manipulation</a></li>
+<li>
+<a class="nav-link" href="#r-workflow"><span class="header-section-number">3.1</span> R workflow</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.1.1</span> R Projects</a></li>
+<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.1.2</span> Loading R scripts</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#data-manipulation-1"><span class="header-section-number">3.2</span> Data manipulation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.2.1</span> Summarise</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.2.2</span> Mutate</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.2.3</span> Arrange</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.3</span> Data manipulation example</a></li>
+<li><a class="nav-link" href="#exercise-204.1"><span class="header-section-number">3.4</span> Exercise 204.1</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/103-data-manipulation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/103-data-manipulation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-09-24.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

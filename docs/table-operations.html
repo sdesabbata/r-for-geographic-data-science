@@ -6,20 +6,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Table operations | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex...">
+<meta name="description" content="This chapter is currently a draft. Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Table operations | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex...">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Table operations | R for Geographic Data Science">
-<meta name="twitter:description" content="Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex...">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.1/transition.js"></script><script src="libs/bs3compat-0.3.1/tabs.js"></script><script src="libs/bs3compat-0.3.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -51,19 +51,22 @@
 <li><a class="" href="index.html">Welcome</a></li>
 <li class="book-part">Getting started</li>
 <li><a class="" href="introduction-to-r.html"><span class="header-section-number">1</span> Introduction to R</a></li>
-<li><a class="" href="r-programming.html"><span class="header-section-number">2</span> R programming</a></li>
-<li class="book-part">Data wrangling</li>
-<li><a class="" href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></li>
+<li><a class="" href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></li>
+<li><a class="" href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></li>
 <li><a class="active" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
-<li><a class="" href="reproducibility-1.html"><span class="header-section-number">5</span> Reproducibility</a></li>
+<li class="book-part">R scripting</li>
+<li><a class="" href="control-structures.html"><span class="header-section-number">5</span> Control structures</a></li>
+<li><a class="" href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></li>
 <li class="book-part">Data analysis</li>
-<li><a class="" href="exploratory-data-analysis.html"><span class="header-section-number">6</span> Exploratory data analysis</a></li>
-<li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
-<li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
+<li><a class="" href="exploratory-visualisation.html"><span class="header-section-number">7</span> Exploratory visualisation</a></li>
+<li><a class="" href="exploratory-statistics.html"><span class="header-section-number">8</span> Exploratory statistics</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">9</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">10</span> Regression analysis</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">11</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">12</span> Unsupervised machine learning</a></li>
 <li class="book-part">Appendices</li>
+<li><a class="" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
 <li><a class="" href="lecture-slides.html">Lecture slides</a></li>
 <li><a class="" href="reading-list.html">Reading list</a></li>
@@ -79,9 +82,10 @@
 <h1>
 <span class="header-section-number">4</span> Table operations<a class="anchor" aria-label="anchor" href="#table-operations"><i class="fas fa-link"></i></a>
 </h1>
+<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex example, loading and wrangling with data related to the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> and the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015">Indexes of Multiple Deprivation 2015</a>.</p>
-<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></code></pre></div>
 <div id="table-manipulation" class="section level2" number="4.1">
@@ -163,7 +167,7 @@
 </tbody>
 </table></div>
 <p>The <code>tidyr</code> library provides two functions that allow transforming wide-formatted data to a long format, and vice-versa. Please take your time to understand the example below and check out the <a href="https://tidyr.tidyverse.org/"><code>tidyr</code> help pages</a> before continuing.</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">city_info_wide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
     city <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"Nottingham"</span><span class="op">)</span>,
     population <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">329839</span>, <span class="fl">321500</span><span class="op">)</span>,
@@ -196,7 +200,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">city_info_long</span> <span class="op">&lt;-</span> <span class="va">city_info_wide</span> <span class="op">%&gt;%</span>
   <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>
     <span class="co"># exclude IDs (city names) from the pivoted columns</span>
@@ -250,7 +254,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">city_info_back_to_wide</span> <span class="op">&lt;-</span> <span class="va">city_info_long</span> <span class="op">%&gt;%</span>
   <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>
     <span class="co"># column containing the attribute names</span>
@@ -341,7 +345,7 @@
 <div class="inline-figure"><img src="images/joins.png" style="width:75.0%"></div>
 <p>Please take your time to understand the example below and check out the <a href="https://dplyr.tidyverse.org/reference/join.html">related <code>dplyr</code> help pages</a> before continuing. The first four examples execute the exact same <em>full join</em> operation using three different syntaxes: with or without using the pipe operator, and specifying the <code>by</code> argument or not. Note that all those approaches to writing the join are valid and produce the same result. The choice about which approach to use will depend on the code you are writing. In particular, you might find it useful to use the syntax that uses the pipe operator when the join operation is itself only one stem in a series of data manipulation steps. Using the <code>by</code> argument is usually advisable unless you are certain that you aim to join two tables with all and exactly the column that have the same names in the two table.</p>
 <p>Note how the result of the join operations is <em>not</em> saved to a variable. The function <code><a href="https://rdrr.io/pkg/knitr/man/kable.html">knitr::kable</a></code> is added after each join operation through a pipe <code>%&gt;%</code> to display the resulting table in a nice format.</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">city_telephone_prexix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
     city <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Leicester"</span>, <span class="st">"Birmingham"</span><span class="op">)</span>,
     telephon_prefix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"0116"</span>, <span class="st">"0121"</span><span class="op">)</span>
@@ -367,7 +371,7 @@
 </tbody>
 </table></div>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Option 1: without using the pipe operator</span>
 
 <span class="co"># full join verb</span>
@@ -412,7 +416,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Option 2: without using the pipe operator</span>
 <span class="co">#   and without using the argument "by"</span>
 <span class="co">#   as columns have the same name</span>
@@ -460,7 +464,7 @@
 </tbody>
 </table></div>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Option 3: using the pipe operator</span>
 <span class="co">#   and without using the argument "by"</span>
 <span class="co">#   as columns have the same name</span>
@@ -507,7 +511,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb211"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Option 4: using the pipe operator</span>
 <span class="co">#   and using the argument "by".</span>
 <span class="co"># Same result as Option 1, 2 and 3</span>
@@ -555,7 +559,7 @@
 </tbody>
 </table></div>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Left join</span>
 <span class="co"># Using syntax similar to Option 1 above</span>
 
@@ -594,7 +598,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb213"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Right join</span>
 <span class="co"># Using syntax similar to Option 2 above</span>
 
@@ -632,7 +636,7 @@
 </tbody>
 </table></div>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Inner join</span>
 <span class="co"># Using syntax similar to Option 3 above</span>
 
@@ -680,7 +684,7 @@
 Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
 -->
 <p>The <code>read_csv</code> function reads a <em>Comma Separated Values (CSV)</em> file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The <code>read_csv</code> instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows – one for each OA – and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.</p>
-<div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> 
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span>
 
@@ -721,7 +725,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </tbody>
 </table></div>
 <p>The code below loads the IMD 2015 dataset.</p>
-<div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Load Indexes of Multiple deprivation data</span>
 <span class="va">leicester_IMD2015</span> <span class="op">&lt;-</span> 
   <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"IndexesMultipleDeprivation2015_Leicester.csv"</span><span class="op">)</span></code></pre></div>
@@ -736,7 +740,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <li>
 <strong>write</strong> the results to a file named <em>Leicester_Suburbanites.csv</em>.</li>
 </ol>
-<div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">supgrpname</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpcode</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -769,7 +773,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Absolute file path</span>
 <span class="co"># Note: the fist / indicates the root folder</span>
 <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span>
@@ -797,7 +801,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <span class="header-section-number">4.3.1</span> Re-shaping<a class="anchor" aria-label="anchor" href="#re-shaping"><i class="fas fa-link"></i></a>
 </h3>
 <p>The IMD 2015 data are in a <em>long</em> format, which means that every area is represented by more than one row: the column <code>Value</code> presents the value; the column <code>IndicesOfDeprivation</code> indicates which index the value refers to; the column <code>Measurement</code> indicates whether the value is a score, rank, or decile. The code below illustrates the data format used for the <code>IndicesOfDeprivation</code> table, and showing the rows for the LSOA including the University of Leicester (feature code <code>E01013649</code>).</p>
-<div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">FeatureCode</span>, <span class="va">IndicesOfDeprivation</span>, <span class="va">Measurement</span>, <span class="va">Value</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1001,7 +1005,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <p>In the following section, the analysis aims to explore how certain census variables vary in areas with different deprivation levels. Thus, we need to extract the <code>Decile</code> rows from the IMD 2015 dataset and transform the data in a <em>wide</em> format, where each index is represented as a separate column.</p>
 <p>To that purpose, we also need to change the name of the indexes slightly, to exclude spaces and punctuation, so that the new column names are simpler than the original text, and can be used as column names. That part of the manipulation is performed using <code>mutate</code> and functions from the <a href="https://stringr.tidyverse.org/"><code>stringr</code> library</a>.</p>
 <div style="page-break-after: always;"></div>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015_decile_wide</span> <span class="op">&lt;-</span> <span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="co"># Select only Socres</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Measurement</span> <span class="op">==</span> <span class="st">"Decile"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1026,7 +1030,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
   <span class="co"># Drop columns</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">DateCode</span>, <span class="op">-</span><span class="va">Measurement</span>, <span class="op">-</span><span class="va">Units</span><span class="op">)</span></code></pre></div>
 <p>Let’s compare the columns of the original <em>long</em> IMD 2015 dataset with the <em>wide</em> dataset created above, using the function <code>colnames</code>.</p>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># limit width of printing area</span>
@@ -1034,7 +1038,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <pre><code>## [1] "FeatureCode"          "DateCode"            
 ## [3] "Measurement"          "Units"               
 ## [5] "Value"                "IndicesOfDeprivation"</code></pre>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_IMD2015_decile_wide</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="co"># limit width of printing area</span>
@@ -1051,7 +1055,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 ## [10] "IndexofMultipleDeprivationIMD"                   
 ## [11] "IncomeDeprivationDomain"</code></pre>
 <p>In <code>leicester_IMD2015_decile_wide</code>, we now have only one row representing the LSOA including the University of Leicester (feature code <code>E01013649</code>) and the main Index of Multiple Deprivations is now represented by the column <code>IndexofMultipleDeprivationIMD</code>. The value reported is the same – that is 5, which means that the selected LSOA is estimated to be in the range 40-50% most deprived areas in England – but we changed the data format.</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Original long IMD 2015 dataset</span>
 <span class="va">leicester_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span>
@@ -1075,7 +1079,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <td align="right">5</td>
 </tr></tbody>
 </table></div>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># New wide IMD 2015 dataset</span>
 <span class="va">leicester_IMD2015_decile_wide</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">FeatureCode</span> <span class="op">==</span> <span class="st">"E01013649"</span><span class="op">)</span> <span class="op">%&gt;%</span>
@@ -1098,7 +1102,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </h3>
 <p>As discussed above, two tables can be joined using a common column of identifiers. We can thus join the 2011 OAC and the IMD 2015 datasets into a single table. The LSOA code included in the 2011 OAC table is used to match that information with the corresponding row in the IMD 2015. The resulting table provides all the information from the 2011 OAC for each OA, plus the Index of Multiple Deprivations decile for the LSOA containing each OA.</p>
 <p>That operation can be carried out using the function <code>inner_join</code>, and specifying the common column (or columns, if more than one is to be used as identifier) as argument of <code>by</code>. Note that using <code>inner_join</code> would result in dropping any row which doesn’t have a match in the other table, either way. In this case, that should not happen, as all OAs are part of an LSOA, and any LSOA contains at least one OA.</p>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">&lt;-</span> 
   <span class="va">leicester_2011OAC</span> <span class="op">%&gt;%</span>
   <span class="fu">inner_join</span><span class="op">(</span>
@@ -1106,7 +1110,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
     by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LSOA11CD"</span> <span class="op">=</span> <span class="st">"FeatureCode"</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <p>As each LSOA contains multiple OAs, each row from the <code>leicester_IMD2015_decile_wide</code> table is matched to multiple rows from the <code>leicester_2011OAC</code> table. For instance, as shown in the table below, the information from the IMD 2015 dataset about the LSOA encompassing the University of Leicester (feature code <code>E01013649</code>) is joined to multiple rows from the 2011 OAC dataset, including the OA encompassing the University of Leicester (feature code <code>E00068890</code>) as well as other neighbouring OAs.</p>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="co"># Note that the LSOA11CD column needs to be used</span>
   <span class="co"># as the previous join as combined </span>
@@ -1156,7 +1160,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </tbody>
 </table></div>
 <p>Once the result is stored into the variable <code>leicester_2011OAC_IMD2015</code>, further analysis can be carried out. For instance, <code>count</code> can be used to count how many OAs fall into each 2011 OAC supergroup and decile of the Index of Multiple Deprivations.</p>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -1400,7 +1404,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </tbody>
 </table></div>
 <p>As another example, the code below can be used to group OAs based on the decile and then calculate the percentage of adults not in employment using the <code>u074</code> (<em>No adults in employment in household: With dependent children</em>) and <code>u075</code> (<em>No adults in employment in household: No dependent children</em>) variables from the 2011 OAC dataset.</p>
-<div class="sourceCode" id="cb230"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>
@@ -1458,7 +1462,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <span class="header-section-number">4.4</span> Exercise 214.1<a class="anchor" aria-label="anchor" href="#exercise-214.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Extend the code in the script <code>Data_Wrangling_Example.R</code> (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
-<div class="sourceCode" id="cb231"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Data_Wrangling_Example.R </span>
 
 <span class="co"># Load the tidyverse</span>
@@ -1525,9 +1529,12 @@ A full R Script including the code for the analysis presented in this chapter an
 
 </div>
 </div>
+
+
+
   <div class="chapter-nav">
-<div class="prev"><a href="selection-and-manipulation.html"><span class="header-section-number">3</span> Selection and manipulation</a></div>
-<div class="next"><a href="reproducibility-1.html"><span class="header-section-number">5</span> Reproducibility</a></div>
+<div class="prev"><a href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></div>
+<div class="next"><a href="control-structures.html"><span class="header-section-number">5</span> Control structures</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1553,8 +1560,8 @@ A full R Script including the code for the analysis presented in this chapter an
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/210-table-operations.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/210-table-operations.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/104-table-operations.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/104-table-operations.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -1566,7 +1573,7 @@ A full R Script including the code for the analysis presented in this chapter an
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2021-11-30.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-09-24.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

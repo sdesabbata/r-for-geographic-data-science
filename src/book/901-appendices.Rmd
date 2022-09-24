@@ -1,0 +1,131 @@
+# Appendix 1 {-}
+
+## Basic types {-}
+
+A value in `R` is an instance of one of three basic types, each encoding a fundamentally different type of information: `numeric` encoding numbers; `logical` encoding truth values (also known as Boolean values); and character encoding text. Each type has its characteristics and related operations, as discussed below. 
+
+### Numeric {-}
+
+The *numeric* type represents numbers (both integers and reals).
+
+```{r, echo=TRUE}
+a_number <- 1.41
+is.numeric(a_number)
+is.integer(a_number)
+is.double(a_number) # i.e., is real
+```
+
+Base numeric operators.
+
+|Operator|Meaning         |Example|Output   |
+|--------|----------------|-------|---------|
+|+       |Plus            |`5+2`  |`r 5+2`  |
+|-       |Minus           |`5-2`  |`r 5-2`  |
+|`*`     |Product         |`5*2`  |`r 5*2`  |
+|/       |Division        |`5/2`  |`r 5/2`  |
+|%/%     |Integer division|`5%/%2`|`r 5%/%2`|
+|%%      |Module          |`5%%2` |`r 5%%2` |
+|^       |Power           |`5^2`  |`r 5^2`  |
+
+
+Some pre-defined functions in `R`:
+
+```{r, echo=TRUE}
+abs(-2) # Absolute value
+ceiling(3.475) # Upper round
+floor(3.475) # Lower round
+trunc(5.99) # Truncate
+log10(100) # Logarithm 10
+log(exp(2)) # Natural logarithm and e
+```
+
+Use simple brackets to specify the order of execution. If not specified the default order is: rise to power first, then multiplication and division, sum and subtraction last.
+
+```{r, echo=TRUE}
+a_number <- 1
+(a_number + 2) * 3
+a_number + (2 * 3)
+a_number + 2 * 3
+```
+
+The object `NaN` (*Not a Number*) is returned by `R` when the result of an operation is not a number.
+
+```{r, echo=TRUE}
+0 / 0
+is.nan(0 / 0)
+```
+
+That is not to be confused with the object `NA` (*Not Available*), which is returned for missing data.
+
+### Logical {-}
+
+The *logical* type encodes two truth values: True and False.
+
+```{r, echo=TRUE}
+logical_var <- TRUE
+is.logical(logical_var)
+isTRUE(logical_var)
+as.logical(0) # TRUE if not zero
+```
+
+`R` provides a series of basic logic operators you can use to evaluate *conditions*. For instance, you can use the logic operator `==` to evaluate the condition `5==2`, which tests whether the value `5` is equal to the value `2`. Conditions can be tested on values as well as on variables.
+
+```{r, echo=TRUE}
+5==2
+first_value <- 5
+second_value <- 2
+first_value == 5
+first_value == 2
+second_value == 5
+second_value == 2
+first_value == second_value
+```
+
+|Operator|Meaning          |Example         |Output            |
+|--------|-----------------|----------------|------------------|
+|==      |Equal            |`5==2`          |`r 5==2`          |
+|!=      |Not equal        |`5!=2`          |`r 5!=2`          |
+|>       |Greater than     |`5>2`           |`r 5>2`           |
+|<       |Less than        |`5<2`           |`r 5<2`           |
+|>=      |Greater or equal |`5>=2`          |`r 5>=2`          |
+|<=      |Less or equal    |`5<=2`          |`r 5<=2`          |
+|!       |Not              |`!TRUE`         |`r !TRUE`         |
+|&       |And              |`TRUE & FALSE`  |`r TRUE & FALSE`  |
+|\|      |Or               |`TRUE | FALSE`  |`r TRUE | FALSE`  |
+
+
+
+### Character {-}
+
+The *character* type represents text objects, including single characters and character strings (that is text objects longer than one character, commonly referred to simply as *strings* in computer science).
+
+```{r, echo=TRUE}
+a_string <- "Hello world!"
+is.character(a_string)
+is.numeric(a_string)
+as.character(2) # type conversion  (a.k.a. casting)
+as.numeric("2")
+as.numeric("Ciao")
+```
+
+### Types and variables {-}
+
+A variable storing a value of a given type is said to have the same type. However, variables in `R` don't have an assigned type themselves. That means that a variable can be assigned a numeric value first and then changed to a character value. 
+
+```{r, echo=TRUE}
+a_variable <- 1.41
+a_variable
+is.numeric(a_variable)
+a_variable <- "Hello world!"
+a_variable
+is.character(a_variable)
+is.numeric(a_variable)
+```
+
+To be more precise, many programming languages require to *declare* a variable. That is, to state the type of a variable before it can be used. Variable declaration was particularly common in older programming languages such as `C` and `Java`. `R` does not require to declare variables types.
+
+
+
+---
+
+<small>by [Stefano De Sabbata](https://sdesabbata.github.io/) -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).</small>
