@@ -7,7 +7,7 @@ This book is a companion for the module [GY7702 R for Data Science](https://le.a
 The slides used in the lectures are available as web-based slides at the pages linked below. 
 
 1. **Introduction to Reproducible Data Science**
-    - 101 [Introduction to R *(draft)*](slides/101-introduction.html)
+    - 101 [Introduction to R *(draft)*](slides/101-slides-introduction.html)
     - 102 Reproducible data science
     - 103 Data manipulation
     - 104 Table operations

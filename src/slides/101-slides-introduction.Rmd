@@ -1,5 +1,5 @@
 ---
-title: "Lecture 101 (draft)"
+title: "Lecture 101"
 author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/r-for-geographic-data-science/granolarr\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
 date: "`r Sys.Date()`"
 output:
@@ -104,25 +104,25 @@ The lectures and practical sessions have been designed to follow the schedule be
 
 ::: {.col data-latex="{0.5\textwidth}"}
 
-- **1 R coding**
-  - 100 Introduction
-  - 110 R programming
-- **2 Data wrangling**
-  - 200 Selection and manipulation
-  - 210 Table operations
-  - 220 Reproducibility
+- **Introduction to Reproducible Data Science**
+    - 101 Introduction to R
+    - 102 Reproducible data science
+    - 103 Data manipulation
+    - 104 Table operations
+- **R Scripting**
+    - 201 Control structures
+    - 202 Functions
   
 :::
 
 ::: {.col data-latex="{0.5\textwidth}"}
 
-- **3 Data analysis**
-  - 300 Exploratory data analysis
-  - 310 Comparing data
-  - 320 Regression models
-- **4 Machine learning**
-  - 400 Unsupervised
-  - 410 Supervised
+
+- **Data analysis**
+    - 301 Exploratory visualisation
+    - 302 Exploratory statistics
+    - 303 Comparing data
+    - 304 Regression models
 
 :::
 ::::::
@@ -261,8 +261,25 @@ a_variable
 
 ## Data frames
 
-*to-do: incl tibbles*
+**Data frames** are complex data types, which encode the concept of a table
 
+Example: the first five rows of the [`iris`](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris) dataset
+
+```{r, echo=TRUE, eval=FALSE}
+iris
+```
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(knitr)
+
+iris %>% 
+  slice_head(n = 5) %>% 
+  kable()
+```
+
+<br/>
+
+... more on what data frames actually are in the coming weeks.
 
 
 ## Algorithms and functions
@@ -273,7 +290,7 @@ A **program** is a specific set of instructions that implement an abstract algor
 
 The definition of an algorithm (and thus a program) can consist of one or more **function**s
 
-- set of instructions that preform a task 
+- set of instructions that perform a task 
 - possibly using an input, possibly returning an output value
 
 Programming languages usually provide pre-defined functions that implement common algorithms (e.g., to find the square root of a number or to calculate a linear regression)
@@ -292,6 +309,19 @@ Functions execute complex operations and can be invoked
 ```{r, echo=TRUE}
 sqrt(2)
 round(1.414214, digits = 2)
+```
+
+
+
+## Example: data visualisation
+
+`R` provides a wide range of functions
+
+- allowing to execute the steps necessary to conduct a data analysis
+- e.g., using `hist` to plot the histogram of petal lengths of flowers in `iris`
+
+```{r, echo=TRUE, fig.height=3}
+hist(iris$Petal.Length, main = "Petal lengths")
 ```
 
 
@@ -322,6 +352,27 @@ When creating an identifier for a variable or function
     - `.` and `_`
 - names must start with
     - a letter
+
+
+## Coding style
+
+A *coding style* is a way of writing the code, including
+
+- how variables and functions are named
+    - lower case and `_`
+- how spaces are used in the code
+- which libraries are used
+
+```{r, echo=TRUE, eval=FALSE}
+# Bad
+X<-round(sqrt(2),2)
+
+#Good
+sqrt_of_two <- sqrt(2) %>%
+ round(digits = 2)
+```
+
+Study the [Tidyverse Style Guide](http://style.tidyverse.org/) and use it consistently!
 
 
 
@@ -373,6 +424,10 @@ The [Tidyverse](https://www.tidyverse.org/) was introduced by statistician [Hadl
 
 Also, imports [`magrittr`](https://magrittr.tidyverse.org/), which plays an important role.
 
+
+
+<!--
+
 ## Tidyverse core libraries
 
 The meta-library [Tidyverse](https://www.tidyverse.org/) includes:
@@ -399,6 +454,8 @@ The meta-library [Tidyverse](https://www.tidyverse.org/) contains the following 
 - **[`purrr`](https://purrr.tidyverse.org/)** enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive. 
 - **[`forcats`](https://forcats.tidyverse.org/)** provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.
 
+-->
+
 
 
 ## The pipe operator
@@ -414,7 +471,7 @@ The pipe operator `%>%`
 
 
 
-## Pipe example
+## Pipe example diagram
 <center>
 ![Pipe operator example and diagram](images/PipeOperator.png){width=100%}
 </center>
@@ -439,26 +496,19 @@ sqrt(2) %>%
 ```
 
 
+## Pipe example: data visualisation
 
-## Coding style
+The previous histogram example
 
-A *coding style* is a way of writing the code, including
-
-- how variable and functions are named
-    - lower case and `_`
-- how spaces are used in the code
-- which libraries are used
-
-```{r, echo=TRUE, eval=FALSE}
-# Bad
-X<-round(sqrt(2),2)
-
-#Good
-sqrt_of_two <- sqrt(2) %>%
- round(digits = 2)
+```{r, echo=TRUE, eval=FALSE, fig.height=3}
+hist(iris$Petal.Length, main = "Petal lengths")
 ```
 
-Study the [Tidyverse Style Guid](http://style.tidyverse.org/) and use it consistently!
+can be rewritten as
+
+```{r, echo=TRUE, fig.height=3}
+iris %>% pull(Petal.Length) %>% hist(main = "Petal lengths")
+```
 
 
 ## Summary
@@ -471,9 +521,9 @@ An introduction to R
 
 **Next week**: Reproducible data science
 
-- Reproducibility
 - Read and write data
 - Select and filter
+- Reproducibility
 
 ```{r cleanup, include=FALSE}
 rm(list = ls())
