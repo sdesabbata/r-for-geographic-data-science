@@ -32,8 +32,8 @@ This module will provide you with the fundamental skills in
 
 basis for
 
-- *Geospatial Data Analysis*
-- *Geospatial Databases and Information Retrieval*
+- *GY7707 Geospatial Data Analysis*
+- *GY7708 Geospatial Artificial intelligence*
 
 
 
