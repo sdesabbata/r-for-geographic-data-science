@@ -4,23 +4,24 @@
 
 # Introduction to R
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-We start this chapter with a brief introduction to `R`, the programming language that will be the focus of the module, and the tool that we are going to use to do data science.
+We start this chapter with a brief introduction to `R`, the programming language that will be the focus of the module, and the tool that we will use to do data science.
 
-`R` is one of the [most widely used programming languages nowadays](https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr), along with Python, especially in geographic and satellite data science. I don't personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find `R` more effective and powerful in data manipulation, statistical analysis, visualisation and mapping -- which is the key reason why this book focuses on `R`. At the same time, beyond the mere details of syntax, the languages are not too different, and they are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.
+`R` is one of the [most widely used programming languages nowadays](https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr), along with Python, especially in geographic and satellite data science. I don't personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find `R` more effective and powerful in data manipulation, statistical analysis, visualisation and mapping. That is the key reason why this book focuses on `R`. At the same time, beyond the mere details of syntax, the languages are not too different and are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.
+
+
 
 ## The R programming language
 
-**[`R`](https://www.r-project.org/)**[@R-base] was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at the Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
+**[`R`](https://www.r-project.org/)**[@R-base] was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
 
-In simple terms, nowadays, programming in `R` mainly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
+In simple terms, programming in `R` mainly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
 
-As such, R can be used to program by creating sequences of **instructions** involving **variables** -- which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (*if/else*) and loops, which will be the topic of the next practical session. Instructions can also be grouped into **functions**, which we will see in more detail in next chapter.
+As such, R can be used to program by creating sequences of **instructions** involving **variables** -- which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (*if/else*) and loops, which will be the topic of the next practical session. Instructions can also be grouped into **functions**, which we will see in more detail in the next chapter.
 
-`R` is **interpreted**, not compiled. This means that an `R` interpreter receives an instruction you write in `R`, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.
+`R` is **interpreted**, not compiled. That means that an `R` interpreter receives an instruction you write and interprets and executes them. Other programming languages require their code to be compiled in an executable file to be executed on a computer.
+
 
 
 ### RStudio
@@ -51,13 +52,19 @@ As these materials are created in RMarkdown, the output of the computation is al
 
 On the right side, you find two groups of panels. On the top-right, the main element is the *Environment* panel, which represents of the current state of the interpreter's memory, showing all the information available for computation. For instance, that is where you will be able to see datasets loaded for analysis. On the bottom-right, you find the *Files* panel, which shows the file system (file and folders on your computer or the server), as well as the *Help* panel, which shows you the help pages when required. We will discuss the other panels later on in the practical sessions.
 
+
+
 ### Coding style
 
 A coding style is a set of rules and guidelines to write programming code designed to ensure that the code is easy to read, understand, and consistent over time. Following a good coding style is essential when writing code that others will read -- for instance, if you work in a team, publish your code or submit your code as a piece of coursework -- and it ensures you will understand your code in a few months. Following a good coding style is also an essential step towards reproducibility, as we will see in a later chapter.
 
 In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/). Study the Tidyverse Style Guide and use it consistently.
 
+
+
 ## Core concepts
+
+
 
 ### Values
 
@@ -94,21 +101,43 @@ Anything that follows a `#` symbol is considered a *comment*, and the interprete
 # hi, I am a comment, please ignore me
 ```
 
-As mentioned above, the interpreter understands [simple operations on numeric values](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html), as we discuss in more detail below.
+As mentioned above, the interpreter understands simple operations on numeric and logic values, as well as text objects (including single characters and strings of character, that is text objects longer than one character, commonly referred to simply as *strings* in computer science), as discussed in more detail in [Appendix 1](docs/appendix-1.html#basic-types).
 
 
 ```r
-1 + 1
+# Sum 1 and 2
+1 + 2
 ```
 
 ```
-## [1] 2
+## [1] 3
 ```
+
+```r
+# Logical AND operation between
+# the value TRUE and FALSE
+TRUE & FALSE
+```
+
+```
+## [1] FALSE
+```
+
+```r
+# Check whether the character a
+# is equal to the character b
+"a" == "b"
+```
+
+```
+## [1] FALSE
+```
+
 
 
 ### Variables
 
-In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary -- hence the name variable. When programming, you can define a variable by naming it with an **identifier** and providing a **value** to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow to save the result of a piece of computation and to retrieve it later on for further analysis. 
+In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary -- hence the name variable. When programming, you can define a variable by naming it with an **identifier** and providing a **value** to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow saving the result of a piece of computation and to retrieve it later on for further analysis. 
 
 A variable can be defined in `R` using an identifier (e.g., `a_variable`) on the left of an **assignment operator** `<-`, followed by the object to be linked to the identifier, such as a value (e.g., `1`) to be assigned on the right. The value of the variable can be invoked by simply specifying the identifier.
 
@@ -144,9 +173,26 @@ sum_of_two_variables
 ```
 
 
+
 ### Data frames
 
-*to-do: incl tibbles*
+The examples above illustrate how `R` allows working with simple data types. However, in data science, we rarely engage directly with such simple pieces of information. Rather, we commonly work with datasets composed of tables. **Data frames** are complex data types which encode the concept of a table in `R` by combining and arranging together a series of simple objects. In the following chapters, we will explore the different complex types and how to handle tables in more detail.
+
+`R` includes many simple example data frames, such as the [`iris`](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris) dataset. When loading `R`, a pre-defined variable named `iris` will be available in the environment. By specifying the identifier `iris` in the console (as shown below), you can invoke the variable and see its contents. Each one of the 150 rows of the table (the first five rows are shown below) reports information about an iris flower. Four numeric columns (`Sepal.Length`, `Sepal.Width`, `Petal.Length` and `Petal.Width`) are used to describe the size of sepal and petal, while a string column (`Species`) is used to catalogue the species of iris.  
+
+
+```r
+iris
+```
+
+| Sepal.Length| Sepal.Width| Petal.Length| Petal.Width|Species |
+|------------:|-----------:|------------:|-----------:|:-------|
+|          5.1|         3.5|          1.4|         0.2|setosa  |
+|          4.9|         3.0|          1.4|         0.2|setosa  |
+|          4.7|         3.2|          1.3|         0.2|setosa  |
+|          4.6|         3.1|          1.5|         0.2|setosa  |
+|          5.0|         3.6|          1.4|         0.2|setosa  |
+
 
 
 ### Algorithms
@@ -156,6 +202,8 @@ Any operation that can be executed using a computer is called an **algorithm**. 
 The instructions you get to mount your Ikea furniture can be thought of as an algorithm, an effective procedure to perform the operation of mounting your furniture. You are playing the part of the computer executing the algorithm.
 
 A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definition, algorithms (and thus the programs that implement them) can use variables and functions. As is the case for `R`, programs that are interpreted rather than compiled are also referred to as **scripts**.
+
+
 
 ### Functions
 
@@ -205,6 +253,15 @@ round(sqrt_of_two, digits = 2)
 ## [1] 1.41
 ```
 
+As the rest of the book will illustrate, `R` provides a wide range of functions that will allow conducting any step of a a data analysis: from data input/ouput to data manipulation, from statistics and machine learning to visualisation, and even to creating a web-based book like the one you are currently reading (which has indeed been created using `R`). For instance, you can use the function `hist` to plot the histogram of petal lengths of flowers in `iris`. Note how, in the code below, the first parameter is not `iris` but `iris$Petal.Length` as the `$` is used to extract the `Petal.Length` from `iris` (more on this in the coming chapters).
+
+
+```r
+hist(iris$Petal.Length, main = "Petal lengths")
+```
+
+<img src="101-Introduction_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+
 Functions can also be used as arguments of functions. Instead of first calculating the square root of two, saving the value in a variable, and then using the variable as the first argument of `round`, we can directly add the function `sqrt` and its argument as the first argument of the function `round`.
 
 
@@ -216,9 +273,10 @@ round(sqrt(2), digits = 2)
 ## [1] 1.41
 ```
 
-In the next chapter, we will see how you can create functions yourself.
+In a subsequent chapter, we will see how you can create functions yourself.
 
 As we introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best to always aim for a code that is as easy to read and understand as possible. An essential step in ensuring that is to follow coding style guidelines closely.
+
 
 
 ### Libraries
@@ -226,8 +284,6 @@ As we introduce variables and functions, and functions using variables and funct
 Functions can be collected and stored in *libraries* (sometimes referred to as *packages*), containing related functions and sometimes datasets. For instance, the `base` library in `R` includes the `sqrt` function above, and the `rgdal` library, which contains implementations of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities for `R`. 
 
 Libraries can be installed in `R` using the function `install.packages` or using `Tool > Install Packages...` in RStudio. 
-
-
 
 
 
@@ -284,9 +340,11 @@ str_replace_all("Leicester", "e", "x")
 ```
 -->
 
+
+
 ### The pipe operator
 
-The pipe operator is useful to outline more complex operations, step by step (see also [R for Data Science, Chapter 18](https://r4ds.had.co.nz/pipes.html)). The pipe operator `%>%`
+The pipe operator is useful to outline more complex operations step by step (see also [R for Data Science, Chapter 18](https://r4ds.had.co.nz/pipes.html)). The pipe operator `%>%`
 
 - takes the result from one function
 - and passes it to the next function
@@ -313,11 +371,16 @@ The image below graphically illustrates how the pipe operator works, compared to
 
 </center>
 
+Similarly, you can use pipe to recreate the histogram of petal lengths from the `iris` dataset shown above, using the function `pull` to extract the column `Petal.Length` from the table, instead of the operator `$`. However, the Tidyverse includes the `ggplot2` library, which provides support for more sophisticated plotting, as we will see in subsequent chapters.
+
 
 ```r
-sqrt(2) %>%
- round(digits = 2)
+iris %>% 
+  pull(Petal.Length) %>% 
+  hist(main = "Petal lengths")
 ```
+
+<img src="101-Introduction_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 
 The first step of a sequence of pipes can be a value, a variable, or a function, including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function `round`, which also allows for a second argument: `digits = 2`. Note that, when using the pipe operator, only the nominally second argument is provided to the function `round` -- that is `round(digits = 2)`
 
@@ -351,27 +414,34 @@ A complex operation created through the use of `%>%` can be used on the right si
 
 
 ```r
-sqrt_of_two <- 2 %>%
+sqrt_of_two <- 
+  2 %>%
   sqrt() %>%
   round(digits = 2)
 ```
 
 
 
-## Exercise 104.1
+## Exercise 101.1
 
-**Question 104.1.1:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.
+**Question 101.1.1:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.
 
-**Question 104.1.2:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.
+**Question 101.1.2:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.
 
-**Question 104.1.3:** Write a piece of code using the pipe operator that takes as input the string `"1632"`, transforms it into a number, and checks whether the result is *Not a Number*.
+**Question 101.1.3:** Write a piece of code using the pipe operator that takes as input the string `"1632"`, transforms it into a number, and checks whether the result is *Not a Number*.
 
-**Question 104.1.4:** Write a piece of code using the pipe operator that takes as input the string `"-16.32"`, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is *Not Available*.
+**Question 101.1.4:** Write a piece of code using the pipe operator that takes as input the string `"-16.32"`, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is *Not Available*.
+
+**Question 101.1.5:** Rewrite a piece of code below by substituting the last line with the function `mean()`. What kind of result do you obtain? What does it represent?
 
 
-## Exercise 104.2
+```r
+iris %>% 
+  pull(Petal.Length) %>% 
+  hist(main = "Petal lengths")
+```
 
-*to-do: exercise with data frames*
+**Question 101.1.6:** Further edit the code created for *Question 101.1.6* by substituting `Petal.Length` with `Petal.Width` first and `Species` then? What kind of results do you obtain? What do they mean?
 
 <!--
 

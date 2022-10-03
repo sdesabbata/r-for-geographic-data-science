@@ -74,14 +74,14 @@ unlink(paste0(Sys.getenv("RGDS_HOME"), "/src/book/images"), recursive=TRUE)
 #   str_replace_all(":", "-")  %>% 
 #   str_replace_all(" ", "_")
 
-file.rename(
-  paste0(Sys.getenv("RGDS_HOME"), "/docs/_main.pdf"), 
-  paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science.pdf")
-)
-file.rename(
-  paste0(Sys.getenv("RGDS_HOME"), "/docs/_main.epub"), 
-  paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science.epub")
-)
+# file.rename(
+#   paste0(Sys.getenv("RGDS_HOME"), "/docs/_main.pdf"), 
+#   paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science.pdf")
+# )
+# file.rename(
+#   paste0(Sys.getenv("RGDS_HOME"), "/docs/_main.epub"), 
+#   paste0(Sys.getenv("RGDS_HOME"), "/docs/DeSabbata_R-for-geographic-data-science.epub")
+# )
 
 cat("\n\n>>> done. <<<\n\n")
 

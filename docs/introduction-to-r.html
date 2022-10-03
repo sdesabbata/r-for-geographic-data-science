@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 1 Introduction to R | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we are...">
+<meta name="description" content="Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we will use to do data science. R is one...">
 <meta name="generator" content="bookdown 0.24 with bs4_book()">
 <meta property="og:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/introduction-to-r.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we are...">
+<meta property="og:description" content="Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we will use to do data science. R is one...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we are...">
+<meta name="twitter:description" content="Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we will use to do data science. R is one...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -82,18 +82,17 @@
 <h1>
 <span class="header-section-number">1</span> Introduction to R<a class="anchor" aria-label="anchor" href="#introduction-to-r"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<p>We start this chapter with a brief introduction to <code>R</code>, the programming language that will be the focus of the module, and the tool that we are going to use to do data science.</p>
-<p><code>R</code> is one of the <a href="https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr">most widely used programming languages nowadays</a>, along with Python, especially in geographic and satellite data science. I don’t personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find <code>R</code> more effective and powerful in data manipulation, statistical analysis, visualisation and mapping – which is the key reason why this book focuses on <code>R</code>. At the same time, beyond the mere details of syntax, the languages are not too different, and they are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.</p>
+<p>We start this chapter with a brief introduction to <code>R</code>, the programming language that will be the focus of the module, and the tool that we will use to do data science.</p>
+<p><code>R</code> is one of the <a href="https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr">most widely used programming languages nowadays</a>, along with Python, especially in geographic and satellite data science. I don’t personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find <code>R</code> more effective and powerful in data manipulation, statistical analysis, visualisation and mapping. That is the key reason why this book focuses on <code>R</code>. At the same time, beyond the mere details of syntax, the languages are not too different and are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.</p>
 <div id="the-r-programming-language" class="section level2" number="1.1">
 <h2>
 <span class="header-section-number">1.1</span> The R programming language<a class="anchor" aria-label="anchor" href="#the-r-programming-language"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong><a href="https://www.r-project.org/"><code>R</code></a></strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-R-base" role="doc-biblioref"&gt;R Core Team, &lt;em&gt;R&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a></span> was created in 1992 by <code>R</code>oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. <code>R</code> is a free, open-source implementation of the <code>S</code> statistical programming language initially created at the Bell Labs. At its core, <code>R</code> is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
-<p>In simple terms, nowadays, programming in <code>R</code> mainly focuses on devising a series of instructions to execute a task – most commonly, loading and analysing a dataset.</p>
-<p>As such, R can be used to program by creating sequences of <strong>instructions</strong> involving <strong>variables</strong> – which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (<em>if/else</em>) and loops, which will be the topic of the next practical session. Instructions can also be grouped into <strong>functions</strong>, which we will see in more detail in next chapter.</p>
-<p><code>R</code> is <strong>interpreted</strong>, not compiled. This means that an <code>R</code> interpreter receives an instruction you write in <code>R</code>, interprets and executes them. Other programming languages require their code to be compiled in an executable to be executed on a computer.</p>
+<p><strong><a href="https://www.r-project.org/"><code>R</code></a></strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-R-base" role="doc-biblioref"&gt;R Core Team, &lt;em&gt;R&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a></span> was created in 1992 by <code>R</code>oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. <code>R</code> is a free, open-source implementation of the <code>S</code> statistical programming language initially created at Bell Labs. At its core, <code>R</code> is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
+<p>In simple terms, programming in <code>R</code> mainly focuses on devising a series of instructions to execute a task – most commonly, loading and analysing a dataset.</p>
+<p>As such, R can be used to program by creating sequences of <strong>instructions</strong> involving <strong>variables</strong> – which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (<em>if/else</em>) and loops, which will be the topic of the next practical session. Instructions can also be grouped into <strong>functions</strong>, which we will see in more detail in the next chapter.</p>
+<p><code>R</code> is <strong>interpreted</strong>, not compiled. That means that an <code>R</code> interpreter receives an instruction you write and interprets and executes them. Other programming languages require their code to be compiled in an executable file to be executed on a computer.</p>
 <div id="rstudio" class="section level3" number="1.1.1">
 <h3>
 <span class="header-section-number">1.1.1</span> RStudio<a class="anchor" aria-label="anchor" href="#rstudio"><i class="fas fa-link"></i></a>
@@ -138,27 +137,38 @@
 <p>Anything that follows a <code>#</code> symbol is considered a <em>comment</em>, and the interpreter ignores it.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># hi, I am a comment, please ignore me</span></code></pre></div>
-<p>As mentioned above, the interpreter understands <a href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Arithmetic.html">simple operations on numeric values</a>, as we discuss in more detail below.</p>
+<p>As mentioned above, the interpreter understands simple operations on numeric and logic values, as well as text objects (including single characters and strings of character, that is text objects longer than one character, commonly referred to simply as <em>strings</em> in computer science), as discussed in more detail in <a href="docs/appendix-1.html#basic-types">Appendix 1</a>.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fl">1</span> <span class="op">+</span> <span class="fl">1</span></code></pre></div>
-<pre><code>## [1] 2</code></pre>
+<code class="sourceCode R"><span class="co"># Sum 1 and 2</span>
+<span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Logical AND operation between</span>
+<span class="co"># the value TRUE and FALSE</span>
+<span class="cn">TRUE</span> <span class="op">&amp;</span> <span class="cn">FALSE</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Check whether the character a</span>
+<span class="co"># is equal to the character b</span>
+<span class="st">"a"</span> <span class="op">==</span> <span class="st">"b"</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
 </div>
 <div id="variables" class="section level3" number="1.2.2">
 <h3>
 <span class="header-section-number">1.2.2</span> Variables<a class="anchor" aria-label="anchor" href="#variables"><i class="fas fa-link"></i></a>
 </h3>
-<p>In computer programming, a <strong>variable</strong> can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary – hence the name variable. When programming, you can define a variable by naming it with an <strong>identifier</strong> and providing a <strong>value</strong> to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow to save the result of a piece of computation and to retrieve it later on for further analysis.</p>
+<p>In computer programming, a <strong>variable</strong> can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary – hence the name variable. When programming, you can define a variable by naming it with an <strong>identifier</strong> and providing a <strong>value</strong> to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow saving the result of a piece of computation and to retrieve it later on for further analysis.</p>
 <p>A variable can be defined in <code>R</code> using an identifier (e.g., <code>a_variable</code>) on the left of an <strong>assignment operator</strong> <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, followed by the object to be linked to the identifier, such as a value (e.g., <code>1</code>) to be assigned on the right. The value of the variable can be invoked by simply specifying the identifier.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fl">1</span>
 <span class="va">a_variable</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>If you type <code>a_variable &lt;- 1</code> in the <em>Console</em> in RStudio, a new element appears in the <em>Environment</em> panel, representing the new variable in the memory. The left part of the entry contains the identifier <code>a_variable</code>, and the right part contains the value assigned to the variable <code>a_variable</code>, that is <code>1</code>. In the example below, another variable named <code>another_variable</code> is created and summed to <code>a_variable</code>, saving the result in <code>sum_of_two_variables</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">another_variable</span> <span class="op">&lt;-</span> <span class="fl">4</span>
 <span class="va">another_variable</span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sum_of_two_variables</span> <span class="op">&lt;-</span> <span class="va">a_variable</span> <span class="op">+</span> <span class="va">another_variable</span>
 <span class="va">sum_of_two_variables</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
@@ -167,7 +177,56 @@
 <h3>
 <span class="header-section-number">1.2.3</span> Data frames<a class="anchor" aria-label="anchor" href="#data-frames"><i class="fas fa-link"></i></a>
 </h3>
-<p><em>to-do: incl tibbles</em></p>
+<p>The examples above illustrate how <code>R</code> allows working with simple data types. However, in data science, we rarely engage directly with such simple pieces of information. Rather, we commonly work with datasets composed of tables. <strong>Data frames</strong> are complex data types which encode the concept of a table in <code>R</code> by combining and arranging together a series of simple objects. In the following chapters, we will explore the different complex types and how to handle tables in more detail.</p>
+<p><code>R</code> includes many simple example data frames, such as the <a href="https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris"><code>iris</code></a> dataset. When loading <code>R</code>, a pre-defined variable named <code>iris</code> will be available in the environment. By specifying the identifier <code>iris</code> in the console (as shown below), you can invoke the variable and see its contents. Each one of the 150 rows of the table (the first five rows are shown below) reports information about an iris flower. Four numeric columns (<code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code> and <code>Petal.Width</code>) are used to describe the size of sepal and petal, while a string column (<code>Species</code>) is used to catalogue the species of iris.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">iris</span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="left">Species</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">5.1</td>
+<td align="right">3.5</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.9</td>
+<td align="right">3.0</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">4.7</td>
+<td align="right">3.2</td>
+<td align="right">1.3</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="even">
+<td align="right">4.6</td>
+<td align="right">3.1</td>
+<td align="right">1.5</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+<tr class="odd">
+<td align="right">5.0</td>
+<td align="right">3.6</td>
+<td align="right">1.4</td>
+<td align="right">0.2</td>
+<td align="left">setosa</td>
+</tr>
+</tbody>
+</table></div>
 </div>
 <div id="algorithms" class="section level3" number="1.2.4">
 <h3>
@@ -184,26 +243,30 @@
 <p>You can think of a <strong>function</strong> as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each designed to complete a sub-task, which combined perform the entire task.</p>
 <p>You can <strong>invoke</strong> a function by specifying the <strong>function name</strong> along with the <strong>arguments</strong> (input values) between simple brackets. Each argument corresponds to a <strong>parameter</strong> (i.e., an internal variable used within the function to run the operation, as we will see in more detail later in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., finding the square root of a number or calculating a linear regression).</p>
 <p>For instance, <code>sqrt</code> is the pre-defined function in <code>R</code> that computes the square root of a number. The instruction <code><a href="https://rdrr.io/r/base/MathFun.html">sqrt(2)</a></code> tells the <code>R</code> interpreter to run the function that calculates the square root using <code>2</code> as the input value. The function will return <code>1.414214</code>, the square root of <code>2</code>, as the output.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.414214</code></pre>
 <p>Another example is the function <code>round</code>, which returns a value rounded to a specified number of digits after the dot. For instance, <code><a href="https://rdrr.io/r/base/Round.html">round(1.414214, digits = 2)</a></code> returns <code>1.41</code>. In this case, we specify that the second argument refers to the number of digits to be kept, and this is because this function also has other arguments that can be specified.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fl">1.414214</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
 <p>Functions can also be used on the right side of the assignment operator <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code> in which case the output value of the function will be stored in the memory slot with that identifier. Variables can be used as arguments. For instance, after saving the result of the square root of two in the variable <code>sqrt_of_two</code>, we can use the same variable as the first argument for the function <code>round</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sqrt_of_two</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>
 <span class="va">sqrt_of_two</span></code></pre></div>
 <pre><code>## [1] 1.414214</code></pre>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">sqrt_of_two</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
+<p>As the rest of the book will illustrate, <code>R</code> provides a wide range of functions that will allow conducting any step of a a data analysis: from data input/ouput to data manipulation, from statistics and machine learning to visualisation, and even to creating a web-based book like the one you are currently reading (which has indeed been created using <code>R</code>). For instance, you can use the function <code>hist</code> to plot the histogram of petal lengths of flowers in <code>iris</code>. Note how, in the code below, the first parameter is not <code>iris</code> but <code>iris$Petal.Length</code> as the <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code> is used to extract the <code>Petal.Length</code> from <code>iris</code> (more on this in the coming chapters).</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Petal.Length</span>, main <span class="op">=</span> <span class="st">"Petal lengths"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="101-Introduction_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
 <p>Functions can also be used as arguments of functions. Instead of first calculating the square root of two, saving the value in a variable, and then using the variable as the first argument of <code>round</code>, we can directly add the function <code>sqrt</code> and its argument as the first argument of the function <code>round</code>.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
-<p>In the next chapter, we will see how you can create functions yourself.</p>
+<p>In a subsequent chapter, we will see how you can create functions yourself.</p>
 <p>As we introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best to always aim for a code that is as easy to read and understand as possible. An essential step in ensuring that is to follow coding style guidelines closely.</p>
 </div>
 <div id="libraries" class="section level3" number="1.2.6">
@@ -239,7 +302,7 @@
 </ul>
 <p>A library can be loaded using the function <code>library</code>, as shown below (note the name of the library is not quoted). Once a library is installed on a computer, you don’t need to install it again, but every script needs to load all the libraries that it uses. Once a library is loaded, all its functions can be used.</p>
 <p><strong>Important</strong>: it is always necessary to load the <code>tidyverse</code> meta-library if you want to use the <code>stringr</code> functions or the pipe operator <code>%&gt;%</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
 <!--
 ### stringr
@@ -275,7 +338,7 @@ str_replace_all("Leicester", "e", "x")
 <h3>
 <span class="header-section-number">1.3.1</span> The pipe operator<a class="anchor" aria-label="anchor" href="#the-pipe-operator"><i class="fas fa-link"></i></a>
 </h3>
-<p>The pipe operator is useful to outline more complex operations, step by step (see also <a href="https://r4ds.had.co.nz/pipes.html">R for Data Science, Chapter 18</a>). The pipe operator <code>%&gt;%</code></p>
+<p>The pipe operator is useful to outline more complex operations step by step (see also <a href="https://r4ds.had.co.nz/pipes.html">R for Data Science, Chapter 18</a>). The pipe operator <code>%&gt;%</code></p>
 <ul>
 <li>takes the result from one function</li>
 <li>and passes it to the next function</li>
@@ -284,7 +347,7 @@ str_replace_all("Leicester", "e", "x")
 <li>that doesn’t need to be included in the code anymore</li>
 </ul>
 <p>The code below shows a simple example. The number <code>2</code> is taken as input for the first pipe that passes it on as the first argument to the function <code>sqrt</code>. The output value <code>1.41</code> is then taken as input for the second pipe, which passes it on as the first argument to the function <code>trunc</code>. The final output <code>1</code> is finally returned.</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fl">2</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -295,11 +358,14 @@ str_replace_all("Leicester", "e", "x")
 <img src="images/PipeOperator.png" style="width:80.0%" alt=""><p class="caption">Illustration of how the pipe operator works</p>
 </div>
 </center>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
- <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p>Similarly, you can use pipe to recreate the histogram of petal lengths from the <code>iris</code> dataset shown above, using the function <code>pull</code> to extract the column <code>Petal.Length</code> from the table, instead of the operator <code><a href="https://rdrr.io/r/base/Extract.html">$</a></code>. However, the Tidyverse includes the <code>ggplot2</code> library, which provides support for more sophisticated plotting, as we will see in subsequent chapters.</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">iris</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pull</span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Petal lengths"</span><span class="op">)</span></code></pre></div>
+<div class="inline-figure"><img src="101-Introduction_files/figure-html/unnamed-chunk-20-1.png" width="672"></div>
 <p>The first step of a sequence of pipes can be a value, a variable, or a function, including arguments. The code below shows a series of examples of different ways of achieving the same result. The examples use the function <code>round</code>, which also allows for a second argument: <code>digits = 2</code>. Note that, when using the pipe operator, only the nominally second argument is provided to the function <code>round</code> – that is <code><a href="https://rdrr.io/r/base/Round.html">round(digits = 2)</a></code></p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># No pipe, using variables</span>
 <span class="va">tmp_variable_A</span> <span class="op">&lt;-</span> <span class="fl">2</span>
 <span class="va">tmp_variable_B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">tmp_variable_A</span><span class="op">)</span>
@@ -323,26 +389,27 @@ str_replace_all("Leicester", "e", "x")
 <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p>A complex operation created through the use of <code>%&gt;%</code> can be used on the right side of <code><a href="https://rdrr.io/r/base/assignOps.html">&lt;-</a></code>, to assign the outcome of the operation to a variable.</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sqrt_of_two</span> <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">%&gt;%</span>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sqrt_of_two</span> <span class="op">&lt;-</span> 
+  <span class="fl">2</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="exercise-104.1" class="section level2" number="1.4">
+<div id="exercise-101.1" class="section level2" number="1.4">
 <h2>
-<span class="header-section-number">1.4</span> Exercise 104.1<a class="anchor" aria-label="anchor" href="#exercise-104.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.4</span> Exercise 101.1<a class="anchor" aria-label="anchor" href="#exercise-101.1"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>Question 104.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
-<p><strong>Question 104.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
-<p><strong>Question 104.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
-<p><strong>Question 104.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
-</div>
-<div id="exercise-104.2" class="section level2" number="1.5">
-<h2>
-<span class="header-section-number">1.5</span> Exercise 104.2<a class="anchor" aria-label="anchor" href="#exercise-104.2"><i class="fas fa-link"></i></a>
-</h2>
-<p><em>to-do: exercise with data frames</em></p>
+<p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
+<p><strong>Question 101.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
+<p><strong>Question 101.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
+<p><strong>Question 101.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
+<p><strong>Question 101.1.5:</strong> Rewrite a piece of code below by substituting the last line with the function <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>. What kind of result do you obtain? What does it represent?</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">iris</span> <span class="op">%&gt;%</span> 
+  <span class="fu">pull</span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span>main <span class="op">=</span> <span class="st">"Petal lengths"</span><span class="op">)</span></code></pre></div>
+<p><strong>Question 101.1.6:</strong> Further edit the code created for <em>Question 101.1.6</em> by substituting <code>Petal.Length</code> with <code>Petal.Width</code> first and <code>Species</code> then? What kind of results do you obtain? What do they mean?</p>
 <!--
 
 Answer the question below, consulting the [`stringr` library reference (stringr.tidyverse.org/reference)](https://stringr.tidyverse.org/reference/index.html) as necessary
@@ -388,8 +455,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 <li>
 <a class="nav-link" href="#tidyverse"><span class="header-section-number">1.3</span> Tidyverse</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#the-pipe-operator"><span class="header-section-number">1.3.1</span> The pipe operator</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-104.1"><span class="header-section-number">1.4</span> Exercise 104.1</a></li>
-<li><a class="nav-link" href="#exercise-104.2"><span class="header-section-number">1.5</span> Exercise 104.2</a></li>
+<li><a class="nav-link" href="#exercise-101.1"><span class="header-section-number">1.4</span> Exercise 101.1</a></li>
 </ul>
 
       <div class="book-extra">
@@ -407,7 +473,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-09-29.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-03.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

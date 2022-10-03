@@ -11,8 +11,7 @@ functions
 libraries
 tidyverse
 the-pipe-operator
-exercise-104.1
-exercise-104.2
+exercise-101.1
 reproducible-data-science
 data-science
 complex-data-types

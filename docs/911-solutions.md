@@ -2,7 +2,7 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-## Solutions 104 {-}
+## Solutions 101 {-}
 
 Note that you can add sections to your code, such as the "Intro" section below by selecting Code > Insert Section... from the top menu in RStudio. Those will then be visible on a right panel in  the RStudio integrated editor if you select Code > Show Document Outline from the top menu. Code sections can help to visually organise your code and the Document Outline allows you to select a section and jump to it in the code.
 
@@ -22,15 +22,15 @@ library(tidyverse)
 
 # Load magrittr
 # necessary for options 3 and 4 
-# of my answer to Question 104.2.4
+# of my answer to Question 101.2.4
 library(magrittr)
 ```
 
 
 
-### Solutions 104.1 {-}
+### Solutions 101.1 {-}
 
-**Question 104.1.1:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.
+**Question 101.1.1:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.
 
 
 ```r
@@ -78,7 +78,7 @@ library(magrittr)
   is.integer()
 ```
 
-**Question 104.1.2:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.
+**Question 101.1.2:** Write a piece of code using the pipe operator that takes as input the number `1632`, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.
 
 
 ```r
@@ -91,7 +91,7 @@ library(magrittr)
   is.integer()
 ```
 
-**Question 104.1.3:** Write a piece of code using the pipe operator that takes as input the string `"1632"`, transforms it into a number, and checks whether the result is *Not a Number*.
+**Question 101.1.3:** Write a piece of code using the pipe operator that takes as input the string `"1632"`, transforms it into a number, and checks whether the result is *Not a Number*.
 
 
 ```r
@@ -102,7 +102,7 @@ library(magrittr)
   is.nan()
 ```
 
-**Question 104.1.4:** Write a piece of code using the pipe operator that takes as input the string `"-16.32"`, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is *Not Available*.
+**Question 101.1.4:** Write a piece of code using the pipe operator that takes as input the string `"-16.32"`, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is *Not Available*.
 
 
 ```r
@@ -117,7 +117,33 @@ library(magrittr)
   is.na()
 ```
 
+**Question 101.1.5:** Rewrite a piece of code below by substituting the last line with the function `mean()`. What kind of result do you obtain? What does it represent?
 
+
+```r
+iris %>% 
+  pull(Petal.Length) %>% 
+  mean()
+```
+
+The output is a numeric value representing the aritmetic mean (average) of all the petal lengths of flowers in the `iris` dataset.
+
+**Question 101.1.6:** Further edit the code created for *Question 101.1.6* by substituting `Petal.Length` with `Petal.Width` first and `Species` then? What kind of results do you obtain? What do they mean?
+
+
+
+```r
+iris %>% 
+  pull(Petal.Width) %>% 
+  mean()
+
+iris %>% 
+  pull(Species) %>% 
+  mean()
+```
+
+
+<!--
 
 ### Solutions 104.2 {-}
 
@@ -210,7 +236,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
   str_c(collapse = " ")
 ```
 
-
+-->
 
 ## Solutions 114 {-}
 

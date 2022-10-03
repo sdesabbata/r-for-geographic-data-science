@@ -32,6 +32,7 @@
 /tmp/*
 /tmp/*
 /data/*
+/docs_preview/*
 !/data/README.md
 
 # Items in the backup folder
