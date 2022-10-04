@@ -1,27 +1,27 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lecture 101</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Dr Stefano De Sabbata School of Geography, Geology, and the Env., University of Leicester github.com/sdesabbata/r-for-geographic-data-science s.desabbata@le.ac.uk | @maps4thought text licensed under CC BY-SA 4.0, code licensed under GNU GPL v3.0" />
+    <meta name="date" content="2022-10-04" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="css/sdesabbata-uol.css" type="text/css" />
+    <link rel="stylesheet" href="css/sdesabbata-uol-fonts.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lecture 101
+### Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href="https://github.com/sdesabbata/r-for-geographic-data-science" style="color: white">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href="mailto:s.desabbata@le.ac.uk" style="color: white">s.desabbata@le.ac.uk</a> | <a href="https://twitter.com/maps4thought" style="color: white">@maps4thought</a><br/>text licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" style="color: white">CC BY-SA 4.0</a>, code licensed under <a href="https://www.gnu.org/licenses/gpl-3.0.html" style="color: white">GNU GPL v3.0</a></small>
+### <small>2022-10-04</small>
+
 ---
-title: "Lecture 101"
-author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
-institute: ""
-date: "<small>2022-10-04</small>"
-output:
-  xaringan::moon_reader:
-    self_contained: true
-    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
-    lib_dir: libs
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      beforeInit: "macros/my_remark_macros.js"
----
+
 class: inverse, center, middle
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
-rm(list = ls())
-```
+
 
 
 # Introduction to R
@@ -42,37 +42,7 @@ rm(list = ls())
 - processing spatial data
 - geographic information analysis
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 4, fig.width = 4}
-ifelse(!dir.exists(file.path(Sys.getenv("RGDS_HOME"), "tmp")), dir.create(file.path(Sys.getenv("RGDS_HOME"), "tmp")), FALSE)
-
-if (!dir.exists(file.path("./tmp", "E06000016"))) {
-  unzip(paste0(Sys.getenv("RGDS_HOME"), "/data/", "e06000016.zip"), exdir = "tmp")
-}
-
-library(sp)
-library(rgdal)
-leic_2011OAC <- readOGR("tmp/E06000016/E06000016_Leicester.shp")
-
-library(tmap)
-tm_shape(leic_2011OAC) +
-  tm_polygons(
-    "supgrpname", 
-    legend.show = FALSE,
-    border.alpha = 0) +
-  tm_layout(
-    bg.color = "#FFF0E2", 
-    frame = FALSE) +
-  tm_credits(
-    "Source: CDRC 2011 OAC Geodata Pack by the ESRC Consumer\nDataResearch Centre; Contains National Statistics data Crown\ncopyright and database right 2015; Contains Ordnance Survey\ndata Crown copyright and database right 2015", 
-    size = 0.3, 
-    position = c("right", "bottom")
-  )
-
-unlink("tmp/E06000016", recursive = TRUE)
-if(length(list.files(path = "./tmp", include.dirs = TRUE)) == 0){
-  unlink("tmp", recursive = TRUE)
-}
-```
+![](101-slides-introduction_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
 
 ]
 .pull-right[
@@ -139,7 +109,7 @@ Further reading
 
 .pull-left[
 
-<br/>
+&lt;br/&gt;
 
 Created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand
 
@@ -147,7 +117,7 @@ Created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland
     - statistical programming language 
     - Bell Labs
 
-<br/>
+&lt;br/&gt;
 
 - Functional programming language
 - Supports (and commonly used as) procedural (i.e., imperative) programming
@@ -157,22 +127,22 @@ Created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland
 ]
 .pull-right[
 
-<br/>
-<br/>
+&lt;br/&gt;
+&lt;br/&gt;
 
 
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/1200px-R_logo.svg.png)
 
 .right[
 .referencenote[
-by Hadley Wickham and others at RStudio<br/>
+by Hadley Wickham and others at RStudio&lt;br/&gt;
 via Wikimedia Commons, CC BY-SA 4.0
 ]
 ]
 
 ]
 
-<br/>
+&lt;br/&gt;
 
 
 
@@ -183,20 +153,35 @@ via Wikimedia Commons, CC BY-SA 4.0
 
 .pull-left[
 
-<br/>
+&lt;br/&gt;
 
 When values and operations are inputted in the *Console*, the interpreter returns the results of its interpretation of the expression
 
-```{r, echo=TRUE}
+
+```r
 2
+```
+
+```
+## [1] 2
+```
+
+```r
 "String value"
+```
+
+```
+## [1] "String value"
+```
+
+```r
 # comments are ignored
 ```
 
 ]
 .pull-right[
 
-<br/>
+&lt;br/&gt;
 
 R provides three core data types
 
@@ -217,18 +202,23 @@ R provides a series of basic numeric operators
 
 |Operator|Meaning         |Example  |Output     |
 |--------|----------------|---------|-----------|
-|+       |Plus            |`5 + 2`  |`r 5 + 2`  |
-|-       |Minus           |`5 - 2`  |`r 5 - 2`  |
-|`*`     |Product         |`5 * 2`  |`r 5 * 2`  |
-|/       |Division        |`5 / 2`  |`r 5 / 2`  |
-|%/%     |Integer division|`5 %/% 2`|`r 5 %/% 2`|
-|%%      |Module          |`5 %% 2` |`r 5 %% 2` |
-|^       |Power           |`5^2`    |`r 5^2`    |
+|+       |Plus            |`5 + 2`  |7  |
+|-       |Minus           |`5 - 2`  |3  |
+|`*`     |Product         |`5 * 2`  |10  |
+|/       |Division        |`5 / 2`  |2.5  |
+|%/%     |Integer division|`5 %/% 2`|2|
+|%%      |Module          |`5 %% 2` |1 |
+|^       |Power           |`5^2`    |25    |
 
-<br/>
+&lt;br/&gt;
 
-```{r, echo=TRUE}
+
+```r
 5 + 2
+```
+
+```
+## [1] 7
 ```
 
 
@@ -242,18 +232,23 @@ R provides a series of basic logical operators to test
 
 |Operator|Meaning           |Example               |Output              |
 |--------|------------------|----------------------|--------------------|
-|==      |Equal             |`5 == 2`              |`r 5 == 2`          |
-|!=      |Not equal         |`5 != 2`              |`r 5 != 2`          |
-|> (>=)  |Greater (or equal)|`5 > 2`               |`r 5 > 2`           |
-|< (<=)  |Less (or equal)   |`5 <= 2`              |`r 5 <= 2`          |
-|!       |Not               |`!TRUE`               |`r !TRUE`           |
-|&       |And               |`TRUE & FALSE`        |`r TRUE & FALSE`    |
-|	&#124; |Or                |`TRUE` &#124; `FALSE` |`r TRUE | FALSE`    |
+|==      |Equal             |`5 == 2`              |FALSE          |
+|!=      |Not equal         |`5 != 2`              |TRUE          |
+|&gt; (&gt;=)  |Greater (or equal)|`5 &gt; 2`               |TRUE           |
+|&lt; (&lt;=)  |Less (or equal)   |`5 &lt;= 2`              |FALSE          |
+|!       |Not               |`!TRUE`               |FALSE           |
+|&amp;       |And               |`TRUE &amp; FALSE`        |FALSE    |
+|	&amp;#124; |Or                |`TRUE` &amp;#124; `FALSE` |TRUE    |
 
-<br/>
+&lt;br/&gt;
 
-```{r, echo=TRUE}
-5 >= 2
+
+```r
+5 &gt;= 2
+```
+
+```
+## [1] TRUE
 ```
 
 
@@ -261,23 +256,29 @@ R provides a series of basic logical operators to test
 
 ## Variables
 
-<br/>
+&lt;br/&gt;
 
 Variables **store data** and can be defined 
 
 - using an *identifier* (e.g., `a_variable`) 
-- on the left of an *assignment operator* `<-`
+- on the left of an *assignment operator* `&lt;-`
 - followed by the object to be linked to the identifier
 - such as a *value* (e.g., `1`) 
 
-```{r, echo=TRUE}
-a_variable <- 1
+
+```r
+a_variable &lt;- 1
 ```
 
 The value of the variable can be invoked by simply specifying the **identifier**.
 
-```{r, echo=TRUE}
+
+```r
 a_variable
+```
+
+```
+## [1] 1
 ```
 
 
@@ -290,19 +291,20 @@ a_variable
 
 Example: the first five rows of the [`iris`](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris) dataset
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 iris
 ```
-```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(knitr)
 
-iris %>% 
-  slice_head(n = 5) %>% 
-  kable()
-```
+| Sepal.Length| Sepal.Width| Petal.Length| Petal.Width|Species |
+|------------:|-----------:|------------:|-----------:|:-------|
+|          5.1|         3.5|          1.4|         0.2|setosa  |
+|          4.9|         3.0|          1.4|         0.2|setosa  |
+|          4.7|         3.2|          1.3|         0.2|setosa  |
+|          4.6|         3.1|          1.5|         0.2|setosa  |
+|          5.0|         3.6|          1.4|         0.2|setosa  |
 
-<br/>
+&lt;br/&gt;
 
 ... more on what data frames actually are in the coming weeks.
 
@@ -311,7 +313,7 @@ iris %>%
 
 ## Algorithms and functions
 
-<br/>
+&lt;br/&gt;
 
 *An* **algorithm** *or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation* (Cutland, 1980).
 
@@ -330,7 +332,7 @@ Programming languages usually provide pre-defined functions that implement commo
 
 ## Functions
 
-<br/>
+&lt;br/&gt;
 
 Functions execute complex operations and can be invoked 
 
@@ -339,9 +341,21 @@ Functions execute complex operations and can be invoked
     - each *argument* corresponds to a *parameter*
     - sometimes the *parameter* name must be specified
 
-```{r, echo=TRUE}
+
+```r
 sqrt(2)
+```
+
+```
+## [1] 1.414214
+```
+
+```r
 round(1.414214, digits = 2)
+```
+
+```
+## [1] 1.41
 ```
 
 
@@ -350,16 +364,19 @@ round(1.414214, digits = 2)
 
 ## Example: data visualisation
 
-<br/>
+&lt;br/&gt;
 
 `R` provides a wide range of functions
 
 - allowing to execute the steps necessary to conduct a data analysis
 - e.g., using `hist` to plot the histogram of petal lengths of flowers in `iris`
 
-```{r, echo=TRUE, fig.height=3}
+
+```r
 hist(iris$Petal.Length, main = "Petal lengths")
 ```
+
+![](101-slides-introduction_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 
 
@@ -367,16 +384,35 @@ hist(iris$Petal.Length, main = "Petal lengths")
 
 ## Functions and variables
 
-<br/>
+&lt;br/&gt;
 
-- functions can be used on the right side of `<-` 
+- functions can be used on the right side of `&lt;-` 
 - variables and functions can be used as *arguments*
 
-```{r, echo=TRUE}
-sqrt_of_two <- sqrt(2)
+
+```r
+sqrt_of_two &lt;- sqrt(2)
 sqrt_of_two
+```
+
+```
+## [1] 1.414214
+```
+
+```r
 round(sqrt_of_two, digits = 2)
+```
+
+```
+## [1] 1.41
+```
+
+```r
 round(sqrt(2), digits = 2)
+```
+
+```
+## [1] 1.41
 ```
 
 
@@ -409,12 +445,13 @@ A *coding style* is a way of writing the code, including
 - how spaces are used in the code
 - which libraries are used
 
-```{r, echo=TRUE, eval=FALSE}
+
+```r
 # Bad
-X<-round(sqrt(2),2)
+X&lt;-round(sqrt(2),2)
 
 #Good
-sqrt_of_two <- sqrt(2) %>%
+sqrt_of_two &lt;- sqrt(2) %&gt;%
  round(digits = 2)
 ```
 
@@ -427,7 +464,7 @@ Study the [Tidyverse Style Guide](http://style.tidyverse.org/) and use it consis
 
 ## Libraries
 
-<br/>
+&lt;br/&gt;
 
 Once a number of related, reusable functions are created
 
@@ -446,7 +483,7 @@ Libraries can be of any size and complexity, e.g.:
 
 ## Tidyverse
 
-<br/>
+&lt;br/&gt;
 
 .pull-left[
 
@@ -475,7 +512,7 @@ The [Tidyverse](https://www.tidyverse.org/) was introduced by statistician [Hadl
 Also, imports [`magrittr`](https://magrittr.tidyverse.org/), which plays an important role.
 
 
-<!--
+&lt;!--
 
 ## Tidyverse core libraries
 
@@ -503,7 +540,7 @@ The meta-library [Tidyverse](https://www.tidyverse.org/) contains the following 
 - **[`purrr`](https://purrr.tidyverse.org/)** enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive. 
 - **[`forcats`](https://forcats.tidyverse.org/)** provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.
 
--->
+--&gt;
 
 
 
@@ -515,7 +552,7 @@ The [Tidyverse](https://www.tidyverse.org/) (via [`magrittr`](https://magrittr.t
 
 .pull-left-small[
 
-The pipe operator `%>%`
+The pipe operator `%&gt;%`
 
 - takes the result from one function
 - and passes it to the next function
@@ -534,22 +571,32 @@ The pipe operator `%>%`
 
 ## Pipe example
 
-<br/>
+&lt;br/&gt;
 
 The two codes below are equivalent
 
 - the first simply invokes the functions
-- the second uses the pipe operator `%>%`
+- the second uses the pipe operator `%&gt;%`
 
-```{r, echo=TRUE}
+
+```r
 round(sqrt(2), digits = 2)
 ```
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+```
+## [1] 1.41
+```
+
+
+```r
 library(tidyverse)
 
-sqrt(2) %>%
+sqrt(2) %&gt;%
  round(digits = 2)
+```
+
+```
+## [1] 1.41
 ```
 
 
@@ -557,26 +604,30 @@ sqrt(2) %>%
 
 ## Pipe example: data visualisation
 
-<br/>
+&lt;br/&gt;
 
 The previous histogram example
 
-```{r, echo=TRUE, eval=FALSE, fig.height=3}
+
+```r
 hist(iris$Petal.Length, main = "Petal lengths")
 ```
 
 can be rewritten as
 
-```{r, echo=TRUE, fig.height=3}
-iris %>% pull(Petal.Length) %>% hist(main = "Petal lengths")
+
+```r
+iris %&gt;% pull(Petal.Length) %&gt;% hist(main = "Petal lengths")
 ```
+
+![](101-slides-introduction_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
 
 
 ---
 
 ## Summary
 
-<br/>
+&lt;br/&gt;
 
 .pull-left[
 
@@ -592,7 +643,7 @@ An introduction to R
 - Select and filter
 - Reproducibility
 
-<br/>
+&lt;br/&gt;
 
 .referencenote[
 Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
@@ -605,7 +656,7 @@ Slides created via the R package [**xaringan**](https://github.com/yihui/xaringa
 
 .right[
 .referencenote[
-by Hadley Wickham and others at RStudio<br/>
+by Hadley Wickham and others at RStudio&lt;br/&gt;
 via Wikimedia Commons, CC BY-SA 4.0
 ]
 ]
@@ -613,6 +664,129 @@ via Wikimedia Commons, CC BY-SA 4.0
 ]
 
 
-```{r cleanup, include=FALSE}
-rm(list = ls())
-```
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="macros/my_remark_macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

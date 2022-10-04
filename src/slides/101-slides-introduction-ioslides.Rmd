@@ -1,21 +1,13 @@
 ---
 title: "Lecture 101"
-author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
-institute: ""
-date: "<small>2022-10-04</small>"
+author: "granolarr by Dr Stefano De Sabbata<br/>School of Geography, Geology, and the Env.<br/>University of Leicester<br/><a href=\"https://github.com/r-for-geographic-data-science/granolarr\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\">GNU GPL v3.0</a>"
+date: "`r Sys.Date()`"
 output:
-  xaringan::moon_reader:
-    self_contained: true
-    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
-    lib_dir: libs
-    nature:
-      ratio: '16:9'
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
-      beforeInit: "macros/my_remark_macros.js"
+  ioslides_presentation:
+    widescreen: true
+    template: ../utils/IOSlides/RfGDS_Template.html
+    css: ../utils/RMarkdown/rmarkdown_classes.css
 ---
-class: inverse, center, middle
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
@@ -24,16 +16,34 @@ rm(list = ls())
 ```
 
 
+
 # Introduction to R
 
 
----
 
 ## About this module
 
-.pull-left[
+This module will provide you with the fundamental skills in
 
-`R` is one of the most widely used languages for *(geospatial)* data science
+- basic programming in R
+- data wrangling
+- data analysis
+- reproducibility
+
+basis for
+
+- *GY7707 Geospatial Data Analysis*
+- *GY7708 Geospatial Artificial intelligence*
+
+
+
+## R programming language
+    
+One of the most widely used programming languages and an effective tool for *(geospatial)* data science
+
+:::::: {.cols data-latex=""}
+
+::: {.col style="width: 50%" data-latex="{0.5\textwidth}"}
 
 - data wrangling
 - statistical analysis
@@ -41,6 +51,10 @@ rm(list = ls())
 - data visualisation and maps
 - processing spatial data
 - geographic information analysis
+
+:::
+
+::: {.col style="width: 50%; text-align: right;" data-latex="{0.5\textwidth}"}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 4, fig.width = 4}
 ifelse(!dir.exists(file.path(Sys.getenv("RGDS_HOME"), "tmp")), dir.create(file.path(Sys.getenv("RGDS_HOME"), "tmp")), FALSE)
@@ -74,30 +88,21 @@ if(length(list.files(path = "./tmp", include.dirs = TRUE)) == 0){
 }
 ```
 
-]
-.pull-right[
+:::
 
-This module will provide you with the fundamental skills in
-
-- basic programming in R
-- data wrangling
-- data analysis
-- reproducibility
-
-basis for
-
-- *GY7707 Geospatial Data Analysis*
-- *GY7708 Geospatial Artificial intelligence*
-
-]
+::::::
 
 
-
----
 
 ## Schedule
 
 The lectures and practical sessions have been designed to follow the schedule below
+
+
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}"}
 
 - **Introduction to Reproducible Data Science**
     - 101 Introduction to R
@@ -107,18 +112,26 @@ The lectures and practical sessions have been designed to follow the schedule be
 - **R Scripting**
     - 201 Control structures
     - 202 Functions
+  
+:::
+
+::: {.col data-latex="{0.5\textwidth}"}
+
+
 - **Data analysis**
     - 301 Exploratory visualisation
     - 302 Exploratory statistics
     - 303 Comparing data
     - 304 Regression models
 
+:::
+::::::
 
 
----
 
 ## Reference books
 
+<div style="font-size:80%;">
 Suggested reading
 
 - *Programming Skills for Data Science: Start Writing Code to Wrangle, Analyze, and Visualize Data with R* by Michael Freeman and Joel Ross, Addison-Wesley, 2019. See book [webpage](https://www.pearson.com/us/higher-education/program/Freeman-Programming-Skills-for-Data-Science-Start-Writing-Code-to-Wrangle-Analyze-and-Visualize-Data-with-R/PGM2047488.html) and [repository](https://programming-for-data-science.github.io/).
@@ -131,15 +144,10 @@ Further reading
 - *The Art of R Programming: A Tour of Statistical Software Design* by Norman Matloff, No Starch Press, 2011. See book [webpage](https://nostarch.com/artofr.htm)
 - *An Introduction to R for Spatial Analysis and Mapping* by Chris Brunsdon and Lex Comber, Sage, 2015. See book [webpage](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
 - *Geocomputation with R* by Robin Lovelace, Jakub Nowosad, Jannes Muenchow, CRC Press, 2019. See [online book](https://bookdown.org/robinlovelace/geocompr/).
+</div>
 
 
----
-
-## The R programming language
-
-.pull-left[
-
-<br/>
+## R
 
 Created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland, New Zealand
 
@@ -154,36 +162,9 @@ Created in 1992 by Ross Ihaka and Robert Gentleman at the University of Auckland
 - Object-oriented
 - Interpreted (not compiled)
 
-]
-.pull-right[
 
-<br/>
-<br/>
-
-
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/1200px-R_logo.svg.png)
-
-.right[
-.referencenote[
-by Hadley Wickham and others at RStudio<br/>
-via Wikimedia Commons, CC BY-SA 4.0
-]
-]
-
-]
-
-<br/>
-
-
-
-
----
 
 ## Interpreting values
-
-.pull-left[
-
-<br/>
 
 When values and operations are inputted in the *Console*, the interpreter returns the results of its interpretation of the expression
 
@@ -193,10 +174,9 @@ When values and operations are inputted in the *Console*, the interpreter return
 # comments are ignored
 ```
 
-]
-.pull-right[
 
-<br/>
+
+## Basic types
 
 R provides three core data types
 
@@ -207,13 +187,12 @@ R provides three core data types
 - logical
     - `TRUE` or `FALSE`
 
-]
-
----
 
 ## Numeric operators
 
 R provides a series of basic numeric operators
+
+<div>
 
 |Operator|Meaning         |Example  |Output     |
 |--------|----------------|---------|-----------|
@@ -225,6 +204,7 @@ R provides a series of basic numeric operators
 |%%      |Module          |`5 %% 2` |`r 5 %% 2` |
 |^       |Power           |`5^2`    |`r 5^2`    |
 
+</div>
 <br/>
 
 ```{r, echo=TRUE}
@@ -233,23 +213,24 @@ R provides a series of basic numeric operators
 
 
 
----
-
 ## Logical operators
 
 
 R provides a series of basic logical operators to test
 
-|Operator|Meaning           |Example               |Output              |
-|--------|------------------|----------------------|--------------------|
-|==      |Equal             |`5 == 2`              |`r 5 == 2`          |
-|!=      |Not equal         |`5 != 2`              |`r 5 != 2`          |
-|> (>=)  |Greater (or equal)|`5 > 2`               |`r 5 > 2`           |
-|< (<=)  |Less (or equal)   |`5 <= 2`              |`r 5 <= 2`          |
-|!       |Not               |`!TRUE`               |`r !TRUE`           |
-|&       |And               |`TRUE & FALSE`        |`r TRUE & FALSE`    |
-|	&#124; |Or                |`TRUE` &#124; `FALSE` |`r TRUE | FALSE`    |
+<div>
 
+|Operator|Meaning           |Example           |Output              |
+|--------|------------------|------------------|--------------------|
+|==      |Equal             |`5 == 2`          |`r 5 == 2`          |
+|!=      |Not equal         |`5 != 2`          |`r 5 != 2`          |
+|> (>=)  |Greater (or equal)|`5 > 2`           |`r 5 > 2`           |
+|< (<=)  |Less (or equal)   |`5 <= 2`          |`r 5 <= 2`          |
+|!       |Not               |`!TRUE`           |`r !TRUE`           |
+|&       |And               |`TRUE & FALSE`    |`r TRUE & FALSE`    |
+|\|      |Or                |`TRUE | FALSE`    |`r TRUE | FALSE`    |
+
+</div>
 <br/>
 
 ```{r, echo=TRUE}
@@ -257,11 +238,7 @@ R provides a series of basic logical operators to test
 ```
 
 
----
-
 ## Variables
-
-<br/>
 
 Variables **store data** and can be defined 
 
@@ -281,8 +258,6 @@ a_variable
 ```
 
 
-
----
 
 ## Data frames
 
@@ -307,11 +282,7 @@ iris %>%
 ... more on what data frames actually are in the coming weeks.
 
 
----
-
 ## Algorithms and functions
-
-<br/>
 
 *An* **algorithm** *or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation* (Cutland, 1980).
 
@@ -326,11 +297,7 @@ Programming languages usually provide pre-defined functions that implement commo
 
 
 
----
-
 ## Functions
-
-<br/>
 
 Functions execute complex operations and can be invoked 
 
@@ -346,11 +313,7 @@ round(1.414214, digits = 2)
 
 
 
----
-
 ## Example: data visualisation
-
-<br/>
 
 `R` provides a wide range of functions
 
@@ -363,11 +326,7 @@ hist(iris$Petal.Length, main = "Petal lengths")
 
 
 
----
-
 ## Functions and variables
-
-<br/>
 
 - functions can be used on the right side of `<-` 
 - variables and functions can be used as *arguments*
@@ -381,14 +340,9 @@ round(sqrt(2), digits = 2)
 
 
 
----
+## Naming
 
-## Coding style
-
-
-.pull-left[
-
-**Naming**: when creating an identifier for a variable or function
+When creating an identifier for a variable or function
 
 - R is a **case sensitive** language
     - UPPER and lower case are not the same
@@ -399,8 +353,8 @@ round(sqrt(2), digits = 2)
 - names must start with
     - a letter
 
-]
-.pull-right[
+
+## Coding style
 
 A *coding style* is a way of writing the code, including
 
@@ -420,14 +374,9 @@ sqrt_of_two <- sqrt(2) %>%
 
 Study the [Tidyverse Style Guide](http://style.tidyverse.org/) and use it consistently!
 
-]
 
-
----
 
 ## Libraries
-
-<br/>
 
 Once a number of related, reusable functions are created
 
@@ -442,37 +391,39 @@ Libraries can be of any size and complexity, e.g.:
 
 
 
----
-
 ## Tidyverse
-
-<br/>
-
-.pull-left[
 
 The [Tidyverse](https://www.tidyverse.org/) was introduced by statistician [Hadley Wickham](https://t.co/DWqWlxbOKK?amp=1), Chief Scientist at [RStudio](https://rstudio.com/) (worth following him on [twitter](https://twitter.com/hadleywickham)).
 
-- *"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."* ([Tidyverse homepage](https://www.tidyverse.org/)).
-
-
-]
-.pull-right[
+*"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."* ([Tidyverse homepage](https://www.tidyverse.org/)).
 
 **Core libraries**
+
+:::::: {.cols data-latex=""}
+
+::: {.col data-latex="{0.5\textwidth}" style="width: 50%"}
+
 
 - [`tibble`](https://tibble.tidyverse.org/)
 - [`tidyr`](https://tidyr.tidyverse.org/)
 - [`stringr`](https://stringr.tidyverse.org/)
 - [`dplyr`](https://dplyr.tidyverse.org/)
+
+
+:::
+
+::: {.col data-latex="{0.5\textwidth}" style="width: 50%"}
+
 - [`readr`](https://readr.tidyverse.org/)
 - [`ggplot2`](https://ggplot2.tidyverse.org/)
 - [`purrr`](https://purrr.tidyverse.org/)
 - [`forcats`](https://forcats.tidyverse.org/)
 
-
-]
+:::
+::::::
 
 Also, imports [`magrittr`](https://magrittr.tidyverse.org/), which plays an important role.
+
 
 
 <!--
@@ -507,13 +458,9 @@ The meta-library [Tidyverse](https://www.tidyverse.org/) contains the following 
 
 
 
----
-
 ## The pipe operator
 
 The [Tidyverse](https://www.tidyverse.org/) (via [`magrittr`](https://magrittr.tidyverse.org/)) also provide a clean and effective way of combining multiple manipulation steps
-
-.pull-left-small[
 
 The pipe operator `%>%`
 
@@ -522,19 +469,15 @@ The pipe operator `%>%`
 - as the **first argument**
 - that doesn't need to be included in the code anymore
 
-]
-.pull-right-large[
-
-![Pipe operator example and diagram](images/PipeOperator.png)
-
-]
 
 
----
+## Pipe example diagram
+<center>
+![Pipe operator example and diagram](images/PipeOperator.png){width=100%}
+</center>
+
 
 ## Pipe example
-
-<br/>
 
 The two codes below are equivalent
 
@@ -553,11 +496,7 @@ sqrt(2) %>%
 ```
 
 
----
-
 ## Pipe example: data visualisation
-
-<br/>
 
 The previous histogram example
 
@@ -572,13 +511,7 @@ iris %>% pull(Petal.Length) %>% hist(main = "Petal lengths")
 ```
 
 
----
-
 ## Summary
-
-<br/>
-
-.pull-left[
 
 An introduction to R
 
@@ -591,27 +524,6 @@ An introduction to R
 - Read and write data
 - Select and filter
 - Reproducibility
-
-<br/>
-
-.referencenote[
-Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
-]
-
-]
-.pull-right[
-
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/R_logo.svg/1200px-R_logo.svg.png)
-
-.right[
-.referencenote[
-by Hadley Wickham and others at RStudio<br/>
-via Wikimedia Commons, CC BY-SA 4.0
-]
-]
-
-]
-
 
 ```{r cleanup, include=FALSE}
 rm(list = ls())
