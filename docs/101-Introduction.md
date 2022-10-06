@@ -101,7 +101,7 @@ Anything that follows a `#` symbol is considered a *comment*, and the interprete
 # hi, I am a comment, please ignore me
 ```
 
-As mentioned above, the interpreter understands simple operations on numeric and logic values, as well as text objects (including single characters and strings of character, that is text objects longer than one character, commonly referred to simply as *strings* in computer science), as discussed in more detail in [Appendix 1](docs/appendix-1.html#basic-types).
+As mentioned above, the interpreter understands simple operations on numeric and logic values, as well as text objects (including single characters and strings of character, that is text objects longer than one character, commonly referred to simply as *strings* in computer science), as discussed in more detail in [Appendix 1](appendix-1.html#basic-types).
 
 
 ```r

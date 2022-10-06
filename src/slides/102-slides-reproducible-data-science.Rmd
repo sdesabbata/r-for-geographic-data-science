@@ -1,0 +1,731 @@
+---
+title: "Lecture 102"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-10-04</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Reproducible data science
+
+
+
+---
+
+## Recap
+
+**Prev**: Introduction
+
+- 101 Lecture: Introduction to R
+- 102 Lecture: Core concepts
+- 103 Lecture: Tidyverse
+- 104 Practical session
+
+**Now**: Data types
+
+- vectors
+- factors
+- matrices, arrays
+- lists
+
+
+---
+
+## Data science
+
+Data science is
+
+---
+
+## Reproduciblity
+
+In quantitative research, an analysis or project are considered to be **reproducible** if:
+
+- *"the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding."* [Christopher Gandrud, *Reproducible Research with R and R Studio*](https://www.crcpress.com/Reproducible-Research-with-R-and-R-Studio/Gandrud/p/book/9781498715379)
+
+That is becoming more and more important in science:
+
+- as programming and scripting are becoming integral in most disciplines
+- as the amount of data increases
+
+
+
+---
+
+## Why?
+
+In **scientific research**:
+
+- verificability of claims through replication
+- incremental work, avoid duplication
+
+For your **working practice**:
+
+- better working practices
+    - coding
+    - project structure
+    - versioning
+- better teamwork
+- higher impact (not just results, but code, data, etc.)
+
+
+
+---
+
+## Reproducibility and software engineering
+
+Core aspects of **software engineering** are:
+
+- project design
+- software **readibility**
+- testing
+- **versioning**
+
+As programming becomes integral to research, similar necessities arise among scientists and data analysts.
+
+
+
+---
+
+## Reproducibility and "big data"
+
+There has been a lot of discussions about **"big data"**...
+
+- volume, velocity, variety, ...
+
+Beyond the hype of the moment, as the **amount** and **complexity** of data increases
+
+- the time required to replicate an analysis using point-and-click software becomes unsustainable
+- room for error increases
+
+Workflow management software (e.g., ArcGIS ModelBuilder) is one answer, reproducible data analysis based on script languages like R is another.
+
+
+
+---
+
+## Reproducibility in GIScience
+
+[Singleton *et al.*](https://www.tandfonline.com/doi/abs/10.1080/13658816.2015.1137579) have discussed the issue of reproducibility in GIScience, identifying the following best practices:
+
+1. Data should be accessible within the public domain and available to researchers.
+2. Software used should have open code and be scrutable.
+3. Workflows should be public and link data, software, methods of analysis and presentation with discursive narrative
+4. The peer review process and academic publishing should require submission of a workflow model and ideally open archiving of those materials necessary for
+replication.
+5. Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances
+
+
+
+---
+
+## Document everything
+
+In order to be reproducible, every step of your project should be documented in detail
+
+- data gathering
+- data analysis
+- results presentation
+
+Well documented R scripts are an excellent way to document your project. 
+
+
+
+---
+
+## Document well
+
+Create code that can be **easily understood** by someone outside your project, including yourself in six-month time!
+
+- use a style guide (e.g. [tidyverse](http://style.tidyverse.org/)) consistently
+- also add a **comment** before any line that could be ambiguous or particularly difficult or important
+- add a **comment** before each code block, describing what the code does
+- add a **comment** at the beginning of a file, including
+    - date
+    - contributors
+    - other files the current file depends on
+    - materials, sources and other references 
+
+
+
+---
+
+## Workflow
+
+Relationships between files in a project are not simple:
+
+- in which order are file executed?
+- when to copy files from one folder to another, and where?
+
+A common solution is using **make files**
+
+- commonly written in *bash* on Linux systems
+- they can be written in R, using commands like
+    - *source* to execute R scripts
+    - *system* to interact with the operative system
+
+
+
+---
+
+## Mark.R
+
+Section of the [*R for Geographic Data Science*](https://github.com/sdesabbata/r-for-geographic-data-science) project make file [Make.R](https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/Make.R) that generates the current slides for the lecture session 221
+
+```{}
+cat("\n\n>>> Rendering 221-reproducibility.Rmd <<<\n\n")
+rmarkdown::render(
+  paste0(
+    Sys.getenv("RGDS_HOME"), 
+    "/src/slides/221-reproducibility.Rmd"
+  ), 
+  quiet = TRUE, 
+  output_dir = paste0(
+    Sys.getenv("RGDS_HOME"), 
+    "/docs/slides"
+  )
+)
+```
+
+
+---
+
+## Future-proof formats
+
+Complex formats (e.g., .docx, .xlsx, .shp, ArcGIS .mxd)
+
+- can become obsolete
+- are not always portable
+- usually require proprietary software
+
+Use the simplest format to **future-proof** your analysis.<br/>**Text files** are the most versatile
+
+- data: .txt, .csv, .tsv
+- analysis: R scripts, python scripts
+- write-up: LaTeX, Markdown, HTML
+
+
+
+---
+
+## Store and share
+
+Reproducible data analysis is particularly important when working in teams, to share and communicate your work.
+
+- [Dropbox](https://www.dropbox.com)
+    - good option to work in teams, initially free
+    - no versioning, branches
+- [Git](https://git-scm.com)
+    - free and opensource control system
+    - great to work in teams and share your work publicly
+    - can be more difficult at first
+    - [GitHub](https://github.com) offers free public and private repositories
+    - [GitLab](https://about.gitlab.com/) offers free public and private repositories
+
+
+
+---
+
+## Vectors
+
+**Vectors** are ordered list of values.
+
+- Vectors can be of any data type
+    - numeric
+    - character
+    - logic
+- All items in a vector have to be of the same type
+- Vectors can be of any length
+
+
+---
+
+## Defining vectors
+
+A vector variable can be defined using 
+
+- an **identifier** (e.g., `a_vector`) 
+- on the left of an **assignment operator** `<-`
+- followed by the object to be linked to the identifier
+- in this case, the result returned by the function `c`
+- which creates a vector containing the provided elements
+
+```{r, echo=TRUE}
+a_vector <- c("Birmingham", "Derby", "Leicester",
+  "Lincoln", "Nottingham", "Wolverhampton")
+a_vector
+```
+
+<!--
+Note that the second line of the answer provided by R in the console when asking to evaluate the variable starts with `[5]`, as the second line stats with the fifth element of the answer (i.e., the vector)
+-->
+
+---
+
+## Creating vectors
+
+- the operator `:`
+- the function `seq`
+- the function `rep`
+
+```{r, echo=TRUE}
+4:7
+seq(1, 7, by = 0.5)
+seq(1, 10, length.out = 7)
+rep("Ciao", 4)
+```
+
+---
+
+## Functions on vectors
+
+Functions can be used on a vector variable directly
+
+```{r, echo=TRUE}
+a_numeric_vector <- 1:5
+a_numeric_vector + 10
+sqrt(a_numeric_vector)
+a_numeric_vector >= 3
+```
+
+
+
+---
+
+## Any and all
+
+Overall expressions can be tested using the functions:
+
+- **any**, TRUE if any of the elements satisfies the condition
+- **all**, TRUE if all of the elements satisfy the condition
+
+```{r, echo=TRUE}
+any(a_numeric_vector >= 3)
+all(a_numeric_vector >= 3)
+```
+
+
+---
+
+## Selection
+
+Each element of a vector can be retrieved specifying the related **index** between square brackets, after the identifier of the vector. The first element of the vector has index 1.
+
+```{r, echo=TRUE}
+a_vector[3]
+```
+
+
+A vector of indexes can be used to retrieve more than one element.
+
+```{r, echo=TRUE}
+a_vector[c(5, 3)]
+```
+
+
+
+---
+
+## Factors
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
+
+```{r, echo=TRUE}
+houses_vector <- c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace")
+houses_vector
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+---
+
+## table
+
+The function **table** can be used to obtain a tabulated count for each level.
+
+```{r, echo=TRUE}
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+table(houses_factor)
+```
+
+---
+
+## Specified levels
+
+A specific set of levels can be specified when creating a factor by providing a **levels** argument.
+
+```{r, echo=TRUE}
+houses_factor_spec <- factor(
+  c("People Carrier", "Flat", "Flat", "Hatchback",
+      "Flat", "Terrace", "Terrace"),
+  levels = c("Bungalow", "Flat", "Detached",
+       "Semi", "Terrace"))
+
+table(houses_factor_spec)
+```
+
+
+---
+
+## (Unordered) Factors
+
+In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
+
+```{r, echo=TRUE}
+income_nominal <- factor(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+```
+
+The *greater than* operator is not meaningful on the `income_nominal` factor defined above
+
+```{r, echo=TRUE}
+income_nominal > "Low"
+```
+
+---
+
+## Ordered Factors
+
+In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
+
+```{r, echo=TRUE}
+income_ordered <- ordered(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+
+income_ordered > "Low"
+
+sort(income_ordered)
+```
+
+
+---
+
+## Lists
+
+Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
+
+```{r, echo=TRUE}
+employee <- list("Stef", 2015)
+employee
+employee[[1]] # Note the double square brackets for selection
+```
+
+
+---
+
+## Named Lists
+
+In **named lists** each element has a name, and elements can be selected using their name after the symbol `$`. 
+
+```{r, echo=TRUE}
+employee <- list(employee_name = "Stef", start_year = 2015)
+employee
+employee$employee_name
+```
+
+
+---
+
+## Data Frames
+
+A **data frame** is equivalent to a *named list* where all elements are *vectors of the same length*.
+
+```{r, echo=TRUE}
+employees <- data.frame(
+  EmployeeName = c("Maria", "Pete", "Sarah"),
+  Age = c(47, 34, 32),
+  Role = c("Professor", "Researcher", "Researcher"))
+employees
+```
+
+Data frames are the most common way to represent tabular data in R. Matrices and lists can be converted to data frames.
+
+
+---
+
+## tibble
+
+A [tibble](https://tibble.tidyverse.org/) is a modern reimagining of the data.frame within `tidyverse`
+
+- they do less 
+    - don’t change column names or types
+    - don’t do partial matching
+- complain more
+    - e.g. when referring to a column that does not exist
+    
+That forces you to confront problems earlier, typically leading to cleaner, more expressive code.
+
+
+
+
+---
+
+## dplyr
+
+The `dplyr` (pronounced *dee-ply-er*) library is part of `tidyverse` and it offers a grammar for data manipulation
+
+- `select`: select specific columns
+- `filter`: select specific rows
+- `arrange`: arrange rows in a particular order
+- `summarise`: calculate aggregated values (e.g., mean, max, etc)
+- `group_by`: group data based on common column values
+- `mutate`: add columns
+- `join`: merge tables (`tibbles` or `data.frames`)
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+
+---
+
+## Example dataset
+
+The library `nycflights13` contains a dataset storing data about all the flights departed from New York City in 2013
+<!--
+```{r, echo=TRUE, eval=FALSE}
+install.packages("nycflights13")
+```
+-->
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+library(nycflights13)
+
+nycflights13::flights
+```
+```{r, echo=FALSE}
+library(nycflights13)
+
+nycflights13::flights %>% 
+  print(n= 3, width = 70)
+```
+
+
+
+---
+
+## Selecting table columns
+
+Columns of **data frames** and **tibbles** can be selected
+
+- specifying the column index
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights[, c(13, 14)]
+```
+
+- specifying the column name
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights[, c("origin", "dest")]
+```
+```{r, echo=FALSE}
+nycflights13::flights[, c("origin", "dest")] %>% 
+  print(n = 3)
+```
+
+
+
+---
+
+## dplyr::select
+
+`select` can be used to specify which columns to retain
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  dplyr::select( 
+    origin, dest, dep_delay, arr_delay, year:day
+  )
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::select( 
+    origin, dest, dep_delay, arr_delay, year:day
+  ) %>% 
+  print(n = 5)
+```
+
+
+---
+
+## dplyr::select
+
+... or whichones to drop, using - in front of the column name
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>% 
+  dplyr::select(-arr_delay)
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::select(
+    origin, dest, dep_delay, arr_delay, year:day
+  ) %>% 
+  dplyr::select(
+    -arr_delay
+  ) %>% 
+  print(n = 3)
+```
+
+
+---
+
+## Logical filtering
+
+Conditional statements can be used to filter a vector
+
+- i.e. to retain only certain values
+- where the specified value is `TRUE`
+
+```{r, echo=TRUE}
+a_numeric_vector <- -3:3
+a_numeric_vector
+a_numeric_vector[c(FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)]
+```
+
+
+
+---
+
+## Conditional filtering
+
+As a conditional expression results in a logic vector...
+
+```{r, echo=TRUE}
+a_numeric_vector > 0
+```
+
+<br/>
+... conditional expressions can be used for filtering
+
+```{r, echo=TRUE}
+a_numeric_vector[a_numeric_vector > 0]
+```
+
+
+
+---
+
+## Filtering data frames
+
+The same approach can be applied to **data frames** and **tibbles**
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights$month
+```
+```{r, echo=FALSE}
+capture.output(nycflights13::flights$month)[1] %>% str_trunc(52) %>% cat()
+```
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights$month == 11
+```
+```{r, echo=FALSE}
+capture.output(nycflights13::flights$month == 11)[1] %>% str_trunc(52) %>% cat()
+```
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights[nycflights13::flights$month == 11, ]
+```
+```{r, echo=FALSE}
+nycflights13::flights[nycflights13::flights$month == 11, ] %>% 
+  print(n = 1, width = 52)
+```
+
+
+
+---
+
+## dplyr::filter
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  # Flights in November
+  dplyr::filter(month == 11)
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::filter(month == 11) %>%
+  print(n = 3, width = 52)
+```
+
+
+
+
+---
+
+## Select and filter
+
+```{r, echo=TRUE, eval=FALSE}
+nycflights13::flights %>%
+  # Select the columns you need
+  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>% 
+  # Drop arr_delay... because you don't need it after all
+  dplyr::select(-arr_delay) %>%
+  # Filter in only November flights
+  dplyr::filter(month == 11)
+```
+```{r, echo=FALSE}
+nycflights13::flights %>%
+  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>%
+  dplyr::select(-arr_delay) %>%
+  dplyr::filter(month == 11) %>%
+  print(n = 3, width = 52)
+```
+
+
+
+---
+
+## Recap
+
+Data types
+
+- Vectors
+- Factors
+- Matrices, arrays
+- Lists
+
+**Next**: Control structures
+
+- Conditional statements
+- Loops
+
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
