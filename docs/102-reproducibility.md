@@ -13,29 +13,50 @@ Data science is...
 - *to-do: below show examples with pipes as well*
 
 
+### R Scripts
+
+The RStudio Console is handy to interact with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow you to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis scripts of any significant size is to use the RStudio integrated editor to create an `R` script.
+
+To create an `R` script, select from the top menu *File > New File > R Script*. That opens the embedded RStudio editor and a new empty `R` script folder. Copy the two lines below into the file. The first loads the `tidyverse` library, whereas the second simply calculates the square root of two.
+
+
 ```r
+# Load the Tidyverse
 library(tidyverse)
+
+# Calculate the square root of two
+2 %>% sqrt()
 ```
 
 ```
-## ── Attaching packages ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.1 ──
+## [1] 1.414214
 ```
 
-```
-## ✔ ggplot2 3.3.5     ✔ purrr   0.3.4
-## ✔ tibble  3.1.5     ✔ dplyr   1.0.7
-## ✔ tidyr   1.1.4     ✔ stringr 1.4.0
-## ✔ readr   2.0.2     ✔ forcats 0.5.1
-```
+As you can see, a comment precedes each line, describing what the subsequent command does. Adequately commenting the code is a fundamental practice in programming. As this is a learning resource, the comments in the examples below explain *"what"* the subsequent lines of code do. However, comments should generally focus on *"how"* a procedure (i.e., an algorithm) is implemented in a set of instructions (i.e., a section of the script) and crucially on *"why"* the procedure has been implemented in a specific way. We will see more complex examples in the rest of this book.
 
-```
-## ── Conflicts ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
+From the top menu, select *File > Save*, type in `My_first_script.R` (make sure to include the underscore and the `.R` extension) as *File name*, and click *Save*. Finally, click the *Source* button on the top-right of the editor. 
+
+Congratulations, you have executed your first `R` script! 😊👍
+
+You can then edit the script by adding (for instance) the new lines of code shown below, saving the file, and executing the script's new version.
+
+**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of the script? What happens if you click *Source* a third time?
 
 
-### Complex data types
+```r
+# First variable in a script:
+# the line below uses the Sys.time of the base library 
+# to obtain the current time as a character string
+current_time <- Sys.time()
+```
+
+RStudio also allows to select one or more lines and click *Run* to execute only the selected lines or the line where the cursor currently is.
+
+Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it, rather than using the Console.
+
+## Complex data types
+
+### Vectors
 
 Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**^[The term *list* has a specific meaning in `R`. Don't use the term *list* to refer to *vectors*.].
 
@@ -227,10 +248,7 @@ str_length(east_midlands_cities)
 ## [1]  5  9  7 10
 ```
 
-
-
-
-### Filtering data
+#### Selecting and filtering data
 
 As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (`TRUE` or `FALSE`) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned -- which contains the respective results of the conditions for each element.
 
@@ -302,7 +320,179 @@ minus_two_to_two[minus_two_to_two > 0]
 
 
 
-### Handling tables
+
+### Factors
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
+
+
+```r
+houses_vector <- c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace")
+houses_vector
+```
+
+```
+## [1] "Bungalow" "Flat"     "Flat"     "Detached" "Flat"     "Terrace"  "Terrace"
+```
+
+```r
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+```
+## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
+## Levels: Bungalow Detached Flat Terrace
+```
+
+The function **table** can be used to obtain a tabulated count for each level.
+
+
+```r
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+```
+## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
+## Levels: Bungalow Detached Flat Terrace
+```
+
+```r
+table(houses_factor)
+```
+
+```
+## houses_factor
+## Bungalow Detached     Flat  Terrace 
+##        1        1        3        2
+```
+
+A specific set of levels can be specified when creating a factor by providing a **levels** argument.
+
+
+```r
+houses_factor_spec <- factor(
+  c("People Carrier", "Flat", "Flat", "Hatchback",
+      "Flat", "Terrace", "Terrace"),
+  levels = c("Bungalow", "Flat", "Detached",
+       "Semi", "Terrace"))
+
+table(houses_factor_spec)
+```
+
+```
+## houses_factor_spec
+## Bungalow     Flat Detached     Semi  Terrace 
+##        0        3        0        0        2
+```
+
+In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
+
+
+```r
+income_nominal <- factor(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+```
+
+The *greater than* operator is not meaningful on the `income_nominal` factor defined above
+
+
+```r
+income_nominal > "Low"
+```
+
+```
+## Warning in Ops.factor(income_nominal, "Low"): '>' not meaningful for factors
+```
+
+```
+## [1] NA NA NA NA NA NA NA NA
+```
+
+In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
+
+
+```r
+income_ordered <- ordered(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+
+income_ordered > "Low"
+```
+
+```
+## [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+```
+
+```r
+sort(income_ordered)
+```
+
+```
+## [1] Low    Low    Low    Low    Medium Medium High   High  
+## Levels: Low < Medium < High
+```
+
+
+### Lists
+
+Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
+
+
+```r
+employee <- list("Stef", 2015)
+employee
+```
+
+```
+## [[1]]
+## [1] "Stef"
+## 
+## [[2]]
+## [1] 2015
+```
+
+```r
+employee[[1]] # Note the double square brackets for selection
+```
+
+```
+## [1] "Stef"
+```
+
+In **named lists** each element has a name, and elements can be selected using their name after the symbol `$`. 
+
+
+```r
+employee <- list(employee_name = "Stef", start_year = 2015)
+employee
+```
+
+```
+## $employee_name
+## [1] "Stef"
+## 
+## $start_year
+## [1] 2015
+```
+
+```r
+employee$employee_name
+```
+
+```
+## [1] "Stef"
+```
+
+
+### Data frames and tibbles
 
 *to-do: re-connect to tidyverse*
 
@@ -310,18 +500,13 @@ RStudio and RStudio Server come with a number of libraries already pre-installed
 
 The remainder of this practical requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13). To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
 
-As usual, use the function `library` to load the newly installed library.
+As usual, use the function `library` to load the newly installed library, along with the library `knitr` which can be use to produce more nicely-formatted outputs.
 
 
 ```r
+library(tidyverse)
 library(nycflights13)
-```
-
-The library `nycflights13` contains a dataset storing data about all the flights departed from New York City in 2013. The code below, loads the data frame `flights` from the library `nycflights13` into the variable `flights_from_nyc`, using the `::` operator to indicate that the data frame `flights` is situated within the library `nycflights13`.
-
-
-```r
-flights_from_nyc <- nycflights13::flights
+library(knitr)
 ```
 
 Add both lines above to your R script, as well as the code snippets provided as an example below.
@@ -330,10 +515,10 @@ The function `select` can be used to select some **columns** to output. For inst
 
 
 ```r
-flights_from_nyc %>%
-  dplyr::select(origin, dest, dep_delay) %>%
-  dplyr::slice_head(n = 5) %>%
-  knitr::kable()
+flights %>%
+  select(origin, dest, dep_delay) %>%
+  slice_head(n = 5) %>%
+  kable()
 ```
 
 
@@ -350,11 +535,11 @@ The function `filter` can instead be used to filter **rows** based on a specifie
 
 
 ```r
-flights_from_nyc %>%
-  dplyr::select(origin, dest, year, month, day, dep_delay) %>%
-  dplyr::filter(month == 11) %>%
-  dplyr::slice_head(n = 5) %>%
-  knitr::kable()
+flights %>%
+  select(origin, dest, year, month, day, dep_delay) %>%
+  filter(month == 11) %>%
+  slice_head(n = 5) %>%
+  kable()
 ```
 
 

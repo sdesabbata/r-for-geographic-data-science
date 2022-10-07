@@ -1,5 +1,5 @@
 # Base image https://hub.docker.com/r/rocker/ml
-FROM rocker/geospatial:4.1.1
+FROM rocker/geospatial:4.2.1
 
 # create an R user
 ENV USER rstudio
@@ -11,7 +11,7 @@ RUN Rscript /tmp/Requirements.R
 # Update tlmgr
 RUN tlmgr update --self
 
-# Install additional required TeX libraries
+# Install additional TeX libraries
 RUN tlmgr install amsmath
 RUN tlmgr install latex-amsmath-dev
 RUN tlmgr install iftex

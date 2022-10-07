@@ -14,9 +14,13 @@ the-pipe-operator
 exercise-101.1
 reproducible-data-science
 data-science
+r-scripts
 complex-data-types
-filtering-data
-handling-tables
+vectors
+selecting-and-filtering-data
+factors
+lists
+data-frames-and-tibbles
 reproducibility-1
 markdown
 r-markdown
@@ -53,7 +57,6 @@ working-with-functions
 function-definition
 functions-and-control-structures
 exercise-114.2
-r-scripts
 exploratory-visualisation
 gglot2-recap
 data-visualisation

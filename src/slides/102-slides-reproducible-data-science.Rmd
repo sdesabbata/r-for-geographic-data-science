@@ -52,12 +52,234 @@ rm(list = ls())
 
 ## Data science
 
-Data science is
+.pull-left[
+
+The term *"data science"* has gained wide-spread usage in the past decade
+
+- akin **data mining**
+- including or bordering
+    - machine learning
+    - artificial intelligence
+    - statistical analysis
+    - data visualisation
+- commonly associated with
+    - **big data**
+    - the use of **programming**
+        - python and R in particular
+        - but not necessarily
+    - **interdisciplinarity**
+        - generally used for those who *use* those tools within an *application field* (e.g., geography or geology)
+
+]
+.pull-right[
+
+```{r}
+knitr::include_url(
+  "https://sdesabbata.github.io/2021-census-analysis/100-exploratory-analysis/101-population-households.html",
+  height = "500px")
+```
+
+.referencenote[
+A simple example: [UK population and household change between 2011 and 2021 censuses](https://sdesabbata.github.io/2021-census-analysis/100-exploratory-analysis/101-population-households.html#Visualisation:_plots)
+]
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Complex data types
+
+
+
+
+---
+
+## Vectors
+
+.pull-left[
+
+**Vectors** are ordered list of values.
+
+- Vectors can be of any data type
+    - numeric
+    - character
+    - logic
+- All items in a vector have to be of the same type
+- Vectors can be of any length
+- Functions can be used on a vector variable directly
+
+]
+.pull-right[
+
+A vector variable can be defined using 
+
+- an **identifier** (e.g., `a_vector`) 
+- on the left of an **assignment operator** `<-`
+- followed by the object to be linked to the identifier
+- in this case, the result returned by the function `c`
+- which creates a vector containing the provided elements
+
+]
+
+<br/>
+
+```{r, echo=TRUE}
+a_vector <- c("Birmingham", "Derby", "Leicester",
+  "Lincoln", "Nottingham", "Wolverhampton")
+a_vector
+```
+
+
+
+
+---
+
+## Selection and filtering
+
+Each element of a vector can be retrieved specifying the related **index** between square brackets, after the identifier of the vector. The first element of the vector has index 1.
+
+```{r, echo=TRUE}
+a_vector[3]
+```
+
+
+A vector of indexes can be used to retrieve more than one element.
+
+```{r, echo=TRUE}
+a_vector[c(5, 3)]
+```
+
+A condition can be provided for filtering only the elements for which the condition is true
+
+```{r, echo=TRUE}
+a_numeric_vector <- 1:5
+a_numeric_vector[a_numeric_vector >= 3]
+```
+
+---
+
+## Factors
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
+
+A specific set of levels can be specified when creating a factor by providing a **levels** argument.
+
+```{r, echo=TRUE}
+houses_factor_spec <- factor(
+  c("People Carrier", "Flat", "Flat", "Hatchback",
+      "Flat", "Terrace", "Terrace"),
+  levels = c("Bungalow", "Flat", "Detached",
+       "Semi", "Terrace"))
+
+table(houses_factor_spec)
+```
+
+Factors are unordered by default, but ordered factors can be created
+
+
+---
+
+## Lists and data frames
+
+Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
+
+```{r, echo=TRUE}
+employee <- list("Stef", 2015)
+employee
+employee[[1]] # Note the double square brackets for selection
+```
+
+In **named lists** each element has a name, and elements can be selected using the operator `$`. 
+
+```{r, echo=TRUE}
+employee <- list(employee_name = "Stef", start_year = 2015)
+employee$employee_name
+```
+
+---
+
+## Data frames
+
+A **data frame** is equivalent to a *named list* where all elements are *vectors of the same length*.
+
+```{r, echo=TRUE}
+employees <- data.frame(
+  employee_name = c("Maria", "Pete", "Sarah"),
+  age = c(47, 34, 32),
+  role = c("Professor", "Researcher", "Researcher"))
+
+employees
+```
+
+Data frames are the most common way to represent tabular data in R.
+
+```{r, echo=FALSE, eval=TRUE}
+employees %>% 
+  knitr::kable()
+```
+
+---
+
+## Selecting and filtering
+
+.pull-left[
+
+**Columns** of data frames can be **selected**
+
+- specifying the column index
+
+```{r, echo=TRUE, eval=FALSE}
+employees[, c(3, 2)]
+```
+
+- specifying the column name
+
+```{r, echo=TRUE}
+employees[, c("role", "employee_name")]
+```
+
+The same applies to **rows** (**slicing**)
+
+```{r, echo=TRUE}
+employees[3, ]
+```
+
+]
+.pull-right[
+
+As with vectors, a condition can be provided for **filtering** only the **rows** for which the condition is true
+
+```{r, echo=TRUE}
+employees$role
+```
+
+```{r, echo=TRUE}
+employees$role == "Researcher"
+```
+
+```{r, echo=TRUE}
+employees[employees$role == "Researcher", ]
+```
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Reproduciblity
+
 
 ---
 
 ## Reproduciblity
 
+.pull-left[
 In quantitative research, an analysis or project are considered to be **reproducible** if:
 
 - *"the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding."* [Christopher Gandrud, *Reproducible Research with R and R Studio*](https://www.crcpress.com/Reproducible-Research-with-R-and-R-Studio/Gandrud/p/book/9781498715379)
@@ -67,11 +289,8 @@ That is becoming more and more important in science:
 - as programming and scripting are becoming integral in most disciplines
 - as the amount of data increases
 
-
-
----
-
-## Why?
+]
+.pull-right[
 
 In **scientific research**:
 
@@ -87,39 +306,7 @@ For your **working practice**:
 - better teamwork
 - higher impact (not just results, but code, data, etc.)
 
-
-
----
-
-## Reproducibility and software engineering
-
-Core aspects of **software engineering** are:
-
-- project design
-- software **readibility**
-- testing
-- **versioning**
-
-As programming becomes integral to research, similar necessities arise among scientists and data analysts.
-
-
-
----
-
-## Reproducibility and "big data"
-
-There has been a lot of discussions about **"big data"**...
-
-- volume, velocity, variety, ...
-
-Beyond the hype of the moment, as the **amount** and **complexity** of data increases
-
-- the time required to replicate an analysis using point-and-click software becomes unsustainable
-- room for error increases
-
-Workflow management software (e.g., ArcGIS ModelBuilder) is one answer, reproducible data analysis based on script languages like R is another.
-
-
+]
 
 ---
 
@@ -135,8 +322,53 @@ replication.
 5. Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances
 
 
+---
+
+## Reproducibility and software engineering
+
+.pull-left[
+
+Emergence of **"big data"**
+
+- volume, velocity, variety, ...
+
+Beyond the hype of the moment, as the **amount** and **complexity** of data increases
+
+- the time required to replicate an analysis using point-and-click software becomes unsustainable
+- room for error increases
+
+Two options:
+
+- Workflow management software (e.g., ArcGIS ModelBuilder) 
+- Reproducible data analysis (based on script languages like R)
+
+
+]
+.pull-right[
+
+Core aspects of **software engineering** are:
+
+- project design
+- software **readibility**
+- testing
+- **versioning**
+
+As programming becomes integral to research, similar necessities arise among scientists and data analysts.
+
+5 key aspects identified by [Gandrud](https://www.crcpress.com/Reproducible-Research-with-R-and-R-Studio/Gandrud/p/book/9781498715379)
+
+- Document everything
+- Document well
+- Workflow
+- Future-proof formats
+- Store and share
+
+]
+
 
 ---
+
+.pull-left[
 
 ## Document everything
 
@@ -148,9 +380,8 @@ In order to be reproducible, every step of your project should be documented in 
 
 Well documented R scripts are an excellent way to document your project. 
 
-
-
----
+]
+.pull-right[
 
 ## Document well
 
@@ -165,6 +396,7 @@ Create code that can be **easily understood** by someone outside your project, i
     - other files the current file depends on
     - materials, sources and other references 
 
+]
 
 
 ---
@@ -183,31 +415,23 @@ A common solution is using **make files**
     - *source* to execute R scripts
     - *system* to interact with the operative system
 
-
-
----
-
-## Mark.R
-
-Section of the [*R for Geographic Data Science*](https://github.com/sdesabbata/r-for-geographic-data-science) project make file [Make.R](https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/Make.R) that generates the current slides for the lecture session 221
+Example: section of the [*R for Geographic Data Science*](https://github.com/sdesabbata/r-for-geographic-data-science) project's make file [Make.R](https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/Make.R)
 
 ```{}
-cat("\n\n>>> Rendering 221-reproducibility.Rmd <<<\n\n")
+cat("\n\n>>> Rendering 102-slides-reproducible-data-science.Rmd <<<\n\n")
 rmarkdown::render(
-  paste0(
-    Sys.getenv("RGDS_HOME"), 
-    "/src/slides/221-reproducibility.Rmd"
-  ), 
+  paste0(Sys.getenv("RGDS_HOME"), "/src/slides/102-slides-reproducible-data-science.Rmd"), 
   quiet = TRUE, 
-  output_dir = paste0(
-    Sys.getenv("RGDS_HOME"), 
-    "/docs/slides"
-  )
+  output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides")
 )
+
 ```
 
 
+
 ---
+
+.pull-left[
 
 ## Future-proof formats
 
@@ -224,8 +448,8 @@ Use the simplest format to **future-proof** your analysis.<br/>**Text files** ar
 - write-up: LaTeX, Markdown, HTML
 
 
-
----
+]
+.pull-right[
 
 ## Store and share
 
@@ -241,234 +465,38 @@ Reproducible data analysis is particularly important when working in teams, to s
     - [GitHub](https://github.com) offers free public and private repositories
     - [GitLab](https://about.gitlab.com/) offers free public and private repositories
 
+]
 
-
----
-
-## Vectors
-
-**Vectors** are ordered list of values.
-
-- Vectors can be of any data type
-    - numeric
-    - character
-    - logic
-- All items in a vector have to be of the same type
-- Vectors can be of any length
-
-
----
-
-## Defining vectors
-
-A vector variable can be defined using 
-
-- an **identifier** (e.g., `a_vector`) 
-- on the left of an **assignment operator** `<-`
-- followed by the object to be linked to the identifier
-- in this case, the result returned by the function `c`
-- which creates a vector containing the provided elements
-
-```{r, echo=TRUE}
-a_vector <- c("Birmingham", "Derby", "Leicester",
-  "Lincoln", "Nottingham", "Wolverhampton")
-a_vector
-```
-
-<!--
-Note that the second line of the answer provided by R in the console when asking to evaluate the variable starts with `[5]`, as the second line stats with the fifth element of the answer (i.e., the vector)
--->
-
----
-
-## Creating vectors
-
-- the operator `:`
-- the function `seq`
-- the function `rep`
-
-```{r, echo=TRUE}
-4:7
-seq(1, 7, by = 0.5)
-seq(1, 10, length.out = 7)
-rep("Ciao", 4)
-```
-
----
-
-## Functions on vectors
-
-Functions can be used on a vector variable directly
-
-```{r, echo=TRUE}
-a_numeric_vector <- 1:5
-a_numeric_vector + 10
-sqrt(a_numeric_vector)
-a_numeric_vector >= 3
-```
 
 
 
 ---
+class: inverse, center, middle
 
-## Any and all
-
-Overall expressions can be tested using the functions:
-
-- **any**, TRUE if any of the elements satisfies the condition
-- **all**, TRUE if all of the elements satisfy the condition
-
-```{r, echo=TRUE}
-any(a_numeric_vector >= 3)
-all(a_numeric_vector >= 3)
-```
-
+# Into the Tidyverse
 
 ---
 
-## Selection
+.pull-left[
 
-Each element of a vector can be retrieved specifying the related **index** between square brackets, after the identifier of the vector. The first element of the vector has index 1.
+## dplyr
 
-```{r, echo=TRUE}
-a_vector[3]
+The `dplyr` (pronounced *dee-ply-er*) library is part of `tidyverse` and it offers a grammar for data manipulation
+
+- `select`: select specific columns
+- `filter`: select specific rows
+- `arrange`: arrange rows in a particular order
+- `summarise`: calculate aggregated values (e.g., mean, max, etc)
+- `group_by`: group data based on common column values
+- `mutate`: add columns
+- `join`: merge tables (`data.frames` or `tibbles`)
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
 ```
 
-
-A vector of indexes can be used to retrieve more than one element.
-
-```{r, echo=TRUE}
-a_vector[c(5, 3)]
-```
-
-
-
----
-
-## Factors
-
-A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
-
-```{r, echo=TRUE}
-houses_vector <- c("Bungalow", "Flat", "Flat",
-  "Detached", "Flat", "Terrace", "Terrace")
-houses_vector
-houses_factor <- factor(c("Bungalow", "Flat", "Flat",
-  "Detached", "Flat", "Terrace", "Terrace"))
-houses_factor
-```
-
----
-
-## table
-
-The function **table** can be used to obtain a tabulated count for each level.
-
-```{r, echo=TRUE}
-houses_factor <- factor(c("Bungalow", "Flat", "Flat",
-  "Detached", "Flat", "Terrace", "Terrace"))
-houses_factor
-table(houses_factor)
-```
-
----
-
-## Specified levels
-
-A specific set of levels can be specified when creating a factor by providing a **levels** argument.
-
-```{r, echo=TRUE}
-houses_factor_spec <- factor(
-  c("People Carrier", "Flat", "Flat", "Hatchback",
-      "Flat", "Terrace", "Terrace"),
-  levels = c("Bungalow", "Flat", "Detached",
-       "Semi", "Terrace"))
-
-table(houses_factor_spec)
-```
-
-
----
-
-## (Unordered) Factors
-
-In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
-
-```{r, echo=TRUE}
-income_nominal <- factor(
-  c("High", "High", "Low", "Low", "Low",
-      "Medium", "Low", "Medium"),
-  levels = c("Low", "Medium", "High"))
-```
-
-The *greater than* operator is not meaningful on the `income_nominal` factor defined above
-
-```{r, echo=TRUE}
-income_nominal > "Low"
-```
-
----
-
-## Ordered Factors
-
-In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
-
-```{r, echo=TRUE}
-income_ordered <- ordered(
-  c("High", "High", "Low", "Low", "Low",
-      "Medium", "Low", "Medium"),
-  levels = c("Low", "Medium", "High"))
-
-income_ordered > "Low"
-
-sort(income_ordered)
-```
-
-
----
-
-## Lists
-
-Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
-
-```{r, echo=TRUE}
-employee <- list("Stef", 2015)
-employee
-employee[[1]] # Note the double square brackets for selection
-```
-
-
----
-
-## Named Lists
-
-In **named lists** each element has a name, and elements can be selected using their name after the symbol `$`. 
-
-```{r, echo=TRUE}
-employee <- list(employee_name = "Stef", start_year = 2015)
-employee
-employee$employee_name
-```
-
-
----
-
-## Data Frames
-
-A **data frame** is equivalent to a *named list* where all elements are *vectors of the same length*.
-
-```{r, echo=TRUE}
-employees <- data.frame(
-  EmployeeName = c("Maria", "Pete", "Sarah"),
-  Age = c(47, 34, 32),
-  Role = c("Professor", "Researcher", "Researcher"))
-employees
-```
-
-Data frames are the most common way to represent tabular data in R. Matrices and lists can be converted to data frames.
-
-
----
+]
+.pull-right[
 
 ## tibble
 
@@ -482,226 +510,143 @@ A [tibble](https://tibble.tidyverse.org/) is a modern reimagining of the data.fr
     
 That forces you to confront problems earlier, typically leading to cleaner, more expressive code.
 
-
-
-
----
-
-## dplyr
-
-The `dplyr` (pronounced *dee-ply-er*) library is part of `tidyverse` and it offers a grammar for data manipulation
-
-- `select`: select specific columns
-- `filter`: select specific rows
-- `arrange`: arrange rows in a particular order
-- `summarise`: calculate aggregated values (e.g., mean, max, etc)
-- `group_by`: group data based on common column values
-- `mutate`: add columns
-- `join`: merge tables (`tibbles` or `data.frames`)
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(tidyverse)
-```
-
-
+]
 
 ---
 
 ## Example dataset
 
 The library `nycflights13` contains a dataset storing data about all the flights departed from New York City in 2013
-<!--
+
 ```{r, echo=TRUE, eval=FALSE}
 install.packages("nycflights13")
 ```
--->
+
 ```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
 library(nycflights13)
 
-nycflights13::flights
+flights
 ```
 ```{r, echo=FALSE}
 library(nycflights13)
 
-nycflights13::flights %>% 
-  print(n= 3, width = 70)
+flights %>% 
+  print(n= 5, width = 100)
 ```
 
 
-
----
-
-## Selecting table columns
-
-Columns of **data frames** and **tibbles** can be selected
-
-- specifying the column index
-
-```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights[, c(13, 14)]
-```
-
-- specifying the column name
-
-```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights[, c("origin", "dest")]
-```
-```{r, echo=FALSE}
-nycflights13::flights[, c("origin", "dest")] %>% 
-  print(n = 3)
-```
 
 
 
 ---
 
 ## dplyr::select
+
+.pull-left[
 
 `select` can be used to specify which columns to retain
 
 ```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights %>%
-  dplyr::select( 
-    origin, dest, dep_delay, arr_delay, year:day
+flights %>%
+  select( 
+    origin, dest, 
+    dep_delay, arr_delay, 
+    year:day
   )
-```
-```{r, echo=FALSE}
-nycflights13::flights %>%
-  dplyr::select( 
-    origin, dest, dep_delay, arr_delay, year:day
-  ) %>% 
-  print(n = 5)
+
 ```
 
 
----
-
-## dplyr::select
+]
+.pull-right[
 
 ... or whichones to drop, using - in front of the column name
 
 ```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights %>%
-  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>% 
-  dplyr::select(-arr_delay)
+flights %>%
+  select(
+    origin, dest, 
+    dep_delay, arr_delay, 
+    year:day
+  ) %>% 
+  select(-arr_delay)
 ```
+
+]
+
+.pull-left[
+
 ```{r, echo=FALSE}
-nycflights13::flights %>%
-  dplyr::select(
+flights %>%
+  select( 
     origin, dest, dep_delay, arr_delay, year:day
   ) %>% 
-  dplyr::select(
+  print(n = 7)
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE}
+flights %>%
+  select(
+    origin, dest, dep_delay, arr_delay, year:day
+  ) %>% 
+  select(
     -arr_delay
   ) %>% 
-  print(n = 3)
+  print(n = 7)
 ```
-
-
----
-
-## Logical filtering
-
-Conditional statements can be used to filter a vector
-
-- i.e. to retain only certain values
-- where the specified value is `TRUE`
-
-```{r, echo=TRUE}
-a_numeric_vector <- -3:3
-a_numeric_vector
-a_numeric_vector[c(FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)]
-```
-
-
-
----
-
-## Conditional filtering
-
-As a conditional expression results in a logic vector...
-
-```{r, echo=TRUE}
-a_numeric_vector > 0
-```
-
-<br/>
-... conditional expressions can be used for filtering
-
-```{r, echo=TRUE}
-a_numeric_vector[a_numeric_vector > 0]
-```
-
-
-
----
-
-## Filtering data frames
-
-The same approach can be applied to **data frames** and **tibbles**
-
-```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights$month
-```
-```{r, echo=FALSE}
-capture.output(nycflights13::flights$month)[1] %>% str_trunc(52) %>% cat()
-```
-
-```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights$month == 11
-```
-```{r, echo=FALSE}
-capture.output(nycflights13::flights$month == 11)[1] %>% str_trunc(52) %>% cat()
-```
-
-```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights[nycflights13::flights$month == 11, ]
-```
-```{r, echo=FALSE}
-nycflights13::flights[nycflights13::flights$month == 11, ] %>% 
-  print(n = 1, width = 52)
-```
-
-
+]
 
 ---
 
 ## dplyr::filter
 
+.pull-left[
+
+`filter` can be used to specify a condition for **filtering** only the **rows** for which the condition is true
+
 ```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights %>%
+flights %>%
   # Flights in November
-  dplyr::filter(month == 11)
+  filter(month == 11)
 ```
+
 ```{r, echo=FALSE}
-nycflights13::flights %>%
-  dplyr::filter(month == 11) %>%
+flights %>%
+  filter(month == 11) %>%
   print(n = 3, width = 52)
 ```
 
+]
+.pull-right[
 
-
-
----
-
-## Select and filter
+... and can be concatenated with `select` or any other function using `%>%` to create a more complex process
 
 ```{r, echo=TRUE, eval=FALSE}
-nycflights13::flights %>%
+flights %>%
   # Select the columns you need
-  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>% 
+  select(
+    origin, dest, 
+    dep_delay, arr_delay, 
+    year:day
+  ) %>% 
   # Drop arr_delay... because you don't need it after all
-  dplyr::select(-arr_delay) %>%
+  select(-arr_delay) %>%
   # Filter in only November flights
-  dplyr::filter(month == 11)
+  filter(month == 11)
 ```
+
 ```{r, echo=FALSE}
-nycflights13::flights %>%
-  dplyr::select(origin, dest, dep_delay, arr_delay, year:day) %>%
-  dplyr::select(-arr_delay) %>%
-  dplyr::filter(month == 11) %>%
+flights %>%
+  select(origin, dest, dep_delay, arr_delay, year:day) %>%
+  select(-arr_delay) %>%
+  filter(month == 11) %>%
   print(n = 3, width = 52)
 ```
 
+]
 
 
 ---

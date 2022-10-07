@@ -503,7 +503,7 @@ lm.beta(commuting_model1)
 ## 
 ## Standardized Coefficients::
 ## (Intercept)   perc_u142   perc_u144   perc_u146   perc_u149 
-##  0.00000000  0.07836017  0.11754058  0.29057993 -0.47841083
+##          NA  0.07836017  0.11754058  0.29057993 -0.47841083
 ```
 
 ## Exercise 324.1
