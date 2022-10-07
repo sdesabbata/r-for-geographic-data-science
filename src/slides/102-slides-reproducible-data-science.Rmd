@@ -33,19 +33,13 @@ rm(list = ls())
 
 ## Recap
 
-**Prev**: Introduction
+**Prev**: Introduction to R
 
-- 101 Lecture: Introduction to R
-- 102 Lecture: Core concepts
-- 103 Lecture: Tidyverse
-- 104 Practical session
+- ...
 
-**Now**: Data types
+**Today**: Reproducible data science
 
-- vectors
-- factors
-- matrices, arrays
-- lists
+- ...
 
 
 ---
@@ -653,17 +647,11 @@ flights %>%
 
 ## Recap
 
-Data types
+**Today**: Reproducible data science
 
-- Vectors
-- Factors
-- Matrices, arrays
-- Lists
+- ...
 
-**Next**: Control structures
-
-- Conditional statements
-- Loops
+**Next**: ...
 
 
 <br/>
