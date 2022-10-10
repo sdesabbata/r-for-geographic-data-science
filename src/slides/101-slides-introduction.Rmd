@@ -582,15 +582,16 @@ iris %>% pull(Petal.Length) %>% hist(main = "Petal lengths")
 
 An introduction to R
 
-- The language
+- The R programming language
 - Core concepts
 - Tidyverse
 
 **Next week**: Reproducible data science
 
-- Read and write data
-- Select and filter
+- Data science
+- Complex data types
 - Reproducibility
+- `dplyr`
 
 <br/>
 

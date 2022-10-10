@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 Data manipulation | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
+<meta name="description" content="This chapter is currently a draft. Print this chapter  3.1 Data manipulation The analysis below uses the dplyr library (also part of the Tidyverse), which it offers a grammar for data...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Data manipulation | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/data-manipulation.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter  3.1 Data manipulation The analysis below uses the dplyr library (also part of the Tidyverse), which it offers a grammar for data...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 Data manipulation | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  3.1 Data manipulation The analysis below uses the dplyr library (also part of the Tidyverse), which it offers a grammar for data...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -110,58 +110,23 @@
 </h1>
 <p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<div id="r-workflow" class="section level2" number="3.1">
+<div id="data-manipulation-1" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">3.1</span> R workflow<a class="anchor" aria-label="anchor" href="#r-workflow"><i class="fas fa-link"></i></a>
-</h2>
-<div id="r-projects" class="section level3" number="3.1.1">
-<h3>
-<span class="header-section-number">3.1.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
-</h3>
-<p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
-<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
-<p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_204</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
-<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_204</em> folder, which contains only the <em>Practical_204.Rproj</em> file. The <em>Practical_204.Rproj</em> stores all the <em>Environment</em> information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_204</em> folder. Moreover, the <em>Practical_204</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it.</p>
-<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (<em>Practical_204</em>). That also indicates that you are within the <em>Practical_204</em> project. Click on <em>Practical_204</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_204</em> from the list to reactivate the <em>Practical_204</em> project.</p>
-<p>With the <em>Practical_204</em> project activated, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second loads another library that the code below uses to produce well-formatted tables.</p>
-<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
-<p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_script_Practical_204.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>.</p>
-</div>
-<div id="loading-r-scripts" class="section level3" number="3.1.2">
-<h3>
-<span class="header-section-number">3.1.2</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
-</h3>
-<p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
-<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
-<span>   <span class="va">result</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>Create a second R script named <code>Practical_204_RS_main.R</code>, copy the code below in that second R script and save the file.</p>
-<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Practical_204_RS_functions.R"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
-<p>Executing the <code>Practical_204_RS_main.R</code> instructs the interpreter first to run the <code>Practical_204_RS_functions.R</code> script, thus creating the <code>cube_root</code> function, and then invoke the function using <code>27</code> as an argument, thus returning again <code>3</code>. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.</p>
-</div>
-</div>
-<div id="data-manipulation-1" class="section level2" number="3.2">
-<h2>
-<span class="header-section-number">3.2</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The analysis below uses the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> library (also part of the Tidyverse), which it offers a grammar for data manipulation.</p>
-<p>For instance, the function <code>count</code> can be used to count the number rows of a data frame. The code below provides <code>flights_from_nyc</code> as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column.</p>
+<p>For instance, the function <code>count</code> can be used to count the number rows of a data frame. The code below provides <code>flights</code> as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column.</p>
 <p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is data type similar to data frames, used by all the Tidyverse libraries.</p>
 <p>All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
 <p>In the <code>tibble</code> outputted by the <code>count</code> function below, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
-<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span></span></code></pre></div>
-<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="right">n</th>
@@ -173,10 +138,10 @@
 <p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation.</p>
 <p>The function <code>count</code> can also be used to count the number rows of a table that have the same value for a given column, usually representing a category.</p>
 <p>In the example below, the column name <code>origin</code> is provided as an argument to the function <code>count</code>, so rows representing flights from the same origin are counted together – EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.</p>
-<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">origin</th>
@@ -198,19 +163,19 @@
 </tbody>
 </table></div>
 <p>As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
-<div id="summarise" class="section level3" number="3.2.1">
+<div id="summarise" class="section level3" number="3.1.1">
 <h3>
-<span class="header-section-number">3.2.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
 <p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation).</p>
 <p>In the example below, the function <code>sum</code> is applied to the column <code>distance</code> to calculate <code>distance_traveled_from</code> (the total distance travelled by flights starting from each airport).</p>
-<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    distance_traveled_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">origin</th>
@@ -232,19 +197,19 @@
 </tbody>
 </table></div>
 </div>
-<div id="mutate" class="section level3" number="3.2.2">
+<div id="mutate" class="section level3" number="3.1.2">
 <h3>
-<span class="header-section-number">3.2.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>mutate</code> can be used to add a new column to an output table. The <code>mutate</code> step in the code below adds a new column <code>air_time_hours</code> to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by <code>60</code>.</p>
-<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    air_time_hours <span class="op">=</span> <span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="right">flight</th>
@@ -292,23 +257,23 @@
 </tbody>
 </table></div>
 </div>
-<div id="arrange" class="section level3" number="3.2.3">
+<div id="arrange" class="section level3" number="3.1.3">
 <h3>
-<span class="header-section-number">3.2.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.</p>
-<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>In the examples above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the examples <code>5</code>) rows in a table, based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
 <p>As such, the following code uses <code>slice_max</code> to produce a table including only the 5 rows with the <em>highest</em> air time.</p>
-<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="right">flight</th>
@@ -350,11 +315,11 @@
 </tbody>
 </table></div>
 <p>The following code, instead, uses <code>slice_min</code>, thus producing a table including only the 5 rows with the <em>lowest</em> air time.</p>
-<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="right">flight</th>
@@ -463,14 +428,13 @@
 </table></div>
 <p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value <code>21</code> in the example above.</p>
 </div>
-</div>
-<div id="data-manipulation-example" class="section level2" number="3.3">
-<h2>
-<span class="header-section-number">3.3</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
-</h2>
+<div id="data-manipulation-example" class="section level3" number="3.1.4">
+<h3>
+<span class="header-section-number">3.1.4</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
+</h3>
 <p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.</p>
 <ol style="list-style-type: decimal">
-<li>Start from the <code>flights_from_nyc</code> data.</li>
+<li>Start from the <code>flights</code> data.</li>
 <li>Select origin, destination, departure delay, year, month, and day.</li>
 <li>Filter only rows referring to flights in November.</li>
 <li>Filter only rows where departure delay is not (notice that the negation operator <code>!</code> is used) <code>NA</code>.</li>
@@ -486,21 +450,21 @@
 <li>Only show the first 5 rows.</li>
 <li>Create a well-formatted table.</li>
 </ol>
-<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights_from_nyc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
 <span>    avg_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    avg_dep_delay_hours <span class="op">=</span> <span class="va">avg_dep_delay</span> <span class="op">/</span> <span class="fl">60</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">avg_dep_delay_hours</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">avg_dep_delay_hours</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">dest</th>
@@ -536,9 +500,173 @@
 </tbody>
 </table></div>
 </div>
-<div id="exercise-204.1" class="section level2" number="3.4">
+</div>
+<div id="r-workflow" class="section level2" number="3.2">
 <h2>
-<span class="header-section-number">3.4</span> Exercise 204.1<a class="anchor" aria-label="anchor" href="#exercise-204.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2</span> R workflow<a class="anchor" aria-label="anchor" href="#r-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<div id="r-projects" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
+<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
+<p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_204</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
+<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_204</em> folder, which contains only the <em>Practical_204.Rproj</em> file. The <em>Practical_204.Rproj</em> stores all the <em>Environment</em> information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_204</em> folder. Moreover, the <em>Practical_204</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it.</p>
+<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (<em>Practical_204</em>). That also indicates that you are within the <em>Practical_204</em> project. Click on <em>Practical_204</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_204</em> from the list to reactivate the <em>Practical_204</em> project.</p>
+<p>With the <em>Practical_204</em> project activated, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second loads another library that the code below uses to produce well-formatted tables.</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
+<p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_script_Practical_204.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>.</p>
+</div>
+<div id="read-and-write-data" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Read and write data<a class="anchor" aria-label="anchor" href="#read-and-write-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <a href="https://readr.tidyverse.org/index.html"><code>readr</code> library</a> (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats.</p>
+<p>Download from Blackboard (or the <a href="https://github.com/sdesabbata/granolarr/tree/master/data">data</a> folder of the repository) the following files:</p>
+<ul>
+<li><code>2011_OAC_Raw_uVariables_Leicester.csv</code></li>
+</ul>
+<p>Create a <em>Practical_214</em> project and make sure it is activated and thus the <em>Practical_214</em> showing in the <em>File</em> tab in the bottom-right panel. Upload the two files to the <em>Practical_214</em> folder by clicking on the <em>Upload</em> button and selecting the files from your computer (at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after upload using Microsoft Edge).</p>
+<p>Create a new R script named <code>Data_Wrangling_Example.R</code> in the <em>Practical_214</em> project, and add <code><a href="https://tidyverse.tidyverse.org">library(tidyverse)</a></code> as the first line. Use that new script for this and the following sections of this chapter.</p>
+<p>The <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by <a href="http://josis.org/index.php/josis/article/viewArticle/232">Gale et al. (2016)</a> starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. <a href="http://josis.org/index.php/josis/article/viewArticle/232">Gale et al. (2016)</a> finally used the k-means clustering approach to create 8 clusters or supergroups (see <a href="https://oac.datashine.org.uk">map at datashine.org.uk</a>), as well as 26 groups and 76 subgroups. The dataset in the file <code>2011_OAC_Raw_uVariables_Leicester.csv</code> contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. The full variable names can be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code>.</p>
+<!--
+Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
+-->
+<p>The <code>read_csv</code> function reads a <em>Comma Separated Values (CSV)</em> file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The <code>read_csv</code> instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows – one for each OA – and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>,<span class="va">LSOA11CD</span>, <span class="va">supgrpcode</span>,<span class="va">supgrpname</span>,<span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="13%">
+<col width="13%">
+<col width="14%">
+<col width="36%">
+<col width="22%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">OA11CD</th>
+<th align="left">LSOA11CD</th>
+<th align="right">supgrpcode</th>
+<th align="left">supgrpname</th>
+<th align="right">Total_Population</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00069517</td>
+<td align="left">E01013785</td>
+<td align="right">6</td>
+<td align="left">Suburbanites</td>
+<td align="right">313</td>
+</tr>
+<tr class="even">
+<td align="left">E00069514</td>
+<td align="left">E01013784</td>
+<td align="right">2</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">323</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169516</td>
+<td align="left">E01013713</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">341</td>
+</tr>
+</tbody>
+</table></div>
+<p>The function <code>write_csv</code> can be used to save a dataset as a <code>csv</code> file. For instance, the code below uses <code>tidyverse</code> functions and the pipe operator <code>%&gt;%</code> to:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>read</strong> the 2011 OAC dataset again directly from the file, but without storing it into a variable;</li>
+<li>
+<strong>select</strong> the OA code variable <code>OA11CD</code>, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (<code>supgrpcode</code> and <code>supgrpname</code> respectively);</li>
+<li>
+<strong>filter</strong> only those OA in the supergroup <em>Suburbanites</em> (code <code>6</code>);</li>
+<li>
+<strong>write</strong> the results to a file named <em>Leicester_Suburbanites.csv</em>.</li>
+</ol>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpcode</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"Leicester_Suburbanites.csv"</span><span class="op">)</span></span></code></pre></div>
+<div id="file-paths" class="section level4" number="3.2.2.1">
+<h4>
+<span class="header-section-number">3.2.2.1</span> File paths<a class="anchor" aria-label="anchor" href="#file-paths"><i class="fas fa-link"></i></a>
+</h4>
+<p>File paths can be specified in two different ways:</p>
+<ul>
+<li>
+<strong>Absolute file path</strong>: the full file path, from the <em>root</em> folder of your computer to the file.
+<ul>
+<li>The absolute file path of a file can be obtained using the <code><a href="https://rdrr.io/r/base/file.choose.html">file.choose()</a></code> instruction from the <em>R Console</em>, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to console.</li>
+<li>Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.</li>
+<li>However, absolute file paths can be problematic if the file is moved, or if the script is run on a different system, and the file path would then be invalid</li>
+</ul>
+</li>
+<li>
+<strong>Relative file path</strong>: a partial path, from the current working folder to the file.
+<ul>
+<li>The current <em>working directory</em> (current folder) is part of the environment of the <code>R</code> session and can be identified using the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> instruction from the <em>`</em>R Console*.
+<ul>
+<li>When a new R session is started, the current <em>working directory</em> is usually the computer user’s home folder.</li>
+<li>When working within an R project, the current <em>working directory</em> is the project directory.</li>
+<li>The current working can be manually set to a specific directory using the function <code>setwd</code>.</li>
+</ul>
+</li>
+<li>Using a relative path while working within an R project is the option that provides the best overall <strong>consistency</strong>, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Absolute file path</span></span>
+<span><span class="co"># Note: the fist / indicates the root folder</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Relative file path</span></span>
+<span><span class="co"># assuming the working directory is the user home folder</span></span>
+<span><span class="co"># /home/username</span></span>
+<span><span class="co"># Note: no initial / for relative file paths</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Relative file path</span></span>
+<span><span class="co"># assuming you are working within and R project created in the folder</span></span>
+<span><span class="co"># /home/username/GY7702</span></span>
+<span><span class="co"># Note: no initial / for relative file paths</span></span>
+<span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="loading-r-scripts" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
+<span>   <span class="va">result</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>Create a second R script named <code>Practical_204_RS_main.R</code>, copy the code below in that second R script and save the file.</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Practical_204_RS_functions.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
+<p>Executing the <code>Practical_204_RS_main.R</code> instructs the interpreter first to run the <code>Practical_204_RS_functions.R</code> script, thus creating the <code>cube_root</code> function, and then invoke the function using <code>27</code> as an argument, thus returning again <code>3</code>. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.</p>
+</div>
+</div>
+<div id="exercise-204.1" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Exercise 204.1<a class="anchor" aria-label="anchor" href="#exercise-204.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Extend the code in the script <code>My_script_Practical_204.R</code> to include the code necessary to solve the questions below.</p>
 <p><strong>Question 204.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
@@ -557,20 +685,21 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#data-manipulation"><span class="header-section-number">3</span> Data manipulation</a></li>
 <li>
-<a class="nav-link" href="#r-workflow"><span class="header-section-number">3.1</span> R workflow</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.1.1</span> R Projects</a></li>
-<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.1.2</span> Loading R scripts</a></li>
+<a class="nav-link" href="#data-manipulation-1"><span class="header-section-number">3.1</span> Data manipulation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.1.1</span> Summarise</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.1.2</span> Mutate</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.1.3</span> Arrange</a></li>
+<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.1.4</span> Data manipulation example</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#data-manipulation-1"><span class="header-section-number">3.2</span> Data manipulation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.2.1</span> Summarise</a></li>
-<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.2.2</span> Mutate</a></li>
-<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.2.3</span> Arrange</a></li>
+<a class="nav-link" href="#r-workflow"><span class="header-section-number">3.2</span> R workflow</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.2.1</span> R Projects</a></li>
+<li><a class="nav-link" href="#read-and-write-data"><span class="header-section-number">3.2.2</span> Read and write data</a></li>
+<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.2.3</span> Loading R scripts</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.3</span> Data manipulation example</a></li>
-<li><a class="nav-link" href="#exercise-204.1"><span class="header-section-number">3.4</span> Exercise 204.1</a></li>
+<li><a class="nav-link" href="#exercise-204.1"><span class="header-section-number">3.3</span> Exercise 204.1</a></li>
 </ul>
 
       <div class="book-extra">
@@ -588,7 +717,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-07.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

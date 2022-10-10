@@ -14,9 +14,7 @@ library(knitr)
 ```
 
 
-## Table manipulation
-
-### Long and wide formats
+## Long and wide table formats
 
 Tabular data are usually presented in two different formats.
 
@@ -111,7 +109,7 @@ city_info_back_to_wide %>%
 |Leicester  |     329839| 73.3|    4500|
 |Nottingham |     321500| 74.6|    4412|
 
-### Join
+## Join
 
 A join operation combines two tables into one by matching rows that have the same values in the specified column. This operation is usually executed on columns containing identifiers, which are matched through different tables containing different data about the same real-world entities. For instance, the table below presents the telephone prefixes for two cities. That information can be combined with the data present in the wide-formatted table above through a join operation on the columns containing the city names. As the two tables do not contain all the same cities, if a full join operation is executed, some cells have no values assigned.
 
@@ -155,7 +153,7 @@ city_telephone_prexix %>%
 |Leicester  |0116            |
 |Birmingham |0121            |
 
-\newpage
+
 
 
 ```r
@@ -207,7 +205,7 @@ dplyr::full_join(
 |Nottingham |     321500| 74.6|    4412|NA              |
 |Birmingham |         NA|   NA|      NA|0121            |
 
-\newpage
+
 
 
 ```r
@@ -261,7 +259,7 @@ city_info_wide %>%
 |Nottingham |     321500| 74.6|    4412|NA              |
 |Birmingham |         NA|   NA|      NA|0121            |
 
-\newpage
+
 
 
 ```r
@@ -309,7 +307,7 @@ dplyr::right_join(
 |Leicester  |     329839| 73.3|    4500|0116            |
 |Birmingham |         NA|   NA|      NA|0121            |
 
-\newpage
+
 
 
 ```r
@@ -334,9 +332,7 @@ city_info_wide %>%
 
 
 
-## Read and write data
-
-The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. 
+## Data wrangling example
 
 Download from Blackboard (or the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the following files:
 
@@ -347,33 +343,11 @@ Create a *Practical_214* project and make sure it is activated and thus the *Pra
 
 Create a new R script named `Data_Wrangling_Example.R` in the *Practical_214* project, and add `library(tidyverse)` as the first line. Use that new script for this and the following sections of this chapter.
 
-The [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) finally used the k-means clustering approach to create 8 clusters or supergroups (see [map at datashine.org.uk](https://oac.datashine.org.uk)), as well as 26 groups and 76 subgroups. The dataset in the file `2011_OAC_Raw_uVariables_Leicester.csv` contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. The full variable names can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv`.
-
 The [Indexes of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015) (see [map at cdrc.ac.uk](https://maps.cdrc.ac.uk/#/geodemographics/imde2015)) are based on a series of variables across seven distinct domains of deprivation which are combined to calculate the Index of Multiple Deprivation 2015 (IMD 2015). That is an overall measure of multiple deprivations experienced by people living in an area. These indexes are calculated for every Lower layer Super Output Area (LSOA), which are larger geographic unit than the OAs used for the 2011 OAC. The dataset in the file `IndexesMultipleDeprivation2015_Leicester.csv` contains the main Index of Multiple Deprivation, as well as the values for the seven distinct domains of deprivation, and two additional indexes regarding deprivation affecting children and older people. The dataset includes scores, ranks (where 1 indicates the most deprived area), and decile (i.e., the first decile includes the 10% most deprived areas in England). 
 
 <!--
 Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
 -->
-
-The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
-
-
-```r
-leicester_2011OAC <- 
-  readr::read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
-
-leicester_2011OAC %>% 
-  dplyr::select(OA11CD,LSOA11CD, supgrpcode,supgrpname,Total_Population) %>%
-  dplyr::slice_head(n = 3) %>%
-  knitr::kable()
-```
-
-
-|OA11CD    |LSOA11CD  | supgrpcode|supgrpname                  | Total_Population|
-|:---------|:---------|----------:|:---------------------------|----------------:|
-|E00069517 |E01013785 |          6|Suburbanites                |              313|
-|E00069514 |E01013784 |          2|Cosmopolitans               |              323|
-|E00169516 |E01013713 |          4|Multicultural Metropolitans |              341|
 
 The code below loads the IMD 2015 dataset.
 
@@ -386,61 +360,14 @@ leicester_IMD2015 <-
 
 
 
-The function `write_csv` can be used to save a dataset as a `csv` file. For instance, the code below uses `tidyverse` functions and the pipe operator `%>%` to:
-
-1. **read** the 2011 OAC dataset again directly from the file, but without storing it into a variable;
-2. **select** the OA code variable `OA11CD`, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname` respectively);
-3. **filter** only those OA in the supergroup *Suburbanites* (code `6`);
-4. **write** the results to a file named *Leicester_Suburbanites.csv*.
 
 
 ```r
-readr::read_csv("2011_OAC_Raw_uVariables_Leicester.csv") %>%
-  dplyr::select(OA11CD, supgrpcode, supgrpname) %>%
-  dplyr::filter(supgrpcode == 6) %>%
-  readr::write_csv("Leicester_Suburbanites.csv")
+leicester_2011OAC <- 
+  read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 ```
 
 
-
-
-### File paths
-
-File paths can be specified in two different ways:
-
-- **Absolute file path**: the full file path, from the *root* folder of your computer to the file. 
-  - The absolute file path of a file can be obtained using the `file.choose()` instruction from the *R Console*, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to console.
-  - Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.
-  - However, absolute file paths can be problematic if the file is moved, or if the script is run on a different system, and the file path would then be invalid
-- **Relative file path**: a partial path, from the current working folder to the file. 
-  - The current *working directory* (current folder) is part of the environment of the `R` session and can be identified using the `getwd()` instruction from the *`*R Console*.
-    - When a new R session is started, the current *working directory* is usually the computer user's home folder.
-    - When working within an R project, the current *working directory* is the project directory.
-    - The current working can be manually set to a specific directory using the function `setwd`.
-  - Using a relative path while working within an R project is the option that provides the best overall **consistency**, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).
-
-
-```r
-# Absolute file path
-# Note: the fist / indicates the root folder
-readr::read_csv("/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-# Relative file path
-# assuming the working directory is the user home folder
-# /home/username
-# Note: no initial / for relative file paths
-readr::read_csv("GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-
-# Relative file path
-# assuming you are working within and R project created in the folder
-# /home/username/GY7702
-# Note: no initial / for relative file paths
-readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
-```
-
-
-## Data wrangling example
 
 ### Re-shaping 
 
@@ -493,7 +420,7 @@ In the following section, the analysis aims to explore how certain census variab
 
 To that purpose, we also need to change the name of the indexes slightly, to exclude spaces and punctuation, so that the new column names are simpler than the original text, and can be used as column names. That part of the manipulation is performed using `mutate` and functions from the [`stringr` library](https://stringr.tidyverse.org/).
 
-\newpage
+
 
 
 ```r

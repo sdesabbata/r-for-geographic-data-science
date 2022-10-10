@@ -4,6 +4,145 @@
 
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
+
+## Data manipulation
+
+The analysis below uses the [`dplyr`](https://dplyr.tidyverse.org/) library (also part of the Tidyverse), which it offers a grammar for data manipulation.
+
+For instance, the function `count` can be used to count the number rows of a data frame. The code below provides `flights` as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column. 
+
+As discussed in the previous lecture, a [`tibble`](https://tibble.tidyverse.org/) is data type similar to data frames, used by all the Tidyverse libraries. 
+
+All Tidyverse functions output `tibble` rather than `data.frame` objects when representing a table. However, `data.frame` object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.
+
+In the `tibble` outputted by the `count` function below, the column `n` provides the count. The function `kable` of the library `knitr` is used to produce a well-formatted table.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+library(nycflights13)
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  count() %>%
+  kable()
+```
+
+The example above already shows how the **pipe operator** can be used effectively in a multi-step operation.
+
+The function `count` can also be used to count the number rows of a table that have the same value for a given column, usually representing a category. 
+
+In the example below, the column name `origin` is provided as an argument to the function `count`, so rows representing flights from the same origin are counted together -- EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  count(origin) %>%
+  kable()
+```
+
+As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every `%>%`, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.
+
+
+
+### Summarise
+
+To carry out more complex aggregations, the function `summarise` can be used in combination with the function `group_by` to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation). 
+
+In the example below, the function `sum` is applied to the column `distance` to calculate `distance_traveled_from` (the total distance travelled by flights starting from each airport).
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  group_by(origin) %>%
+  summarise(
+    distance_traveled_from = sum(distance)
+  ) %>%
+  kable()
+```
+
+
+
+### Mutate
+
+The function `mutate` can be used to add a new column to an output table. The `mutate` step in the code below adds a new column `air_time_hours` to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by `60`.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  select(flight, origin, dest, air_time) %>%
+  mutate(
+    air_time_hours = air_time / 60
+  ) %>%
+  slice_head(n = 5) %>%
+  kable()
+```
+
+### Arrange
+
+The function `arrange` can be used to sort a tibble by ascending order of the values in the specified column. If the operator `-` is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+flights %>%
+  select(flight, origin, dest, air_time) %>%
+  arrange(-air_time) %>%
+  kable()
+```
+
+In the examples above, we have used `slice_head` to present only the first `n` (in the examples `5`) rows in a table, based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
+
+As such, the following code uses `slice_max` to produce a table including only the 5 rows with the *highest* air time.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  select(flight, origin, dest, air_time) %>%
+  slice_max(air_time, n = 5) %>%
+  kable()
+```
+
+The following code, instead, uses `slice_min`, thus producing a table including only the 5 rows with the *lowest* air time.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  select(flight, origin, dest, air_time) %>%
+  slice_min(air_time, n = 5) %>%
+  kable()
+```
+
+In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value `21` in the example above.
+
+
+### Data manipulation example
+
+Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.
+
+1. Start from the `flights` data.
+2. Select origin, destination, departure delay, year, month, and day.
+3. Filter only rows referring to flights in November.
+4. Filter only rows where departure delay is not (notice that the negation operator `!` is used) `NA`.
+  - That is necessary because the function `mean` would return `NA` as output if any of the values in the column is `NA`.
+5. Group by destination.
+6. Calculated the average delay per destination.
+7. Add a column with the delay calculated in hours (minutes over 60).
+8. Sort the table by *descending* delay (note that `-` is used before the column name).
+9. Only show the first 5 rows.
+10. Create a well-formatted table.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>%
+  select(origin, dest, year, month, day, dep_delay) %>%
+  filter(month == 11) %>%
+  filter(!is.na(dep_delay)) %>%
+  group_by(dest) %>%
+  summarize(
+    avg_dep_delay = mean(dep_delay)
+  ) %>%
+  mutate(
+    avg_dep_delay_hours = avg_dep_delay / 60
+  ) %>%
+  arrange(-avg_dep_delay_hours) %>%
+  slice_head(n = 5) %>%
+  kable()
+```
+
 ## R workflow
 
 ### R Projects
@@ -27,6 +166,121 @@ library(knitr)
 
 From the top menu, select *File > Save*, type in *My_script_Practical_204.R* (make sure to include the underscore and the *.R* extension) as *File name*, and click *Save*.
 
+### Read and write data
+
+The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. 
+
+Download from Blackboard (or the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the following files:
+
+- `2011_OAC_Raw_uVariables_Leicester.csv`
+
+Create a *Practical_214* project and make sure it is activated and thus the *Practical_214* showing in the *File* tab in the bottom-right panel. Upload the two files to the *Practical_214* folder by clicking on the *Upload* button and selecting the files from your computer (at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after upload using Microsoft Edge).
+
+Create a new R script named `Data_Wrangling_Example.R` in the *Practical_214* project, and add `library(tidyverse)` as the first line. Use that new script for this and the following sections of this chapter.
+
+The [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) finally used the k-means clustering approach to create 8 clusters or supergroups (see [map at datashine.org.uk](https://oac.datashine.org.uk)), as well as 26 groups and 76 subgroups. The dataset in the file `2011_OAC_Raw_uVariables_Leicester.csv` contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. The full variable names can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv`.
+
+<!--
+Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
+-->
+
+The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- 
+  read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+
+leicester_2011OAC %>% 
+  select(OA11CD,LSOA11CD, supgrpcode,supgrpname,Total_Population) %>%
+  slice_head(n = 3) %>%
+  kable()
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- 
+  read_csv(
+    paste0(
+      Sys.getenv("RGDS_HOME"), 
+      "/data/", 
+      "2011_OAC_Raw_uVariables_Leicester.csv"
+    )
+  )
+
+leicester_2011OAC %>% 
+  select(OA11CD,LSOA11CD, supgrpcode,supgrpname,Total_Population) %>%
+  slice_head(n = 3) %>%
+  kable()
+```
+
+The function `write_csv` can be used to save a dataset as a `csv` file. For instance, the code below uses `tidyverse` functions and the pipe operator `%>%` to:
+
+1. **read** the 2011 OAC dataset again directly from the file, but without storing it into a variable;
+2. **select** the OA code variable `OA11CD`, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname` respectively);
+3. **filter** only those OA in the supergroup *Suburbanites* (code `6`);
+4. **write** the results to a file named *Leicester_Suburbanites.csv*.
+
+```{r, echo=TRUE, eval=FALSE}
+read_csv("2011_OAC_Raw_uVariables_Leicester.csv") %>%
+  select(OA11CD, supgrpcode, supgrpname) %>%
+  filter(supgrpcode == 6) %>%
+  write_csv("Leicester_Suburbanites.csv")
+```
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+read_csv(
+    paste0(
+        Sys.getenv("RGDS_HOME"), 
+        "/data/", 
+        "2011_OAC_Raw_uVariables_Leicester.csv"
+      )
+  ) %>%
+  select(OA11CD, supgrpcode, supgrpname) %>%
+  filter(supgrpcode == 6) %>%
+  write_csv(
+      paste0(
+        Sys.getenv("RGDS_HOME"), 
+        "/data/", 
+        "Leicester_Suburbanites.csv"
+      )
+  )
+```
+
+
+#### File paths
+
+File paths can be specified in two different ways:
+
+- **Absolute file path**: the full file path, from the *root* folder of your computer to the file. 
+  - The absolute file path of a file can be obtained using the `file.choose()` instruction from the *R Console*, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to console.
+  - Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.
+  - However, absolute file paths can be problematic if the file is moved, or if the script is run on a different system, and the file path would then be invalid
+- **Relative file path**: a partial path, from the current working folder to the file. 
+  - The current *working directory* (current folder) is part of the environment of the `R` session and can be identified using the `getwd()` instruction from the *`*R Console*.
+    - When a new R session is started, the current *working directory* is usually the computer user's home folder.
+    - When working within an R project, the current *working directory* is the project directory.
+    - The current working can be manually set to a specific directory using the function `setwd`.
+  - Using a relative path while working within an R project is the option that provides the best overall **consistency**, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).
+
+```{r, echo=TRUE, eval=FALSE}
+# Absolute file path
+# Note: the fist / indicates the root folder
+read_csv("/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+# Relative file path
+# assuming the working directory is the user home folder
+# /home/username
+# Note: no initial / for relative file paths
+read_csv("GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+
+# Relative file path
+# assuming you are working within and R project created in the folder
+# /home/username/GY7702
+# Note: no initial / for relative file paths
+read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+```
+
+
 
 ### Loading R scripts
 
@@ -49,145 +303,6 @@ cube_root(27)
 ```
 
 Executing the `Practical_204_RS_main.R` instructs the interpreter first to run the `Practical_204_RS_functions.R` script, thus creating the `cube_root` function, and then invoke the function using `27` as an argument, thus returning again `3`. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.
-
-
-
-## Data manipulation
-
-The analysis below uses the [`dplyr`](https://dplyr.tidyverse.org/) library (also part of the Tidyverse), which it offers a grammar for data manipulation.
-
-For instance, the function `count` can be used to count the number rows of a data frame. The code below provides `flights_from_nyc` as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column. 
-
-As discussed in the previous lecture, a [`tibble`](https://tibble.tidyverse.org/) is data type similar to data frames, used by all the Tidyverse libraries. 
-
-All Tidyverse functions output `tibble` rather than `data.frame` objects when representing a table. However, `data.frame` object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.
-
-In the `tibble` outputted by the `count` function below, the column `n` provides the count. The function `kable` of the library `knitr` is used to produce a well-formatted table.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc <- nycflights13::flights
-```
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::count() %>%
-  knitr::kable()
-```
-
-The example above already shows how the **pipe operator** can be used effectively in a multi-step operation.
-
-The function `count` can also be used to count the number rows of a table that have the same value for a given column, usually representing a category. 
-
-In the example below, the column name `origin` is provided as an argument to the function `count`, so rows representing flights from the same origin are counted together -- EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::count(origin) %>%
-  knitr::kable()
-```
-
-As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every `%>%`, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.
-
-
-
-### Summarise
-
-To carry out more complex aggregations, the function `summarise` can be used in combination with the function `group_by` to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation). 
-
-In the example below, the function `sum` is applied to the column `distance` to calculate `distance_traveled_from` (the total distance travelled by flights starting from each airport).
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::group_by(origin) %>%
-  dplyr::summarise(
-    distance_traveled_from = sum(distance)
-  ) %>%
-  knitr::kable()
-```
-
-
-
-### Mutate
-
-The function `mutate` can be used to add a new column to an output table. The `mutate` step in the code below adds a new column `air_time_hours` to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by `60`.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::select(flight, origin, dest, air_time) %>%
-  dplyr::mutate(
-    air_time_hours = air_time / 60
-  ) %>%
-  dplyr::slice_head(n = 5) %>%
-  knitr::kable()
-```
-
-### Arrange
-
-The function `arrange` can be used to sort a tibble by ascending order of the values in the specified column. If the operator `-` is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.
-
-```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::select(flight, origin, dest, air_time) %>%
-  dplyr::arrange(-air_time) %>%
-  knitr::kable()
-```
-
-In the examples above, we have used `slice_head` to present only the first `n` (in the examples `5`) rows in a table, based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
-
-As such, the following code uses `slice_max` to produce a table including only the 5 rows with the *highest* air time.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::select(flight, origin, dest, air_time) %>%
-  dplyr::slice_max(air_time, n = 5) %>%
-  knitr::kable()
-```
-
-The following code, instead, uses `slice_min`, thus producing a table including only the 5 rows with the *lowest* air time.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::select(flight, origin, dest, air_time) %>%
-  dplyr::slice_min(air_time, n = 5) %>%
-  knitr::kable()
-```
-
-In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value `21` in the example above.
-
-
-## Data manipulation example
-
-Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.
-
-1. Start from the `flights_from_nyc` data.
-2. Select origin, destination, departure delay, year, month, and day.
-3. Filter only rows referring to flights in November.
-4. Filter only rows where departure delay is not (notice that the negation operator `!` is used) `NA`.
-  - That is necessary because the function `mean` would return `NA` as output if any of the values in the column is `NA`.
-5. Group by destination.
-6. Calculated the average delay per destination.
-7. Add a column with the delay calculated in hours (minutes over 60).
-8. Sort the table by *descending* delay (note that `-` is used before the column name).
-9. Only show the first 5 rows.
-10. Create a well-formatted table.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights_from_nyc %>%
-  dplyr::select(origin, dest, year, month, day, dep_delay) %>%
-  dplyr::filter(month == 11) %>%
-  dplyr::filter(!is.na(dep_delay)) %>%
-  dplyr::group_by(dest) %>%
-  dplyr::summarize(
-    avg_dep_delay = mean(dep_delay)
-  ) %>%
-  dplyr::mutate(
-    avg_dep_delay_hours = avg_dep_delay / 60
-  ) %>%
-  dplyr::arrange(-avg_dep_delay_hours) %>%
-  dplyr::slice_head(n = 5) %>%
-  knitr::kable()
-```
-
 
 ## Exercise 204.1
 
