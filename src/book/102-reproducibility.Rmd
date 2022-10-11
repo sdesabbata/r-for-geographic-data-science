@@ -7,10 +7,11 @@
 
 ## Data science
 
-Data science is...
+Singleton and Arribas-Bel define "geographic data science" as a space that *"effectively combines the long-standing tradition and epistemologies of Geographic Information Science and Geography with many of the recent advances that have given Data Science its relevance in an emerging 'datafied' world"* (Singleton and Arribas-Bel, 2021, p67[@singleton2021geographic]). In particular, they argue that "data science" emerged as a term to indicate the use of statistical and visual analytics tool to study a world where the digitalisation of everyday life resulted in a "data deluge" commonly referred to as "big data"[@kitchin2014data]. The academic debate about the historical and epistemological background of the term "data science" is quite complex, but the term has now acquired wide-spread usage.
 
-- *to-do: intro*
-- *to-do: below show examples with pipes as well*
+As such, "data science" is commonly used to refer to a set of tools and approaches to analysing data, including statisitcal analysis, visualisation and (what used to be referred to as) data mining. Data science also overlaps with the field of machine learning, which is a part of artificial intelligence and includes methods normally under the umbrella of statistics. If, at this point, you are confused, don't worry, that's quite normal. These definitions are frequently debated, and frequently prone to become [buzzwords](https://en.wikipedia.org/wiki/Buzzword).
+
+This book focuses on an introduction to data science using R and a focus on geographic themes, although not necessarily using spatial analysis (i.e., when spatial relationship are part of the computation), which is covered in another module and wonderful books such as  [*An Introduction to R for Spatial Analysis and Mapping*](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) by Chris Brunsdon and Lex Comber and [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by Robin Lovelace, Jakub Nowosad and Jannes Muenchow.
 
 
 ### R Scripts

@@ -17,7 +17,7 @@ Each week you will be assigned with some reading from the books listed below. In
 - *Machine Learning with R, the tidyverse, and mlr* by Hefin I. Rhys, Manning Publications, 2020. See book [webpage](https://www.manning.com/books/machine-learning-with-r-the-tidyverse-and-mlr).
 - *Deep Learning with R* by François Chollet with J. J. Allaire, Manning Publications, 2018. See book [webpage](https://www.manning.com/books/deep-learning-with-r?query=deep%20learning%20with%20r).
 - *An Introduction to R for Spatial Analysis and Mapping* by Chris Brunsdon and Lex Comber, Sage, 2015. See book [webpage](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031).
-- *Geocomputation with R* by Robin Lovelace, Jakub Nowosad and Jannes MuenchowSee, CRC Press, 2019. See [online book](https://geocompr.robinlovelace.net/).
+- *Geocomputation with R* by Robin Lovelace, Jakub Nowosad and Jannes Muenchow. See, CRC Press, 2019. See [online book](https://geocompr.robinlovelace.net/).
 
 
 ---
