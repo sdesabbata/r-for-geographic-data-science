@@ -113,10 +113,10 @@
 </h2>
 <p>Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will then be visible on a right panel in the RStudio integrated editor if you select Code &gt; Show Document Outline from the top menu. Code sections can help to visually organise your code and the Document Outline allows you to select a section and jump to it in the code.</p>
 <p>The code below deletes all variable and function currently defined in the environment, which is generally good practice, to avoid your script interacting with objects left over from previous sessions.</p>
-<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Load the necessary libraries.</p>
-<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
@@ -128,7 +128,7 @@
 <h3>Solutions 101.1<a class="anchor" aria-label="anchor" href="#solutions-101.1"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># calculate the logarithm to the base 10</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -139,14 +139,14 @@
 <span>  <span class="co"># The answer is FALSE</span></span>
 <span>  <span class="co"># as the value is still of type numeric</span></span>
 <span>  <span class="co"># rather than type integer</span></span></code></pre></div>
-<div class="sourceCode" id="cb398"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The code below replicates the procedure above</span></span>
 <span><span class="co"># but checking the value data type</span></span>
 <span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The code below replicates the procedure above</span></span>
 <span><span class="co"># but using as.integer to transfor the value</span></span>
 <span><span class="co"># to an integer type</span></span>
@@ -155,7 +155,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb400"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># As above but checking whether the value is an integer</span></span>
 <span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -163,7 +163,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># calculate the square root</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -172,14 +172,14 @@
 <span>  <span class="co"># check whether it is an integer</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
-<div class="sourceCode" id="cb402"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"1632"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># transform it into a number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># check whether the result is Not a Number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"-16.32"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># transform it into a number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -190,13 +190,13 @@
 <span>  <span class="co"># check whether the result is Not Available</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.5:</strong> Rewrite a piece of code below by substituting the last line with the function <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>. What kind of result do you obtain? What does it represent?</p>
-<div class="sourceCode" id="cb404"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The output is a numeric value representing the aritmetic mean (average) of all the petal lengths of flowers in the <code>iris</code> dataset.</p>
 <p><strong>Question 101.1.6:</strong> Further edit the code created for <em>Question 101.1.6</em> by substituting <code>Petal.Length</code> with <code>Petal.Width</code> first and <code>Species</code> then? What kind of results do you obtain? What do they mean?</p>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -204,6 +204,74 @@
 <span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div id="solutions-102" class="section level2 unnumbered">
+<h2>Solutions 102<a class="anchor" aria-label="anchor" href="#solutions-102"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solutions-102.1" class="section level3 unnumbered">
+<h3>Solutions 102.1<a class="anchor" aria-label="anchor" href="#solutions-102.1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Extend the code in the script <code>My_script_Practical_102.R</code> to include the code necessary to solve the questions below.</p>
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co"># Load the data</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
+<p><strong>Question 102.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
+<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only the necessary columns</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only rows representing flights from JFK</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Group by carrier</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Calulate the average of</span></span>
+<span>  <span class="co"># the air time values, which is originally in minutes</span></span>
+<span>  <span class="co"># divided by 60 to obtain the value in hours</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    avg_air_time_h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><strong>Question 102.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time (<strong>tip</strong>: use manipulate to create a new column that takes the result of <code>arr_delay / air_time</code>) calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
+<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only the necessary columns</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only rows representing flights from JFK</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Drop rows containing NAs in the arrival delays column</span></span>
+<span>  <span class="co"># otherwise the mean function will return NA</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Group by carrier</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Calulate the average of</span></span>
+<span>  <span class="co"># the proportion between</span></span>
+<span>  <span class="co"># arrival delay and air time</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    avg_arr_delay_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">/</span> <span class="va">air_time</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><strong>Question 102.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.</p>
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
+<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only the necessary columns</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Drop rows containing NAs in the arrival delays column</span></span>
+<span>  <span class="co"># otherwise the mean function will return NA</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Group by origin and destination</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Calulate the average of</span></span>
+<span>  <span class="co"># the proportion between</span></span>
+<span>  <span class="co"># arrival delay and air time</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    avg_arr_delay_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">/</span> <span class="va">air_time</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Sort by destination</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span></span></code></pre></div>
 <!--
 
 ### Solutions 104.2 {-}
@@ -297,345 +365,336 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
   str_c(collapse = " ")
 ```
 
+
+## Solutions 114 {-}
+
+
+```r
+# Load the tidyverse
+library(tidyverse)
+```
+
+
+
+### Solutions 114.1 {-}
+
+**Question 114.1.1:** Use the modulo operator `%%` to create a conditional statement that prints `"Even"` if a number is even and `"Odd"` if a number is odd.
+
+
+```r
+number_for_test <- 7
+
+# If a number modulo 2 is 0 then the nuber is even
+if (number_for_test %% 2 == 0) {
+  cat("Even\n")
+# otherwise it is odd
+} else {
+  cat("Odd\n")
+}
+```
+
+
+**Question 114.1.2:** Encapsulate the conditional statement written for *Question 114.1.1* into a `for` loop that executes the conditional statement for all numbers from 1 to 10.
+
+
+```r
+for (iterator in 1:10) {
+  if (iterator %% 2 == 0) {
+    cat("Even\n")
+  } else {
+    cat("Odd\n")
+  }
+  
+}
+# After the loop delete the iterator
+# just to be on the safe side :)
+rm(iterator)
+```
+
+
+**Question 114.1.3:** Encapsulate the conditional statement written for *Question 114.1.1* into a `for` loop that prints the name of cities in odd positions (i.e., first, third, fifth) in the vector `c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")`.
+
+
+```r
+cities <- c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")
+
+# for each index in the vecotr cities
+# i.e., 1 to length of the vector
+for (iterator in 1:length(cities)) {
+  # Testing for odd number intead of even
+  # thus checking if the result is 1 rather than 0
+  if (iterator %% 2 == 1) {
+    cat(cities[iterator], "\n")
+  }
+  
+}
+# After the loop delete the iterator
+# just to be on the safe side :)
+rm(iterator)
+```
+
+**Question 114.1.4:** Write the code necessary to print the name of the cities in the vector `c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")` as many times as their position in the vector (i.e., once for the first city, two times for the second, and so on and so forth).
+
+
+```r
+# for each index in the vecotr cities
+# i.e., 1 to length of the vector
+for (iterator in 1:length(cities)) {
+  # need a second iterator!
+  # to print the name of the city as many 
+  # times as 1 to the current value if the iterator above
+  for (second_iterator in 1:iterator){
+    # Let's keep the city name on the sam line
+    # just addid a space between occurencies
+    cat(cities[iterator], " ")
+  }
+  # Once we are done printing one city name
+  # then go to new line
+  cat("\n")
+}
+# After the loop delete both iterators
+# just to be on the safe side :)
+rm(iterator)
+rm(second_iterator)
+```
+
+
+
+### Solutions 114.2 {-}
+
+**Question 114.2.1:** Write a function that calculates the areas of a circle, taking the radius as the first parameter.
+
+
+```r
+area_of_a_circle <- function (circle_radius) {
+  # the area of a circle is equal to
+  # pi times radius squared
+  circle_area <- pi * (circle_radius^2)
+  # return the value
+  circle_area
+}
+
+# Test
+area_of_a_circle(3)
+```
+
+**Question 114.2.2:** Write a function that calculates the volume of a cylinder, taking the radius of the base as the first parameter and the height as the second parameter. The function should call the function defined above and multiply the returned value by the height to calculate the result.
+
+
+```r
+volume_of_a_cilinder <- function(base_radius, cilinder_height) {
+  # call the function defined above to calculate the area
+  base_area <- area_of_a_circle(base_radius)
+  # then calculate volume
+  cilinder_volume <- base_area * cilinder_height
+  # return the value
+  cilinder_volume
+}
+
+# Test
+volume_of_a_cilinder(3, 2)
+```
+
+
+
+**Question 114.2.3:** Write a function with two parameters, a vector of numbers and a vector of characters (text). The function should check that the input has the correct data type. If all the numbers in the first vector are greater than zero, return the elements of the second vector from the first to the length of the first vector. 
+
+
+```r
+silly_function <- function (num_vector, chr_vector) {
+  # Check vector types
+  # Note that you can use logic operators
+  # to combine conditional statements
+  # and the function all
+  # to check if the condition is true for all the elements of the vector
+  if ( all(is.numeric(num_vector)) & all(is.character(chr_vector)) ) {
+    # Check if all numbers greater than zero
+    if (all(num_vector > 0)){
+      # Subset the vector to return
+      chr_vector[1:length(num_vector)]
+    } else {
+      cat("That's low...\n")
+    }
+  } else {
+    cat("Those values seem highly inappropriate!\n")
+  }
+}
+
+# Test 1
+silly_function(1:3, cities)
+
+# Test 3
+silly_function(-1:1, cities)
+
+# Test 3
+silly_function(cities, 1:3)
+```
+
+
+
+
+## Solutions 214 {-}
+
+### Solutions 214.1 {-}
+
+Extend the code in the script `Data_Wrangling_Example.R` (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
+
+
+```r
+# Data_Wrangling_Example.R 
+
+# Load the tidyverse
+library(tidyverse)
+
+# Load 2011 OAC data
+leicester_2011OAC <- 
+  readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+# Load Indexes of Multiple deprivation data
+leicester_IMD2015 <- 
+  readr::read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
+
+leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
+  # Select only Socres
+  dplyr::filter(Measurement == "Decile") %>%
+  # Trim names of IndicesOfDeprivation
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
+  ) %>%
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
+  ) %>%
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
+  ) %>%
+  dplyr::mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
+  ) %>%
+  # Spread
+  pivot_wider(
+    names_from = IndicesOfDeprivation,
+    values_from = Value
+  ) %>%
+  # Drop columns
+  dplyr::select(-DateCode, -Measurement, -Units)
+
+# Join
+leicester_2011OAC_IMD2015 <- 
+  leicester_2011OAC %>%
+  inner_join(
+    leicester_IMD2015_decile_wide, 
+    by = c("LSOA11CD" = "FeatureCode")
+  )
+```
+
+**Question 214.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.
+
+
+```r
+leicester_2011OAC_IMD2015 %>%
+  dplyr::filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
+  dplyr::group_by(IndexofMultipleDeprivationIMD) %>%
+  dplyr::summarise(
+    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
+  ) %>%
+  knitr::kable()
+```
+
+**Question 214.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.
+
+
+```r
+leicester_2011OAC_IMD2015 %>%
+  dplyr::filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  dplyr::group_by(supgrpname) %>%
+  dplyr::summarise(
+    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
+  ) %>%
+  knitr::kable()
+```
+
+
+**Question 214.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.
+
+
+```r
+leicester_2011OAC_IMD2015 %>%
+  dplyr::filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  dplyr::group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
+  dplyr::summarise(
+    aged_65_above = (sum(u016 + u017 + u018 + u019) / sum(Total_Population)) * 100
+  ) %>%
+  dplyr::arrange(-aged_65_above) %>%
+  knitr::kable()
+```
+
+
+### Solutions 214.2 {-}
+
+Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below.
+
+**Question 214.2.1:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a long format of the `leicester_2011OAC_IMD2015` table only including the values (census variables) used in *Question 214.1.3*.
+
+
+```r
+long_table <- leicester_2011OAC_IMD2015 %>%
+  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  tidyr::pivot_longer(
+    # Can't combine character values (e.g. supgrpname)
+    # with numeric value (e.g, Total_Population) thus
+    # pivot only numeric columns
+    cols = u016:Total_Population,
+    names_to = "attribute",
+    values_to = "value"
+  ) 
+
+long_table %>%
+  slice_head(n = 5) %>%
+  knitr::kable()
+
+long_table_alt <- leicester_2011OAC_IMD2015 %>%
+  dplyr::select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  tidyr::pivot_longer(
+    # Otherwise, use supgrpcode instead of supgrpname
+    cols = -OA11CD,
+    names_to = "attribute",
+    values_to = "value"
+  ) 
+
+long_table_alt %>%
+  slice_head(n = 7) %>%
+  knitr::kable()
+```
+
+
+**Question 214.2.2:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a table similar to the one generated for *Question 214.2.1*, but showing the values as percentages over total population.
+
+
+```r
+perc_long_table <- leicester_2011OAC_IMD2015 %>%
+  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  dplyr::mutate(
+    perc_u016 = (u016 / Total_Population) * 100, 
+    perc_u017 = (u017 / Total_Population) * 100, 
+    perc_u018 = (u018 / Total_Population) * 100, 
+    perc_u019 = (u019 / Total_Population) * 100
+  ) %>%
+  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
+  tidyr::pivot_longer(
+    # Can't combine character values (e.g. supgrpname)
+    # with numeric value (e.g, Total_Population) thus
+    # pivot only numeric columns
+    cols = perc_u016:perc_u019,
+    names_to = "attribute",
+    values_to = "value"
+  ) 
+
+perc_long_table %>%
+  slice_head(n = 5) %>%
+  knitr::kable()
+```
+
 -->
-</div>
-</div>
-<div id="solutions-114" class="section level2 unnumbered">
-<h2>Solutions 114<a class="anchor" aria-label="anchor" href="#solutions-114"><i class="fas fa-link"></i></a>
-</h2>
-<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
-<div id="solutions-114.1" class="section level3 unnumbered">
-<h3>Solutions 114.1<a class="anchor" aria-label="anchor" href="#solutions-114.1"><i class="fas fa-link"></i></a>
-</h3>
-<p><strong>Question 114.1.1:</strong> Use the modulo operator <code>%%</code> to create a conditional statement that prints <code>"Even"</code> if a number is even and <code>"Odd"</code> if a number is odd.</p>
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">number_for_test</span> <span class="op">&lt;-</span> <span class="fl">7</span></span>
-<span></span>
-<span><span class="co"># If a number modulo 2 is 0 then the nuber is even</span></span>
-<span><span class="kw">if</span> <span class="op">(</span><span class="va">number_for_test</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Even\n"</span><span class="op">)</span></span>
-<span><span class="co"># otherwise it is odd</span></span>
-<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Odd\n"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p><strong>Question 114.1.2:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that executes the conditional statement for all numbers from 1 to 10.</p>
-<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">iterator</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Even\n"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Odd\n"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  </span>
-<span><span class="op">}</span></span>
-<span><span class="co"># After the loop delete the iterator</span></span>
-<span><span class="co"># just to be on the safe side :)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">iterator</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 114.1.3:</strong> Encapsulate the conditional statement written for <em>Question 114.1.1</em> into a <code>for</code> loop that prints the name of cities in odd positions (i.e., first, third, fifth) in the vector <code>c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</code>.</p>
-<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Birmingham"</span>, <span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span>, <span class="st">"Wolverhampton"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># for each index in the vecotr cities</span></span>
-<span><span class="co"># i.e., 1 to length of the vector</span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Testing for odd number intead of even</span></span>
-<span>  <span class="co"># thus checking if the result is 1 rather than 0</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">iterator</span> <span class="op"><a href="https://rdrr.io/r/base/Arithmetic.html">%%</a></span> <span class="fl">2</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">cities</span><span class="op">[</span><span class="va">iterator</span><span class="op">]</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  </span>
-<span><span class="op">}</span></span>
-<span><span class="co"># After the loop delete the iterator</span></span>
-<span><span class="co"># just to be on the safe side :)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">iterator</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 114.1.4:</strong> Write the code necessary to print the name of the cities in the vector <code>c("Birmingham", "Derby", "Leicester", "Lincoln", "Nottingham", "Wolverhampton")</code> as many times as their position in the vector (i.e., once for the first city, two times for the second, and so on and so forth).</p>
-<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># for each index in the vecotr cities</span></span>
-<span><span class="co"># i.e., 1 to length of the vector</span></span>
-<span><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cities</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># need a second iterator!</span></span>
-<span>  <span class="co"># to print the name of the city as many </span></span>
-<span>  <span class="co"># times as 1 to the current value if the iterator above</span></span>
-<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">second_iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">iterator</span><span class="op">)</span><span class="op">{</span></span>
-<span>    <span class="co"># Let's keep the city name on the sam line</span></span>
-<span>    <span class="co"># just addid a space between occurencies</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">cities</span><span class="op">[</span><span class="va">iterator</span><span class="op">]</span>, <span class="st">" "</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span>  <span class="co"># Once we are done printing one city name</span></span>
-<span>  <span class="co"># then go to new line</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span><span class="co"># After the loop delete both iterators</span></span>
-<span><span class="co"># just to be on the safe side :)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">iterator</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span><span class="va">second_iterator</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div id="solutions-114.2" class="section level3 unnumbered">
-<h3>Solutions 114.2<a class="anchor" aria-label="anchor" href="#solutions-114.2"><i class="fas fa-link"></i></a>
-</h3>
-<p><strong>Question 114.2.1:</strong> Write a function that calculates the areas of a circle, taking the radius as the first parameter.</p>
-<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">area_of_a_circle</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">circle_radius</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># the area of a circle is equal to</span></span>
-<span>  <span class="co"># pi times radius squared</span></span>
-<span>  <span class="va">circle_area</span> <span class="op">&lt;-</span> <span class="va">pi</span> <span class="op">*</span> <span class="op">(</span><span class="va">circle_radius</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
-<span>  <span class="co"># return the value</span></span>
-<span>  <span class="va">circle_area</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Test</span></span>
-<span><span class="fu">area_of_a_circle</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 114.2.2:</strong> Write a function that calculates the volume of a cylinder, taking the radius of the base as the first parameter and the height as the second parameter. The function should call the function defined above and multiply the returned value by the height to calculate the result.</p>
-<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">volume_of_a_cilinder</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">base_radius</span>, <span class="va">cilinder_height</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># call the function defined above to calculate the area</span></span>
-<span>  <span class="va">base_area</span> <span class="op">&lt;-</span> <span class="fu">area_of_a_circle</span><span class="op">(</span><span class="va">base_radius</span><span class="op">)</span></span>
-<span>  <span class="co"># then calculate volume</span></span>
-<span>  <span class="va">cilinder_volume</span> <span class="op">&lt;-</span> <span class="va">base_area</span> <span class="op">*</span> <span class="va">cilinder_height</span></span>
-<span>  <span class="co"># return the value</span></span>
-<span>  <span class="va">cilinder_volume</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Test</span></span>
-<span><span class="fu">volume_of_a_cilinder</span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 114.2.3:</strong> Write a function with two parameters, a vector of numbers and a vector of characters (text). The function should check that the input has the correct data type. If all the numbers in the first vector are greater than zero, return the elements of the second vector from the first to the length of the first vector.</p>
-<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">silly_function</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">num_vector</span>, <span class="va">chr_vector</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="co"># Check vector types</span></span>
-<span>  <span class="co"># Note that you can use logic operators</span></span>
-<span>  <span class="co"># to combine conditional statements</span></span>
-<span>  <span class="co"># and the function all</span></span>
-<span>  <span class="co"># to check if the condition is true for all the elements of the vector</span></span>
-<span>  <span class="kw">if</span> <span class="op">(</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">num_vector</span><span class="op">)</span><span class="op">)</span> <span class="op">&amp;</span> <span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">chr_vector</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span> <span class="op">{</span></span>
-<span>    <span class="co"># Check if all numbers greater than zero</span></span>
-<span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">num_vector</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
-<span>      <span class="co"># Subset the vector to return</span></span>
-<span>      <span class="va">chr_vector</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">num_vector</span><span class="op">)</span><span class="op">]</span></span>
-<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"That's low...\n"</span><span class="op">)</span></span>
-<span>    <span class="op">}</span></span>
-<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Those values seem highly inappropriate!\n"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Test 1</span></span>
-<span><span class="fu">silly_function</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">cities</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Test 3</span></span>
-<span><span class="fu">silly_function</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span><span class="op">:</span><span class="fl">1</span>, <span class="va">cities</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Test 3</span></span>
-<span><span class="fu">silly_function</span><span class="op">(</span><span class="va">cities</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div id="solutions-204" class="section level2 unnumbered">
-<h2>Solutions 204<a class="anchor" aria-label="anchor" href="#solutions-204"><i class="fas fa-link"></i></a>
-</h2>
-<div id="solutions-204.1" class="section level3 unnumbered">
-<h3>Solutions 204.1<a class="anchor" aria-label="anchor" href="#solutions-204.1"><i class="fas fa-link"></i></a>
-</h3>
-<p>Extend the code in the script <code>My_script_Practical_204.R</code> to include the code necessary to solve the questions below.</p>
-<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co"># Load the data</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 204.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
-<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Retain only the necessary columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Retain only rows representing flights from JFK</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Group by carrier</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Calulate the average of</span></span>
-<span>  <span class="co"># the air time values, which is originally in minutes</span></span>
-<span>  <span class="co"># divided by 60 to obtain the value in hours</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    avg_air_time_h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><strong>Question 204.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time (<strong>tip</strong>: use manipulate to create a new column that takes the result of <code>arr_delay / air_time</code>) calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
-<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Retain only the necessary columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Retain only rows representing flights from JFK</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Drop rows containing NAs in the arrival delays column</span></span>
-<span>  <span class="co"># otherwise the mean function will return NA</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Group by carrier</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Calulate the average of</span></span>
-<span>  <span class="co"># the proportion between</span></span>
-<span>  <span class="co"># arrival delay and air time</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    avg_arr_delay_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">/</span> <span class="va">air_time</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><strong>Question 204.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.</p>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
-<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Retain only the necessary columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Drop rows containing NAs in the arrival delays column</span></span>
-<span>  <span class="co"># otherwise the mean function will return NA</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Group by origin and destination</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Calulate the average of</span></span>
-<span>  <span class="co"># the proportion between</span></span>
-<span>  <span class="co"># arrival delay and air time</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    avg_arr_delay_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">/</span> <span class="va">air_time</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Sort by destination</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div id="solutions-214" class="section level2 unnumbered">
-<h2>Solutions 214<a class="anchor" aria-label="anchor" href="#solutions-214"><i class="fas fa-link"></i></a>
-</h2>
-<div id="solutions-214.1" class="section level3 unnumbered">
-<h3>Solutions 214.1<a class="anchor" aria-label="anchor" href="#solutions-214.1"><i class="fas fa-link"></i></a>
-</h3>
-<p>Extend the code in the script <code>Data_Wrangling_Example.R</code> (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
-<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Data_Wrangling_Example.R </span></span>
-<span></span>
-<span><span class="co"># Load the tidyverse</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Load 2011 OAC data</span></span>
-<span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Load Indexes of Multiple deprivation data</span></span>
-<span><span class="va">leicester_IMD2015</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/IndexesMultipleDeprivation2015_Leicester.csv"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">leicester_IMD2015_decile_wide</span> <span class="op">&lt;-</span> <span class="va">leicester_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Select only Socres</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Measurement</span> <span class="op">==</span> <span class="st">"Decile"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Trim names of IndicesOfDeprivation</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    IndicesOfDeprivation <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\s"</span>, <span class="st">""</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    IndicesOfDeprivation <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"[:punct:]"</span>, <span class="st">""</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    IndicesOfDeprivation <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\("</span>, <span class="st">""</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    IndicesOfDeprivation <span class="op">=</span> <span class="fu"><a href="https://stringr.tidyverse.org/reference/str_replace.html">str_replace_all</a></span><span class="op">(</span><span class="va">IndicesOfDeprivation</span>, <span class="st">"\\)"</span>, <span class="st">""</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Spread</span></span>
-<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
-<span>    names_from <span class="op">=</span> <span class="va">IndicesOfDeprivation</span>,</span>
-<span>    values_from <span class="op">=</span> <span class="va">Value</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Drop columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">DateCode</span>, <span class="op">-</span><span class="va">Measurement</span>, <span class="op">-</span><span class="va">Units</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Join</span></span>
-<span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">inner_join</a></span><span class="op">(</span></span>
-<span>    <span class="va">leicester_IMD2015_decile_wide</span>, </span>
-<span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LSOA11CD"</span> <span class="op">=</span> <span class="st">"FeatureCode"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><strong>Question 214.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.</p>
-<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cosmopolitans"</span>, <span class="st">"Ethnicity Central"</span>, <span class="st">"Multicultural Metropolitans"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    adults_not_empl_perc <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u044</span> <span class="op">+</span> <span class="va">u045</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 214.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.</p>
-<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span> <span class="op">&lt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    adults_not_empl_perc <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u044</span> <span class="op">+</span> <span class="va">u045</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 214.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.</p>
-<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span> <span class="op">&lt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    aged_65_above <span class="op">=</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u016</span> <span class="op">+</span> <span class="va">u017</span> <span class="op">+</span> <span class="va">u018</span> <span class="op">+</span> <span class="va">u019</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">aged_65_above</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div id="solutions-214.2" class="section level3 unnumbered">
-<h3>Solutions 214.2<a class="anchor" aria-label="anchor" href="#solutions-214.2"><i class="fas fa-link"></i></a>
-</h3>
-<p>Extend the code in the script <code>Data_Wrangling_Example.R</code> to include the code necessary to solve the questions below.</p>
-<p><strong>Question 214.2.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> and <code>tidyr</code> libraries to generate a long format of the <code>leicester_2011OAC_IMD2015</code> table only including the values (census variables) used in <em>Question 214.1.3</em>.</p>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">long_table</span> <span class="op">&lt;-</span> <span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span>, <span class="va">u016</span>, <span class="va">u017</span>, <span class="va">u018</span>, <span class="va">u019</span>, <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
-<span>    <span class="co"># Can't combine character values (e.g. supgrpname)</span></span>
-<span>    <span class="co"># with numeric value (e.g, Total_Population) thus</span></span>
-<span>    <span class="co"># pivot only numeric columns</span></span>
-<span>    cols <span class="op">=</span> <span class="va">u016</span><span class="op">:</span><span class="va">Total_Population</span>,</span>
-<span>    names_to <span class="op">=</span> <span class="st">"attribute"</span>,</span>
-<span>    values_to <span class="op">=</span> <span class="st">"value"</span></span>
-<span>  <span class="op">)</span> </span>
-<span></span>
-<span><span class="va">long_table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">long_table_alt</span> <span class="op">&lt;-</span> <span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">IndexofMultipleDeprivationIMD</span>, <span class="va">u016</span>, <span class="va">u017</span>, <span class="va">u018</span>, <span class="va">u019</span>, <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
-<span>    <span class="co"># Otherwise, use supgrpcode instead of supgrpname</span></span>
-<span>    cols <span class="op">=</span> <span class="op">-</span><span class="va">OA11CD</span>,</span>
-<span>    names_to <span class="op">=</span> <span class="st">"attribute"</span>,</span>
-<span>    values_to <span class="op">=</span> <span class="st">"value"</span></span>
-<span>  <span class="op">)</span> </span>
-<span></span>
-<span><span class="va">long_table_alt</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 214.2.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> and <code>tidyr</code> libraries to generate a table similar to the one generated for <em>Question 214.2.1</em>, but showing the values as percentages over total population.</p>
-<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">perc_long_table</span> <span class="op">&lt;-</span> <span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span>, <span class="va">u016</span>, <span class="va">u017</span>, <span class="va">u018</span>, <span class="va">u019</span>, <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    perc_u016 <span class="op">=</span> <span class="op">(</span><span class="va">u016</span> <span class="op">/</span> <span class="va">Total_Population</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, </span>
-<span>    perc_u017 <span class="op">=</span> <span class="op">(</span><span class="va">u017</span> <span class="op">/</span> <span class="va">Total_Population</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, </span>
-<span>    perc_u018 <span class="op">=</span> <span class="op">(</span><span class="va">u018</span> <span class="op">/</span> <span class="va">Total_Population</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>, </span>
-<span>    perc_u019 <span class="op">=</span> <span class="op">(</span><span class="va">u019</span> <span class="op">/</span> <span class="va">Total_Population</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span>, <span class="va">perc_u016</span>, <span class="va">perc_u017</span>, <span class="va">perc_u018</span>, <span class="va">perc_u019</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
-<span>    <span class="co"># Can't combine character values (e.g. supgrpname)</span></span>
-<span>    <span class="co"># with numeric value (e.g, Total_Population) thus</span></span>
-<span>    <span class="co"># pivot only numeric columns</span></span>
-<span>    cols <span class="op">=</span> <span class="va">perc_u016</span><span class="op">:</span><span class="va">perc_u019</span>,</span>
-<span>    names_to <span class="op">=</span> <span class="st">"attribute"</span>,</span>
-<span>    values_to <span class="op">=</span> <span class="st">"value"</span></span>
-<span>  <span class="op">)</span> </span>
-<span></span>
-<span><span class="va">perc_long_table</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
@@ -653,19 +712,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 <a class="nav-link" href="#solutions-101">Solutions 101</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-101.1">Solutions 101.1</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#solutions-114">Solutions 114</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#solutions-114.1">Solutions 114.1</a></li>
-<li><a class="nav-link" href="#solutions-114.2">Solutions 114.2</a></li>
-</ul>
-</li>
-<li>
-<a class="nav-link" href="#solutions-204">Solutions 204</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-204.1">Solutions 204.1</a></li></ul>
-</li>
-<li>
-<a class="nav-link" href="#solutions-214">Solutions 214</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#solutions-214.1">Solutions 214.1</a></li>
-<li><a class="nav-link" href="#solutions-214.2">Solutions 214.2</a></li>
-</ul>
+<a class="nav-link" href="#solutions-102">Solutions 102</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-102.1">Solutions 102.1</a></li></ul>
 </li>
 </ul>
 
@@ -684,7 +731,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-10.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

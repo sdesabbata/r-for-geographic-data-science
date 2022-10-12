@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 Reproducible data science | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Data science is… to-do: intro to-do: below show examples with pipes as well  2.1.1 R Scripts The RStudio Console is handy to...">
+<meta name="description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Reproducible data science | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/reproducible-data-science.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Data science is… to-do: intro to-do: below show examples with pipes as well  2.1.1 R Scripts The RStudio Console is handy to...">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 Reproducible data science | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Data science is… to-do: intro to-do: below show examples with pipes as well  2.1.1 R Scripts The RStudio Console is handy to...">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -114,11 +114,9 @@
 <h2>
 <span class="header-section-number">2.1</span> Data science<a class="anchor" aria-label="anchor" href="#data-science"><i class="fas fa-link"></i></a>
 </h2>
-<p>Data science is…</p>
-<ul>
-<li><em>to-do: intro</em></li>
-<li><em>to-do: below show examples with pipes as well</em></li>
-</ul>
+<p>Singleton and Arribas-Bel define “geographic data science” as a space that <em>“effectively combines the long-standing tradition and epistemologies of Geographic Information Science and Geography with many of the recent advances that have given Data Science its relevance in an emerging ‘datafied’ world”</em> (Singleton and Arribas-Bel, 2021, p67<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-singleton2021geographic" role="doc-biblioref"&gt;Alex Singleton and Daniel Arribas-Bel, &lt;span&gt;“Geographic Data Science,”&lt;/span&gt; &lt;em&gt;Geographical Analysis&lt;/em&gt; 53, no. 1 (2021): 61–75, https://doi.org/&lt;/a&gt;&lt;a href="https://doi.org/10.1111/gean.12194" role="doc-biblioref"&gt;https://doi.org/10.1111/gean.12194&lt;/a&gt;.&lt;/p&gt;'><sup>9</sup></a></span>). In particular, they argue that “data science” emerged as a term to indicate the use of statistical and visual analytics tool to study a world where the digitalisation of everyday life resulted in a “data deluge” commonly referred to as “big data”<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-kitchin2014data" role="doc-biblioref"&gt;Rob Kitchin, &lt;em&gt;The Data Revolution: Big Data, Open Data, Data Infrastructures and Their Consequences&lt;/em&gt; (Sage, 2014)&lt;/a&gt;.&lt;/p&gt;'><sup>10</sup></a></span>. The academic debate about the historical and epistemological background of the term “data science” is quite complex, but the term has now acquired wide-spread usage.</p>
+<p>As such, “data science” is commonly used to refer to a set of tools and approaches to analysing data, including statisitcal analysis, visualisation and (what used to be referred to as) data mining. Data science also overlaps with the field of machine learning, which is a part of artificial intelligence and includes methods normally under the umbrella of statistics. If, at this point, you are confused, don’t worry, that’s quite normal. These definitions are frequently debated, and frequently prone to become <a href="https://en.wikipedia.org/wiki/Buzzword">buzzwords</a>.</p>
+<p>This book focuses on an introduction to data science using R and a focus on geographic themes, although not necessarily using spatial analysis (i.e., when spatial relationship are part of the computation), which is covered in another module and wonderful books such as <a href="https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031"><em>An Introduction to R for Spatial Analysis and Mapping</em></a> by Chris Brunsdon and Lex Comber and <a href="https://geocompr.robinlovelace.net/"><em>Geocomputation with R</em></a> by Robin Lovelace, Jakub Nowosad and Jannes Muenchow.</p>
 <div id="r-scripts" class="section level3" number="2.1.1">
 <h3>
 <span class="header-section-number">2.1.1</span> R Scripts<a class="anchor" aria-label="anchor" href="#r-scripts"><i class="fas fa-link"></i></a>
@@ -133,7 +131,7 @@
 <span><span class="fl">2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.414214</code></pre>
 <p>As you can see, a comment precedes each line, describing what the subsequent command does. Adequately commenting the code is a fundamental practice in programming. As this is a learning resource, the comments in the examples below explain <em>“what”</em> the subsequent lines of code do. However, comments should generally focus on <em>“how”</em> a procedure (i.e., an algorithm) is implemented in a set of instructions (i.e., a section of the script) and crucially on <em>“why”</em> the procedure has been implemented in a specific way. We will see more complex examples in the rest of this book.</p>
-<p>From the top menu, select <em>File &gt; Save</em>, type in <code>My_first_script.R</code> (make sure to include the underscore and the <code>.R</code> extension) as <em>File name</em>, and click <em>Save</em>. Finally, click the <em>Source</em> button on the top-right of the editor.</p>
+<p>From the top menu, select <em>File &gt; Save</em>, type in <code>my-first-script.R</code> (make sure to include the underscore and the <code>.R</code> extension) as <em>File name</em>, and click <em>Save</em>. Finally, click the <em>Source</em> button on the top-right of the editor.</p>
 <p>Congratulations, you have executed your first <code>R</code> script! 😊👍</p>
 <p>You can then edit the script by adding (for instance) the new lines of code shown below, saving the file, and executing the script’s new version.</p>
 <p><strong>Self-test question</strong>: What happens if you click the <em>Source</em> button again and thus execute the new version of the script? What happens if you click <em>Source</em> a third time?</p>
@@ -150,17 +148,18 @@
 <h2>
 <span class="header-section-number">2.2</span> Complex data types<a class="anchor" aria-label="anchor" href="#complex-data-types"><i class="fas fa-link"></i></a>
 </h2>
+<p>Create a new empty R script following the procedure above and save it as <code>practical-102_my-script-001.R</code>. While reading the rest of this section, copy the new code in the script and use <em>Run</em> to execute the single instructions.</p>
 <div id="vectors" class="section level3" number="2.2.1">
 <h3>
 <span class="header-section-number">2.2.1</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
 </h3>
-<p>Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In <code>R</code>, they are referred to as <strong>vectors</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The term &lt;em&gt;list&lt;/em&gt; has a specific meaning in &lt;code&gt;R&lt;/code&gt;. Don’t use the term &lt;em&gt;list&lt;/em&gt; to refer to &lt;em&gt;vectors&lt;/em&gt;.&lt;/p&gt;"><sup>9</sup></a>.</p>
+<p>Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In <code>R</code>, they are referred to as <strong>vectors</strong><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The term &lt;em&gt;list&lt;/em&gt; has a specific meaning in &lt;code&gt;R&lt;/code&gt;. Don’t use the term &lt;em&gt;list&lt;/em&gt; to refer to &lt;em&gt;vectors&lt;/em&gt;.&lt;/p&gt;"><sup>11</sup></a>.</p>
 <p>Vectors can be defined in R by using the function <code>c</code>, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided.</p>
 <div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<p>Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the <em>index</em> (or indices as we will see further below) of the elements to be retrieved. Indices start from <code>1</code>, so the index of the first element is <code>1</code>, the index of the second element is <code>2</code>, and so on and so forth<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;That is different from many programming languages, where the index of the first element is &lt;code&gt;0&lt;/code&gt;.&lt;/p&gt;"><sup>10</sup></a>.</p>
+<p>Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the <em>index</em> (or indices as we will see further below) of the elements to be retrieved. Indices start from <code>1</code>, so the index of the first element is <code>1</code>, the index of the second element is <code>2</code>, and so on and so forth<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;That is different from many programming languages, where the index of the first element is &lt;code&gt;0&lt;/code&gt;.&lt;/p&gt;"><sup>12</sup></a>.</p>
 <div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Retrieve the third city</span></span>
 <span><span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre></div>
@@ -232,9 +231,9 @@
 <div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_length.html">str_length</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1]  5  9  7 10</code></pre>
-<div id="selecting-and-filtering-data" class="section level4" number="2.2.1.1">
+<div id="selecting-and-filtering-vectors" class="section level4" number="2.2.1.1">
 <h4>
-<span class="header-section-number">2.2.1.1</span> Selecting and filtering data<a class="anchor" aria-label="anchor" href="#selecting-and-filtering-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2.1.1</span> Selecting and filtering vectors<a class="anchor" aria-label="anchor" href="#selecting-and-filtering-vectors"><i class="fas fa-link"></i></a>
 </h4>
 <p>As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (<code>TRUE</code> or <code>FALSE</code>) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned – which contains the respective results of the conditions for each element.</p>
 <div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
@@ -363,17 +362,165 @@
 <h3>
 <span class="header-section-number">2.2.4</span> Data frames and tibbles<a class="anchor" aria-label="anchor" href="#data-frames-and-tibbles"><i class="fas fa-link"></i></a>
 </h3>
-<p><em>to-do: re-connect to tidyverse</em></p>
-<p>RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with.</p>
-<p>The remainder of this practical requires the library <a href="https://cran.r-project.org/package=nycflights13"><code>nycflights13</code></a>. To install it, select <em>Tools &gt; Install Packages…</em> from the top menu. Insert <code>nycflights13</code> in the <em>Packages (separate multiple with space or comma)</em> field and click install. RStudio will automatically execute the command <code>install.packages("nycflights13")</code> (so, no need to execute that yourself) and install the required library.</p>
+<p>As mentioned in the previous chapter, <strong>data frames</strong> are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vectors representing a colum and all vectors have the same length, thus representing the same number of rows.</p>
+<div id="example-flights-that-departed-nyc-in-2013" class="section level4" number="2.2.4.1">
+<h4>
+<span class="header-section-number">2.2.4.1</span> Example: Flights that Departed NYC in 2013<a class="anchor" aria-label="anchor" href="#example-flights-that-departed-nyc-in-2013"><i class="fas fa-link"></i></a>
+</h4>
+<p>RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with. The remainder of this practical requires the library <a href="https://cran.r-project.org/package=nycflights13"><code>nycflights13</code></a>, which contains a table listing all the flights that departed from New York City in 2013 and it is also the dataset used in the examples of your suggested reading (<a href="https://r4ds.had.co.nz/transform.html"><em>R for Data Science</em>, chapter 5</a>) To install it, select <em>Tools &gt; Install Packages…</em> from the top menu. Insert <code>nycflights13</code> in the <em>Packages (separate multiple with space or comma)</em> field and click install. RStudio will automatically execute the command <code>install.packages("nycflights13")</code> (so, no need to execute that yourself) and install the required library.</p>
 <p>As usual, use the function <code>library</code> to load the newly installed library, along with the library <code>knitr</code> which can be use to produce more nicely-formatted outputs.</p>
 <div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
-<p>Add both lines above to your R script, as well as the code snippets provided as an example below.</p>
-<p>The function <code>select</code> can be used to select some <strong>columns</strong> to output. For instance in the code below, the function <code>select</code> is used to select the columns <code>origin</code>, <code>dest</code>, and <code>dep_delay</code>, in combination with the function <code>slice_head</code>, which can be used to include only the first <code>n</code> rows (<code>5</code> in the example below) to output.</p>
-<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">flights</span></span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 19
+##     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+##  1  2013     1     1      517        515       2     830     819      11 UA     
+##  2  2013     1     1      533        529       4     850     830      20 UA     
+##  3  2013     1     1      542        540       2     923     850      33 AA     
+##  4  2013     1     1      544        545      -1    1004    1022     -18 B6     
+##  5  2013     1     1      554        600      -6     812     837     -25 DL     
+##  6  2013     1     1      554        558      -4     740     728      12 UA     
+##  7  2013     1     1      555        600      -5     913     854      19 B6     
+##  8  2013     1     1      557        600      -3     709     723     -14 EV     
+##  9  2013     1     1      557        600      -3     838     846      -8 B6     
+## 10  2013     1     1      558        600      -2     753     745       8 AA     
+## # … with 336,766 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names
+## #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</code></pre>
+<p>Create a new empty R script following the procedure above and save it as <code>practical-102_my-script-002.R</code>. Start by adding the lines above to the new R script, and continue to add the code snippets provided below while you read.</p>
+</div>
+<div id="selecting-and-filtering-tables" class="section level4" number="2.2.4.2">
+<h4>
+<span class="header-section-number">2.2.4.2</span> Selecting and filtering tables<a class="anchor" aria-label="anchor" href="#selecting-and-filtering-tables"><i class="fas fa-link"></i></a>
+</h4>
+<p>The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional) and thus two pieces of information are necessary. The first index allows to specify which rows to select or filter, the second index allows to specify which columns to select or filter. If no information is provided for either first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query becomes the longer and less readable the code becomes.</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the 5th row</span></span>
+<span><span class="va">flights</span><span class="op">[</span><span class="fl">5</span>, <span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 19
+##    year month   day dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;       &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+## 1  2013     1     1      554         600      -6     812     837     -25 DL     
+## # … with 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;, origin &lt;chr&gt;,
+## #   dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;, minute &lt;dbl&gt;,
+## #   time_hour &lt;dttm&gt;, and abbreviated variable names ¹​sched_dep_time,
+## #   ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</code></pre>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the 3rd column</span></span>
+<span><span class="va">flights</span><span class="op">[</span>, <span class="fl">4</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 1
+##    dep_time
+##       &lt;int&gt;
+##  1      517
+##  2      533
+##  3      542
+##  4      544
+##  5      554
+##  6      554
+##  7      555
+##  8      557
+##  9      557
+## 10      558
+## # … with 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the departure time column</span></span>
+<span><span class="va">flights</span><span class="op">[</span>, <span class="st">"dep_time"</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 1
+##    dep_time
+##       &lt;int&gt;
+##  1      517
+##  2      533
+##  3      542
+##  4      544
+##  5      554
+##  6      554
+##  7      555
+##  8      557
+##  9      557
+## 10      558
+## # … with 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the origin, destination and departure time columns</span></span>
+<span><span class="va">flights</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_time"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 336,776 × 3
+##    origin dest  dep_time
+##    &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;
+##  1 EWR    IAH        517
+##  2 LGA    IAH        533
+##  3 JFK    MIA        542
+##  4 JFK    BQN        544
+##  5 LGA    ATL        554
+##  6 EWR    ORD        554
+##  7 EWR    FLL        555
+##  8 LGA    IAD        557
+##  9 JFK    MCO        557
+## 10 LGA    ORD        558
+## # … with 336,766 more rows</code></pre>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the 5th row and 3rd column</span></span>
+<span><span class="va">flights</span><span class="op">[</span><span class="fl">5</span>, <span class="fl">4</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   dep_time
+##      &lt;int&gt;
+## 1      554</code></pre>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Select the 5th to 10th rows </span></span>
+<span><span class="co"># and origin, destination and departure time columns</span></span>
+<span><span class="va">flights</span><span class="op">[</span><span class="fl">5</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_time"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 6 × 3
+##   origin dest  dep_time
+##   &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;
+## 1 LGA    ATL        554
+## 2 EWR    ORD        554
+## 3 EWR    FLL        555
+## 4 LGA    IAD        557
+## 5 JFK    MCO        557
+## 6 LGA    ORD        558</code></pre>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter all rows where the flights departed at 5.54am</span></span>
+<span><span class="va">flights</span><span class="op">[</span><span class="va">flights</span><span class="op">$</span><span class="va">dep_time</span> <span class="op">==</span> <span class="fl">554</span>, <span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 8,932 × 19
+##     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;  
+##  1  2013     1     1      554        600      -6     812     837     -25 DL     
+##  2  2013     1     1      554        558      -4     740     728      12 UA     
+##  3    NA    NA    NA       NA         NA      NA      NA      NA      NA &lt;NA&gt;   
+##  4    NA    NA    NA       NA         NA      NA      NA      NA      NA &lt;NA&gt;   
+##  5    NA    NA    NA       NA         NA      NA      NA      NA      NA &lt;NA&gt;   
+##  6    NA    NA    NA       NA         NA      NA      NA      NA      NA &lt;NA&gt;   
+##  7  2013     1     2      554        600      -6     845     901     -16 B6     
+##  8  2013     1     2      554        600      -6     841     851     -10 B6     
+##  9  2013     1     2      554        600      -6     909     858      11 B6     
+## 10    NA    NA    NA       NA         NA      NA      NA      NA      NA &lt;NA&gt;   
+## # … with 8,922 more rows, 9 more variables: flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;, and abbreviated variable names
+## #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay</code></pre>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter all rows where the flights departed at 5.54am</span></span>
+<span><span class="co"># and origin, destination and departure time columns</span></span>
+<span><span class="va">flights</span><span class="op">[</span><span class="va">flights</span><span class="op">$</span><span class="va">dep_time</span> <span class="op">==</span> <span class="fl">554</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"origin"</span>, <span class="st">"dest"</span>, <span class="st">"dep_time"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<pre><code>## # A tibble: 8,932 × 3
+##    origin dest  dep_time
+##    &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;
+##  1 LGA    ATL        554
+##  2 EWR    ORD        554
+##  3 &lt;NA&gt;   &lt;NA&gt;        NA
+##  4 &lt;NA&gt;   &lt;NA&gt;        NA
+##  5 &lt;NA&gt;   &lt;NA&gt;        NA
+##  6 &lt;NA&gt;   &lt;NA&gt;        NA
+##  7 JFK    FLL        554
+##  8 JFK    PBI        554
+##  9 LGA    FLL        554
+## 10 &lt;NA&gt;   &lt;NA&gt;        NA
+## # … with 8,922 more rows</code></pre>
+<p>Fortunately, rather than working with base R instructions, we can use the the <code>dplyr</code> library, which part of the Tidyverse and offers a grammar for data manipulation. The function <code>select</code> can be used to select some <strong>columns</strong> to output. For instance in the code below, the function <code>select</code> is used to select the columns <code>origin</code>, <code>dest</code>, and <code>dep_delay</code>, in combination with the function <code>slice_head</code>, which can be used to include only the first <code>n</code> rows (<code>5</code> in the example below) to output.</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -413,7 +560,7 @@
 </tbody>
 </table></div>
 <p>The function <code>filter</code> can instead be used to filter <strong>rows</strong> based on a specified condition. In the example below, the output of the <code>filter</code> step only includes the rows where the value of <code>month</code> is <code>11</code> (i.e., the eleventh month, November).</p>
-<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -474,13 +621,23 @@
 <p>Notice how <code>filter</code> is used in combination with <code>select</code>. All functions in the <code>dplyr</code> library can be combined, in any other order that makes logical sense. However, if the <code>select</code> step didn’t include <code>month</code>, that same column couldn’t have been used in the <code>filter</code> step.</p>
 </div>
 </div>
-<div id="reproducibility-1" class="section level2" number="2.3">
+</div>
+<div id="exercise-102.1" class="section level2" number="2.3">
 <h2>
-<span class="header-section-number">2.3</span> Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3</span> Exercise 102.1<a class="anchor" aria-label="anchor" href="#exercise-102.1"><i class="fas fa-link"></i></a>
 </h2>
-<p>According to <span class="citation">Christopher Gandrud<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref"&gt;&lt;em&gt;Reproducible Research with r and RStudio&lt;/em&gt; (Chapman; Hall/CRC, 2018)&lt;/a&gt;.&lt;/p&gt;'><sup>11</sup></a></span>, a quantitative analysis or project can be considered to be <strong>reproducible</strong> if: <em>“the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding”</em>. Reproducibility practices are rooted in software engineering, including project design practices (such as <a href="https://en.wikipedia.org/wiki/Scrum_(software_development)">Scrum</a>), software readability principles, testing and versioning.</p>
+<p>Extend the code in the script <code>practical-102_my-script-002.R</code> to include the code necessary to solve the questions below.</p>
+<p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<p><strong>Question 102.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time (<strong>tip</strong>: use manipulate to create a new column that takes the result of <code>arr_delay / air_time</code>) calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<p><strong>Question 103.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.</p>
+</div>
+<div id="reproducibility-1" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility-1"><i class="fas fa-link"></i></a>
+</h2>
+<p>According to <span class="citation">Christopher Gandrud<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref"&gt;&lt;em&gt;Reproducible Research with r and RStudio&lt;/em&gt; (Chapman; Hall/CRC, 2018)&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a></span>, a quantitative analysis or project can be considered to be <strong>reproducible</strong> if: <em>“the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding”</em>. Reproducibility practices are rooted in software engineering, including project design practices (such as <a href="https://en.wikipedia.org/wiki/Scrum_(software_development)">Scrum</a>), software readability principles, testing and versioning.</p>
 <p>In GIScience, programming was essential to interact with early GIS software such as <a href="https://en.wikipedia.org/wiki/ArcInfo">ArcInfo</a> in the 1980s and 1990s, up until the release of the <a href="https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0">ArcGIS 8.0</a> suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development.</p>
-<p>Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the <a href="https://osf.io/numa5/">AGILE Reproducible Paper Guidelines</a> from the <a href="https://agile-online.org/">Association of Geographic Information Laboratories in Europe</a>). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. <span class="citation">Alex David Singleton, Seth Spielman, and Chris Brunsdon<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;&lt;span&gt;“Establishing a Framework for Open Geographic Information Science,”&lt;/span&gt; &lt;em&gt;International Journal of Geographical Information Science&lt;/em&gt; 30, no. 8 (2016): 1507–21, &lt;/a&gt;&lt;a href="https://doi.org/10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;https://doi.org/10.1080/13658816.2015.1137579&lt;/a&gt;.&lt;/p&gt;'><sup>12</sup></a></span> have discussed the issue of reproducibility in GIScience, identifying the following best practices:</p>
+<p>Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the <a href="https://osf.io/numa5/">AGILE Reproducible Paper Guidelines</a> from the <a href="https://agile-online.org/">Association of Geographic Information Laboratories in Europe</a>). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. <span class="citation">Alex David Singleton, Seth Spielman, and Chris Brunsdon<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;&lt;span&gt;“Establishing a Framework for Open Geographic Information Science,”&lt;/span&gt; &lt;em&gt;International Journal of Geographical Information Science&lt;/em&gt; 30, no. 8 (2016): 1507–21, &lt;/a&gt;&lt;a href="https://doi.org/10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;https://doi.org/10.1080/13658816.2015.1137579&lt;/a&gt;.&lt;/p&gt;'><sup>14</sup></a></span> have discussed the issue of reproducibility in GIScience, identifying the following best practices:</p>
 <ol style="list-style-type: decimal">
 <li>
 <em>“Data should be accessible within the public domain and available to researchers”</em>.</li>
@@ -494,9 +651,9 @@
 <em>“Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances”</em>.</li>
 </ol>
 <p>The rest of the chapter discusses three tools that can help you improve the reproducibility of your code: <a href="https://daringfireball.net/projects/markdown/">Markdown</a>, <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> and <a href="https://git-scm.com/">Git</a>.</p>
-<div id="markdown" class="section level3" number="2.3.1">
+<div id="markdown" class="section level3" number="2.4.1">
 <h3>
-<span class="header-section-number">2.3.1</span> Markdown<a class="anchor" aria-label="anchor" href="#markdown"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.1</span> Markdown<a class="anchor" aria-label="anchor" href="#markdown"><i class="fas fa-link"></i></a>
 </h3>
 <p>A essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> That is an R library that allows you to create scripts that mix the <a href="https://daringfireball.net/projects/markdown/">Markdown</a> mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
 <p>For instance the following markdown code</p>
@@ -530,9 +687,9 @@
 2. Another number two
 3. This is number three</code></pre>
 </div>
-<div id="r-markdown" class="section level3" number="2.3.2">
+<div id="rmarkdown" class="section level3" number="2.4.2">
 <h3>
-<span class="header-section-number">2.3.2</span> R Markdown<a class="anchor" aria-label="anchor" href="#r-markdown"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.4.2</span> RMarkdown<a class="anchor" aria-label="anchor" href="#rmarkdown"><i class="fas fa-link"></i></a>
 </h3>
 <p>R code can be embedded in RMarkdown documents as in the example below. That results in the code chunk be displayed within the document (as <em>echo=TRUE</em> is specified), followed by the output from the execution of the same code.</p>
 <pre><code>```{r, echo=TRUE}
@@ -542,21 +699,22 @@ a_number &lt;- a_number + 1
 a_number &lt;- a_number + 1
 a_number
 ```</code></pre>
-<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="va">a_number</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
+<p>To create an RMarkdown document in RStudio, select <em>File &gt; New File &gt; R Markdown …</em> – this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify “Practical 102” as title and your name as the author, and select <em>PDF</em> as default output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.</p>
+<p>Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading. Save the document (<em>File &gt; Save</em>) as <code>my-first-rmarkdown.Rmd</code> and then click the <em>Knit</em> button visible above the file panel in RStudio to compile the source file into a <em>PDF</em> file – if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.</p>
 </div>
 </div>
-<div id="exercise-224.1" class="section level2" number="2.4">
+<div id="exercise-102.2" class="section level2" number="2.5">
 <h2>
-<span class="header-section-number">2.4</span> Exercise 224.1<a class="anchor" aria-label="anchor" href="#exercise-224.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.5</span> Exercise 102.2<a class="anchor" aria-label="anchor" href="#exercise-102.2"><i class="fas fa-link"></i></a>
 </h2>
-<p>Create a new R project named e.g. <em>Practical_224</em> as the directory name. Create an RMarkdown document in RStudio by selecting <em>File &gt; New File &gt; R Markdown …</em> – this might prompt RStudio to update some packages. On the RMarkdown document creation menu, specify “Practical 224” as title and your name as the author, and select <em>PDF</em> as default output format.</p>
-<p>The new document should contain the core document information, as in the example below, plus some additional content that simply explains how RMarkdown works.</p>
+<p>Create an RMarkdown document in RStudio, delete all the contents except the first five lines which compose the heading. Save the document as <code>practical-102_my-report-002.R</code>. Copy the questions from <em>Exercise 102.1</em> as markdown content and your answers as R code, then compile the document to produce your report.</p>
 <pre><code>---
 title: "Practical 224"
 author: "A. Student"
@@ -654,11 +812,11 @@ Congratulations, you have completed your first commit! Check the repository page
 
 -->
 </div>
-<div id="how-to-cite-code" class="section level2" number="2.5">
+<div id="how-to-cite-code" class="section level2" number="2.6">
 <h2>
-<span class="header-section-number">2.5</span> How to cite code<a class="anchor" aria-label="anchor" href="#how-to-cite-code"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.6</span> How to cite code<a class="anchor" aria-label="anchor" href="#how-to-cite-code"><i class="fas fa-link"></i></a>
 </h2>
-<p>The UK’s <a href="https://www.software.ac.uk/about">Software Sustainability Institute</a> provides clear guidance about <a href="https://www.software.ac.uk/how-cite-software">how to cite software</a> written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a <a href="https://www.doi.org/">DOI</a>. In such cases, you should at least include a link to the authors’ website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse’s <a href="https://tidyverse.tidyverse.org/">website</a>, <a href="https://github.com/tidyverse/tidyverse">repository</a> or <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">CRAN page</a> when using the library. However, <span class="citation">Wickham et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;&lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a></span> also wrote a paper on their work on the Tidyverse for the <a href="https://joss.theoj.org/">Journal of Open Source Software</a>, so you can also cite their paper <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">using Bibtex in RMarkdown</a>.</p>
+<p>The UK’s <a href="https://www.software.ac.uk/about">Software Sustainability Institute</a> provides clear guidance about <a href="https://www.software.ac.uk/how-cite-software">how to cite software</a> written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a <a href="https://www.doi.org/">DOI</a>. In such cases, you should at least include a link to the authors’ website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse’s <a href="https://tidyverse.tidyverse.org/">website</a>, <a href="https://github.com/tidyverse/tidyverse">repository</a> or <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">CRAN page</a> when using the library. However, <span class="citation">Wickham et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;&lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>15</sup></a></span> also wrote a paper on their work on the Tidyverse for the <a href="https://joss.theoj.org/">Journal of Open Source Software</a>, so you can also cite their paper <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">using Bibtex in RMarkdown</a>.</p>
 <!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
 <p>Appropriate citations are even more important when directly copying or adapting code from others’ work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)’s <a href="https://integrity.mit.edu/"><em>Academic Integrity at MIT: A Handbook for Students</em></a> includes a section on <a href="https://integrity.mit.edu/handbook/writing-code">writing code</a> which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly.
 That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.</p>
@@ -722,14 +880,15 @@ As this book's repository is public, you can clone it, edit it as you wish and p
 <li><a class="nav-link" href="#data-frames-and-tibbles"><span class="header-section-number">2.2.4</span> Data frames and tibbles</a></li>
 </ul>
 </li>
+<li><a class="nav-link" href="#exercise-102.1"><span class="header-section-number">2.3</span> Exercise 102.1</a></li>
 <li>
-<a class="nav-link" href="#reproducibility-1"><span class="header-section-number">2.3</span> Reproducibility</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#markdown"><span class="header-section-number">2.3.1</span> Markdown</a></li>
-<li><a class="nav-link" href="#r-markdown"><span class="header-section-number">2.3.2</span> R Markdown</a></li>
+<a class="nav-link" href="#reproducibility-1"><span class="header-section-number">2.4</span> Reproducibility</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#markdown"><span class="header-section-number">2.4.1</span> Markdown</a></li>
+<li><a class="nav-link" href="#rmarkdown"><span class="header-section-number">2.4.2</span> RMarkdown</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercise-224.1"><span class="header-section-number">2.4</span> Exercise 224.1</a></li>
-<li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">2.5</span> How to cite code</a></li>
+<li><a class="nav-link" href="#exercise-102.2"><span class="header-section-number">2.5</span> Exercise 102.2</a></li>
+<li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">2.6</span> How to cite code</a></li>
 </ul>
 
       <div class="book-extra">
@@ -747,7 +906,7 @@ As this book's repository is public, you can clone it, edit it as you wish and p
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-10.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-12.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

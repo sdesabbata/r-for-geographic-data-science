@@ -30,7 +30,7 @@ library(tidyverse)
 
 As you can see, a comment precedes each line, describing what the subsequent command does. Adequately commenting the code is a fundamental practice in programming. As this is a learning resource, the comments in the examples below explain *"what"* the subsequent lines of code do. However, comments should generally focus on *"how"* a procedure (i.e., an algorithm) is implemented in a set of instructions (i.e., a section of the script) and crucially on *"why"* the procedure has been implemented in a specific way. We will see more complex examples in the rest of this book.
 
-From the top menu, select *File > Save*, type in `My_first_script.R` (make sure to include the underscore and the `.R` extension) as *File name*, and click *Save*. Finally, click the *Source* button on the top-right of the editor. 
+From the top menu, select *File > Save*, type in `my-first-script.R` (make sure to include the underscore and the `.R` extension) as *File name*, and click *Save*. Finally, click the *Source* button on the top-right of the editor. 
 
 Congratulations, you have executed your first `R` script! `r emo::ji("smiling face with smiling eyes")``r emo::ji("thumbs up")`
 
@@ -50,6 +50,8 @@ RStudio also allows to select one or more lines and click *Run* to execute only 
 Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it, rather than using the Console.
 
 ## Complex data types
+
+Create a new empty R script following the procedure above and save it as `practical-102_my-script-001.R`. While reading the rest of this section, copy the new code in the script and use *Run* to execute the single instructions.
 
 ### Vectors
 
@@ -128,7 +130,7 @@ Similarly, string functions can be applied to vectors containing character value
 str_length(east_midlands_cities)
 ```
 
-#### Selecting and filtering data
+#### Selecting and filtering vectors
 
 As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (`TRUE` or `FALSE`) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned -- which contains the respective results of the conditions for each element.
 
@@ -242,11 +244,11 @@ employee$employee_name
 
 ### Data frames and tibbles
 
-*to-do: re-connect to tidyverse*
+As mentioned in the previous chapter, **data frames** are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vectors representing a colum and all vectors have the same length, thus representing the same number of rows.
 
-RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with.
+#### Example: Flights that Departed NYC in 2013
 
-The remainder of this practical requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13). To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
+RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with. The remainder of this practical requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13), which contains a table listing all the flights that departed from New York City in 2013 and it is also the dataset used in the examples of your suggested reading ([*R for Data Science*, chapter 5](https://r4ds.had.co.nz/transform.html)) To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
 
 As usual, use the function `library` to load the newly installed library, along with the library `knitr` which can be use to produce more nicely-formatted outputs.
 
@@ -254,11 +256,45 @@ As usual, use the function `library` to load the newly installed library, along 
 library(tidyverse)
 library(nycflights13)
 library(knitr)
+
+flights
 ```
 
-Add both lines above to your R script, as well as the code snippets provided as an example below.
+Create a new empty R script following the procedure above and save it as `practical-102_my-script-002.R`. Start by adding the lines above to the new R script, and continue to add the code snippets provided below while you read.
 
-The function `select` can be used to select some **columns** to output. For instance in the code below, the function `select` is used to select the columns `origin`, `dest`, and `dep_delay`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
+#### Selecting and filtering tables
+
+The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional) and thus two pieces of information are necessary. The first index allows to specify which rows to select or filter, the second index allows to specify which columns to select or filter. If no information is provided for either first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query becomes the longer and less readable the code becomes.
+
+```{r}
+# Select the 5th row
+flights[5, ]
+
+# Select the 3rd column
+flights[, 4]
+
+# Select the departure time column
+flights[, "dep_time"]
+
+# Select the origin, destination and departure time columns
+flights[, c("origin", "dest", "dep_time")]
+
+# Select the 5th row and 3rd column
+flights[5, 4]
+
+# Select the 5th to 10th rows 
+# and origin, destination and departure time columns
+flights[5:10, c("origin", "dest", "dep_time")]
+
+# Filter all rows where the flights departed at 5.54am
+flights[flights$dep_time == 554, ]
+
+# Filter all rows where the flights departed at 5.54am
+# and origin, destination and departure time columns
+flights[flights$dep_time == 554, c("origin", "dest", "dep_time")]
+```
+ 
+Fortunately, rather than working with base R instructions, we can use the the `dplyr` library, which part of the Tidyverse and offers a grammar for data manipulation. The function `select` can be used to select some **columns** to output. For instance in the code below, the function `select` is used to select the columns `origin`, `dest`, and `dep_delay`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 flights %>%
@@ -279,6 +315,16 @@ flights %>%
 
 Notice how `filter` is used in combination with `select`. All functions in the `dplyr` library can be combined, in any other order that makes logical sense. However, if the `select` step didn't include `month`, that same column couldn't have been used in the `filter` step.
 
+
+## Exercise 102.1
+
+Extend the code in the script `practical-102_my-script-002.R` to include the code necessary to solve the questions below.
+
+**Question 101.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+
+**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time (**tip**: use manipulate to create a new column that takes the result of `arr_delay / air_time`) calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+
+**Question 103.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.
 
 
 
@@ -345,7 +391,7 @@ The core Markdown notation used in this chapter is presented below. A full RMark
 ```
 
 
-### R Markdown
+### RMarkdown
 
 R code can be embedded in RMarkdown documents as in the example below. That results in the code chunk be displayed within the document (as *echo=TRUE* is specified), followed by the output from the execution of the same code.
 
@@ -367,12 +413,13 @@ a_number <- a_number + 1
 a_number
 ```
 
+To create an RMarkdown document in RStudio, select *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify "Practical 102" as title and your name as the author, and select *PDF* as default output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.
 
-## Exercise 224.1
+Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading. Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the *Knit* button visible above the file panel in RStudio to compile the source file into a *PDF* file -- if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.
 
-Create a new R project named e.g. *Practical_224* as the directory name. Create an RMarkdown document in RStudio by selecting *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. On the RMarkdown document creation menu, specify "Practical 224" as title and your name as the author, and select *PDF* as default output format. 
+## Exercise 102.2
 
-The new document should contain the core document information, as in the example below, plus some additional content that simply explains how RMarkdown works.
+Create an RMarkdown document in RStudio, delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.R`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report.
 
 ```
 ---

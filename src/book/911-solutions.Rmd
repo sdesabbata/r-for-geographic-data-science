@@ -131,6 +131,83 @@ iris %>%
   mean()
 ```
 
+## Solutions 102 {-}
+
+### Solutions 102.1 {-}
+
+Extend the code in the script `My_script_Practical_102.R` to include the code necessary to solve the questions below.
+
+```{r, echo=TRUE, eval=FALSE}
+# Load the tidyverse
+library(tidyverse)
+# Load the data
+library(nycflights13)
+```
+
+
+**Question 102.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+
+```{r, echo=TRUE, eval=FALSE}
+# Start from the entire dataset
+nycflights13::flights %>%
+  # Retain only the necessary columns
+  dplyr::select(origin, carrier, air_time) %>%
+  # Retain only rows representing flights from JFK
+  dplyr::filter(origin == "JFK") %>%
+  # Group by carrier
+  dplyr::group_by(carrier) %>%
+  # Calulate the average of
+  # the air time values, which is originally in minutes
+  # divided by 60 to obtain the value in hours
+  dplyr::summarise(
+    avg_air_time_h = mean(air_time / 60)
+  )
+```
+
+**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time (**tip**: use manipulate to create a new column that takes the result of `arr_delay / air_time`) calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+
+```{r, echo=TRUE, eval=FALSE}
+# Start from the entire dataset
+nycflights13::flights %>%
+  # Retain only the necessary columns
+  dplyr::select(origin, carrier, arr_delay, air_time) %>%
+  # Retain only rows representing flights from JFK
+  dplyr::filter(origin == "JFK") %>%
+  # Drop rows containing NAs in the arrival delays column
+  # otherwise the mean function will return NA
+  dplyr::filter(!is.na(arr_delay)) %>%
+  # Group by carrier
+  dplyr::group_by(carrier) %>%
+  # Calulate the average of
+  # the proportion between
+  # arrival delay and air time
+  dplyr::summarise(
+    avg_arr_delay_air_time = mean(arr_delay / air_time)
+  )
+```
+
+**Question 102.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.
+
+```{r, echo=TRUE, eval=FALSE}
+# Start from the entire dataset
+nycflights13::flights %>%
+  # Retain only the necessary columns
+  dplyr::select(origin, dest, arr_delay, air_time) %>%
+  # Drop rows containing NAs in the arrival delays column
+  # otherwise the mean function will return NA
+  dplyr::filter(!is.na(arr_delay)) %>%
+  # Group by origin and destination
+  dplyr::group_by(origin, dest) %>%
+  # Calulate the average of
+  # the proportion between
+  # arrival delay and air time
+  dplyr::summarise(
+    avg_arr_delay_air_time = mean(arr_delay / air_time)
+  ) %>%
+  # Sort by destination
+  dplyr::arrange(dest)
+```
+
 
 <!--
 
@@ -221,7 +298,6 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
   str_c(collapse = " ")
 ```
 
--->
 
 ## Solutions 114 {-}
 
@@ -380,82 +456,6 @@ silly_function(cities, 1:3)
 ```
 
 
-## Solutions 204 {-}
-
-### Solutions 204.1 {-}
-
-Extend the code in the script `My_script_Practical_204.R` to include the code necessary to solve the questions below.
-
-```{r, echo=TRUE, eval=FALSE}
-# Load the tidyverse
-library(tidyverse)
-# Load the data
-library(nycflights13)
-```
-
-
-**Question 204.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.
-
-```{r, echo=TRUE, eval=FALSE}
-# Start from the entire dataset
-nycflights13::flights %>%
-  # Retain only the necessary columns
-  dplyr::select(origin, carrier, air_time) %>%
-  # Retain only rows representing flights from JFK
-  dplyr::filter(origin == "JFK") %>%
-  # Group by carrier
-  dplyr::group_by(carrier) %>%
-  # Calulate the average of
-  # the air time values, which is originally in minutes
-  # divided by 60 to obtain the value in hours
-  dplyr::summarise(
-    avg_air_time_h = mean(air_time / 60)
-  )
-```
-
-**Question 204.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time (**tip**: use manipulate to create a new column that takes the result of `arr_delay / air_time`) calculated grouping flights by carrier, but only for flights starting from the JFK airport.
-
-```{r, echo=TRUE, eval=FALSE}
-# Start from the entire dataset
-nycflights13::flights %>%
-  # Retain only the necessary columns
-  dplyr::select(origin, carrier, arr_delay, air_time) %>%
-  # Retain only rows representing flights from JFK
-  dplyr::filter(origin == "JFK") %>%
-  # Drop rows containing NAs in the arrival delays column
-  # otherwise the mean function will return NA
-  dplyr::filter(!is.na(arr_delay)) %>%
-  # Group by carrier
-  dplyr::group_by(carrier) %>%
-  # Calulate the average of
-  # the proportion between
-  # arrival delay and air time
-  dplyr::summarise(
-    avg_arr_delay_air_time = mean(arr_delay / air_time)
-  )
-```
-
-**Question 204.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.
-
-```{r, echo=TRUE, eval=FALSE}
-# Start from the entire dataset
-nycflights13::flights %>%
-  # Retain only the necessary columns
-  dplyr::select(origin, dest, arr_delay, air_time) %>%
-  # Drop rows containing NAs in the arrival delays column
-  # otherwise the mean function will return NA
-  dplyr::filter(!is.na(arr_delay)) %>%
-  # Group by origin and destination
-  dplyr::group_by(origin, dest) %>%
-  # Calulate the average of
-  # the proportion between
-  # arrival delay and air time
-  dplyr::summarise(
-    avg_arr_delay_air_time = mean(arr_delay / air_time)
-  ) %>%
-  # Sort by destination
-  dplyr::arrange(dest)
-```
 
 
 ## Solutions 214 {-}
@@ -612,6 +612,9 @@ perc_long_table %>%
   slice_head(n = 5) %>%
   knitr::kable()
 ```
+
+-->
+
 
 ---
 
