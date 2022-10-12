@@ -691,7 +691,7 @@
 <h3>
 <span class="header-section-number">2.4.2</span> RMarkdown<a class="anchor" aria-label="anchor" href="#rmarkdown"><i class="fas fa-link"></i></a>
 </h3>
-<p>R code can be embedded in RMarkdown documents as in the example below. That results in the code chunk be displayed within the document (as <em>echo=TRUE</em> is specified), followed by the output from the execution of the same code.</p>
+<p>R code can be embedded in RMarkdown documents using code snippets as in the example below. That results in the code chunk be displayed within the document (as <em>echo=TRUE</em> is specified), followed by the output from the execution of the same code.</p>
 <pre><code>```{r, echo=TRUE}
 a_number &lt;- 0
 a_number &lt;- a_number + 1
@@ -707,7 +707,9 @@ a_number
 <span><span class="va">a_number</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <p>To create an RMarkdown document in RStudio, select <em>File &gt; New File &gt; R Markdown …</em> – this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify “Practical 102” as title and your name as the author, and select <em>PDF</em> as default output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.</p>
-<p>Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading. Save the document (<em>File &gt; Save</em>) as <code>my-first-rmarkdown.Rmd</code> and then click the <em>Knit</em> button visible above the file panel in RStudio to compile the source file into a <em>PDF</em> file – if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.</p>
+<p>Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading.
+For each code snippet, the option <code>echo=TRUE</code> tells RStudio to include the code in the output document, along with the output of the computation. If <code>echo=FALSE</code> is specified, the code will be omitted. If the option <code>message=FALSE</code> and <code>warning=FALSE</code> are added, messages and warnings from R are not displayed in the output document.</p>
+<p>Save the document (<em>File &gt; Save</em>) as <code>my-first-rmarkdown.Rmd</code> and then click the <em>Knit</em> button visible above the file panel in RStudio to compile the source file into a <em>PDF</em> file – if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.</p>
 </div>
 </div>
 <div id="exercise-102.2" class="section level2" number="2.5">
@@ -715,34 +717,6 @@ a_number
 <span class="header-section-number">2.5</span> Exercise 102.2<a class="anchor" aria-label="anchor" href="#exercise-102.2"><i class="fas fa-link"></i></a>
 </h2>
 <p>Create an RMarkdown document in RStudio, delete all the contents except the first five lines which compose the heading. Save the document as <code>practical-102_my-report-002.R</code>. Copy the questions from <em>Exercise 102.1</em> as markdown content and your answers as R code, then compile the document to produce your report.</p>
-<pre><code>---
-title: "Practical 224"
-author: "A. Student"
-date: "4 November 2021"
-output: pdf_document
----</code></pre>
-<p>Delete the contents below the document information and copy the following text below the document information.</p>
-<pre><code># Pipe example
-
-This is my first [RMarkdown](https://rmarkdown.rstudio.com/) document.
-
-```{r, echo=TRUE}
-library(tidyverse)
-```
-
-The code uses the pipe operator:
-
-- takes 2 as input
-- calculates the square root
-- rounds the value
-    - keeping only two digits
-
-```{r, echo=TRUE}
-2 %&gt;%
-  sqrt() %&gt;%
-  round(digits = 2)
-```</code></pre>
-<p>The option <code>echo=TRUE</code> tells RStudio to include the code in the output document, along with the output of the computation. If <code>echo=FALSE</code> is specified, the code will be omitted. If the option <code>message=FALSE</code> and <code>warning=FALSE</code> are added, messages and warnings from R are not displayed in the output document.</p>
 <p>Save the document by selecting <em>File &gt; Save</em> from the main menu. Enter <em>Square_root</em> as file name and click <em>Save</em>. The file is saved using the <em>Rmd</em> (RMarkdown) extension.</p>
 <p>Click on the <em>Knit</em> button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting <em>pdf</em> document. Try adding some of your own code (e.g., using some of the examples above) and Markdown text, and compile the document again.</p>
 <!--
@@ -811,17 +785,6 @@ In the newly opened panel *Commit* window, the top-left section shows the files,
 Congratulations, you have completed your first commit! Check the repository page on GitHub. If you reload the page, the top bar should show *2 commits* on the left and your files should now be visible in the file list below. If you click on *2 commits*, you can see the commit history, including both the initial commit that created the repository and the commit you just completed.
 
 -->
-</div>
-<div id="how-to-cite-code" class="section level2" number="2.6">
-<h2>
-<span class="header-section-number">2.6</span> How to cite code<a class="anchor" aria-label="anchor" href="#how-to-cite-code"><i class="fas fa-link"></i></a>
-</h2>
-<p>The UK’s <a href="https://www.software.ac.uk/about">Software Sustainability Institute</a> provides clear guidance about <a href="https://www.software.ac.uk/how-cite-software">how to cite software</a> written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a <a href="https://www.doi.org/">DOI</a>. In such cases, you should at least include a link to the authors’ website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse’s <a href="https://tidyverse.tidyverse.org/">website</a>, <a href="https://github.com/tidyverse/tidyverse">repository</a> or <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">CRAN page</a> when using the library. However, <span class="citation">Wickham et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;&lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>15</sup></a></span> also wrote a paper on their work on the Tidyverse for the <a href="https://joss.theoj.org/">Journal of Open Source Software</a>, so you can also cite their paper <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">using Bibtex in RMarkdown</a>.</p>
-<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
-<p>Appropriate citations are even more important when directly copying or adapting code from others’ work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)’s <a href="https://integrity.mit.edu/"><em>Academic Integrity at MIT: A Handbook for Students</em></a> includes a section on <a href="https://integrity.mit.edu/handbook/writing-code">writing code</a> which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly.
-That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.</p>
-<p>It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the <a href="https://www.mendeley.com/guides/harvard-citation-guide/">Harvard Format Citation Guide</a> available <a href="https://www.mendeley.com/">Mendeley</a>’s help pages).
-Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.</p>
 <!--
 
 ## Exercise 224.3
@@ -888,7 +851,6 @@ As this book's repository is public, you can clone it, edit it as you wish and p
 </ul>
 </li>
 <li><a class="nav-link" href="#exercise-102.2"><span class="header-section-number">2.5</span> Exercise 102.2</a></li>
-<li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">2.6</span> How to cite code</a></li>
 </ul>
 
       <div class="book-extra">

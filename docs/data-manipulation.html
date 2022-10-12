@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 3 Data manipulation | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter  3.1 Data manipulation The analysis below uses the dplyr library (also part of the Tidyverse), which it offers a grammar for data...">
+<meta name="description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 3 Data manipulation | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/data-manipulation.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter  3.1 Data manipulation The analysis below uses the dplyr library (also part of the Tidyverse), which it offers a grammar for data...">
+<meta property="og:description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 3 Data manipulation | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  3.1 Data manipulation The analysis below uses the dplyr library (also part of the Tidyverse), which it offers a grammar for data...">
+<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  3.1 R workflow  3.1.1 R Projects RStudio provides an extremely useful functionality to organise all your code and data, that is R Projects....">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -110,20 +110,51 @@
 </h1>
 <p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<div id="data-manipulation-1" class="section level2" number="3.1">
+<div id="r-workflow" class="section level2" number="3.1">
 <h2>
-<span class="header-section-number">3.1</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.1</span> R workflow<a class="anchor" aria-label="anchor" href="#r-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<div id="r-projects" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
+</h3>
+<p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
+<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
+<p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_204</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
+<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_204</em> folder, which contains only the <em>Practical_204.Rproj</em> file. The <em>Practical_204.Rproj</em> stores all the <em>Environment</em> information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_204</em> folder. Moreover, the <em>Practical_204</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it.</p>
+<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (<em>Practical_204</em>). That also indicates that you are within the <em>Practical_204</em> project. Click on <em>Practical_204</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_204</em> from the list to reactivate the <em>Practical_204</em> project.</p>
+<p>With the <em>Practical_204</em> project activated, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second loads another library that the code below uses to produce well-formatted tables.</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
+<p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_script_Practical_204.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>.</p>
+</div>
+<div id="how-to-cite-code" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> How to cite code<a class="anchor" aria-label="anchor" href="#how-to-cite-code"><i class="fas fa-link"></i></a>
+</h3>
+<p>The UK’s <a href="https://www.software.ac.uk/about">Software Sustainability Institute</a> provides clear guidance about <a href="https://www.software.ac.uk/how-cite-software">how to cite software</a> written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a <a href="https://www.doi.org/">DOI</a>. In such cases, you should at least include a link to the authors’ website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse’s <a href="https://tidyverse.tidyverse.org/">website</a>, <a href="https://github.com/tidyverse/tidyverse">repository</a> or <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">CRAN page</a> when using the library. However, <span class="citation">Wickham et al.<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-tidyverse2019" role="doc-biblioref"&gt;&lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;”&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>15</sup></a></span> also wrote a paper on their work on the Tidyverse for the <a href="https://joss.theoj.org/">Journal of Open Source Software</a>, so you can also cite their paper <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">using Bibtex in RMarkdown</a>.</p>
+<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
+<p>Appropriate citations are even more important when directly copying or adapting code from others’ work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)’s <a href="https://integrity.mit.edu/"><em>Academic Integrity at MIT: A Handbook for Students</em></a> includes a section on <a href="https://integrity.mit.edu/handbook/writing-code">writing code</a> which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly.
+That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.</p>
+<p>It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the <a href="https://www.mendeley.com/guides/harvard-citation-guide/">Harvard Format Citation Guide</a> available <a href="https://www.mendeley.com/">Mendeley</a>’s help pages).
+Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.</p>
+</div>
+</div>
+<div id="data-manipulation-1" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The analysis below uses the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> library (also part of the Tidyverse), which it offers a grammar for data manipulation.</p>
 <p>For instance, the function <code>count</code> can be used to count the number rows of a data frame. The code below provides <code>flights</code> as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column.</p>
 <p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is data type similar to data frames, used by all the Tidyverse libraries.</p>
 <p>All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
 <p>In the <code>tibble</code> outputted by the <code>count</code> function below, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
-<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -138,7 +169,7 @@
 <p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation.</p>
 <p>The function <code>count</code> can also be used to count the number rows of a table that have the same value for a given column, usually representing a category.</p>
 <p>In the example below, the column name <code>origin</code> is provided as an argument to the function <code>count</code>, so rows representing flights from the same origin are counted together – EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.</p>
-<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -163,13 +194,13 @@
 </tbody>
 </table></div>
 <p>As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
-<div id="summarise" class="section level3" number="3.1.1">
+<div id="summarise" class="section level3" number="3.2.1">
 <h3>
-<span class="header-section-number">3.1.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
 <p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation).</p>
 <p>In the example below, the function <code>sum</code> is applied to the column <code>distance</code> to calculate <code>distance_traveled_from</code> (the total distance travelled by flights starting from each airport).</p>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -197,12 +228,12 @@
 </tbody>
 </table></div>
 </div>
-<div id="mutate" class="section level3" number="3.1.2">
+<div id="mutate" class="section level3" number="3.2.2">
 <h3>
-<span class="header-section-number">3.1.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>mutate</code> can be used to add a new column to an output table. The <code>mutate</code> step in the code below adds a new column <code>air_time_hours</code> to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by <code>60</code>.</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -257,19 +288,19 @@
 </tbody>
 </table></div>
 </div>
-<div id="arrange" class="section level3" number="3.1.3">
+<div id="arrange" class="section level3" number="3.2.3">
 <h3>
-<span class="header-section-number">3.1.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
 <p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>In the examples above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the examples <code>5</code>) rows in a table, based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
 <p>As such, the following code uses <code>slice_max</code> to produce a table including only the 5 rows with the <em>highest</em> air time.</p>
-<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -315,7 +346,7 @@
 </tbody>
 </table></div>
 <p>The following code, instead, uses <code>slice_min</code>, thus producing a table including only the 5 rows with the <em>lowest</em> air time.</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -428,9 +459,9 @@
 </table></div>
 <p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value <code>21</code> in the example above.</p>
 </div>
-<div id="data-manipulation-example" class="section level3" number="3.1.4">
+<div id="data-manipulation-example" class="section level3" number="3.2.4">
 <h3>
-<span class="header-section-number">3.1.4</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.2.4</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.</p>
 <ol style="list-style-type: decimal">
@@ -450,7 +481,7 @@
 <li>Only show the first 5 rows.</li>
 <li>Create a well-formatted table.</li>
 </ol>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -501,29 +532,10 @@
 </table></div>
 </div>
 </div>
-<div id="r-workflow" class="section level2" number="3.2">
+<div id="read-and-write-data" class="section level2" number="3.3">
 <h2>
-<span class="header-section-number">3.2</span> R workflow<a class="anchor" aria-label="anchor" href="#r-workflow"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.3</span> Read and write data<a class="anchor" aria-label="anchor" href="#read-and-write-data"><i class="fas fa-link"></i></a>
 </h2>
-<div id="r-projects" class="section level3" number="3.2.1">
-<h3>
-<span class="header-section-number">3.2.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
-</h3>
-<p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
-<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
-<p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_204</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
-<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_204</em> folder, which contains only the <em>Practical_204.Rproj</em> file. The <em>Practical_204.Rproj</em> stores all the <em>Environment</em> information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_204</em> folder. Moreover, the <em>Practical_204</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it.</p>
-<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (<em>Practical_204</em>). That also indicates that you are within the <em>Practical_204</em> project. Click on <em>Practical_204</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_204</em> from the list to reactivate the <em>Practical_204</em> project.</p>
-<p>With the <em>Practical_204</em> project activated, select from the top menu <em>File &gt; New File &gt; R Script</em>. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the <code>tidyverse</code> library, whereas the second loads another library that the code below uses to produce well-formatted tables.</p>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
-<p>From the top menu, select <em>File &gt; Save</em>, type in <em>My_script_Practical_204.R</em> (make sure to include the underscore and the <em>.R</em> extension) as <em>File name</em>, and click <em>Save</em>.</p>
-</div>
-<div id="read-and-write-data" class="section level3" number="3.2.2">
-<h3>
-<span class="header-section-number">3.2.2</span> Read and write data<a class="anchor" aria-label="anchor" href="#read-and-write-data"><i class="fas fa-link"></i></a>
-</h3>
 <p>The <a href="https://readr.tidyverse.org/index.html"><code>readr</code> library</a> (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats.</p>
 <p>Download from Blackboard (or the <a href="https://github.com/sdesabbata/granolarr/tree/master/data">data</a> folder of the repository) the following files:</p>
 <ul>
@@ -536,7 +548,7 @@
 Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
 -->
 <p>The <code>read_csv</code> function reads a <em>Comma Separated Values (CSV)</em> file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The <code>read_csv</code> instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows – one for each OA – and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.</p>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
 <span></span>
@@ -594,15 +606,15 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <li>
 <strong>write</strong> the results to a file named <em>Leicester_Suburbanites.csv</em>.</li>
 </ol>
-<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpcode</span>, <span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpcode</span> <span class="op">==</span> <span class="fl">6</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="st">"Leicester_Suburbanites.csv"</span><span class="op">)</span></span></code></pre></div>
-<div id="file-paths" class="section level4" number="3.2.2.1">
-<h4>
-<span class="header-section-number">3.2.2.1</span> File paths<a class="anchor" aria-label="anchor" href="#file-paths"><i class="fas fa-link"></i></a>
-</h4>
+<div id="file-paths" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> File paths<a class="anchor" aria-label="anchor" href="#file-paths"><i class="fas fa-link"></i></a>
+</h3>
 <p>File paths can be specified in two different ways:</p>
 <ul>
 <li>
@@ -627,7 +639,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Absolute file path</span></span>
 <span><span class="co"># Note: the fist / indicates the root folder</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
@@ -646,18 +658,18 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
-<div id="loading-r-scripts" class="section level3" number="3.2.3">
-<h3>
-<span class="header-section-number">3.2.3</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
-</h3>
+<div id="loading-r-scripts" class="section level2" number="3.4">
+<h2>
+<span class="header-section-number">3.4</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+</h2>
 <p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
-<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
 <span>   <span class="va">result</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Create a second R script named <code>Practical_204_RS_main.R</code>, copy the code below in that second R script and save the file.</p>
-<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Practical_204_RS_functions.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
@@ -667,7 +679,7 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 
 </div>
 </div>
-</div>
+
   <div class="chapter-nav">
 <div class="prev"><a href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></div>
 <div class="next"><a href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></div>
@@ -676,20 +688,23 @@ Note that the `~` in the path below indicates the home folder -- a different pat
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#data-manipulation"><span class="header-section-number">3</span> Data manipulation</a></li>
 <li>
-<a class="nav-link" href="#data-manipulation-1"><span class="header-section-number">3.1</span> Data manipulation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.1.1</span> Summarise</a></li>
-<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.1.2</span> Mutate</a></li>
-<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.1.3</span> Arrange</a></li>
-<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.1.4</span> Data manipulation example</a></li>
+<a class="nav-link" href="#r-workflow"><span class="header-section-number">3.1</span> R workflow</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.1.1</span> R Projects</a></li>
+<li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">3.1.2</span> How to cite code</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#r-workflow"><span class="header-section-number">3.2</span> R workflow</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#r-projects"><span class="header-section-number">3.2.1</span> R Projects</a></li>
-<li><a class="nav-link" href="#read-and-write-data"><span class="header-section-number">3.2.2</span> Read and write data</a></li>
-<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.2.3</span> Loading R scripts</a></li>
+<a class="nav-link" href="#data-manipulation-1"><span class="header-section-number">3.2</span> Data manipulation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#summarise"><span class="header-section-number">3.2.1</span> Summarise</a></li>
+<li><a class="nav-link" href="#mutate"><span class="header-section-number">3.2.2</span> Mutate</a></li>
+<li><a class="nav-link" href="#arrange"><span class="header-section-number">3.2.3</span> Arrange</a></li>
+<li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.2.4</span> Data manipulation example</a></li>
 </ul>
 </li>
+<li>
+<a class="nav-link" href="#read-and-write-data"><span class="header-section-number">3.3</span> Read and write data</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#file-paths"><span class="header-section-number">3.3.1</span> File paths</a></li></ul>
+</li>
+<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">3.4</span> Loading R scripts</a></li>
 </ul>
 
       <div class="book-extra">

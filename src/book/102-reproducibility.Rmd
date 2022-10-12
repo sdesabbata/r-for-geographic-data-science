@@ -393,7 +393,7 @@ The core Markdown notation used in this chapter is presented below. A full RMark
 
 ### RMarkdown
 
-R code can be embedded in RMarkdown documents as in the example below. That results in the code chunk be displayed within the document (as *echo=TRUE* is specified), followed by the output from the execution of the same code.
+R code can be embedded in RMarkdown documents using code snippets as in the example below. That results in the code chunk be displayed within the document (as *echo=TRUE* is specified), followed by the output from the execution of the same code.
 
 ````
 `r ''````{r, echo=TRUE}
@@ -415,47 +415,15 @@ a_number
 
 To create an RMarkdown document in RStudio, select *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify "Practical 102" as title and your name as the author, and select *PDF* as default output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.
 
-Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading. Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the *Knit* button visible above the file panel in RStudio to compile the source file into a *PDF* file -- if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.
+Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading. 
+For each code snippet, the option `echo=TRUE` tells RStudio to include the code in the output document, along with the output of the computation. If `echo=FALSE` is specified, the code will be omitted. If the option `message=FALSE` and `warning=FALSE` are added, messages and warnings from R are not displayed in the output document.
+
+Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the *Knit* button visible above the file panel in RStudio to compile the source file into a *PDF* file -- if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.
 
 ## Exercise 102.2
 
 Create an RMarkdown document in RStudio, delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.R`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report.
 
-```
----
-title: "Practical 224"
-author: "A. Student"
-date: "4 November 2021"
-output: pdf_document
----
-```
-
-Delete the contents below the document information and copy the following text below the document information. 
-
-````
-# Pipe example
-
-This is my first [RMarkdown](https://rmarkdown.rstudio.com/) document.
-
-`r ''````{r, echo=TRUE}
-library(tidyverse)
-`r ''````
-
-The code uses the pipe operator:
-
-- takes 2 as input
-- calculates the square root
-- rounds the value
-    - keeping only two digits
-
-`r ''````{r, echo=TRUE}
-2 %>%
-  sqrt() %>%
-  round(digits = 2)
-`r ''````
-````
-
-The option `echo=TRUE` tells RStudio to include the code in the output document, along with the output of the computation. If `echo=FALSE` is specified, the code will be omitted. If the option `message=FALSE` and `warning=FALSE` are added, messages and warnings from R are not displayed in the output document.
 
 Save the document by selecting *File > Save* from the main menu. Enter *Square_root* as file name and click *Save*. The file is saved using the *Rmd* (RMarkdown) extension.
 
@@ -525,20 +493,6 @@ In the newly opened panel *Commit* window, the top-left section shows the files,
 Congratulations, you have completed your first commit! Check the repository page on GitHub. If you reload the page, the top bar should show *2 commits* on the left and your files should now be visible in the file list below. If you click on *2 commits*, you can see the commit history, including both the initial commit that created the repository and the commit you just completed.
 
 -->
-
-
-## How to cite code
-
-The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
-
-<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
-
-Appropriate citations are even more important when directly copying or adapting code from others' work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)'s [*Academic Integrity at MIT: A Handbook for Students*](https://integrity.mit.edu/) includes a section on [writing code](https://integrity.mit.edu/handbook/writing-code) which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly. 
-That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.
-
-It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
-Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
-
 
 
 <!--
