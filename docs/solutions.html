@@ -212,66 +212,162 @@
 <div id="solutions-102.1" class="section level3 unnumbered">
 <h3>Solutions 102.1<a class="anchor" aria-label="anchor" href="#solutions-102.1"><i class="fas fa-link"></i></a>
 </h3>
-<p>Extend the code in the script <code>My_script_Practical_102.R</code> to include the code necessary to solve the questions below.</p>
+<p>Extend the code in the script <code>practical-102_my-script-002.R</code> to include the code necessary to solve the questions below.</p>
 <div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co"># Load the data</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
-<p><strong>Question 102.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
+<p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the air time and the carrier, but only for flights starting from the JFK airport. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
 <div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
-<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only rows representing flights from JFK</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Group by carrier</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Calulate the average of</span></span>
-<span>  <span class="co"># the air time values, which is originally in minutes</span></span>
-<span>  <span class="co"># divided by 60 to obtain the value in hours</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    avg_air_time_h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><strong>Question 102.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time (<strong>tip</strong>: use manipulate to create a new column that takes the result of <code>arr_delay / air_time</code>) calculated grouping flights by carrier, but only for flights starting from the JFK airport.</p>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">origin</th>
+<th align="left">carrier</th>
+<th align="right">air_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">JFK</td>
+<td align="left">AA</td>
+<td align="right">160</td>
+</tr>
+<tr class="even">
+<td align="left">JFK</td>
+<td align="left">B6</td>
+<td align="right">183</td>
+</tr>
+<tr class="odd">
+<td align="left">JFK</td>
+<td align="left">B6</td>
+<td align="right">140</td>
+</tr>
+<tr class="even">
+<td align="left">JFK</td>
+<td align="left">B6</td>
+<td align="right">149</td>
+</tr>
+<tr class="odd">
+<td align="left">JFK</td>
+<td align="left">B6</td>
+<td align="right">158</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Question 102.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay and the overall air time, but only for flights of October 12th. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
 <div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
-<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">carrier</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Retain only rows representing flights from JFK</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">origin</span> <span class="op">==</span> <span class="st">"JFK"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Drop rows containing NAs in the arrival delays column</span></span>
-<span>  <span class="co"># otherwise the mean function will return NA</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Group by carrier</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">carrier</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Calulate the average of</span></span>
-<span>  <span class="co"># the proportion between</span></span>
-<span>  <span class="co"># arrival delay and air time</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    avg_arr_delay_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">/</span> <span class="va">air_time</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p><strong>Question 102.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.</p>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">year</span><span class="op">:</span><span class="va">day</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only rows where month equals 10 and day equals 12</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">10</span> <span class="op">&amp;</span> <span class="va">day</span> <span class="op">==</span> <span class="fl">12</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">year</th>
+<th align="right">month</th>
+<th align="right">day</th>
+<th align="right">arr_delay</th>
+<th align="right">air_time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">10</td>
+<td align="right">12</td>
+<td align="right">-20</td>
+<td align="right">74</td>
+</tr>
+<tr class="even">
+<td align="right">2013</td>
+<td align="right">10</td>
+<td align="right">12</td>
+<td align="right">-27</td>
+<td align="right">181</td>
+</tr>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">10</td>
+<td align="right">12</td>
+<td align="right">-30</td>
+<td align="right">142</td>
+</tr>
+<tr class="even">
+<td align="right">2013</td>
+<td align="right">10</td>
+<td align="right">12</td>
+<td align="right">-10</td>
+<td align="right">193</td>
+</tr>
+<tr class="odd">
+<td align="right">2013</td>
+<td align="right">10</td>
+<td align="right">12</td>
+<td align="right">17</td>
+<td align="right">210</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Question 103.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
 <div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
-<span><span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">arr_delay</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Drop rows containing NAs in the arrival delays column</span></span>
-<span>  <span class="co"># otherwise the mean function will return NA</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Group by origin and destination</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Calulate the average of</span></span>
-<span>  <span class="co"># the proportion between</span></span>
-<span>  <span class="co"># arrival delay and air time</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    avg_arr_delay_air_time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">/</span> <span class="va">air_time</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="co"># Sort by destination</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">dep_time</span>, <span class="va">arr_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Retain only rows where departure time is greater than or equal to 1100</span></span>
+<span>  <span class="co"># and departure time is also less than or equal to 1100</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">dep_time</span> <span class="op">&gt;=</span> <span class="fl">1100</span> <span class="op">&amp;</span> <span class="va">dep_time</span> <span class="op">&lt;=</span> <span class="fl">1400</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">origin</th>
+<th align="left">dest</th>
+<th align="right">dep_time</th>
+<th align="right">arr_delay</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="left">PBI</td>
+<td align="right">1101</td>
+<td align="right">13</td>
+</tr>
+<tr class="even">
+<td align="left">LGA</td>
+<td align="left">MIA</td>
+<td align="right">1103</td>
+<td align="right">-11</td>
+</tr>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="left">SFO</td>
+<td align="right">1105</td>
+<td align="right">23</td>
+</tr>
+<tr class="even">
+<td align="left">LGA</td>
+<td align="left">CMH</td>
+<td align="right">1107</td>
+<td align="right">-5</td>
+</tr>
+<tr class="odd">
+<td align="left">LGA</td>
+<td align="left">MIA</td>
+<td align="right">1109</td>
+<td align="right">-23</td>
+</tr>
+</tbody>
+</table></div>
 <!--
 
 ### Solutions 104.2 {-}
@@ -556,18 +652,18 @@ leicester_IMD2015 <-
 
 leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
   # Select only Socres
-  dplyr::filter(Measurement == "Decile") %>%
+  filter(Measurement == "Decile") %>%
   # Trim names of IndicesOfDeprivation
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
   ) %>%
   # Spread
@@ -576,7 +672,7 @@ leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
     values_from = Value
   ) %>%
   # Drop columns
-  dplyr::select(-DateCode, -Measurement, -Units)
+  select(-DateCode, -Measurement, -Units)
 
 # Join
 leicester_2011OAC_IMD2015 <- 
@@ -592,9 +688,9 @@ leicester_2011OAC_IMD2015 <-
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
-  dplyr::group_by(IndexofMultipleDeprivationIMD) %>%
-  dplyr::summarise(
+  filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
+  group_by(IndexofMultipleDeprivationIMD) %>%
+  summarise(
     adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
   ) %>%
   knitr::kable()
@@ -605,9 +701,9 @@ leicester_2011OAC_IMD2015 %>%
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::filter(IndexofMultipleDeprivationIMD <= 5) %>%
-  dplyr::group_by(supgrpname) %>%
-  dplyr::summarise(
+  filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  group_by(supgrpname) %>%
+  summarise(
     adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
   ) %>%
   knitr::kable()
@@ -619,12 +715,12 @@ leicester_2011OAC_IMD2015 %>%
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::filter(IndexofMultipleDeprivationIMD <= 5) %>%
-  dplyr::group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
-  dplyr::summarise(
+  filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
+  summarise(
     aged_65_above = (sum(u016 + u017 + u018 + u019) / sum(Total_Population)) * 100
   ) %>%
-  dplyr::arrange(-aged_65_above) %>%
+  arrange(-aged_65_above) %>%
   knitr::kable()
 ```
 
@@ -638,7 +734,7 @@ Extend the code in the script `Data_Wrangling_Example.R` to include the code nec
 
 ```r
 long_table <- leicester_2011OAC_IMD2015 %>%
-  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
   tidyr::pivot_longer(
     # Can't combine character values (e.g. supgrpname)
     # with numeric value (e.g, Total_Population) thus
@@ -653,7 +749,7 @@ long_table %>%
   knitr::kable()
 
 long_table_alt <- leicester_2011OAC_IMD2015 %>%
-  dplyr::select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
   tidyr::pivot_longer(
     # Otherwise, use supgrpcode instead of supgrpname
     cols = -OA11CD,
@@ -672,14 +768,14 @@ long_table_alt %>%
 
 ```r
 perc_long_table <- leicester_2011OAC_IMD2015 %>%
-  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  dplyr::mutate(
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  mutate(
     perc_u016 = (u016 / Total_Population) * 100, 
     perc_u017 = (u017 / Total_Population) * 100, 
     perc_u018 = (u018 / Total_Population) * 100, 
     perc_u019 = (u019 / Total_Population) * 100
   ) %>%
-  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
   tidyr::pivot_longer(
     # Can't combine character values (e.g. supgrpname)
     # with numeric value (e.g, Total_Population) thus
@@ -694,8 +790,7 @@ perc_long_table %>%
   knitr::kable()
 ```
 
--->
-<hr>
+--><hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
 </div>
@@ -731,7 +826,7 @@ perc_long_table %>%
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-12.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

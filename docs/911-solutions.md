@@ -146,82 +146,89 @@ iris %>%
 
 ### Solutions 102.1 {-}
 
-Extend the code in the script `My_script_Practical_102.R` to include the code necessary to solve the questions below.
+Extend the code in the script `practical-102_my-script-002.R` to include the code necessary to solve the questions below.
 
 
 ```r
-# Load the tidyverse
 library(tidyverse)
-# Load the data
 library(nycflights13)
+library(knitr)
 ```
 
 
-**Question 102.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+**Question 101.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the air time and the carrier, but only for flights starting from the JFK airport. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
 
 ```r
 # Start from the entire dataset
-nycflights13::flights %>%
+flights %>%
   # Retain only the necessary columns
-  dplyr::select(origin, carrier, air_time) %>%
+  select(origin, carrier, air_time) %>%
   # Retain only rows representing flights from JFK
-  dplyr::filter(origin == "JFK") %>%
-  # Group by carrier
-  dplyr::group_by(carrier) %>%
-  # Calulate the average of
-  # the air time values, which is originally in minutes
-  # divided by 60 to obtain the value in hours
-  dplyr::summarise(
-    avg_air_time_h = mean(air_time / 60)
-  )
+  filter(origin == "JFK") %>%
+  slice_head(n = 5) %>%
+  kable()
 ```
 
-**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time (**tip**: use manipulate to create a new column that takes the result of `arr_delay / air_time`) calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+
+
+|origin |carrier | air_time|
+|:------|:-------|--------:|
+|JFK    |AA      |      160|
+|JFK    |B6      |      183|
+|JFK    |B6      |      140|
+|JFK    |B6      |      149|
+|JFK    |B6      |      158|
+
+**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay and the overall air time, but only for flights of October 12th. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
 
 ```r
 # Start from the entire dataset
-nycflights13::flights %>%
+flights %>%
   # Retain only the necessary columns
-  dplyr::select(origin, carrier, arr_delay, air_time) %>%
-  # Retain only rows representing flights from JFK
-  dplyr::filter(origin == "JFK") %>%
-  # Drop rows containing NAs in the arrival delays column
-  # otherwise the mean function will return NA
-  dplyr::filter(!is.na(arr_delay)) %>%
-  # Group by carrier
-  dplyr::group_by(carrier) %>%
-  # Calulate the average of
-  # the proportion between
-  # arrival delay and air time
-  dplyr::summarise(
-    avg_arr_delay_air_time = mean(arr_delay / air_time)
-  )
+  select(year:day, arr_delay, air_time) %>%
+  # Retain only rows where month equals 10 and day equals 12
+  filter(month == 10 & day == 12) %>%
+  slice_head(n = 5) %>%
+  kable()
 ```
 
-**Question 102.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.
+
+
+| year| month| day| arr_delay| air_time|
+|----:|-----:|---:|---------:|--------:|
+| 2013|    10|  12|       -20|       74|
+| 2013|    10|  12|       -27|      181|
+| 2013|    10|  12|       -30|      142|
+| 2013|    10|  12|       -10|      193|
+| 2013|    10|  12|        17|      210|
+
+**Question 103.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
 
 ```r
 # Start from the entire dataset
-nycflights13::flights %>%
+flights %>%
   # Retain only the necessary columns
-  dplyr::select(origin, dest, arr_delay, air_time) %>%
-  # Drop rows containing NAs in the arrival delays column
-  # otherwise the mean function will return NA
-  dplyr::filter(!is.na(arr_delay)) %>%
-  # Group by origin and destination
-  dplyr::group_by(origin, dest) %>%
-  # Calulate the average of
-  # the proportion between
-  # arrival delay and air time
-  dplyr::summarise(
-    avg_arr_delay_air_time = mean(arr_delay / air_time)
-  ) %>%
-  # Sort by destination
-  dplyr::arrange(dest)
+  select(origin, dest, dep_time, arr_delay) %>%
+  # Retain only rows where departure time is greater than or equal to 1100
+  # and departure time is also less than or equal to 1100
+  filter(dep_time >= 1100 & dep_time <= 1400) %>%
+  slice_head(n = 5) %>%
+  kable()
 ```
+
+
+
+|origin |dest | dep_time| arr_delay|
+|:------|:----|--------:|---------:|
+|EWR    |PBI  |     1101|        13|
+|LGA    |MIA  |     1103|       -11|
+|EWR    |SFO  |     1105|        23|
+|LGA    |CMH  |     1107|        -5|
+|LGA    |MIA  |     1109|       -23|
+
 
 
 <!--
@@ -508,18 +515,18 @@ leicester_IMD2015 <-
 
 leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
   # Select only Socres
-  dplyr::filter(Measurement == "Decile") %>%
+  filter(Measurement == "Decile") %>%
   # Trim names of IndicesOfDeprivation
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
   ) %>%
   # Spread
@@ -528,7 +535,7 @@ leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
     values_from = Value
   ) %>%
   # Drop columns
-  dplyr::select(-DateCode, -Measurement, -Units)
+  select(-DateCode, -Measurement, -Units)
 
 # Join
 leicester_2011OAC_IMD2015 <- 
@@ -544,9 +551,9 @@ leicester_2011OAC_IMD2015 <-
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
-  dplyr::group_by(IndexofMultipleDeprivationIMD) %>%
-  dplyr::summarise(
+  filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
+  group_by(IndexofMultipleDeprivationIMD) %>%
+  summarise(
     adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
   ) %>%
   knitr::kable()
@@ -557,9 +564,9 @@ leicester_2011OAC_IMD2015 %>%
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::filter(IndexofMultipleDeprivationIMD <= 5) %>%
-  dplyr::group_by(supgrpname) %>%
-  dplyr::summarise(
+  filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  group_by(supgrpname) %>%
+  summarise(
     adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
   ) %>%
   knitr::kable()
@@ -571,12 +578,12 @@ leicester_2011OAC_IMD2015 %>%
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::filter(IndexofMultipleDeprivationIMD <= 5) %>%
-  dplyr::group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
-  dplyr::summarise(
+  filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
+  summarise(
     aged_65_above = (sum(u016 + u017 + u018 + u019) / sum(Total_Population)) * 100
   ) %>%
-  dplyr::arrange(-aged_65_above) %>%
+  arrange(-aged_65_above) %>%
   knitr::kable()
 ```
 
@@ -590,7 +597,7 @@ Extend the code in the script `Data_Wrangling_Example.R` to include the code nec
 
 ```r
 long_table <- leicester_2011OAC_IMD2015 %>%
-  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
   tidyr::pivot_longer(
     # Can't combine character values (e.g. supgrpname)
     # with numeric value (e.g, Total_Population) thus
@@ -605,7 +612,7 @@ long_table %>%
   knitr::kable()
 
 long_table_alt <- leicester_2011OAC_IMD2015 %>%
-  dplyr::select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
   tidyr::pivot_longer(
     # Otherwise, use supgrpcode instead of supgrpname
     cols = -OA11CD,
@@ -624,14 +631,14 @@ long_table_alt %>%
 
 ```r
 perc_long_table <- leicester_2011OAC_IMD2015 %>%
-  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  dplyr::mutate(
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  mutate(
     perc_u016 = (u016 / Total_Population) * 100, 
     perc_u017 = (u017 / Total_Population) * 100, 
     perc_u018 = (u018 / Total_Population) * 100, 
     perc_u019 = (u019 / Total_Population) * 100
   ) %>%
-  dplyr::select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
   tidyr::pivot_longer(
     # Can't combine character values (e.g. supgrpname)
     # with numeric value (e.g, Total_Population) thus

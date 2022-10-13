@@ -9,14 +9,14 @@
 
 Singleton and Arribas-Bel define "geographic data science" as a space that *"effectively combines the long-standing tradition and epistemologies of Geographic Information Science and Geography with many of the recent advances that have given Data Science its relevance in an emerging 'datafied' world"* (Singleton and Arribas-Bel, 2021, p67[@singleton2021geographic]). In particular, they argue that "data science" emerged as a term to indicate the use of statistical and visual analytics tool to study a world where the digitalisation of everyday life resulted in a "data deluge" commonly referred to as "big data"[@kitchin2014data]. The academic debate about the historical and epistemological background of the term "data science" is quite complex, but the term has now acquired wide-spread usage.
 
-As such, "data science" is commonly used to refer to a set of tools and approaches to analysing data, including statisitcal analysis, visualisation and (what used to be referred to as) data mining. Data science also overlaps with the field of machine learning, which is a part of artificial intelligence and includes methods normally under the umbrella of statistics. If, at this point, you are confused, don't worry, that's quite normal. These definitions are frequently debated, and frequently prone to become [buzzwords](https://en.wikipedia.org/wiki/Buzzword).
+As such, "data science" is commonly used to refer to a set of tools and approaches to analysing data, including statistical analysis, visualisation and (what used to be referred to as) data mining. Data science also overlaps with the field of machine learning, which is a part of artificial intelligence and includes methods normally under the umbrella of statistics. If, at this point, you are confused, don't worry, that's quite normal. These definitions are frequently debated and frequently prone to become [buzzwords](https://en.wikipedia.org/wiki/Buzzword).
 
-This book focuses on an introduction to data science using R and a focus on geographic themes, although not necessarily using spatial analysis (i.e., when spatial relationship are part of the computation), which is covered in another module and wonderful books such as  [*An Introduction to R for Spatial Analysis and Mapping*](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) by Chris Brunsdon and Lex Comber and [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by Robin Lovelace, Jakub Nowosad and Jannes Muenchow.
+This book focuses on an introduction to data science using R and a focus on geographic themes, although not necessarily using spatial analysis (i.e., when spatial relationships are part of the computation), which is covered in another module and wonderful books such as  [*An Introduction to R for Spatial Analysis and Mapping*](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) by Chris Brunsdon and Lex Comber and [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by Robin Lovelace, Jakub Nowosad and Jannes Muenchow.
 
 
 ### R Scripts
 
-The RStudio Console is handy to interact with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow you to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis scripts of any significant size is to use the RStudio integrated editor to create an `R` script.
+The RStudio Console is handy to interacting with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow you to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis scripts of any significant size is to use the RStudio integrated editor to create an `R` script.
 
 To create an `R` script, select from the top menu *File > New File > R Script*. That opens the embedded RStudio editor and a new empty `R` script folder. Copy the two lines below into the file. The first loads the `tidyverse` library, whereas the second simply calculates the square root of two.
 
@@ -53,7 +53,7 @@ current_time <- Sys.time()
 
 RStudio also allows to select one or more lines and click *Run* to execute only the selected lines or the line where the cursor currently is.
 
-Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it, rather than using the Console.
+Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it rather than using the Console.
 
 ## Complex data types
 
@@ -174,7 +174,7 @@ rep("Ciao", 4)
 ```
 
 
-The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement, the second returns `TRUE` if all elements satisfy the condition
+The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement and the second returns `TRUE` if all elements satisfy the condition
 
 
 ```r
@@ -240,7 +240,7 @@ sqrt(one_to_ten)
 ##  [9] 3.000000 3.162278
 ```
 
-Similarly, string functions can be applied to vectors containing character values. For instance, the code below uses `str_length` to obtain a vector of numeric values representing the lenghts of the city names included in the vector of character values `east_midlands_cities`.
+Similarly, string functions can be applied to vectors containing character values. For instance, the code below uses `str_length` to obtain a vector of numeric values representing the lengths of the city names included in the vector of character values `east_midlands_cities`.
 
 
 ```r
@@ -282,7 +282,7 @@ minus_three_to_three > 0
 ## [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
 ```
 
-A subset of the elements of a vector can also be selected by providing a vector of logical values between brackets after the identifier. A new vector returned, containing only the values for which a `TRUE` value has been specified correspondingly.
+A subset of the elements of a vector can also be selected by providing a vector of logical values between brackets after the identifier. A new vector is returned, containing only the values for which a `TRUE` value has been specified correspondingly.
 
 
 ```r
@@ -302,7 +302,7 @@ minus_two_to_two[c(TRUE, TRUE, FALSE, FALSE, TRUE)]
 ## [1] -2 -1  2
 ```
 
-As the result of evaluating the condition on a vector is a vector of logical values, this can be used to filter vectors based on conditions. If a condition is provided between square brackets (after the vector identifier, instead of an index), a new vector is returned, which contains only the elements for which the condition is true. 
+As the result of evaluating the condition on a vector is a vector of logical values, this can be used to filter vectors based on conditions. If a condition is provided between square brackets (after the vector identifier instead of an index), a new vector is returned, which contains only the elements for which the condition is true. 
 
 
 ```r
@@ -403,7 +403,7 @@ income_nominal <- factor(
   levels = c("Low", "Medium", "High"))
 ```
 
-The *greater than* operator is not meaningful on the `income_nominal` factor defined above
+The *greater than* operator is not meaningful on the `income_nominal` factor defined above.
 
 
 ```r
@@ -497,13 +497,13 @@ employee$employee_name
 
 ### Data frames and tibbles
 
-As mentioned in the previous chapter, **data frames** are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vectors representing a colum and all vectors have the same length, thus representing the same number of rows.
+As mentioned in the previous chapter, **data frames** are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vector representing a column and all vectors have the same length, thus representing the same number of rows.
 
 #### Example: Flights that Departed NYC in 2013
 
-RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with. The remainder of this practical requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13), which contains a table listing all the flights that departed from New York City in 2013 and it is also the dataset used in the examples of your suggested reading ([*R for Data Science*, chapter 5](https://r4ds.had.co.nz/transform.html)) To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
+RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with. The remainder of this chapter requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13), which contains a table listing all the flights that departed from New York City in 2013, and it is also the dataset used in the examples of your suggested reading ([*R for Data Science*, chapter 5](https://r4ds.had.co.nz/transform.html)) To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
 
-As usual, use the function `library` to load the newly installed library, along with the library `knitr` which can be use to produce more nicely-formatted outputs.
+As usual, use the function `library` to load the newly installed library, along with the library `knitr`, which can be used to produce more nicely-formatted outputs.
 
 
 ```r
@@ -538,7 +538,7 @@ Create a new empty R script following the procedure above and save it as `practi
 
 #### Selecting and filtering tables
 
-The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional) and thus two pieces of information are necessary. The first index allows to specify which rows to select or filter, the second index allows to specify which columns to select or filter. If no information is provided for either first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query becomes the longer and less readable the code becomes.
+The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional), and thus, two pieces of information are necessary. The first index specifies which rows to select or filter, and the second index specifies which columns to select or filter. If no information is provided for either the first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query become, the longer and less readable the code becomes.
 
 
 ```r
@@ -701,7 +701,7 @@ flights[flights$dep_time == 554, c("origin", "dest", "dep_time")]
 ## # … with 8,922 more rows
 ```
  
-Fortunately, rather than working with base R instructions, we can use the the `dplyr` library, which part of the Tidyverse and offers a grammar for data manipulation. The function `select` can be used to select some **columns** to output. For instance in the code below, the function `select` is used to select the columns `origin`, `dest`, and `dep_delay`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
+Fortunately, rather than working with base R instructions, we can use the `dplyr` library, which is part of the Tidyverse and offers a grammar for data manipulation. The function `select` can be used to select some **columns** to output. For instance, in the code below, the function `select` is used to select the columns `origin`, `dest`, and `dep_delay`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
 
 
 ```r
@@ -742,18 +742,18 @@ flights %>%
 |LGA    |IAH  | 2013|    11|   1|        -6|
 |JFK    |MIA  | 2013|    11|   1|        -3|
 
-Notice how `filter` is used in combination with `select`. All functions in the `dplyr` library can be combined, in any other order that makes logical sense. However, if the `select` step didn't include `month`, that same column couldn't have been used in the `filter` step.
+Notice how `filter` is used in combination with `select`. All functions in the `dplyr` library can be combined in any other order that makes logical sense. However, if the `select` step didn't include `month`, that same column couldn't have been used in the `filter` step.
 
 
 ## Exercise 102.1
 
 Extend the code in the script `practical-102_my-script-002.R` to include the code necessary to solve the questions below.
 
-**Question 101.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average air time in hours, calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+**Question 101.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the air time and the carrier, but only for flights starting from the JFK airport. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
-**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time (**tip**: use manipulate to create a new column that takes the result of `arr_delay / air_time`) calculated grouping flights by carrier, but only for flights starting from the JFK airport.
+**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay and the overall air time, but only for flights of October 12th. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
-**Question 103.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the average arrival delay compared to the overall air time calculated grouping flights by origin and destination, sorted by destination.
+**Question 103.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
 
 
