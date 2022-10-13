@@ -1,7 +1,5 @@
 # Reproducible data science
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
@@ -764,7 +762,7 @@ According to @gandrud2018reproducible, a quantitative analysis or project can be
 
 In GIScience, programming was essential to interact with early GIS software such as [ArcInfo](https://en.wikipedia.org/wiki/ArcInfo) in the 1980s and 1990s, up until the release of the [ArcGIS 8.0](https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0) suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development. 
 
-Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the [AGILE Reproducible Paper Guidelines](https://osf.io/numa5/) from the [Association of Geographic Information Laboratories in Europe](https://agile-online.org/)). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. @doi:10.1080/13658816.2015.1137579 have discussed the issue of reproducibility in GIScience, identifying the following best practices:
+Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the [AGILE Reproducible Paper Guidelines](https://osf.io/numa5/) from the [Association of Geographic Information Laboratories in Europe](https://agile-online.org/)). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analyses that can be more easily verified and reproduced on different or new data. @doi:10.1080/13658816.2015.1137579 have discussed the issue of reproducibility in GIScience, identifying the following best practices:
 
 1. *"Data should be accessible within the public domain and available to researchers"*.
 2. *"Software used should have open code and be scrutable"*.
@@ -777,9 +775,9 @@ The rest of the chapter discusses three tools that can help you improve the repr
 
 ### Markdown
 
-A essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/) That is an R library that allows you to create scripts that mix the [Markdown](https://daringfireball.net/projects/markdown/) mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
+An essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/), an R library that allows you to create scripts that mix the [Markdown](https://daringfireball.net/projects/markdown/) mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
 
-For instance the following markdown code
+For instance, the following markdown code
 
 ```mark
 [This is a link to the University of Leicester](http://le.ac.uk) and **this is in bold**.
@@ -822,7 +820,7 @@ The core Markdown notation used in this chapter is presented below. A full RMark
 
 ### RMarkdown
 
-R code can be embedded in RMarkdown documents using code snippets as in the example below. That results in the code chunk be displayed within the document (as *echo=TRUE* is specified), followed by the output from the execution of the same code.
+R code can be embedded in RMarkdown documents using code snippets, as in the example below. That results in the code chunk being displayed within the document (as *echo=TRUE* is specified), followed by the output from the execution of the same code.
 
 ````
 ```{r, echo=TRUE}
@@ -847,19 +845,17 @@ a_number
 ## [1] 3
 ```
 
-To create an RMarkdown document in RStudio, select *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify "Practical 102" as title and your name as the author, and select *PDF* as default output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.
+To create an RMarkdown document in RStudio, select *File > New File > R Markdown ...* -- this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify "Practical 102" as the title and your name as the author, and select *PDF* as the output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.
 
-Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading. 
-For each code snippet, the option `echo=TRUE` tells RStudio to include the code in the output document, along with the output of the computation. If `echo=FALSE` is specified, the code will be omitted. If the option `message=FALSE` and `warning=FALSE` are added, messages and warnings from R are not displayed in the output document.
+Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is encoded in the first five lines which compose the heading. For each code snippet, the option `echo=TRUE` tells RStudio to include the code in the output document, along with the output of the computation. If `echo=FALSE` is specified, the code will be omitted. If the option `message=FALSE` and `warning=FALSE` are added, messages and warnings from R are not displayed in the output document.
 
 Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the *Knit* button visible above the file panel in RStudio to compile the source file into a *PDF* file -- if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.
 
 ## Exercise 102.2
 
-Create an RMarkdown document in RStudio, delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.R`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report.
+Create an RMarkdown document in RStudio and delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.R`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report.
 
-
-Save the document by selecting *File > Save* from the main menu. Enter *Square_root* as file name and click *Save*. The file is saved using the *Rmd* (RMarkdown) extension.
+Save the document by selecting *File > Save* from the main menu. Enter *Square_root* as the file name and click *Save*. The file is saved using the *Rmd* (RMarkdown) extension.
 
 Click on the *Knit* button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting *pdf* document. Try adding some of your own code (e.g., using some of the examples above) and Markdown text, and compile the document again.
 

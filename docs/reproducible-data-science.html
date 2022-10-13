@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 2 Reproducible data science | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition...">
+<meta name="description" content="Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition and epistemologies of Geographic...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 2 Reproducible data science | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/reproducible-data-science.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition...">
+<meta property="og:description" content="Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition and epistemologies of Geographic...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 2 Reproducible data science | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition...">
+<meta name="twitter:description" content="Print this chapter  2.1 Data science Singleton and Arribas-Bel define “geographic data science” as a space that “effectively combines the long-standing tradition and epistemologies of Geographic...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -108,7 +108,6 @@
 <h1>
 <span class="header-section-number">2</span> Reproducible data science<a class="anchor" aria-label="anchor" href="#reproducible-data-science"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <div id="data-science" class="section level2" number="2.1">
 <h2>
@@ -637,7 +636,7 @@
 </h2>
 <p>According to <span class="citation">Christopher Gandrud<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-gandrud2018reproducible" role="doc-biblioref"&gt;&lt;em&gt;Reproducible Research with r and RStudio&lt;/em&gt; (Chapman; Hall/CRC, 2018)&lt;/a&gt;.&lt;/p&gt;'><sup>13</sup></a></span>, a quantitative analysis or project can be considered to be <strong>reproducible</strong> if: <em>“the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding”</em>. Reproducibility practices are rooted in software engineering, including project design practices (such as <a href="https://en.wikipedia.org/wiki/Scrum_(software_development)">Scrum</a>), software readability principles, testing and versioning.</p>
 <p>In GIScience, programming was essential to interact with early GIS software such as <a href="https://en.wikipedia.org/wiki/ArcInfo">ArcInfo</a> in the 1980s and 1990s, up until the release of the <a href="https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0">ArcGIS 8.0</a> suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development.</p>
-<p>Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the <a href="https://osf.io/numa5/">AGILE Reproducible Paper Guidelines</a> from the <a href="https://agile-online.org/">Association of Geographic Information Laboratories in Europe</a>). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analysis that can be more easily verified and reproduced on different or new data. <span class="citation">Alex David Singleton, Seth Spielman, and Chris Brunsdon<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;&lt;span&gt;“Establishing a Framework for Open Geographic Information Science,”&lt;/span&gt; &lt;em&gt;International Journal of Geographical Information Science&lt;/em&gt; 30, no. 8 (2016): 1507–21, &lt;/a&gt;&lt;a href="https://doi.org/10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;https://doi.org/10.1080/13658816.2015.1137579&lt;/a&gt;.&lt;/p&gt;'><sup>14</sup></a></span> have discussed the issue of reproducibility in GIScience, identifying the following best practices:</p>
+<p>Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the <a href="https://osf.io/numa5/">AGILE Reproducible Paper Guidelines</a> from the <a href="https://agile-online.org/">Association of Geographic Information Laboratories in Europe</a>). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analyses that can be more easily verified and reproduced on different or new data. <span class="citation">Alex David Singleton, Seth Spielman, and Chris Brunsdon<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references.html#ref-doi:10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;&lt;span&gt;“Establishing a Framework for Open Geographic Information Science,”&lt;/span&gt; &lt;em&gt;International Journal of Geographical Information Science&lt;/em&gt; 30, no. 8 (2016): 1507–21, &lt;/a&gt;&lt;a href="https://doi.org/10.1080/13658816.2015.1137579" role="doc-biblioref"&gt;https://doi.org/10.1080/13658816.2015.1137579&lt;/a&gt;.&lt;/p&gt;'><sup>14</sup></a></span> have discussed the issue of reproducibility in GIScience, identifying the following best practices:</p>
 <ol style="list-style-type: decimal">
 <li>
 <em>“Data should be accessible within the public domain and available to researchers”</em>.</li>
@@ -655,8 +654,8 @@
 <h3>
 <span class="header-section-number">2.4.1</span> Markdown<a class="anchor" aria-label="anchor" href="#markdown"><i class="fas fa-link"></i></a>
 </h3>
-<p>A essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a> That is an R library that allows you to create scripts that mix the <a href="https://daringfireball.net/projects/markdown/">Markdown</a> mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point, the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
-<p>For instance the following markdown code</p>
+<p>An essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>, an R library that allows you to create scripts that mix the <a href="https://daringfireball.net/projects/markdown/">Markdown</a> mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
+<p>For instance, the following markdown code</p>
 <pre class="mark"><code>[This is a link to the University of Leicester](http://le.ac.uk) and **this is in bold**.</code></pre>
 <p>is rendered as</p>
 <p><a href="http://le.ac.uk">This is a link to the University of Leicester</a> and <strong>this is in bold</strong>.</p>
@@ -691,7 +690,7 @@
 <h3>
 <span class="header-section-number">2.4.2</span> RMarkdown<a class="anchor" aria-label="anchor" href="#rmarkdown"><i class="fas fa-link"></i></a>
 </h3>
-<p>R code can be embedded in RMarkdown documents using code snippets as in the example below. That results in the code chunk be displayed within the document (as <em>echo=TRUE</em> is specified), followed by the output from the execution of the same code.</p>
+<p>R code can be embedded in RMarkdown documents using code snippets, as in the example below. That results in the code chunk being displayed within the document (as <em>echo=TRUE</em> is specified), followed by the output from the execution of the same code.</p>
 <pre><code>```{r, echo=TRUE}
 a_number &lt;- 0
 a_number &lt;- a_number + 1
@@ -706,9 +705,8 @@ a_number
 <span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="va">a_number</span> <span class="op">+</span> <span class="fl">1</span></span>
 <span><span class="va">a_number</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<p>To create an RMarkdown document in RStudio, select <em>File &gt; New File &gt; R Markdown …</em> – this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify “Practical 102” as title and your name as the author, and select <em>PDF</em> as default output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.</p>
-<p>Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is incoded in the first five lines which compose the heading.
-For each code snippet, the option <code>echo=TRUE</code> tells RStudio to include the code in the output document, along with the output of the computation. If <code>echo=FALSE</code> is specified, the code will be omitted. If the option <code>message=FALSE</code> and <code>warning=FALSE</code> are added, messages and warnings from R are not displayed in the output document.</p>
+<p>To create an RMarkdown document in RStudio, select <em>File &gt; New File &gt; R Markdown …</em> – this might prompt RStudio to update some packages. Once the RMarkdown document creation menu appears, specify “Practical 102” as the title and your name as the author, and select <em>PDF</em> as the output format. The new document should contain the core document information, plus some additional content that simply explains how RMarkdown works.</p>
+<p>Read the document through, inspecting both the R and the Markdown code. Note how the information provided in the previous step is encoded in the first five lines which compose the heading. For each code snippet, the option <code>echo=TRUE</code> tells RStudio to include the code in the output document, along with the output of the computation. If <code>echo=FALSE</code> is specified, the code will be omitted. If the option <code>message=FALSE</code> and <code>warning=FALSE</code> are added, messages and warnings from R are not displayed in the output document.</p>
 <p>Save the document (<em>File &gt; Save</em>) as <code>my-first-rmarkdown.Rmd</code> and then click the <em>Knit</em> button visible above the file panel in RStudio to compile the source file into a <em>PDF</em> file – if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.</p>
 </div>
 </div>
@@ -716,8 +714,8 @@ For each code snippet, the option <code>echo=TRUE</code> tells RStudio to includ
 <h2>
 <span class="header-section-number">2.5</span> Exercise 102.2<a class="anchor" aria-label="anchor" href="#exercise-102.2"><i class="fas fa-link"></i></a>
 </h2>
-<p>Create an RMarkdown document in RStudio, delete all the contents except the first five lines which compose the heading. Save the document as <code>practical-102_my-report-002.R</code>. Copy the questions from <em>Exercise 102.1</em> as markdown content and your answers as R code, then compile the document to produce your report.</p>
-<p>Save the document by selecting <em>File &gt; Save</em> from the main menu. Enter <em>Square_root</em> as file name and click <em>Save</em>. The file is saved using the <em>Rmd</em> (RMarkdown) extension.</p>
+<p>Create an RMarkdown document in RStudio and delete all the contents except the first five lines which compose the heading. Save the document as <code>practical-102_my-report-002.R</code>. Copy the questions from <em>Exercise 102.1</em> as markdown content and your answers as R code, then compile the document to produce your report.</p>
+<p>Save the document by selecting <em>File &gt; Save</em> from the main menu. Enter <em>Square_root</em> as the file name and click <em>Save</em>. The file is saved using the <em>Rmd</em> (RMarkdown) extension.</p>
 <p>Click on the <em>Knit</em> button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting <em>pdf</em> document. Try adding some of your own code (e.g., using some of the examples above) and Markdown text, and compile the document again.</p>
 <!--
 
