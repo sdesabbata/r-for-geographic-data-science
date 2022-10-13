@@ -39,8 +39,6 @@ Congratulations, you have executed your first `R` script! 😊👍
 
 You can then edit the script by adding (for instance) the new lines of code shown below, saving the file, and executing the script's new version.
 
-**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of the script? What happens if you click *Source* a third time?
-
 
 ```r
 # First variable in a script:
@@ -49,13 +47,15 @@ You can then edit the script by adding (for instance) the new lines of code show
 current_time <- Sys.time()
 ```
 
+**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of the script? What happens if you click *Source* a third time?
+
 RStudio also allows to select one or more lines and click *Run* to execute only the selected lines or the line where the cursor currently is.
 
-Delete the two lines calculating the square root of two and defining the variable `a_variable` from the script, leaving only the line loading the Tidyverse library. In the following sections, add the code to the script to execute it rather than using the Console.
+
 
 ## Complex data types
 
-Create a new empty R script following the procedure above and save it as `practical-102_my-script-001.R`. While reading the rest of this section, copy the new code in the script and use *Run* to execute the single instructions.
+Create a new empty R script following the procedure above, add a line loading the Tidyverse library and save it as `practical-102_my-script-001.R`. While reading the rest of this section, copy the new code in the script and use *Run* to execute the single instructions.
 
 ### Vectors
 
