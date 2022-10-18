@@ -13,33 +13,137 @@ RStudio provides an extremely useful functionality to organise all your code and
 
 In RStudio Server, in the *Files* tab of the bottom-left panel, click on *Home* to make sure you are in your home folder -- if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on *New Folder* and enter *Practicals* in the prompt dialogue, to create a folder named *Practicals*. 
 
-Select *File > New Project ...* from the main menu, then from the prompt menu, *New Directory*, and then *New Project*. Insert *Practical_204* as the directory name, and select the *Practicals* folder for the field *Create project as subdirectory of*. Finally, click *Create Project*. 
+Select *File > New Project ...* from the main menu, then from the prompt menu, *New Directory*, and then *New Project*. Insert *Practical_103_example* as the directory name, and select the *Practicals* folder for the field *Create project as subdirectory of*. Finally, click *Create Project*. 
 
-RStudio has now created the project, and it should have activated it. If that is the case, the *Files* tab in the bottom-right panel should be in the *Practical_204* folder, which contains only the *Practical_204.Rproj* file. The *Practical_204.Rproj* stores all the *Environment* information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the *Practical_204* folder. Moreover, the *Practical_204* is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it. 
+RStudio has now created the project, and it should have activated it. If that is the case, the *Files* tab in the bottom-right panel should be in the *Practical_103_example* folder, which contains only the *Practical_103_example.Rproj* file. The *Practical_103_example.Rproj* stores all the *Environment* information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the *Practical_103_example* folder. Moreover, the *Practical_103_example* is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it. 
 
-On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (*Practical_204*). That also indicates that you are within the *Practical_204* project. Click on *Practical_204* and select *Close Project* to close the project. Next to the R in a cube icon, you should now see *Project: (None)*. Click on *Project: (None)* and select *Practical_204* from the list to reactivate the *Practical_204* project.
+On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (*Practical_103_example*). That also indicates that you are within the *Practical_103_example* project. Click on *Practical_103_example* and select *Close Project* to close the project. Next to the R in a cube icon, you should now see *Project: (None)*. Click on *Project: (None)* and select *Practical_103_example* from the list to reactivate the *Practical_103_example* project. In the future, you will thus be able to close and reactivate this or any other project as necessary, depending on what you are working with. Projects can also be activated by clicking on the related `.Rproj` file in the *Files* tab in the bottom-right panel or through the *Open Project...* option in the file menu.
 
-With the *Practical_204* project activated, select from the top menu *File > New File > R Script*. That opens the embedded RStudio editor and a new empty R script folder. Copy the two lines below into the file. The first loads the `tidyverse` library, whereas the second loads another library that the code below uses to produce well-formatted tables.
+With the *Practical_103_example* project activated, select from the top menu *File > New File > RMarkdown* to create a new RMarkdown document -- you can use the default options in the creation menu, as this is just an example. Save and *knit* the RMarkdown document ([as shown in the previous chapter](reproducible-data-science.html#rmarkdown)). As you can see, both the RMarkdown file and the knitted are saved within the *Practical_103_example* folder.
 
 
-```r
+
+## Data: 2011 Census and OAC
+
+The [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) finally used the k-means clustering approach to create 8 clusters or supergroups (see [map at datashine.org.uk](https://oac.datashine.org.uk)), as well as 26 groups and 76 subgroups. The dataset in the file `2011_OAC_Raw_uVariables_Leicester.csv` contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. 
+
+Before continuing with the reminder of the practical, create a new project named *Leicester_population* and make sure it is activated. Download from Blackboard (or see the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the `2011_OAC_Raw_uVariables_Leicester.csv` file on your computer. The full variable names can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv`.
+
+Create a new RMarkdown document using *"Exploring population distribution in Leicester"* as title and *PDF* as output file type. Delete the example code after the `setup` chunk. Add a new markdown second-heading section named *Libraries* and a chunk loading the `tidyverse` and `knitr` libraries (see below). Save the file with name `exploring_Leicester_population.Rmd` in the *Leicester_population* project.
+
+````
+---
+title: "Exploring population distribution in Leicester"
+output: pdf_document
+date: "2022-10-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r libraries, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(knitr)
 ```
 
-From the top menu, select *File > Save*, type in *My_script_Practical_204.R* (make sure to include the underscore and the *.R* extension) as *File name*, and click *Save*.
+````
 
-### How to cite code
 
-The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
 
-<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
+Upload the `2011_OAC_Raw_uVariables_Leicester.csv` file to the *Leicester_population* folder by clicking on the *Upload* button and selecting the file from your computer.
 
-Appropriate citations are even more important when directly copying or adapting code from others' work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)'s [*Academic Integrity at MIT: A Handbook for Students*](https://integrity.mit.edu/) includes a section on [writing code](https://integrity.mit.edu/handbook/writing-code) which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly. 
-That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.
+**Important**: at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after upload using Microsoft Edge. If you are using Microsoft Edge, make sure the uploaded filename is `2011_OAC_Raw_uVariables_Leicester.csv` with not additional text. Otherwise, select the tick next to the file in the *File* tab in the botton-right panel, click *Rename* (on the panel's bar) and rename the file to `2011_OAC_Raw_uVariables_Leicester.csv`.
 
-It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
-Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
+
+
+## Read and write data
+
+The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. 
+
+The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
+
+
+```r
+leicester_2011OAC <- 
+  read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+
+leicester_2011OAC %>% 
+  select(
+    OA11CD, LSOA11CD, 
+    supgrpcode, supgrpname,
+    Total_Population
+  ) %>%
+  slice_head(n = 3) %>%
+  kable()
+```
+
+
+|OA11CD    |LSOA11CD  | supgrpcode|supgrpname                  | Total_Population|
+|:---------|:---------|----------:|:---------------------------|----------------:|
+|E00069517 |E01013785 |          6|Suburbanites                |              313|
+|E00069514 |E01013784 |          2|Cosmopolitans               |              323|
+|E00169516 |E01013713 |          4|Multicultural Metropolitans |              341|
+
+The function `write_csv` can be used to save a dataset as a `csv` file. For instance, the code below uses `tidyverse` functions and the pipe operator `%>%` to *reproduce* the `2011_OAC_supgrp_Leicester.csv` dataset used [in the lecture](slides/103-slides-data-manipulation.html):
+
+1. **read** the 2011 OAC dataset firle `2011_OAC_Raw_uVariables_Leicester.csv` directly from the file, but without storing it into a variable;
+2. **select** the OA code variable `OA11CD`, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname` respectively);
+3. **filter** only those OA in the supergroup *Suburbanites* (code `6`);
+4. **write** the results to a file named `my--2011_OAC_supgrp_Leicester.csv`, which is your own version of the `2011_OAC_supgrp_Leicester.csv`.
+
+
+```r
+read_csv("2011_OAC_Raw_uVariables_Leicester.csv") %>%
+  select(
+    OA11CD, LSOA11CD, 
+    supgrpcode, supgrpname,
+    Total_Population
+  ) %>%
+  write_csv("my--2011_OAC_supgrp_Leicester.csv")
+```
+
+
+
+
+### File paths
+
+File paths can be specified in two different ways:
+
+- **Absolute file path**: the full file path, from the *root* folder of your computer to the file. 
+  - The absolute file path of a file can be obtained using the `file.choose()` instruction from the *R Console*, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to console.
+  - Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.
+  - However, absolute file paths can be problematic if the file is moved, or if the script is run on a different system, and the file path would then be invalid
+- **Relative file path**: a partial path, from the current working folder to the file. 
+  - The current *working directory* (current folder) is part of the environment of the `R` session and can be identified using the `getwd()` instruction from the *`*R Console*.
+    - When a new R session is started, the current *working directory* is usually the computer user's home folder.
+    - When working within an R project, the current *working directory* is the project directory.
+    - The current working can be manually set to a specific directory using the function `setwd`.
+  - Using a relative path while working within an R project is the option that provides the best overall **consistency**, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).
+
+
+```r
+# Absolute file path
+# Note: the fist / indicates the root folder
+read_csv("/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+# Relative file path
+# assuming the working directory is the user home folder
+# /home/username
+# Note: no initial / for relative file paths
+read_csv("GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+
+# Relative file path
+# assuming you are working within and R project created in the folder
+# /home/username/GY7702
+# Note: no initial / for relative file paths
+read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+```
+
+
 
 
 ## Data manipulation
@@ -263,122 +367,19 @@ flights %>%
 |DSM  |      16.14815|           0.2691358|
 
 
-## Read and write data
+## How to cite code
 
-The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. 
+The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
 
-Download from Blackboard (or the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the following files:
+<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
 
-- `2011_OAC_Raw_uVariables_Leicester.csv`
+Appropriate citations are even more important when directly copying or adapting code from others' work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)'s [*Academic Integrity at MIT: A Handbook for Students*](https://integrity.mit.edu/) includes a section on [writing code](https://integrity.mit.edu/handbook/writing-code) which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly. 
+That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.
 
-Create a *Practical_214* project and make sure it is activated and thus the *Practical_214* showing in the *File* tab in the bottom-right panel. Upload the two files to the *Practical_214* folder by clicking on the *Upload* button and selecting the files from your computer (at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after upload using Microsoft Edge).
-
-Create a new R script named `Data_Wrangling_Example.R` in the *Practical_214* project, and add `library(tidyverse)` as the first line. Use that new script for this and the following sections of this chapter.
-
-The [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) finally used the k-means clustering approach to create 8 clusters or supergroups (see [map at datashine.org.uk](https://oac.datashine.org.uk)), as well as 26 groups and 76 subgroups. The dataset in the file `2011_OAC_Raw_uVariables_Leicester.csv` contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. The full variable names can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv`.
-
-<!--
-Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
--->
-
-The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
+It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
+Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
 
 
-```r
-leicester_2011OAC <- 
-  read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
-
-leicester_2011OAC %>% 
-  select(OA11CD,LSOA11CD, supgrpcode,supgrpname,Total_Population) %>%
-  slice_head(n = 3) %>%
-  kable()
-```
-
-
-|OA11CD    |LSOA11CD  | supgrpcode|supgrpname                  | Total_Population|
-|:---------|:---------|----------:|:---------------------------|----------------:|
-|E00069517 |E01013785 |          6|Suburbanites                |              313|
-|E00069514 |E01013784 |          2|Cosmopolitans               |              323|
-|E00169516 |E01013713 |          4|Multicultural Metropolitans |              341|
-
-The function `write_csv` can be used to save a dataset as a `csv` file. For instance, the code below uses `tidyverse` functions and the pipe operator `%>%` to:
-
-1. **read** the 2011 OAC dataset again directly from the file, but without storing it into a variable;
-2. **select** the OA code variable `OA11CD`, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname` respectively);
-3. **filter** only those OA in the supergroup *Suburbanites* (code `6`);
-4. **write** the results to a file named *Leicester_Suburbanites.csv*.
-
-
-```r
-read_csv("2011_OAC_Raw_uVariables_Leicester.csv") %>%
-  select(OA11CD, supgrpcode, supgrpname) %>%
-  filter(supgrpcode == 6) %>%
-  write_csv("Leicester_Suburbanites.csv")
-```
-
-
-
-
-### File paths
-
-File paths can be specified in two different ways:
-
-- **Absolute file path**: the full file path, from the *root* folder of your computer to the file. 
-  - The absolute file path of a file can be obtained using the `file.choose()` instruction from the *R Console*, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to console.
-  - Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.
-  - However, absolute file paths can be problematic if the file is moved, or if the script is run on a different system, and the file path would then be invalid
-- **Relative file path**: a partial path, from the current working folder to the file. 
-  - The current *working directory* (current folder) is part of the environment of the `R` session and can be identified using the `getwd()` instruction from the *`*R Console*.
-    - When a new R session is started, the current *working directory* is usually the computer user's home folder.
-    - When working within an R project, the current *working directory* is the project directory.
-    - The current working can be manually set to a specific directory using the function `setwd`.
-  - Using a relative path while working within an R project is the option that provides the best overall **consistency**, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).
-
-
-```r
-# Absolute file path
-# Note: the fist / indicates the root folder
-read_csv("/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-# Relative file path
-# assuming the working directory is the user home folder
-# /home/username
-# Note: no initial / for relative file paths
-read_csv("GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-
-# Relative file path
-# assuming you are working within and R project created in the folder
-# /home/username/GY7702
-# Note: no initial / for relative file paths
-read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
-```
-
-
-
-## Loading R scripts
-
-It is furthermore possible to load the function(s) defined in one script from another script -- in a fashion similar to when a library is loaded. Create a new R script named `Practical_204_RS_functions.R`, copy the code below in that R script and save the file 
-
-
-```r
-cube_root <- function (input_value) {
-   result <- input_value ^ (1 / 3)
-   result
-}
-```
-
-
-Create a second R script named `Practical_204_RS_main.R`, copy the code below in that second R script and save the file.
-
-
-```r
-source("Practical_204_RS_functions.R")
-
-cube_root(27)
-```
-
-Executing the `Practical_204_RS_main.R` instructs the interpreter first to run the `Practical_204_RS_functions.R` script, thus creating the `cube_root` function, and then invoke the function using `27` as an argument, thus returning again `3`. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.
 
 
 

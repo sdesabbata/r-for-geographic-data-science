@@ -98,6 +98,32 @@ Finally, `cat` is a printing function that instructs R to display the provided a
 
 
 
+## Loading R scripts
+
+It is furthermore possible to load the function(s) defined in one script from another script -- in a fashion similar to when a library is loaded. Create a new R script named `Practical_204_RS_functions.R`, copy the code below in that R script and save the file 
+
+
+```r
+cube_root <- function (input_value) {
+   result <- input_value ^ (1 / 3)
+   result
+}
+```
+
+
+Create a second R script named `Practical_204_RS_main.R`, copy the code below in that second R script and save the file.
+
+
+```r
+source("Practical_204_RS_functions.R")
+
+cube_root(27)
+```
+
+Executing the `Practical_204_RS_main.R` instructs the interpreter first to run the `Practical_204_RS_functions.R` script, thus creating the `cube_root` function, and then invoke the function using `27` as an argument, thus returning again `3`. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.
+
+
+
 ## Exercise 114.2
 
 **Question 114.2.1:** Write a function that calculates the areas of a circle, taking the radius as the first parameter.

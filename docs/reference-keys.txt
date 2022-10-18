@@ -31,15 +31,15 @@ exercise-102.2
 data-manipulation
 r-workflow
 r-projects
-how-to-cite-code
+data-2011-census-and-oac
+read-and-write-data
+file-paths
 data-manipulation-1
 summarise
 mutate
 arrange
 data-manipulation-example
-read-and-write-data
-file-paths
-loading-r-scripts
+how-to-cite-code
 table-operations
 long-and-wide-table-formats
 join
@@ -57,6 +57,7 @@ exercise-114.1
 working-with-functions
 function-definition
 functions-and-control-structures
+loading-r-scripts
 exercise-114.2
 exploratory-visualisation
 gglot2-recap
