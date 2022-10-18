@@ -1,0 +1,882 @@
+---
+title: "Lecture 103"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-10-18</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Data manipulation
+
+
+---
+
+## Recap
+
+<br/>
+
+.pull-left[
+
+**Previously**: Reproducible data science
+
+- Data science
+- Complex data types
+- Reproducibility
+- `dplyr`
+
+**Today**: Data manipulation
+
+- Data input and output
+- Mutate and summarise data
+- Working with R projects *(practical)*
+
+]
+.pull-right[
+
+![](https://raw.githubusercontent.com/tidyverse/dplyr/main/man/figures/logo.png)
+
+.right[
+.referencenote[
+by dplyr authors<br/>
+via [dplyr GitHub repository](https://github.com/tidyverse/dplyr/), MIT License
+]
+]
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Input / Ouptut
+
+
+---
+
+## Text file formats
+
+<br/>
+
+.pull-left[
+
+[Tidyverse](https://www.tidyverse.org/) includes or [imports](https://www.tidyverse.org/packages/#import) many libraries for reading data
+
+- Tabular formats
+  - [`readr`](https://readr.tidyverse.org/) for plain text
+  - [`readxl`](https://readxl.tidyverse.org/) for Excel (`.xls` and `.xlsx`)
+  - [`haven`](https://haven.tidyverse.org/) for SPSS, Stata, and SAS data.
+- Databases
+  - [`DBI`](https://cran.r-project.org/web/packages/DBI/) for relational databases
+- NoSQL
+  - [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/) for JSON
+  - [`xml2`](https://cran.r-project.org/web/packages/xml2/) for XML
+- Web
+  - [`httr`](https://cran.r-project.org/web/packages/httr/) for web APIs
+
+]
+.pull-right[
+
+A wide range of formats based on plain-text files exist to represent tabular data
+
+For instance
+
+- tabular formats
+    - comma-separated values files `.csv`
+    - semi-colon-separated values files `.csv`
+    - tab-separated values files `.tsv`
+    - other formats using custom delimiters
+    - fix-width files `.fwf`
+
+]
+
+
+---
+
+## Output Area Classification
+
+.pull-left[
+
+The file `2011_OAC_supgrp_Leicester.csv` contains
+
+- one row for each [Output Area (OA)](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) in Leicester
+- [Lower-Super Output Area (LSOA)](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) containing the OA
+- code and name of the supergroup assigned to the OA by the [2011 Output Area Classification](http://geogale.github.io/2011OAC/)
+- total population of the OA
+
+Extract showing only the first few rows
+
+```{}
+OA11CD,LSOA11CD,supgrpcode,supgrpname,Total_Population
+E00069517,E01013785,6,Suburbanites,313
+E00069514,E01013784,2,Cosmopolitans,323
+E00169516,E01013713,4,Multicultural Metropolitans,341
+E00169048,E01032862,4,Multicultural Metropolitans,345
+```
+
+]
+.pull-right[
+
+
+```{r}
+knitr::include_url(
+  "https://mapmaker.cdrc.ac.uk/#/output-area-classification?h=0&lon=-1.1117&lat=52.6331&zoom=11",
+  height = "500px")
+```
+
+]
+
+
+
+
+---
+
+## readr
+
+.pull-left[
+
+The [`readr`](https://readr.tidyverse.org/) (pronounced *read-er*) provides functions to read and write text files
+
+- `readr::read_csv`: comma-separated files `.csv`
+- `readr::read_csv2`: semi-colon-separated files `.csv`
+- `readr::read_tsv`: tab-separated files `.tsv`
+- `readr::read_fwf`: fix-width files `.fwf`
+- `readr::read_delim`: files using a custom delimiter
+
+and their *write* counterpart, such as
+
+- `readr::write_csv`: comma-separated files `.csv`
+
+]
+.pull-right[
+
+
+Read functions provide options about how to interpret a file contents
+
+- For instance, `readr::read_csv`
+  - `col_names`: 
+    - `TRUE` or `FALSE` whether top row is column names
+    - or a vector of column names
+  - `col_types`:
+    - a `cols()` specification or a string
+  - `skip`: lines to skip before reading data
+  - `n_max`: max number of record to read
+
+]
+
+---
+
+## readr::read_csv
+
+The `readr::read_csv` function of the [`readr`](https://readr.tidyverse.org/index.html) library reads a *csv* file from the path provided as the first argument
+
+```{r, echo=TRUE, eval=FALSE}
+library(tidyverse)
+
+leicester_2011OAC <- 
+  read_csv("2011_OAC_supgrp_Leicester.csv")
+
+leicester_2011OAC
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+leicester_2011OAC <- read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"))
+leicester_2011OAC %>% 
+  print()
+```
+
+
+---
+
+## readr::read_csv
+
+.pull-left[
+
+Using `readr::read_csv` as in the previous example with no further options 
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- 
+  read_csv("2011_OAC_supgrp_Leicester.csv")
+
+leicester_2011OAC
+```
+
+will generate the following warning
+
+```{}
+Parsed with column specification:
+cols(
+  OA11CD = col_character(),
+  LSOA11CD = col_character(),
+  supgrpcode = col_double(),
+  supgrpname = col_character(),
+  Total_Population = col_double()
+)
+```
+
+
+]
+.pull-right[
+
+See [`readr` column specification](https://readr.tidyverse.org/reference/cols.html)
+
+- `col_logical()` or `l` as logic values
+- `col_integer()` or `i` as integer
+- `col_double()` or `d` as numeric (double)
+- `col_character()` or `c` as character
+- `col_factor(levels, ordered)` or `f` as factor
+- `col_date(format = "")` or `D` as data type
+- `col_time(format = "")` or `t` as time type
+- `col_datetime(format = "")` or `T` as datetime
+- `col_number()` or `n` as numeric (dropping marks)
+- `col_skip()` or `_` or `-` don’t import
+- `col_guess()` or `?` use best type based on the input
+
+]
+
+
+
+---
+
+## readr::read_csv
+
+Alternatively, column specifications can be provided manually
+
+- using the argument `col_types`
+- and the function `cols`
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- read_csv(
+    "2011_OAC_supgrp_Leicester.csv",
+    col_types = cols(
+      OA11CD  = col_character(),
+      LSOA11CD  = col_character(),
+      supgrpcode  = col_character(),
+      supgrpname  = col_character(),
+      Total_Population  = col_integer()
+    )
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"),
+    col_types = cols(
+      OA11CD  = col_character(),
+      LSOA11CD  = col_character(),
+      supgrpcode  = col_character(),
+      supgrpname  = col_character(),
+      Total_Population  = col_integer()
+    )
+  ) 
+
+leicester_2011OAC%>% 
+  print(n= 5)
+```
+
+
+---
+
+## readr::read_csv
+
+
+Alternatively, column specifications can be provided manually
+
+- using the argument `col_types`
+- and the corresponding one-letter codes for each column
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- read_csv(
+    "2011_OAC_supgrp_Leicester.csv",
+    col_types = "cccci"
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"),
+    col_types = "cccci"
+  ) 
+
+leicester_2011OAC%>% 
+  print()
+```
+
+
+---
+
+## readr::write_csv
+
+.pull-left[
+
+The function `write_csv` can be used to save a dataset to `csv`
+
+Example:
+
+1. **read** the 2011 OAC dataset
+2. **select** a few columns
+3. **filter** only those OA in the supergroup *Suburbanites* (code `6`)
+4. **write** the results to a file named *2011_OAC_supgrp_Leicester_supgrp6.csv*
+
+```{r, echo=TRUE, eval=FALSE}
+read_csv("2011_OAC_supgrp_Leicester.csv") %>%
+  select(
+    OA11CD, supgrpcode, Total_Population
+  ) %>%
+  filter(supgrpcode == "6") %>%
+  write_csv(
+    "2011_OAC_supgrp_Leicester_supgrp6.csv"
+  )
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv")
+  ) %>%
+  select(OA11CD, supgrpcode, Total_Population) %>%
+  filter(supgrpcode == "6") %>%
+  write_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester_supgrp6.csv")
+  )
+```
+
+]
+.pull-right[
+
+Alternatively, `write_tsv` can be used
+
+```{r, echo=TRUE, eval=FALSE}
+read_csv("2011_OAC_supgrp_Leicester.csv") %>%
+  select(
+    OA11CD, supgrpcode, Total_Population
+  ) %>%
+  filter(supgrpcode == "6") %>%
+  write_tsv(
+    "2011_OAC_supgrp_Leicester_supgrp6.tsv"
+  )
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv")
+  ) %>%
+  select(OA11CD, supgrpcode, Total_Population) %>%
+  filter(supgrpcode == "6") %>%
+  write_tsv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester_supgrp6.tsv")
+  )
+```
+
+```{}
+OA11CD      supgrpcode  Total_Population
+E00069517 6         313
+E00069468 6         251
+E00069528 6         270
+E00069538 6         307
+E00069174 6         321
+E00069170 6         353
+E00069171 6         351
+E00068713 6         265
+E00069005 6         391
+E00069014 6         316
+E00068989 6         354
+```
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Data manipulation
+
+
+---
+
+## dplyr::slice
+
+.pull-left[
+
+Slices the table, returning only a given subset of rows
+
+- `slice_head` returns the `n` top rows
+- `slice_tail` returns the `n` last rows
+- `slice_min` returns the `n` rows with the lowest value for the selected column
+- `slice_max` returns the `n` rows with the highest value for the selected column
+- `slice_sample` returns a random sample of `n` rows
+
+{{content}}
+
+]
+.pull-right[
+
+```{r, echo=TRUE}
+library(knitr)
+library(kableExtra)
+
+leicester_2011OAC %>%
+  # 10 highest delays
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  slice_max(Total_Population, n = 8) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+--
+
+The parameter `prop` can be specified instead of `n` to indicate a percentage rather than an absolute number
+
+- e.g., `prop = 0.01` returns 1% of rows
+
+--
+
+How is this different from `filter`?
+
+---
+
+## dplyr::arrange
+
+
+Arranges rows in a particular order
+
+- sorted in acending order of the specified columns
+- descending orders specified by using `-` (minus symbol)
+- the `NA` values are always at the end
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  arrange(
+    # Ascending destination name
+    supgrpname,
+    # Descending delay
+    -Total_Population
+  ) %>% 
+  slice_head(n = 8) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  arrange(
+    # Ascending destination name
+    supgrpname,
+    # Descending delay
+    -Total_Population
+  ) %>% 
+  slice_head(n = 10) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+]
+
+
+---
+
+## dplyr::summarise
+
+<br/>
+
+.pull-left[
+
+Calculates aggregated values
+
+- using functions such
+    - `mean`, `median`, `sd`
+    - `min`, `max`, `quantile`
+    - `first`, `last`, `nth`
+    - `n` (count)
+    - `any`, `all`
+
+{{content}}
+
+]
+.pull-right[
+
+```{r, echo=TRUE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  summarise(
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_200 = any(Total_Population > 600),
+    # Total population in Leicester
+    tot_pop = sum(Total_Population)
+  ) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+--
+
+- both *British English* and *American English* spellings work, there is no difference
+    - `summarise`
+    - `summarize`
+
+
+---
+
+## dplyr::group_by
+
+Groups rows based on common values for specified column(s)
+
+- all subsequent operations are applied **to each group separately**
+- frequently combined with `summarise` to calculate aggregated values per group
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  group_by(supgrpname) %>% 
+  summarise(
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_200 = any(Total_Population > 600),
+    # Total population in Leicester
+    tot_pop = sum(Total_Population)
+  ) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+.referencenote[
+<br/>
+]
+
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  group_by(supgrpname) %>% 
+  summarise(
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_200 = any(Total_Population > 600),
+    # Total population in Leicester
+    tot_pop = sum(Total_Population)
+  ) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+---
+
+## dplyr::group_by
+
+.pull-left[
+
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	LSOA11CD, supgrpname,	
+    Total_Population
+  ) %>% 
+  group_by(supgrpname, LSOA11CD) %>% 
+  summarise(
+    # Average population
+    avg_pop = mean(Total_Population)
+  ) %>% 
+  # then slice the highest 3
+  slice_max(avg_pop, n = 3) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+{{content}}
+
+]
+
+--
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	LSOA11CD, supgrpname,	
+    Total_Population
+  ) %>% 
+  group_by(supgrpname, LSOA11CD) %>% 
+  summarise(
+    # Average population
+    avg_pop = mean(Total_Population)
+  ) %>% 
+  ungroup() %>% 
+  # then slice the highest 3
+  slice_max(avg_pop, n = 3) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+
+
+---
+
+## dplyr::mutate
+
+Calculates new columns based on values in current columns
+
+.pull-left[
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  select(supgrpname,	Total_Population) %>% 
+  group_by(supgrpname) %>% 
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  select(supgrpname,	Total_Population) %>% 
+  group_by(supgrpname) %>% 
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  mutate(
+    perc_pop = (tot_pop / 329839) * 100
+  ) %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+---
+
+## Saving the output
+
+.pull-left[
+
+<br/>
+
+It is **important** to note that
+
+- operations in the previous slides **do not** modify the input data!
+
+<br/>
+
+To save the newly crated information, use
+
+- the assignment operator `<-`
+    - to save to new (or same) variable
+- the assignment pipe `%<>%` (`magrittr`)
+    - to update the variable
+    
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+library(magrittr)
+```
+
+
+]
+.pull-right[
+
+{{content}}
+
+]
+
+--
+
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
+pop_per_supgr <-
+  leicester_2011OAC %>%
+  select(supgrpname,	Total_Population) %>% 
+  group_by(supgrpname) %>% 
+  summarise(tot_pop = sum(Total_Population))
+
+pop_per_supgr %<>%
+  mutate(perc_pop = (tot_pop / 329839) * 100)
+  
+pop_per_supgr %>% 
+  # and print as usual
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+
+---
+
+## Full pipe example
+
+.pull-left-large[
+
+```{r, echo=TRUE, eval=FALSE}
+# Let's start from the filename
+"2011_OAC_supgrp_Leicester.csv" %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop) %>% 
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100) %T>%
+  # Then use the Tee pipe %T>% in the line above
+  # to write the calculated values to file
+  # and the pass the same input values to the kable function
+  write_csv(
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"
+  ) %>% 
+  # Print to screen nicely
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right-small[
+
+<br/>
+
+This is a full example of a short analysis using only one series of pipes (including the [Tee pipe](https://magrittr.tidyverse.org/reference/tee.html)) to read, process and write data using `R` and almost all the `tidyverse` *verbs* seen so far.
+
+<br/>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Let's start from the filename
+paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv") %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop) %>% 
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100) %T>%
+  # Then use the Tee pipe %T>% in the line above
+  # to write the calculated values to file
+  # and the pass the same input values to the kable function
+  write_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/",
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv")
+  ) %>% 
+  # Print to screen nicely
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+
+
+---
+
+## Summary
+
+<br/>
+
+.pull-left[
+
+**Today**: Data manipulation
+
+- Data input and output
+- Mutate and summarise data
+- Working with R projects *(practical)*
+
+**Next week**: Table operations
+
+- Long and wide table formats
+- Pivot operations *(not as in Excel)*
+- Join operations
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+]
+
+]
+.pull-right[
+
+![](https://raw.githubusercontent.com/tidyverse/tidyr/main/man/figures/logo.png)
+
+.right[
+.referencenote[
+by tidyr authors<br/>
+via [tidyr GitHub repository](https://github.com/tidyverse/tidyr/), MIT License
+]
+]
+
+]
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

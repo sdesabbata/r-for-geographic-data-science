@@ -23,6 +23,7 @@ install.packages("kernlab")
 install.packages("ROCR")
 install.packages("pROC")
 install.packages("xaringan")
+install.packages("kableExtra")
 
 # dev libs
 install.packages("devtools")
