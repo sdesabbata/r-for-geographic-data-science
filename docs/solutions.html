@@ -96,7 +96,7 @@
 <li><a class="active" href="solutions.html">Solutions</a></li>
 <li><a class="" href="lecture-slides.html">Lecture slides</a></li>
 <li><a class="" href="reading-list.html">Reading list</a></li>
-<li><a class="" href="references.html">References</a></li>
+<li><a class="" href="references-1.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -113,10 +113,10 @@
 </h2>
 <p>Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will then be visible on a right panel in the RStudio integrated editor if you select Code &gt; Show Document Outline from the top menu. Code sections can help to visually organise your code and the Document Outline allows you to select a section and jump to it in the code.</p>
 <p>The code below deletes all variable and function currently defined in the environment, which is generally good practice, to avoid your script interacting with objects left over from previous sessions.</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Load the necessary libraries.</p>
-<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
@@ -128,7 +128,7 @@
 <h3>Solutions 101.1<a class="anchor" aria-label="anchor" href="#solutions-101.1"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># calculate the logarithm to the base 10</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -139,14 +139,14 @@
 <span>  <span class="co"># The answer is FALSE</span></span>
 <span>  <span class="co"># as the value is still of type numeric</span></span>
 <span>  <span class="co"># rather than type integer</span></span></code></pre></div>
-<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The code below replicates the procedure above</span></span>
 <span><span class="co"># but checking the value data type</span></span>
 <span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The code below replicates the procedure above</span></span>
 <span><span class="co"># but using as.integer to transfor the value</span></span>
 <span><span class="co"># to an integer type</span></span>
@@ -155,7 +155,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># As above but checking whether the value is an integer</span></span>
 <span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -163,7 +163,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
-<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># calculate the square root</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -172,14 +172,14 @@
 <span>  <span class="co"># check whether it is an integer</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"1632"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># transform it into a number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># check whether the result is Not a Number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
-<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"-16.32"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># transform it into a number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -190,13 +190,13 @@
 <span>  <span class="co"># check whether the result is Not Available</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.5:</strong> Rewrite a piece of code below by substituting the last line with the function <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>. What kind of result do you obtain? What does it represent?</p>
-<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The output is a numeric value representing the aritmetic mean (average) of all the petal lengths of flowers in the <code>iris</code> dataset.</p>
 <p><strong>Question 101.1.6:</strong> Further edit the code created for <em>Question 101.1.6</em> by substituting <code>Petal.Length</code> with <code>Petal.Width</code> first and <code>Species</code> then? What kind of results do you obtain? What do they mean?</p>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -213,12 +213,12 @@
 <h3>Solutions 102.1<a class="anchor" aria-label="anchor" href="#solutions-102.1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Extend the code in the script <code>practical-102_my-script-002.R</code> to include the code necessary to solve the questions below.</p>
-<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the air time and the carrier, but only for flights starting from the JFK airport. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
@@ -262,7 +262,7 @@
 </tbody>
 </table></div>
 <p><strong>Question 102.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay and the overall air time, but only for flights of October 12th. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
-<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
@@ -317,8 +317,8 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>Question 103.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<p><strong>Question 102.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
+<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
@@ -368,6 +368,238 @@
 </tr>
 </tbody>
 </table></div>
+</div>
+</div>
+<div id="solutions-103" class="section level2 unnumbered">
+<h2>Solutions 103<a class="anchor" aria-label="anchor" href="#solutions-103"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solutions-103.1" class="section level3 unnumbered">
+<h3>Solutions 103.1<a class="anchor" aria-label="anchor" href="#solutions-103.1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Create an RMarkdown document in RStudio, using <em>Exercise 103</em> as title and <em>PDF</em> as output. Delete all the contents except the first five lines which compose the heading. Save the document as <code>practical-103_exercises.Rmd</code>. Add the libraries and code necessary to read the data from the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file. Create a first section of the document (e.g., adding a second heading <em>Exercise 103.1</em>) and add your answers to the questions below.</p>
+<p>In order to answer the questions below, inspect the <strong>look-up</strong> table <code>2011_OAC_Raw_uVariables_Lookup.csv</code> (e.g., using Microsoft Excel) to identify the columns necessary to complete the task.</p>
+<p><strong>Question 103.1.1:</strong> Identify the five variables which are part of the variable subdomain <em>Housing Type</em> and write the code necessary to compute the total number of household spaces in Leicester for each housing type.</p>
+<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    u086_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u086</span><span class="op">)</span>,</span>
+<span>    u087_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u087</span><span class="op">)</span>,</span>
+<span>    u088_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u088</span><span class="op">)</span>,</span>
+<span>    u089_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u089</span><span class="op">)</span>,</span>
+<span>    u090_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u090</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">u086_tot</th>
+<th align="right">u087_tot</th>
+<th align="right">u088_tot</th>
+<th align="right">u089_tot</th>
+<th align="right">u090_tot</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">13390</td>
+<td align="right">44880</td>
+<td align="right">40290</td>
+<td align="right">28757</td>
+<td align="right">66</td>
+</tr></tbody>
+</table></div>
+<p><strong>Question 103.1.2:</strong> Write the code necessary to compute the total number of household spaces in Leicester for each housing type grouped by 2011 OAC supergroup.</p>
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    u086_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u086</span><span class="op">)</span>,</span>
+<span>    u087_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u087</span><span class="op">)</span>,</span>
+<span>    u088_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u088</span><span class="op">)</span>,</span>
+<span>    u089_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u089</span><span class="op">)</span>,</span>
+<span>    u090_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u090</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="38%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">supgrpname</th>
+<th align="right">u086_tot</th>
+<th align="right">u087_tot</th>
+<th align="right">u088_tot</th>
+<th align="right">u089_tot</th>
+<th align="right">u090_tot</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constrained City Dwellers</td>
+<td align="right">176</td>
+<td align="right">1495</td>
+<td align="right">941</td>
+<td align="right">1876</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Cosmopolitans</td>
+<td align="right">296</td>
+<td align="right">580</td>
+<td align="right">3185</td>
+<td align="right">7261</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethnicity Central</td>
+<td align="right">187</td>
+<td align="right">465</td>
+<td align="right">1292</td>
+<td align="right">7093</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Hard-Pressed Living</td>
+<td align="right">618</td>
+<td align="right">7825</td>
+<td align="right">3891</td>
+<td align="right">370</td>
+<td align="right">13</td>
+</tr>
+<tr class="odd">
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">7700</td>
+<td align="right">26940</td>
+<td align="right">28804</td>
+<td align="right">10990</td>
+<td align="right">40</td>
+</tr>
+<tr class="even">
+<td align="left">Suburbanites</td>
+<td align="right">2458</td>
+<td align="right">3852</td>
+<td align="right">210</td>
+<td align="right">111</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Urbanites</td>
+<td align="right">1955</td>
+<td align="right">3723</td>
+<td align="right">1967</td>
+<td align="right">1056</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Question 103.1.3:</strong> Write the code necessary to compute the percentage of household spaces (i.e., over to the total number of household spaces) in Leicester for each housing type grouped by 2011 OAC supergroup.</p>
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    u086_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u086</span><span class="op">)</span>,</span>
+<span>    u087_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u087</span><span class="op">)</span>,</span>
+<span>    u088_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u088</span><span class="op">)</span>,</span>
+<span>    u089_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u089</span><span class="op">)</span>,</span>
+<span>    u090_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u090</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    tot_hspaces <span class="op">=</span> </span>
+<span>      <span class="va">u086_tot</span> <span class="op">+</span> <span class="va">u087_tot</span> <span class="op">+</span></span>
+<span>      <span class="va">u088_tot</span> <span class="op">+</span> <span class="va">u089_tot</span> <span class="op">+</span></span>
+<span>      <span class="va">u090_tot</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    u086_perc <span class="op">=</span> <span class="op">(</span><span class="va">u086_tot</span> <span class="op">/</span> <span class="va">tot_hspaces</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>    u087_perc <span class="op">=</span> <span class="op">(</span><span class="va">u087_tot</span> <span class="op">/</span> <span class="va">tot_hspaces</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>    u088_perc <span class="op">=</span> <span class="op">(</span><span class="va">u088_tot</span> <span class="op">/</span> <span class="va">tot_hspaces</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>    u089_perc <span class="op">=</span> <span class="op">(</span><span class="va">u089_tot</span> <span class="op">/</span> <span class="va">tot_hspaces</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>    u090_perc <span class="op">=</span> <span class="op">(</span><span class="va">u090_tot</span> <span class="op">/</span> <span class="va">tot_hspaces</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">supgrpname</span>,</span>
+<span>    <span class="va">u086_perc</span>, <span class="va">u087_perc</span>, <span class="va">u088_perc</span>,</span>
+<span>    <span class="va">u089_perc</span>, <span class="va">u090_perc</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="35%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">supgrpname</th>
+<th align="right">u086_perc</th>
+<th align="right">u087_perc</th>
+<th align="right">u088_perc</th>
+<th align="right">u089_perc</th>
+<th align="right">u090_perc</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constrained City Dwellers</td>
+<td align="right">3.92</td>
+<td align="right">33.29</td>
+<td align="right">20.95</td>
+<td align="right">41.77</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td align="left">Cosmopolitans</td>
+<td align="right">2.61</td>
+<td align="right">5.12</td>
+<td align="right">28.12</td>
+<td align="right">64.11</td>
+<td align="right">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethnicity Central</td>
+<td align="right">2.07</td>
+<td align="right">5.14</td>
+<td align="right">14.29</td>
+<td align="right">78.44</td>
+<td align="right">0.07</td>
+</tr>
+<tr class="even">
+<td align="left">Hard-Pressed Living</td>
+<td align="right">4.86</td>
+<td align="right">61.53</td>
+<td align="right">30.60</td>
+<td align="right">2.91</td>
+<td align="right">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">10.34</td>
+<td align="right">36.17</td>
+<td align="right">38.68</td>
+<td align="right">14.76</td>
+<td align="right">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">Suburbanites</td>
+<td align="right">37.07</td>
+<td align="right">58.09</td>
+<td align="right">3.17</td>
+<td align="right">1.67</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Urbanites</td>
+<td align="right">22.47</td>
+<td align="right">42.78</td>
+<td align="right">22.60</td>
+<td align="right">12.14</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Question 103.1.4:</strong> Modify the code written for <em>Question 103.1.3</em>, using <a href="">the verb <code>rename</code></a> to change the column names of the columns containing the percentages to names that resemble the related housing type (e.g., <code>perc_of_detached</code>).</p>
 <!--
 
 ### Solutions 104.2 {-}
@@ -790,7 +1022,8 @@ perc_long_table %>%
   knitr::kable()
 ```
 
---><hr>
+-->
+<hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
 </div>
@@ -808,6 +1041,9 @@ perc_long_table %>%
 </li>
 <li>
 <a class="nav-link" href="#solutions-102">Solutions 102</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-102.1">Solutions 102.1</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#solutions-103">Solutions 103</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-103.1">Solutions 103.1</a></li></ul>
 </li>
 </ul>
 

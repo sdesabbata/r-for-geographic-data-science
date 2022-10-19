@@ -853,11 +853,7 @@ Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the
 
 ## Exercise 102.2
 
-Create an RMarkdown document in RStudio and delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.R`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report.
-
-Save the document by selecting *File > Save* from the main menu. Enter *Square_root* as the file name and click *Save*. The file is saved using the *Rmd* (RMarkdown) extension.
-
-Click on the *Knit* button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting *pdf* document. Try adding some of your own code (e.g., using some of the examples above) and Markdown text, and compile the document again.
+Create an RMarkdown document in RStudio, using *Exercise 102.2* as title and *PDF* as output. Delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.Rmd`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report by clicking on the *Knit* button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting *pdf* document.
 
 <!--
 

@@ -292,20 +292,20 @@ leicester_2011OAC %>%
     # Average population
     avg_pop = tot_pop / num_of_OAs, 
   ) %>% 
-  kable()
+  kable(digits = c(0, 0, 0, 0, 2))
 ```
 
 
 
-|supgrpname                  | tot_pop| num_of_OAs|pop_over_600 |  avg_pop|
-|:---------------------------|-------:|----------:|:------------|--------:|
-|Constrained City Dwellers   |    9263|         36|FALSE        | 257.3056|
-|Cosmopolitans               |   26813|         83|TRUE         | 323.0482|
-|Ethnicity Central           |   19137|         57|FALSE        | 335.7368|
-|Hard-Pressed Living         |   32069|        101|FALSE        | 317.5149|
-|Multicultural Metropolitans |  205007|        573|TRUE         | 357.7784|
-|Suburbanites                |   17326|         54|FALSE        | 320.8519|
-|Urbanites                   |   20224|         65|FALSE        | 311.1385|
+|supgrpname                  | tot_pop| num_of_OAs|pop_over_600 | avg_pop|
+|:---------------------------|-------:|----------:|:------------|-------:|
+|Constrained City Dwellers   |    9263|         36|FALSE        |  257.31|
+|Cosmopolitans               |   26813|         83|TRUE         |  323.05|
+|Ethnicity Central           |   19137|         57|FALSE        |  335.74|
+|Hard-Pressed Living         |   32069|        101|FALSE        |  317.51|
+|Multicultural Metropolitans |  205007|        573|TRUE         |  357.78|
+|Suburbanites                |   17326|         54|FALSE        |  320.85|
+|Urbanites                   |   20224|         65|FALSE        |  311.14|
 
 In this second example, the `u005` column (which represents the area of the OA in [hectares](https://en.wikipedia.org/wiki/Hectare), see `2011_OAC_Raw_uVariables_Lookup.csv`) is used to calculate the population density for each OA.
 
@@ -316,24 +316,25 @@ leicester_2011OAC %>%
     # Population density
     pop_density = Total_Population / u005, 
   ) %>% 
+  select(OA11CD, pop_density) %>% 
   slice_head(n = 10) %>% 
-  kable()
+  kable(digits = c(0, 2))
 ```
 
 
 
-|OA11CD    |LSOA11CD  |LSO11ANM       |MSOA11CD  |MSOA11NM      |LAD11CD   |LAD11NM   | supgrpcode|supgrpname                  |grpcode |grpname                   |subgrpcode |subgrpname                    | Total_Population| Total_Households| Total_Dwellings| Total_Household_Spaces| Total_Population_16_and_over| Total_Population_16_to_74| Total_Pop_No_NI_Students_16_to_74| Total_Employment_16_to_74| Total_Pop_in_Housesholds_16_and_over| Total_Population_3_and_over| u001| u002| u003| u004| u005|      u006| u007| u008| u009| u010| u011| u012| u013| u014| u015| u016| u017| u018| u019|     u020| u021| u022| u023| u024| u025| u026| u027| u028| u029| u030| u031| u032| u033| u034| u035| u036| u037| u038| u039| u040| u041| u042| u043| u044| u045| u046| u047| u048| u049| u050| u051| u052| u053| u054| u055| u056| u057| u058| u059| u060| u061| u062| u063| u064| u065| u066| u067| u068| u069| u070| u071| u072| u073| u074| u075| u076| u077| u078| u079| u080| u081| u082| u083| u084| u085| u086| u087| u088| u089| u090| u091| u092| u093| u094| u095| u096| u097| u098| u099| u100| u101| u102| u103|      u104| u105| u106| u107| u108| u109| u110| u111| u112| u113| u114| u115| u116| u117| u118| u119| u120| u121| u122| u123| u124| u125| u126| u127| u128| u129| u130| u131| u132| u133| u134| u135| u136| u137| u138| u139| u140| u141| u142| u143| u144| u145| u146| u147| u148| u149| u150| u151| u152| u153| u154| u155| u156| u157| u158| u159| u160| u161| u162| u163| u164| u165| u166| u167| pop_density|
-|:---------|:---------|:--------------|:---------|:-------------|:---------|:---------|----------:|:---------------------------|:-------|:-------------------------|:----------|:-----------------------------|----------------:|----------------:|---------------:|----------------------:|----------------------------:|-------------------------:|---------------------------------:|-------------------------:|------------------------------------:|---------------------------:|----:|----:|----:|----:|----:|---------:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|--------:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|---------:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|-----------:|
-|E00069517 |E01013785 |Leicester 020D |E02002846 |Leicester 020 |E06000016 |Leicester |          6|Suburbanites                |6a      |Suburban Achievers        |6a1        |Indian Tech Achievers         |              313|              117|             119|                    119|                          242|                       225|                               225|                       160|                                  242|                         302|  150|  163|  313|    0| 9.29|  33.69214|   18|   23|   24|   18|   13|    7|   57|   83|   23|   30|   12|    4|    1| 40.40256| 44.0|   64|  147|    0|    3|   13|   15|  269|    6|   13|   12|    0|    0|    0|    4|    3|    6|  180|   21|   89|   23|  294|    3|    1|    2|   13|  301|    1|    0|    0|  144|   20|    4|   46|    3|    3|    7|   15|   13|    9|   10|   23|   31|    8|    7|    3|    0|    3|    2|    3|    0|    1|    4|    2|   31|    0|    2|    1|   22|   80|    0|   13|    2|  117|    2|   67|   50|    1|    1|    0|  113|    1|    2|    1|  104|   11|    2|    0|    0|   97|   20|    0|    0|  31.10613|  183|  103|   22|    4|    1|   45|   28|   62|   35|  112|   15|    6|   51|   60|   14|   11|  113|   22|   30|   92|   34|    4|    5|   38|   10|   11|    1|    0|    1|    1|    1|    2|   19|   27|   98|   16|    1|    0|   10|    0|    0|    8|   14|    3|    2|    3|   11|    3|   18|    5|   15|   39|   19|    9|   21|   41|   29|   21|   18|   12|    6|    3|    9|    33.69214|
-|E00069514 |E01013784 |Leicester 023G |E02002849 |Leicester 023 |E06000016 |Leicester |          2|Cosmopolitans               |2a      |Students Around Campus    |2a3        |Students and Professionals    |              323|              139|             145|                    149|                          306|                       287|                               287|                       192|                                  290|                         316|  180|  143|  307|   16| 2.46| 131.30081|    8|    6|    3|   10|   99|   65|   70|   26|    8|    9|    6|    7|    6| 33.18885| 27.0|  229|   42|    2|    7|    9|   17|  260|   20|   12|   11|    2|    0|    3|    0|   13|    2|  120|   18|  163|   22|  279|    2|    5|   12|   25|  298|   13|    4|    1|   38|   60|    4|  168|    1|    6|    8|    5|    5|   44|    1|   12|    3|    2|   22|    3|    0|    3|    1|    0|   17|    1|   25|    3|   23|    1|    1|    1|   49|   69|    2|    6|   13|  139|   10|    1|    6|  114|   28|    0|   55|    5|   79|    0|   70|   28|   21|   13|    7|   96|   41|    1|    1|  83.56161|  168|  114|   31|    8|    2|   19|   37|   51|   89|  114|   92|   58|   46|   35|    5|   17|  102|   68|   29|  123|   16|   14|   28|    5|   64|    2|    5|    1|    1|    0|    1|    8|   22|   32|  125|   13|    0|    0|   19|    7|    3|    8|   31|    4|   17|    7|    9|    2|   20|   10|   11|   20|   18|    6|   20|   38|   40|   15|   14|   13|   24|   12|   16|   131.30081|
-|E00169516 |E01013713 |Leicester 010A |E02002836 |Leicester 010 |E06000016 |Leicester |          4|Multicultural Metropolitans |4b      |Challenged Asian Terraces |4b2        |Pakistani Communities         |              341|              104|             107|                    107|                          294|                       282|                               282|                       161|                                  294|                         334|  177|  164|  341|    0| 1.42| 240.14085|   11|   12|   19|   42|   42|   28|   58|   88|    9|   20|   11|    1|    0| 36.35777| 32.0|   96|  169|    0|    3|   10|   16|   13|    7|    2|  300|    4|    0|    0|   12|    3|    0|   15|  316|    5|    5|  107|    1|    4|    2|  227|  168|   88|   66|   12|  148|    2|    2|   92|   21|    3|   10|   16|    9|    9|    7|   10|   21|   13|    1|    0|    0|    7|    6|   12|    1|    0|    8|    5|   23|    5|    0|    2|   18|   80|    4|    0|    2|  104|    3|    2|    5|   80|   20|    0|   65|   10|   28|    1|   33|   20|   27|   15|    9|   48|   45|    6|    5| 106.82139|  178|  106|   39|   11|    7|   46|   95|   67|   19|   45|   49|   42|   43|   19|    8|   18|   94|   41|   35|  101|   16|   17|   17|   28|   34|   17|    9|    8|    8|    3|    6|    6|   20|   32|  102|    7|    0|    0|   57|    5|    2|    6|   28|    1|   10|    6|    0|    0|    9|    8|    5|    6|   11|    7|    8|   11|   10|    9|   13|   10|   19|   38|   43|   240.14085|
-|E00169048 |E01032862 |Leicester 009E |E02002835 |Leicester 009 |E06000016 |Leicester |          4|Multicultural Metropolitans |4b      |Challenged Asian Terraces |4b1        |Asian Terraces and Flats      |              345|              119|             127|                    127|                          230|                       227|                               227|                       146|                                  230|                         317|  170|  175|  345|    0| 3.31| 104.22961|   45|   37|   26|   18|   24|   50|  101|   34|    3|    4|    2|    0|    1| 25.38261| 27.0|   89|  115|    0|   12|    7|    7|  116|   22|    7|  102|   13|    3|    3|   14|   28|   37|   94|  178|   67|    6|  228|    2|    1|   17|   97|  262|   40|   13|    2|  110|   28|    0|   63|    9|    7|    6|    7|    2|   26|    0|   10|   33|    2|    8|    4|    0|   17|    1|    7|    0|    0|    9|   18|   16|    3|    3|   11|   28|   80|    4|    6|    1|  119|    8|   14|   26|   49|   38|    0|   48|   18|   52|    1|   39|   24|   23|   26|    7|   55|   60|    4|    0|  59.04523|  186|  121|   24|    9|    5|   32|   39|   64|   24|   80|   29|   23|   58|   38|    6|   20|  111|    9|   31|   98|   14|   15|    6|    4|   23|   13|   14|    9|    3|    1|    3|    6|   11|   27|   95|   13|    0|    0|   27|    2|    1|    9|   32|    8|    4|    6|   10|    0|    9|    6|    4|    4|   21|    3|   11|   25|   19|   15|   10|   11|   15|   23|   17|   104.22961|
-|E00169044 |E01032862 |Leicester 009E |E02002835 |Leicester 009 |E06000016 |Leicester |          4|Multicultural Metropolitans |4c      |Asian Traits              |4c2        |Multicultural New Arrivals    |              322|              112|             116|                    116|                          232|                       231|                               231|                       148|                                  232|                         298|  150|  172|  322|    0| 3.25|  99.07692|   46|   23|   20|   19|   20|   53|   90|   35|    7|    8|    1|    0|    0| 27.37578| 28.0|   82|  125|    0|    5|   16|    4|   92|   13|   17|  127|    6|    3|    3|   18|   34|    9|   80|  168|   59|   15|  212|    0|    4|    8|   98|  258|   26|   11|    3|  120|   18|    4|   65|    5|    4|   12|    4|    2|   20|    0|   15|   26|    4|    5|    5|    0|   16|    3|   13|    0|    0|    3|   11|   10|    6|    3|    7|   22|   71|    8|    8|    3|  112|    4|   19|   32|   34|   31|    0|   69|   16|   27|    0|   37|   29|   33|   10|    3|   58|   49|    5|    0|  76.20880|  152|  114|   38|   12|    6|   31|   29|   83|   35|   67|   27|   22|   62|   28|    7|   25|  110|    6|   32|   98|   13|   16|    9|   12|   21|    9|   15|    6|    6|    3|    3|    9|   12|   29|   93|   14|    0|    0|   12|   10|    0|    9|   27|    4|    5|    5|    5|    1|    6|    8|   14|   13|   21|    8|   14|   26|   16|   26|   11|   15|   17|    6|   17|    99.07692|
-|E00069041 |E01013679 |Leicester 035B |E02002861 |Leicester 035 |E06000016 |Leicester |          4|Multicultural Metropolitans |4a      |Rented Family Living      |4a1        |Social Renting Young Families |              334|              115|             120|                    120|                          239|                       229|                               229|                       109|                                  239|                         317|  164|  170|  334|    0| 6.51|  51.30568|   32|   27|   28|   28|   27|   23|   71|   61|   11|   16|    8|    1|    1| 31.63772| 30.0|  112|   66|    2|   15|   31|   13|  253|   14|   30|   11|    4|    0|    0|    3|   19|    0|  117|   28|  167|   22|  290|    3|    5|    6|   30|  308|    7|    1|    1|   60|   34|    0|   91|    8|   12|   23|   11|    9|   18|    1|    5|   14|    9|    2|   12|    1|   20|    8|    6|    1|    0|    9|   21|   26|    5|    1|   14|   27|   68|    6|   11|    3|  115|    5|    4|  102|    4|   10|    0|   28|   74|   12|    1|   41|   35|   26|   11|    2|   60|   50|    5|    0|  91.70296|  146|  118|   47|   16|    7|   32|  110|   73|   23|   18|   27|   43|   49|   23|    0|   16|   79|   14|   34|   56|   12|   28|    9|   15|   18|   25|   24|    8|    7|    4|   11|    9|    8|   31|   57|   13|    0|    0|   15|    6|    0|   11|   25|    6|    2|    3|    1|    1|    2|   10|    2|    4|   18|    3|    5|    7|    5|    8|   15|   12|   14|   19|   24|    51.30568|
-|E00169049 |E01032862 |Leicester 009E |E02002835 |Leicester 009 |E06000016 |Leicester |          4|Multicultural Metropolitans |4c      |Asian Traits              |4c3        |Inner City Ethnic Mix         |              336|              119|             121|                    121|                          235|                       235|                               235|                       177|                                  235|                         300|  165|  171|  336|    0| 7.90|  42.53165|   49|   29|   21|    9|   27|   64|   87|   33|    8|    9|    0|    0|    0| 26.37202| 27.5|   78|  132|    2|    6|   11|    6|  113|   25|   17|  136|    8|    0|    5|    8|    9|   15|  114|  169|   44|    9|  228|    0|    3|   17|   88|  254|   36|    7|    3|  122|   40|    4|   44|    9|    3|    7|    6|    0|   21|    0|   12|   30|    6|   15|    4|    0|   14|    2|    8|    0|    0|    7|    8|    6|    5|    3|    6|   21|   82|    4|   12|    0|  119|    2|   38|   31|   23|   29|    0|   63|   14|   42|    0|   55|   25|   22|   13|    4|   67|   46|    5|    1|  36.78563|  182|  124|   25|    3|    2|   21|   30|   72|   32|   82|   17|   12|   56|   51|    8|   13|  151|    5|   31|  124|   20|    6|    2|   12|   15|   16|    4|    5|    1|    0|    1|    3|    7|   33|  110|   27|    0|    0|   21|    2|    1|    9|   32|   14|    4|    5|    9|    0|   13|    9|   12|   18|   22|    6|   22|   40|   21|   28|   13|   14|   11|   18|   10|    42.53165|
-|E00068806 |E01013628 |Leicester 006B |E02002832 |Leicester 006 |E06000016 |Leicester |          4|Multicultural Metropolitans |4b      |Challenged Asian Terraces |4b2        |Pakistani Communities         |              312|              111|             113|                    113|                          265|                       219|                               219|                       107|                                  230|                         302|  127|  185|  277|   35| 5.40|  57.77778|   16|   17|   11|   17|   32|   18|   51|   67|   22|   15|   24|   13|    9| 43.07372| 43.0|   78|  100|    0|   12|   26|   49|   40|    8|    7|  215|   13|    4|    0|   14|    6|    5|   37|  242|   14|   19|  132|    0|    2|    0|  178|  180|   57|   43|   22|   88|   10|    0|   69|    6|   11|   23|   23|   10|   24|    0|   11|   11|   11|    2|    1|    1|   17|   14|    7|    0|    0|    2|   12|   35|    4|    2|   11|   34|   66|    6|    3|    2|  111|    2|    8|   24|   44|   36|    1|   45|   58|    6|    2|   37|   20|   33|   15|    6|   71|   38|    2|    0| 218.29172|  104|   81|   58|   54|   15|   44|   94|   65|   18|   28|   20|   48|   44|   19|    1|   29|   63|   14|   33|   55|   12|   20|   10|   16|   13|   14|   35|   11|    8|    4|    3|    8|   14|   27|   60|    6|    1|    0|   19|    2|    0|    7|   27|    3|   11|    3|    3|    2|    3|    7|    3|    7|    6|    3|    4|   12|    3|   14|   11|    6|   22|   14|   21|    57.77778|
-|E00068886 |E01013647 |Leicester 040B |E02006850 |Leicester 040 |E06000016 |Leicester |          3|Ethnicity Central           |3a      |Ethnic Family Life        |3a2        |Young Families and Students   |              505|              198|             197|                    200|                          430|                       393|                               393|                       146|                                  402|                         493|  232|  273|  477|   28| 4.11| 122.87105|   18|   20|   31|   67|  150|   35|   74|   42|   13|   18|   13|   14|   10| 31.66337| 22.0|  290|   74|    0|   11|   25|   30|  252|   24|   14|   66|    2|    3|   14|   18|   89|   23|  201|  145|  124|   35|  355|    3|   13|   15|  119|  425|   47|   14|    7|   68|   32|    6|  253|    7|    8|   22|    6|    7|   64|    6|    4|   15|    6|    9|    3|    1|   21|    8|    3|   38|    0|   13|   17|   81|    4|    4|   13|   71|   94|    9|    4|   20|  198|    2|   10|   31|   75|   84|    0|   21|   83|   91|    3|   34|   31|   68|   34|   31|   92|  101|    3|    2| 112.95937|  248|  161|   60|   28|    8|   39|  105|   79|  158|   56|  208|  121|   63|   14|    2|   22|   47|   75|   22|   56|   10|   31|   72|   24|  138|   10|   22|    8|    6|    2|    6|   14|   36|   43|   63|    4|    0|    0|    8|    1|    1|    1|   40|    2|   20|    8|    1|    3|    3|   10|    2|   16|   22|    8|   10|   20|   18|   11|   11|   10|   26|    8|   32|   122.87105|
-|E00068807 |E01013624 |Leicester 007A |E02002833 |Leicester 007 |E06000016 |Leicester |          4|Multicultural Metropolitans |4a      |Rented Family Living      |4a1        |Social Renting Young Families |              362|              137|             138|                    138|                          272|                       224|                               224|                       111|                                  272|                         348|  175|  187|  362|    0| 4.75|  76.21053|   24|   33|   28|   31|   11|   20|   68|   51|   17|   31|   37|    6|    5| 39.28729| 39.0|   96|  116|    0|    8|   25|   27|  214|    1|   16|   70|   14|    0|    0|   23|   24|    0|  146|  101|   84|   31|  283|    0|    2|    1|   76|  313|   15|   16|    4|  102|   22|    4|   82|   12|    7|   18|   25|   25|   18|   15|    4|   21|    6|    0|    5|    3|   15|    9|    9|    0|    2|    5|   14|   49|    3|    0|   10|   43|   80|    8|    4|    2|  137|    1|    7|   51|   57|   23|    0|    7|  122|    5|    3|   51|   35|   36|    9|    6|   82|   48|    5|    2| 151.18100|  132|  121|   73|   26|   10|   40|  149|   71|   15|   17|   24|   60|   63|   14|    3|   12|   67|   29|   33|   55|   14|   22|    9|   34|   15|   16|   12|   14|    7|    4|    9|   10|   13|   34|   57|    7|    0|    0|   22|    0|    1|    6|   15|    7|    6|    0|    0|    2|    1|   13|    2|   12|   18|    6|    4|    6|    3|    6|    8|   22|    7|   25|   30|    76.21053|
+|OA11CD    | pop_density|
+|:---------|-----------:|
+|E00069517 |       33.69|
+|E00069514 |      131.30|
+|E00169516 |      240.14|
+|E00169048 |      104.23|
+|E00169044 |       99.08|
+|E00069041 |       51.31|
+|E00169049 |       42.53|
+|E00068806 |       57.78|
+|E00068886 |      122.87|
+|E00068807 |       76.21|
 
 
 ### Arrange
@@ -352,7 +353,7 @@ leicester_2011OAC %>%
     -Total_Population
   ) %>% 
   slice_head(n = 10) %>% 
-  kable(
+  kable()
 ```
 
 In the example above, we have used `slice_head` to present only the first `n` (in the example `10`) rows in a table, based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
@@ -464,14 +465,14 @@ library(magrittr)
 ```
 
 
-|supgrpname                  | tot_pop|  perc_pop|
-|:---------------------------|-------:|---------:|
-|Multicultural Metropolitans |  205007| 62.153657|
-|Hard-Pressed Living         |   32069|  9.722622|
-|Cosmopolitans               |   26813|  8.129117|
-|Urbanites                   |   20224|  6.131476|
-|Ethnicity Central           |   19137|  5.801921|
-|Constrained City Dwellers   |    9263|  2.808340|
+|supgrpname                  | tot_pop| perc_pop|
+|:---------------------------|-------:|--------:|
+|Multicultural Metropolitans |  205007|    62.15|
+|Hard-Pressed Living         |   32069|     9.72|
+|Cosmopolitans               |   26813|     8.13|
+|Urbanites                   |   20224|     6.13|
+|Ethnicity Central           |   19137|     5.80|
+|Constrained City Dwellers   |    9263|     2.81|
 
 ### Componentization
 
@@ -521,19 +522,19 @@ leicester_nonsuburb_pop %<>%
 ```r
 leicester_nonsuburb_pop %>% 
   # Print to screen nicely
-  kable()
+  kable(digits = c(0, 0, 2))
 ```
 
 
 
-|supgrpname                  | tot_pop|  perc_pop|
-|:---------------------------|-------:|---------:|
-|Multicultural Metropolitans |  205007| 62.153657|
-|Hard-Pressed Living         |   32069|  9.722622|
-|Cosmopolitans               |   26813|  8.129117|
-|Urbanites                   |   20224|  6.131476|
-|Ethnicity Central           |   19137|  5.801921|
-|Constrained City Dwellers   |    9263|  2.808340|
+|supgrpname                  | tot_pop| perc_pop|
+|:---------------------------|-------:|--------:|
+|Multicultural Metropolitans |  205007|    62.15|
+|Hard-Pressed Living         |   32069|     9.72|
+|Cosmopolitans               |   26813|     8.13|
+|Urbanites                   |   20224|     6.13|
+|Ethnicity Central           |   19137|     5.80|
+|Constrained City Dwellers   |    9263|     2.81|
 
 
 ```r
@@ -546,7 +547,39 @@ leicester_nonsuburb_pop %>%
 
 
 
-## How to cite code
+## How to cite
+
+### References
+
+Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r]. Bibtex references can be added to a separate `.bib` file that can be then linked to in the heading of the RMarkdown document. References can then be cited using the `@` symbol followed by the reference id.
+
+For instance, this documents links to the `references.bib` bibtex file, which contains the academic references, and the `packages.bib` bibtex files, which contains additional reference for the R packages (see also next section), by adding the following line in the heading.
+
+````
+bibliography: [references.bib, packages.bib]
+````
+
+The `references.bib` contains the following reference for the R Markdown Cookbook book.
+
+````
+@book{xie2020r,
+  title={R markdown cookbook},
+  author={Xie, Yihui and Dervieux, Christophe and Riederer, Emily},
+  year={2020},
+  publisher={Chapman and Hall/CRC},
+  url = {https://bookdown.org/yihui/rmarkdown-cookbook/}
+}
+````
+
+That allows to write the first sentence of this section as follows.
+
+````
+Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r].
+````
+
+Bibtex references can be obtained from most journals or by clicking on the *Cite* link under a paper in [Google Scholar](https://scholar.google.com/) and then selecting *Bibtex*.
+
+### Code
 
 The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
 
@@ -558,7 +591,31 @@ That also applies to re-using your own code, which you have written before. It i
 It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
 Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
 
+
+
 ## Exercises 103.1
+
+Create an RMarkdown document in RStudio, using *Exercise 103* as title and *PDF* as output. Delete all the contents except the first five lines which compose the heading. Save the document as `practical-103_exercises.Rmd`. Add the libraries and code necessary to read the data from the `2011_OAC_Raw_uVariables_Leicester.csv` file. Create a first section of the document (e.g., adding a second heading *Exercise 103.1*) and add your answers to the questions below.
+
+In order to answer the questions below, inspect the **look-up** table `2011_OAC_Raw_uVariables_Lookup.csv` (e.g., using Microsoft Excel) to identify the columns necessary to complete the task.
+
+**Question 103.1.1:** Identify the five variables which are part of the variable subdomain *Housing Type* and write the code necessary to compute the total number of household spaces in Leicester for each housing type.
+
+**Question 103.1.2:** Write the code necessary to compute the total number of household spaces in Leicester for each housing type grouped by 2011 OAC supergroup.
+
+**Question 103.1.3:** Write the code necessary to compute the percentage of household spaces (i.e., over to the total number of household spaces) in Leicester for each housing type grouped by 2011 OAC supergroup.
+
+**Question 103.1.4:** Modify the code written for *Question 103.1.3*, using [the verb `rename`](https://dplyr.tidyverse.org/reference/rename.html) to change the column names of the columns containing the percentages to names that resemble the related housing type (e.g., `perc_of_detached`).
+
+
+
+## Exercises 103.2
+
+**Question 103.2.1:** Explore the **look-up** table `2011_OAC_Raw_uVariables_Lookup.csv` and identify another set of variables that you think might relate to the the type of housing and the 2011 OAC supergroups. Create a new section of the document (e.g., adding a second heading) and include a short text (up to 200 words) in the RMarkdown document describing and justifying the set of variables you choose.
+
+**Question 103.2.2:** Write the code necessary to conduct the same analysis conducted for *Question 103.1* but using the variables identified in *Question 103.2.1*.
+
+**Question 103.2.3:** Inspect the table obtained from your answer to *Question 103.1.3* and the table obtained from your answer to *Question 103.2.2*, and compare the results. Write a short text (up to 300 words) in the RMarkdown document reporting and discussing what the results tell you about the socio-demographic structure of Leicester.
 
 
 

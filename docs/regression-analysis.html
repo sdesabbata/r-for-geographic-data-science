@@ -96,7 +96,7 @@
 <li><a class="" href="solutions.html">Solutions</a></li>
 <li><a class="" href="lecture-slides.html">Lecture slides</a></li>
 <li><a class="" href="reading-list.html">Reading list</a></li>
-<li><a class="" href="references.html">References</a></li>
+<li><a class="" href="references-1.html">References</a></li>
 </ul>
 
         <div class="book-extra">
@@ -136,7 +136,7 @@
 </h3>
 <p>The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the <code>nycflights13</code> dataset for the flight on November 20th, 2013. The scatterplot below seems to indicate that the relationship is indeed linear.</p>
 <p><span class="math display">\[arr\_delay_i = (Intercept + Coefficient_{dep\_delay} * dep\_delay_{i1}) + \epsilon_i \]</span></p>
-<div class="sourceCode" id="cb264"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the library</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
 <span></span>
@@ -147,7 +147,7 @@
 <img src="304-regression_files/figure-html/unnamed-chunk-3-1.png" width="384">
 </center>
 <p>The code below generates the model using the function <code>lm</code>, and the function <code>summary</code> to obtain the summary of the results of the test. The model and summary are saved in the variables <code>delay_model</code> and <code>delay_model_summary</code>, respectively, for further use below. The variable <code>delay_model_summary</code> can then be called directly to visualise the result of the test.</p>
-<div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Classic R coding version</span></span>
 <span><span class="co"># delay_model &lt;- lm(arr_delay ~ dep_delay, data = flights_nov_20)</span></span>
 <span><span class="co"># delay_model_summary &lt;- summary(delay_model)</span></span>
@@ -162,7 +162,7 @@
 <pre><code>## The following object is masked from 'package:tidyr':
 ## 
 ##     extract</code></pre>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op">&lt;-</span> <span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">arr_delay</span> <span class="op">~</span> <span class="va">dep_delay</span><span class="op">)</span> </span>
 <span></span>
@@ -214,7 +214,7 @@
 </li>
 </ul>
 <center>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_delay</span>, y <span class="op">=</span> <span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span>ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -231,7 +231,7 @@
 <span class="header-section-number">10.1.2.1</span> Normality<a class="anchor" aria-label="anchor" href="#normality"><i class="fas fa-link"></i></a>
 </h4>
 <p>The Shapiro-Wilk test can be used to check for the normality of standard residuals. The test should be not significant for robust models. In the example below, the standard residuals are <em>not</em> normally distributed. However, the plot further below does show that the distribution of the residuals is not far away from a normal distribution.</p>
-<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -249,7 +249,7 @@
 <span class="header-section-number">10.1.2.2</span> Homoscedasticity<a class="anchor" aria-label="anchor" href="#homoscedasticity"><i class="fas fa-link"></i></a>
 </h4>
 <p>The Breusch-Pagan test can be used to check for the homoscedasticity of standard residuals. The test should be not significant for robust models. In the example below, the standard residuals are homoscedastic.</p>
-<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lmtest</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -265,7 +265,7 @@
 <span class="header-section-number">10.1.2.3</span> Independence<a class="anchor" aria-label="anchor" href="#independence"><i class="fas fa-link"></i></a>
 </h4>
 <p>The Durbin-Watson test can be used to check for the independence of residuals. The test should be statistic should be close to 2 (between 1 and 3) and not significant for robust models. In the example below, the standard residuals might not be completely independent. Note, however, that the result depends on the order of the data.</p>
-<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Also part of the library lmtest</span></span>
 <span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -281,19 +281,19 @@
 <span class="header-section-number">10.1.2.4</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/plot.lm"><code>plot.lm</code> function</a> can be used to further explore the residuals visuallly. Usage is illustrated below. The <em>Residuals vs Fitted</em> and <em>Scale-Location</em> plot provide an insight into the homoscedasticity of the residuals, the <em>Normal Q-Q</em> plot provides an illustration of the normality of the residuals, and the <em>Residuals vs Leverage</em> can be useful to identify exceptional cases (e.g., Cook’s distance greater than 1).</p>
-<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="304-regression_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="304-regression_files/figure-html/unnamed-chunk-10-2.png" width="576"></div>
-<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="304-regression_files/figure-html/unnamed-chunk-10-3.png" width="576"></div>
-<div class="sourceCode" id="cb281"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <img src="304-regression_files/figure-html/unnamed-chunk-10-4.png" width="576">
@@ -305,7 +305,7 @@
 </h3>
 <p>Overall, we can say that the delay model computed above is fit (<span class="math inline">\(F(1, 972) = 3396.74\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 0.02\)</span>, <span class="math inline">\(p =0.9\)</span>), and the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.87\)</span>, <span class="math inline">\(p =0.02\)</span>), but they are not normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 0.98\)</span>, <span class="math inline">\(p &lt; .001\)</span>).</p>
 <p>The <a href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer"><code>stargazer</code> function of the <code>stargazer</code> library</a> can be applied to the model <code>delay_model</code> to generate a nicer output in RMarkdown PDF documents by including <code>results = "asis"</code> in the R snippet option.</p>
-<div class="sourceCode" id="cb282"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install stargazer if not yet installed</span></span>
 <span><span class="co"># install.packages("stargazer")</span></span>
 <span></span>
@@ -329,9 +329,9 @@
 <p>The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (<code>u121</code>) in Leicester, using the number of people in different industry sectors as predictors.</p>
 <p>For instance, occupations such as electricity, gas, steam and air conditioning supply (<code>u144</code>) require to travel some distances with equipment, thus the related variable <code>u144</code> is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport.</p>
 <p>A multiple regression model can be specified in a similar way as a simple regression model, using the same <code>lm</code> function, but adding the additional predictor variables using a <code>+</code> operator.</p>
-<div class="sourceCode" id="cb283"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb284"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select and </span></span>
 <span><span class="co"># normalise variables</span></span>
 <span><span class="va">leicester_2011OAC_transp</span> <span class="op">&lt;-</span></span>
@@ -399,10 +399,10 @@
 ## Residual standard error: 9.481 on 964 degrees of freedom
 ## Multiple R-squared:  0.3846, Adjusted R-squared:  0.3821 
 ## F-statistic: 150.6 on 4 and 964 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Not rendered in bookdown</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">commuting_model1</span>, header<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -411,7 +411,7 @@
 ## 
 ## data:  .
 ## W = 0.99889, p-value = 0.8307</code></pre>
-<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -419,7 +419,7 @@
 ## 
 ## data:  .
 ## BP = 28.403, df = 4, p-value = 1.033e-05</code></pre>
-<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -428,7 +428,7 @@
 ## data:  .
 ## DW = 1.835, p-value = 0.004908
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -438,7 +438,7 @@
 <p>The output above suggests that the model is fit (<span class="math inline">\(F(4, 964) = 150.62\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that a model based on the presence of people working in the four selected industry sectors can account for 38.21% of the number of people using private transportation to commute to work. However the model is only partially robust. The residuals are normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 1\)</span>, <span class="math inline">\(p =0.83\)</span>) and there seems to be no multicollinearity with average VIF <span class="math inline">\(1.02\)</span>, but the residuals don’t satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 28.4\)</span>, <span class="math inline">\(p &lt; .001\)</span>), nor the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.84\)</span>, <span class="math inline">\(p &lt; .01\)</span>).</p>
 <p>The coefficient values calculated by the <code>lm</code> functions are important to create the model, and provide useful information. For instance, the coefficient for the variable <code>perc_u144</code> is <code>1.169</code>, which indicates that if the presence of people working in electricity, gas, steam and air conditioning supply increases by one percentage point, the number of people using private transportation to commute to work increases by <code>1.169</code> percentage points, according to the model. The coefficients also indicate that the presence of people working in accommodation and food service activities actually has a negative impact (in the context of the variables selected for the model) on the number of people using private transportation to commute to work.</p>
 <p>In this example, all variables use the same unit and are of a similar type, which makes interpreting the model relatively simple. When that is not the case, it can be useful to look at the standardized <span class="math inline">\(\beta\)</span>, which provide the same information but measured in terms of standard deviation, which make comparisons between variables of different types easier to draw. For instance, the values calculated below using the function <code>lm.beta</code> of the library <code>lm.beta</code> indicate that if the presence of people working in construction has the highest impact on the outcome varaible. If the presence of people working in construction increases by one standard deviation, the number of people using private transportation to commute to work increases by <code>0.29</code> standard deviations, according to the model.</p>
-<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install lm.beta library if necessary</span></span>
 <span><span class="co"># install.packages("lm.beta")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lm.beta</span><span class="op">)</span></span>

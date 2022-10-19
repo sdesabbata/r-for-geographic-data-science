@@ -40,8 +40,11 @@ mutate
 arrange
 data-manipulation-example
 componentization
-how-to-cite-code
+how-to-cite
+references
+code
 exercises-103.1
+exercises-103.2
 table-operations
 long-and-wide-table-formats
 join

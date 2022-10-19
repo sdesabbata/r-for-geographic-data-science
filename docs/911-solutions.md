@@ -204,7 +204,7 @@ flights %>%
 | 2013|    10|  12|       -10|      193|
 | 2013|    10|  12|        17|      210|
 
-**Question 103.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
+**Question 102.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
 
 
 ```r
@@ -228,6 +228,115 @@ flights %>%
 |EWR    |SFO  |     1105|        23|
 |LGA    |CMH  |     1107|        -5|
 |LGA    |MIA  |     1109|       -23|
+
+
+## Solutions 103 {-}
+
+### Solutions 103.1 {-}
+
+Create an RMarkdown document in RStudio, using *Exercise 103* as title and *PDF* as output. Delete all the contents except the first five lines which compose the heading. Save the document as `practical-103_exercises.Rmd`. Add the libraries and code necessary to read the data from the `2011_OAC_Raw_uVariables_Leicester.csv` file. Create a first section of the document (e.g., adding a second heading *Exercise 103.1*) and add your answers to the questions below.
+
+In order to answer the questions below, inspect the **look-up** table `2011_OAC_Raw_uVariables_Lookup.csv` (e.g., using Microsoft Excel) to identify the columns necessary to complete the task.
+
+
+
+
+**Question 103.1.1:** Identify the five variables which are part of the variable subdomain *Housing Type* and write the code necessary to compute the total number of household spaces in Leicester for each housing type.
+
+
+```r
+leicester_2011OAC %>% 
+  summarise(
+    u086_tot = sum(u086),
+    u087_tot = sum(u087),
+    u088_tot = sum(u088),
+    u089_tot = sum(u089),
+    u090_tot = sum(u090)
+  ) %>% 
+  kable()
+```
+
+
+
+| u086_tot| u087_tot| u088_tot| u089_tot| u090_tot|
+|--------:|--------:|--------:|--------:|--------:|
+|    13390|    44880|    40290|    28757|       66|
+
+**Question 103.1.2:** Write the code necessary to compute the total number of household spaces in Leicester for each housing type grouped by 2011 OAC supergroup.
+
+
+```r
+leicester_2011OAC %>% 
+  group_by(supgrpname) %>% 
+  summarise(
+    u086_tot = sum(u086),
+    u087_tot = sum(u087),
+    u088_tot = sum(u088),
+    u089_tot = sum(u089),
+    u090_tot = sum(u090)
+  ) %>% 
+  kable()
+```
+
+
+
+|supgrpname                  | u086_tot| u087_tot| u088_tot| u089_tot| u090_tot|
+|:---------------------------|--------:|--------:|--------:|--------:|--------:|
+|Constrained City Dwellers   |      176|     1495|      941|     1876|        3|
+|Cosmopolitans               |      296|      580|     3185|     7261|        3|
+|Ethnicity Central           |      187|      465|     1292|     7093|        6|
+|Hard-Pressed Living         |      618|     7825|     3891|      370|       13|
+|Multicultural Metropolitans |     7700|    26940|    28804|    10990|       40|
+|Suburbanites                |     2458|     3852|      210|      111|        0|
+|Urbanites                   |     1955|     3723|     1967|     1056|        1|
+
+**Question 103.1.3:** Write the code necessary to compute the percentage of household spaces (i.e., over to the total number of household spaces) in Leicester for each housing type grouped by 2011 OAC supergroup.
+
+
+```r
+leicester_2011OAC %>% 
+  group_by(supgrpname) %>% 
+  summarise(
+    u086_tot = sum(u086),
+    u087_tot = sum(u087),
+    u088_tot = sum(u088),
+    u089_tot = sum(u089),
+    u090_tot = sum(u090)
+  ) %>% 
+  mutate(
+    tot_hspaces = 
+      u086_tot + u087_tot +
+      u088_tot + u089_tot +
+      u090_tot
+  ) %>% 
+  mutate(
+    u086_perc = (u086_tot / tot_hspaces) * 100,
+    u087_perc = (u087_tot / tot_hspaces) * 100,
+    u088_perc = (u088_tot / tot_hspaces) * 100,
+    u089_perc = (u089_tot / tot_hspaces) * 100,
+    u090_perc = (u090_tot / tot_hspaces) * 100
+  ) %>% 
+  select(
+    supgrpname,
+    u086_perc, u087_perc, u088_perc,
+    u089_perc, u090_perc
+  ) %>% 
+  kable(digits = c(0, 2, 2, 2, 2, 2))
+```
+
+
+
+|supgrpname                  | u086_perc| u087_perc| u088_perc| u089_perc| u090_perc|
+|:---------------------------|---------:|---------:|---------:|---------:|---------:|
+|Constrained City Dwellers   |      3.92|     33.29|     20.95|     41.77|      0.07|
+|Cosmopolitans               |      2.61|      5.12|     28.12|     64.11|      0.03|
+|Ethnicity Central           |      2.07|      5.14|     14.29|     78.44|      0.07|
+|Hard-Pressed Living         |      4.86|     61.53|     30.60|      2.91|      0.10|
+|Multicultural Metropolitans |     10.34|     36.17|     38.68|     14.76|      0.05|
+|Suburbanites                |     37.07|     58.09|      3.17|      1.67|      0.00|
+|Urbanites                   |     22.47|     42.78|     22.60|     12.14|      0.01|
+
+**Question 103.1.4:** Modify the code written for *Question 103.1.3*, using [the verb `rename`]() to change the column names of the columns containing the percentages to names that resemble the related housing type (e.g., `perc_of_detached`).
 
 
 

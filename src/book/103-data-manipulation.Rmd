@@ -284,7 +284,7 @@ leicester_2011OAC %>%
     # Average population
     avg_pop = tot_pop / num_of_OAs, 
   ) %>% 
-  kable()
+  kable(digits = c(0, 0, 0, 0, 2))
 ```
 
 In this second example, the `u005` column (which represents the area of the OA in [hectares](https://en.wikipedia.org/wiki/Hectare), see `2011_OAC_Raw_uVariables_Lookup.csv`) is used to calculate the population density for each OA.
@@ -295,8 +295,9 @@ leicester_2011OAC %>%
     # Population density
     pop_density = Total_Population / u005, 
   ) %>% 
+  select(OA11CD, pop_density) %>% 
   slice_head(n = 10) %>% 
-  kable()
+  kable(digits = c(0, 2))
 ```
 
 
@@ -315,7 +316,7 @@ leicester_2011OAC %>%
     -Total_Population
   ) %>% 
   slice_head(n = 10) %>% 
-  kable(
+  kable()
 ```
 
 In the example above, we have used `slice_head` to present only the first `n` (in the example `10`) rows in a table, based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
@@ -421,7 +422,7 @@ paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv") %>%
     "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv")
   ) %>% 
   # Print to screen nicely
-  kable()
+  kable(digits = c(0, 0, 2))
 ```
 
 ### Componentization
@@ -469,7 +470,7 @@ leicester_nonsuburb_pop %<>%
 ```{r, message=FALSE, warning=FALSE}
 leicester_nonsuburb_pop %>% 
   # Print to screen nicely
-  kable()
+  kable(digits = c(0, 0, 2))
 ```
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -482,7 +483,39 @@ leicester_nonsuburb_pop %>%
 
 
 
-## How to cite code
+## How to cite
+
+### References
+
+Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r]. Bibtex references can be added to a separate `.bib` file that can be then linked to in the heading of the RMarkdown document. References can then be cited using the `@` symbol followed by the reference id.
+
+For instance, this documents links to the `references.bib` bibtex file, which contains the academic references, and the `packages.bib` bibtex files, which contains additional reference for the R packages (see also next section), by adding the following line in the heading.
+
+````
+bibliography: [references.bib, packages.bib]
+````
+
+The `references.bib` contains the following reference for the R Markdown Cookbook book.
+
+````
+@book{xie2020r,
+  title={R markdown cookbook},
+  author={Xie, Yihui and Dervieux, Christophe and Riederer, Emily},
+  year={2020},
+  publisher={Chapman and Hall/CRC},
+  url = {https://bookdown.org/yihui/rmarkdown-cookbook/}
+}
+````
+
+That allows to write the first sentence of this section as follows.
+
+````
+Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r].
+````
+
+Bibtex references can be obtained from most journals or by clicking on the *Cite* link under a paper in [Google Scholar](https://scholar.google.com/) and then selecting *Bibtex*.
+
+### Code
 
 The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
 
@@ -494,7 +527,31 @@ That also applies to re-using your own code, which you have written before. It i
 It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
 Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
 
+
+
 ## Exercises 103.1
+
+Create an RMarkdown document in RStudio, using *Exercise 103* as title and *PDF* as output. Delete all the contents except the first five lines which compose the heading. Save the document as `practical-103_exercises.Rmd`. Add the libraries and code necessary to read the data from the `2011_OAC_Raw_uVariables_Leicester.csv` file. Create a first section of the document (e.g., adding a second heading *Exercise 103.1*) and add your answers to the questions below.
+
+In order to answer the questions below, inspect the **look-up** table `2011_OAC_Raw_uVariables_Lookup.csv` (e.g., using Microsoft Excel) to identify the columns necessary to complete the task.
+
+**Question 103.1.1:** Identify the five variables which are part of the variable subdomain *Housing Type* and write the code necessary to compute the total number of household spaces in Leicester for each housing type.
+
+**Question 103.1.2:** Write the code necessary to compute the total number of household spaces in Leicester for each housing type grouped by 2011 OAC supergroup.
+
+**Question 103.1.3:** Write the code necessary to compute the percentage of household spaces (i.e., over to the total number of household spaces) in Leicester for each housing type grouped by 2011 OAC supergroup.
+
+**Question 103.1.4:** Modify the code written for *Question 103.1.3*, using [the verb `rename`](https://dplyr.tidyverse.org/reference/rename.html) to change the column names of the columns containing the percentages to names that resemble the related housing type (e.g., `perc_of_detached`).
+
+
+
+## Exercises 103.2
+
+**Question 103.2.1:** Explore the **look-up** table `2011_OAC_Raw_uVariables_Lookup.csv` and identify another set of variables that you think might relate to the the type of housing and the 2011 OAC supergroups. Create a new section of the document (e.g., adding a second heading) and include a short text (up to 200 words) in the RMarkdown document describing and justifying the set of variables you choose.
+
+**Question 103.2.2:** Write the code necessary to conduct the same analysis conducted for *Question 103.1* but using the variables identified in *Question 103.2.1*.
+
+**Question 103.2.3:** Inspect the table obtained from your answer to *Question 103.1.3* and the table obtained from your answer to *Question 103.2.2*, and compare the results. Write a short text (up to 300 words) in the RMarkdown document reporting and discussing what the results tell you about the socio-demographic structure of Leicester.
 
 
 
