@@ -1168,9 +1168,9 @@ leicester_2011OAC %&gt;%
     Total_Population
   ) %&gt;% 
   arrange(
-    # Ascending destination name
+    # Ascending supergroup name
     supgrpname,
-    # Descending delay
+    # Descending population
     -Total_Population
   ) %&gt;% 
   slice_head(n = 8) %&gt;% 
@@ -1278,7 +1278,7 @@ leicester_2011OAC %&gt;%
     # Average population
     avg_pop = mean(Total_Population), 
     # Is there any OA with over 200 people?
-    pop_over_200 = any(Total_Population &gt; 600),
+    pop_over_600 = any(Total_Population &gt; 600),
     # Total population in Leicester
     tot_pop = sum(Total_Population)
   ) %&gt;% 
@@ -1290,7 +1290,7 @@ leicester_2011OAC %&gt;%
  &lt;thead&gt;
   &lt;tr&gt;
    &lt;th style=&quot;text-align:right;&quot;&gt; avg_pop &lt;/th&gt;
-   &lt;th style=&quot;text-align:left;&quot;&gt; pop_over_200 &lt;/th&gt;
+   &lt;th style=&quot;text-align:left;&quot;&gt; pop_over_600 &lt;/th&gt;
    &lt;th style=&quot;text-align:right;&quot;&gt; tot_pop &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;

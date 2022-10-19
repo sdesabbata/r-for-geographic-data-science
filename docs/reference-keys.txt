@@ -39,7 +39,9 @@ summarise
 mutate
 arrange
 data-manipulation-example
+saving-mid-products
 how-to-cite-code
+exercises-103.1
 table-operations
 long-and-wide-table-formats
 join

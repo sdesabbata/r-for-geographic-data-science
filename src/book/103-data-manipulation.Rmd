@@ -69,9 +69,11 @@ The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the 
 The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
 
 ```{r, echo=TRUE, eval=FALSE}
+# Read the Leicester 2011 OAC dataset from the csv file
 leicester_2011OAC <- 
   read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 
+# Illustrate some of the contents
 leicester_2011OAC %>% 
   select(
     OA11CD, LSOA11CD, 
@@ -183,101 +185,168 @@ read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
 
 The analysis below uses the [`dplyr`](https://dplyr.tidyverse.org/) library (also part of the Tidyverse), which it offers a grammar for data manipulation.
 
-For instance, the function `count` can be used to count the number rows of a data frame. The code below provides `flights` as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column. 
+For instance, the function `count` can be used to count the number of rows in a data frame. The code below provides the `leicester_2011OAC` dataframe (as read in input in the section above) as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column, containing the number of rows in that dataframe -- that is, the number of OAs in Leicester. 
 
-As discussed in the previous lecture, a [`tibble`](https://tibble.tidyverse.org/) is data type similar to data frames, used by all the Tidyverse libraries. 
-
-All Tidyverse functions output `tibble` rather than `data.frame` objects when representing a table. However, `data.frame` object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.
-
-In the `tibble` outputted by the `count` function below, the column `n` provides the count. The function `kable` of the library `knitr` is used to produce a well-formatted table.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(knitr)
-library(nycflights13)
-```
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
+leicester_2011OAC %>%
   count() %>%
   kable()
 ```
 
-The example above already shows how the **pipe operator** can be used effectively in a multi-step operation.
+As discussed in the previous lecture, a [`tibble`](https://tibble.tidyverse.org/) is data type similar to data frames, used by all the Tidyverse libraries. All Tidyverse functions output `tibble` rather than `data.frame` objects when representing a table. However, `data.frame` object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.
 
-The function `count` can also be used to count the number rows of a table that have the same value for a given column, usually representing a category. 
+The example above already shows how the **pipe operator** can be used effectively in a multi-step operation. In the `tibble` outputted by the `count` function above, the column `n` provides the count. The function `kable` of the library `knitr` is used to produce a well-formatted table.
 
-In the example below, the column name `origin` is provided as an argument to the function `count`, so rows representing flights from the same origin are counted together -- EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
-  count(origin) %>%
-  kable()
-```
-
-As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every `%>%`, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.
-
+Note how, the code above goes to a new line after every `%>%`, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.
 
 
 ### Summarise
 
-To carry out more complex aggregations, the function `summarise` can be used in combination with the function `group_by` to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation). 
+The verb `count` is a special case (a shorthand) of the more general verb `summarise` (`summarize` using the American English spelling is also available with the same functionality), which allows to create generate tables presenting aggregate values of input data. 
 
-In the example below, the function `sum` is applied to the column `distance` to calculate `distance_traveled_from` (the total distance travelled by flights starting from each airport).
+For instance, `summarise` can be use to create a table containing:
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
-  group_by(origin) %>%
+- a column presenting the total population of Leicester;
+- a column presenting the total number of OAs in Leicester;
+- a column presenting the average population per OAs in Leicester;
+- a column presenting a logical values stating whether any OA in Leicester contains more than 600 people.
+
+That can be achieved applying different aggregate functions to the same column (`Total_Population`) of the `leicester_2011OAC` as illutratete below.
+
+- `sum` to calculate the total population of Leicester;
+- `n` to count the number of rows (as mentioned above `count` is a shorthand for the combination of `summarise` with `n`);
+- `mean` to calculate the average population per OAs in Leicester; 
+- `any` with a conditional statement comparing `Total_Population` and the value `600` using the numeric operator `>` (greater than) to assess whether any OA in Leicester contains more than 600 people.
+
+```{r, echo=TRUE}
+leicester_2011OAC %>%
   summarise(
-    distance_traveled_from = sum(distance)
-  ) %>%
+    # Total population in Leicester
+    tot_pop = sum(Total_Population),
+    # Number of OAs, no input column needed
+    num_of_OAs = n(),
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_600 = any(Total_Population > 600)
+  ) %>% 
   kable()
 ```
+
+A set of aggregate functions which are frequently used with `summarise` is available in [the `dplyr` page on `summarise`](https://dplyr.tidyverse.org/reference/summarise.html#useful-functions).
+
+To carry out more complex aggregations, the function `summarise` can be used in combination with the function `group_by` to summarise the values in the data frame based on groups. Rows having the same value for the column specified for the verb `group_by` (in the example below, the 2011 OAC supergroup, `supgrpname`) are grouped together, then values are aggregated based on the functions specified for the verb `summarise` (using one or more columns in the calculation). 
+
+```{r, echo=TRUE}
+leicester_2011OAC %>%
+  group_by(supgrpname) %>% 
+  summarise(
+    # Total population in Leicester
+    tot_pop = sum(Total_Population),
+    # Number of OAs, no input column needed
+    num_of_OAs = n(),
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_600 = any(Total_Population > 600)
+  ) %>% 
+  kable()
+```
+
+The shorthand function `count` also has the option to specify a column that will be used for an internal grouping. In the example below, the column name `supgrpname` is provided as an argument to the function `count`. As a result, the output shows the number of rows grouped by 2011 OAC supergroup.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  count(supgrpname) %>%
+  kable()
+```
+
 
 
 
 ### Mutate
 
-The function `mutate` can be used to add a new column to an output table. The `mutate` step in the code below adds a new column `air_time_hours` to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by `60`.
+The function `mutate` can be used to create a new column by conducting operations on current columns. For instance, in the example below, `summarise` is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb `mutate` is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same `avg_pop` column as above, but through a different process.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
-  select(flight, origin, dest, air_time) %>%
+leicester_2011OAC %>%
+  group_by(supgrpname) %>% 
+  summarise(
+    # Total population in Leicester
+    tot_pop = sum(Total_Population),
+    # Number of OAs, no input column needed
+    num_of_OAs = n(),
+    # Is there any OA with over 200 people?
+    pop_over_600 = any(Total_Population > 600)
+  ) %>% 
   mutate(
-    air_time_hours = air_time / 60
-  ) %>%
-  slice_head(n = 5) %>%
+    # Average population
+    avg_pop = tot_pop / num_of_OAs, 
+  ) %>% 
   kable()
 ```
+
+In this second example, the `u005` column (which represents the area of the OA in [hectares](https://en.wikipedia.org/wiki/Hectare), see `2011_OAC_Raw_uVariables_Lookup.csv`) is used to calculate the population density for each OA.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  mutate(
+    # Population density
+    pop_density = Total_Population / u005, 
+  ) %>% 
+  slice_head(n = 10) %>% 
+  kable()
+```
+
 
 ### Arrange
 
-The function `arrange` can be used to sort a tibble by ascending order of the values in the specified column. If the operator `-` is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.
+The function `arrange` can be used to sort a tibble by ascending order of the values in the specified column. If the operator `-` is specified before the column name, the descending order is used. The code below would produce a table showing the ten OAs with the larges population in Leicester.
 
 ```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
-flights %>%
-  select(flight, origin, dest, air_time) %>%
-  arrange(-air_time) %>%
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  arrange(
+    # Descending delay
+    -Total_Population
+  ) %>% 
+  slice_head(n = 10) %>% 
+  kable(
+```
+
+In the example above, we have used `slice_head` to present only the first `n` (in the example `10`) rows in a table, based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
+
+As such, the following code uses `slice_max` to produce a table including only the 10 OAs with the *highest* population.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  slice_max(
+    Total_Population, 
+    n = 10
+  ) %>%
   kable()
 ```
 
-In the examples above, we have used `slice_head` to present only the first `n` (in the examples `5`) rows in a table, based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
-
-As such, the following code uses `slice_max` to produce a table including only the 5 rows with the *highest* air time.
+The following code, instead, uses `slice_min`, thus producing a table including only the 10 OAs with the *lowest* population..
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
-  select(flight, origin, dest, air_time) %>%
-  slice_max(air_time, n = 5) %>%
-  kable()
-```
-
-The following code, instead, uses `slice_min`, thus producing a table including only the 5 rows with the *lowest* air time.
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
-  select(flight, origin, dest, air_time) %>%
-  slice_min(air_time, n = 5) %>%
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  slice_min(
+    Total_Population, 
+    n = 10
+  ) %>%
   kable()
 ```
 
@@ -286,36 +355,131 @@ In both cases, if the table contains ties, all rows containing a value that is p
 
 ### Data manipulation example
 
-Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.
+Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above. This is a full example of a short analysis using only one series of pipes to read, process and write data using `R` and almost all the `tidyverse` *verbs* seen so far.
 
-1. Start from the `flights` data.
-2. Select origin, destination, departure delay, year, month, and day.
-3. Filter only rows referring to flights in November.
-4. Filter only rows where departure delay is not (notice that the negation operator `!` is used) `NA`.
-  - That is necessary because the function `mean` would return `NA` as output if any of the values in the column is `NA`.
-5. Group by destination.
-6. Calculated the average delay per destination.
-7. Add a column with the delay calculated in hours (minutes over 60).
-8. Sort the table by *descending* delay (note that `-` is used before the column name).
-9. Only show the first 5 rows.
-10. Create a well-formatted table.
+The input data are read from the csv file, part of the data are selected and filtered. The data are grouped and aggregate, arranged in order and the percentage of people living in OAs assigned to each 2011 OAC supergroup is calculated. The [Tee pipe](https://magrittr.tidyverse.org/reference/tee.html) (from the `magrittr` library) is used to write the resulting talbe to a file, while also passing the same input to the subsequent `kable` function to display the data.
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-flights %>%
-  select(origin, dest, year, month, day, dep_delay) %>%
-  filter(month == 11) %>%
-  filter(!is.na(dep_delay)) %>%
-  group_by(dest) %>%
-  summarize(
-    avg_dep_delay = mean(dep_delay)
-  ) %>%
-  mutate(
-    avg_dep_delay_hours = avg_dep_delay / 60
-  ) %>%
-  arrange(-avg_dep_delay_hours) %>%
-  slice_head(n = 5) %>%
+```{r, echo=TRUE, eval=FALSE}
+library(magrittr)
+
+# Let's start from the filename
+"2011_OAC_supgrp_Leicester.csv" %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop) %>% 
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100) %T>%
+  # Then use the Tee pipe %T>% in the line above
+  # to write the calculated values to file
+  # and the pass the same input values to the kable function
+  write_csv(
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"
+  ) %>% 
+  # Print to screen nicely
   kable()
 ```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(magrittr)
+
+# Let's start from the filename
+paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv") %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop) %>% 
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100) %T>%
+  # Then use the Tee pipe %T>% in the line above
+  # to write the calculated values to file
+  # and the pass the same input values to the kable function
+  write_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/",
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv")
+  ) %>% 
+  # Print to screen nicely
+  kable()
+```
+
+### Saving mid-products
+
+It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the `R` internal memory and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary mid-products during the computation (i.e., variables whose only purpose is to store the data before the next step). However, it is frequently useful to split the processing in different steps, which allow the data to be inspected mid-way through the analysis or for the data to be used twice in two subsequent steps. Finding a good balance between too long and too short pipe sequences and too many or two few mid-products is the programmer's task -- and something that can only be learnt by experience and observing good examples of code.
+
+The following example showcases how the process above can be subdivided into five meaningful steps. 
+
+1. Read the data. This is frequently done as a separate step, as some dataset might require significant time to be read from computer storage and it is frequently best to read them only once.
+2. Calculate the total population per 2011 OAC supergroup, excluding the suburban population. This is a significant transformation of the original data, which might be worth saving and inspecting.
+3. Update the new table using mutate and the [assignment pipe operator `%<>%`](https://magrittr.tidyverse.org/reference/compound.html) (from the `magrittr` library).
+4. Print the result.
+5. Save the result to the computer storage.
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <-
+  # Let's start from the filename
+  "2011_OAC_supgrp_Leicester.csv" %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") 
+```
+
+```{r, message=FALSE, warning=FALSE}
+leicester_nonsuburb_pop <-
+  leicester_2011OAC %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop)
+
+leicester_nonsuburb_pop %<>%
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100)
+```
+
+```{r, message=FALSE, warning=FALSE}
+leicester_nonsuburb_pop %>% 
+  # Print to screen nicely
+  kable()
+```
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_nonsuburb_pop %>% 
+  # Write the calculated values to file
+  write_csv(
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"
+  ) 
+```
+
 
 
 ## How to cite code
@@ -330,7 +494,7 @@ That also applies to re-using your own code, which you have written before. It i
 It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
 Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
 
-
+## Exercises 103.1
 
 
 

@@ -160,9 +160,11 @@ library(knitr)
 <p>The <a href="https://readr.tidyverse.org/index.html"><code>readr</code> library</a> (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats.</p>
 <p>The <code>read_csv</code> function reads a <em>Comma Separated Values (CSV)</em> file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The <code>read_csv</code> instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows – one for each OA – and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.</p>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
+<code class="sourceCode R"><span><span class="co"># Read the Leicester 2011 OAC dataset from the csv file</span></span>
+<span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Illustrate some of the contents</span></span>
 <span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">OA11CD</span>, <span class="va">LSOA11CD</span>, </span>
@@ -281,16 +283,9 @@ library(knitr)
 <span class="header-section-number">3.4</span> Data manipulation<a class="anchor" aria-label="anchor" href="#data-manipulation-1"><i class="fas fa-link"></i></a>
 </h2>
 <p>The analysis below uses the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> library (also part of the Tidyverse), which it offers a grammar for data manipulation.</p>
-<p>For instance, the function <code>count</code> can be used to count the number rows of a data frame. The code below provides <code>flights</code> as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column.</p>
-<p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is data type similar to data frames, used by all the Tidyverse libraries.</p>
-<p>All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
-<p>In the <code>tibble</code> outputted by the <code>count</code> function below, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
+<p>For instance, the function <code>count</code> can be used to count the number of rows in a data frame. The code below provides the <code>leicester_2011OAC</code> dataframe (as read in input in the section above) as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column, containing the number of rows in that dataframe – that is, the number of OAs in Leicester.</p>
 <div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
@@ -298,67 +293,183 @@ library(knitr)
 <th align="right">n</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="right">336776</td>
+<td align="right">969</td>
 </tr></tbody>
 </table></div>
-<p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation.</p>
-<p>The function <code>count</code> can also be used to count the number rows of a table that have the same value for a given column, usually representing a category.</p>
-<p>In the example below, the column name <code>origin</code> is provided as an argument to the function <code>count</code>, so rows representing flights from the same origin are counted together – EWR is the Newark Liberty International Airport, JFK is the John F. Kennedy International Airport, and LGA is LaGuardia Airport.</p>
-<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
-<th align="left">origin</th>
-<th align="right">n</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">EWR</td>
-<td align="right">120835</td>
-</tr>
-<tr class="even">
-<td align="left">JFK</td>
-<td align="right">111279</td>
-</tr>
-<tr class="odd">
-<td align="left">LGA</td>
-<td align="right">104662</td>
-</tr>
-</tbody>
-</table></div>
-<p>As you can see, the code above is formatted in a way similar to a code block, although it is not a code block. The code goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
+<p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is data type similar to data frames, used by all the Tidyverse libraries. All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
+<p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation. In the <code>tibble</code> outputted by the <code>count</code> function above, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
+<p>Note how, the code above goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
 <div id="summarise" class="section level3" number="3.4.1">
 <h3>
 <span class="header-section-number">3.4.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
-<p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values of the rows of a data frame. Rows having the same value for a selected column (in the example below, the same origin) are grouped together, then values are aggregated based on the defined function (using one or more columns in the calculation).</p>
-<p>In the example below, the function <code>sum</code> is applied to the column <code>distance</code> to calculate <code>distance_traveled_from</code> (the total distance travelled by flights starting from each airport).</p>
-<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">origin</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<p>The verb <code>count</code> is a special case (a shorthand) of the more general verb <code>summarise</code> (<code>summarize</code> using the American English spelling is also available with the same functionality), which allows to create generate tables presenting aggregate values of input data.</p>
+<p>For instance, <code>summarise</code> can be use to create a table containing:</p>
+<ul>
+<li>a column presenting the total population of Leicester;</li>
+<li>a column presenting the total number of OAs in Leicester;</li>
+<li>a column presenting the average population per OAs in Leicester;</li>
+<li>a column presenting a logical values stating whether any OA in Leicester contains more than 600 people.</li>
+</ul>
+<p>That can be achieved applying different aggregate functions to the same column (<code>Total_Population</code>) of the <code>leicester_2011OAC</code> as illutratete below.</p>
+<ul>
+<li>
+<code>sum</code> to calculate the total population of Leicester;</li>
+<li>
+<code>n</code> to count the number of rows (as mentioned above <code>count</code> is a shorthand for the combination of <code>summarise</code> with <code>n</code>);</li>
+<li>
+<code>mean</code> to calculate the average population per OAs in Leicester;</li>
+<li>
+<code>any</code> with a conditional statement comparing <code>Total_Population</code> and the value <code>600</code> using the numeric operator <code>&gt;</code> (greater than) to assess whether any OA in Leicester contains more than 600 people.</li>
+</ul>
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
-<span>    distance_traveled_from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">distance</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="co"># Total population in Leicester</span></span>
+<span>    tot_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Number of OAs, no input column needed</span></span>
+<span>    num_of_OAs <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Average population</span></span>
+<span>    avg_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span>, </span>
+<span>    <span class="co"># Is there any OA with over 200 people?</span></span>
+<span>    pop_over_600 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">Total_Population</span> <span class="op">&gt;</span> <span class="fl">600</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
-<th align="left">origin</th>
-<th align="right">distance_traveled_from</th>
+<th align="right">tot_pop</th>
+<th align="right">num_of_OAs</th>
+<th align="right">avg_pop</th>
+<th align="left">pop_over_600</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">329839</td>
+<td align="right">969</td>
+<td align="right">340.3911</td>
+<td align="left">TRUE</td>
+</tr></tbody>
+</table></div>
+<p>A set of aggregate functions which are frequently used with <code>summarise</code> is available in <a href="https://dplyr.tidyverse.org/reference/summarise.html#useful-functions">the <code>dplyr</code> page on <code>summarise</code></a>.</p>
+<p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values in the data frame based on groups. Rows having the same value for the column specified for the verb <code>group_by</code> (in the example below, the 2011 OAC supergroup, <code>supgrpname</code>) are grouped together, then values are aggregated based on the functions specified for the verb <code>summarise</code> (using one or more columns in the calculation).</p>
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Total population in Leicester</span></span>
+<span>    tot_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Number of OAs, no input column needed</span></span>
+<span>    num_of_OAs <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Average population</span></span>
+<span>    avg_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span>, </span>
+<span>    <span class="co"># Is there any OA with over 200 people?</span></span>
+<span>    pop_over_600 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">Total_Population</span> <span class="op">&gt;</span> <span class="fl">600</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="40%">
+<col width="11%">
+<col width="15%">
+<col width="13%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">supgrpname</th>
+<th align="right">tot_pop</th>
+<th align="right">num_of_OAs</th>
+<th align="right">avg_pop</th>
+<th align="left">pop_over_600</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">EWR</td>
-<td align="right">127691515</td>
+<td align="left">Constrained City Dwellers</td>
+<td align="right">9263</td>
+<td align="right">36</td>
+<td align="right">257.3056</td>
+<td align="left">FALSE</td>
 </tr>
 <tr class="even">
-<td align="left">JFK</td>
-<td align="right">140906931</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">26813</td>
+<td align="right">83</td>
+<td align="right">323.0482</td>
+<td align="left">TRUE</td>
 </tr>
 <tr class="odd">
-<td align="left">LGA</td>
-<td align="right">81619161</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">19137</td>
+<td align="right">57</td>
+<td align="right">335.7368</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="even">
+<td align="left">Hard-Pressed Living</td>
+<td align="right">32069</td>
+<td align="right">101</td>
+<td align="right">317.5149</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">205007</td>
+<td align="right">573</td>
+<td align="right">357.7784</td>
+<td align="left">TRUE</td>
+</tr>
+<tr class="even">
+<td align="left">Suburbanites</td>
+<td align="right">17326</td>
+<td align="right">54</td>
+<td align="right">320.8519</td>
+<td align="left">FALSE</td>
+</tr>
+<tr class="odd">
+<td align="left">Urbanites</td>
+<td align="right">20224</td>
+<td align="right">65</td>
+<td align="right">311.1385</td>
+<td align="left">FALSE</td>
+</tr>
+</tbody>
+</table></div>
+<p>The shorthand function <code>count</code> also has the option to specify a column that will be used for an internal grouping. In the example below, the column name <code>supgrpname</code> is provided as an argument to the function <code>count</code>. As a result, the output shows the number of rows grouped by 2011 OAC supergroup.</p>
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">supgrpname</th>
+<th align="right">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Constrained City Dwellers</td>
+<td align="right">36</td>
+</tr>
+<tr class="even">
+<td align="left">Cosmopolitans</td>
+<td align="right">83</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethnicity Central</td>
+<td align="right">57</td>
+</tr>
+<tr class="even">
+<td align="left">Hard-Pressed Living</td>
+<td align="right">101</td>
+</tr>
+<tr class="odd">
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">573</td>
+</tr>
+<tr class="even">
+<td align="left">Suburbanites</td>
+<td align="right">54</td>
+</tr>
+<tr class="odd">
+<td align="left">Urbanites</td>
+<td align="right">65</td>
 </tr>
 </tbody>
 </table></div>
@@ -367,58 +478,2416 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.4.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
-<p>The function <code>mutate</code> can be used to add a new column to an output table. The <code>mutate</code> step in the code below adds a new column <code>air_time_hours</code> to the table obtained through the pipe, that is the flight air time in hours, dividing the flight air time in minutes by <code>60</code>.</p>
+<p>The function <code>mutate</code> can be used to create a new column by conducting operations on current columns. For instance, in the example below, <code>summarise</code> is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb <code>mutate</code> is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same <code>avg_pop</code> column as above, but through a different process.</p>
 <div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Total population in Leicester</span></span>
+<span>    tot_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Number of OAs, no input column needed</span></span>
+<span>    num_of_OAs <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    <span class="co"># Is there any OA with over 200 people?</span></span>
+<span>    pop_over_600 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">Total_Population</span> <span class="op">&gt;</span> <span class="fl">600</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    air_time_hours <span class="op">=</span> <span class="va">air_time</span> <span class="op">/</span> <span class="fl">60</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="co"># Average population</span></span>
+<span>    avg_pop <span class="op">=</span> <span class="va">tot_pop</span> <span class="op">/</span> <span class="va">num_of_OAs</span>, </span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-table"><table class="table table-sm">
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="40%">
+<col width="11%">
+<col width="15%">
+<col width="18%">
+<col width="13%">
+</colgroup>
 <thead><tr class="header">
-<th align="right">flight</th>
-<th align="left">origin</th>
-<th align="left">dest</th>
-<th align="right">air_time</th>
-<th align="right">air_time_hours</th>
+<th align="left">supgrpname</th>
+<th align="right">tot_pop</th>
+<th align="right">num_of_OAs</th>
+<th align="left">pop_over_600</th>
+<th align="right">avg_pop</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">1545</td>
-<td align="left">EWR</td>
-<td align="left">IAH</td>
-<td align="right">227</td>
-<td align="right">3.783333</td>
+<td align="left">Constrained City Dwellers</td>
+<td align="right">9263</td>
+<td align="right">36</td>
+<td align="left">FALSE</td>
+<td align="right">257.3056</td>
 </tr>
 <tr class="even">
-<td align="right">1714</td>
-<td align="left">LGA</td>
-<td align="left">IAH</td>
-<td align="right">227</td>
-<td align="right">3.783333</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">26813</td>
+<td align="right">83</td>
+<td align="left">TRUE</td>
+<td align="right">323.0482</td>
 </tr>
 <tr class="odd">
-<td align="right">1141</td>
-<td align="left">JFK</td>
-<td align="left">MIA</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">19137</td>
+<td align="right">57</td>
+<td align="left">FALSE</td>
+<td align="right">335.7368</td>
+</tr>
+<tr class="even">
+<td align="left">Hard-Pressed Living</td>
+<td align="right">32069</td>
+<td align="right">101</td>
+<td align="left">FALSE</td>
+<td align="right">317.5149</td>
+</tr>
+<tr class="odd">
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">205007</td>
+<td align="right">573</td>
+<td align="left">TRUE</td>
+<td align="right">357.7784</td>
+</tr>
+<tr class="even">
+<td align="left">Suburbanites</td>
+<td align="right">17326</td>
+<td align="right">54</td>
+<td align="left">FALSE</td>
+<td align="right">320.8519</td>
+</tr>
+<tr class="odd">
+<td align="left">Urbanites</td>
+<td align="right">20224</td>
+<td align="right">65</td>
+<td align="left">FALSE</td>
+<td align="right">311.1385</td>
+</tr>
+</tbody>
+</table></div>
+<p>In this second example, the <code>u005</code> column (which represents the area of the OA in <a href="https://en.wikipedia.org/wiki/Hectare">hectares</a>, see <code>2011_OAC_Raw_uVariables_Lookup.csv</code>) is used to calculate the population density for each OA.</p>
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Population density</span></span>
+<span>    pop_density <span class="op">=</span> <span class="va">Total_Population</span> <span class="op">/</span> <span class="va">u005</span>, </span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="0%">
+<col width="0%">
+<col width="1%">
+<col width="0%">
+<col width="1%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="2%">
+<col width="0%">
+<col width="1%">
+<col width="0%">
+<col width="2%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="1%">
+<col width="2%">
+<col width="1%">
+<col width="2%">
+<col width="1%">
+<col width="2%">
+<col width="2%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+<col width="0%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">OA11CD</th>
+<th align="left">LSOA11CD</th>
+<th align="left">LSO11ANM</th>
+<th align="left">MSOA11CD</th>
+<th align="left">MSOA11NM</th>
+<th align="left">LAD11CD</th>
+<th align="left">LAD11NM</th>
+<th align="right">supgrpcode</th>
+<th align="left">supgrpname</th>
+<th align="left">grpcode</th>
+<th align="left">grpname</th>
+<th align="left">subgrpcode</th>
+<th align="left">subgrpname</th>
+<th align="right">Total_Population</th>
+<th align="right">Total_Households</th>
+<th align="right">Total_Dwellings</th>
+<th align="right">Total_Household_Spaces</th>
+<th align="right">Total_Population_16_and_over</th>
+<th align="right">Total_Population_16_to_74</th>
+<th align="right">Total_Pop_No_NI_Students_16_to_74</th>
+<th align="right">Total_Employment_16_to_74</th>
+<th align="right">Total_Pop_in_Housesholds_16_and_over</th>
+<th align="right">Total_Population_3_and_over</th>
+<th align="right">u001</th>
+<th align="right">u002</th>
+<th align="right">u003</th>
+<th align="right">u004</th>
+<th align="right">u005</th>
+<th align="right">u006</th>
+<th align="right">u007</th>
+<th align="right">u008</th>
+<th align="right">u009</th>
+<th align="right">u010</th>
+<th align="right">u011</th>
+<th align="right">u012</th>
+<th align="right">u013</th>
+<th align="right">u014</th>
+<th align="right">u015</th>
+<th align="right">u016</th>
+<th align="right">u017</th>
+<th align="right">u018</th>
+<th align="right">u019</th>
+<th align="right">u020</th>
+<th align="right">u021</th>
+<th align="right">u022</th>
+<th align="right">u023</th>
+<th align="right">u024</th>
+<th align="right">u025</th>
+<th align="right">u026</th>
+<th align="right">u027</th>
+<th align="right">u028</th>
+<th align="right">u029</th>
+<th align="right">u030</th>
+<th align="right">u031</th>
+<th align="right">u032</th>
+<th align="right">u033</th>
+<th align="right">u034</th>
+<th align="right">u035</th>
+<th align="right">u036</th>
+<th align="right">u037</th>
+<th align="right">u038</th>
+<th align="right">u039</th>
+<th align="right">u040</th>
+<th align="right">u041</th>
+<th align="right">u042</th>
+<th align="right">u043</th>
+<th align="right">u044</th>
+<th align="right">u045</th>
+<th align="right">u046</th>
+<th align="right">u047</th>
+<th align="right">u048</th>
+<th align="right">u049</th>
+<th align="right">u050</th>
+<th align="right">u051</th>
+<th align="right">u052</th>
+<th align="right">u053</th>
+<th align="right">u054</th>
+<th align="right">u055</th>
+<th align="right">u056</th>
+<th align="right">u057</th>
+<th align="right">u058</th>
+<th align="right">u059</th>
+<th align="right">u060</th>
+<th align="right">u061</th>
+<th align="right">u062</th>
+<th align="right">u063</th>
+<th align="right">u064</th>
+<th align="right">u065</th>
+<th align="right">u066</th>
+<th align="right">u067</th>
+<th align="right">u068</th>
+<th align="right">u069</th>
+<th align="right">u070</th>
+<th align="right">u071</th>
+<th align="right">u072</th>
+<th align="right">u073</th>
+<th align="right">u074</th>
+<th align="right">u075</th>
+<th align="right">u076</th>
+<th align="right">u077</th>
+<th align="right">u078</th>
+<th align="right">u079</th>
+<th align="right">u080</th>
+<th align="right">u081</th>
+<th align="right">u082</th>
+<th align="right">u083</th>
+<th align="right">u084</th>
+<th align="right">u085</th>
+<th align="right">u086</th>
+<th align="right">u087</th>
+<th align="right">u088</th>
+<th align="right">u089</th>
+<th align="right">u090</th>
+<th align="right">u091</th>
+<th align="right">u092</th>
+<th align="right">u093</th>
+<th align="right">u094</th>
+<th align="right">u095</th>
+<th align="right">u096</th>
+<th align="right">u097</th>
+<th align="right">u098</th>
+<th align="right">u099</th>
+<th align="right">u100</th>
+<th align="right">u101</th>
+<th align="right">u102</th>
+<th align="right">u103</th>
+<th align="right">u104</th>
+<th align="right">u105</th>
+<th align="right">u106</th>
+<th align="right">u107</th>
+<th align="right">u108</th>
+<th align="right">u109</th>
+<th align="right">u110</th>
+<th align="right">u111</th>
+<th align="right">u112</th>
+<th align="right">u113</th>
+<th align="right">u114</th>
+<th align="right">u115</th>
+<th align="right">u116</th>
+<th align="right">u117</th>
+<th align="right">u118</th>
+<th align="right">u119</th>
+<th align="right">u120</th>
+<th align="right">u121</th>
+<th align="right">u122</th>
+<th align="right">u123</th>
+<th align="right">u124</th>
+<th align="right">u125</th>
+<th align="right">u126</th>
+<th align="right">u127</th>
+<th align="right">u128</th>
+<th align="right">u129</th>
+<th align="right">u130</th>
+<th align="right">u131</th>
+<th align="right">u132</th>
+<th align="right">u133</th>
+<th align="right">u134</th>
+<th align="right">u135</th>
+<th align="right">u136</th>
+<th align="right">u137</th>
+<th align="right">u138</th>
+<th align="right">u139</th>
+<th align="right">u140</th>
+<th align="right">u141</th>
+<th align="right">u142</th>
+<th align="right">u143</th>
+<th align="right">u144</th>
+<th align="right">u145</th>
+<th align="right">u146</th>
+<th align="right">u147</th>
+<th align="right">u148</th>
+<th align="right">u149</th>
+<th align="right">u150</th>
+<th align="right">u151</th>
+<th align="right">u152</th>
+<th align="right">u153</th>
+<th align="right">u154</th>
+<th align="right">u155</th>
+<th align="right">u156</th>
+<th align="right">u157</th>
+<th align="right">u158</th>
+<th align="right">u159</th>
+<th align="right">u160</th>
+<th align="right">u161</th>
+<th align="right">u162</th>
+<th align="right">u163</th>
+<th align="right">u164</th>
+<th align="right">u165</th>
+<th align="right">u166</th>
+<th align="right">u167</th>
+<th align="right">pop_density</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00069517</td>
+<td align="left">E01013785</td>
+<td align="left">Leicester 020D</td>
+<td align="left">E02002846</td>
+<td align="left">Leicester 020</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">6</td>
+<td align="left">Suburbanites</td>
+<td align="left">6a</td>
+<td align="left">Suburban Achievers</td>
+<td align="left">6a1</td>
+<td align="left">Indian Tech Achievers</td>
+<td align="right">313</td>
+<td align="right">117</td>
+<td align="right">119</td>
+<td align="right">119</td>
+<td align="right">242</td>
+<td align="right">225</td>
+<td align="right">225</td>
 <td align="right">160</td>
-<td align="right">2.666667</td>
+<td align="right">242</td>
+<td align="right">302</td>
+<td align="right">150</td>
+<td align="right">163</td>
+<td align="right">313</td>
+<td align="right">0</td>
+<td align="right">9.29</td>
+<td align="right">33.69214</td>
+<td align="right">18</td>
+<td align="right">23</td>
+<td align="right">24</td>
+<td align="right">18</td>
+<td align="right">13</td>
+<td align="right">7</td>
+<td align="right">57</td>
+<td align="right">83</td>
+<td align="right">23</td>
+<td align="right">30</td>
+<td align="right">12</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">40.40256</td>
+<td align="right">44.0</td>
+<td align="right">64</td>
+<td align="right">147</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">13</td>
+<td align="right">15</td>
+<td align="right">269</td>
+<td align="right">6</td>
+<td align="right">13</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">180</td>
+<td align="right">21</td>
+<td align="right">89</td>
+<td align="right">23</td>
+<td align="right">294</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">13</td>
+<td align="right">301</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">144</td>
+<td align="right">20</td>
+<td align="right">4</td>
+<td align="right">46</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">15</td>
+<td align="right">13</td>
+<td align="right">9</td>
+<td align="right">10</td>
+<td align="right">23</td>
+<td align="right">31</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">31</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">22</td>
+<td align="right">80</td>
+<td align="right">0</td>
+<td align="right">13</td>
+<td align="right">2</td>
+<td align="right">117</td>
+<td align="right">2</td>
+<td align="right">67</td>
+<td align="right">50</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">113</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">104</td>
+<td align="right">11</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">97</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">31.10613</td>
+<td align="right">183</td>
+<td align="right">103</td>
+<td align="right">22</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">45</td>
+<td align="right">28</td>
+<td align="right">62</td>
+<td align="right">35</td>
+<td align="right">112</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">51</td>
+<td align="right">60</td>
+<td align="right">14</td>
+<td align="right">11</td>
+<td align="right">113</td>
+<td align="right">22</td>
+<td align="right">30</td>
+<td align="right">92</td>
+<td align="right">34</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">38</td>
+<td align="right">10</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">19</td>
+<td align="right">27</td>
+<td align="right">98</td>
+<td align="right">16</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">14</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">3</td>
+<td align="right">18</td>
+<td align="right">5</td>
+<td align="right">15</td>
+<td align="right">39</td>
+<td align="right">19</td>
+<td align="right">9</td>
+<td align="right">21</td>
+<td align="right">41</td>
+<td align="right">29</td>
+<td align="right">21</td>
+<td align="right">18</td>
+<td align="right">12</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">9</td>
+<td align="right">33.69214</td>
 </tr>
 <tr class="even">
-<td align="right">725</td>
-<td align="left">JFK</td>
-<td align="left">BQN</td>
-<td align="right">183</td>
-<td align="right">3.050000</td>
+<td align="left">E00069514</td>
+<td align="left">E01013784</td>
+<td align="left">Leicester 023G</td>
+<td align="left">E02002849</td>
+<td align="left">Leicester 023</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">2</td>
+<td align="left">Cosmopolitans</td>
+<td align="left">2a</td>
+<td align="left">Students Around Campus</td>
+<td align="left">2a3</td>
+<td align="left">Students and Professionals</td>
+<td align="right">323</td>
+<td align="right">139</td>
+<td align="right">145</td>
+<td align="right">149</td>
+<td align="right">306</td>
+<td align="right">287</td>
+<td align="right">287</td>
+<td align="right">192</td>
+<td align="right">290</td>
+<td align="right">316</td>
+<td align="right">180</td>
+<td align="right">143</td>
+<td align="right">307</td>
+<td align="right">16</td>
+<td align="right">2.46</td>
+<td align="right">131.30081</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="right">99</td>
+<td align="right">65</td>
+<td align="right">70</td>
+<td align="right">26</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">33.18885</td>
+<td align="right">27.0</td>
+<td align="right">229</td>
+<td align="right">42</td>
+<td align="right">2</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">17</td>
+<td align="right">260</td>
+<td align="right">20</td>
+<td align="right">12</td>
+<td align="right">11</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">13</td>
+<td align="right">2</td>
+<td align="right">120</td>
+<td align="right">18</td>
+<td align="right">163</td>
+<td align="right">22</td>
+<td align="right">279</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">25</td>
+<td align="right">298</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">38</td>
+<td align="right">60</td>
+<td align="right">4</td>
+<td align="right">168</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">44</td>
+<td align="right">1</td>
+<td align="right">12</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">22</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">17</td>
+<td align="right">1</td>
+<td align="right">25</td>
+<td align="right">3</td>
+<td align="right">23</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">49</td>
+<td align="right">69</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">13</td>
+<td align="right">139</td>
+<td align="right">10</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">114</td>
+<td align="right">28</td>
+<td align="right">0</td>
+<td align="right">55</td>
+<td align="right">5</td>
+<td align="right">79</td>
+<td align="right">0</td>
+<td align="right">70</td>
+<td align="right">28</td>
+<td align="right">21</td>
+<td align="right">13</td>
+<td align="right">7</td>
+<td align="right">96</td>
+<td align="right">41</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">83.56161</td>
+<td align="right">168</td>
+<td align="right">114</td>
+<td align="right">31</td>
+<td align="right">8</td>
+<td align="right">2</td>
+<td align="right">19</td>
+<td align="right">37</td>
+<td align="right">51</td>
+<td align="right">89</td>
+<td align="right">114</td>
+<td align="right">92</td>
+<td align="right">58</td>
+<td align="right">46</td>
+<td align="right">35</td>
+<td align="right">5</td>
+<td align="right">17</td>
+<td align="right">102</td>
+<td align="right">68</td>
+<td align="right">29</td>
+<td align="right">123</td>
+<td align="right">16</td>
+<td align="right">14</td>
+<td align="right">28</td>
+<td align="right">5</td>
+<td align="right">64</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">8</td>
+<td align="right">22</td>
+<td align="right">32</td>
+<td align="right">125</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">19</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">31</td>
+<td align="right">4</td>
+<td align="right">17</td>
+<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">2</td>
+<td align="right">20</td>
+<td align="right">10</td>
+<td align="right">11</td>
+<td align="right">20</td>
+<td align="right">18</td>
+<td align="right">6</td>
+<td align="right">20</td>
+<td align="right">38</td>
+<td align="right">40</td>
+<td align="right">15</td>
+<td align="right">14</td>
+<td align="right">13</td>
+<td align="right">24</td>
+<td align="right">12</td>
+<td align="right">16</td>
+<td align="right">131.30081</td>
 </tr>
 <tr class="odd">
-<td align="right">461</td>
-<td align="left">LGA</td>
-<td align="left">ATL</td>
+<td align="left">E00169516</td>
+<td align="left">E01013713</td>
+<td align="left">Leicester 010A</td>
+<td align="left">E02002836</td>
+<td align="left">Leicester 010</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4b</td>
+<td align="left">Challenged Asian Terraces</td>
+<td align="left">4b2</td>
+<td align="left">Pakistani Communities</td>
+<td align="right">341</td>
+<td align="right">104</td>
+<td align="right">107</td>
+<td align="right">107</td>
+<td align="right">294</td>
+<td align="right">282</td>
+<td align="right">282</td>
+<td align="right">161</td>
+<td align="right">294</td>
+<td align="right">334</td>
+<td align="right">177</td>
+<td align="right">164</td>
+<td align="right">341</td>
+<td align="right">0</td>
+<td align="right">1.42</td>
+<td align="right">240.14085</td>
+<td align="right">11</td>
+<td align="right">12</td>
+<td align="right">19</td>
+<td align="right">42</td>
+<td align="right">42</td>
+<td align="right">28</td>
+<td align="right">58</td>
+<td align="right">88</td>
+<td align="right">9</td>
+<td align="right">20</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">36.35777</td>
+<td align="right">32.0</td>
+<td align="right">96</td>
+<td align="right">169</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="right">16</td>
+<td align="right">13</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">300</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">15</td>
+<td align="right">316</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">107</td>
+<td align="right">1</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">227</td>
+<td align="right">168</td>
+<td align="right">88</td>
+<td align="right">66</td>
+<td align="right">12</td>
+<td align="right">148</td>
+<td align="right">2</td>
+<td align="right">2</td>
+<td align="right">92</td>
+<td align="right">21</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="right">16</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">7</td>
+<td align="right">10</td>
+<td align="right">21</td>
+<td align="right">13</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">12</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">5</td>
+<td align="right">23</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">18</td>
+<td align="right">80</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">104</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">80</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">65</td>
+<td align="right">10</td>
+<td align="right">28</td>
+<td align="right">1</td>
+<td align="right">33</td>
+<td align="right">20</td>
+<td align="right">27</td>
+<td align="right">15</td>
+<td align="right">9</td>
+<td align="right">48</td>
+<td align="right">45</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">106.82139</td>
+<td align="right">178</td>
+<td align="right">106</td>
+<td align="right">39</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">46</td>
+<td align="right">95</td>
+<td align="right">67</td>
+<td align="right">19</td>
+<td align="right">45</td>
+<td align="right">49</td>
+<td align="right">42</td>
+<td align="right">43</td>
+<td align="right">19</td>
+<td align="right">8</td>
+<td align="right">18</td>
+<td align="right">94</td>
+<td align="right">41</td>
+<td align="right">35</td>
+<td align="right">101</td>
+<td align="right">16</td>
+<td align="right">17</td>
+<td align="right">17</td>
+<td align="right">28</td>
+<td align="right">34</td>
+<td align="right">17</td>
+<td align="right">9</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">20</td>
+<td align="right">32</td>
+<td align="right">102</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">57</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">28</td>
+<td align="right">1</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">8</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">11</td>
+<td align="right">10</td>
+<td align="right">9</td>
+<td align="right">13</td>
+<td align="right">10</td>
+<td align="right">19</td>
+<td align="right">38</td>
+<td align="right">43</td>
+<td align="right">240.14085</td>
+</tr>
+<tr class="even">
+<td align="left">E00169048</td>
+<td align="left">E01032862</td>
+<td align="left">Leicester 009E</td>
+<td align="left">E02002835</td>
+<td align="left">Leicester 009</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4b</td>
+<td align="left">Challenged Asian Terraces</td>
+<td align="left">4b1</td>
+<td align="left">Asian Terraces and Flats</td>
+<td align="right">345</td>
+<td align="right">119</td>
+<td align="right">127</td>
+<td align="right">127</td>
+<td align="right">230</td>
+<td align="right">227</td>
+<td align="right">227</td>
+<td align="right">146</td>
+<td align="right">230</td>
+<td align="right">317</td>
+<td align="right">170</td>
+<td align="right">175</td>
+<td align="right">345</td>
+<td align="right">0</td>
+<td align="right">3.31</td>
+<td align="right">104.22961</td>
+<td align="right">45</td>
+<td align="right">37</td>
+<td align="right">26</td>
+<td align="right">18</td>
+<td align="right">24</td>
+<td align="right">50</td>
+<td align="right">101</td>
+<td align="right">34</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">25.38261</td>
+<td align="right">27.0</td>
+<td align="right">89</td>
+<td align="right">115</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">7</td>
+<td align="right">7</td>
 <td align="right">116</td>
-<td align="right">1.933333</td>
+<td align="right">22</td>
+<td align="right">7</td>
+<td align="right">102</td>
+<td align="right">13</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">28</td>
+<td align="right">37</td>
+<td align="right">94</td>
+<td align="right">178</td>
+<td align="right">67</td>
+<td align="right">6</td>
+<td align="right">228</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">17</td>
+<td align="right">97</td>
+<td align="right">262</td>
+<td align="right">40</td>
+<td align="right">13</td>
+<td align="right">2</td>
+<td align="right">110</td>
+<td align="right">28</td>
+<td align="right">0</td>
+<td align="right">63</td>
+<td align="right">9</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">26</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">33</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">17</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">18</td>
+<td align="right">16</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">28</td>
+<td align="right">80</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">119</td>
+<td align="right">8</td>
+<td align="right">14</td>
+<td align="right">26</td>
+<td align="right">49</td>
+<td align="right">38</td>
+<td align="right">0</td>
+<td align="right">48</td>
+<td align="right">18</td>
+<td align="right">52</td>
+<td align="right">1</td>
+<td align="right">39</td>
+<td align="right">24</td>
+<td align="right">23</td>
+<td align="right">26</td>
+<td align="right">7</td>
+<td align="right">55</td>
+<td align="right">60</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">59.04523</td>
+<td align="right">186</td>
+<td align="right">121</td>
+<td align="right">24</td>
+<td align="right">9</td>
+<td align="right">5</td>
+<td align="right">32</td>
+<td align="right">39</td>
+<td align="right">64</td>
+<td align="right">24</td>
+<td align="right">80</td>
+<td align="right">29</td>
+<td align="right">23</td>
+<td align="right">58</td>
+<td align="right">38</td>
+<td align="right">6</td>
+<td align="right">20</td>
+<td align="right">111</td>
+<td align="right">9</td>
+<td align="right">31</td>
+<td align="right">98</td>
+<td align="right">14</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">23</td>
+<td align="right">13</td>
+<td align="right">14</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">27</td>
+<td align="right">95</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">27</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">32</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">21</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">25</td>
+<td align="right">19</td>
+<td align="right">15</td>
+<td align="right">10</td>
+<td align="right">11</td>
+<td align="right">15</td>
+<td align="right">23</td>
+<td align="right">17</td>
+<td align="right">104.22961</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169044</td>
+<td align="left">E01032862</td>
+<td align="left">Leicester 009E</td>
+<td align="left">E02002835</td>
+<td align="left">Leicester 009</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4c</td>
+<td align="left">Asian Traits</td>
+<td align="left">4c2</td>
+<td align="left">Multicultural New Arrivals</td>
+<td align="right">322</td>
+<td align="right">112</td>
+<td align="right">116</td>
+<td align="right">116</td>
+<td align="right">232</td>
+<td align="right">231</td>
+<td align="right">231</td>
+<td align="right">148</td>
+<td align="right">232</td>
+<td align="right">298</td>
+<td align="right">150</td>
+<td align="right">172</td>
+<td align="right">322</td>
+<td align="right">0</td>
+<td align="right">3.25</td>
+<td align="right">99.07692</td>
+<td align="right">46</td>
+<td align="right">23</td>
+<td align="right">20</td>
+<td align="right">19</td>
+<td align="right">20</td>
+<td align="right">53</td>
+<td align="right">90</td>
+<td align="right">35</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">27.37578</td>
+<td align="right">28.0</td>
+<td align="right">82</td>
+<td align="right">125</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">16</td>
+<td align="right">4</td>
+<td align="right">92</td>
+<td align="right">13</td>
+<td align="right">17</td>
+<td align="right">127</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">18</td>
+<td align="right">34</td>
+<td align="right">9</td>
+<td align="right">80</td>
+<td align="right">168</td>
+<td align="right">59</td>
+<td align="right">15</td>
+<td align="right">212</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">8</td>
+<td align="right">98</td>
+<td align="right">258</td>
+<td align="right">26</td>
+<td align="right">11</td>
+<td align="right">3</td>
+<td align="right">120</td>
+<td align="right">18</td>
+<td align="right">4</td>
+<td align="right">65</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">12</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">20</td>
+<td align="right">0</td>
+<td align="right">15</td>
+<td align="right">26</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="right">3</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">10</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">22</td>
+<td align="right">71</td>
+<td align="right">8</td>
+<td align="right">8</td>
+<td align="right">3</td>
+<td align="right">112</td>
+<td align="right">4</td>
+<td align="right">19</td>
+<td align="right">32</td>
+<td align="right">34</td>
+<td align="right">31</td>
+<td align="right">0</td>
+<td align="right">69</td>
+<td align="right">16</td>
+<td align="right">27</td>
+<td align="right">0</td>
+<td align="right">37</td>
+<td align="right">29</td>
+<td align="right">33</td>
+<td align="right">10</td>
+<td align="right">3</td>
+<td align="right">58</td>
+<td align="right">49</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">76.20880</td>
+<td align="right">152</td>
+<td align="right">114</td>
+<td align="right">38</td>
+<td align="right">12</td>
+<td align="right">6</td>
+<td align="right">31</td>
+<td align="right">29</td>
+<td align="right">83</td>
+<td align="right">35</td>
+<td align="right">67</td>
+<td align="right">27</td>
+<td align="right">22</td>
+<td align="right">62</td>
+<td align="right">28</td>
+<td align="right">7</td>
+<td align="right">25</td>
+<td align="right">110</td>
+<td align="right">6</td>
+<td align="right">32</td>
+<td align="right">98</td>
+<td align="right">13</td>
+<td align="right">16</td>
+<td align="right">9</td>
+<td align="right">12</td>
+<td align="right">21</td>
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">9</td>
+<td align="right">12</td>
+<td align="right">29</td>
+<td align="right">93</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">27</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">14</td>
+<td align="right">13</td>
+<td align="right">21</td>
+<td align="right">8</td>
+<td align="right">14</td>
+<td align="right">26</td>
+<td align="right">16</td>
+<td align="right">26</td>
+<td align="right">11</td>
+<td align="right">15</td>
+<td align="right">17</td>
+<td align="right">6</td>
+<td align="right">17</td>
+<td align="right">99.07692</td>
+</tr>
+<tr class="even">
+<td align="left">E00069041</td>
+<td align="left">E01013679</td>
+<td align="left">Leicester 035B</td>
+<td align="left">E02002861</td>
+<td align="left">Leicester 035</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4a</td>
+<td align="left">Rented Family Living</td>
+<td align="left">4a1</td>
+<td align="left">Social Renting Young Families</td>
+<td align="right">334</td>
+<td align="right">115</td>
+<td align="right">120</td>
+<td align="right">120</td>
+<td align="right">239</td>
+<td align="right">229</td>
+<td align="right">229</td>
+<td align="right">109</td>
+<td align="right">239</td>
+<td align="right">317</td>
+<td align="right">164</td>
+<td align="right">170</td>
+<td align="right">334</td>
+<td align="right">0</td>
+<td align="right">6.51</td>
+<td align="right">51.30568</td>
+<td align="right">32</td>
+<td align="right">27</td>
+<td align="right">28</td>
+<td align="right">28</td>
+<td align="right">27</td>
+<td align="right">23</td>
+<td align="right">71</td>
+<td align="right">61</td>
+<td align="right">11</td>
+<td align="right">16</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">31.63772</td>
+<td align="right">30.0</td>
+<td align="right">112</td>
+<td align="right">66</td>
+<td align="right">2</td>
+<td align="right">15</td>
+<td align="right">31</td>
+<td align="right">13</td>
+<td align="right">253</td>
+<td align="right">14</td>
+<td align="right">30</td>
+<td align="right">11</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">19</td>
+<td align="right">0</td>
+<td align="right">117</td>
+<td align="right">28</td>
+<td align="right">167</td>
+<td align="right">22</td>
+<td align="right">290</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">6</td>
+<td align="right">30</td>
+<td align="right">308</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">60</td>
+<td align="right">34</td>
+<td align="right">0</td>
+<td align="right">91</td>
+<td align="right">8</td>
+<td align="right">12</td>
+<td align="right">23</td>
+<td align="right">11</td>
+<td align="right">9</td>
+<td align="right">18</td>
+<td align="right">1</td>
+<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">9</td>
+<td align="right">2</td>
+<td align="right">12</td>
+<td align="right">1</td>
+<td align="right">20</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">21</td>
+<td align="right">26</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">14</td>
+<td align="right">27</td>
+<td align="right">68</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">3</td>
+<td align="right">115</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">102</td>
+<td align="right">4</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">28</td>
+<td align="right">74</td>
+<td align="right">12</td>
+<td align="right">1</td>
+<td align="right">41</td>
+<td align="right">35</td>
+<td align="right">26</td>
+<td align="right">11</td>
+<td align="right">2</td>
+<td align="right">60</td>
+<td align="right">50</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">91.70296</td>
+<td align="right">146</td>
+<td align="right">118</td>
+<td align="right">47</td>
+<td align="right">16</td>
+<td align="right">7</td>
+<td align="right">32</td>
+<td align="right">110</td>
+<td align="right">73</td>
+<td align="right">23</td>
+<td align="right">18</td>
+<td align="right">27</td>
+<td align="right">43</td>
+<td align="right">49</td>
+<td align="right">23</td>
+<td align="right">0</td>
+<td align="right">16</td>
+<td align="right">79</td>
+<td align="right">14</td>
+<td align="right">34</td>
+<td align="right">56</td>
+<td align="right">12</td>
+<td align="right">28</td>
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="right">18</td>
+<td align="right">25</td>
+<td align="right">24</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">11</td>
+<td align="right">9</td>
+<td align="right">8</td>
+<td align="right">31</td>
+<td align="right">57</td>
+<td align="right">13</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">25</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">4</td>
+<td align="right">18</td>
+<td align="right">3</td>
+<td align="right">5</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">15</td>
+<td align="right">12</td>
+<td align="right">14</td>
+<td align="right">19</td>
+<td align="right">24</td>
+<td align="right">51.30568</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169049</td>
+<td align="left">E01032862</td>
+<td align="left">Leicester 009E</td>
+<td align="left">E02002835</td>
+<td align="left">Leicester 009</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4c</td>
+<td align="left">Asian Traits</td>
+<td align="left">4c3</td>
+<td align="left">Inner City Ethnic Mix</td>
+<td align="right">336</td>
+<td align="right">119</td>
+<td align="right">121</td>
+<td align="right">121</td>
+<td align="right">235</td>
+<td align="right">235</td>
+<td align="right">235</td>
+<td align="right">177</td>
+<td align="right">235</td>
+<td align="right">300</td>
+<td align="right">165</td>
+<td align="right">171</td>
+<td align="right">336</td>
+<td align="right">0</td>
+<td align="right">7.90</td>
+<td align="right">42.53165</td>
+<td align="right">49</td>
+<td align="right">29</td>
+<td align="right">21</td>
+<td align="right">9</td>
+<td align="right">27</td>
+<td align="right">64</td>
+<td align="right">87</td>
+<td align="right">33</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">26.37202</td>
+<td align="right">27.5</td>
+<td align="right">78</td>
+<td align="right">132</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">6</td>
+<td align="right">113</td>
+<td align="right">25</td>
+<td align="right">17</td>
+<td align="right">136</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">9</td>
+<td align="right">15</td>
+<td align="right">114</td>
+<td align="right">169</td>
+<td align="right">44</td>
+<td align="right">9</td>
+<td align="right">228</td>
+<td align="right">0</td>
+<td align="right">3</td>
+<td align="right">17</td>
+<td align="right">88</td>
+<td align="right">254</td>
+<td align="right">36</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">122</td>
+<td align="right">40</td>
+<td align="right">4</td>
+<td align="right">44</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">21</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">30</td>
+<td align="right">6</td>
+<td align="right">15</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">14</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">21</td>
+<td align="right">82</td>
+<td align="right">4</td>
+<td align="right">12</td>
+<td align="right">0</td>
+<td align="right">119</td>
+<td align="right">2</td>
+<td align="right">38</td>
+<td align="right">31</td>
+<td align="right">23</td>
+<td align="right">29</td>
+<td align="right">0</td>
+<td align="right">63</td>
+<td align="right">14</td>
+<td align="right">42</td>
+<td align="right">0</td>
+<td align="right">55</td>
+<td align="right">25</td>
+<td align="right">22</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="right">67</td>
+<td align="right">46</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">36.78563</td>
+<td align="right">182</td>
+<td align="right">124</td>
+<td align="right">25</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">21</td>
+<td align="right">30</td>
+<td align="right">72</td>
+<td align="right">32</td>
+<td align="right">82</td>
+<td align="right">17</td>
+<td align="right">12</td>
+<td align="right">56</td>
+<td align="right">51</td>
+<td align="right">8</td>
+<td align="right">13</td>
+<td align="right">151</td>
+<td align="right">5</td>
+<td align="right">31</td>
+<td align="right">124</td>
+<td align="right">20</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">12</td>
+<td align="right">15</td>
+<td align="right">16</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">33</td>
+<td align="right">110</td>
+<td align="right">27</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">21</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">9</td>
+<td align="right">32</td>
+<td align="right">14</td>
+<td align="right">4</td>
+<td align="right">5</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">13</td>
+<td align="right">9</td>
+<td align="right">12</td>
+<td align="right">18</td>
+<td align="right">22</td>
+<td align="right">6</td>
+<td align="right">22</td>
+<td align="right">40</td>
+<td align="right">21</td>
+<td align="right">28</td>
+<td align="right">13</td>
+<td align="right">14</td>
+<td align="right">11</td>
+<td align="right">18</td>
+<td align="right">10</td>
+<td align="right">42.53165</td>
+</tr>
+<tr class="even">
+<td align="left">E00068806</td>
+<td align="left">E01013628</td>
+<td align="left">Leicester 006B</td>
+<td align="left">E02002832</td>
+<td align="left">Leicester 006</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4b</td>
+<td align="left">Challenged Asian Terraces</td>
+<td align="left">4b2</td>
+<td align="left">Pakistani Communities</td>
+<td align="right">312</td>
+<td align="right">111</td>
+<td align="right">113</td>
+<td align="right">113</td>
+<td align="right">265</td>
+<td align="right">219</td>
+<td align="right">219</td>
+<td align="right">107</td>
+<td align="right">230</td>
+<td align="right">302</td>
+<td align="right">127</td>
+<td align="right">185</td>
+<td align="right">277</td>
+<td align="right">35</td>
+<td align="right">5.40</td>
+<td align="right">57.77778</td>
+<td align="right">16</td>
+<td align="right">17</td>
+<td align="right">11</td>
+<td align="right">17</td>
+<td align="right">32</td>
+<td align="right">18</td>
+<td align="right">51</td>
+<td align="right">67</td>
+<td align="right">22</td>
+<td align="right">15</td>
+<td align="right">24</td>
+<td align="right">13</td>
+<td align="right">9</td>
+<td align="right">43.07372</td>
+<td align="right">43.0</td>
+<td align="right">78</td>
+<td align="right">100</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">26</td>
+<td align="right">49</td>
+<td align="right">40</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">215</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">14</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">37</td>
+<td align="right">242</td>
+<td align="right">14</td>
+<td align="right">19</td>
+<td align="right">132</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">178</td>
+<td align="right">180</td>
+<td align="right">57</td>
+<td align="right">43</td>
+<td align="right">22</td>
+<td align="right">88</td>
+<td align="right">10</td>
+<td align="right">0</td>
+<td align="right">69</td>
+<td align="right">6</td>
+<td align="right">11</td>
+<td align="right">23</td>
+<td align="right">23</td>
+<td align="right">10</td>
+<td align="right">24</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">11</td>
+<td align="right">11</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">17</td>
+<td align="right">14</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">12</td>
+<td align="right">35</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">11</td>
+<td align="right">34</td>
+<td align="right">66</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">111</td>
+<td align="right">2</td>
+<td align="right">8</td>
+<td align="right">24</td>
+<td align="right">44</td>
+<td align="right">36</td>
+<td align="right">1</td>
+<td align="right">45</td>
+<td align="right">58</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">37</td>
+<td align="right">20</td>
+<td align="right">33</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">71</td>
+<td align="right">38</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">218.29172</td>
+<td align="right">104</td>
+<td align="right">81</td>
+<td align="right">58</td>
+<td align="right">54</td>
+<td align="right">15</td>
+<td align="right">44</td>
+<td align="right">94</td>
+<td align="right">65</td>
+<td align="right">18</td>
+<td align="right">28</td>
+<td align="right">20</td>
+<td align="right">48</td>
+<td align="right">44</td>
+<td align="right">19</td>
+<td align="right">1</td>
+<td align="right">29</td>
+<td align="right">63</td>
+<td align="right">14</td>
+<td align="right">33</td>
+<td align="right">55</td>
+<td align="right">12</td>
+<td align="right">20</td>
+<td align="right">10</td>
+<td align="right">16</td>
+<td align="right">13</td>
+<td align="right">14</td>
+<td align="right">35</td>
+<td align="right">11</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">8</td>
+<td align="right">14</td>
+<td align="right">27</td>
+<td align="right">60</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">19</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">27</td>
+<td align="right">3</td>
+<td align="right">11</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">12</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">11</td>
+<td align="right">6</td>
+<td align="right">22</td>
+<td align="right">14</td>
+<td align="right">21</td>
+<td align="right">57.77778</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068886</td>
+<td align="left">E01013647</td>
+<td align="left">Leicester 040B</td>
+<td align="left">E02006850</td>
+<td align="left">Leicester 040</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">3</td>
+<td align="left">Ethnicity Central</td>
+<td align="left">3a</td>
+<td align="left">Ethnic Family Life</td>
+<td align="left">3a2</td>
+<td align="left">Young Families and Students</td>
+<td align="right">505</td>
+<td align="right">198</td>
+<td align="right">197</td>
+<td align="right">200</td>
+<td align="right">430</td>
+<td align="right">393</td>
+<td align="right">393</td>
+<td align="right">146</td>
+<td align="right">402</td>
+<td align="right">493</td>
+<td align="right">232</td>
+<td align="right">273</td>
+<td align="right">477</td>
+<td align="right">28</td>
+<td align="right">4.11</td>
+<td align="right">122.87105</td>
+<td align="right">18</td>
+<td align="right">20</td>
+<td align="right">31</td>
+<td align="right">67</td>
+<td align="right">150</td>
+<td align="right">35</td>
+<td align="right">74</td>
+<td align="right">42</td>
+<td align="right">13</td>
+<td align="right">18</td>
+<td align="right">13</td>
+<td align="right">14</td>
+<td align="right">10</td>
+<td align="right">31.66337</td>
+<td align="right">22.0</td>
+<td align="right">290</td>
+<td align="right">74</td>
+<td align="right">0</td>
+<td align="right">11</td>
+<td align="right">25</td>
+<td align="right">30</td>
+<td align="right">252</td>
+<td align="right">24</td>
+<td align="right">14</td>
+<td align="right">66</td>
+<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">14</td>
+<td align="right">18</td>
+<td align="right">89</td>
+<td align="right">23</td>
+<td align="right">201</td>
+<td align="right">145</td>
+<td align="right">124</td>
+<td align="right">35</td>
+<td align="right">355</td>
+<td align="right">3</td>
+<td align="right">13</td>
+<td align="right">15</td>
+<td align="right">119</td>
+<td align="right">425</td>
+<td align="right">47</td>
+<td align="right">14</td>
+<td align="right">7</td>
+<td align="right">68</td>
+<td align="right">32</td>
+<td align="right">6</td>
+<td align="right">253</td>
+<td align="right">7</td>
+<td align="right">8</td>
+<td align="right">22</td>
+<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">64</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">15</td>
+<td align="right">6</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">21</td>
+<td align="right">8</td>
+<td align="right">3</td>
+<td align="right">38</td>
+<td align="right">0</td>
+<td align="right">13</td>
+<td align="right">17</td>
+<td align="right">81</td>
+<td align="right">4</td>
+<td align="right">4</td>
+<td align="right">13</td>
+<td align="right">71</td>
+<td align="right">94</td>
+<td align="right">9</td>
+<td align="right">4</td>
+<td align="right">20</td>
+<td align="right">198</td>
+<td align="right">2</td>
+<td align="right">10</td>
+<td align="right">31</td>
+<td align="right">75</td>
+<td align="right">84</td>
+<td align="right">0</td>
+<td align="right">21</td>
+<td align="right">83</td>
+<td align="right">91</td>
+<td align="right">3</td>
+<td align="right">34</td>
+<td align="right">31</td>
+<td align="right">68</td>
+<td align="right">34</td>
+<td align="right">31</td>
+<td align="right">92</td>
+<td align="right">101</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">112.95937</td>
+<td align="right">248</td>
+<td align="right">161</td>
+<td align="right">60</td>
+<td align="right">28</td>
+<td align="right">8</td>
+<td align="right">39</td>
+<td align="right">105</td>
+<td align="right">79</td>
+<td align="right">158</td>
+<td align="right">56</td>
+<td align="right">208</td>
+<td align="right">121</td>
+<td align="right">63</td>
+<td align="right">14</td>
+<td align="right">2</td>
+<td align="right">22</td>
+<td align="right">47</td>
+<td align="right">75</td>
+<td align="right">22</td>
+<td align="right">56</td>
+<td align="right">10</td>
+<td align="right">31</td>
+<td align="right">72</td>
+<td align="right">24</td>
+<td align="right">138</td>
+<td align="right">10</td>
+<td align="right">22</td>
+<td align="right">8</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">6</td>
+<td align="right">14</td>
+<td align="right">36</td>
+<td align="right">43</td>
+<td align="right">63</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">40</td>
+<td align="right">2</td>
+<td align="right">20</td>
+<td align="right">8</td>
+<td align="right">1</td>
+<td align="right">3</td>
+<td align="right">3</td>
+<td align="right">10</td>
+<td align="right">2</td>
+<td align="right">16</td>
+<td align="right">22</td>
+<td align="right">8</td>
+<td align="right">10</td>
+<td align="right">20</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">11</td>
+<td align="right">10</td>
+<td align="right">26</td>
+<td align="right">8</td>
+<td align="right">32</td>
+<td align="right">122.87105</td>
+</tr>
+<tr class="even">
+<td align="left">E00068807</td>
+<td align="left">E01013624</td>
+<td align="left">Leicester 007A</td>
+<td align="left">E02002833</td>
+<td align="left">Leicester 007</td>
+<td align="left">E06000016</td>
+<td align="left">Leicester</td>
+<td align="right">4</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="left">4a</td>
+<td align="left">Rented Family Living</td>
+<td align="left">4a1</td>
+<td align="left">Social Renting Young Families</td>
+<td align="right">362</td>
+<td align="right">137</td>
+<td align="right">138</td>
+<td align="right">138</td>
+<td align="right">272</td>
+<td align="right">224</td>
+<td align="right">224</td>
+<td align="right">111</td>
+<td align="right">272</td>
+<td align="right">348</td>
+<td align="right">175</td>
+<td align="right">187</td>
+<td align="right">362</td>
+<td align="right">0</td>
+<td align="right">4.75</td>
+<td align="right">76.21053</td>
+<td align="right">24</td>
+<td align="right">33</td>
+<td align="right">28</td>
+<td align="right">31</td>
+<td align="right">11</td>
+<td align="right">20</td>
+<td align="right">68</td>
+<td align="right">51</td>
+<td align="right">17</td>
+<td align="right">31</td>
+<td align="right">37</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">39.28729</td>
+<td align="right">39.0</td>
+<td align="right">96</td>
+<td align="right">116</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">25</td>
+<td align="right">27</td>
+<td align="right">214</td>
+<td align="right">1</td>
+<td align="right">16</td>
+<td align="right">70</td>
+<td align="right">14</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">23</td>
+<td align="right">24</td>
+<td align="right">0</td>
+<td align="right">146</td>
+<td align="right">101</td>
+<td align="right">84</td>
+<td align="right">31</td>
+<td align="right">283</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">76</td>
+<td align="right">313</td>
+<td align="right">15</td>
+<td align="right">16</td>
+<td align="right">4</td>
+<td align="right">102</td>
+<td align="right">22</td>
+<td align="right">4</td>
+<td align="right">82</td>
+<td align="right">12</td>
+<td align="right">7</td>
+<td align="right">18</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">18</td>
+<td align="right">15</td>
+<td align="right">4</td>
+<td align="right">21</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">15</td>
+<td align="right">9</td>
+<td align="right">9</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">5</td>
+<td align="right">14</td>
+<td align="right">49</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">10</td>
+<td align="right">43</td>
+<td align="right">80</td>
+<td align="right">8</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">137</td>
+<td align="right">1</td>
+<td align="right">7</td>
+<td align="right">51</td>
+<td align="right">57</td>
+<td align="right">23</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">122</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">51</td>
+<td align="right">35</td>
+<td align="right">36</td>
+<td align="right">9</td>
+<td align="right">6</td>
+<td align="right">82</td>
+<td align="right">48</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">151.18100</td>
+<td align="right">132</td>
+<td align="right">121</td>
+<td align="right">73</td>
+<td align="right">26</td>
+<td align="right">10</td>
+<td align="right">40</td>
+<td align="right">149</td>
+<td align="right">71</td>
+<td align="right">15</td>
+<td align="right">17</td>
+<td align="right">24</td>
+<td align="right">60</td>
+<td align="right">63</td>
+<td align="right">14</td>
+<td align="right">3</td>
+<td align="right">12</td>
+<td align="right">67</td>
+<td align="right">29</td>
+<td align="right">33</td>
+<td align="right">55</td>
+<td align="right">14</td>
+<td align="right">22</td>
+<td align="right">9</td>
+<td align="right">34</td>
+<td align="right">15</td>
+<td align="right">16</td>
+<td align="right">12</td>
+<td align="right">14</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">9</td>
+<td align="right">10</td>
+<td align="right">13</td>
+<td align="right">34</td>
+<td align="right">57</td>
+<td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">22</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">6</td>
+<td align="right">15</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">13</td>
+<td align="right">2</td>
+<td align="right">12</td>
+<td align="right">18</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">6</td>
+<td align="right">8</td>
+<td align="right">22</td>
+<td align="right">7</td>
+<td align="right">25</td>
+<td align="right">30</td>
+<td align="right">76.21053</td>
 </tr>
 </tbody>
 </table></div>
@@ -427,168 +2896,168 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.4.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
-<p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing all the rows when ordered by descending order of air time.</p>
-<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>In the examples above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the examples <code>5</code>) rows in a table, based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
-<p>As such, the following code uses <code>slice_max</code> to produce a table including only the 5 rows with the <em>highest</em> air time.</p>
-<div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing the ten OAs with the larges population in Leicester.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="data-manipulation.html#cb160-1" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="sc">%&gt;%</span></span>
+<span id="cb160-2"><a href="data-manipulation.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(</span>
+<span id="cb160-3"><a href="data-manipulation.html#cb160-3" aria-hidden="true" tabindex="-1"></a>    OA11CD, supgrpname, </span>
+<span id="cb160-4"><a href="data-manipulation.html#cb160-4" aria-hidden="true" tabindex="-1"></a>    Total_Population</span>
+<span id="cb160-5"><a href="data-manipulation.html#cb160-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb160-6"><a href="data-manipulation.html#cb160-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(</span>
+<span id="cb160-7"><a href="data-manipulation.html#cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Descending delay</span></span>
+<span id="cb160-8"><a href="data-manipulation.html#cb160-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span>Total_Population</span>
+<span id="cb160-9"><a href="data-manipulation.html#cb160-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb160-10"><a href="data-manipulation.html#cb160-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb160-11"><a href="data-manipulation.html#cb160-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span></code></pre></div>
+<p>In the example above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the example <code>10</code>) rows in a table, based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
+<p>As such, the following code uses <code>slice_max</code> to produce a table including only the 10 OAs with the <em>highest</em> population.</p>
+<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">OA11CD</span>, <span class="va">supgrpname</span>, </span>
+<span>    <span class="va">Total_Population</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_max</a></span><span class="op">(</span></span>
+<span>    <span class="va">Total_Population</span>, </span>
+<span>    n <span class="op">=</span> <span class="fl">10</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
-<th align="right">flight</th>
-<th align="left">origin</th>
-<th align="left">dest</th>
-<th align="right">air_time</th>
+<th align="left">OA11CD</th>
+<th align="left">supgrpname</th>
+<th align="right">Total_Population</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">15</td>
-<td align="left">EWR</td>
-<td align="left">HNL</td>
-<td align="right">695</td>
+<td align="left">E00169553</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">714</td>
 </tr>
 <tr class="even">
-<td align="right">51</td>
-<td align="left">JFK</td>
-<td align="left">HNL</td>
-<td align="right">691</td>
+<td align="left">E00168096</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">708</td>
 </tr>
 <tr class="odd">
-<td align="right">51</td>
-<td align="left">JFK</td>
-<td align="left">HNL</td>
-<td align="right">686</td>
+<td align="left">E00069303</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">623</td>
 </tr>
 <tr class="even">
-<td align="right">51</td>
-<td align="left">JFK</td>
-<td align="left">HNL</td>
-<td align="right">686</td>
+<td align="left">E00169458</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">622</td>
 </tr>
 <tr class="odd">
-<td align="right">51</td>
-<td align="left">JFK</td>
-<td align="left">HNL</td>
-<td align="right">683</td>
+<td align="left">E00069304</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">608</td>
+</tr>
+<tr class="even">
+<td align="left">E00169575</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">597</td>
+</tr>
+<tr class="odd">
+<td align="left">E00069393</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">591</td>
+</tr>
+<tr class="even">
+<td align="left">E00169564</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">591</td>
+</tr>
+<tr class="odd">
+<td align="left">E00069482</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">590</td>
+</tr>
+<tr class="even">
+<td align="left">E00069216</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">586</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169446</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">586</td>
+</tr>
+<tr class="even">
+<td align="left">E00069439</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">586</td>
 </tr>
 </tbody>
 </table></div>
-<p>The following code, instead, uses <code>slice_min</code>, thus producing a table including only the 5 rows with the <em>lowest</em> air time.</p>
-<div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">flight</span>, <span class="va">origin</span>, <span class="va">dest</span>, <span class="va">air_time</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">air_time</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<p>The following code, instead, uses <code>slice_min</code>, thus producing a table including only the 10 OAs with the <em>lowest</em> population..</p>
+<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">OA11CD</span>, <span class="va">supgrpname</span>, </span>
+<span>    <span class="va">Total_Population</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span></span>
+<span>    <span class="va">Total_Population</span>, </span>
+<span>    n <span class="op">=</span> <span class="fl">10</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
-<th align="right">flight</th>
-<th align="left">origin</th>
-<th align="left">dest</th>
-<th align="right">air_time</th>
+<th align="left">OA11CD</th>
+<th align="left">supgrpname</th>
+<th align="right">Total_Population</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">4368</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">20</td>
+<td align="left">E00169530</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">103</td>
 </tr>
 <tr class="even">
-<td align="right">4631</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">20</td>
+<td align="left">E00169528</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">119</td>
 </tr>
 <tr class="odd">
-<td align="right">4276</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
+<td align="left">E00069382</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">126</td>
 </tr>
 <tr class="even">
-<td align="right">4619</td>
-<td align="left">EWR</td>
-<td align="left">PHL</td>
-<td align="right">21</td>
+<td align="left">E00069149</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">131</td>
 </tr>
 <tr class="odd">
-<td align="right">4368</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
+<td align="left">E00069332</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">132</td>
 </tr>
 <tr class="even">
-<td align="right">4619</td>
-<td align="left">EWR</td>
-<td align="left">PHL</td>
-<td align="right">21</td>
+<td align="left">E00168107</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">133</td>
 </tr>
 <tr class="odd">
-<td align="right">2132</td>
-<td align="left">LGA</td>
-<td align="left">BOS</td>
-<td align="right">21</td>
+<td align="left">E00168094</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">141</td>
 </tr>
 <tr class="even">
-<td align="right">3650</td>
-<td align="left">JFK</td>
-<td align="left">PHL</td>
-<td align="right">21</td>
+<td align="left">E00169486</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">150</td>
 </tr>
 <tr class="odd">
-<td align="right">4118</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
+<td align="left">E00069184</td>
+<td align="left">Urbanites</td>
+<td align="right">158</td>
 </tr>
 <tr class="even">
-<td align="right">4276</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
-</tr>
-<tr class="odd">
-<td align="right">4276</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
-</tr>
-<tr class="even">
-<td align="right">4276</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
-</tr>
-<tr class="odd">
-<td align="right">4276</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
-</tr>
-<tr class="even">
-<td align="right">4577</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
-</tr>
-<tr class="odd">
-<td align="right">6062</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
-</tr>
-<tr class="even">
-<td align="right">3847</td>
-<td align="left">EWR</td>
-<td align="left">BDL</td>
-<td align="right">21</td>
+<td align="left">E00169472</td>
+<td align="left">Constrained City Dwellers</td>
+<td align="right">160</td>
 </tr>
 </tbody>
 </table></div>
@@ -598,73 +3067,166 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.4.4</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
 </h3>
-<p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above.</p>
-<ol style="list-style-type: decimal">
-<li>Start from the <code>flights</code> data.</li>
-<li>Select origin, destination, departure delay, year, month, and day.</li>
-<li>Filter only rows referring to flights in November.</li>
-<li>Filter only rows where departure delay is not (notice that the negation operator <code>!</code> is used) <code>NA</code>.</li>
-</ol>
-<ul>
-<li>That is necessary because the function <code>mean</code> would return <code>NA</code> as output if any of the values in the column is <code>NA</code>.</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li>Group by destination.</li>
-<li>Calculated the average delay per destination.</li>
-<li>Add a column with the delay calculated in hours (minutes over 60).</li>
-<li>Sort the table by <em>descending</em> delay (note that <code>-</code> is used before the column name).</li>
-<li>Only show the first 5 rows.</li>
-<li>Create a well-formatted table.</li>
-</ol>
-<div class="sourceCode" id="cb162"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">origin</span>, <span class="va">dest</span>, <span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">dep_delay</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">month</span> <span class="op">==</span> <span class="fl">11</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">dest</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span></span>
-<span>    avg_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    avg_dep_delay_hours <span class="op">=</span> <span class="va">avg_dep_delay</span> <span class="op">/</span> <span class="fl">60</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">avg_dep_delay_hours</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above. This is a full example of a short analysis using only one series of pipes to read, process and write data using <code>R</code> and almost all the <code>tidyverse</code> <em>verbs</em> seen so far.</p>
+<p>The input data are read from the csv file, part of the data are selected and filtered. The data are grouped and aggregate, arranged in order and the percentage of people living in OAs assigned to each 2011 OAC supergroup is calculated. The <a href="https://magrittr.tidyverse.org/reference/tee.html">Tee pipe</a> (from the <code>magrittr</code> library) is used to write the resulting talbe to a file, while also passing the same input to the subsequent <code>kable</code> function to display the data.</p>
+<div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Let's start from the filename</span></span>
+<span><span class="st">"2011_OAC_supgrp_Leicester.csv"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># as input to the read_csv function</span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="st">"cccci"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Select only the necessary columns</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">supgrpname</span>,    <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Let's say we are not interested in</span></span>
+<span>  <span class="co"># the Suburbanites supergroup</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">!=</span> <span class="st">"Suburbanites"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Group by supergroup</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Aggregate population</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>tot_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Ungroup</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Arrange by descending total population</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">tot_pop</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Calculate percentage</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>perc_pop <span class="op">=</span> <span class="op">(</span><span class="va">tot_pop</span> <span class="op">/</span> <span class="fl">329839</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/tee.html">%T&gt;%</a></span></span>
+<span>  <span class="co"># Then use the Tee pipe %T&gt;% in the line above</span></span>
+<span>  <span class="co"># to write the calculated values to file</span></span>
+<span>  <span class="co"># and the pass the same input values to the kable function</span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span></span>
+<span>    <span class="st">"2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Print to screen nicely</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
-<th align="left">dest</th>
-<th align="right">avg_dep_delay</th>
-<th align="right">avg_dep_delay_hours</th>
+<th align="left">supgrpname</th>
+<th align="right">tot_pop</th>
+<th align="right">perc_pop</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">SBN</td>
-<td align="right">67.50000</td>
-<td align="right">1.1250000</td>
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">205007</td>
+<td align="right">62.153657</td>
 </tr>
 <tr class="even">
-<td align="left">BDL</td>
-<td align="right">26.66667</td>
-<td align="right">0.4444444</td>
+<td align="left">Hard-Pressed Living</td>
+<td align="right">32069</td>
+<td align="right">9.722622</td>
 </tr>
 <tr class="odd">
-<td align="left">CAK</td>
-<td align="right">19.70909</td>
-<td align="right">0.3284848</td>
+<td align="left">Cosmopolitans</td>
+<td align="right">26813</td>
+<td align="right">8.129117</td>
 </tr>
 <tr class="even">
-<td align="left">BHM</td>
-<td align="right">19.61905</td>
-<td align="right">0.3269841</td>
+<td align="left">Urbanites</td>
+<td align="right">20224</td>
+<td align="right">6.131476</td>
 </tr>
 <tr class="odd">
-<td align="left">DSM</td>
-<td align="right">16.14815</td>
-<td align="right">0.2691358</td>
+<td align="left">Ethnicity Central</td>
+<td align="right">19137</td>
+<td align="right">5.801921</td>
+</tr>
+<tr class="even">
+<td align="left">Constrained City Dwellers</td>
+<td align="right">9263</td>
+<td align="right">2.808340</td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<div id="saving-mid-products" class="section level3" number="3.4.5">
+<h3>
+<span class="header-section-number">3.4.5</span> Saving mid-products<a class="anchor" aria-label="anchor" href="#saving-mid-products"><i class="fas fa-link"></i></a>
+</h3>
+<p>It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the <code>R</code> internal memory and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary mid-products during the computation (i.e., variables whose only purpose is to store the data before the next step). However, it is frequently useful to split the processing in different steps, which allow the data to be inspected mid-way through the analysis or for the data to be used twice in two subsequent steps. Finding a good balance between too long and too short pipe sequences and too many or two few mid-products is the programmer’s task – and something that can only be learnt by experience and observing good examples of code.</p>
+<p>The following example showcases how the process above can be subdivided into five meaningful steps.</p>
+<ol style="list-style-type: decimal">
+<li>Read the data. This is frequently done as a separate step, as some dataset might require significant time to be read from computer storage and it is frequently best to read them only once.</li>
+<li>Calculate the total population per 2011 OAC supergroup, excluding the suburban population. This is a significant transformation of the original data, which might be worth saving and inspecting.</li>
+<li>Update the new table using mutate and the <a href="https://magrittr.tidyverse.org/reference/compound.html">assignment pipe operator <code>%&lt;&gt;%</code></a> (from the <code>magrittr</code> library).</li>
+<li>Print the result.</li>
+<li>Save the result to the computer storage.</li>
+</ol>
+<div class="sourceCode" id="cb164"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span></span>
+<span>  <span class="co"># Let's start from the filename</span></span>
+<span>  <span class="st">"2011_OAC_supgrp_Leicester.csv"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># as input to the read_csv function</span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span>col_types <span class="op">=</span> <span class="st">"cccci"</span><span class="op">)</span> </span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_nonsuburb_pop</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Select only the necessary columns</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">supgrpname</span>,    <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Let's say we are not interested in</span></span>
+<span>  <span class="co"># the Suburbanites supergroup</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">!=</span> <span class="st">"Suburbanites"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Group by supergroup</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Aggregate population</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>tot_pop <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Ungroup</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Arrange by descending total population</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="op">-</span><span class="va">tot_pop</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_nonsuburb_pop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span></span>
+<span>  <span class="co"># Calculate percentage</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>perc_pop <span class="op">=</span> <span class="op">(</span><span class="va">tot_pop</span> <span class="op">/</span> <span class="fl">329839</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_nonsuburb_pop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Print to screen nicely</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">supgrpname</th>
+<th align="right">tot_pop</th>
+<th align="right">perc_pop</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Multicultural Metropolitans</td>
+<td align="right">205007</td>
+<td align="right">62.153657</td>
+</tr>
+<tr class="even">
+<td align="left">Hard-Pressed Living</td>
+<td align="right">32069</td>
+<td align="right">9.722622</td>
+</tr>
+<tr class="odd">
+<td align="left">Cosmopolitans</td>
+<td align="right">26813</td>
+<td align="right">8.129117</td>
+</tr>
+<tr class="even">
+<td align="left">Urbanites</td>
+<td align="right">20224</td>
+<td align="right">6.131476</td>
+</tr>
+<tr class="odd">
+<td align="left">Ethnicity Central</td>
+<td align="right">19137</td>
+<td align="right">5.801921</td>
+</tr>
+<tr class="even">
+<td align="left">Constrained City Dwellers</td>
+<td align="right">9263</td>
+<td align="right">2.808340</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb167"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_nonsuburb_pop</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="co"># Write the calculated values to file</span></span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span></span>
+<span>    <span class="st">"2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"</span></span>
+<span>  <span class="op">)</span> </span></code></pre></div>
 </div>
 </div>
 <div id="how-to-cite-code" class="section level2" number="3.5">
@@ -677,6 +3239,11 @@ library(knitr)
 That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.</p>
 <p>It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the <a href="https://www.mendeley.com/guides/harvard-citation-guide/">Harvard Format Citation Guide</a> available <a href="https://www.mendeley.com/">Mendeley</a>’s help pages).
 Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.</p>
+</div>
+<div id="exercises-103.1" class="section level2" number="3.6">
+<h2>
+<span class="header-section-number">3.6</span> Exercises 103.1<a class="anchor" aria-label="anchor" href="#exercises-103.1"><i class="fas fa-link"></i></a>
+</h2>
 <hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
@@ -703,9 +3270,11 @@ Following such guidelines will not only ensure that others can more easily use a
 <li><a class="nav-link" href="#mutate"><span class="header-section-number">3.4.2</span> Mutate</a></li>
 <li><a class="nav-link" href="#arrange"><span class="header-section-number">3.4.3</span> Arrange</a></li>
 <li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.4.4</span> Data manipulation example</a></li>
+<li><a class="nav-link" href="#saving-mid-products"><span class="header-section-number">3.4.5</span> Saving mid-products</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">3.5</span> How to cite code</a></li>
+<li><a class="nav-link" href="#exercises-103.1"><span class="header-section-number">3.6</span> Exercises 103.1</a></li>
 </ul>
 
       <div class="book-extra">
@@ -723,7 +3292,7 @@ Following such guidelines will not only ensure that others can more easily use a
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-18.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-19.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
