@@ -3139,11 +3139,11 @@ library(knitr)
 </tbody>
 </table></div>
 </div>
-<div id="saving-mid-products" class="section level3" number="3.4.5">
+<div id="componentization" class="section level3" number="3.4.5">
 <h3>
-<span class="header-section-number">3.4.5</span> Saving mid-products<a class="anchor" aria-label="anchor" href="#saving-mid-products"><i class="fas fa-link"></i></a>
+<span class="header-section-number">3.4.5</span> Componentization<a class="anchor" aria-label="anchor" href="#componentization"><i class="fas fa-link"></i></a>
 </h3>
-<p>It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the <code>R</code> internal memory and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary mid-products during the computation (i.e., variables whose only purpose is to store the data before the next step). However, it is frequently useful to split the processing in different steps, which allow the data to be inspected mid-way through the analysis or for the data to be used twice in two subsequent steps. Finding a good balance between too long and too short pipe sequences and too many or two few mid-products is the programmer’s task – and something that can only be learnt by experience and observing good examples of code.</p>
+<p>It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the <code>R</code> internal memory and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary “mid-products” during the computation (i.e., variables whose only purpose is to store the data before the next step). However, it is frequently useful to split the processing in different steps, which allow the data to be inspected mid-way through the analysis or for the data to be used twice in two subsequent steps. Finding a good balance between too long and too short pipe sequences and too many or two few “mid-products” is the programmer’s task – and something that can only be learnt by experience and observing good examples of code.</p>
 <p>The following example showcases how the process above can be subdivided into five meaningful steps.</p>
 <ol style="list-style-type: decimal">
 <li>Read the data. This is frequently done as a separate step, as some dataset might require significant time to be read from computer storage and it is frequently best to read them only once.</li>
@@ -3270,7 +3270,7 @@ Following such guidelines will not only ensure that others can more easily use a
 <li><a class="nav-link" href="#mutate"><span class="header-section-number">3.4.2</span> Mutate</a></li>
 <li><a class="nav-link" href="#arrange"><span class="header-section-number">3.4.3</span> Arrange</a></li>
 <li><a class="nav-link" href="#data-manipulation-example"><span class="header-section-number">3.4.4</span> Data manipulation example</a></li>
-<li><a class="nav-link" href="#saving-mid-products"><span class="header-section-number">3.4.5</span> Saving mid-products</a></li>
+<li><a class="nav-link" href="#componentization"><span class="header-section-number">3.4.5</span> Componentization</a></li>
 </ul>
 </li>
 <li><a class="nav-link" href="#how-to-cite-code"><span class="header-section-number">3.5</span> How to cite code</a></li>

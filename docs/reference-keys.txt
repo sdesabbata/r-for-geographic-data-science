@@ -39,7 +39,7 @@ summarise
 mutate
 arrange
 data-manipulation-example
-saving-mid-products
+componentization
 how-to-cite-code
 exercises-103.1
 table-operations
