@@ -119,10 +119,10 @@
 <span class="header-section-number">3.1.1</span> R Projects<a class="anchor" aria-label="anchor" href="#r-projects"><i class="fas fa-link"></i></a>
 </h3>
 <p>RStudio provides an extremely useful functionality to organise all your code and data, that is <strong>R Projects</strong>. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on – <em>Environment</em>, <em>History</em>, working directory, and much more, as we will see in the coming weeks.</p>
-<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue, to create a folder named <em>Practicals</em>.</p>
+<p>In RStudio Server, in the <em>Files</em> tab of the bottom-left panel, click on <em>Home</em> to make sure you are in your home folder – if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on <em>New Folder</em> and enter <em>Practicals</em> in the prompt dialogue to create a folder named <em>Practicals</em>.</p>
 <p>Select <em>File &gt; New Project …</em> from the main menu, then from the prompt menu, <em>New Directory</em>, and then <em>New Project</em>. Insert <em>Practical_103_example</em> as the directory name, and select the <em>Practicals</em> folder for the field <em>Create project as subdirectory of</em>. Finally, click <em>Create Project</em>.</p>
-<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_103_example</em> folder, which contains only the <em>Practical_103_example.Rproj</em> file. The <em>Practical_103_example.Rproj</em> stores all the <em>Environment</em> information for the current project and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_103_example</em> folder. Moreover, the <em>Practical_103_example</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file that is the default directory where to save it.</p>
-<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube, next to the name of the project (<em>Practical_103_example</em>). That also indicates that you are within the <em>Practical_103_example</em> project. Click on <em>Practical_103_example</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_103_example</em> from the list to reactivate the <em>Practical_103_example</em> project. In the future, you will thus be able to close and reactivate this or any other project as necessary, depending on what you are working with. Projects can also be activated by clicking on the related <code>.Rproj</code> file in the <em>Files</em> tab in the bottom-right panel or through the <em>Open Project…</em> option in the file menu.</p>
+<p>RStudio has now created the project, and it should have activated it. If that is the case, the <em>Files</em> tab in the bottom-right panel should be in the <em>Practical_103_example</em> folder, which contains only the <em>Practical_103_example.Rproj</em> file. The <em>Practical_103_example.Rproj</em> stores all the <em>Environment</em> information for the current project, and all the project files (e.g., R scripts, data, output files) should be stored within the <em>Practical_103_example</em> folder. Moreover, the <em>Practical_103_example</em> is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file, that is the default directory where to save it.</p>
+<p>On the top-right corner of RStudio, you should see a blue icon representing an R in a cube next to the name of the project (<em>Practical_103_example</em>). That also indicates that you are within the <em>Practical_103_example</em> project. Click on <em>Practical_103_example</em> and select <em>Close Project</em> to close the project. Next to the R in a cube icon, you should now see <em>Project: (None)</em>. Click on <em>Project: (None)</em> and select <em>Practical_103_example</em> from the list to reactivate the <em>Practical_103_example</em> project. In the future, you will thus be able to close and reactivate this or any other project as necessary, depending on what you are working with. Projects can also be activated by clicking on the related <code>.Rproj</code> file in the <em>Files</em> tab in the bottom-right panel or through the <em>Open Project…</em> option in the file menu.</p>
 <p>With the <em>Practical_103_example</em> project activated, select from the top menu <em>File &gt; New File &gt; RMarkdown</em> to create a new RMarkdown document – you can use the default options in the creation menu, as this is just an example. Save and <em>knit</em> the RMarkdown document (<a href="reproducible-data-science.html#rmarkdown">as shown in the previous chapter</a>). As you can see, both the RMarkdown file and the knitted are saved within the <em>Practical_103_example</em> folder.</p>
 </div>
 </div>
@@ -131,8 +131,8 @@
 <span class="header-section-number">3.2</span> Data: 2011 Census and OAC<a class="anchor" aria-label="anchor" href="#data-2011-census-and-oac"><i class="fas fa-link"></i></a>
 </h2>
 <p>The <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by <a href="http://josis.org/index.php/josis/article/viewArticle/232">Gale et al. (2016)</a> starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. <a href="http://josis.org/index.php/josis/article/viewArticle/232">Gale et al. (2016)</a> finally used the k-means clustering approach to create 8 clusters or supergroups (see <a href="https://oac.datashine.org.uk">map at datashine.org.uk</a>), as well as 26 groups and 76 subgroups. The dataset in the file <code>2011_OAC_Raw_uVariables_Leicester.csv</code> contains all the original 167 variables, as well as the resulting groups, for the city of Leicester.</p>
-<p>Before continuing with the reminder of the practical, create a new project named <em>Leicester_population</em> and make sure it is activated. Download from Blackboard (or see the <a href="https://github.com/sdesabbata/granolarr/tree/master/data">data</a> folder of the repository) the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file on your computer. The full variable names can be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code>.</p>
-<p>Create a new RMarkdown document using <em>“Exploring population distribution in Leicester”</em> as title and <em>PDF</em> as output file type. Delete the example code after the <code>setup</code> chunk. Add a new markdown second-heading section named <em>Libraries</em> and a chunk loading the <code>tidyverse</code> and <code>knitr</code> libraries (see below). Save the file with name <code>exploring_Leicester_population.Rmd</code> in the <em>Leicester_population</em> project.</p>
+<p>Before continuing with the remainder of the practical, create a new project named <em>Leicester_population</em> and make sure it is activated. Download from Blackboard (or see the <a href="https://github.com/sdesabbata/granolarr/tree/master/data">data</a> folder of the repository) the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file on your computer. The full variable names can be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code>.</p>
+<p>Create a new RMarkdown document using <em>“Exploring population distribution in Leicester”</em> as the title and <em>PDF</em> as the output file type. Delete the example code after the <code>setup</code> chunk. Add a new markdown second-heading section named <em>Libraries</em> and a chunk loading the <code>tidyverse</code> and <code>knitr</code> libraries (see below). Save the file with the name <code>exploring_Leicester_population.Rmd</code> in the <em>Leicester_population</em> project.</p>
 <pre><code>---
 title: "Exploring population distribution in Leicester"
 output: pdf_document
@@ -150,8 +150,8 @@ library(tidyverse)
 library(knitr)
 ```
 </code></pre>
-<p>Upload the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file to the <em>Leicester_population</em> folder by clicking on the <em>Upload</em> button and selecting the file from your computer.</p>
-<p><strong>Important</strong>: at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after upload using Microsoft Edge. If you are using Microsoft Edge, make sure the uploaded filename is <code>2011_OAC_Raw_uVariables_Leicester.csv</code> with not additional text. Otherwise, select the tick next to the file in the <em>File</em> tab in the botton-right panel, click <em>Rename</em> (on the panel’s bar) and rename the file to <code>2011_OAC_Raw_uVariables_Leicester.csv</code>.</p>
+<p>Upload the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file to the <em>Leicester_population</em> folder by clicking the <em>Upload</em> button and selecting the file from your computer.</p>
+<p><strong>Important</strong>: at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after uploading using Microsoft Edge. If you are using Microsoft Edge, make sure the uploaded filename is <code>2011_OAC_Raw_uVariables_Leicester.csv</code> with not additional text. Otherwise, select the tick next to the file in the <em>File</em> tab in the bottom-right panel, click <em>Rename</em> (on the panel’s bar) and rename the file to <code>2011_OAC_Raw_uVariables_Leicester.csv</code>.</p>
 </div>
 <div id="read-and-write-data" class="section level2" number="3.3">
 <h2>
@@ -215,7 +215,7 @@ library(knitr)
 <p>The function <code>write_csv</code> can be used to save a dataset as a <code>csv</code> file. For instance, the code below uses <code>tidyverse</code> functions and the pipe operator <code>%&gt;%</code> to <em>reproduce</em> the <code>2011_OAC_supgrp_Leicester.csv</code> dataset used <a href="slides/103-slides-data-manipulation.html">in the lecture</a>:</p>
 <ol style="list-style-type: decimal">
 <li>
-<strong>read</strong> the 2011 OAC dataset firle <code>2011_OAC_Raw_uVariables_Leicester.csv</code> directly from the file, but without storing it into a variable;</li>
+<strong>read</strong> the 2011 OAC file <code>2011_OAC_Raw_uVariables_Leicester.csv</code> directly from the file, but without storing it into a variable;</li>
 <li>
 <strong>select</strong> the OA code variable <code>OA11CD</code>, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (<code>supgrpcode</code> and <code>supgrpname</code> respectively);</li>
 <li>
@@ -238,15 +238,15 @@ library(knitr)
 <p>File paths can be specified in two different ways:</p>
 <ul>
 <li>
-<strong>Absolute file path</strong>: the full file path, from the <em>root</em> folder of your computer to the file.
+<strong>Absolute file path</strong>: the full file path from the <em>root</em> folder of your computer to the file.
 <ul>
-<li>The absolute file path of a file can be obtained using the <code><a href="https://rdrr.io/r/base/file.choose.html">file.choose()</a></code> instruction from the <em>R Console</em>, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to console.</li>
+<li>The absolute file path of a file can be obtained using the <code><a href="https://rdrr.io/r/base/file.choose.html">file.choose()</a></code> instruction from the <em>R Console</em>, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to the console.</li>
 <li>Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.</li>
-<li>However, absolute file paths can be problematic if the file is moved, or if the script is run on a different system, and the file path would then be invalid</li>
+<li>However, absolute file paths can be problematic if the file is moved or if the script is run on a different system, and the file path would then be invalid</li>
 </ul>
 </li>
 <li>
-<strong>Relative file path</strong>: a partial path, from the current working folder to the file.
+<strong>Relative file path</strong>: a partial path from the current working folder to the file.
 <ul>
 <li>The current <em>working directory</em> (current folder) is part of the environment of the <code>R</code> session and can be identified using the <code><a href="https://rdrr.io/r/base/getwd.html">getwd()</a></code> instruction from the <em>`</em>R Console*.
 <ul>
@@ -261,18 +261,18 @@ library(knitr)
 </ul>
 <div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Absolute file path</span></span>
-<span><span class="co"># Note: the fist / indicates the root folder</span></span>
+<span><span class="co"># Note: the first / indicates the root folder</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Relative file path</span></span>
-<span><span class="co"># assuming the working directory is the user home folder</span></span>
+<span><span class="co"># assuming the working directory is the user's home folder</span></span>
 <span><span class="co"># /home/username</span></span>
 <span><span class="co"># Note: no initial / for relative file paths</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
 <span></span>
 <span></span>
 <span><span class="co"># Relative file path</span></span>
-<span><span class="co"># assuming you are working within and R project created in the folder</span></span>
+<span><span class="co"># assuming you are working within an R project created in the folder</span></span>
 <span><span class="co"># /home/username/GY7702</span></span>
 <span><span class="co"># Note: no initial / for relative file paths</span></span>
 <span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"data/2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
@@ -296,22 +296,22 @@ library(knitr)
 <td align="right">969</td>
 </tr></tbody>
 </table></div>
-<p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is data type similar to data frames, used by all the Tidyverse libraries. All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
+<p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is a data type similar to data frames, used by all the Tidyverse libraries. All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
 <p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation. In the <code>tibble</code> outputted by the <code>count</code> function above, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
-<p>Note how, the code above goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
+<p>Note how the code above goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
 <div id="summarise" class="section level3" number="3.4.1">
 <h3>
 <span class="header-section-number">3.4.1</span> Summarise<a class="anchor" aria-label="anchor" href="#summarise"><i class="fas fa-link"></i></a>
 </h3>
-<p>The verb <code>count</code> is a special case (a shorthand) of the more general verb <code>summarise</code> (<code>summarize</code> using the American English spelling is also available with the same functionality), which allows to create generate tables presenting aggregate values of input data.</p>
-<p>For instance, <code>summarise</code> can be use to create a table containing:</p>
+<p>The verb <code>count</code> is a special case (a shorthand) of the more general verb <code>summarise</code> (<code>summarize</code> using the American English spelling is also available with the same functionality), which allows generating tables presenting aggregate values of input data.</p>
+<p>For instance, <code>summarise</code> can be used to create a table containing:</p>
 <ul>
 <li>a column presenting the total population of Leicester;</li>
 <li>a column presenting the total number of OAs in Leicester;</li>
 <li>a column presenting the average population per OAs in Leicester;</li>
-<li>a column presenting a logical values stating whether any OA in Leicester contains more than 600 people.</li>
+<li>a column presenting a logical value stating whether any OA in Leicester contains more than 600 people.</li>
 </ul>
-<p>That can be achieved applying different aggregate functions to the same column (<code>Total_Population</code>) of the <code>leicester_2011OAC</code> as illutratete below.</p>
+<p>That can be achieved applying different aggregate functions to the same column (<code>Total_Population</code>) of the <code>leicester_2011OAC</code> as illustrated below.</p>
 <ul>
 <li>
 <code>sum</code> to calculate the total population of Leicester;</li>
@@ -478,7 +478,7 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.4.2</span> Mutate<a class="anchor" aria-label="anchor" href="#mutate"><i class="fas fa-link"></i></a>
 </h3>
-<p>The function <code>mutate</code> can be used to create a new column by conducting operations on current columns. For instance, in the example below, <code>summarise</code> is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb <code>mutate</code> is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same <code>avg_pop</code> column as above, but through a different process.</p>
+<p>The function <code>mutate</code> can be used to create a new column by conducting operations on current columns. For instance, in the example below, <code>summarise</code> is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb <code>mutate</code> is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same <code>avg_pop</code> column as above but through a different process.</p>
 <div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -625,7 +625,7 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.4.3</span> Arrange<a class="anchor" aria-label="anchor" href="#arrange"><i class="fas fa-link"></i></a>
 </h3>
-<p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing the ten OAs with the larges population in Leicester.</p>
+<p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing the ten OAs with the largest population in Leicester.</p>
 <div class="sourceCode" id="cb160"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
@@ -638,7 +638,7 @@ library(knitr)
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>In the example above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the example <code>10</code>) rows in a table, based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
+<p>In the example above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the example <code>10</code>) rows in a table based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
 <p>As such, the following code uses <code>slice_max</code> to produce a table including only the 10 OAs with the <em>highest</em> population.</p>
 <div class="sourceCode" id="cb161"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -791,14 +791,14 @@ library(knitr)
 </tr>
 </tbody>
 </table></div>
-<p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as it is the case with the rows containing the value <code>21</code> in the example above.</p>
+<p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as is the case with the rows containing the value <code>21</code> in the example above.</p>
 </div>
 <div id="data-manipulation-example" class="section level3" number="3.4.4">
 <h3>
 <span class="header-section-number">3.4.4</span> Data manipulation example<a class="anchor" aria-label="anchor" href="#data-manipulation-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above. This is a full example of a short analysis using only one series of pipes to read, process and write data using <code>R</code> and almost all the <code>tidyverse</code> <em>verbs</em> seen so far.</p>
-<p>The input data are read from the csv file, part of the data are selected and filtered. The data are grouped and aggregate, arranged in order and the percentage of people living in OAs assigned to each 2011 OAC supergroup is calculated. The <a href="https://magrittr.tidyverse.org/reference/tee.html">Tee pipe</a> (from the <code>magrittr</code> library) is used to write the resulting talbe to a file, while also passing the same input to the subsequent <code>kable</code> function to display the data.</p>
+<p>The input data are read from the csv file and part of the data are selected and filtered. The data are grouped, aggregated and arranged in order. The percentage of people living in OAs assigned to each 2011 OAC supergroup is calculated. The <a href="https://magrittr.tidyverse.org/reference/tee.html">Tee pipe</a> (from the <code>magrittr</code> library) is used to write the resulting table to a file, while also passing the same input to the subsequent <code>kable</code> function to display the data.</p>
 <div class="sourceCode" id="cb163"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
 <span></span>
@@ -823,7 +823,7 @@ library(knitr)
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>perc_pop <span class="op">=</span> <span class="op">(</span><span class="va">tot_pop</span> <span class="op">/</span> <span class="fl">329839</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/tee.html">%T&gt;%</a></span></span>
 <span>  <span class="co"># Then use the Tee pipe %T&gt;% in the line above</span></span>
 <span>  <span class="co"># to write the calculated values to file</span></span>
-<span>  <span class="co"># and the pass the same input values to the kable function</span></span>
+<span>  <span class="co"># and pass the same input values to the kable function</span></span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span></span>
 <span>    <span class="st">"2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -873,10 +873,11 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.4.5</span> Componentization<a class="anchor" aria-label="anchor" href="#componentization"><i class="fas fa-link"></i></a>
 </h3>
-<p>It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the <code>R</code> internal memory and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary “mid-products” during the computation (i.e., variables whose only purpose is to store the data before the next step). However, it is frequently useful to split the processing in different steps, which allow the data to be inspected mid-way through the analysis or for the data to be used twice in two subsequent steps. Finding a good balance between too long and too short pipe sequences and too many or two few “mid-products” is the programmer’s task – and something that can only be learnt by experience and observing good examples of code.</p>
+<p>It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the <code>R</code> internal memory, and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary “mid-products” during the computation (i.e., variables whose only purpose is to store the data before the next step).</p>
+<p>However, it is frequently useful to split the processing into different steps, which allow the data to be inspected mid-way through the analysis or for the data to be used twice in two subsequent steps. Finding a good balance between too long and too short pipe sequences and too many or too few “mid-products” is the programmer’s task – and something that can only be learnt by experience and observing good examples of code.</p>
 <p>The following example showcases how the process above can be subdivided into five meaningful steps.</p>
 <ol style="list-style-type: decimal">
-<li>Read the data. This is frequently done as a separate step, as some dataset might require significant time to be read from computer storage and it is frequently best to read them only once.</li>
+<li>Read the data. This is frequently done as a separate step, as some datasets might require significant time to be read from computer storage, and it is frequently best to read them only once.</li>
 <li>Calculate the total population per 2011 OAC supergroup, excluding the suburban population. This is a significant transformation of the original data, which might be worth saving and inspecting.</li>
 <li>Update the new table using mutate and the <a href="https://magrittr.tidyverse.org/reference/compound.html">assignment pipe operator <code>%&lt;&gt;%</code></a> (from the <code>magrittr</code> library).</li>
 <li>Print the result.</li>
@@ -967,8 +968,8 @@ library(knitr)
 <h3>
 <span class="header-section-number">3.5.1</span> References<a class="anchor" aria-label="anchor" href="#references"><i class="fas fa-link"></i></a>
 </h3>
-<p>Academic references can be added to RMarkdown <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">as illustrated in the R Markdown Cookbook</a>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-xie2020r" role="doc-biblioref"&gt;Yihui Xie, Christophe Dervieux, and Emily Riederer, &lt;em&gt;R Markdown Cookbook&lt;/em&gt; (Chapman; Hall/CRC, 2020), &lt;/a&gt;&lt;a href="https://bookdown.org/yihui/rmarkdown-cookbook/" role="doc-biblioref"&gt;https://bookdown.org/yihui/rmarkdown-cookbook/&lt;/a&gt;.&lt;/p&gt;'><sup>15</sup></a></span> Bibtex references can be added to a separate <code>.bib</code> file that can be then linked to in the heading of the RMarkdown document. References can then be cited using the <code>@</code> symbol followed by the reference id.</p>
-<p>For instance, this documents links to the <code>references.bib</code> bibtex file, which contains the academic references, and the <code>packages.bib</code> bibtex files, which contains additional reference for the R packages (see also next section), by adding the following line in the heading.</p>
+<p>Academic references can be added to RMarkdown <a href="https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html">as illustrated in the R Markdown Cookbook</a>.<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-xie2020r" role="doc-biblioref"&gt;Yihui Xie, Christophe Dervieux, and Emily Riederer, &lt;em&gt;R Markdown Cookbook&lt;/em&gt; (Chapman; Hall/CRC, 2020), &lt;/a&gt;&lt;a href="https://bookdown.org/yihui/rmarkdown-cookbook/" role="doc-biblioref"&gt;https://bookdown.org/yihui/rmarkdown-cookbook/&lt;/a&gt;.&lt;/p&gt;'><sup>15</sup></a></span> Bibtex references can be added to a separate <code>.bib</code> file that is linked to in the heading of the RMarkdown document. References can then be cited using the <code>@</code> symbol followed by the reference id.</p>
+<p>For instance, this documents links to the <code>references.bib</code> bibtex file, which contains the academic references, and the <code>packages.bib</code> bibtex files, which contains additional references for the R packages (see also next section), by adding the following line in the heading.</p>
 <pre><code>bibliography: [references.bib, packages.bib]</code></pre>
 <p>The <code>references.bib</code> contains the following reference for the R Markdown Cookbook book.</p>
 <pre><code>@book{xie2020r,
@@ -978,7 +979,7 @@ library(knitr)
   publisher={Chapman and Hall/CRC},
   url = {https://bookdown.org/yihui/rmarkdown-cookbook/}
 }</code></pre>
-<p>That allows to write the first sentence of this section as follows.</p>
+<p>That allows writing the first sentence of this section as follows.</p>
 <pre><code>Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r].</code></pre>
 <p>Bibtex references can be obtained from most journals or by clicking on the <em>Cite</em> link under a paper in <a href="https://scholar.google.com/">Google Scholar</a> and then selecting <em>Bibtex</em>.</p>
 </div>
@@ -1009,7 +1010,7 @@ Following such guidelines will not only ensure that others can more easily use a
 <h2>
 <span class="header-section-number">3.7</span> Exercises 103.2<a class="anchor" aria-label="anchor" href="#exercises-103.2"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>Question 103.2.1:</strong> Explore the <strong>look-up</strong> table <code>2011_OAC_Raw_uVariables_Lookup.csv</code> and identify another set of variables that you think might relate to the the type of housing and the 2011 OAC supergroups. Create a new section of the document (e.g., adding a second heading) and include a short text (up to 200 words) in the RMarkdown document describing and justifying the set of variables you choose.</p>
+<p><strong>Question 103.2.1:</strong> Explore the <strong>look-up</strong> table <code>2011_OAC_Raw_uVariables_Lookup.csv</code> and identify another set of variables that you think might relate to the type of housing and the 2011 OAC supergroups. Create a new section of the document (e.g., adding a second heading) and include a short text (up to 200 words) in the RMarkdown document describing and justifying the set of variables you choose.</p>
 <p><strong>Question 103.2.2:</strong> Write the code necessary to conduct the same analysis conducted for <em>Question 103.1</em> but using the variables identified in <em>Question 103.2.1</em>.</p>
 <p><strong>Question 103.2.3:</strong> Inspect the table obtained from your answer to <em>Question 103.1.3</em> and the table obtained from your answer to <em>Question 103.2.2</em>, and compare the results. Write a short text (up to 300 words) in the RMarkdown document reporting and discussing what the results tell you about the socio-demographic structure of Leicester.</p>
 <hr>
@@ -1066,7 +1067,7 @@ Following such guidelines will not only ensure that others can more easily use a
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-19.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-20.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
