@@ -1,7 +1,5 @@
 # Data manipulation
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
