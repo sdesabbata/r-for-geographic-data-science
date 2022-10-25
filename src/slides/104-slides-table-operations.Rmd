@@ -1,0 +1,935 @@
+---
+title: "Lecture 104"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-10-18</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+opts_chunk$set(echo = FALSE)
+opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+# Table operations
+
+
+
+---
+## Recap
+
+<br/>
+
+.pull-left[
+
+**Previously**: Data manipulation
+
+- Data input and output
+- Mutate and summarise data
+- Working with R projects *(practical)*
+
+**Today**: Table operations
+
+- Long and wide table formats
+- Pivot operations *(not as in Excel)*
+- Join operations
+
+]
+.pull-right[
+
+![](https://raw.githubusercontent.com/tidyverse/tidyr/main/man/figures/logo.png)
+
+.right[
+.referencenote[
+by tidyr authors<br/>
+via [tidyr GitHub repository](https://github.com/tidyverse/tidyr/), MIT License
+]
+]
+
+]
+
+
+---
+class: inverse, center, middle
+
+# Wide and long tables
+
+
+<p style="color: white; background-color: #66023c;">
+<b>CONTENT WARNING:</b><br/>
+Some of the examples used in these slides discuss issues that some people might find distressing: <b>disease</b>.
+</p>
+
+
+
+---
+## Wide data
+
+
+Each real-world entity is represented by *one single row*
+
+  - its attributes are represented through different columns
+  
+```{r}
+iris %>% 
+  slice_head(n = 10) %>% 
+  kable()
+```
+
+
+
+---
+## Long data 
+
+.referencenote[<br/>]
+
+.pull-left[
+
+<br/>
+
+Each real-world entity is represented by *multiple rows*
+
+- each one reporting only one of its attributes
+- one column indicates which attribute each row represent
+- another column is used to report the value
+
+Common approach for temporal series
+
+]
+.pull-right[
+
+Example: Covid-19 7-day case rates per 100,000 people
+
+<!-- Data for xample, also echo-ed below-->
+```{r, echo=FALSE}
+city_info_long <- data.frame(
+    city = c("Derby", "Leicester" , "Nottingham", 
+             "Derby", "Leicester", "Nottingham"),
+    week_ending = c("2021-10-25", "2021-10-25", "2021-10-25", 
+                    "2021-11-01", "2021-11-01", "2021-11-01"),
+    cases = c(NA, 425.9, 229, 359, 337, NA)
+  ) %>% 
+  tibble::as_tibble()
+```
+
+```{r, echo=FALSE}
+city_info_long %>%
+  kable()
+```
+
+.referencenote[
+Derived from data available from [Coronavirus (COVID-19) in the UK](https://coronavirus.data.gov.uk/) under the [Open Government Licence v3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3).
+]
+
+]
+
+---
+## Wide and long data
+
+<br/>
+
+One can be transforme into the other
+
+```{r, echo=FALSE}
+city_info_long %>%
+  mutate(
+    week_ending = str_replace_all(week_ending, "-", "_")
+  ) %>%
+  pivot_wider(
+    names_from = week_ending,
+    names_prefix = "cases_",
+    values_from = cases
+  ) %>%
+  kable()
+```
+
+<br/>
+
+- **Long data** can be more flexible
+  - new attributes add new rows where necessary
+- **Wide data** require more structure
+  - new attributes need new column for all entities
+
+
+---
+## tidyr
+
+.pull-left[
+
+The [`tidyr`](https://tidyr.tidyverse.org/) (pronounced *tidy-er*) library is part of [`tidyverse`](https://www.tidyverse.org/)
+
+Provides a series of functions to *"tidy-up"* your data, including
+
+- re-shape your data
+  - [`tidyr::pivot_wider`](https://tidyr.tidyverse.org/reference/pivot_wider.html): pivot from long to wide
+  - [`tidyr::pivot_longer`](https://tidyr.tidyverse.org/reference/pivot_longer.html): pivot from wide to long
+- handle missing values
+  - [`tidyr::drop_na`](https://tidyr.tidyverse.org/reference/drop_na.html): remove rows with missing data
+  - [`tidyr::replace_na`](https://tidyr.tidyverse.org/reference/replace_na.html): replace missing data
+  - [`tidyr::fill`](https://tidyr.tidyverse.org/reference/replace_na.html): fill missing data
+  - [`tidyr::complete`](https://tidyr.tidyverse.org/reference/complete.html): add missing value combinations
+
+]
+.pull-right[
+
+```{r, echo=TRUE}
+city_info_long <- 
+  data.frame(
+    city = c(
+      "Derby", "Leicester" , "Nottingham", 
+      "Derby", "Leicester", "Nottingham"
+    ),
+    week_ending = c(
+      "2021-10-25", "2021-10-25", "2021-10-25", 
+      "2021-11-01", "2021-11-01", "2021-11-01"
+    ),
+    cases = c(
+      NA, 425.9, 229, 
+      359, 337, NA
+    )
+  ) %>% 
+  tibble::as_tibble()
+```
+
+```{r, echo=FALSE}
+city_info_long %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+---
+## tidyr::pivot_wider
+
+.pull-left[
+
+<br/>
+
+Re-shape from **long** to **wide** format
+
+```{r, echo=TRUE}
+city_info_wide <- 
+  city_info_long %>%
+  pivot_wider(
+    # Column from which to extract 
+    # new column names
+    names_from = week_ending,
+    # Column from which to extract 
+    # values
+    values_from = cases
+  )
+```
+]
+.pull-right[
+
+From:
+
+```{r, echo=FALSE}
+city_info_long %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+To:
+
+```{r, echo=FALSE}
+city_info_wide %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+]
+
+---
+## tidyr::pivot_wider
+
+It might be useful (or indeed necessary) to **format** the values that will become the names of the new columns
+
+```{r, echo=TRUE}
+city_info_wide <- 
+  city_info_long %>% 
+  mutate(
+    # Change "-" to "_"
+    week_ending = str_replace_all(
+      week_ending, "-", "_"
+    )
+  ) %>%
+  pivot_wider(
+    names_from = week_ending, 
+    values_from = cases, # As before
+    names_prefix = "cases_" # Add a prefix
+  )
+```
+```{r, echo=FALSE}
+city_info_wide %>%
+  kable("html") 
+```
+
+
+---
+## tidyr::pivot_longer
+
+.pull-left[
+
+<br/>
+
+Re-shape from **wide** to **long** format
+
+```{r, echo=TRUE}
+city_info_back_to_long <- 
+  city_info_wide %>%
+  pivot_longer(
+    # Pivot all columns, excluding city
+    cols = -city, 
+    # Name column for column names
+    names_to = "week_ending", 
+    # Name column for values
+    values_to = "cases" 
+  ) 
+```
+
+]
+.pull-right[
+From:
+
+```{r, echo=FALSE}
+city_info_wide %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+To:
+
+```{r, echo=FALSE}
+city_info_back_to_long %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+---
+## tidyr::pivot_longer
+
+It might be useful (or indeed necessary) to **format** the values extracted from the column names
+
+.pull-left[
+
+```{r, echo=TRUE}
+city_info_back_to_long <- 
+  city_info_wide %>%
+  pivot_longer(
+    # As before
+    cols = -city, 
+    names_to = "week_ending",  
+    values_to = "cases",
+    # Remove name prefix
+    names_prefix = "cases_",
+    # Transform the values that will  
+    # become column names
+    names_transform = list(
+      # Provide a function name or define one
+      week_ending = function (x) { 
+        str_replace_all(x, "_", "-") 
+        }
+    )
+  )
+```
+
+]
+.pull-right[
+
+... which brings us back exactly where we started.
+
+```{r, echo=FALSE}
+city_info_back_to_long %>%
+  kable("html")
+```
+
+]
+
+
+---
+class: inverse, center, middle
+
+# Working with incomplete tables
+
+---
+## tidyr
+
+<br/>
+
+The [`tidyr`](https://tidyr.tidyverse.org/) (pronounced *tidy-er*) library is part of [`tidyverse`](https://www.tidyverse.org/)
+
+Provides a series of functions to *"tidy-up"* your data, including
+
+- re-shape your data
+  - [`tidyr::pivot_wider`](https://tidyr.tidyverse.org/reference/pivot_wider.html): pivot from long to wide
+  - [`tidyr::pivot_longer`](https://tidyr.tidyverse.org/reference/pivot_longer.html): pivot from wide to long
+- handle missing values
+  - [`tidyr::drop_na`](https://tidyr.tidyverse.org/reference/drop_na.html): remove rows with missing data
+  - [`tidyr::replace_na`](https://tidyr.tidyverse.org/reference/replace_na.html): replace missing data
+  - [`tidyr::fill`](https://tidyr.tidyverse.org/reference/replace_na.html): fill missing data
+  - [`tidyr::complete`](https://tidyr.tidyverse.org/reference/complete.html): add missing value combinations
+
+
+
+---
+## tidyr::replace_na
+
+If the data allow for a baseline value, missing values can be **replaced**
+
+```{r, echo=TRUE, eval=FALSE}
+city_info_long %>%
+  replace_na(
+    # List of columns <-> values to replace NA
+    list(cases = 0)
+  )
+```
+```{r, echo=FALSE}
+city_info_long %>%
+  replace_na(
+    list(cases = 0)
+  ) %>%
+  kable()
+```
+
+
+
+---
+## tidyr::fill
+
+Sometimes it can make sense to **fill** missing values using *"nearby"* values, but **caution**, order and grouping matter!
+
+```{r, echo=TRUE, eval=FALSE}
+city_info_long %>%
+  group_by(city) %>%
+  arrange(week_ending) %>%
+  # Columns to fill
+  fill(cases)
+```
+```{r, echo=FALSE}
+city_info_long %>%
+  group_by(city) %>%
+  arrange(week_ending) %>%
+  fill(cases) %>%
+  kable()
+```
+
+
+---
+## tidyr::drop_na 
+
+<br/>
+
+In other cases, it might be simpler or safer to just **remove** all the rows with missing data
+
+```{r, echo=TRUE}
+city_info_long_noNAs <- 
+  city_info_long %>%
+  # Columns to drop where NA
+  drop_na(cases)
+```
+```{r, echo=FALSE}
+city_info_long_noNAs %>%
+  kable()
+```
+
+
+
+---
+## tidyr::complete
+
+.pull-left[
+
+<br/>
+
+Some analysis or visualisation procedures might require a *complete* table
+
+- where missing values are represented as NAs
+- for instance, when creating a map
+  - you might want to use a specific colour for missing values
+  - rather than a missing polygon
+  
+Complete table by turning implicit missing values into explicit missing values
+
+]
+.pull-right[
+
+
+```{r, echo=TRUE, eval=FALSE}
+city_info_long_noNAs %>%
+  # Complete table with all week_ending 
+  # and city combinations making missing
+  # values for remaining columns explicit
+  complete(week_ending, city)
+```
+```{r, echo=FALSE}
+city_info_long_noNAs %>%
+  # Complete table with all week_ending 
+  # and city combinations making missing 
+  # values for remaining columns explicit
+  complete(city, week_ending) %>%
+  kable()
+```
+
+]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Joining tables
+
+---
+## Example
+
+.pull-left[
+
+<br/>
+
+```{r, echo=TRUE}
+cities <- 
+  data.frame(
+    city_name = c(
+      "Barcelona", "London", "Rome", "Los Angeles"
+    ),
+    country_name = c(
+      "Spain", "UK", "Italy", "US"
+    ),
+    city_pop_M = c(
+      1.62, 8.98, 4.34, 3.99
+    )
+  )
+
+cities_area <-
+  data.frame(
+    city_name = c(
+      "Barcelona", "London", "Rome", "Munich"
+    ),
+    city_area_km2 = c(
+      101, 1572, 496, 310
+    )
+)
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE}
+kable(cities)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+kable(cities_area)
+```
+
+]
+
+
+---
+## Joining data
+
+.pull-left[
+
+Tables can be joined (or 'merged')
+
+- information from two tables can be combined
+- specifying **column(s) from two tables with common values**
+    - usually one with a unique identifier of an entity
+- rows having the same value are joined
+- depending on parameters
+    - a row from one table can be merged with multiple rows from the other table
+    - rows with no matching values in the other table can be retained
+- `merge` base function or join functions in `dplyr`
+
+]
+.pull-right[
+
+<br/>
+
+.center[
+![](images/joins.png)
+]
+
+]
+
+---
+## dplyr joins
+
+.pull-left[
+
+`dplyr` provides [a series of join verbs](https://dplyr.tidyverse.org/reference/join.html)
+
+- **Mutating joins**
+  - `inner_join`: inner join
+  - `left_join`: left join
+  - `right_join`: right join
+  - `full_join`: full join
+- **Nesting joins**
+  - `nest_join`: all rows columns from left table, plus a column of tibbles with matching from right
+- **Filtering joins** (keep only columns from left)
+  - `semi_join`: , rows from left where match with right
+  - `anti_join`: rows from left where no match with right
+
+]
+.pull-right[
+
+<br/>
+
+.center[
+![](images/joins.png)
+]
+
+]
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+
+---
+## full_join
+
+.pull-left[
+
+Input tables
+
+```{r, echo=FALSE}
+cities %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+cities_area %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+`full_join` combines all the available data
+
+```{r, echo=TRUE, eval=FALSE}
+full_join(
+  # first argument, left table
+  # second argument, right table
+  cities, cities_area, 
+  # specify which column to be matched
+  by = c("city_name" = "city_name")
+  )
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  full_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+---
+## Pipes and shorthands
+
+.pull-left[
+
+Input tables
+
+```{r, echo=FALSE}
+cities %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+cities_area %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+When using (any) join verbs in `dplyr`
+
+```{r, echo=TRUE, eval=FALSE}
+# using pipe, left table is "coming down the pipe"
+cities %>% 
+  full_join(
+    cities_area, 
+    by = c("city_name" = "city_name")
+  )
+
+# if no columns specified, columns with the same name are matched
+cities %>% 
+  full_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  full_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+---
+## left_join
+
+.pull-left[
+
+Input tables
+
+```{r, echo=FALSE}
+cities %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+cities_area %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+`left_join`
+
+- keeps all the data from the **left** table
+  - first argument or *"coming down the pipe"*
+- rows from the right table without a match are dropped
+  - second argument (or first when using *pipes*)
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  left_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  left_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+---
+## right_join
+
+.pull-left[
+
+Input tables
+
+```{r, echo=FALSE}
+cities %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+cities_area %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+`right_join`
+
+- keeps all the data from the **right** table
+  - second argument (or first when using *pipes*)
+- rows from the left table without a match are dropped
+  - first argument or *"coming down the pipe"*
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  right_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  right_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+
+---
+## inner_join
+
+.pull-left[
+
+Input tables
+
+```{r, echo=FALSE}
+cities %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+cities_area %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+`inner_join`
+
+- keeps only rows that have a match in **both** tables
+- rows without a match either way are dropped
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% 
+  inner_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  inner_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+
+---
+## semi_join and anti_join
+
+.pull-left[
+
+Input tables
+
+```{r, echo=FALSE}
+cities %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+```{r, echo=FALSE}
+cities_area %>% 
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+.pull-right[
+
+`semi_join` as inner join but keeps only left columns
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% semi_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  semi_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+<br/>
+
+`anti_join` keeps un-matched rows from left table
+
+```{r, echo=TRUE, eval=FALSE}
+cities %>% anti_join(cities_area)
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cities %>% 
+  anti_join(cities_area) %>%
+  kable("html") %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+
+---
+## Summary
+
+<br/>
+
+.pull-left[
+
+**Today**: Table operations
+
+- Long and wide table formats
+- Pivot operations *(not as in Excel)*
+- Join operations
+
+**Next week**: Exploratory visualisation
+
+- Grammar of graphics
+- Visualising amounts and proportions
+- Visualising variable distributions and relationships
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+]
+
+]
+.pull-right[
+
+![](https://raw.githubusercontent.com/tidyverse/ggplot2/main/man/figures/logo.png)
+
+.right[
+.referencenote[
+by ggplot2 authors<br/>
+via [ggplot2 GitHub repository](https://github.com/tidyverse/ggplot2/), MIT License
+]
+]
+
+]
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
