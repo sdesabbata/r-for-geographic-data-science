@@ -197,7 +197,7 @@ leic_2011OAC_20to24 %>%
   )
 ```
 
-<img src="302-exploratory-statistics_files/figure-html/unnamed-chunk-8-1.png" width="288" />
+<img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-8-1.png" width="288" />
 
 A Q-Q plot in R can be created using a variety of functions. In the example below, the plot is created using the [`stat_qq` and `stat_qq_line` functions](https://ggplot2.tidyverse.org/reference/geom_qq.html) of the `ggplot2` library. Note that the `perc_age_20_to_24` variable is mapped to a particular option of `aes` that is `sample`. 
 
@@ -215,7 +215,7 @@ leic_2011OAC_20to24 %>%
   ggplot2::stat_qq_line()
 ```
 
-<img src="302-exploratory-statistics_files/figure-html/unnamed-chunk-9-1.png" width="288" />
+<img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-9-1.png" width="288" />
 
 ## Exercise 304.2
 

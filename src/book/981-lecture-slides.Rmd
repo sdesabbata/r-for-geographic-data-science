@@ -9,19 +9,19 @@ The slides used in the lectures are available as web-based slides at the pages l
 1. **Introduction to Reproducible Data Science**
     - 101 [Introduction to R](slides/101-slides-introduction.html)
     - 102 [Reproducible data science](slides/102-slides-reproducible-data-science.html)
-    - 103 [Data manipulation *draft*](slides/103-slides-data-manipulation.html)
-    - 104 Table operations
-2. **R Scripting**
-    - 201 Control structures
-    - 202 Functions
+    - 103 [Data manipulation](slides/103-slides-data-manipulation.html)
+    - 104 [Table operations *draft*](slides/104-slides-table-operations.html)
 3. **Data analysis**
-    - 301 Exploratory visualisation
-    - 302 Exploratory statistics
-    - 303 Comparing data
-    - 304 Regression models
+    - 201 Exploratory visualisation
+    - 202 Exploratory statistics
+    - 203 Comparing data
+    - 204 Regression models
 4. **Machine learning**
-    - 401 Supervised
-    - 402 Unsupervised
+    - 301 Supervised
+    - 302 Unsupervised
+2. **R Scripting**
+    - 401 Control structures
+    - 402 Functions
 
 
 ---

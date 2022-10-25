@@ -70,7 +70,7 @@ leicester_2011OAC %>%
   ggplot2::theme_bw()
 ```
 
-<img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship. 
 
@@ -98,7 +98,7 @@ leicester_2011OAC %>%
   ggplot2::theme_bw()
 ```
 
-<img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+<img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 
 However, the graphic above is not extremely clear. A boxplot and a violin plot created from the same data are shown below. In both cases, the parameter `axis.text.x` of the function theme is set to `element_text(angle = 90, hjust = 1)` in order to orientate the labels on the x-axis vertically, as the supergroup names are rather long, and they would overlap one-another if set horizontally on the x-axis. In both cases, the option `fig.height` of the R snippet in RMarkdown should be set to a higher value (e.g., `5`) to allow for sufficient room for the supergroup names.
 
@@ -126,7 +126,7 @@ leicester_2011OAC %>%
   ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-<img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 
 
 ```r
@@ -152,7 +152,7 @@ leicester_2011OAC %>%
   ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
-<img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+<img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
 
 
@@ -185,7 +185,7 @@ leicester_2011OAC %>%
   ggplot2::theme_bw()
 ```
 
-<img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
 

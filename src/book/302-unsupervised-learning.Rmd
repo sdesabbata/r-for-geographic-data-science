@@ -134,7 +134,7 @@ The scatterplot above seems to indicate that at least three clusters might exist
 
 However, there are clearly many OAs which populate the area in between those three groups. So, what is the best approach to cluster those OAs?
 
-The code below illustrates how to create three plots. The first follows the elbow method heuristic. The second and the third take a similar approach but using the silhouette and gap statistic.
+The code below illustrates how to create three plots. The first follows the elbow method heuristic. The second and the third take a similar approach but using the silhouette and gap statistic. Please see the [chapter on control structures](control-structures.html) regarding the use of the construct `for`.
 
 ```{r, message=FALSE, warning=FALSE}
 # Get only the data necessary for testing

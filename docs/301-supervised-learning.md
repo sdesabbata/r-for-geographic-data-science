@@ -158,7 +158,7 @@ liec_shire_2011OAC_RU %>%
   ggplot2::theme_bw()
 ```
 
-<img src="401-supervised-learning_files/figure-html/unnamed-chunk-5-1.png" width="576" />
+<img src="301-supervised-learning_files/figure-html/unnamed-chunk-5-1.png" width="576" />
 
 The two patters in the plot above seem quite close even when plotted using a logarithmically transformed x-axis. As a first step, we can extract from the dataset only the data we need, and create a logarithmic transformation of the population density value. To be able to perform a simple validatin our model, we can divide that data in a training (80% of the dataset) and a testing set (20% of the dataset).
 
@@ -206,20 +206,20 @@ ru_logit_model %>%
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.2141  -0.5343   0.5168   0.6363   2.0060  
+## -2.1913  -0.5681   0.5299   0.6510   2.0821  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  -1.2331     0.1316  -9.369   <2e-16 ***
-## density_log   1.8273     0.1006  18.156   <2e-16 ***
+## (Intercept)  -1.3924     0.1333  -10.45   <2e-16 ***
+## density_log   1.8803     0.1013   18.56   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2019.9  on 1667  degrees of freedom
-## Residual deviance: 1560.8  on 1666  degrees of freedom
-## AIC: 1564.8
+##     Null deviance: 2077.8  on 1667  degrees of freedom
+## Residual deviance: 1585.0  on 1666  degrees of freedom
+## AIC: 1589
 ## 
 ## Number of Fisher Scoring iterations: 4
 ```
@@ -273,29 +273,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    79    29
-##      urban    77   232
+##      rural    58    37
+##      urban    63   259
 ##                                           
-##                Accuracy : 0.7458          
-##                  95% CI : (0.7012, 0.7869)
-##     No Information Rate : 0.6259          
-##     P-Value [Acc > NIR] : 1.328e-07       
+##                Accuracy : 0.7602          
+##                  95% CI : (0.7162, 0.8004)
+##     No Information Rate : 0.7098          
+##     P-Value [Acc > NIR] : 0.01239         
 ##                                           
-##                   Kappa : 0.4214          
+##                   Kappa : 0.3784          
 ##                                           
-##  Mcnemar's Test P-Value : 4.994e-06       
+##  Mcnemar's Test P-Value : 0.01242         
 ##                                           
-##             Sensitivity : 0.5064          
-##             Specificity : 0.8889          
-##          Pos Pred Value : 0.7315          
-##          Neg Pred Value : 0.7508          
-##               Precision : 0.7315          
-##                  Recall : 0.5064          
-##                      F1 : 0.5985          
-##              Prevalence : 0.3741          
-##          Detection Rate : 0.1894          
-##    Detection Prevalence : 0.2590          
-##       Balanced Accuracy : 0.6976          
+##             Sensitivity : 0.4793          
+##             Specificity : 0.8750          
+##          Pos Pred Value : 0.6105          
+##          Neg Pred Value : 0.8043          
+##               Precision : 0.6105          
+##                  Recall : 0.4793          
+##                      F1 : 0.5370          
+##              Prevalence : 0.2902          
+##          Detection Rate : 0.1391          
+##    Detection Prevalence : 0.2278          
+##       Balanced Accuracy : 0.6772          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -330,7 +330,7 @@ liec_shire_2011OAC_RU %>%
   ggplot2::theme_bw()
 ```
 
-<img src="401-supervised-learning_files/figure-html/unnamed-chunk-9-1.png" width="576" />
+<img src="301-supervised-learning_files/figure-html/unnamed-chunk-9-1.png" width="576" />
 
 The plot illustrates how the two variables are skewed (note that the axes are logarithmically transformed) and that the two groups are not linearly separable. We can thus follow a procedure similar to the one seen above: extract the necessary data; split the data between training and testing for validation; build the model; predict the values for the testing set and interpret the confusion matrix.
 
@@ -401,29 +401,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    60    18
-##      urban    68   271
+##      rural    65    25
+##      urban    60   267
 ##                                           
-##                Accuracy : 0.7938          
-##                  95% CI : (0.7517, 0.8316)
-##     No Information Rate : 0.693           
-##     P-Value [Acc > NIR] : 2.519e-06       
+##                Accuracy : 0.7962          
+##                  95% CI : (0.7543, 0.8338)
+##     No Information Rate : 0.7002          
+##     P-Value [Acc > NIR] : 6.205e-06       
 ##                                           
-##                   Kappa : 0.4561          
+##                   Kappa : 0.4722          
 ##                                           
-##  Mcnemar's Test P-Value : 1.265e-07       
+##  Mcnemar's Test P-Value : 0.0002262       
 ##                                           
-##             Sensitivity : 0.4688          
-##             Specificity : 0.9377          
-##          Pos Pred Value : 0.7692          
-##          Neg Pred Value : 0.7994          
-##               Precision : 0.7692          
-##                  Recall : 0.4688          
-##                      F1 : 0.5825          
-##              Prevalence : 0.3070          
-##          Detection Rate : 0.1439          
-##    Detection Prevalence : 0.1871          
-##       Balanced Accuracy : 0.7032          
+##             Sensitivity : 0.5200          
+##             Specificity : 0.9144          
+##          Pos Pred Value : 0.7222          
+##          Neg Pred Value : 0.8165          
+##               Precision : 0.7222          
+##                  Recall : 0.5200          
+##                      F1 : 0.6047          
+##              Prevalence : 0.2998          
+##          Detection Rate : 0.1559          
+##    Detection Prevalence : 0.2158          
+##       Balanced Accuracy : 0.7172          
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -510,12 +510,12 @@ caret::confusionMatrix(
 ##           Reference
 ## Prediction rural urban
 ##      rural     0     0
-##      urban   139   278
+##      urban   141   276
 ##                                           
-##                Accuracy : 0.6667          
-##                  95% CI : (0.6192, 0.7118)
-##     No Information Rate : 0.6667          
-##     P-Value [Acc > NIR] : 0.523           
+##                Accuracy : 0.6619          
+##                  95% CI : (0.6142, 0.7072)
+##     No Information Rate : 0.6619          
+##     P-Value [Acc > NIR] : 0.5229          
 ##                                           
 ##                   Kappa : 0               
 ##                                           
@@ -524,11 +524,11 @@ caret::confusionMatrix(
 ##             Sensitivity : 0.0000          
 ##             Specificity : 1.0000          
 ##          Pos Pred Value :    NaN          
-##          Neg Pred Value : 0.6667          
+##          Neg Pred Value : 0.6619          
 ##               Precision :     NA          
 ##                  Recall : 0.0000          
 ##                      F1 :     NA          
-##              Prevalence : 0.3333          
+##              Prevalence : 0.3381          
 ##          Detection Rate : 0.0000          
 ##    Detection Prevalence : 0.0000          
 ##       Balanced Accuracy : 0.5000          
@@ -587,29 +587,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    37    27
-##      urban   102   251
+##      rural    38    15
+##      urban   103   261
 ##                                           
-##                Accuracy : 0.6906          
-##                  95% CI : (0.6438, 0.7347)
-##     No Information Rate : 0.6667          
-##     P-Value [Acc > NIR] : 0.1619          
+##                Accuracy : 0.717           
+##                  95% CI : (0.6712, 0.7598)
+##     No Information Rate : 0.6619          
+##     P-Value [Acc > NIR] : 0.009211        
 ##                                           
-##                   Kappa : 0.1954          
+##                   Kappa : 0.2539          
 ##                                           
-##  Mcnemar's Test P-Value : 7.253e-11       
+##  Mcnemar's Test P-Value : 1.156e-15       
 ##                                           
-##             Sensitivity : 0.26619         
-##             Specificity : 0.90288         
-##          Pos Pred Value : 0.57813         
-##          Neg Pred Value : 0.71105         
-##               Precision : 0.57812         
-##                  Recall : 0.26619         
-##                      F1 : 0.36453         
-##              Prevalence : 0.33333         
-##          Detection Rate : 0.08873         
-##    Detection Prevalence : 0.15348         
-##       Balanced Accuracy : 0.58453         
+##             Sensitivity : 0.26950         
+##             Specificity : 0.94565         
+##          Pos Pred Value : 0.71698         
+##          Neg Pred Value : 0.71703         
+##               Precision : 0.71698         
+##                  Recall : 0.26950         
+##                      F1 : 0.39175         
+##              Prevalence : 0.33813         
+##          Detection Rate : 0.09113         
+##    Detection Prevalence : 0.12710         
+##       Balanced Accuracy : 0.60758         
 ##                                           
 ##        'Positive' Class : rural           
 ## 
@@ -669,7 +669,7 @@ ru_dwellings_nnet_model <-
 ru_dwellings_nnet_model %>%  plot(rep = "best")
 ```
 
-<img src="401-supervised-learning_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="301-supervised-learning_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ```r
 # Predict the values for the testing dataset
@@ -723,29 +723,29 @@ caret::confusionMatrix(
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    47    40
-##      urban    92   238
+##      rural    54    21
+##      urban    87   255
 ##                                           
-##                Accuracy : 0.6835          
-##                  95% CI : (0.6364, 0.7279)
-##     No Information Rate : 0.6667          
-##     P-Value [Acc > NIR] : 0.2508          
+##                Accuracy : 0.741           
+##                  95% CI : (0.6961, 0.7824)
+##     No Information Rate : 0.6619          
+##     P-Value [Acc > NIR] : 0.0002986       
 ##                                           
-##                   Kappa : 0.2143          
+##                   Kappa : 0.3466          
 ##                                           
-##  Mcnemar's Test P-Value : 9.039e-06       
+##  Mcnemar's Test P-Value : 3.985e-10       
 ##                                           
-##             Sensitivity : 0.3381          
-##             Specificity : 0.8561          
-##          Pos Pred Value : 0.5402          
-##          Neg Pred Value : 0.7212          
-##               Precision : 0.5402          
-##                  Recall : 0.3381          
-##                      F1 : 0.4159          
-##              Prevalence : 0.3333          
-##          Detection Rate : 0.1127          
-##    Detection Prevalence : 0.2086          
-##       Balanced Accuracy : 0.5971          
+##             Sensitivity : 0.3830          
+##             Specificity : 0.9239          
+##          Pos Pred Value : 0.7200          
+##          Neg Pred Value : 0.7456          
+##               Precision : 0.7200          
+##                  Recall : 0.3830          
+##                      F1 : 0.5000          
+##              Prevalence : 0.3381          
+##          Detection Rate : 0.1295          
+##    Detection Prevalence : 0.1799          
+##       Balanced Accuracy : 0.6534          
 ##                                           
 ##        'Positive' Class : rural           
 ## 

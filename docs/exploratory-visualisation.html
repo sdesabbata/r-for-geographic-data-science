@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 7 Exploratory visualisation | R for Geographic Data Science</title>
+<title>Chapter 5 Exploratory visualisation | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
 <meta name="description" content="This chapter is currently a draft. Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
-<meta property="og:title" content="Chapter 7 Exploratory visualisation | R for Geographic Data Science">
+<meta property="og:title" content="Chapter 5 Exploratory visualisation | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/exploratory-visualisation.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <meta property="og:description" content="This chapter is currently a draft. Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 7 Exploratory visualisation | R for Geographic Data Science">
+<meta name="twitter:title" content="Chapter 5 Exploratory visualisation | R for Geographic Data Science">
 <meta name="twitter:description" content="This chapter is currently a draft. Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -80,17 +80,17 @@
 <li><a class="" href="reproducible-data-science.html"><span class="header-section-number">2</span> Reproducible data science</a></li>
 <li><a class="" href="data-manipulation.html"><span class="header-section-number">3</span> Data manipulation</a></li>
 <li><a class="" href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></li>
-<li class="book-part">R scripting</li>
-<li><a class="" href="control-structures.html"><span class="header-section-number">5</span> Control structures</a></li>
-<li><a class="" href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></li>
 <li class="book-part">Data analysis</li>
-<li><a class="active" href="exploratory-visualisation.html"><span class="header-section-number">7</span> Exploratory visualisation</a></li>
-<li><a class="" href="exploratory-statistics.html"><span class="header-section-number">8</span> Exploratory statistics</a></li>
-<li><a class="" href="comparing-data.html"><span class="header-section-number">9</span> Comparing data</a></li>
-<li><a class="" href="regression-analysis.html"><span class="header-section-number">10</span> Regression analysis</a></li>
+<li><a class="active" href="exploratory-visualisation.html"><span class="header-section-number">5</span> Exploratory visualisation</a></li>
+<li><a class="" href="exploratory-statistics.html"><span class="header-section-number">6</span> Exploratory statistics</a></li>
+<li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">11</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">12</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li class="book-part">R scripting</li>
+<li><a class="" href="control-structures.html"><span class="header-section-number">11</span> Control structures</a></li>
+<li><a class="" href="working-with-functions.html"><span class="header-section-number">12</span> Working with functions</a></li>
 <li class="book-part">Appendices</li>
 <li><a class="" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
@@ -104,21 +104,21 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="exploratory-visualisation" class="section level1" number="7">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="exploratory-visualisation" class="section level1" number="5">
 <h1>
-<span class="header-section-number">7</span> Exploratory visualisation<a class="anchor" aria-label="anchor" href="#exploratory-visualisation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5</span> Exploratory visualisation<a class="anchor" aria-label="anchor" href="#exploratory-visualisation"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the <code>u011</code> variable from the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification (2011OAC)</a> dataset introduced in <a href="https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html#read-and-write-data">chapter 4</a>.</p>
 <p>Before continuing, create a new R project in RStudio, and upload the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file to the project folder. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.</p>
-<div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
 <span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
-<div id="gglot2-recap" class="section level2" number="7.1">
+<div id="gglot2-recap" class="section level2" number="5.1">
 <h2>
-<span class="header-section-number">7.1</span> GGlot2 recap<a class="anchor" aria-label="anchor" href="#gglot2-recap"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.1</span> GGlot2 recap<a class="anchor" aria-label="anchor" href="#gglot2-recap"><i class="fas fa-link"></i></a>
 </h2>
 <p>As seen in the introductory chapter, the <a href="https://ggplot2.tidyverse.org"><code>ggplot2</code> library</a> is part of the Tidyverse, and it offers a series of functions for creating graphics <strong>declaratively</strong>, based on the concepts outlined in the Grammar of Graphics. While the <code>dplyr</code> library offers functionalities that cover <em>data manipulation</em> and <em>variable transformations</em>, the <code>ggplot2</code> library offers functionalities that allow to specify elements, define guides, and apply scale and coordinate system transformations.</p>
 <ul>
@@ -135,13 +135,13 @@
 </ul>
 <p>Check out the <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> reference</a> for all the details about the functions and options discussed below.</p>
 </div>
-<div id="data-visualisation" class="section level2" number="7.2">
+<div id="data-visualisation" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">7.2</span> Data visualisation<a class="anchor" aria-label="anchor" href="#data-visualisation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Data visualisation<a class="anchor" aria-label="anchor" href="#data-visualisation"><i class="fas fa-link"></i></a>
 </h2>
-<div id="distributions" class="section level3" number="7.2.1">
+<div id="distributions" class="section level3" number="5.2.1">
 <h3>
-<span class="header-section-number">7.2.1</span> Distributions<a class="anchor" aria-label="anchor" href="#distributions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.1</span> Distributions<a class="anchor" aria-label="anchor" href="#distributions"><i class="fas fa-link"></i></a>
 </h3>
 <p>We start the analysis with a simple histogram, to explore the distribution of the variable <code>u011</code>. RMarkdown allows specifying the height (as well as the width) of the figure as an option for the R snipped, as shown in the example typed out in plain text below.</p>
 <pre><code>```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
@@ -155,7 +155,7 @@ leicester_2011OAC %&gt;%
   ggplot2::theme_bw()
 ```</code></pre>
 <p>The snipped and barchart is included in output documents, as shown below.</p>
-<div class="sourceCode" id="cb225"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -164,10 +164,10 @@ leicester_2011OAC %&gt;%
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span>binwidth <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
+<div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <p>If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship.</p>
 <p>For instance, the barchart above can be enhanced through the use of the visual variable colour and the <code>fill</code> option. The code creates a stacked barchart where sections of each bar are filled with the colour associated with a 2011OAC supergroup.</p>
-<div class="sourceCode" id="cb226"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -186,9 +186,9 @@ leicester_2011OAC %&gt;%
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#e41a1c"</span>, <span class="st">"#f781bf"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"#a65628"</span>, <span class="st">"#984ea3"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#ffff33"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
+<div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>However, the graphic above is not extremely clear. A boxplot and a violin plot created from the same data are shown below. In both cases, the parameter <code>axis.text.x</code> of the function theme is set to <code>element_text(angle = 90, hjust = 1)</code> in order to orientate the labels on the x-axis vertically, as the supergroup names are rather long, and they would overlap one-another if set horizontally on the x-axis. In both cases, the option <code>fig.height</code> of the R snippet in RMarkdown should be set to a higher value (e.g., <code>5</code>) to allow for sufficient room for the supergroup names.</p>
-<div class="sourceCode" id="cb227"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -209,8 +209,8 @@ leicester_2011OAC %&gt;%
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
-<div class="sourceCode" id="cb228"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -231,14 +231,14 @@ leicester_2011OAC %&gt;%
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
+<div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 </div>
-<div id="relationships" class="section level3" number="7.2.2">
+<div id="relationships" class="section level3" number="5.2.2">
 <h3>
-<span class="header-section-number">7.2.2</span> Relationships<a class="anchor" aria-label="anchor" href="#relationships"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2.2</span> Relationships<a class="anchor" aria-label="anchor" href="#relationships"><i class="fas fa-link"></i></a>
 </h3>
 <p>The first barchart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare <code>u011</code> to <code>Total_Population</code>, for instance, through a scatterplot such as the one below.</p>
-<div class="sourceCode" id="cb229"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -260,12 +260,12 @@ leicester_2011OAC %&gt;%
 <span>    values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#e41a1c"</span>, <span class="st">"#f781bf"</span>, <span class="st">"#ff7f00"</span>, <span class="st">"#a65628"</span>, <span class="st">"#984ea3"</span>, <span class="st">"#377eb8"</span>, <span class="st">"#ffff33"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="301-exploratory-visualisation_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 </div>
 </div>
-<div id="exercise-304.1" class="section level2" number="7.3">
+<div id="exercise-304.1" class="section level2" number="5.3">
 <h2>
-<span class="header-section-number">7.3</span> Exercise 304.1<a class="anchor" aria-label="anchor" href="#exercise-304.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.3</span> Exercise 304.1<a class="anchor" aria-label="anchor" href="#exercise-304.1"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 304.1.1:</strong> Which one of the boxplot or violin plot above do you think better illustrate the different distributions, and what do the two graphics say about the distribution of people aged 20 to 24 in Leicester? Write a short answer in your RMarkdown document (max 200 words).</p>
 <p><strong>Question 304.1.2:</strong> Create a jittered points plot (see <a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html"><code>geom_jitter</code></a>) visualisation illustrating the same data shown in the boxplot and violin plot above.</p>
@@ -276,26 +276,26 @@ leicester_2011OAC %&gt;%
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="working-with-functions.html"><span class="header-section-number">6</span> Working with functions</a></div>
-<div class="next"><a href="exploratory-statistics.html"><span class="header-section-number">8</span> Exploratory statistics</a></div>
+<div class="prev"><a href="table-operations.html"><span class="header-section-number">4</span> Table operations</a></div>
+<div class="next"><a href="exploratory-statistics.html"><span class="header-section-number">6</span> Exploratory statistics</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#exploratory-visualisation"><span class="header-section-number">7</span> Exploratory visualisation</a></li>
-<li><a class="nav-link" href="#gglot2-recap"><span class="header-section-number">7.1</span> GGlot2 recap</a></li>
+<li><a class="nav-link" href="#exploratory-visualisation"><span class="header-section-number">5</span> Exploratory visualisation</a></li>
+<li><a class="nav-link" href="#gglot2-recap"><span class="header-section-number">5.1</span> GGlot2 recap</a></li>
 <li>
-<a class="nav-link" href="#data-visualisation"><span class="header-section-number">7.2</span> Data visualisation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#distributions"><span class="header-section-number">7.2.1</span> Distributions</a></li>
-<li><a class="nav-link" href="#relationships"><span class="header-section-number">7.2.2</span> Relationships</a></li>
+<a class="nav-link" href="#data-visualisation"><span class="header-section-number">5.2</span> Data visualisation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#distributions"><span class="header-section-number">5.2.1</span> Distributions</a></li>
+<li><a class="nav-link" href="#relationships"><span class="header-section-number">5.2.2</span> Relationships</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercise-304.1"><span class="header-section-number">7.3</span> Exercise 304.1</a></li>
+<li><a class="nav-link" href="#exercise-304.1"><span class="header-section-number">5.3</span> Exercise 304.1</a></li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/301-exploratory-visualisation.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/301-exploratory-visualisation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/201-exploratory-visualisation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/201-exploratory-visualisation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -307,7 +307,7 @@ leicester_2011OAC %&gt;%
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-20.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-25.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
