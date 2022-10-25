@@ -80,7 +80,7 @@ city_info_back_to_wide %>%
   knitr::kable()
 ```
 
-## Join
+## Joining tables
 
 A join operation combines two tables into one by matching rows that have the same values in the specified column. This operation is usually executed on columns containing identifiers, which are matched through different tables containing different data about the same real-world entities. For instance, the table below presents the telephone prefixes for two cities. That information can be combined with the data present in the wide-formatted table above through a join operation on the columns containing the city names. As the two tables do not contain all the same cities, if a full join operation is executed, some cells have no values assigned.
 
@@ -237,16 +237,11 @@ city_info_wide %>%
 
 
 
-## Data wrangling example
+## Data: Indices of Multiple Deprivation
 
-Download from Blackboard (or the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the following files:
+Open the `Leicester_population` project created for the previous chapter. Create a new RMarkdown document using *"Exploring deprivation indices in Leicester"* as the title and *PDF* as the output file type. Delete the example code after the `setup` chunk. Add a new markdown second-heading section named *Libraries* and a chunk loading the `tidyverse` and `knitr` libraries (see below). Save the file with the name `exploring_Leicester_deprivation.Rmd` in the *Leicester_population* project.
 
-- `2011_OAC_Raw_uVariables_Leicester.csv`
-- `IndexesMultipleDeprivation2015_Leicester.csv`
-
-Create a *Practical_214* project and make sure it is activated and thus the *Practical_214* showing in the *File* tab in the bottom-right panel. Upload the two files to the *Practical_214* folder by clicking on the *Upload* button and selecting the files from your computer (at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after upload using Microsoft Edge).
-
-Create a new R script named `Data_Wrangling_Example.R` in the *Practical_214* project, and add `library(tidyverse)` as the first line. Use that new script for this and the following sections of this chapter.
+Download from Blackboard (or the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the file `IndexesMultipleDeprivation2015_Leicester.csv` and upload the file to the *Leicester_population* folder by clicking on the *Upload* button and selecting the files from your computer.
 
 The [Indexes of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015) (see [map at cdrc.ac.uk](https://maps.cdrc.ac.uk/#/geodemographics/imde2015)) are based on a series of variables across seven distinct domains of deprivation which are combined to calculate the Index of Multiple Deprivation 2015 (IMD 2015). That is an overall measure of multiple deprivations experienced by people living in an area. These indexes are calculated for every Lower layer Super Output Area (LSOA), which are larger geographic unit than the OAs used for the 2011 OAC. The dataset in the file `IndexesMultipleDeprivation2015_Leicester.csv` contains the main Index of Multiple Deprivation, as well as the values for the seven distinct domains of deprivation, and two additional indexes regarding deprivation affecting children and older people. The dataset includes scores, ranks (where 1 indicates the most deprived area), and decile (i.e., the first decile includes the 10% most deprived areas in England). 
 
@@ -291,7 +286,9 @@ leicester_2011OAC <-
   )
 ```
 
-### Re-shaping 
+
+
+### From long to wide table
 
 The IMD 2015 data are in a *long* format, which means that every area is represented by more than one row: the column `Value` presents the value; the column `IndicesOfDeprivation` indicates which index the value refers to; the column `Measurement` indicates whether the value is a score, rank, or decile. The code below illustrates the data format used for the `IndicesOfDeprivation` table, and showing the rows for the LSOA including the University of Leicester (feature code `E01013649`).
 
@@ -305,8 +302,6 @@ leicester_IMD2015 %>%
 In the following section, the analysis aims to explore how certain census variables vary in areas with different deprivation levels. Thus, we need to extract the `Decile` rows from the IMD 2015 dataset and transform the data in a *wide* format, where each index is represented as a separate column. 
 
 To that purpose, we also need to change the name of the indexes slightly, to exclude spaces and punctuation, so that the new column names are simpler than the original text, and can be used as column names. That part of the manipulation is performed using `mutate` and functions from the [`stringr` library](https://stringr.tidyverse.org/).
-
-
 
 ```{r, echo=TRUE}
 leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
@@ -368,7 +363,9 @@ leicester_IMD2015_decile_wide %>%
   knitr::kable()
 ```
 
-### Join
+
+
+### Joining tables
 
 As discussed above, two tables can be joined using a common column of identifiers. We can thus join the 2011 OAC and the IMD 2015 datasets into a single table. The LSOA code included in the 2011 OAC table is used to match that information with the corresponding row in the IMD 2015. The resulting table provides all the information from the 2011 OAC for each OA, plus the Index of Multiple Deprivations decile for the LSOA containing each OA.
 
@@ -417,72 +414,19 @@ leicester_2011OAC_IMD2015 %>%
 
 
 
-## Exercise 214.1
+## Exercise 104.1
 
-Extend the code in the script `Data_Wrangling_Example.R` (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
+Extend the *"Exploring deprivation indices in Leicester"* document to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
 
-```{r, echo=TRUE, eval=FALSE}
-# Data_Wrangling_Example.R 
+**Question 104.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.
 
-# Load the tidyverse
-library(tidyverse)
+**Question 104.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.
 
-# Load 2011 OAC data
-leicester_2011OAC <- 
-  readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+**Question 104.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.
 
-# Load Indexes of Multiple deprivation data
-leicester_IMD2015 <- 
-  readr::read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
+**Question 104.1.4:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a long format of the `leicester_2011OAC_IMD2015` table only including the values (census variables) used in *Question 104.1.3*.
 
-leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
-  # Select only Socres
-  dplyr::filter(Measurement == "Decile") %>%
-  # Trim names of IndicesOfDeprivation
-  dplyr::mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
-  ) %>%
-  dplyr::mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
-  ) %>%
-  dplyr::mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
-  ) %>%
-  dplyr::mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
-  ) %>%
-  # Spread
-  pivot_wider(
-    names_from = IndicesOfDeprivation,
-    values_from = Value
-  ) %>%
-  # Drop columns
-  dplyr::select(-DateCode, -Measurement, -Units)
-
-# Join
-leicester_2011OAC_IMD2015 <- 
-  leicester_2011OAC %>%
-  inner_join(
-    leicester_IMD2015_decile_wide, 
-    by = c("LSOA11CD" = "FeatureCode")
-  )
-```
-
-**Question 214.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.
-
-**Question 214.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.
-
-**Question 214.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.
-
-
-
-## Exercise 214.2
-
-Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below.
-
-**Question 214.2.1:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a long format of the `leicester_2011OAC_IMD2015` table only including the values (census variables) used in *Question 214.1.3*.
-
-**Question 214.2.2:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a table similar to the one generated for *Question 214.2.1*, but showing the values as percentages over total population.
+**Question 104.1.5:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a table similar to the one generated for *Question 104.1.4*, but showing the values as percentages over total population.
 
 
 <!--

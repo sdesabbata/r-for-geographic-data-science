@@ -339,6 +339,166 @@ leicester_2011OAC %>%
 **Question 103.1.4:** Modify the code written for *Question 103.1.3*, using [the verb `rename`]() to change the column names of the columns containing the percentages to names that resemble the related housing type (e.g., `perc_of_detached`).
 
 
+## Solutions 104 {-}
+
+### Solutions 104.1 {-}
+
+Extend the code in the script `Data_Wrangling_Example.R` (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
+
+
+```r
+# Data_Wrangling_Example.R 
+
+# Load the tidyverse
+library(tidyverse)
+
+# Load 2011 OAC data
+leicester_2011OAC <- 
+  readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+# Load Indexes of Multiple deprivation data
+leicester_IMD2015 <- 
+  readr::read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
+
+leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
+  # Select only Socres
+  filter(Measurement == "Decile") %>%
+  # Trim names of IndicesOfDeprivation
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
+  ) %>%
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
+  ) %>%
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
+  ) %>%
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
+  ) %>%
+  # Spread
+  pivot_wider(
+    names_from = IndicesOfDeprivation,
+    values_from = Value
+  ) %>%
+  # Drop columns
+  select(-DateCode, -Measurement, -Units)
+
+# Join
+leicester_2011OAC_IMD2015 <- 
+  leicester_2011OAC %>%
+  inner_join(
+    leicester_IMD2015_decile_wide, 
+    by = c("LSOA11CD" = "FeatureCode")
+  )
+```
+
+**Question 104.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.
+
+
+```r
+leicester_2011OAC_IMD2015 %>%
+  filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
+  group_by(IndexofMultipleDeprivationIMD) %>%
+  summarise(
+    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
+  ) %>%
+  knitr::kable()
+```
+
+**Question 104.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.
+
+
+```r
+leicester_2011OAC_IMD2015 %>%
+  filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  group_by(supgrpname) %>%
+  summarise(
+    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
+  ) %>%
+  knitr::kable()
+```
+
+
+**Question 104.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.
+
+
+```r
+leicester_2011OAC_IMD2015 %>%
+  filter(IndexofMultipleDeprivationIMD <= 5) %>%
+  group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
+  summarise(
+    aged_65_above = (sum(u016 + u017 + u018 + u019) / sum(Total_Population)) * 100
+  ) %>%
+  arrange(-aged_65_above) %>%
+  knitr::kable()
+```
+
+Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below.
+
+**Question 104.1.4:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a long format of the `leicester_2011OAC_IMD2015` table only including the values (census variables) used in *Question 104.1.3*.
+
+
+```r
+long_table <- leicester_2011OAC_IMD2015 %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  tidyr::pivot_longer(
+    # Can't combine character values (e.g. supgrpname)
+    # with numeric value (e.g, Total_Population) thus
+    # pivot only numeric columns
+    cols = u016:Total_Population,
+    names_to = "attribute",
+    values_to = "value"
+  ) 
+
+long_table %>%
+  slice_head(n = 5) %>%
+  knitr::kable()
+
+long_table_alt <- leicester_2011OAC_IMD2015 %>%
+  select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  tidyr::pivot_longer(
+    # Otherwise, use supgrpcode instead of supgrpname
+    cols = -OA11CD,
+    names_to = "attribute",
+    values_to = "value"
+  ) 
+
+long_table_alt %>%
+  slice_head(n = 7) %>%
+  knitr::kable()
+```
+
+
+**Question 104.1.5:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a table similar to the one generated for *Question 104.1.4*, but showing the values as percentages over total population.
+
+
+```r
+perc_long_table <- leicester_2011OAC_IMD2015 %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
+  mutate(
+    perc_u016 = (u016 / Total_Population) * 100, 
+    perc_u017 = (u017 / Total_Population) * 100, 
+    perc_u018 = (u018 / Total_Population) * 100, 
+    perc_u019 = (u019 / Total_Population) * 100
+  ) %>%
+  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
+  tidyr::pivot_longer(
+    # Can't combine character values (e.g. supgrpname)
+    # with numeric value (e.g, Total_Population) thus
+    # pivot only numeric columns
+    cols = perc_u016:perc_u019,
+    names_to = "attribute",
+    values_to = "value"
+  ) 
+
+perc_long_table %>%
+  slice_head(n = 5) %>%
+  knitr::kable()
+```
+
+
+
 
 <!--
 
@@ -598,169 +758,6 @@ silly_function(-1:1, cities)
 silly_function(cities, 1:3)
 ```
 
-
-
-
-## Solutions 214 {-}
-
-### Solutions 214.1 {-}
-
-Extend the code in the script `Data_Wrangling_Example.R` (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
-
-
-```r
-# Data_Wrangling_Example.R 
-
-# Load the tidyverse
-library(tidyverse)
-
-# Load 2011 OAC data
-leicester_2011OAC <- 
-  readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-# Load Indexes of Multiple deprivation data
-leicester_IMD2015 <- 
-  readr::read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
-
-leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
-  # Select only Socres
-  filter(Measurement == "Decile") %>%
-  # Trim names of IndicesOfDeprivation
-  mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
-  ) %>%
-  mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
-  ) %>%
-  mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
-  ) %>%
-  mutate(
-    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
-  ) %>%
-  # Spread
-  pivot_wider(
-    names_from = IndicesOfDeprivation,
-    values_from = Value
-  ) %>%
-  # Drop columns
-  select(-DateCode, -Measurement, -Units)
-
-# Join
-leicester_2011OAC_IMD2015 <- 
-  leicester_2011OAC %>%
-  inner_join(
-    leicester_IMD2015_decile_wide, 
-    by = c("LSOA11CD" = "FeatureCode")
-  )
-```
-
-**Question 214.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.
-
-
-```r
-leicester_2011OAC_IMD2015 %>%
-  filter(supgrpname %in% c("Cosmopolitans", "Ethnicity Central", "Multicultural Metropolitans")) %>%
-  group_by(IndexofMultipleDeprivationIMD) %>%
-  summarise(
-    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
-  ) %>%
-  knitr::kable()
-```
-
-**Question 214.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.
-
-
-```r
-leicester_2011OAC_IMD2015 %>%
-  filter(IndexofMultipleDeprivationIMD <= 5) %>%
-  group_by(supgrpname) %>%
-  summarise(
-    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
-  ) %>%
-  knitr::kable()
-```
-
-
-**Question 214.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.
-
-
-```r
-leicester_2011OAC_IMD2015 %>%
-  filter(IndexofMultipleDeprivationIMD <= 5) %>%
-  group_by(supgrpname, IndexofMultipleDeprivationIMD) %>%
-  summarise(
-    aged_65_above = (sum(u016 + u017 + u018 + u019) / sum(Total_Population)) * 100
-  ) %>%
-  arrange(-aged_65_above) %>%
-  knitr::kable()
-```
-
-
-### Solutions 214.2 {-}
-
-Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below.
-
-**Question 214.2.1:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a long format of the `leicester_2011OAC_IMD2015` table only including the values (census variables) used in *Question 214.1.3*.
-
-
-```r
-long_table <- leicester_2011OAC_IMD2015 %>%
-  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  tidyr::pivot_longer(
-    # Can't combine character values (e.g. supgrpname)
-    # with numeric value (e.g, Total_Population) thus
-    # pivot only numeric columns
-    cols = u016:Total_Population,
-    names_to = "attribute",
-    values_to = "value"
-  ) 
-
-long_table %>%
-  slice_head(n = 5) %>%
-  knitr::kable()
-
-long_table_alt <- leicester_2011OAC_IMD2015 %>%
-  select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  tidyr::pivot_longer(
-    # Otherwise, use supgrpcode instead of supgrpname
-    cols = -OA11CD,
-    names_to = "attribute",
-    values_to = "value"
-  ) 
-
-long_table_alt %>%
-  slice_head(n = 7) %>%
-  knitr::kable()
-```
-
-
-**Question 214.2.2:** Write a piece of code using the pipe operator and the `dplyr` and `tidyr` libraries to generate a table similar to the one generated for *Question 214.2.1*, but showing the values as percentages over total population.
-
-
-```r
-perc_long_table <- leicester_2011OAC_IMD2015 %>%
-  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  mutate(
-    perc_u016 = (u016 / Total_Population) * 100, 
-    perc_u017 = (u017 / Total_Population) * 100, 
-    perc_u018 = (u018 / Total_Population) * 100, 
-    perc_u019 = (u019 / Total_Population) * 100
-  ) %>%
-  select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
-  tidyr::pivot_longer(
-    # Can't combine character values (e.g. supgrpname)
-    # with numeric value (e.g, Total_Population) thus
-    # pivot only numeric columns
-    cols = perc_u016:perc_u019,
-    names_to = "attribute",
-    values_to = "value"
-  ) 
-
-perc_long_table %>%
-  slice_head(n = 5) %>%
-  knitr::kable()
-```
 
 -->
 

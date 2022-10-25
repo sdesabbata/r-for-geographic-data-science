@@ -47,12 +47,11 @@ exercises-103.1
 exercises-103.2
 table-operations
 long-and-wide-table-formats
-join
-data-wrangling-example
-re-shaping
-join-1
-exercise-214.1
-exercise-214.2
+joining-tables
+data-indices-of-multiple-deprivation
+from-long-to-wide-table
+joining-tables-1
+exercise-104.1
 exploratory-visualisation
 gglot2-recap
 data-visualisation
