@@ -700,9 +700,14 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 <div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
-<div id="from-long-to-wide-table" class="section level3" number="4.3.1">
+</div>
+<div id="working-with-multiple-tables" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> Working with multiple tables<a class="anchor" aria-label="anchor" href="#working-with-multiple-tables"><i class="fas fa-link"></i></a>
+</h2>
+<div id="from-long-to-wide-table" class="section level3" number="4.4.1">
 <h3>
-<span class="header-section-number">4.3.1</span> From long to wide table<a class="anchor" aria-label="anchor" href="#from-long-to-wide-table"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1</span> From long to wide table<a class="anchor" aria-label="anchor" href="#from-long-to-wide-table"><i class="fas fa-link"></i></a>
 </h3>
 <p>The IMD 2015 data are in a <em>long</em> format, which means that every area is represented by more than one row: the column <code>Value</code> presents the value; the column <code>IndicesOfDeprivation</code> indicates which index the value refers to; the column <code>Measurement</code> indicates whether the value is a score, rank, or decile. The code below illustrates the data format used for the <code>IndicesOfDeprivation</code> table, and showing the rows for the LSOA including the University of Leicester (feature code <code>E01013649</code>).</p>
 <div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
@@ -999,9 +1004,9 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </tr></tbody>
 </table></div>
 </div>
-<div id="joining-tables-1" class="section level3" number="4.3.2">
+<div id="joining-tables-1" class="section level3" number="4.4.2">
 <h3>
-<span class="header-section-number">4.3.2</span> Joining tables<a class="anchor" aria-label="anchor" href="#joining-tables-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2</span> Joining tables<a class="anchor" aria-label="anchor" href="#joining-tables-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>As discussed above, two tables can be joined using a common column of identifiers. We can thus join the 2011 OAC and the IMD 2015 datasets into a single table. The LSOA code included in the 2011 OAC table is used to match that information with the corresponding row in the IMD 2015. The resulting table provides all the information from the 2011 OAC for each OA, plus the Index of Multiple Deprivations decile for the LSOA containing each OA.</p>
 <p>That operation can be carried out using the function <code>inner_join</code>, and specifying the common column (or columns, if more than one is to be used as identifier) as argument of <code>by</code>. Note that using <code>inner_join</code> would result in dropping any row which doesn’t have a match in the other table, either way. In this case, that should not happen, as all OAs are part of an LSOA, and any LSOA contains at least one OA.</p>
@@ -1360,9 +1365,9 @@ Note that the `~` in the path below indicates the home folder -- a different pat
 </table></div>
 </div>
 </div>
-<div id="exercise-104.1" class="section level2" number="4.4">
+<div id="exercise-104.1" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">4.4</span> Exercise 104.1<a class="anchor" aria-label="anchor" href="#exercise-104.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Exercise 104.1<a class="anchor" aria-label="anchor" href="#exercise-104.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Extend the <em>“Exploring deprivation indices in Leicester”</em> document to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
 <p><strong>Question 104.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.</p>
@@ -1393,13 +1398,14 @@ A full R Script including the code for the analysis presented in this chapter an
 <li><a class="nav-link" href="#table-operations"><span class="header-section-number">4</span> Table operations</a></li>
 <li><a class="nav-link" href="#long-and-wide-table-formats"><span class="header-section-number">4.1</span> Long and wide table formats</a></li>
 <li><a class="nav-link" href="#joining-tables"><span class="header-section-number">4.2</span> Joining tables</a></li>
+<li><a class="nav-link" href="#data-indices-of-multiple-deprivation"><span class="header-section-number">4.3</span> Data: Indices of Multiple Deprivation</a></li>
 <li>
-<a class="nav-link" href="#data-indices-of-multiple-deprivation"><span class="header-section-number">4.3</span> Data: Indices of Multiple Deprivation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#from-long-to-wide-table"><span class="header-section-number">4.3.1</span> From long to wide table</a></li>
-<li><a class="nav-link" href="#joining-tables-1"><span class="header-section-number">4.3.2</span> Joining tables</a></li>
+<a class="nav-link" href="#working-with-multiple-tables"><span class="header-section-number">4.4</span> Working with multiple tables</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#from-long-to-wide-table"><span class="header-section-number">4.4.1</span> From long to wide table</a></li>
+<li><a class="nav-link" href="#joining-tables-1"><span class="header-section-number">4.4.2</span> Joining tables</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#exercise-104.1"><span class="header-section-number">4.4</span> Exercise 104.1</a></li>
+<li><a class="nav-link" href="#exercise-104.1"><span class="header-section-number">4.5</span> Exercise 104.1</a></li>
 </ul>
 
       <div class="book-extra">

@@ -49,6 +49,7 @@ table-operations
 long-and-wide-table-formats
 joining-tables
 data-indices-of-multiple-deprivation
+working-with-multiple-tables
 from-long-to-wide-table
 joining-tables-1
 exercise-104.1
