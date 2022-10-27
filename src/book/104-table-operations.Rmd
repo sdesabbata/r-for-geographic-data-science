@@ -1,11 +1,9 @@
 # Table operations
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
-The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex example, loading and wrangling with data related to the [2011 Output Area Classification](https://github.com/geogale/2011OAC) and the [Indexes of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015).
+The first two sections illustrate the pivot and join functionalities of the Tidyverse libraries using simple examples. The last section instead presents a more complex example, loading and wrangling with data related to the [2011 Output Area Classification](https://github.com/geogale/2011OAC) and the [Indexes of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015).
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -243,7 +241,7 @@ Open the `Leicester_population` project created for the previous chapter. Create
 
 Download from Blackboard (or the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the file `IndexesMultipleDeprivation2015_Leicester.csv` and upload the file to the *Leicester_population* folder by clicking on the *Upload* button and selecting the files from your computer.
 
-The [Indexes of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015) (see [map at cdrc.ac.uk](https://maps.cdrc.ac.uk/#/geodemographics/imde2015)) are based on a series of variables across seven distinct domains of deprivation which are combined to calculate the Index of Multiple Deprivation 2015 (IMD 2015). That is an overall measure of multiple deprivations experienced by people living in an area. These indexes are calculated for every Lower layer Super Output Area (LSOA), which are larger geographic unit than the OAs used for the 2011 OAC. The dataset in the file `IndexesMultipleDeprivation2015_Leicester.csv` contains the main Index of Multiple Deprivation, as well as the values for the seven distinct domains of deprivation, and two additional indexes regarding deprivation affecting children and older people. The dataset includes scores, ranks (where 1 indicates the most deprived area), and decile (i.e., the first decile includes the 10% most deprived areas in England). 
+The [Indices of Multiple Deprivation 2015](https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015) (see [map at cdrc.ac.uk](https://maps.cdrc.ac.uk/#/geodemographics/imde2015)) are based on a series of variables across seven distinct domains of deprivation which are combined to calculate the Index of Multiple Deprivation 2015 (IMD 2015). That is an overall measure of multiple deprivations experienced by people living in an area. These indexes are calculated for every Lower layer Super Output Area (LSOA), which are larger geographic units than the OAs used for the 2011 OAC. The dataset in the file `IndexesMultipleDeprivation2015_Leicester.csv` contains the main Index of Multiple Deprivation, as well as the values for the seven distinct domains of deprivation and two additional indexes regarding deprivation affecting children and older people. The dataset includes scores, ranks (where 1 indicates the most deprived area), and decile (i.e., the first decile includes the 10% most deprived areas in England). 
 
 <!--
 Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).

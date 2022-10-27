@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 4 Table operations | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections...">
+<meta name="description" content="Print this chapter The first two sections illustrate the pivot and join functionalities of the Tidyverse libraries using simple examples. The last section instead presents a more complex example,...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 4 Table operations | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections...">
+<meta property="og:description" content="Print this chapter The first two sections illustrate the pivot and join functionalities of the Tidyverse libraries using simple examples. The last section instead presents a more complex example,...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 Table operations | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections...">
+<meta name="twitter:description" content="Print this chapter The first two sections illustrate the pivot and join functionalities of the Tidyverse libraries using simple examples. The last section instead presents a more complex example,...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -108,9 +108,8 @@
 <h1>
 <span class="header-section-number">4</span> Table operations<a class="anchor" aria-label="anchor" href="#table-operations"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<p>The first section illustrates the re-shape and join functionalities of the Tidyverse libraries using simple examples. The following sections instead present a more complex example, loading and wrangling with data related to the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> and the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015">Indexes of Multiple Deprivation 2015</a>.</p>
+<p>The first two sections illustrate the pivot and join functionalities of the Tidyverse libraries using simple examples. The last section instead presents a more complex example, loading and wrangling with data related to the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> and the <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015">Indexes of Multiple Deprivation 2015</a>.</p>
 <div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
@@ -689,7 +688,7 @@
 </h2>
 <p>Open the <code>Leicester_population</code> project created for the previous chapter. Create a new RMarkdown document using <em>“Exploring deprivation indices in Leicester”</em> as the title and <em>PDF</em> as the output file type. Delete the example code after the <code>setup</code> chunk. Add a new markdown second-heading section named <em>Libraries</em> and a chunk loading the <code>tidyverse</code> and <code>knitr</code> libraries (see below). Save the file with the name <code>exploring_Leicester_deprivation.Rmd</code> in the <em>Leicester_population</em> project.</p>
 <p>Download from Blackboard (or the <a href="https://github.com/sdesabbata/granolarr/tree/master/data">data</a> folder of the repository) the file <code>IndexesMultipleDeprivation2015_Leicester.csv</code> and upload the file to the <em>Leicester_population</em> folder by clicking on the <em>Upload</em> button and selecting the files from your computer.</p>
-<p>The <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015">Indexes of Multiple Deprivation 2015</a> (see <a href="https://maps.cdrc.ac.uk/#/geodemographics/imde2015">map at cdrc.ac.uk</a>) are based on a series of variables across seven distinct domains of deprivation which are combined to calculate the Index of Multiple Deprivation 2015 (IMD 2015). That is an overall measure of multiple deprivations experienced by people living in an area. These indexes are calculated for every Lower layer Super Output Area (LSOA), which are larger geographic unit than the OAs used for the 2011 OAC. The dataset in the file <code>IndexesMultipleDeprivation2015_Leicester.csv</code> contains the main Index of Multiple Deprivation, as well as the values for the seven distinct domains of deprivation, and two additional indexes regarding deprivation affecting children and older people. The dataset includes scores, ranks (where 1 indicates the most deprived area), and decile (i.e., the first decile includes the 10% most deprived areas in England).</p>
+<p>The <a href="https://www.gov.uk/government/statistics/english-indices-of-deprivation-2015">Indices of Multiple Deprivation 2015</a> (see <a href="https://maps.cdrc.ac.uk/#/geodemographics/imde2015">map at cdrc.ac.uk</a>) are based on a series of variables across seven distinct domains of deprivation which are combined to calculate the Index of Multiple Deprivation 2015 (IMD 2015). That is an overall measure of multiple deprivations experienced by people living in an area. These indexes are calculated for every Lower layer Super Output Area (LSOA), which are larger geographic units than the OAs used for the 2011 OAC. The dataset in the file <code>IndexesMultipleDeprivation2015_Leicester.csv</code> contains the main Index of Multiple Deprivation, as well as the values for the seven distinct domains of deprivation and two additional indexes regarding deprivation affecting children and older people. The dataset includes scores, ranks (where 1 indicates the most deprived area), and decile (i.e., the first decile includes the 10% most deprived areas in England).</p>
 <!--
 Note that the `~` in the path below indicates the home folder -- a different path might be necessary if you execute this on a windows machine, please see also [file.path](https://stat.ethz.ch/R-manual/R-devel/library/base/html/file.path.html).
 -->
@@ -1418,7 +1417,7 @@ A full R Script including the code for the analysis presented in this chapter an
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-25.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
