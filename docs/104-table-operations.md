@@ -44,10 +44,10 @@ city_info_wide <- data.frame(
     area = c(73.3, 74.6),
     density = c(4500, 4412)
   ) %>%
-  tibble::as_tibble()
+  as_tibble()
 
 city_info_wide %>%
- knitr::kable()
+ kable()
 ```
 
 
@@ -60,7 +60,7 @@ city_info_wide %>%
 
 ```r
 city_info_long <- city_info_wide %>%
-  tidyr::pivot_longer(
+  pivot_longer(
     # exclude IDs (city names) from the pivoted columns
     cols = -city,
     # name for the new column containing
@@ -72,7 +72,7 @@ city_info_long <- city_info_wide %>%
   )
 
 city_info_long %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -89,7 +89,7 @@ city_info_long %>%
 
 ```r
 city_info_back_to_wide <- city_info_long %>%
-  tidyr::pivot_wider(
+  pivot_wider(
     # column containing the attribute names
     names_from = attribute,
     # column containing the values
@@ -97,7 +97,7 @@ city_info_back_to_wide <- city_info_long %>%
   )
 
 city_info_back_to_wide %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -128,7 +128,7 @@ As discussed in the lecture, the `dplyr` library offers different types of join 
 
 Please take your time to understand the example below and check out the [related `dplyr` help pages](https://dplyr.tidyverse.org/reference/join.html) before continuing. The first four examples execute the exact same *full join* operation using three different syntaxes: with or without using the pipe operator, and specifying the `by` argument or not. Note that all those approaches to writing the join are valid and produce the same result. The choice about which approach to use will depend on the code you are writing. In particular, you might find it useful to use the syntax that uses the pipe operator when the join operation is itself only one stem in a series of data manipulation steps. Using the `by` argument is usually advisable unless you are certain that you aim to join two tables with all and exactly the column that have the same names in the two table.
 
-Note how the result of the join operations is *not* saved to a variable. The function `knitr::kable` is added after each join operation through a pipe `%>%` to display the resulting table in a nice format.
+Note how the result of the join operations is *not* saved to a variable. The function `kable` is added after each join operation through a pipe `%>%` to display the resulting table in a nice format.
 
 
 
@@ -138,10 +138,10 @@ city_telephone_prexix <- data.frame(
     city = c("Leicester", "Birmingham"),
     telephon_prefix = c("0116", "0121")
   ) %>%
-  tibble::as_tibble()
+  as_tibble()
 
 city_telephone_prexix %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -158,7 +158,7 @@ city_telephone_prexix %>%
 # Option 1: without using the pipe operator
 
 # full join verb
-dplyr::full_join(
+full_join(
     # left table
     city_info_wide,
     # right table
@@ -166,7 +166,7 @@ dplyr::full_join(
     # columns to match
     by = c("city" = "city")
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -186,13 +186,13 @@ dplyr::full_join(
 # Same result as Option 1
 
 # full join verb
-dplyr::full_join(
+full_join(
     # left table
     city_info_wide,
     # right table
     city_telephone_prexix
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -216,11 +216,11 @@ dplyr::full_join(
 # left table
 city_info_wide %>%
   # full join verb
-  dplyr::full_join(
+  full_join(
     # right table
     city_telephone_prexix
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -240,13 +240,13 @@ city_info_wide %>%
 # left table
 city_info_wide %>%
   # full join verb
-  dplyr::full_join(
+  full_join(
     # right table
     city_telephone_prexix,
     # columns to match
     by = c("city" = "city")
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -265,7 +265,7 @@ city_info_wide %>%
 # Using syntax similar to Option 1 above
 
 # left join
-dplyr::left_join(
+left_join(
     # left table
     city_info_wide, 
     # right table
@@ -289,7 +289,7 @@ dplyr::left_join(
 # Using syntax similar to Option 2 above
 
 # right join verb
-dplyr::right_join(
+right_join(
     # left table
     city_info_wide, 
     # right table
@@ -315,7 +315,7 @@ dplyr::right_join(
 # left table
 city_info_wide %>%
   # inner join
-  dplyr::inner_join(
+  inner_join(
     # right table
     city_telephone_prexix
   ) %>%
@@ -348,7 +348,7 @@ The code below loads the IMD 2015 dataset.
 ```r
 # Load Indexes of Multiple deprivation data
 leicester_IMD2015 <- 
-  readr::read_csv("IndexesMultipleDeprivation2015_Leicester.csv")
+  read_csv("IndexesMultipleDeprivation2015_Leicester.csv")
 ```
 
 
@@ -372,9 +372,9 @@ The IMD 2015 data are in a *long* format, which means that every area is represe
 
 ```r
 leicester_IMD2015 %>%
-  dplyr::filter(FeatureCode == "E01013649") %>%
-  dplyr::select(FeatureCode, IndicesOfDeprivation, Measurement, Value) %>%
-  knitr::kable()
+  filter(FeatureCode == "E01013649") %>%
+  select(FeatureCode, IndicesOfDeprivation, Measurement, Value) %>%
+  kable()
 ```
 
 
@@ -420,18 +420,18 @@ To that purpose, we also need to change the name of the indexes slightly, to exc
 ```r
 leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
   # Select only Socres
-  dplyr::filter(Measurement == "Decile") %>%
+  filter(Measurement == "Decile") %>%
   # Trim names of IndicesOfDeprivation
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
   ) %>%
-  dplyr::mutate(
+  mutate(
     IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
   ) %>%
   # Spread
@@ -440,7 +440,7 @@ leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
     values_from = Value
   ) %>%
   # Drop columns
-  dplyr::select(-DateCode, -Measurement, -Units)
+  select(-DateCode, -Measurement, -Units)
 ```
 
 Let's compare the columns of the original *long* IMD 2015 dataset with the *wide* dataset created above, using the function `colnames`.
@@ -486,13 +486,13 @@ In `leicester_IMD2015_decile_wide`, we now have only one row representing the LS
 ```r
 # Original long IMD 2015 dataset
 leicester_IMD2015 %>%
-  dplyr::filter(
+  filter(
     FeatureCode == "E01013649",
     IndicesOfDeprivation == "Index of Multiple Deprivation (IMD)",
     Measurement == "Decile"
   ) %>%
-  dplyr::select(FeatureCode, IndicesOfDeprivation, Measurement, Value) %>%
-  knitr::kable()
+  select(FeatureCode, IndicesOfDeprivation, Measurement, Value) %>%
+  kable()
 ```
 
 
@@ -504,9 +504,9 @@ leicester_IMD2015 %>%
 ```r
 # New wide IMD 2015 dataset
 leicester_IMD2015_decile_wide %>%
-  dplyr::filter(FeatureCode == "E01013649") %>%
-  dplyr::select(FeatureCode, IndexofMultipleDeprivationIMD) %>%
-  knitr::kable()
+  filter(FeatureCode == "E01013649") %>%
+  select(FeatureCode, IndexofMultipleDeprivationIMD) %>%
+  kable()
 ```
 
 
@@ -542,9 +542,9 @@ leicester_2011OAC_IMD2015 %>%
   # as the previous join as combined 
   # LSOA11CD and FeatureCode
   # into one, name LSOA11CD
-  dplyr::filter(LSOA11CD == "E01013649") %>%
-  dplyr::select(OA11CD, LSOA11CD, supgrpname, IndexofMultipleDeprivationIMD) %>%
-  knitr::kable()
+  filter(LSOA11CD == "E01013649") %>%
+  select(OA11CD, LSOA11CD, supgrpname, IndexofMultipleDeprivationIMD) %>%
+  kable()
 ```
 
 
@@ -562,8 +562,8 @@ Once the result is stored into the variable `leicester_2011OAC_IMD2015`, further
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::count(supgrpname, IndexofMultipleDeprivationIMD) %>%
-  knitr::kable()
+  count(supgrpname, IndexofMultipleDeprivationIMD) %>%
+  kable()
 ```
 
 
@@ -622,11 +622,11 @@ As another example, the code below can be used to group OAs based on the decile 
 
 ```r
 leicester_2011OAC_IMD2015 %>%
-  dplyr::group_by(IndexofMultipleDeprivationIMD) %>%
-  dplyr::summarise(
+  group_by(IndexofMultipleDeprivationIMD) %>%
+  summarise(
     adults_not_empl_perc = (sum(u074 + u075) / sum(Total_Population)) * 100
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 

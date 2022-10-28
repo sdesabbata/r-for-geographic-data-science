@@ -354,11 +354,11 @@ library(tidyverse)
 
 # Load 2011 OAC data
 leicester_2011OAC <- 
-  readr::read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
+  read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
 
 # Load Indexes of Multiple deprivation data
 leicester_IMD2015 <- 
-  readr::read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
+  read_csv("data/IndexesMultipleDeprivation2015_Leicester.csv")
 
 leicester_IMD2015_decile_wide <- leicester_IMD2015 %>%
   # Select only Socres
@@ -403,7 +403,7 @@ leicester_2011OAC_IMD2015 %>%
   summarise(
     adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 **Question 104.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.
@@ -416,7 +416,7 @@ leicester_2011OAC_IMD2015 %>%
   summarise(
     adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
   ) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -431,7 +431,7 @@ leicester_2011OAC_IMD2015 %>%
     aged_65_above = (sum(u016 + u017 + u018 + u019) / sum(Total_Population)) * 100
   ) %>%
   arrange(-aged_65_above) %>%
-  knitr::kable()
+  kable()
 ```
 
 Extend the code in the script `Data_Wrangling_Example.R` to include the code necessary to solve the questions below.
@@ -442,7 +442,7 @@ Extend the code in the script `Data_Wrangling_Example.R` to include the code nec
 ```r
 long_table <- leicester_2011OAC_IMD2015 %>%
   select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  tidyr::pivot_longer(
+  pivot_longer(
     # Can't combine character values (e.g. supgrpname)
     # with numeric value (e.g, Total_Population) thus
     # pivot only numeric columns
@@ -453,11 +453,11 @@ long_table <- leicester_2011OAC_IMD2015 %>%
 
 long_table %>%
   slice_head(n = 5) %>%
-  knitr::kable()
+  kable()
 
 long_table_alt <- leicester_2011OAC_IMD2015 %>%
   select(OA11CD, supgrpcode, IndexofMultipleDeprivationIMD, u016, u017, u018, u019, Total_Population) %>%
-  tidyr::pivot_longer(
+  pivot_longer(
     # Otherwise, use supgrpcode instead of supgrpname
     cols = -OA11CD,
     names_to = "attribute",
@@ -466,7 +466,7 @@ long_table_alt <- leicester_2011OAC_IMD2015 %>%
 
 long_table_alt %>%
   slice_head(n = 7) %>%
-  knitr::kable()
+  kable()
 ```
 
 
@@ -483,7 +483,7 @@ perc_long_table <- leicester_2011OAC_IMD2015 %>%
     perc_u019 = (u019 / Total_Population) * 100
   ) %>%
   select(OA11CD, supgrpname, IndexofMultipleDeprivationIMD, perc_u016, perc_u017, perc_u018, perc_u019) %>%
-  tidyr::pivot_longer(
+  pivot_longer(
     # Can't combine character values (e.g. supgrpname)
     # with numeric value (e.g, Total_Population) thus
     # pivot only numeric columns
@@ -494,7 +494,7 @@ perc_long_table <- leicester_2011OAC_IMD2015 %>%
 
 perc_long_table %>%
   slice_head(n = 5) %>%
-  knitr::kable()
+  kable()
 ```
 
 
