@@ -12,7 +12,7 @@ The slides used in the lectures are available as web-based slides at the pages l
     - 103 [Data manipulation](slides/103-slides-data-manipulation.html)
     - 104 [Table operations *draft*](slides/104-slides-table-operations.html)
 3. **Data analysis**
-    - 201 Exploratory visualisation
+    - 201 [Exploratory visualisation *draft*](slides/201-slides-data-visualisation.html)
     - 202 Exploratory statistics
     - 203 Comparing data
     - 204 Regression models

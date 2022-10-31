@@ -1,0 +1,833 @@
+---
+title: "Lecture 104"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-10-25</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+
+# Data visualisation
+
+
+
+---
+## Recap
+
+<br/>
+
+.pull-left[
+
+**Previously**: Table operations
+
+- Long and wide table formats
+- Pivot operations *(not as in Excel)*
+- Join operations
+
+**Today**: Exploratory visualisation
+
+- Grammar of graphics
+- Visualising amounts and proportions
+- Visualising variable distributions and relationships
+
+<br/>
+
+]
+.pull-right[
+
+![](https://raw.githubusercontent.com/tidyverse/ggplot2/main/man/figures/logo.png)
+
+.right[
+.referencenote[
+by ggplot2 authors<br/>
+via [ggplot2 GitHub repository](https://github.com/tidyverse/ggplot2/), MIT License
+]
+]
+
+]
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(nycflights13)
+library(knitr)
+```
+
+
+
+---
+## Grammar of graphics
+
+Grammars provide rules for languages
+
+*"The grammar of graphics takes us beyond a limited set of charts (words) to an almost unlimited world of graphical forms (statements)"* (Wilkinson, 2005)
+
+Statistical graphic specifications are expressed in six statements:
+
+1. **Data** manipulation 
+2. **Variable** transformations (e.g., rank),
+3. **Scale** transformations (e.g., log),
+4. **Coordinate system** transformations (e.g., polar),
+5. **Element**: mark (e.g., points) and visual variables (e.g., color)
+6. **Guides** (axes, legends, etc.).
+
+---
+## Data manipulation (1) and variable trans. (2)
+
+It might be necessary to manipulate (wrangle) the data before they are suitable for visualisation.
+
+For instance, using functions available in `dplyr`
+
+- `select`: to select specific columns
+- `filter`: to select specific rows
+- `join`: to merge different but related sets of data
+
+Variable transformations are used:
+
+- Make statistical operations on variables appropriate
+- Create new variables
+    - Including aggregates, or other types of summaries
+
+For instance, using functions available in `dplyr`
+
+- `mutate`: to create new columns (e.g., combining values from different columns)
+- `group_by` and `summarise`: to calculate aggregated values (e.g. mean, sum)
+
+
+
+---
+## Scale tranformation (3) and guides (4)
+
+.pull-left[
+
+Scales map variables to dimensions. 
+
+Categorical dimensions:
+
+- one unit/tick per category
+- commonly ordered alphabetically by default
+- common transformation: ordered by another variable
+
+Numeric dimension:
+
+- select a range for our numbers and intervals to mark ticks
+- common transformation: logarithmic
+
+]
+.pull-right[
+
+The term "guide" refers to all the elements that provide information useful to *interpret* the graphics
+
+- Scale guides
+    - axis labels
+    - legends
+        - size
+        - shape
+        - colour
+- Annotations
+    - title
+    - footnotes
+    - data sources
+    - north arrows 
+    
+
+]
+
+
+---
+## Elements (5) and `ggplot2`
+
+.pull-left[
+
+The `ggplot2` library offers a series of functions for creating graphics **declaratively**, based on the Grammar of Graphics. 
+
+To create a graph in `ggplot2`:
+
+- provide the data
+- specify elements
+    - which visual variables (`aes`)
+    - which marks (e.g., `geom_point`)
+- apply transformations
+- guides
+
+]
+.pull-right[
+
+![](https://raw.githubusercontent.com/tidyverse/ggplot2/main/man/figures/logo.png)
+
+.right[
+.referencenote[
+by ggplot2 authors<br/>
+via [ggplot2 GitHub repository](https://github.com/tidyverse/ggplot2/), MIT License
+]
+]
+
+]
+
+---
+## Marks (5.1)
+
+.pull-left[
+
+A mark is a sign positioned on the plane of the graph
+
+- that represents an entity
+- using geometric elements
+    - geometric primitives
+    - or combinations thereof
+
+In most information visualisation tools:
+
+- point and/or symbols (e.g. stars)
+- line
+- area (including bars, pie slices, etc)
+- text
+
+]
+.pull-right[
+
+Marks (graphical primitives) can be specified through a series of functions, such as:
+
+- `geom_point` is used to create scatterplots
+- `geom_line` connects points in order of the variable on the x-axis
+- `geom_text` adds text directly to the plot
+- `geom_col` or `geom_bar` to create barcharts
+- `geom_boxplot` to create boxplots
+- .. and many more
+
+These can be added to the construction of the graph using `+`
+
+]
+
+
+---
+## Visual variables (5.2)
+
+.pull-left[
+
+A **visual variable** is an aspect of a **mark** that can be controlled to change its appearance. 
+
+Visual variables include: 
+
+- Size
+- Shape 
+- Orientation
+- Colour (hue)
+- Colour value (brightness)
+- Texture
+- Position (2 dimensions)
+
+]
+.pull-right[
+
+The `aes` element  provides a *"mapping"* from the data *columns* (attributes) to the graphic's *visual variables*, including:
+
+- `x` and `y`
+- `fill` (fill colour) and `colour` (border colour)
+- `shape`
+- `size`
+
+```{r, echo=TRUE, eval=FALSE}
+data %>%
+  ggplot(
+    aes(
+      x = column_1,
+      y = column_2
+    )
+  ) +
+  geom_...()
+```
+
+]
+
+---
+## Example
+
+.pull-left[
+
+
+```{r, echo=TRUE, eval=FALSE}
+library(tidyverse)
+library(knitr)
+
+leicester_2011OAC <- 
+  read_csv(
+    "2011_OAC_Raw_uVariables_Leicester.csv"
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+
+leicester_2011OAC <- 
+  read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
+```
+
+
+- `x`: a column to *"map"* to the x-axis, e.g. days (category)
+- `y`: a column to *"map"* to the y-axis, e.g. delay (continuous)
+- `geom_point`: point mark (graphical primitive)
+
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = u005,
+      y = Total_Population
+    )
+  ) +
+  geom_point()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(aes(
+    x = u005,
+    y = Total_Population
+  )) +
+  geom_point()
+```
+
+]
+
+
+---
+## Adding more visual variables
+
+.pull-left[
+
+... then, why not add some colour?
+
+- `colour`: a column to *"map"* to the visual variable *colour* as colour of the point mark (border colour for area marks), e.g. origin (category)
+  - `fill` can be used to *"map"* a column to the visual variable *colour* as the fill of an area mark
+
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(aes(
+    x = u005,
+    y = Total_Population,
+    colour = supgrpname
+  )) +
+  geom_point()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(aes(
+    x = u005,
+    y = Total_Population,
+    colour = supgrpname
+  )) +
+  geom_point()
+```
+
+]
+
+---
+##  Editing scales and guides
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(aes(
+    x = u005,
+    y = Total_Population,
+    colour = fct_reorder(supgrpname, supgrpcode)
+  )) +
+  geom_point() +
+  ggtitle("Leicester's population density") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("OA area (hectars)") +
+  ylab("Resident population") +
+  scale_x_log10() +
+  scale_y_log10() +
+  scale_colour_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(aes(
+    x = u005,
+    y = Total_Population,
+    colour = fct_reorder(supgrpname, supgrpcode)
+  )) +
+  geom_point() +
+  ggtitle("Leicester's population density") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("OA area (hectars)") +
+  ylab("Resident population") +
+  scale_x_log10() +
+  scale_y_log10() +
+  scale_colour_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw()
+```
+
+]
+
+
+
+---
+## Histograms
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = u011,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_histogram(binwidth = 5) +
+  ggtitle("Leicester's young adults") +
+  labs(
+    fill = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("Residents aged 20 to 24") +
+  ylab("Count") +
+  scale_fill_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = u011,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_histogram(binwidth = 5) +
+  ggtitle("Leicester's young adults") +
+  labs(
+    fill = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("Residents aged 20 to 24") +
+  ylab("Count") +
+  scale_fill_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw()
+```
+
+]
+
+---
+## Boxplots
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = fct_reorder(supgrpname, supgrpcode),
+      y = u011,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_boxplot() +
+  ggtitle("Leicester's young adults") +
+  labs(
+    fill = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("2011 OAC (supergroups)") +
+  ylab("Residents aged 20 to 24") +
+  scale_fill_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw() +
+  theme(axis.text.x = 
+    element_text(angle = 90, hjust = 1))
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = fct_reorder(supgrpname, supgrpcode),
+      y = u011,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_boxplot() +
+  ggtitle("Leicester's young adults") +
+  labs(
+    fill = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("2011 OAC (supergroups)") +
+  ylab("Residents aged 20 to 24") +
+  scale_fill_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw() +
+  theme(axis.text.x = 
+    element_text(angle = 90, hjust = 1))
+```
+
+]
+
+
+---
+## Jittered points
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = fct_reorder(supgrpname, supgrpcode),
+      y = u011,
+      color = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_jitter() +
+  ggtitle("Leicester's young adults") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("2011 OAC (supergroups)") +
+  ylab("Residents aged 20 to 24") +
+  scale_colour_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw() +
+  theme(axis.text.x = 
+    element_text(angle = 90, hjust = 1))
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = fct_reorder(supgrpname, supgrpcode),
+      y = u011,
+      colour = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_jitter() +
+  ggtitle("Leicester's young adults") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("2011 OAC (supergroups)") +
+  ylab("Residents aged 20 to 24") +
+  scale_colour_manual(
+    values = 
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw() +
+  theme(axis.text.x = 
+    element_text(angle = 90, hjust = 1))
+```
+
+]
+
+---
+## Coordinate system transformation (6)
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = factor(1),
+      y = Total_Population,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_col() +
+  ggtitle("Leicester's population") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("Leicester") +
+  ylab("Residents") +
+  scale_fill_manual(
+    values =
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = factor(1),
+      y = Total_Population,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_col() +
+  ggtitle("Leicester's population") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("Leicester") +
+  ylab("Residents") +
+  scale_fill_manual(
+    values =
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  theme_bw()
+```
+
+]
+
+---
+## Coordinate system transformation (6)
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = factor(1),
+      y = Total_Population,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_col() +
+  ggtitle("Leicester's population") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("Leicester") +
+  ylab("Residents") +
+  scale_fill_manual(
+    values =
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  coord_polar(theta = "y") +
+  theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = factor(1),
+      y = Total_Population,
+      fill = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_col() +
+  ggtitle("Leicester's population") +
+  labs(
+    colour = paste0(
+      "2011 Output Area\n",
+      "Classification (OAC)\n(supergroups)")
+  ) +
+  xlab("Leicester") +
+  ylab("Residents") +
+  scale_fill_manual(
+    values =
+      c(
+        "#e41a1c", "#f781bf", "#ff7f00", 
+        "#a65628", "#984ea3", "#377eb8", 
+        "#ffff33"
+      )
+  ) +
+  coord_polar(theta = "y") +
+  theme_bw()
+```
+
+]
+
+
+---
+## Summary
+
+.pull-left[
+
+**Today**: Exploratory visualisation
+
+- Grammar of graphics
+- Visualising amounts and proportions
+- Visualising variable distributions and relationships
+
+**Next week**: Exploratory statistics
+
+- Descriptive statistics
+- Exploring assumptions
+    - Normality
+    - Skewness and kurtosis
+    - Homogeneity of variance
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+]
+
+]
+.pull-right[
+
+```{r}
+leicester_2011OAC %>%
+  ggplot2::ggplot(
+    aes(
+      x = Total_Population
+    )
+  ) +
+  ggplot2::geom_histogram(
+    aes(
+      y =..density..
+    ),
+    binwidth = 5
+  ) + 
+  ggplot2::stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = leicester_2011OAC %>% pull(Total_Population) %>% mean(),
+      sd = leicester_2011OAC %>% pull(Total_Population) %>% sd()
+    ),
+    colour = "red", size = 1
+  ) +
+  xlab("Population") +
+  ylab("") +
+  theme_bw()
+```
+
+
+]
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
+
