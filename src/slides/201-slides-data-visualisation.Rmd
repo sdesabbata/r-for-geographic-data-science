@@ -76,6 +76,8 @@ library(knitr)
 ---
 ## Grammar of graphics
 
+<br/>
+
 Grammars provide rules for languages
 
 *"The grammar of graphics takes us beyond a limited set of charts (words) to an almost unlimited world of graphical forms (statements)"* (Wilkinson, 2005)
@@ -116,6 +118,8 @@ For instance, using functions available in `dplyr`
 ---
 ## Scale tranformation (3) and guides (4)
 
+<br/>
+
 .pull-left[
 
 Scales map variables to dimensions. 
@@ -155,6 +159,8 @@ The term "guide" refers to all the elements that provide information useful to *
 ---
 ## Elements (5) and `ggplot2`
 
+<br/>
+
 .pull-left[
 
 The `ggplot2` library offers a series of functions for creating graphics **declaratively**, based on the Grammar of Graphics. 
@@ -184,6 +190,8 @@ via [ggplot2 GitHub repository](https://github.com/tidyverse/ggplot2/), MIT Lice
 
 ---
 ## Marks (5.1)
+
+<br/>
 
 .pull-left[
 
@@ -220,6 +228,8 @@ These can be added to the construction of the graph using `+`
 
 ---
 ## Visual variables (5.2)
+
+<br/>
 
 .pull-left[
 
@@ -327,11 +337,13 @@ leicester_2011OAC %>%
 
 ```{r, echo=TRUE, eval=FALSE}
 leicester_2011OAC %>%
-  ggplot(aes(
-    x = u005,
-    y = Total_Population,
-    colour = supgrpname
-  )) +
+  ggplot(
+    aes(
+      x = u005,
+      y = Total_Population,
+      colour = supgrpname
+    )
+  ) +
   geom_point()
 ```
 
@@ -769,6 +781,45 @@ leicester_2011OAC %>%
 
 ]
 
+
+---
+## Best practices
+
+.pull-left[
+
+- To represent numerical data:
+    - **location**
+        - x-axis and y-axis, easily identified, put into order and quantity estimated)
+    - **size** 
+        - easily identified, put into order and quantity estimated
+    - **colour value** 
+        - brightness -- easily identified and put into order
+- To represent categories:
+    - **colour hue**
+        - easily identified and grouped together
+    - **shape** 
+        - grouped together
+    - **texture**
+]
+.pull-right[
+
+- Colour
+  - use [ColorBrewer](https://colorbrewer2.org/) (e.g., `scale_color_brewer`)
+- Marks
+  - dots and non-contiguous areas suggest discrete objects
+  - lines and contiguous areas suggest continuous phenomena
+- Scale transformations
+  - `log` transformation can help unskew distributions
+- Guides (axes, legends, etc.)
+  - where size is used (e.g., barcharts) axise must always start as zero
+  - keep labels horizontal (e.g., use horizontal barcharts)
+  - alphabetical orders of axes are rarely the optimal choice
+
+]
+
+.referencenote[
+See also: Roth, R.E. (2017). Visual Variables. In International Encyclopedia of Geography: People, the Earth, Environment and Technology. https://doi.org/10.1002/9781118786352.wbieg0761
+]
 
 ---
 ## Summary
