@@ -55,11 +55,10 @@ joining-tables-1
 exercise-104.1
 exploratory-visualisation
 gglot2-recap
-data-visualisation
-amounts
-proportions
-distributions
-relationships
+visualising-amounts
+visualising-proportions
+visualising-distributions
+visualising-relationships
 exercise-201.1
 exploratory-statistics
 descriptive-statistics

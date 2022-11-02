@@ -36,11 +36,11 @@ As seen in the introductory chapter, the [`ggplot2` library](https://ggplot2.tid
     - provides a wide range of [`scale_` functions](https://ggplot2.tidyverse.org/reference/index.html#section-scales) that can be used to control the **scales** of all visual variables;
     - provides a series of [`coord_` fucntions](https://ggplot2.tidyverse.org/reference/index.html#section-coordinate-systems) that allow transforming the **coordinate system**. 
 
-Check out the [`ggplot2` reference](https://ggplot2.tidyverse.org/reference/index.html) for all the details about the functions and options discussed below.
+Check out the [`ggplot2` reference](https://ggplot2.tidyverse.org/reference/index.html) for all the details about the functions and options discussed below. The [The R Graph Gallery](https://r-graph-gallery.com/index.html) also provides a good overview of many of the charts that can be created using R. Healy's [Data Visualization: A Practical Introduction](https://socviz.co/) and Kabacoff's [Data Visualization with R](https://rkabacoff.github.io/datavis/) provide a more detailed introduction to data visualisation using R and `ggplot2`.
 
-## Data visualisation
 
-### Amounts
+
+## Visualising Amounts
 
 We start the analysis by visualising the number of people living in Leicester for each age bracket available in the dataset. 
 
@@ -71,7 +71,7 @@ leicester_2011OAC %>%
   theme_bw()
 ```
 
-### Proportions
+## Visualising Proportions
 
 To better observe how those values compare as proportions of the overall total, the visualisation can be transformed into a stacked bar chart, compounding all area marks into one single bar. The number of people can be moved from the `x` to the `y` axis. The age bracket can be moved from the `y` axis to the `fill` visual variable.
 
@@ -178,11 +178,12 @@ leicester_2011OAC %>%
   theme_minimal() +
   theme(
     panel.border = element_blank(),
-    panel.grid=element_blank(),
+    panel.grid = element_blank(),
     axis.ticks = element_blank(),
     axis.title.x = element_blank(),
-    axis.text.x=element_blank(),
-    axis.title.y = element_blank()
+    axis.text.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank()
   )
 ```
 
@@ -232,20 +233,21 @@ leicester_2011OAC %>%
   theme_minimal() +
   theme(
     panel.border = element_blank(),
-    panel.grid=element_blank(),
+    panel.grid = element_blank(),
     axis.ticks = element_blank(),
     axis.title.x = element_blank(),
-    axis.text.x=element_blank(),
-    axis.title.y = element_blank()
+    axis.text.x = element_blank(),
+    axis.title.y = element_blank(),
+    axis.text.y = element_blank()
   )
 ```
 
-As you can see, pie charts are tricky to create using `ggplot2` -- see, for instance, the [ggplot2 pie chart guide](http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization) by Statistical tools for high-throughput data analysis (STHDA) for further examples.
+As you can see, creating a pie chart in `ggplot2` provides great insight into the nature of visualisations and the possibilities offered by the library, but it can also be quite tricky  -- see, for instance, [Kabacoff's section on pie chatrs](https://rkabacoff.github.io/datavis/Univariate.html#pie-chart), the [ggplot2 Piechart page](https://r-graph-gallery.com/piechart-ggplot2.html) of the the R Graph Gallery or the [ggplot2 pie chart guide](http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization) by Statistical tools for high-throughput data analysis (STHDA) for further examples.
 
 **Self-test question**: which one of the two pie charts above do you think is more readable and why?
 
 
-### Distributions
+## Visualising Distributions
 
 A histogram can be used to explore the distribution of the variable `u011`.
 
@@ -335,7 +337,7 @@ leicester_2011OAC %>%
 
 
 
-### Relationships
+## Visualising Relationships
 
 The first bar chart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare `u011` to `Total_Population`, for instance, through a scatterplot such as the one below.
 

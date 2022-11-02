@@ -132,16 +132,12 @@
 </ul>
 </li>
 </ul>
-<p>Check out the <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> reference</a> for all the details about the functions and options discussed below.</p>
+<p>Check out the <a href="https://ggplot2.tidyverse.org/reference/index.html"><code>ggplot2</code> reference</a> for all the details about the functions and options discussed below. The <a href="https://r-graph-gallery.com/index.html">The R Graph Gallery</a> also provides a good overview of many of the charts that can be created using R. Healy’s <a href="https://socviz.co/">Data Visualization: A Practical Introduction</a> and Kabacoff’s <a href="https://rkabacoff.github.io/datavis/">Data Visualization with R</a> provide a more detailed introduction to data visualisation using R and <code>ggplot2</code>.</p>
 </div>
-<div id="data-visualisation" class="section level2" number="5.2">
+<div id="visualising-amounts" class="section level2" number="5.2">
 <h2>
-<span class="header-section-number">5.2</span> Data visualisation<a class="anchor" aria-label="anchor" href="#data-visualisation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.2</span> Visualising Amounts<a class="anchor" aria-label="anchor" href="#visualising-amounts"><i class="fas fa-link"></i></a>
 </h2>
-<div id="amounts" class="section level3" number="5.2.1">
-<h3>
-<span class="header-section-number">5.2.1</span> Amounts<a class="anchor" aria-label="anchor" href="#amounts"><i class="fas fa-link"></i></a>
-</h3>
 <p>We start the analysis by visualising the number of people living in Leicester for each age bracket available in the dataset.</p>
 <p>The first step is to summarise the total amounts for each one of the columns from <code>u007</code> (Age 0 to 4) to <code>u019</code> (Age 90 and over). The code below uses the <a href="https://dplyr.tidyverse.org/reference/across.html"><code>dplyr</code> verb <code>across</code></a> to apply the same summarise function <code>sum</code> across all columns from <code>u007</code> to <code>u019</code>. The table is then pivoted to longer so that each age bracket is an entity of the table, and the number of people in the age bracket is the attribute to be visualised – if the procedure is unclear, try to execute it step-by-step (summarise first, then pivot) to see the different stages.</p>
 <p>Those values can then be represented in a visualisation using a bar chart, which combines the visual variables size (of the bar) and position (on the x-axis, the end of the bar) to encode a numeric value. The function <code>theme_bw</code> is used to use a simple black-and-white theme.</p>
@@ -168,10 +164,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 </div>
-<div id="proportions" class="section level3" number="5.2.2">
-<h3>
-<span class="header-section-number">5.2.2</span> Proportions<a class="anchor" aria-label="anchor" href="#proportions"><i class="fas fa-link"></i></a>
-</h3>
+<div id="visualising-proportions" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Visualising Proportions<a class="anchor" aria-label="anchor" href="#visualising-proportions"><i class="fas fa-link"></i></a>
+</h2>
 <p>To better observe how those values compare as proportions of the overall total, the visualisation can be transformed into a stacked bar chart, compounding all area marks into one single bar. The number of people can be moved from the <code>x</code> to the <code>y</code> axis. The age bracket can be moved from the <code>y</code> axis to the <code>fill</code> visual variable.</p>
 <p>As there are 13 categories, we can’t use the ColorBrewer schemes in this case (as most palettes count up to 12 colours). Thus, we can use the <code>scale_fill_tableau</code> function from the <code>ggthemes</code> library to select the <code>"Tableau 20"</code> colour palette, which offers 20 clearly distinct colours designed by <a href="https://tableau.com/">Tableau</a>, to complete the definition of the colour hue visual variable. The <code>factor(1)</code> value can be used to create a single bar on the <code>x</code> axis.</p>
 <div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
@@ -271,11 +267,12 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    panel.grid<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.ticks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <p>As the categories in this case have a clear order, the visual variable colour value could be used instead of colour hue, thus using a series of shared of the same hue. However, as there are 13 categories, again we can’t use the ColorBrewer schemes. Thus, the example below uses one of the <a href="https://sjmgarnier.github.io/viridis/">viridis</a> colour palettes.</p>
@@ -323,20 +320,21 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span></span>
 <span>    panel.border <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    panel.grid<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    panel.grid <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.ticks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>    axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    axis.text.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
-<p>As you can see, pie charts are tricky to create using <code>ggplot2</code> – see, for instance, the <a href="http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization">ggplot2 pie chart guide</a> by Statistical tools for high-throughput data analysis (STHDA) for further examples.</p>
+<p>As you can see, creating a pie chart in <code>ggplot2</code> provides great insight into the nature of visualisations and the possibilities offered by the library, but it can also be quite tricky – see, for instance, <a href="https://rkabacoff.github.io/datavis/Univariate.html#pie-chart">Kabacoff’s section on pie chatrs</a>, the <a href="https://r-graph-gallery.com/piechart-ggplot2.html">ggplot2 Piechart page</a> of the the R Graph Gallery or the <a href="http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization">ggplot2 pie chart guide</a> by Statistical tools for high-throughput data analysis (STHDA) for further examples.</p>
 <p><strong>Self-test question</strong>: which one of the two pie charts above do you think is more readable and why?</p>
 </div>
-<div id="distributions" class="section level3" number="5.2.3">
-<h3>
-<span class="header-section-number">5.2.3</span> Distributions<a class="anchor" aria-label="anchor" href="#distributions"><i class="fas fa-link"></i></a>
-</h3>
+<div id="visualising-distributions" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Visualising Distributions<a class="anchor" aria-label="anchor" href="#visualising-distributions"><i class="fas fa-link"></i></a>
+</h2>
 <p>A histogram can be used to explore the distribution of the variable <code>u011</code>.</p>
 <div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -416,10 +414,10 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-11-1.png" width="672"></div>
 </div>
-<div id="relationships" class="section level3" number="5.2.4">
-<h3>
-<span class="header-section-number">5.2.4</span> Relationships<a class="anchor" aria-label="anchor" href="#relationships"><i class="fas fa-link"></i></a>
-</h3>
+<div id="visualising-relationships" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Visualising Relationships<a class="anchor" aria-label="anchor" href="#visualising-relationships"><i class="fas fa-link"></i></a>
+</h2>
 <p>The first bar chart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare <code>u011</code> to <code>Total_Population</code>, for instance, through a scatterplot such as the one below.</p>
 <div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -445,10 +443,9 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-12-1.png" width="672"></div>
 </div>
-</div>
-<div id="exercise-201.1" class="section level2" number="5.3">
+<div id="exercise-201.1" class="section level2" number="5.6">
 <h2>
-<span class="header-section-number">5.3</span> Exercise 201.1<a class="anchor" aria-label="anchor" href="#exercise-201.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">5.6</span> Exercise 201.1<a class="anchor" aria-label="anchor" href="#exercise-201.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Open the <code>Leicester_population</code> project used in previous chapters and extend the <em>“Exploring deprivation indices in Leicester”</em> document to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC that can be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
 <p><strong>Question 201.1.1:</strong> Write a piece of code to create a chart showing the percentage of EU citizens over total population for each decile of the Index of Multiple Deprivations</p>
@@ -469,15 +466,11 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#exploratory-visualisation"><span class="header-section-number">5</span> Exploratory visualisation</a></li>
 <li><a class="nav-link" href="#gglot2-recap"><span class="header-section-number">5.1</span> GGlot2 recap</a></li>
-<li>
-<a class="nav-link" href="#data-visualisation"><span class="header-section-number">5.2</span> Data visualisation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#amounts"><span class="header-section-number">5.2.1</span> Amounts</a></li>
-<li><a class="nav-link" href="#proportions"><span class="header-section-number">5.2.2</span> Proportions</a></li>
-<li><a class="nav-link" href="#distributions"><span class="header-section-number">5.2.3</span> Distributions</a></li>
-<li><a class="nav-link" href="#relationships"><span class="header-section-number">5.2.4</span> Relationships</a></li>
-</ul>
-</li>
-<li><a class="nav-link" href="#exercise-201.1"><span class="header-section-number">5.3</span> Exercise 201.1</a></li>
+<li><a class="nav-link" href="#visualising-amounts"><span class="header-section-number">5.2</span> Visualising Amounts</a></li>
+<li><a class="nav-link" href="#visualising-proportions"><span class="header-section-number">5.3</span> Visualising Proportions</a></li>
+<li><a class="nav-link" href="#visualising-distributions"><span class="header-section-number">5.4</span> Visualising Distributions</a></li>
+<li><a class="nav-link" href="#visualising-relationships"><span class="header-section-number">5.5</span> Visualising Relationships</a></li>
+<li><a class="nav-link" href="#exercise-201.1"><span class="header-section-number">5.6</span> Exercise 201.1</a></li>
 </ul>
 
       <div class="book-extra">
