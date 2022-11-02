@@ -414,7 +414,7 @@ leicester_2011OAC_IMD2015 %>%
   filter(IndexofMultipleDeprivationIMD <= 5) %>%
   group_by(supgrpname) %>%
   summarise(
-    adults_not_empl_perc = (sum(u044 + u045) / sum(Total_Population)) * 100
+    eu_perc = (sum(u043 + u044 + u045) / sum(Total_Population)) * 100
   ) %>%
   kable()
 ```
@@ -499,6 +499,145 @@ perc_long_table %>%
 
 
 
+## Solutions 201 {-}
+
+### Solutions 201.1 {-}
+
+Open the `Leicester_population` project used in previous chapters and extend the *"Exploring deprivation indices in Leicester"* document to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC that can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
+
+**Question 201.1.1:** Write a piece of code to create a chart showing the percentage of EU citizens over total population for each decile of the Index of Multiple Deprivations
+
+
+```r
+leicester_2011OAC_IMD2015 %>% 
+  group_by(IndexofMultipleDeprivationIMD) %>%
+  summarise(
+    eu_perc = (sum(u043 + u044 + u045) / sum(Total_Population)) * 100
+  ) %>%
+  ggplot(
+    aes(
+      x = eu_perc,
+      # Note that it is necessary to convert the index
+      # to a factor, otherwise it is interpreted as a number
+      y = as_factor(IndexofMultipleDeprivationIMD)
+    )
+  ) +
+  geom_col() +
+  theme_bw()
+```
+
+Alternatively.
+
+
+```r
+leicester_2011OAC_IMD2015 %>% 
+  group_by(IndexofMultipleDeprivationIMD) %>%
+  summarise(
+    eu_perc = (sum(u043 + u044 + u045) / sum(Total_Population)) * 100
+  ) %>%
+  mutate(
+    reminder = 100 - eu_perc
+  ) %>%
+  pivot_longer(
+    cols = -IndexofMultipleDeprivationIMD,
+    names_to = "country_of_origin",
+    values_to = "percentage"
+  ) %>% 
+  ggplot(
+    aes(
+      x = percentage,
+      # Note that it is necessary to convert the index
+      # to a factor, otherwise it is interpreted as a number
+      y = as_factor(IndexofMultipleDeprivationIMD),
+      fill = country_of_origin
+    )
+  ) +
+  geom_col() +
+  theme_bw()
+```
+
+**Question 201.1.2:** Write a piece of code to create a chart showing the relationship between the percentage of EU citizens over total population with the related score of the Index of Multiple Deprivations, and illustrating also the 2011 OAC class of each OA.
+
+
+```r
+# Use a similar code as used in Exercise 104
+# but filtering in the Scores rather than the deciles
+leicester_IMD2015_score_wide <- leicester_IMD2015 %>%
+  # Select only Socres
+  filter(Measurement == "Score") %>%
+  # Trim names of IndicesOfDeprivation
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\s", "")
+  ) %>%
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "[:punct:]", "")
+  ) %>%
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\(", "")
+  ) %>%
+  mutate(
+    IndicesOfDeprivation = str_replace_all(IndicesOfDeprivation, "\\)", "")
+  ) %>%
+  # Spread
+  pivot_wider(
+    names_from = IndicesOfDeprivation,
+    values_from = Value
+  ) %>%
+  # Drop columns
+  select(-DateCode, -Measurement, -Units)
+
+# Join
+leicester_2011OAC_IMD2015_score <- 
+  leicester_2011OAC %>%
+  inner_join(
+    leicester_IMD2015_score_wide, 
+    by = c("LSOA11CD" = "FeatureCode")
+  )
+
+leicester_2011OAC_IMD2015_score %>% 
+  mutate(
+    eu_perc = ((u043 + u044 + u045) / Total_Population) * 100
+  ) %>%
+  ggplot(
+    aes(
+      x = eu_perc,
+      y = IndexofMultipleDeprivationIMD,
+      colour = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_point() +
+  scale_fill_manual(
+    values = c("#e41a1c", "#f781bf", "#ff7f00", "#a65628", "#984ea3", "#377eb8", "#ffff33")
+  ) +
+  theme_bw()
+```
+
+**Question 201.1.3:** Write a piece of code to create a chart showing the relationship between the percentage of people aged 65 and above with the related score of the Income Deprivation, and illustrating also the 2011 OAC class of each OA.
+
+
+```r
+leicester_2011OAC_IMD2015_score %>% 
+  mutate(
+    aged_65_above = ((u016 + u017 + u018 + u019) / Total_Population) * 100
+  ) %>%
+  ggplot(
+    aes(
+      x = aged_65_above,
+      y = LivingEnvironmentDeprivationDomain,
+      colour = fct_reorder(supgrpname, supgrpcode)
+    )
+  ) +
+  geom_point() +
+  scale_fill_manual(
+    values = c("#e41a1c", "#f781bf", "#ff7f00", "#a65628", "#984ea3", "#377eb8", "#ffff33")
+  ) +
+  theme_bw()
+```
+
+
+**Question 201.1.4:** What does the graph produced for *Question 201.1.3* mean? Write up to 100 words explaining what conclusions can be drawn from the graph -- remember that [*"the larger the score, the more deprived the area"*](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853811/IoD2019_FAQ_v4.pdf).
+
+**Question 201.1.5:** Identify the index of multiple deprivation that most closely relate to the percentage of people per OA whose *"day-to-day activities limited a lot or a little"* based on the *"Standardised Illness Ratio"*.
 
 <!--
 

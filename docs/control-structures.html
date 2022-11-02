@@ -118,14 +118,14 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 <span class="header-section-number">11.1</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
 </h2>
 <p>Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested, and the part of the procedure to execute in the case the condition is true is included in a <em>code block</em>.</p>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">25</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>A simple conditional statement can be created using <code>if</code> as in the example above. A more complex structure can be created using both <code>if</code> and <code>else</code> to provide not only a procedure to execute in case the condition is true but also an alternative procedure to be executed when the condition is false.</p>
-<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
@@ -135,7 +135,7 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## Today is not warm</code></pre>
 <p>Finally, conditional statements can be <strong>nested</strong>. That is, a conditional statement can be included as part of the code block to be executed after the condition is tested. For instance, in the example below, a second conditional statement is included in the code block to be executed in the case the condition is false.</p>
-<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">5</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
@@ -149,7 +149,7 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## This is really cold!</code></pre>
 <p>Similarly, the first example seen in the lecture should be coded as follows.</p>
-<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
@@ -173,7 +173,7 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 <span class="header-section-number">11.2.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>In R, conditional loops can be implemented using <code>while</code> and <code>repeat</code>. The difference between the two is mostly syntactical: the first tests the condition first and then execute the related code block if the condition is true; the second executes the code block until a <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> command is given (usually through a conditional statement).</p>
-<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="co"># Keep printing as long as x is smaller than 2</span></span>
 <span><span class="kw">while</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
@@ -182,7 +182,7 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## 0 
 ## 1</code></pre>
-<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="co"># Keep printing, if x is greater or equal than 2 than stop</span></span>
 <span><span class="kw">repeat</span> <span class="op">{</span></span>
@@ -198,11 +198,11 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 <span class="header-section-number">11.2.2</span> Deterministic Loops<a class="anchor" aria-label="anchor" href="#deterministic-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>The deterministic loop executes the subsequent code block iterating through the elements of a provided vector. During each iteration (i.e., execution of the code block), the current element of the vector (<em><vector></vector></em> in the definition below) is assigned to the variable in the statement (<em><var></var></em> in the definition below), and it can be used in the code block.</p>
-<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="control-structures.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="sc">&lt;</span>VAR<span class="sc">&gt;</span> <span class="cf">in</span> <span class="sc">&lt;</span>VECTOR<span class="sc">&gt;</span>) {</span>
-<span id="cb336-2"><a href="control-structures.html#cb336-2" aria-hidden="true" tabindex="-1"></a>    ... code <span class="cf">in</span> loop ... </span>
-<span id="cb336-3"><a href="control-structures.html#cb336-3" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb340-1"><a href="control-structures.html#cb340-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (<span class="sc">&lt;</span>VAR<span class="sc">&gt;</span> <span class="cf">in</span> <span class="sc">&lt;</span>VECTOR<span class="sc">&gt;</span>) {</span>
+<span id="cb340-2"><a href="control-structures.html#cb340-2" aria-hidden="true" tabindex="-1"></a>    ... code <span class="cf">in</span> loop ... </span>
+<span id="cb340-3"><a href="control-structures.html#cb340-3" aria-hidden="true" tabindex="-1"></a>    }</span></code></pre></div>
 <p>It is, for instance, possible to iterate over a vector and print each of its elements.</p>
-<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">city</span> <span class="kw">in</span> <span class="va">east_midlands_cities</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">city</span>, <span class="st">"\n"</span><span class="op">)</span></span>
@@ -212,7 +212,7 @@ This chapter illustrates the use of **conditional statements** and code **loops*
 ## Lincoln 
 ## Nottingham</code></pre>
 <p>It is common practice to create a vector of integers on the spot (e.g., using the <code>:</code> operator) to execute a certain sequence of steps a pre-defined number of times.</p>
-<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Exectuion number"</span>, <span class="va">iterator</span>, <span class="st">":\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step1: Hi!\n"</span><span class="op">)</span></span>
@@ -343,7 +343,7 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-10-31.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-02.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

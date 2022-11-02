@@ -4,12 +4,10 @@
 
 # Exploratory visualisation
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
-This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the `u011` variable from the [2011 Output Area Classification (2011OAC)](https://github.com/geogale/2011OAC) dataset introduced in [chapter 4](https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html#read-and-write-data). 
+This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, focusing on the `u011` variable from the [2011 Output Area Classification (2011OAC)](https://github.com/geogale/2011OAC) dataset introduced previous chapters.
 
 Before continuing, create a new R project in RStudio, and upload the `2011_OAC_Raw_uVariables_Leicester.csv` file to the project folder. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.
 
@@ -42,148 +40,345 @@ Check out the [`ggplot2` reference](https://ggplot2.tidyverse.org/reference/inde
 
 ## Data visualisation
 
-### Distributions
+### Amounts
 
-We start the analysis with a simple histogram, to explore the distribution of the variable `u011`. RMarkdown allows specifying the height (as well as the width) of the figure as an option for the R snipped, as shown in the example typed out in plain text below.
+We start the analysis by visualising the number of people living in Leicester for each age bracket available in the dataset. 
 
-````
-`r ''````{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
-leicester_2011OAC %>%
-  ggplot2::ggplot(
+The first step is to summarise the total amounts for each one of the columns from `u007` (Age 0 to 4) to `u019` (Age 90 and over). The code below uses the [`dplyr` verb `across`](https://dplyr.tidyverse.org/reference/across.html) to apply the same summarise function `sum` across all columns from `u007` to `u019`. The table is then pivoted to longer so that each age bracket is an entity of the table, and the number of people in the age bracket is the attribute to be visualised -- if the procedure is unclear, try to execute it step-by-step (summarise first, then pivot) to see the different stages.
+
+Those values can then be represented in a visualisation using a bar chart, which combines the visual variables size (of the bar) and position (on the x-axis, the end of the bar) to encode a numeric value. The function `theme_bw` is used to use a simple black-and-white theme.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
+leicester_2011OAC %>% 
+  summarise(
+    across(
+      u007:u019,
+      sum
+    )
+  ) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "age_bracket",
+    values_to = "num_of_people"
+  ) %>% 
+  ggplot(
     aes(
-      x = u011
+      x = num_of_people,
+      y = age_bracket
     )
   ) +
-  ggplot2::geom_histogram(binwidth = 5) +
-  ggplot2::theme_bw()
-`r ''````
-````
+  geom_col() +
+  theme_bw()
+```
 
-The snipped and barchart is included in output documents, as shown below.
+### Proportions
+
+To better observe how those values compare as proportions of the overall total, the visualisation can be transformed into a stacked bar chart, compounding all area marks into one single bar. The number of people can be moved from the `x` to the `y` axis. The age bracket can be moved from the `y` axis to the `fill` visual variable.
+
+As there are 13 categories, we can't use the ColorBrewer schemes in this case (as most palettes count up to 12 colours). Thus, we can use the `scale_fill_tableau` function from the `ggthemes` library to select the `"Tableau 20"` colour palette, which offers 20 clearly distinct colours designed by [Tableau](https://tableau.com/), to complete the definition of the colour hue visual variable. The `factor(1)` value can be used to create a single bar on the `x` axis.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
+library(ggthemes)
+
+leicester_2011OAC %>% 
+  summarise(
+    across(
+      u007:u019,
+      sum
+    )
+  ) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "age_bracket",
+    values_to = "num_of_people"
+  ) %>% 
+  ggplot(
+    aes(
+      x = factor(1),
+      y = num_of_people,
+      fill = age_bracket
+    )
+  ) +
+  geom_col() +
+  scale_fill_tableau("Tableau 20") +
+  theme_bw()
+```
+
+The polar coordinate system transformation `coord_polar(theta = "y")` can be used to transform the stacked bar chart into a pie chart.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
+leicester_2011OAC %>% 
+  summarise(
+    across(
+      u007:u019,
+      sum
+    )
+  ) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "age_bracket",
+    values_to = "num_of_people"
+  ) %>% 
+  ggplot(
+    aes(
+      x = factor(1),
+      y = num_of_people,
+      fill = age_bracket
+    )
+  ) +
+  geom_col() +
+  scale_fill_tableau("Tableau 20") +
+  coord_polar(theta = "y") +
+  theme_bw()
+```
+
+We can then use the `theme_minimal` theme and set a few of the theme elements to `element_blank` to clean-up the chart. We can also rename the age brackets columns ahead of the pivot and change the order of the slices using `direction = -1` to make the chart readable.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
+leicester_2011OAC %>% 
+  summarise(
+    across(
+      u007:u019,
+      sum
+    )
+  ) %>% 
+  rename(
+    `0 to 4` = u007,
+    `5 to 9` = u008,
+    `10 to 14` = u009,
+    `15 to 19` = u010,
+    `20 to 24` = u011,
+    `25 to 29` = u012,
+    `30 to 44` = u013,
+    `45 to 59` = u014,
+    `60 to 64` = u015,
+    `65 to 74` = u016,
+    `75 to 84` = u017,
+    `85 to 89` = u018,
+    `90 and over` = u019
+  ) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "age_bracket",
+    values_to = "num_of_people"
+  ) %>% 
+  ggplot(
+    aes(
+      x = factor(1),
+      y = num_of_people,
+      fill = age_bracket
+    )
+  ) +
+  geom_col() +
+  scale_fill_tableau("Tableau 20") +
+  coord_polar(theta = "y", direction = -1) +
+  labs(
+    fill = "Age bracket (years old)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.border = element_blank(),
+    panel.grid=element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x=element_blank(),
+    axis.title.y = element_blank()
+  )
+```
+
+As the categories in this case have a clear order, the visual variable colour value could be used instead of colour hue, thus using a series of shared of the same hue. However, as there are 13 categories, again we can't use the ColorBrewer schemes. Thus, the example below uses one of the [viridis](https://sjmgarnier.github.io/viridis/) colour palettes.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
+leicester_2011OAC %>% 
+  summarise(
+    across(
+      u007:u019,
+      sum
+    )
+  ) %>% 
+  rename(
+    `0 to 4` = u007,
+    `5 to 9` = u008,
+    `10 to 14` = u009,
+    `15 to 19` = u010,
+    `20 to 24` = u011,
+    `25 to 29` = u012,
+    `30 to 44` = u013,
+    `45 to 59` = u014,
+    `60 to 64` = u015,
+    `65 to 74` = u016,
+    `75 to 84` = u017,
+    `85 to 89` = u018,
+    `90 and over` = u019
+  ) %>% 
+  pivot_longer(
+    cols = everything(),
+    names_to = "age_bracket",
+    values_to = "num_of_people"
+  ) %>% 
+  ggplot(
+    aes(
+      x = factor(1),
+      y = num_of_people,
+      fill = age_bracket
+    )
+  ) +
+  geom_col() +
+  scale_fill_viridis_d() +
+  coord_polar(theta = "y", direction = -1) +
+  labs(
+    fill = "Age bracket (years old)"
+  ) +
+  theme_minimal() +
+  theme(
+    panel.border = element_blank(),
+    panel.grid=element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x=element_blank(),
+    axis.title.y = element_blank()
+  )
+```
+
+As you can see, pie charts are tricky to create using `ggplot2` -- see, for instance, the [ggplot2 pie chart guide](http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization) by Statistical tools for high-throughput data analysis (STHDA) for further examples.
+
+**Self-test question**: which one of the two pie charts above do you think is more readable and why?
+
+
+### Distributions
+
+A histogram can be used to explore the distribution of the variable `u011`.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
 leicester_2011OAC %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = u011
     )
   ) +
-  ggplot2::geom_histogram(binwidth = 5) +
-  ggplot2::theme_bw()
+  geom_histogram(binwidth = 5) +
+  theme_bw()
 ```
 
 If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship. 
 
-For instance, the barchart above can be enhanced through the use of the visual variable colour and the `fill` option. The code creates a stacked barchart where sections of each bar are filled with the colour associated with a 2011OAC supergroup. 
+For instance, the bar chart above can be enhanced through the use of the visual variable colour and the `fill` option. The code creates a stacked bar chart where sections of each bar are filled with the colour associated with a 2011OAC supergroup. 
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 4}
 leicester_2011OAC %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = u011,
       fill = fct_reorder(supgrpname, supgrpcode)
     )
   ) +
-  ggplot2::geom_histogram(binwidth = 5) +
-  ggplot2::ggtitle("Leicester's young adults") +
-  ggplot2::labs(
+  geom_histogram(binwidth = 5) +
+  ggtitle("Leicester's young adults") +
+  labs(
     fill = "2011 Output Area\nClassification\n(supergroups)"
   ) +
-  ggplot2::xlab("Residents aged 20 to 24") +
-  ggplot2::ylab("Count") +
-  ggplot2::scale_fill_manual(
+  xlab("Residents aged 20 to 24") +
+  ylab("Count") +
+  scale_fill_manual(
     values = c("#e41a1c", "#f781bf", "#ff7f00", "#a65628", "#984ea3", "#377eb8", "#ffff33")
   ) +
-  ggplot2::theme_bw()
+  theme_bw()
 ```
 
 However, the graphic above is not extremely clear. A boxplot and a violin plot created from the same data are shown below. In both cases, the parameter `axis.text.x` of the function theme is set to `element_text(angle = 90, hjust = 1)` in order to orientate the labels on the x-axis vertically, as the supergroup names are rather long, and they would overlap one-another if set horizontally on the x-axis. In both cases, the option `fig.height` of the R snippet in RMarkdown should be set to a higher value (e.g., `5`) to allow for sufficient room for the supergroup names.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 5}
 leicester_2011OAC %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = fct_reorder(supgrpname, supgrpcode),
       y = u011,
       fill = fct_reorder(supgrpname, supgrpcode)
     )
   ) +
-  ggplot2::geom_boxplot() +
+  geom_boxplot() +
   ggtitle("Leicester's young adults") +
-  ggplot2::labs(
+  labs(
     fill = "2011 Output Area\nClassification\n(supergroups)"
   ) +
-  ggplot2::xlab("2011 Output Area Classification (supergroups)") +
-  ggplot2::ylab("Residents aged 20 to 24") +
-  ggplot2::scale_fill_manual(
+  xlab("2011 Output Area Classification (supergroups)") +
+  ylab("Residents aged 20 to 24") +
+  scale_fill_manual(
     values = c("#e41a1c", "#f781bf", "#ff7f00", "#a65628", "#984ea3", "#377eb8", "#ffff33")
   ) +
-  ggplot2::theme_bw() +
-  ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 5}
 leicester_2011OAC %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = fct_reorder(supgrpname, supgrpcode),
       y = u011,
       fill = fct_reorder(supgrpname, supgrpcode)
     )
   ) +
-  ggplot2::geom_violin() +
+  geom_violin() +
   ggtitle("Leicester's young adults") +
-  ggplot2::labs(
+  labs(
     fill = "2011 Output Area\nClassification\n(supergroups)"
   ) +
-  ggplot2::xlab("2011 Output Area Classification (supergroups)") +
-  ggplot2::ylab("Residents aged 20 to 24") +
-  ggplot2::scale_fill_manual(
+  xlab("2011 Output Area Classification (supergroups)") +
+  ylab("Residents aged 20 to 24") +
+  scale_fill_manual(
     values = c("#e41a1c", "#f781bf", "#ff7f00", "#a65628", "#984ea3", "#377eb8", "#ffff33")
   ) +
-  ggplot2::theme_bw() +
-  ggplot2::theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  theme_bw() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 
 
 ### Relationships
 
-The first barchart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare `u011` to `Total_Population`, for instance, through a scatterplot such as the one below.
+The first bar chart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare `u011` to `Total_Population`, for instance, through a scatterplot such as the one below.
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.height = 3}
 leicester_2011OAC %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = Total_Population,
       y = u011,
       colour = fct_reorder(supgrpname, supgrpcode)
     )
   ) +
-  ggplot2::geom_point(size = 0.5) +
-  ggplot2::ggtitle("Leicester's young adults") +
-  ggplot2::labs(
+  geom_point(size = 0.5) +
+  ggtitle("Leicester's young adults") +
+  labs(
     colour = "2011 Output Area\nClassification\n(supergroups)"
   ) +
-  ggplot2::xlab("Total number of residents") +
-  ggplot2::ylab("Residents aged 20 to 24") +
-  ggplot2::scale_y_log10() +
-  ggplot2::scale_colour_brewer(palette = "Set1") +
-  ggplot2::scale_colour_manual(
+  xlab("Total number of residents") +
+  ylab("Residents aged 20 to 24") +
+  scale_y_log10() +
+  scale_colour_brewer(palette = "Set1") +
+  scale_colour_manual(
     values = c("#e41a1c", "#f781bf", "#ff7f00", "#a65628", "#984ea3", "#377eb8", "#ffff33")
   ) +
-  ggplot2::theme_bw()
+  theme_bw()
 ```
 
 
 
-## Exercise 304.1
 
-**Question 304.1.1:** Which one of the boxplot or violin plot above do you think better illustrate the different distributions, and what do the two graphics say about the distribution of people aged 20 to 24 in Leicester? Write a short answer in your RMarkdown document (max 200 words).
+## Exercise 201.1
 
-**Question 304.1.2:** Create a jittered points plot (see [`geom_jitter`](https://ggplot2.tidyverse.org/reference/geom_jitter.html)) visualisation illustrating the same data shown in the boxplot and violin plot above.
+Open the `Leicester_population` project used in previous chapters and extend the *"Exploring deprivation indices in Leicester"* document to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC that can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv` to indetify which columns to use to complete the tasks. 
 
-**Question 304.1.3:** Create the code necessary to calculate a new column named `perc_age_20_to_24`, which is the percentage of people aged 20 to 24 (i.e., `u011`) over total population per OA `Total_Population`, and create a boxplot visualising the distribution of the variable per 2011OAC supergroup.
+**Question 201.1.1:** Write a piece of code to create a chart showing the percentage of EU citizens over total population for each decile of the Index of Multiple Deprivations
+
+**Question 201.1.2:** Write a piece of code to create a chart showing the relationship between the percentage of EU citizens over total population with the related score of the Index of Multiple Deprivations, and illustrating also the 2011 OAC class of each OA.
+
+**Question 201.1.3:** Write a piece of code to create a chart showing the relationship between the percentage of people aged 65 and above with the related score of the Income Deprivation, and illustrating also the 2011 OAC class of each OA.
+
+**Question 201.1.4:** What does the graph produced for *Question 201.1.3* mean? Write up to 100 words explaining what conclusions can be drawn from the graph -- remember that [*"the larger the score, the more deprived the area"*](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853811/IoD2019_FAQ_v4.pdf).
+
+**Question 201.1.5:** Identify the index of multiple deprivation that most closely relate to the percentage of people per OA whose *"day-to-day activities limited a lot or a little"* based on the *"Standardised Illness Ratio"*.
 
 
 ---

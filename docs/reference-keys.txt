@@ -56,9 +56,11 @@ exercise-104.1
 exploratory-visualisation
 gglot2-recap
 data-visualisation
+amounts
+proportions
 distributions
 relationships
-exercise-304.1
+exercise-201.1
 exploratory-statistics
 descriptive-statistics
 exercise-304.2
