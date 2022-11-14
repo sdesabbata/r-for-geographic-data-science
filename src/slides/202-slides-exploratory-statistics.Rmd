@@ -233,17 +233,17 @@ penguins %>%
 ]
 
 
-<!--
-Excerpt From: Field, Andy. “Discovering Statistics Using R.” iBooks. 
+???
 
-Section 2.5.1
-
-“If you were to calculate the standard deviation between sample means then this too would give you a measure of how much variability there was between the means of different samples. The standard deviation of sample means is known as the standard error of the mean (SE). Therefore, the standard error could be calculated by taking the difference between each sample mean and the overall mean, squaring these differences, adding them up, and then dividing by the number of samples. Finally, the square root of this value would need to be taken to get the standard deviation of sample means, the standard error.”
-
-“as samples get large (usually defined as greater than 30), the sampling distribution has a normal distribution with a mean equal to the population mean, and a standard deviation of: stddev / sqrt(N)”
-
-“This is known as the central limit theorem and it is useful in this context because it means that if our sample is large we can use the above equation to approximate the standard error (because, remember, it is the standard deviation of the sampling distribution).7 When the sample is relatively small (fewer than 30) the sampling distribution has a different shape, known as a t-distribution, which we’ll come back to later.”
--->
+The standard deviation of sample means is known as the 
+- standard error of the mean (SE):
+  - standard deviation of sample means
+  - calculation
+    - difference between each sample mean and overall mean, 
+    - square the differences
+    - sum them up 
+    - divide by number of samples
+    - square root
 
 
 ---
