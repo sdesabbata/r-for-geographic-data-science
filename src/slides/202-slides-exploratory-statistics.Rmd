@@ -1,0 +1,893 @@
+---
+title: "Lecture 202"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-11-01</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+opts_chunk$set(echo = FALSE)
+opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+# Descriptive statistics
+
+
+---
+## Recap
+
+.pull-left[
+
+**Previously**: Exploratory visualisation
+
+- Grammar of graphics
+- Visualising amounts and proportions
+- Visualising variable distributions and relationships
+
+**Today**: Exploratory statistics
+
+- Descriptive statistics
+- Exploring assumptions
+    - Normality
+    - Skewness and kurtosis
+    - Homogeneity of variance
+
+<br/>
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+leicester_2011OAC <- 
+  read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
+```
+
+```{r}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = Total_Population
+    )
+  ) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+    binwidth = 5
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = leicester_2011OAC %>% pull(Total_Population) %>% mean(),
+      sd = leicester_2011OAC %>% pull(Total_Population) %>% sd()
+    ),
+    colour = "red", size = 1
+  ) +
+  xlab("Population") +
+  ylab("") +
+  theme_bw()
+```
+
+
+]
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)
+library(knitr)
+```
+
+
+---
+## Meet the Palmer penguins
+
+.pull-left[
+
+<br>
+
+Original data collected and released by [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) and the [Palmer Station, Antarctica LTER](Palmer Station, Antarctica LTER), a member of the [Long Term Ecological Research Network](https://lternet.edu/).
+
+Horst AM, Hill AP, Gorman KB (2020). [palmerpenguins: Palmer Archipelago (Antarctica) penguin data](https://allisonhorst.github.io/palmerpenguins/). R package version 0.1.0. doi:10.5281/zenodo.3960218.
+
+<br>
+```{r, echo=TRUE, message=FALSE, warning=FALSE,}
+library(palmerpenguins)
+```
+
+]
+.pull-right[
+
+![:scale 70%](https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/lter_penguins.png)
+
+![:scale 70%](https://raw.githubusercontent.com/allisonhorst/palmerpenguins/master/man/figures/culmen_depth.png)
+
+<br/>
+.referencenote[
+*Artwork by @allison_horst*
+]
+
+]
+
+
+
+
+---
+## Descriptive statistics
+
+<br/>
+
+.pull-left[
+
+Quantitatively describe or summarize variables
+
+- `stat.desc` from `pastecs` library
+    - `base` includes counts
+    - `desc` includes descriptive stats
+    - `norm` (default is `FALSE`) includes distribution stats
+
+```{r, echo=TRUE, eval=FALSE}
+library(pastecs)
+
+penguins %>%
+  select(bill_length_mm, bill_depth_mm) %>%
+  stat.desc() %>%
+  kable(digits = c(2, 2))
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(pastecs)
+
+penguins %>%
+  select(bill_length_mm, bill_depth_mm) %>%
+  stat.desc() %>%
+  kable("html", digits = c(2, 2)) %>%
+  kable_styling(font_size = 16)
+```
+
+]
+
+
+
+---
+## stat.desc: basic
+
+.pull-left[
+
+<br/>
+
+- `nbr.val`: overall number of values in the dataset
+- `nbr.null`: number of `NULL` values -- NULL is often returned by expressions and functions whose values are undefined
+- `nbr.na`: number of `NA`s -- missing value indicator
+- `min` (also `min()`): **minimum** value in the dataset
+- `max` (also `max()`): **maximum** value in the dataset
+- `range`: difference between `min` and `max` (different from `range()`)
+- `sum` (also `sum()`): sum of the values in the dataset
+
+]
+.pull-right[
+
+<br/><br/><br/>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(pastecs)
+
+penguins %>%
+  select(bill_length_mm, bill_depth_mm) %>%
+  stat.desc(basic = TRUE, desc = FALSE) %>%
+  kable(digits = c(2, 2))
+```
+
+]
+
+
+---
+## stat.desc: desc
+
+.pull-left[
+
+- `mean` (`mean()`): **arithmetic mean**, that is `sum` over the number of values not `NA`
+- `median` (`median()`): **median**, that is the value separating the higher half from the lower half the values
+- `mode()` function is available: **mode**, the value that appears most often
+
+
+Assuming a population sample
+
+- `SE.mean`: **standard error of the mean** -- estimation of the variability of the mean calculated on different samples of the data (see also *central limit theorem*)
+- `CI.mean.0.95`: **95% confidence interval of the mean** -- indicates that there is a 95% probability that the actual mean is within that distance from the sample mean
+
+]
+.pull-right[
+
+<br/><br/><br/>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(pastecs)
+
+penguins %>%
+  select(bill_length_mm, bill_depth_mm) %>%
+  stat.desc(basic = FALSE, desc = TRUE) %>%
+  kable(digits = c(2, 2))
+```
+
+]
+
+
+<!--
+Excerpt From: Field, Andy. “Discovering Statistics Using R.” iBooks. 
+
+Section 2.5.1
+
+“If you were to calculate the standard deviation between sample means then this too would give you a measure of how much variability there was between the means of different samples. The standard deviation of sample means is known as the standard error of the mean (SE). Therefore, the standard error could be calculated by taking the difference between each sample mean and the overall mean, squaring these differences, adding them up, and then dividing by the number of samples. Finally, the square root of this value would need to be taken to get the standard deviation of sample means, the standard error.”
+
+“as samples get large (usually defined as greater than 30), the sampling distribution has a normal distribution with a mean equal to the population mean, and a standard deviation of: stddev / sqrt(N)”
+
+“This is known as the central limit theorem and it is useful in this context because it means that if our sample is large we can use the above equation to approximate the standard error (because, remember, it is the standard deviation of the sampling distribution).7 When the sample is relatively small (fewer than 30) the sampling distribution has a different shape, known as a t-distribution, which we’ll come back to later.”
+-->
+
+
+---
+## Estimating variation
+
+- `var`: **variance** ($\sigma^2$), it quantifies the amount of variation as the average of squared distances from the mean
+
+$$\sigma^2 = \frac{1}{n} \sum_{i=1}^n (\mu-x_i)^2$$
+
+- `std.dev`: **standard deviation** ($\sigma$), it quantifies the amount of variation as the square root of the variance
+
+$$\sigma = \sqrt{\frac{1}{n} \sum_{i=1}^n (\mu-x_i)^2}$$
+
+- `coef.var`: **variation coefficient** it quantifies the amount of variation as the standard deviation divided by the mean
+
+<!--
+## Broom
+
+Part `tidymodels` (under development), converts statistical analysis objects into tidy format
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(broom)
+
+nycflights13::flights %>%
+  filter(month == 11, carrier == "US") %>%
+  select(dep_delay, arr_delay, distance) %>%
+  stat.desc() %>%
+  tidy()
+```
+-->
+
+
+
+---
+## dplyr::across
+
+The `dplyr` verb `across` allows to apply `summarise` verbs on multiple columns.
+
+.pull-left[
+
+Instead of specifying `mean` for each one of four columns
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  # filter out raws with missing data
+  filter(!is.na(bill_length_mm)) %>%
+  # summarise
+  summarise(
+    avg_bill_len_mm = mean(bill_length_mm), 
+    avg_bill_dpt_mm = mean(bill_depth_mm),
+    avg_flip_len_mm = mean(flipper_length_mm),
+    avg_body_mass_g = mean(body_mass_g)
+  ) %>%
+  kable("html", digits = c(2, 2, 2,2 )) %>%
+  kable_styling(font_size = 14)
+```
+
+]
+.pull-right[
+
+One can specify the same function `mean` across a range of columns
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  # filter out raws with missing data
+  filter(!is.na(bill_length_mm)) %>%
+  # summarise
+  summarise(
+    across(
+      # vector of column names
+      bill_length_mm:body_mass_g, 
+      # function to be applied
+      mean                        
+    )
+  ) %>%
+  kable("html", digits = c(2, 2, 2, 2)) %>%
+  kable_styling(font_size = 14)
+```
+
+]
+
+???
+
+Particularly useful when working with many variables to ensure correctness and readibility
+
+---
+## dplyr::across
+
+.pull-left[
+
+The verb `across` can also be used with `mutate`, to apply the same function to a number of columns
+
+```{r, echo=TRUE, eval=FALSE}
+penguins %>%
+  # mutate cross columns
+  mutate(
+    across(
+      c(
+        bill_length_mm, 
+        bill_depth_mm, 
+        flipper_length_mm
+      ),
+      # divide  values by 25.4
+      function(x){ x / 25.4 }
+    )
+  ) %>%
+  rename(
+    bill_length_in = bill_length_mm,
+    bill_depth_in = bill_depth_mm,
+    flipper_length_in = flipper_length_mm
+  )
+```
+
+]
+.pull-right[
+
+Old columns:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins %>%
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>% 
+  slice_head(n = 5) %>% 
+  kable("html", digits = c(2, 2, 2, 2)) %>%
+  kable_styling(font_size = 14)
+```
+
+New columns:
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins %>%
+  # mutate cross columns
+  mutate(
+    across(
+      c(bill_length_mm, bill_depth_mm, flipper_length_mm),
+      function(x){ x / 25.4 }
+    )
+  ) %>%
+  rename(bill_length_in = bill_length_mm, bill_depth_in = bill_depth_mm, flipper_length_in = flipper_length_mm) %>%
+  select(bill_length_in, bill_depth_in, flipper_length_in) %>% 
+  slice_head(n = 5) %>% 
+  kable("html", digits = c(2, 2, 2, 2)) %>%
+  kable_styling(font_size = 14)
+```
+
+]
+
+
+---
+class: inverse, center, middle
+
+# Exploring assumptions
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)
+library(knitr)
+library(pastecs)
+library(palmerpenguins)
+```
+
+
+---
+## Normal distribution
+
+.pull-left[
+
+*Distribution* can refer to:
+
+- how many cases of a value are present in a set
+- the probability of having that amount of cases in a set 
+
+A set of values is said to *be normally distributed* if their distribution follows (within certain margins of errors) the **normal distribution**
+
+- characterized by the bell-shaped curve 
+- majority of values lie around the centre of the distribution
+- the further the values are from the centre, the lower their frequency
+- about 95% of values within 2 standard deviations from the mean
+
+]
+.pull-right[
+
+<br/>
+
+```{r, echo=FALSE, fig.height=8, fig.width=8, out.width='100%'}
+x <- seq(-4, 4, length=100)
+hx <- dnorm(x)
+
+plot(x, hx, type="l", xlab="Values",
+  ylab="Density", main="Normal distribution")
+```
+
+]
+
+???
+
+- For instance you might imagine that all penguins have a rather similar flipper length. 
+- So in most cases if we have a set of values representing measurements of penguin flipper lengths most values will be close to the mean. 
+- Very long or very short flipper lengths are ratehr rare. 
+- Thus a good question could be are penguins flipper lengths normally distributed?
+
+---
+## Density histogram
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+penguins %>% 
+  ggplot(
+    aes(
+      x = flipper_length_mm
+    )
+  ) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = 
+        penguins %>% 
+        filter(!is.na(flipper_length_mm)) %>% 
+        pull(flipper_length_mm) %>% 
+        mean(),
+      sd = 
+        penguins %>% 
+        filter(!is.na(flipper_length_mm)) %>% 
+        pull(flipper_length_mm) %>% 
+        sd()
+    ),
+    colour = "red", 
+    size = 1
+  )
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 8, fig.width = 8, out.width='100%'}
+penguins %>% 
+  ggplot(
+    aes(
+      x = flipper_length_mm
+    )
+  ) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = penguins %>% filter(!is.na(flipper_length_mm)) %>% pull(flipper_length_mm) %>% mean(),
+      sd = penguins %>% filter(!is.na(flipper_length_mm)) %>% pull(flipper_length_mm) %>% sd()),
+    colour = "red", size = 1)
+```
+
+]
+
+
+---
+## Q-Q plot
+
+<br/>
+
+.pull-left[
+
+A Q-Q plot illustrates
+
+- values against 
+- the cumulative probability of a particular distribution 
+  - (in this case, *normal* distribution)
+
+```{r, echo=TRUE, eval=FALSE}
+penguins %>% 
+  ggplot(
+    aes(
+      sample = 
+        flipper_length_mm
+    )
+  ) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 8, fig.width = 8, out.width='80%'}
+penguins %>% 
+  ggplot(
+    aes(sample = flipper_length_mm)
+  ) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+]
+
+
+---
+## Shapiro–Wilk test
+
+- Compares
+  - the distribution of a variable 
+  - with a normal distribution having same mean and standard deviation
+- if significant
+  - the distribution is not normal
+- R functions
+  - `shapiro.test` function in `stats`
+  - `normtest` values in `stat.desc` (more on this in the coming slides)
+
+```{r, echo=TRUE}
+penguins %>% 
+  pull(flipper_length_mm) %>%
+  shapiro.test()
+```
+
+**Conclusion**: The *flipper length* of penguins in the Palmer Station dataset **is not** normally distributed.
+
+
+
+---
+## Significance
+
+<br/>
+
+Most statistical tests are based on the idea of hypothesis testing
+
+- a **null hypothesis** is set
+- the data are fit into a statistical model
+- the model is assessed with a **test statistic**
+- the **significance** is the probability of obtaining that test statistic value by chance
+
+The threshold to accept or reject an hypotheis is arbitrary and based on conventions (e.g., *p < .01* or *p < .05*)
+
+**Example:** The null hypotheis of the Shapiro–Wilk test is that the sample is normally distributed and *p < .01* indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
+
+
+---
+## Example
+
+The *flipper length* of **Adelie** penguins **is normally distributed**
+
+.pull-left[
+
+```{r, echo=TRUE}
+penguins %>% 
+  filter(
+    species == "Adelie"
+  ) %>%
+  pull(
+    flipper_length_mm
+  ) %>%
+  shapiro.test()
+```
+
+]
+.pull-right[
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 8, fig.width = 8, out.width='100%'}
+penguins %>% 
+  filter(species == "Adelie") %>%
+  ggplot(
+    aes(
+      x = flipper_length_mm
+    )
+  ) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = penguins %>% filter(!is.na(flipper_length_mm) & species == "Adelie") %>% pull(flipper_length_mm) %>% mean(),
+      sd = penguins %>% filter(!is.na(flipper_length_mm) & species == "Adelie") %>% pull(flipper_length_mm) %>% sd()),
+    colour = "red", size = 1)
+```
+
+]
+
+
+
+---
+## Example
+
+The *flipper length* of **Adelie** penguins **is normally distributed**
+
+.pull-left[
+
+```{r, echo=TRUE}
+penguins %>% 
+  filter(
+    species == "Adelie"
+  ) %>%
+  pull(
+    flipper_length_mm
+  ) %>%
+  shapiro.test()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 8, fig.width = 8, out.width='100%'}
+penguins %>% 
+  filter(species == "Adelie") %>%
+  ggplot(
+    aes(sample = flipper_length_mm)
+  ) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+]
+
+
+---
+## Example: Leicester OAs 
+
+.pull-left[
+
+Is the population in Leicester's OAs normally distributed? 
+
+... almost, but actually, no!
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- 
+  read_csv(
+    "2011_OAC_Raw_uVariables_Leicester.csv"
+  )
+```
+
+```{r, echo=TRUE}
+leicester_2011OAC %>% 
+  pull(
+    Total_Population
+  ) %>%
+  shapiro.test()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5, fig.width = 5, out.width='55%'}
+leicester_2011OAC %>% 
+  ggplot(
+    aes(
+      x = Total_Population
+    )
+  ) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = leicester_2011OAC %>% pull(Total_Population) %>% mean(),
+      sd = leicester_2011OAC %>% pull(Total_Population) %>% sd()),
+    colour = "red", size = 1)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 5, fig.width = 5, out.width='55%'}
+leicester_2011OAC %>%
+  ggplot(
+    aes(sample = Total_Population)
+  ) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+]
+
+
+
+---
+## Skewness and kurtosis
+
+<br/>
+
+In a normal distribution, *skewness* and *kurtosis* should be **zero**
+
+- `skewness`: **skewness** value indicates
+  - positive: the distribution is skewed towards the left
+  - negative: the distribution is skewed towards the right
+
+- `kurtosis`: **kurtosis** value indicates
+  - positive: heavy-tailed distribution
+  - negative: flat distribution
+
+- `skew.2SE` and `kurt.2SE`: skewness and kurtosis divided by 2 standard errors. Therefore
+  - if `> 1` (or `< -1`) then the stat significant *(p < .05)*
+  - if `> 1.29` (or `< -1.29`) then stat significant *(p < .01)*
+
+
+
+---
+## Example
+
+*Flipper length* is not normally distributed
+
+- skewed left (skewness positive, `skew.2SE > 1.29`)
+- flat distribution (kurtosis negative, `kurt.2SE < -1.29`)
+
+```{r, echo=TRUE, eval=FALSE}
+penguins %>% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  stat.desc(basic = FALSE, desc = FALSE, norm = TRUE)
+```
+```{r, echo=FALSE}
+penguins %>% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  kable()
+```
+
+
+---
+## Example
+
+Values are instead not significant for **Adelie** penguins
+
+- both `skew.2SE` and `kurt.2SE` between `-1` and `1`
+
+```{r, echo=TRUE, eval=FALSE}
+penguins %>% 
+  filter(species == "Adelie") %>%
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  stat.desc(basic = FALSE, desc = FALSE, norm = TRUE)
+```
+```{r, echo=FALSE}
+penguins %>% 
+  filter(species == "Adelie") %>%
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm) %>%
+  stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  kable()
+```
+
+
+
+---
+## Homogeneity of variance
+
+<br/>
+
+.pull-left[
+
+**Levene’s test** for equality of variance in different levels
+
+- If significant, the variance is different in different levels
+
+```{r, echo=TRUE, eval=TRUE}
+library(car)
+
+penguins %>% 
+  leveneTest(
+    body_mass_g ~ species, 
+    data = .
+  )
+```
+
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 8, fig.width = 8, out.width='80%'}
+penguins %>% 
+  ggplot(
+    aes(
+      x = species, 
+      y = body_mass_g
+    )
+  ) +
+  geom_boxplot()
+```
+
+]
+
+
+---
+## Summary
+
+.pull-left[
+
+**Today**: Exploratory statistics
+
+- Descriptive statistics
+- Exploring assumptions
+    - Normality
+    - Skewness and kurtosis
+    - Homogeneity of variance
+
+**Next time**: Comparing variables
+
+- Comparing distributions through mean
+- Correlation analysis
+- Variable transformation
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+]
+
+]
+.pull-right[
+
+```{r}
+leicester_2011OAC %>%
+  ggplot(
+    aes(
+      x = Total_Population
+    )
+  ) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+    binwidth = 5
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = leicester_2011OAC %>% pull(Total_Population) %>% mean(),
+      sd = leicester_2011OAC %>% pull(Total_Population) %>% sd()
+    ),
+    colour = "red", size = 1
+  ) +
+  xlab("Population") +
+  ylab("") +
+  theme_bw()
+```
+
+
+]
+
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
