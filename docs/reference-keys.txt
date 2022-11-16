@@ -62,7 +62,9 @@ visualising-relationships
 exercise-201.1
 exploratory-statistics
 descriptive-statistics
-exercise-304.2
+significance
+shapirowilk-test
+exercise-202.1
 comparing-data
 anova
 anova-example

@@ -1409,9 +1409,9 @@ Most statistical tests are based on the idea of hypothesis testing
 - the model is assessed with a **test statistic**
 - the **significance** is the probability of obtaining that test statistic value by chance
 
-The threshold to accept or reject an hypotheis is arbitrary and based on conventions (e.g., *p &lt; .01* or *p &lt; .05*)
+The threshold to accept or reject an hypothesis is arbitrary and based on conventions (e.g., *p &lt; .01* or *p &lt; .05*)
 
-**Example:** The null hypotheis of the Shapiro–Wilk test is that the sample is normally distributed and *p &lt; .01* indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
+**Example:** The null hypothesis of the Shapiro–Wilk test is that the sample is normally distributed and *p &lt; .01* indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
 
 
 ---
@@ -1695,30 +1695,7 @@ penguins %&gt;%
 
 ```r
 library(car)
-```
 
-```
-## Loading required package: carData
-```
-
-```
-## 
-## Attaching package: &#39;car&#39;
-```
-
-```
-## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     recode
-```
-
-```
-## The following object is masked from &#39;package:purrr&#39;:
-## 
-##     some
-```
-
-```r
 penguins %&gt;% 
   leveneTest(
     body_mass_g ~ species, 

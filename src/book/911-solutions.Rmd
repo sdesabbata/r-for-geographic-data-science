@@ -563,6 +563,159 @@ leicester_2011OAC_IMD2015_score %>%
 
 **Question 201.1.5:** Identify the index of multiple deprivation that most closely relate to the percentage of people per OA whose *"day-to-day activities limited a lot or a little"* based on the *"Standardised Illness Ratio"*.
 
+
+
+## Solutions 202 {-}
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+library(pastecs)
+library(car)
+
+leicester_2011OAC <- read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
+
+leic_2011OAC_20to24 <- leicester_2011OAC %>%
+  mutate(
+    perc_age_20_to_24 = (u011 / Total_Population) * 100,
+    supgrpname = 
+      dplyr::recode(
+        supgrpname, 
+          `Suburbanites` = "SU",
+          `Cosmopolitans` = "CP",
+          `Multicultural Metropolitans` = "MM",
+          `Ethnicity Central` = "EC",
+          `Constrained City Dwellers` = "CD",
+          `Hard-Pressed Living` = "HP",
+          `Urbanites` = "UR"
+    )
+  ) %>%
+  select(OA11CD, supgrpname, perc_age_20_to_24)
+```
+
+### Solutions 202.1 {-}
+
+Create a new RMarkdown document, and add the code necessary to recreate the table `leic_2011OAC_20to24` used in the example above. Use the code below to re-shape the table `leic_2011OAC_20to24` by pivoting the `perc_age_20_to_24` column wider into multiple columns using `supgrpname` as new column names. 
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leic_2011OAC_20to24_supgrp <- leic_2011OAC_20to24 %>%
+  pivot_wider(
+    names_from = supgrpname,
+    values_from = perc_age_20_to_24
+  )
+```
+
+That manipulation creates one column per supergroup, containing the `perc_age_20_to_24` if the OA is part of that supergroup, or an `NA` value if the OA is not part of the supergroup. The transformation is illustrated in the two tables below. The first shows an extract from the original `leic_2011OAC_20to24` dataset, followed by the wide version `leic_2011OAC_20to24_supgrp`.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leic_2011OAC_20to24 %>%
+  slice_min(OA11CD, n = 10) %>%
+  kable(digits = 3)
+
+leic_2011OAC_20to24_supgrp %>%
+  slice_min(OA11CD, n = 10) %>%
+  kable(digits = 3)
+```
+
+
+**Question 202.1.1:** The code below uses the newly created `leic_2011OAC_20to24_supgrp` table to calculate the descriptive statistics calculated for the variable `leic_2011OAC_20to24` for each supergroup. Is `leic_2011OAC_20to24` normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leic_2011OAC_20to24_supgrp %>%
+  select(-OA11CD) %>%
+  stat.desc(norm = TRUE) %>%
+  kable(digits = 3)
+```
+
+We can set a *p < .01* threshold, which is reasonable for the number of cases in the dataset (hundreds, at least for some of the 2011OAC supergroups). We can claim that `leic_2011OAC_20to24` is normally distributed in the supergroups Suburbanites (SU),	Cosmopolitans (CP), Constrained City Dwellers (CD) and  Hard-Pressed Living (HP), as the `normtest.p` value is above `0.01`, which allows us to reject the null hypothesis. The variable `leic_2011OAC_20to24` seems instead not to be normally distributed for Multicultural Metropolitans (MM), Ethnicity Central (EC) and Urbanites (UR). That is also further illustrated by the graphs below.
+
+```{r echo=TRUE, fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+leic_2011OAC_20to24 %>% 
+  filter(supgrpname %in% c("SU", "CP", "CD", "HP")) %>% 
+  ggplot(
+    aes(
+      x = perc_age_20_to_24
+    )
+  ) + 
+  geom_histogram(
+    aes(
+      y = ..density..
+    )
+  ) +
+  facet_wrap(
+    vars(supgrpname),
+    ncol = 2,
+    scales = "free"
+  ) +
+  ggtitle("Normally distributed") +
+  theme_bw()
+```
+
+```{r echo=TRUE, fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+leic_2011OAC_20to24 %>% 
+  filter(supgrpname %in% c("MM", "EC", "UR")) %>% 
+  ggplot(
+    aes(
+      x = perc_age_20_to_24
+    )
+  ) + 
+  geom_histogram(
+    aes(
+      y = ..density..
+    )
+  ) +
+  facet_wrap(
+    vars(supgrpname),
+    ncol = 2,
+    scales = "free"
+  ) +
+  ggtitle("Not normally distributed") +
+  theme_bw()
+```
+
+
+**Question 202.1.2:** Write the code necessary to test again the normality of `leic_2011OAC_20to24` for the supergroups where the analysis conducted for Question 202.1.1 indicated they are normal, using the function `shapiro.test`, and draw the respective Q-Q plot.
+
+Example for Hard-Pressed Living (HP).
+
+```{r}
+leic_2011OAC_20to24 %>%
+  filter(supgrpname == "HP") %>% 
+  pull(perc_age_20_to_24) %>%
+  shapiro.test()
+```
+
+```{r}
+leic_2011OAC_20to24 %>%
+  filter(supgrpname == "HP") %>% 
+  ggplot(
+    aes(
+      sample = perc_age_20_to_24
+    )
+  ) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+
+
+**Question 202.1.3:** Observe the output of the Levene’s test executed below. What does the result tell you about the variance of `perc_age_20_to_24` in supergroups?
+
+Note that the `leveneTest` was not designed to work with a Tidyverse approach. As such, the code below uses [the `.` argument placeholder](https://magrittr.tidyverse.org/#the-argument-placeholder) to specify that the input table `leic_2011OAC_20to24` which is coming down from the pipe should be used as argument for the `data` parameter.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leic_2011OAC_20to24 %>% 
+  leveneTest(
+    perc_age_20_to_24 ~ supgrpname, 
+    data = .
+  )
+```
+
+If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a *p < .01* threshold. In the output above, the *p* value (`Pr(>F)`) is much lower than our threshold, indicating that the test is significance. Thus, the `perc_age_20_to_24` has different variance for different 2011OAc supergroups.
+
+
+
+
 <!--
 
 ### Solutions 104.2 {-}

@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 6 Exploratory statistics | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011...">
+<meta name="description" content="Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011 Output Area Classification...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 6 Exploratory statistics | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/exploratory-statistics.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011...">
+<meta property="og:description" content="Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011 Output Area Classification...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 6 Exploratory statistics | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011...">
+<meta name="twitter:description" content="Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the u011 variable from the 2011 Output Area Classification...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -108,36 +108,37 @@
 <h1>
 <span class="header-section-number">6</span> Exploratory statistics<a class="anchor" aria-label="anchor" href="#exploratory-statistics"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<p>This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the <code>u011</code> variable from the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification (2011OAC)</a> dataset introduced in <a href="https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html#read-and-write-data">chapter 4</a>.</p>
-<p>Before continuing, create a new R project in RStudio, and upload the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file to the project folder. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.</p>
+<p>This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the <code>u011</code> variable from the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification (2011OAC)</a> already used in previous chapters. Before continuing, open the project created for the previous chapter. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.</p>
 <div class="sourceCode" id="cb208"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
+<span></span>
 <span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>The graphics above provide preliminary evidence that the distribution of people aged 20 to 24 might, in fact, be different in different 2011 supergroups. In the remainder of the chapter, we are going to explore that hypothesis further. First, load the necessary statistical libraries.</p>
-<p>The code below calculates the percentage of people aged 20 to 24 (i.e., <code>u011</code>) over total population per OA, but it also recodes (see <a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a>) the names of the 2011OAC supergroups to a shorter 2-letter version, which is useful for the tables presented further below.</p>
-<p>Only the OA code, the recoded 2011OAC supergroup name, and the newly created <code>perc_age_20_to_24</code> are retained in the new table <code>leic_2011OAC_20to24</code>. Such a step is sometimes useful as stepping stone for further analysis and can make the code easier to read further down the line. Sometimes it is also a necessary step when interacting with certain libraries, which are not fully compatible with Tidyverse libraries, such as <code>leveneTest</code>.</p>
+<p>The code below calculates the percentage of people aged 20 to 24 (i.e., <code>u011</code>) over total population per OA, but it also recodes (see <a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a>) the names of the 2011OAC supergroups to a shorter 2-letter version, which is useful for the tables presented further below. Note that the code below uses the library name as a prefix <code>dplyr::</code> in front of the function name <code>recode</code> (thus, <code><a href="https://dplyr.tidyverse.org/reference/recode.html">dplyr::recode</a></code>) to make sure the function <code>recode</code> of the package <code>car</code> (thus, <code><a href="https://rdrr.io/pkg/car/man/recode.html">car::recode</a></code>) is not used instead.</p>
+<p>Only the OA code, the recoded 2011OAC supergroup name, and the newly created <code>perc_age_20_to_24</code> are retained in the new table <code>leic_2011OAC_20to24</code>. Such a step is sometimes useful as stepping stone for further analysis and can make the code easier to read further down the line. Sometimes it is also a necessary step when interacting with certain libraries, which are not fully compatible with Tidyverse libraries, such as <code>leveneTest</code> (more on that function below).</p>
 <div class="sourceCode" id="cb209"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op">&lt;-</span> <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    perc_age_20_to_24 <span class="op">=</span> <span class="op">(</span><span class="va">u011</span> <span class="op">/</span> <span class="va">Total_Population</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
-<span>    supgrpname <span class="op">=</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span><span class="va">supgrpname</span>, </span>
-<span>      `Suburbanites` <span class="op">=</span> <span class="st">"SU"</span>,</span>
-<span>      `Cosmopolitans` <span class="op">=</span> <span class="st">"CP"</span>,</span>
-<span>      `Multicultural Metropolitans` <span class="op">=</span> <span class="st">"MM"</span>,</span>
-<span>      `Ethnicity Central` <span class="op">=</span> <span class="st">"EC"</span>,</span>
-<span>      `Constrained City Dwellers` <span class="op">=</span> <span class="st">"CD"</span>,</span>
-<span>      `Hard-Pressed Living` <span class="op">=</span> <span class="st">"HP"</span>,</span>
-<span>      `Urbanites` <span class="op">=</span> <span class="st">"UR"</span></span>
+<span>    supgrpname <span class="op">=</span> </span>
+<span>      <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html">recode</a></span><span class="op">(</span></span>
+<span>        <span class="va">supgrpname</span>, </span>
+<span>          `Suburbanites` <span class="op">=</span> <span class="st">"SU"</span>,</span>
+<span>          `Cosmopolitans` <span class="op">=</span> <span class="st">"CP"</span>,</span>
+<span>          `Multicultural Metropolitans` <span class="op">=</span> <span class="st">"MM"</span>,</span>
+<span>          `Ethnicity Central` <span class="op">=</span> <span class="st">"EC"</span>,</span>
+<span>          `Constrained City Dwellers` <span class="op">=</span> <span class="st">"CD"</span>,</span>
+<span>          `Hard-Pressed Living` <span class="op">=</span> <span class="st">"HP"</span>,</span>
+<span>          `Urbanites` <span class="op">=</span> <span class="st">"UR"</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">perc_age_20_to_24</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">perc_age_20_to_24</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">OA11CD</th>
@@ -172,10 +173,10 @@
 </tr>
 </tbody>
 </table></div>
-<div id="descriptive-statistics" class="section level3" number="6.0.1">
-<h3>
-<span class="header-section-number">6.0.1</span> Descriptive statistics<a class="anchor" aria-label="anchor" href="#descriptive-statistics"><i class="fas fa-link"></i></a>
-</h3>
+<div id="descriptive-statistics" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Descriptive statistics<a class="anchor" aria-label="anchor" href="#descriptive-statistics"><i class="fas fa-link"></i></a>
+</h2>
 <p>The first step of any statistical analysis or modelling should be to explore the <em>“shape”</em> of the data involved, by looking at the descriptive statistics of all variables involved. The function <code>stat.desc</code> of the <code>pastecs</code> library provides three series of descriptive statistics.</p>
 <ul>
 <li>
@@ -246,11 +247,11 @@
 <p>The next step is thus to apply the <code>stat.desc</code> to the variable we are currently exploring (i.e., <code>perc_age_20_to_24</code>), including the <code>norm</code> section.</p>
 <div class="sourceCode" id="cb210"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_stat_desc</span> <span class="op">&lt;-</span> <span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">pastecs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">stat.desc</span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span>  </span>
 <span><span class="va">leic_2011OAC_20to24_stat_desc</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left"></th>
@@ -354,32 +355,51 @@
 <p>If the data described by statistics presented in the table above was a random sample of a population, the 95% confidence interval <code>CI.mean.0.95</code> would indicate that we can be 95% confident that the actual mean of the distribution is somewhere between 10.566 <code>-</code> 0.596 <code>=</code> 9.97% and 10.566 <code>+</code> 0.596 <code>=</code> 11.162%.</p>
 <p>However, this is not a sample. Thus the statistical interpretation is not valid, in the same way that the <code>sum</code> values doesn’t make sense, as it is the sum of a series of percentages.</p>
 <p>Both <code>skew.2SE</code> and <code>kurt.2SE</code> are greater than <code>1</code>, which indicate that the <code>skewness</code> and <code>kurtosis</code> values are significant (<em>p &lt; .05</em>). The <code>skewness</code> is positive, which indicates that the distribution is skewed towards the left (low values). The <code>kurtosis</code> is positive, which indicates that the distribution is heavy-tailed.</p>
-<p>As such, <code>perc_age_20_to_24</code> having a heavy-tailed distribution skewed towards low values, it is not surprising that the <code>normtest.p</code> value indicates that the Shapiro–Wilk test is significant, which indicates that the distribution is not normal.</p>
+</div>
+<div id="significance" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Significance<a class="anchor" aria-label="anchor" href="#significance"><i class="fas fa-link"></i></a>
+</h2>
+<p>Most statistical tests are based on the idea of hypothesis testing:</p>
+<ol style="list-style-type: decimal">
+<li>a <strong>null hypothesis</strong> is set;</li>
+<li>the data are fit into a statistical model;</li>
+<li>the model is assessed with a <strong>test statistic</strong>;</li>
+<li>the <strong>significance</strong> is the probability of obtaining that test statistic value by chance.</li>
+</ol>
+<p>The threshold to accept or reject a hypothesis is arbitrary and based on conventions. A 0.05 threshold (<em>p &lt; .05</em>) is quite common with relatively small samples (e.g., dozens of cases), while a more strict 0.01 threshold (<em>p &lt; .01</em>) is commonly advised for large samples (e.g., hundreds of cases). However, <span class="citation">Mingfeng Lin, Henry C. Lucas, and Galit Shmueli<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-10.2307/24700283" role="doc-biblioref"&gt;&lt;span&gt;“Research Commentary: Too Big to Fail: Large Samples and the p-Value Problem,”&lt;/span&gt; &lt;em&gt;Information Systems Research&lt;/em&gt; 24, no. 4 (2013): 906–17, &lt;/a&gt;&lt;a href="http://www.jstor.org/stable/24700283" role="doc-biblioref"&gt;http://www.jstor.org/stable/24700283&lt;/a&gt;.&lt;/p&gt;'><sup>17</sup></a></span> advise that such thresholds might not be suitable when working with big data (e.g., tens of thousands of cases).</p>
+</div>
+<div id="shapirowilk-test" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Shapiro–Wilk test<a class="anchor" aria-label="anchor" href="#shapirowilk-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>As <code>perc_age_20_to_24</code> is a heavy-tailed distribution, skewed towards low values, it is not surprising that the <code>normtest.p</code> value indicates that the Shapiro–Wilk test is significant, which indicates that the distribution is not normal.</p>
 <p>The code below present the output of the <a href="https://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/shapiro.test"><code>shapiro.test</code> function</a>, which only present the outcome of a Shapiro–Wilk test on the values provided as input. The output values are the same as the values reported by the <code>norm</code> section of <code>stat.desc</code>. Note that the <code>shapiro.test</code> function require the argument to be a numeric vector. Thus the <a href="https://dplyr.tidyverse.org/reference/pull.html"><code>pull</code> function</a> must be used to extract the <code>perc_age_20_to_24</code> column from <code>leic_2011OAC_20to24</code> as a vector, whereas using <code>select</code> with a single column name as the argument would produce as output a table with a single column.</p>
 <div class="sourceCode" id="cb212"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  .
 ## W = 0.64491, p-value &lt; 2.2e-16</code></pre>
+<p>As the null hypothesis of the Shapiro–Wilk test is that the sample is normally distributed, a <em>p</em> value lower than a <code>0.01</code> threshold (<em>p &lt; .01</em>) indicates that the probability of that being true is very low. So, the <em>flipper length</em> of penguins in the Palmer Station dataset <strong>is not</strong> normally distributed.</p>
 <p>The two code snippets below can be used to visualise a density-based histogram including the shape of a normal distribution having the same mean and standard deviation, and a Q-Q plot, to visually confirm the fact that <code>perc_age_20_to_24</code> is not normally distributed.</p>
 <div class="sourceCode" id="cb214"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>      x <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>      y <span class="op">=</span><span class="va">..density..</span></span>
 <span>    <span class="op">)</span>,</span>
 <span>    binwidth <span class="op">=</span> <span class="fl">5</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_function.html">stat_function</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_function.html">stat_function</a></span><span class="op">(</span></span>
 <span>    fun <span class="op">=</span> <span class="va">dnorm</span>, </span>
 <span>    args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>      mean <span class="op">=</span> <span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span>,</span>
@@ -392,31 +412,31 @@
 <p>If <code>perc_age_20_to_24</code> had been normally distributed, the dots in the Q-Q plot would be distributed straight on the line included in the plot.</p>
 <div class="sourceCode" id="cb215"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>      sample <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-9-1.png" width="288"></div>
 </div>
-<div id="exercise-304.2" class="section level2" number="6.1">
+<div id="exercise-202.1" class="section level2" number="6.4">
 <h2>
-<span class="header-section-number">6.1</span> Exercise 304.2<a class="anchor" aria-label="anchor" href="#exercise-304.2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.4</span> Exercise 202.1<a class="anchor" aria-label="anchor" href="#exercise-202.1"><i class="fas fa-link"></i></a>
 </h2>
 <p>Create a new RMarkdown document, and add the code necessary to recreate the table <code>leic_2011OAC_20to24</code> used in the example above. Use the code below to re-shape the table <code>leic_2011OAC_20to24</code> by pivoting the <code>perc_age_20_to_24</code> column wider into multiple columns using <code>supgrpname</code> as new column names.</p>
 <div class="sourceCode" id="cb216"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op">&lt;-</span> <span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">supgrpname</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>That manipulation creates one column per supergroup, containing the <code>perc_age_20_to_24</code> if the OA is part of that supergroup, or an <code>NA</code> value if the OA is not part of the supergroup. The transformation is illustrated in the two tables below. The first shows an extract from the original <code>leic_2011OAC_20to24</code> dataset, followed by the wide version <code>leic_2011OAC_20to24_supgrp</code>.</p>
 <div class="sourceCode" id="cb217"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">OA11CD</th>
@@ -478,8 +498,8 @@
 </table></div>
 <div class="sourceCode" id="cb218"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">OA11CD</th>
@@ -594,12 +614,12 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>Question 304.2.1:</strong> The code below uses the newly created <code>leic_2011OAC_20to24_supgrp</code> table to calculate the descriptive statistics calculated for the variable <code>leic_2011OAC_20to24</code> for each supergroup. Is <code>leic_2011OAC_20to24</code> normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)</p>
+<p><strong>Question 202.1.1:</strong> The code below uses the newly created <code>leic_2011OAC_20to24_supgrp</code> table to calculate the descriptive statistics calculated for the variable <code>leic_2011OAC_20to24</code> for each supergroup. Is <code>leic_2011OAC_20to24</code> normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)</p>
 <div class="sourceCode" id="cb219"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">pastecs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">stat.desc</span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table style="width:100%;" class="table table-sm">
 <colgroup>
 <col width="18%">
@@ -824,10 +844,15 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>Question 304.2.2:</strong> Write the code necessary to test again the normality of <code>leic_2011OAC_20to24</code> for the supergroups where the analysis conducted for Question 304.2.1 indicated they are normal, using the function <code>shapiro.test</code>, and draw the respective Q-Q plot.</p>
-<p><strong>Question 304.2.3:</strong> Observe the output of the Levene’s test executed below. What does the result tell you about the variance of <code>perc_age_20_to_24</code> in supergroups?</p>
+<p><strong>Question 202.1.2:</strong> Write the code necessary to test again the normality of <code>leic_2011OAC_20to24</code> for the supergroups where the analysis conducted for Question 202.1.1 indicated they are normal, using the function <code>shapiro.test</code>, and draw the respective Q-Q plot.</p>
+<p><strong>Question 202.1.3:</strong> Observe the output of the Levene’s test executed below. What does the result tell you about the variance of <code>perc_age_20_to_24</code> in supergroups?</p>
+<p>Note that the <code>leveneTest</code> was not designed to work with a Tidyverse approach. As such, the code below uses <a href="https://magrittr.tidyverse.org/#the-argument-placeholder">the <code>.</code> argument placeholder</a> to specify that the input table <code>leic_2011OAC_20to24</code> which is coming down from the pipe should be used as argument for the <code>data</code> parameter.</p>
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">car</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span><span class="va">leic_2011OAC_20to24</span><span class="op">$</span><span class="va">perc_age_20_to_24</span>, <span class="va">leic_2011OAC_20to24</span><span class="op">$</span><span class="va">supgrpname</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">leveneTest</span><span class="op">(</span></span>
+<span>    <span class="va">perc_age_20_to_24</span> <span class="op">~</span> <span class="va">supgrpname</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">.</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <pre><code>## Levene's Test for Homogeneity of Variance (center = median)
 ##        Df F value    Pr(&gt;F)    
 ## group   6  62.011 &lt; 2.2e-16 ***
@@ -839,16 +864,18 @@
 
 </div>
 </div>
+
   <div class="chapter-nav">
 <div class="prev"><a href="exploratory-visualisation.html"><span class="header-section-number">5</span> Exploratory visualisation</a></div>
 <div class="next"><a href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li>
-<a class="nav-link" href="#exploratory-statistics"><span class="header-section-number">6</span> Exploratory statistics</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#descriptive-statistics"><span class="header-section-number">6.0.1</span> Descriptive statistics</a></li></ul>
-</li>
-<li><a class="nav-link" href="#exercise-304.2"><span class="header-section-number">6.1</span> Exercise 304.2</a></li>
+<li><a class="nav-link" href="#exploratory-statistics"><span class="header-section-number">6</span> Exploratory statistics</a></li>
+<li><a class="nav-link" href="#descriptive-statistics"><span class="header-section-number">6.1</span> Descriptive statistics</a></li>
+<li><a class="nav-link" href="#significance"><span class="header-section-number">6.2</span> Significance</a></li>
+<li><a class="nav-link" href="#shapirowilk-test"><span class="header-section-number">6.3</span> Shapiro–Wilk test</a></li>
+<li><a class="nav-link" href="#exercise-202.1"><span class="header-section-number">6.4</span> Exercise 202.1</a></li>
 </ul>
 
       <div class="book-extra">
@@ -866,7 +893,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-14.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

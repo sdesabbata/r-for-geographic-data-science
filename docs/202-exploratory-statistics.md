@@ -1,17 +1,13 @@
 # Exploratory statistics
-
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
-This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the `u011` variable from the [2011 Output Area Classification (2011OAC)](https://github.com/geogale/2011OAC) dataset introduced in [chapter 4](https://sdesabbata.github.io/r-for-geographic-data-science/table-operations.html#read-and-write-data). 
-
-Before continuing, create a new R project in RStudio, and upload the `2011_OAC_Raw_uVariables_Leicester.csv` file to the project folder. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.
+This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, using the `u011` variable from the [2011 Output Area Classification (2011OAC)](https://github.com/geogale/2011OAC) already used in previous chapters. Before continuing, open the project created for the previous chapter. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.
 
 
 ```r
 library(tidyverse)
 library(knitr)
+
 leicester_2011OAC <- read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 ```
 
@@ -21,30 +17,32 @@ The graphics above provide preliminary evidence that the distribution of people 
 
 
 
-The code below calculates the percentage of people aged 20 to 24 (i.e., `u011`) over total population per OA, but it also recodes (see [recode](https://dplyr.tidyverse.org/reference/recode.html)) the names of the 2011OAC supergroups to a shorter 2-letter version, which is useful for the tables presented further below. 
+The code below calculates the percentage of people aged 20 to 24 (i.e., `u011`) over total population per OA, but it also recodes (see [recode](https://dplyr.tidyverse.org/reference/recode.html)) the names of the 2011OAC supergroups to a shorter 2-letter version, which is useful for the tables presented further below. Note that the code below uses the library name as a prefix `dplyr::` in front of the function name `recode` (thus, `dplyr::recode`) to make sure the function `recode` of the package `car` (thus, `car::recode`) is not used instead.
 
-Only the OA code, the recoded 2011OAC supergroup name, and the newly created `perc_age_20_to_24` are retained in the new table `leic_2011OAC_20to24`. Such a step is sometimes useful as stepping stone for further analysis and can make the code easier to read further down the line. Sometimes it is also a necessary step when interacting with certain libraries, which are not fully compatible with Tidyverse libraries, such as `leveneTest`.
+Only the OA code, the recoded 2011OAC supergroup name, and the newly created `perc_age_20_to_24` are retained in the new table `leic_2011OAC_20to24`. Such a step is sometimes useful as stepping stone for further analysis and can make the code easier to read further down the line. Sometimes it is also a necessary step when interacting with certain libraries, which are not fully compatible with Tidyverse libraries, such as `leveneTest` (more on that function below).
 
 
 ```r
 leic_2011OAC_20to24 <- leicester_2011OAC %>%
-  dplyr::mutate(
+  mutate(
     perc_age_20_to_24 = (u011 / Total_Population) * 100,
-    supgrpname = dplyr::recode(supgrpname, 
-      `Suburbanites` = "SU",
-      `Cosmopolitans` = "CP",
-      `Multicultural Metropolitans` = "MM",
-      `Ethnicity Central` = "EC",
-      `Constrained City Dwellers` = "CD",
-      `Hard-Pressed Living` = "HP",
-      `Urbanites` = "UR"
+    supgrpname = 
+      dplyr::recode(
+        supgrpname, 
+          `Suburbanites` = "SU",
+          `Cosmopolitans` = "CP",
+          `Multicultural Metropolitans` = "MM",
+          `Ethnicity Central` = "EC",
+          `Constrained City Dwellers` = "CD",
+          `Hard-Pressed Living` = "HP",
+          `Urbanites` = "UR"
     )
   ) %>%
-  dplyr::select(OA11CD, supgrpname, perc_age_20_to_24)
+  select(OA11CD, supgrpname, perc_age_20_to_24)
 
 leic_2011OAC_20to24 %>%
-  dplyr::slice_head(n = 5) %>%
-  knitr::kable()
+  slice_head(n = 5) %>%
+  kable()
 ```
 
 
@@ -57,7 +55,7 @@ leic_2011OAC_20to24 %>%
 |E00169048 |MM         |          6.956522|
 |E00169044 |MM         |          6.211180|
 
-### Descriptive statistics
+## Descriptive statistics
 
 The first step of any statistical analysis or modelling should be to explore the *"shape"* of the data involved, by looking at the descriptive statistics of all variables involved. The function `stat.desc` of the `pastecs` library provides three series of descriptive statistics.
 
@@ -95,11 +93,11 @@ The next step is thus to apply the `stat.desc` to the variable we are currently 
 
 ```r
 leic_2011OAC_20to24_stat_desc <- leic_2011OAC_20to24 %>%
-  dplyr::select(perc_age_20_to_24) %>%
-  pastecs::stat.desc(norm = TRUE)
+  select(perc_age_20_to_24) %>%
+  stat.desc(norm = TRUE)
   
 leic_2011OAC_20to24_stat_desc %>%
-  knitr::kable(digits = 3)
+  kable(digits = 3)
 ```
 
 
@@ -152,15 +150,30 @@ However, this is not a sample. Thus the statistical interpretation is not valid,
 
 Both `skew.2SE` and `kurt.2SE` are greater than `1`, which indicate that the `skewness` and `kurtosis` values are significant (*p < .05*). The `skewness` is positive, which indicates that the distribution is skewed towards the left (low values). The `kurtosis` is positive, which indicates that the distribution is heavy-tailed.
 
-As such, `perc_age_20_to_24` having a heavy-tailed distribution skewed towards low values, it is not surprising that the `normtest.p` value indicates that the Shapiro–Wilk test is significant, which indicates that the distribution is not normal.
+
+## Significance
+
+Most statistical tests are based on the idea of hypothesis testing:
+
+1. a **null hypothesis** is set;
+2. the data are fit into a statistical model;
+3. the model is assessed with a **test statistic**;
+4. the **significance** is the probability of obtaining that test statistic value by chance.
+
+The threshold to accept or reject a hypothesis is arbitrary and based on conventions. A 0.05 threshold (*p < .05*) is quite common with relatively small samples (e.g., dozens of cases), while a more strict 0.01 threshold (*p < .01*) is commonly advised for large samples (e.g., hundreds of cases). However, @10.2307/24700283 advise that such thresholds might not be suitable when working with big data (e.g., tens of thousands of cases).
+
+
+## Shapiro–Wilk test
+
+As `perc_age_20_to_24` is a heavy-tailed distribution, skewed towards low values, it is not surprising that the `normtest.p` value indicates that the Shapiro–Wilk test is significant, which indicates that the distribution is not normal.
 
 The code below present the output of the [`shapiro.test` function](https://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/shapiro.test), which only present the outcome of a Shapiro–Wilk test on the values provided as input. The output values are the same as the values reported by the `norm` section of `stat.desc`. Note that the `shapiro.test` function require the argument to be a numeric vector. Thus the [`pull` function](https://dplyr.tidyverse.org/reference/pull.html) must be used to extract the `perc_age_20_to_24` column from `leic_2011OAC_20to24` as a vector, whereas using `select` with a single column name as the argument would produce as output a table with a single column.
 
 
 ```r
 leic_2011OAC_20to24 %>%
-  dplyr::pull(perc_age_20_to_24) %>%
-  stats::shapiro.test()
+  pull(perc_age_20_to_24) %>%
+  shapiro.test()
 ```
 
 ```
@@ -171,23 +184,25 @@ leic_2011OAC_20to24 %>%
 ## W = 0.64491, p-value < 2.2e-16
 ```
 
+As the null hypothesis of the Shapiro–Wilk test is that the sample is normally distributed, a *p* value lower than a `0.01` threshold (*p < .01*) indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
+
 The two code snippets below can be used to visualise a density-based histogram including the shape of a normal distribution having the same mean and standard deviation, and a Q-Q plot, to visually confirm the fact that `perc_age_20_to_24` is not normally distributed. 
 
 
 ```r
 leic_2011OAC_20to24 %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = perc_age_20_to_24
     )
   ) +
-  ggplot2::geom_histogram(
+  geom_histogram(
     aes(
       y =..density..
     ),
     binwidth = 5
   ) + 
-  ggplot2::stat_function(
+  stat_function(
     fun = dnorm, 
     args = list(
       mean = leic_2011OAC_20to24 %>% pull(perc_age_20_to_24) %>% mean(),
@@ -206,25 +221,25 @@ If `perc_age_20_to_24` had been normally distributed, the dots in the Q-Q plot w
 
 ```r
 leic_2011OAC_20to24 %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       sample = perc_age_20_to_24
     )
   ) +
-  ggplot2::stat_qq() +
-  ggplot2::stat_qq_line()
+  stat_qq() +
+  stat_qq_line()
 ```
 
 <img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-9-1.png" width="288" />
 
-## Exercise 304.2
+## Exercise 202.1
 
 Create a new RMarkdown document, and add the code necessary to recreate the table `leic_2011OAC_20to24` used in the example above. Use the code below to re-shape the table `leic_2011OAC_20to24` by pivoting the `perc_age_20_to_24` column wider into multiple columns using `supgrpname` as new column names. 
 
 
 ```r
 leic_2011OAC_20to24_supgrp <- leic_2011OAC_20to24 %>%
-  tidyr::pivot_wider(
+  pivot_wider(
     names_from = supgrpname,
     values_from = perc_age_20_to_24
   )
@@ -235,8 +250,8 @@ That manipulation creates one column per supergroup, containing the `perc_age_20
 
 ```r
 leic_2011OAC_20to24 %>%
-  dplyr::slice_min(OA11CD, n = 10) %>%
-  knitr::kable(digits = 3)
+  slice_min(OA11CD, n = 10) %>%
+  kable(digits = 3)
 ```
 
 
@@ -256,8 +271,8 @@ leic_2011OAC_20to24 %>%
 
 ```r
 leic_2011OAC_20to24_supgrp %>%
-  dplyr::slice_min(OA11CD, n = 10) %>%
-  knitr::kable(digits = 3)
+  slice_min(OA11CD, n = 10) %>%
+  kable(digits = 3)
 ```
 
 
@@ -276,14 +291,14 @@ leic_2011OAC_20to24_supgrp %>%
 |E00068666 | NA| NA|  5.864| NA| NA|    NA| NA|
 
 
-**Question 304.2.1:** The code below uses the newly created `leic_2011OAC_20to24_supgrp` table to calculate the descriptive statistics calculated for the variable `leic_2011OAC_20to24` for each supergroup. Is `leic_2011OAC_20to24` normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)
+**Question 202.1.1:** The code below uses the newly created `leic_2011OAC_20to24_supgrp` table to calculate the descriptive statistics calculated for the variable `leic_2011OAC_20to24` for each supergroup. Is `leic_2011OAC_20to24` normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)
 
 
 ```r
 leic_2011OAC_20to24_supgrp %>%
-  dplyr::select(-OA11CD) %>%
-  pastecs::stat.desc(norm = TRUE) %>%
-  knitr::kable(digits = 3)
+  select(-OA11CD) %>%
+  stat.desc(norm = TRUE) %>%
+  kable(digits = 3)
 ```
 
 
@@ -311,13 +326,19 @@ leic_2011OAC_20to24_supgrp %>%
 |normtest.W   |   0.991|    0.980|    0.684|   0.889|   0.965|   0.993|   0.937|
 |normtest.p   |   0.954|    0.239|    0.000|   0.000|   0.310|   0.886|   0.002|
 
-**Question 304.2.2:** Write the code necessary to test again the normality of `leic_2011OAC_20to24` for the supergroups where the analysis conducted for Question 304.2.1 indicated they are normal, using the function `shapiro.test`, and draw the respective Q-Q plot.
+**Question 202.1.2:** Write the code necessary to test again the normality of `leic_2011OAC_20to24` for the supergroups where the analysis conducted for Question 202.1.1 indicated they are normal, using the function `shapiro.test`, and draw the respective Q-Q plot.
 
-**Question 304.2.3:** Observe the output of the Levene’s test executed below. What does the result tell you about the variance of `perc_age_20_to_24` in supergroups?
+**Question 202.1.3:** Observe the output of the Levene’s test executed below. What does the result tell you about the variance of `perc_age_20_to_24` in supergroups?
+
+Note that the `leveneTest` was not designed to work with a Tidyverse approach. As such, the code below uses [the `.` argument placeholder](https://magrittr.tidyverse.org/#the-argument-placeholder) to specify that the input table `leic_2011OAC_20to24` which is coming down from the pipe should be used as argument for the `data` parameter.
 
 
 ```r
-car::leveneTest(leic_2011OAC_20to24$perc_age_20_to_24, leic_2011OAC_20to24$supgrpname)
+leic_2011OAC_20to24 %>% 
+  leveneTest(
+    perc_age_20_to_24 ~ supgrpname, 
+    data = .
+  )
 ```
 
 ```
@@ -328,7 +349,6 @@ car::leveneTest(leic_2011OAC_20to24$perc_age_20_to_24, leic_2011OAC_20to24$supgr
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
-
 
 ---
 

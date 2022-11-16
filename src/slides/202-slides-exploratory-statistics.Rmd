@@ -580,9 +580,9 @@ Most statistical tests are based on the idea of hypothesis testing
 - the model is assessed with a **test statistic**
 - the **significance** is the probability of obtaining that test statistic value by chance
 
-The threshold to accept or reject an hypotheis is arbitrary and based on conventions (e.g., *p < .01* or *p < .05*)
+The threshold to accept or reject an hypothesis is arbitrary and based on conventions (e.g., *p < .01* or *p < .05*)
 
-**Example:** The null hypotheis of the Shapiro–Wilk test is that the sample is normally distributed and *p < .01* indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
+**Example:** The null hypothesis of the Shapiro–Wilk test is that the sample is normally distributed and *p < .01* indicates that the probability of that being true is very low. So, the *flipper length* of  penguins in the Palmer Station dataset **is not** normally distributed.
 
 
 ---
@@ -802,7 +802,7 @@ penguins %>%
 
 - If significant, the variance is different in different levels
 
-```{r, echo=TRUE, eval=TRUE}
+```{r, echo=TRUE, eval=TRUE, warning=FALSE, message=FALSE}
 library(car)
 
 penguins %>% 

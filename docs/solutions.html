@@ -859,6 +859,514 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 201.1.4:</strong> What does the graph produced for <em>Question 201.1.3</em> mean? Write up to 100 words explaining what conclusions can be drawn from the graph – remember that <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/853811/IoD2019_FAQ_v4.pdf"><em>“the larger the score, the more deprived the area”</em></a>.</p>
 <p><strong>Question 201.1.5:</strong> Identify the index of multiple deprivation that most closely relate to the percentage of people per OA whose <em>“day-to-day activities limited a lot or a little”</em> based on the <em>“Standardised Illness Ratio”</em>.</p>
+</div>
+</div>
+<div id="solutions-202" class="section level2 unnumbered">
+<h2>Solutions 202<a class="anchor" aria-label="anchor" href="#solutions-202"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solutions-202.1" class="section level3 unnumbered">
+<h3>Solutions 202.1<a class="anchor" aria-label="anchor" href="#solutions-202.1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Create a new RMarkdown document, and add the code necessary to recreate the table <code>leic_2011OAC_20to24</code> used in the example above. Use the code below to re-shape the table <code>leic_2011OAC_20to24</code> by pivoting the <code>perc_age_20_to_24</code> column wider into multiple columns using <code>supgrpname</code> as new column names.</p>
+<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op">&lt;-</span> <span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
+<span>    names_from <span class="op">=</span> <span class="va">supgrpname</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>That manipulation creates one column per supergroup, containing the <code>perc_age_20_to_24</code> if the OA is part of that supergroup, or an <code>NA</code> value if the OA is not part of the supergroup. The transformation is illustrated in the two tables below. The first shows an extract from the original <code>leic_2011OAC_20to24</code> dataset, followed by the wide version <code>leic_2011OAC_20to24_supgrp</code>.</p>
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">OA11CD</th>
+<th align="left">supgrpname</th>
+<th align="right">perc_age_20_to_24</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00068657</td>
+<td align="left">HP</td>
+<td align="right">6.053</td>
+</tr>
+<tr class="even">
+<td align="left">E00068658</td>
+<td align="left">MM</td>
+<td align="right">6.964</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068659</td>
+<td align="left">MM</td>
+<td align="right">8.383</td>
+</tr>
+<tr class="even">
+<td align="left">E00068660</td>
+<td align="left">MM</td>
+<td align="right">4.643</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068661</td>
+<td align="left">MM</td>
+<td align="right">10.625</td>
+</tr>
+<tr class="even">
+<td align="left">E00068662</td>
+<td align="left">MM</td>
+<td align="right">8.284</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068663</td>
+<td align="left">MM</td>
+<td align="right">8.357</td>
+</tr>
+<tr class="even">
+<td align="left">E00068664</td>
+<td align="left">MM</td>
+<td align="right">3.597</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068665</td>
+<td align="left">MM</td>
+<td align="right">7.068</td>
+</tr>
+<tr class="even">
+<td align="left">E00068666</td>
+<td align="left">MM</td>
+<td align="right">5.864</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">OA11CD</th>
+<th align="right">SU</th>
+<th align="right">CP</th>
+<th align="right">MM</th>
+<th align="right">EC</th>
+<th align="right">CD</th>
+<th align="right">HP</th>
+<th align="right">UR</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00068657</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">6.053</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068658</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">6.964</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068659</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">8.383</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068660</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">4.643</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068661</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">10.625</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068662</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">8.284</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068663</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">8.357</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068664</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">3.597</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">E00068665</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">7.068</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">E00068666</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">5.864</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Question 202.1.1:</strong> The code below uses the newly created <code>leic_2011OAC_20to24_supgrp</code> table to calculate the descriptive statistics calculated for the variable <code>leic_2011OAC_20to24</code> for each supergroup. Is <code>leic_2011OAC_20to24</code> normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)</p>
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">stat.desc</span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="18%">
+<col width="11%">
+<col width="12%">
+<col width="12%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">SU</th>
+<th align="right">CP</th>
+<th align="right">MM</th>
+<th align="right">EC</th>
+<th align="right">CD</th>
+<th align="right">HP</th>
+<th align="right">UR</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">nbr.val</td>
+<td align="right">54.000</td>
+<td align="right">83.000</td>
+<td align="right">573.000</td>
+<td align="right">57.000</td>
+<td align="right">36.000</td>
+<td align="right">101.000</td>
+<td align="right">65.000</td>
+</tr>
+<tr class="even">
+<td align="left">nbr.null</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td align="left">nbr.na</td>
+<td align="right">915.000</td>
+<td align="right">886.000</td>
+<td align="right">396.000</td>
+<td align="right">912.000</td>
+<td align="right">933.000</td>
+<td align="right">868.000</td>
+<td align="right">904.000</td>
+</tr>
+<tr class="even">
+<td align="left">min</td>
+<td align="right">1.462</td>
+<td align="right">3.141</td>
+<td align="right">2.490</td>
+<td align="right">2.066</td>
+<td align="right">1.064</td>
+<td align="right">1.515</td>
+<td align="right">2.256</td>
+</tr>
+<tr class="odd">
+<td align="left">max</td>
+<td align="right">9.562</td>
+<td align="right">60.751</td>
+<td align="right">52.507</td>
+<td align="right">36.299</td>
+<td align="right">12.963</td>
+<td align="right">11.261</td>
+<td align="right">13.505</td>
+</tr>
+<tr class="even">
+<td align="left">range</td>
+<td align="right">8.100</td>
+<td align="right">57.609</td>
+<td align="right">50.018</td>
+<td align="right">34.233</td>
+<td align="right">11.899</td>
+<td align="right">9.746</td>
+<td align="right">11.249</td>
+</tr>
+<tr class="odd">
+<td align="left">sum</td>
+<td align="right">295.867</td>
+<td align="right">2646.551</td>
+<td align="right">5214.286</td>
+<td align="right">838.415</td>
+<td align="right">252.108</td>
+<td align="right">619.266</td>
+<td align="right">372.010</td>
+</tr>
+<tr class="even">
+<td align="left">median</td>
+<td align="right">5.476</td>
+<td align="right">30.457</td>
+<td align="right">7.880</td>
+<td align="right">10.881</td>
+<td align="right">6.854</td>
+<td align="right">6.053</td>
+<td align="right">5.380</td>
+</tr>
+<tr class="odd">
+<td align="left">mean</td>
+<td align="right">5.479</td>
+<td align="right">31.886</td>
+<td align="right">9.100</td>
+<td align="right">14.709</td>
+<td align="right">7.003</td>
+<td align="right">6.131</td>
+<td align="right">5.723</td>
+</tr>
+<tr class="even">
+<td align="left">SE.mean</td>
+<td align="right">0.233</td>
+<td align="right">1.574</td>
+<td align="right">0.230</td>
+<td align="right">1.373</td>
+<td align="right">0.471</td>
+<td align="right">0.172</td>
+<td align="right">0.264</td>
+</tr>
+<tr class="odd">
+<td align="left">CI.mean.0.95</td>
+<td align="right">0.467</td>
+<td align="right">3.131</td>
+<td align="right">0.452</td>
+<td align="right">2.751</td>
+<td align="right">0.956</td>
+<td align="right">0.341</td>
+<td align="right">0.528</td>
+</tr>
+<tr class="even">
+<td align="left">var</td>
+<td align="right">2.929</td>
+<td align="right">205.556</td>
+<td align="right">30.285</td>
+<td align="right">107.523</td>
+<td align="right">7.983</td>
+<td align="right">2.980</td>
+<td align="right">4.545</td>
+</tr>
+<tr class="odd">
+<td align="left">std.dev</td>
+<td align="right">1.712</td>
+<td align="right">14.337</td>
+<td align="right">5.503</td>
+<td align="right">10.369</td>
+<td align="right">2.825</td>
+<td align="right">1.726</td>
+<td align="right">2.132</td>
+</tr>
+<tr class="even">
+<td align="left">coef.var</td>
+<td align="right">0.312</td>
+<td align="right">0.450</td>
+<td align="right">0.605</td>
+<td align="right">0.705</td>
+<td align="right">0.403</td>
+<td align="right">0.282</td>
+<td align="right">0.372</td>
+</tr>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">0.005</td>
+<td align="right">0.067</td>
+<td align="right">3.320</td>
+<td align="right">0.633</td>
+<td align="right">0.322</td>
+<td align="right">0.124</td>
+<td align="right">1.042</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">0.008</td>
+<td align="right">0.127</td>
+<td align="right">16.266</td>
+<td align="right">1.001</td>
+<td align="right">0.410</td>
+<td align="right">0.258</td>
+<td align="right">1.753</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">-0.391</td>
+<td align="right">-0.825</td>
+<td align="right">15.143</td>
+<td align="right">-1.009</td>
+<td align="right">-0.142</td>
+<td align="right">0.220</td>
+<td align="right">1.441</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">-0.306</td>
+<td align="right">-0.789</td>
+<td align="right">37.156</td>
+<td align="right">-0.810</td>
+<td align="right">-0.093</td>
+<td align="right">0.231</td>
+<td align="right">1.229</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.991</td>
+<td align="right">0.980</td>
+<td align="right">0.684</td>
+<td align="right">0.889</td>
+<td align="right">0.965</td>
+<td align="right">0.993</td>
+<td align="right">0.937</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.954</td>
+<td align="right">0.239</td>
+<td align="right">0.000</td>
+<td align="right">0.000</td>
+<td align="right">0.310</td>
+<td align="right">0.886</td>
+<td align="right">0.002</td>
+</tr>
+</tbody>
+</table></div>
+<p>We can set a <em>p &lt; .01</em> threshold, which is reasonable for the number of cases in the dataset (hundreds, at least for some of the 2011OAC supergroups). We can claim that <code>leic_2011OAC_20to24</code> is normally distributed in the supergroups Suburbanites (SU), Cosmopolitans (CP), Constrained City Dwellers (CD) and Hard-Pressed Living (HP), as the <code>normtest.p</code> value is above <code>0.01</code>, which allows us to reject the null hypothesis. The variable <code>leic_2011OAC_20to24</code> seems instead not to be normally distributed for Multicultural Metropolitans (MM), Ethnicity Central (EC) and Urbanites (UR). That is also further illustrated by the graphs below.</p>
+<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SU"</span>, <span class="st">"CP"</span>, <span class="st">"CD"</span>, <span class="st">"HP"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      y <span class="op">=</span> <span class="va">..density..</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    scales <span class="op">=</span> <span class="st">"free"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Normally distributed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-34-1.png" width="480"></div>
+<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MM"</span>, <span class="st">"EC"</span>, <span class="st">"UR"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      y <span class="op">=</span> <span class="va">..density..</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span>,</span>
+<span>    ncol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>    scales <span class="op">=</span> <span class="st">"free"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Not normally distributed"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-35-1.png" width="480"></div>
+<p><strong>Question 202.1.2:</strong> Write the code necessary to test again the normality of <code>leic_2011OAC_20to24</code> for the supergroups where the analysis conducted for Question 202.1.1 indicated they are normal, using the function <code>shapiro.test</code>, and draw the respective Q-Q plot.</p>
+<p>Example for Hard-Pressed Living (HP).</p>
+<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">==</span> <span class="st">"HP"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99303, p-value = 0.8863</code></pre>
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">==</span> <span class="st">"HP"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      sample <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
+<p><strong>Question 202.1.3:</strong> Observe the output of the Levene’s test executed below. What does the result tell you about the variance of <code>perc_age_20_to_24</code> in supergroups?</p>
+<p>Note that the <code>leveneTest</code> was not designed to work with a Tidyverse approach. As such, the code below uses <a href="https://magrittr.tidyverse.org/#the-argument-placeholder">the <code>.</code> argument placeholder</a> to specify that the input table <code>leic_2011OAC_20to24</code> which is coming down from the pipe should be used as argument for the <code>data</code> parameter.</p>
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span></span>
+<span>    <span class="va">perc_age_20_to_24</span> <span class="op">~</span> <span class="va">supgrpname</span>, </span>
+<span>    data <span class="op">=</span> <span class="va">.</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<pre><code>## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value    Pr(&gt;F)    
+## group   6  62.011 &lt; 2.2e-16 ***
+##       962                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<p>If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a <em>p &lt; .01</em> threshold. In the output above, the <em>p</em> value (<code>Pr(&gt;F)</code>) is much lower than our threshold, indicating that the test is significance. Thus, the <code>perc_age_20_to_24</code> has different variance for different 2011OAc supergroups.</p>
 <!--
 
 ### Solutions 104.2 {-}
@@ -1147,6 +1655,9 @@ silly_function(cities, 1:3)
 <li>
 <a class="nav-link" href="#solutions-201">Solutions 201</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-201.1">Solutions 201.1</a></li></ul>
 </li>
+<li>
+<a class="nav-link" href="#solutions-202">Solutions 202</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-202.1">Solutions 202.1</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -1164,7 +1675,7 @@ silly_function(cities, 1:3)
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-14.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-16.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

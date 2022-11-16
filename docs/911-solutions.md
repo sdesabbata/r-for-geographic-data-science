@@ -639,6 +639,223 @@ leicester_2011OAC_IMD2015_score %>%
 
 **Question 201.1.5:** Identify the index of multiple deprivation that most closely relate to the percentage of people per OA whose *"day-to-day activities limited a lot or a little"* based on the *"Standardised Illness Ratio"*.
 
+
+
+## Solutions 202 {-}
+
+
+
+### Solutions 202.1 {-}
+
+Create a new RMarkdown document, and add the code necessary to recreate the table `leic_2011OAC_20to24` used in the example above. Use the code below to re-shape the table `leic_2011OAC_20to24` by pivoting the `perc_age_20_to_24` column wider into multiple columns using `supgrpname` as new column names. 
+
+
+```r
+leic_2011OAC_20to24_supgrp <- leic_2011OAC_20to24 %>%
+  pivot_wider(
+    names_from = supgrpname,
+    values_from = perc_age_20_to_24
+  )
+```
+
+That manipulation creates one column per supergroup, containing the `perc_age_20_to_24` if the OA is part of that supergroup, or an `NA` value if the OA is not part of the supergroup. The transformation is illustrated in the two tables below. The first shows an extract from the original `leic_2011OAC_20to24` dataset, followed by the wide version `leic_2011OAC_20to24_supgrp`.
+
+
+```r
+leic_2011OAC_20to24 %>%
+  slice_min(OA11CD, n = 10) %>%
+  kable(digits = 3)
+```
+
+
+
+|OA11CD    |supgrpname | perc_age_20_to_24|
+|:---------|:----------|-----------------:|
+|E00068657 |HP         |             6.053|
+|E00068658 |MM         |             6.964|
+|E00068659 |MM         |             8.383|
+|E00068660 |MM         |             4.643|
+|E00068661 |MM         |            10.625|
+|E00068662 |MM         |             8.284|
+|E00068663 |MM         |             8.357|
+|E00068664 |MM         |             3.597|
+|E00068665 |MM         |             7.068|
+|E00068666 |MM         |             5.864|
+
+```r
+leic_2011OAC_20to24_supgrp %>%
+  slice_min(OA11CD, n = 10) %>%
+  kable(digits = 3)
+```
+
+
+
+|OA11CD    | SU| CP|     MM| EC| CD|    HP| UR|
+|:---------|--:|--:|------:|--:|--:|-----:|--:|
+|E00068657 | NA| NA|     NA| NA| NA| 6.053| NA|
+|E00068658 | NA| NA|  6.964| NA| NA|    NA| NA|
+|E00068659 | NA| NA|  8.383| NA| NA|    NA| NA|
+|E00068660 | NA| NA|  4.643| NA| NA|    NA| NA|
+|E00068661 | NA| NA| 10.625| NA| NA|    NA| NA|
+|E00068662 | NA| NA|  8.284| NA| NA|    NA| NA|
+|E00068663 | NA| NA|  8.357| NA| NA|    NA| NA|
+|E00068664 | NA| NA|  3.597| NA| NA|    NA| NA|
+|E00068665 | NA| NA|  7.068| NA| NA|    NA| NA|
+|E00068666 | NA| NA|  5.864| NA| NA|    NA| NA|
+
+
+**Question 202.1.1:** The code below uses the newly created `leic_2011OAC_20to24_supgrp` table to calculate the descriptive statistics calculated for the variable `leic_2011OAC_20to24` for each supergroup. Is `leic_2011OAC_20to24` normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)
+
+
+```r
+leic_2011OAC_20to24_supgrp %>%
+  select(-OA11CD) %>%
+  stat.desc(norm = TRUE) %>%
+  kable(digits = 3)
+```
+
+
+
+|             |      SU|       CP|       MM|      EC|      CD|      HP|      UR|
+|:------------|-------:|--------:|--------:|-------:|-------:|-------:|-------:|
+|nbr.val      |  54.000|   83.000|  573.000|  57.000|  36.000| 101.000|  65.000|
+|nbr.null     |   0.000|    0.000|    0.000|   0.000|   0.000|   0.000|   0.000|
+|nbr.na       | 915.000|  886.000|  396.000| 912.000| 933.000| 868.000| 904.000|
+|min          |   1.462|    3.141|    2.490|   2.066|   1.064|   1.515|   2.256|
+|max          |   9.562|   60.751|   52.507|  36.299|  12.963|  11.261|  13.505|
+|range        |   8.100|   57.609|   50.018|  34.233|  11.899|   9.746|  11.249|
+|sum          | 295.867| 2646.551| 5214.286| 838.415| 252.108| 619.266| 372.010|
+|median       |   5.476|   30.457|    7.880|  10.881|   6.854|   6.053|   5.380|
+|mean         |   5.479|   31.886|    9.100|  14.709|   7.003|   6.131|   5.723|
+|SE.mean      |   0.233|    1.574|    0.230|   1.373|   0.471|   0.172|   0.264|
+|CI.mean.0.95 |   0.467|    3.131|    0.452|   2.751|   0.956|   0.341|   0.528|
+|var          |   2.929|  205.556|   30.285| 107.523|   7.983|   2.980|   4.545|
+|std.dev      |   1.712|   14.337|    5.503|  10.369|   2.825|   1.726|   2.132|
+|coef.var     |   0.312|    0.450|    0.605|   0.705|   0.403|   0.282|   0.372|
+|skewness     |   0.005|    0.067|    3.320|   0.633|   0.322|   0.124|   1.042|
+|skew.2SE     |   0.008|    0.127|   16.266|   1.001|   0.410|   0.258|   1.753|
+|kurtosis     |  -0.391|   -0.825|   15.143|  -1.009|  -0.142|   0.220|   1.441|
+|kurt.2SE     |  -0.306|   -0.789|   37.156|  -0.810|  -0.093|   0.231|   1.229|
+|normtest.W   |   0.991|    0.980|    0.684|   0.889|   0.965|   0.993|   0.937|
+|normtest.p   |   0.954|    0.239|    0.000|   0.000|   0.310|   0.886|   0.002|
+
+We can set a *p < .01* threshold, which is reasonable for the number of cases in the dataset (hundreds, at least for some of the 2011OAC supergroups). We can claim that `leic_2011OAC_20to24` is normally distributed in the supergroups Suburbanites (SU),	Cosmopolitans (CP), Constrained City Dwellers (CD) and  Hard-Pressed Living (HP), as the `normtest.p` value is above `0.01`, which allows us to reject the null hypothesis. The variable `leic_2011OAC_20to24` seems instead not to be normally distributed for Multicultural Metropolitans (MM), Ethnicity Central (EC) and Urbanites (UR). That is also further illustrated by the graphs below.
+
+
+```r
+leic_2011OAC_20to24 %>% 
+  filter(supgrpname %in% c("SU", "CP", "CD", "HP")) %>% 
+  ggplot(
+    aes(
+      x = perc_age_20_to_24
+    )
+  ) + 
+  geom_histogram(
+    aes(
+      y = ..density..
+    )
+  ) +
+  facet_wrap(
+    vars(supgrpname),
+    ncol = 2,
+    scales = "free"
+  ) +
+  ggtitle("Normally distributed") +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-34-1.png" width="480" />
+
+
+```r
+leic_2011OAC_20to24 %>% 
+  filter(supgrpname %in% c("MM", "EC", "UR")) %>% 
+  ggplot(
+    aes(
+      x = perc_age_20_to_24
+    )
+  ) + 
+  geom_histogram(
+    aes(
+      y = ..density..
+    )
+  ) +
+  facet_wrap(
+    vars(supgrpname),
+    ncol = 2,
+    scales = "free"
+  ) +
+  ggtitle("Not normally distributed") +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-35-1.png" width="480" />
+
+
+**Question 202.1.2:** Write the code necessary to test again the normality of `leic_2011OAC_20to24` for the supergroups where the analysis conducted for Question 202.1.1 indicated they are normal, using the function `shapiro.test`, and draw the respective Q-Q plot.
+
+Example for Hard-Pressed Living (HP).
+
+
+```r
+leic_2011OAC_20to24 %>%
+  filter(supgrpname == "HP") %>% 
+  pull(perc_age_20_to_24) %>%
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99303, p-value = 0.8863
+```
+
+
+```r
+leic_2011OAC_20to24 %>%
+  filter(supgrpname == "HP") %>% 
+  ggplot(
+    aes(
+      sample = perc_age_20_to_24
+    )
+  ) +
+  stat_qq() +
+  stat_qq_line()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+
+
+
+**Question 202.1.3:** Observe the output of the Levene’s test executed below. What does the result tell you about the variance of `perc_age_20_to_24` in supergroups?
+
+Note that the `leveneTest` was not designed to work with a Tidyverse approach. As such, the code below uses [the `.` argument placeholder](https://magrittr.tidyverse.org/#the-argument-placeholder) to specify that the input table `leic_2011OAC_20to24` which is coming down from the pipe should be used as argument for the `data` parameter.
+
+
+```r
+leic_2011OAC_20to24 %>% 
+  leveneTest(
+    perc_age_20_to_24 ~ supgrpname, 
+    data = .
+  )
+```
+
+```
+## Levene's Test for Homogeneity of Variance (center = median)
+##        Df F value    Pr(>F)    
+## group   6  62.011 < 2.2e-16 ***
+##       962                      
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a *p < .01* threshold. In the output above, the *p* value (`Pr(>F)`) is much lower than our threshold, indicating that the test is significance. Thus, the `perc_age_20_to_24` has different variance for different 2011OAc supergroups.
+
+
+
+
 <!--
 
 ### Solutions 104.2 {-}
