@@ -118,6 +118,15 @@ However, this is not a sample. Thus the statistical interpretation is not valid,
 
 Both `skew.2SE` and `kurt.2SE` are greater than `1`, which indicate that the `skewness` and `kurtosis` values are significant (*p < .05*). The `skewness` is positive, which indicates that the distribution is skewed towards the left (low values). The `kurtosis` is positive, which indicates that the distribution is heavy-tailed.
 
+The [function `skim`](https://docs.ropensci.org/skimr/reference/skim.html) of the [library `skimr`](https://docs.ropensci.org/skimr/) can also be used to generate a quick summary of the content of a dataset.
+
+```{r}
+library(skimr)
+
+leic_2011OAC_20to24 %>% 
+  skim()
+```
+
 
 ## Significance
 

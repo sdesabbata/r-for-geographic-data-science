@@ -117,14 +117,14 @@
 </h2>
 <p>Recall from the previous chapter that <em>an</em> <strong>algorithm</strong> <em>or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation</em> (Cutland, 1980, p. 7<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980" role="doc-biblioref"&gt;Cutland, &lt;em&gt;Computability&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>20</sup></a></span>). A <strong>program</strong> is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more <strong>function</strong>s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.</p>
 <p>The code below is a simple function with one parameter. The function simply calculates the square root of a number. Add the code below to your script and run that portion of the script (or type the code into the Console).</p>
-<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
 <span>   <span class="va">result</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Once the definition of a function has been executed, the function becomes part of the environment, and it should be visible in the Environment panel in a subsection titled <em>Functions</em>. Thereafter, the function can be called from the Console, from other portions of the script, as well as from other scripts.</p>
 <p>If you type the instruction below in the <em>Console</em>, or add it to the script and run it, the function is called using <code>27</code> as an argument, thus returning <code>3</code>.</p>
-<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
 <div id="functions-and-control-structures" class="section level3" number="12.1.1">
@@ -132,7 +132,7 @@
 <span class="header-section-number">12.1.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
 </h3>
 <p>One issue when writing functions is making sure that the data that has been given to the data is the right kind. For example, what happens when you try to compute the cube root of a negative number?</p>
-<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
 <p>That probably wasn’t the answer you wanted, as <code>NaN</code> (<em>Not a Number</em>) is the value returned when a mathematical expression is numerically indeterminate. In this case, this is actually due to a shortcoming with the <code>^</code> operator in R, which only works for positive base values. In fact -7 is a perfectly valid cube root of -343, since (-7)x(-7)x(-7) = -343.</p>
@@ -142,7 +142,7 @@
 <li>Otherwise: work out the cube root of the positive number, then change it to negative.</li>
 </ul>
 <p>Those kinds of situations can be dealt with in an R function by using an <code>if</code> statement, as shown below. Note how the operator <code>-</code> (i.e., the symbol minus) is here used to obtain the inverse of a number, in the same way as <code>-1</code> is the inverse of the number <code>1</code>.</p>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
 <span>        <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> </span>
@@ -156,7 +156,7 @@
 <span><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></span></code></pre></div>
 <p>However, other things can go wrong. For example, <code>cube_root("Leicester")</code> would cause an error to occur, <code>Error in x^(1 / 3) : non-numeric argument to binary operator</code>. That shouldn’t be surprising because cube roots only make sense for numbers, not character variables. Thus, it might be helpful if the cube root function could spot this and print a warning explaining the problem, rather than just crashing with a fairly cryptic error message such as the one above, as it does at the moment.</p>
 <p>The function could be re-written to making use of <code>is.numeric</code> in a second conditional statement. If the input value is not numeric, the function returns the value <code>NA</code> (<em>Not Available</em>) instead of a number. Note that here there is an <code>if</code> statement inside another <code>if</code> statement, as it is always possible to nest code blocks – and <code>if</code> within a <code>for</code> within a <code>while</code> within an <code>if</code> within … etc.</p>
-<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span> </span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">input_value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
@@ -178,13 +178,13 @@
 <span class="header-section-number">12.2</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
 </h2>
 <p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
-<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
 <span>   <span class="va">result</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>Create a second R script named <code>Practical_204_RS_main.R</code>, copy the code below in that second R script and save the file.</p>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Practical_204_RS_functions.R"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
@@ -242,7 +242,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-16.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

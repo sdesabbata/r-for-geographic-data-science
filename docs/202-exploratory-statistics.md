@@ -150,6 +150,46 @@ However, this is not a sample. Thus the statistical interpretation is not valid,
 
 Both `skew.2SE` and `kurt.2SE` are greater than `1`, which indicate that the `skewness` and `kurtosis` values are significant (*p < .05*). The `skewness` is positive, which indicates that the distribution is skewed towards the left (low values). The `kurtosis` is positive, which indicates that the distribution is heavy-tailed.
 
+The [function `skim`](https://docs.ropensci.org/skimr/reference/skim.html) of the [library `skimr`](https://docs.ropensci.org/skimr/) can also be used to generate a quick summary of the content of a dataset.
+
+
+```r
+library(skimr)
+
+leic_2011OAC_20to24 %>% 
+  skim()
+```
+
+
+Table: (\#tab:unnamed-chunk-7)Data summary
+
+|                         |           |
+|:------------------------|:----------|
+|Name                     |Piped data |
+|Number of rows           |969        |
+|Number of columns        |3          |
+|_______________________  |           |
+|Column type frequency:   |           |
+|character                |2          |
+|numeric                  |1          |
+|________________________ |           |
+|Group variables          |None       |
+
+
+**Variable type: character**
+
+|skim_variable | n_missing| complete_rate| min| max| empty| n_unique| whitespace|
+|:-------------|---------:|-------------:|---:|---:|-----:|--------:|----------:|
+|OA11CD        |         0|             1|   9|   9|     0|      969|          0|
+|supgrpname    |         0|             1|   2|   2|     0|        7|          0|
+
+
+**Variable type: numeric**
+
+|skim_variable     | n_missing| complete_rate|  mean|   sd|   p0| p25|  p50|   p75|  p100|hist  |
+|:-----------------|---------:|-------------:|-----:|----:|----:|---:|----:|-----:|-----:|:-----|
+|perc_age_20_to_24 |         0|             1| 10.57| 9.45| 1.06| 5.8| 7.51| 10.13| 60.75|▇▁▁▁▁ |
+
 
 ## Significance
 
@@ -212,7 +252,7 @@ leic_2011OAC_20to24 %>%
   )
 ```
 
-<img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-8-1.png" width="288" />
+<img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-9-1.png" width="288" />
 
 A Q-Q plot in R can be created using a variety of functions. In the example below, the plot is created using the [`stat_qq` and `stat_qq_line` functions](https://ggplot2.tidyverse.org/reference/geom_qq.html) of the `ggplot2` library. Note that the `perc_age_20_to_24` variable is mapped to a particular option of `aes` that is `sample`. 
 
@@ -230,7 +270,7 @@ leic_2011OAC_20to24 %>%
   stat_qq_line()
 ```
 
-<img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-9-1.png" width="288" />
+<img src="202-exploratory-statistics_files/figure-html/unnamed-chunk-10-1.png" width="288" />
 
 ## Exercise 202.1
 
