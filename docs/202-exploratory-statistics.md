@@ -138,10 +138,10 @@ The table above tells us that all `r leic_2011OAC_20to24_stat_desc["nbr.val",
 value for the variable `perc_age_20_to_24`, as no `r NULL` nor `r 
 NA` value have been found.The values vary from about `r 
 leic_2011OAC_20to24_stat_desc["min", "perc_age_20_to_24"] %>% round(digits = 
-0)\u0060"`% to almost `r leic_2011OAC_20to24_stat_desc["max", 
-"perc_age_20_to_24"] %>% round(digits = 0)\u0060"`%, with an average value of 
+0)`% to almost `r leic_2011OAC_20to24_stat_desc["max", 
+"perc_age_20_to_24"] %>% round(digits = 0)`%, with an average value of 
 `r leic_2011OAC_20to24_stat_desc["mean", "perc_age_20_to_24"] %>% 
-round(digits = 0)\u0060"`% of the population in an OA aged between 20 and 24. 
+round(digits = 0)`% of the population in an OA aged between 20 and 24. 
 ```
 
 If the data described by statistics presented in the table above was a random sample of a population, the 95% confidence interval `CI.mean.0.95` would indicate that we can be 95% confident that the actual mean of the distribution is somewhere between 10.566 `-` 0.596 `=` 9.97% and 10.566 `+` 0.596 `=` 11.162%. 
