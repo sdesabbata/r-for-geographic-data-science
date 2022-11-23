@@ -1369,25 +1369,985 @@
 <p>If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a <em>p &lt; .01</em> threshold. In the output above, the <em>p</em> value (<code>Pr(&gt;F)</code>) is much lower than our threshold, indicating that the test is significance. Thus, the <code>perc_age_20_to_24</code> has different variance for different 2011OAc supergroups.</p>
 </div>
 </div>
-<div id="solutions-203" class="section level2" number="12.4">
-<h2>
-<span class="header-section-number">12.4</span> Solutions 203<a class="anchor" aria-label="anchor" href="#solutions-203"><i class="fas fa-link"></i></a>
+<div id="solutions-203" class="section level2 unnumbered">
+<h2>Solutions 203<a class="anchor" aria-label="anchor" href="#solutions-203"><i class="fas fa-link"></i></a>
 </h2>
-<div id="solutions-203.1" class="section level3" number="12.4.1">
-<h3>
-<span class="header-section-number">12.4.1</span> Solutions 203.1<a class="anchor" aria-label="anchor" href="#solutions-203.1"><i class="fas fa-link"></i></a>
+<div id="solutions-203.1" class="section level3 unnumbered">
+<h3>Solutions 203.1<a class="anchor" aria-label="anchor" href="#solutions-203.1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Create a new RMarkdown document, and add the code necessary to oad the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset.</p>
-<p><strong>Question 203.1.1:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/phgrosjean/pastecs">pastecs</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Question 203.1.1:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed into a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<p>Start from exploring the variable distribution.</p>
+<div class="sourceCode" id="cb462"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u020</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-41-1.png" width="672"></div>
+<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    sample <span class="op">=</span> <span class="va">u020</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-42-1.png" width="672"></div>
+<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.9663, p-value = 3.476e-14</code></pre>
+<p>The variable <code>u020</code> is clearly not normally distributed, probably mostly due to a long tail on the right side.</p>
+<p>Thus, we can try transform the variable using a logarithmic transformation or a inverse hyperbolic sine transformation. Let’s try both.</p>
+<div class="sourceCode" id="cb467"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    log10_u020 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">u020</span><span class="op">)</span>,</span>
+<span>    ihs_u020 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="va">u020</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    sample <span class="op">=</span> <span class="va">log10_u020</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-45-1.png" width="672"></div>
+<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">log10_u020</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
+<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99474, p-value = 0.001888</code></pre>
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">ihs_u020</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-48-1.png" width="672"></div>
+<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    sample <span class="op">=</span> <span class="va">ihs_u020</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-49-1.png" width="672"></div>
+<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">ihs_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99473, p-value = 0.001874</code></pre>
+<p>Even using a logarithmic or inverse hyperbolic sine transformation, the variable <code>u020</code> is still not normally distributed. The <em>p</em>-values are higher compared to the original variable, but still well below the <span class="math inline">\(0.01\)</span> threshold. As visible in the charts, the transformed variables still show some level of long tails on both sides.</p>
 <p><strong>Question 203.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<p>Note how the code below pivotes the table to obtain one column per 2011OAC supergroup.</p>
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
+<span>    id_cols <span class="op">=</span> <span class="va">OA11CD</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="va">supgrpname</span>,</span>
+<span>    names_prefix <span class="op">=</span> <span class="st">"u020 "</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">u020</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="6%">
+<col width="10%">
+<col width="10%">
+<col width="18%">
+<col width="13%">
+<col width="17%">
+<col width="14%">
+<col width="8%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">u020 Suburbanites</th>
+<th align="right">u020 Cosmopolitans</th>
+<th align="right">u020 Multicultural Metropolitans</th>
+<th align="right">u020 Ethnicity Central</th>
+<th align="right">u020 Constrained City Dwellers</th>
+<th align="right">u020 Hard-Pressed Living</th>
+<th align="right">u020 Urbanites</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">0.83</td>
+<td align="right">1.15</td>
+<td align="right">0.56</td>
+<td align="right">1.81</td>
+<td align="right">1.40</td>
+<td align="right">1.42</td>
+<td align="right">1.04</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">1.27</td>
+<td align="right">2.17</td>
+<td align="right">2.76</td>
+<td align="right">2.87</td>
+<td align="right">1.78</td>
+<td align="right">2.96</td>
+<td align="right">1.74</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">1.24</td>
+<td align="right">1.54</td>
+<td align="right">0.64</td>
+<td align="right">6.13</td>
+<td align="right">1.74</td>
+<td align="right">2.77</td>
+<td align="right">3.56</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">0.97</td>
+<td align="right">1.47</td>
+<td align="right">1.58</td>
+<td align="right">4.92</td>
+<td align="right">1.14</td>
+<td align="right">2.91</td>
+<td align="right">3.04</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.96</td>
+<td align="right">0.91</td>
+<td align="right">0.98</td>
+<td align="right">0.87</td>
+<td align="right">0.86</td>
+<td align="right">0.89</td>
+<td align="right">0.92</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.07</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
+<span>    id_cols <span class="op">=</span> <span class="va">OA11CD</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="va">supgrpname</span>,</span>
+<span>    names_prefix <span class="op">=</span> <span class="st">"log10 u020 "</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">log10_u020</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="5%">
+<col width="11%">
+<col width="11%">
+<col width="17%">
+<col width="13%">
+<col width="17%">
+<col width="14%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">log10 u020 Suburbanites</th>
+<th align="right">log10 u020 Cosmopolitans</th>
+<th align="right">log10 u020 Multicultural Metropolitans</th>
+<th align="right">log10 u020 Ethnicity Central</th>
+<th align="right">log10 u020 Constrained City Dwellers</th>
+<th align="right">log10 u020 Hard-Pressed Living</th>
+<th align="right">log10 u020 Urbanites</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">0.46</td>
+<td align="right">0.51</td>
+<td align="right">0.14</td>
+<td align="right">0.88</td>
+<td align="right">0.94</td>
+<td align="right">0.81</td>
+<td align="right">0.21</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">0.71</td>
+<td align="right">0.97</td>
+<td align="right">0.69</td>
+<td align="right">1.39</td>
+<td align="right">1.20</td>
+<td align="right">1.69</td>
+<td align="right">0.35</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">0.44</td>
+<td align="right">0.23</td>
+<td align="right">0.01</td>
+<td align="right">1.77</td>
+<td align="right">0.36</td>
+<td align="right">1.14</td>
+<td align="right">1.78</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">0.34</td>
+<td align="right">0.22</td>
+<td align="right">0.01</td>
+<td align="right">1.42</td>
+<td align="right">0.23</td>
+<td align="right">1.19</td>
+<td align="right">1.51</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.98</td>
+<td align="right">0.97</td>
+<td align="right">1.00</td>
+<td align="right">0.95</td>
+<td align="right">0.92</td>
+<td align="right">0.95</td>
+<td align="right">0.95</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.64</td>
+<td align="right">0.04</td>
+<td align="right">0.51</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">ihs_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
+<span>    id_cols <span class="op">=</span> <span class="va">OA11CD</span>,</span>
+<span>    names_from <span class="op">=</span> <span class="va">supgrpname</span>,</span>
+<span>    names_prefix <span class="op">=</span> <span class="st">"ihs u020 "</span>,</span>
+<span>    values_from <span class="op">=</span> <span class="va">ihs_u020</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="5%">
+<col width="10%">
+<col width="11%">
+<col width="18%">
+<col width="13%">
+<col width="17%">
+<col width="14%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">ihs u020 Suburbanites</th>
+<th align="right">ihs u020 Cosmopolitans</th>
+<th align="right">ihs u020 Multicultural Metropolitans</th>
+<th align="right">ihs u020 Ethnicity Central</th>
+<th align="right">ihs u020 Constrained City Dwellers</th>
+<th align="right">ihs u020 Hard-Pressed Living</th>
+<th align="right">ihs u020 Urbanites</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">0.46</td>
+<td align="right">0.51</td>
+<td align="right">0.14</td>
+<td align="right">0.88</td>
+<td align="right">0.94</td>
+<td align="right">0.81</td>
+<td align="right">0.21</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">0.71</td>
+<td align="right">0.97</td>
+<td align="right">0.69</td>
+<td align="right">1.39</td>
+<td align="right">1.20</td>
+<td align="right">1.69</td>
+<td align="right">0.36</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">0.44</td>
+<td align="right">0.23</td>
+<td align="right">0.01</td>
+<td align="right">1.78</td>
+<td align="right">0.36</td>
+<td align="right">1.14</td>
+<td align="right">1.78</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">0.34</td>
+<td align="right">0.22</td>
+<td align="right">0.01</td>
+<td align="right">1.43</td>
+<td align="right">0.23</td>
+<td align="right">1.19</td>
+<td align="right">1.51</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.98</td>
+<td align="right">0.97</td>
+<td align="right">1.00</td>
+<td align="right">0.95</td>
+<td align="right">0.92</td>
+<td align="right">0.95</td>
+<td align="right">0.95</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.64</td>
+<td align="right">0.04</td>
+<td align="right">0.51</td>
+<td align="right">0.02</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+</tr>
+</tbody>
+</table></div>
+<p>While the original <code>u020</code> variable is only normally distributed (using a <span class="math inline">\(0.01\)</span> threshold) for the <em>Suburbanites</em> supergroup, the transformed variables are normally distributed for all supergroups except <em>Hard-Pressed Living</em>.</p>
 <p><strong>Question 203.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
+<p>We use the variable transformed using a logarithmic transformation (which is easier to interpret than an inverse hyperbolic sine) and excluding the <em>Hard-Pressed Living</em> supergroup, to ensure that all groups taken into account are normally distributed. We can then test that using ANOVA.</p>
+<p>Let’s start with a boxplot, which can also be horizontal, if the nominal variable (categories) is provides for the <code>y</code> aesthetic and the continuous variable is provides for the <code>x</code> aesthetic. In the example below, that choice makes the 2011OAC supergroup names easier to read.</p>
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">!=</span> <span class="st">"Hard-Pressed Living"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">log10_u020</span>, </span>
+<span>      y <span class="op">=</span> <span class="va">supgrpname</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-54-1.png" width="672"></div>
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">log10_u020_supgrpname_aov</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">!=</span> <span class="st">"Hard-Pressed Living"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">log10_u020</span> <span class="op">~</span> <span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">log10_u020_supgrpname_aov</span></span></code></pre></div>
+<pre><code>##              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## supgrpname    5  1.049 0.20988   51.91 &lt;2e-16 ***
+## Residuals   862  3.485 0.00404                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+<p>The test is significant <em>F</em>(5, 862) = 51.91 with <em>p</em> &lt; .01, thus we can say that the distribution of <code>u020</code> across the 2011OAC supergroups, excluding <em>Hard-Pressed Living</em>, are different.</p>
 </div>
-<div id="solutions-203.2" class="section level3" number="12.4.2">
-<h3>
-<span class="header-section-number">12.4.2</span> Solutions 203.2<a class="anchor" aria-label="anchor" href="#solutions-203.2"><i class="fas fa-link"></i></a>
+<div id="solutions-203.2" class="section level3 unnumbered">
+<h3>Solutions 203.2<a class="anchor" aria-label="anchor" href="#solutions-203.2"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Question 203.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
+<p>The first necessary step is to normalise the data using the variable statistical unit <code>Total_Household_Spaces</code> for <code>u089</code> and <code>Total_Pop_No_NI_Students_16_to_74</code> for <code>u122</code> as suggested by the lookup table.</p>
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    u089n <span class="op">=</span> <span class="op">(</span><span class="va">u089</span> <span class="op">/</span> <span class="va">Total_Household_Spaces</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>    u122n <span class="op">=</span> <span class="op">(</span><span class="va">u122</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u089n</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-57-1.png" width="672"></div>
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u122n</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-58-1.png" width="672"></div>
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">u089n</th>
+<th align="right">u122n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">1.56</td>
+<td align="right">0.85</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">9.94</td>
+<td align="right">5.40</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">1.33</td>
+<td align="right">0.85</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">4.23</td>
+<td align="right">2.72</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.74</td>
+<td align="right">0.96</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>The two plots and the table above indicate that the two variables are not normally distributed and left skewed. As such, we can try to apply a logarithmic transformation to both to try to <em>“un-skew”</em> them. Note how <code>rename_with</code> uses a <a href="https://purrr.tidyverse.org/articles/other-langs.html">purrr-style lamba</a> shorthand to to paste <code>log10_</code> in front of all column names.</p>
+<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="va">log10</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
+<span>    <span class="co"># this is a shorthand</span></span>
+<span>    <span class="co"># to paste log10_ in front</span></span>
+<span>    <span class="co"># of all column names</span></span>
+<span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"log10_"</span>, <span class="va">.x</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">log10_u089n</th>
+<th align="right">log10_u122n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">NaN</td>
+<td align="right">-0.59</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">NaN</td>
+<td align="right">-3.73</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">NaN</td>
+<td align="right">0.63</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">NaN</td>
+<td align="right">2.01</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">NaN</td>
+<td align="right">0.98</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">NaN</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>The presence of <code>NaN</code> values in the <code>u089</code> column indicates that the variable includes zeros, for which the logarithm is not defined. As such, we can try using the inverse iperbolic sine.</p>
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="va">asinh</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
+<span>    <span class="co"># this is a shorthand</span></span>
+<span>    <span class="co"># to paste ihs_ in front</span></span>
+<span>    <span class="co"># of all column names</span></span>
+<span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"ihs_"</span>, <span class="va">.x</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">ihs_u089n</th>
+<th align="right">ihs_u122n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">-0.09</td>
+<td align="right">-0.53</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">-0.59</td>
+<td align="right">-3.40</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">-1.10</td>
+<td align="right">0.43</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">-3.51</td>
+<td align="right">1.36</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.96</td>
+<td align="right">0.98</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>The values are now not <code>NaN</code>, but still, the variables are not normally distributed. As such, we can not use Pearson’s r correlation, as one of the assumptions is not met. In first instance, we can use Spearman’s rho to assess their correlation.</p>
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u089n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">u122n</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-62-1.png" width="672"></div>
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u089n_u122n_spearman</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
+<span>    <span class="va">u089n</span>, <span class="va">u122n</span>, </span>
+<span>    method <span class="op">=</span> <span class="st">"spearman"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning in cor.test.default(u089n, u122n, method = "spearman"): Cannot compute
+## exact p-value with ties</code></pre>
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u089n_u122n_spearman</span></span></code></pre></div>
+<pre><code>## 
+##  Spearman's rank correlation rho
+## 
+## data:  u089n and u122n
+## S = 92011434, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.3932327</code></pre>
+<p>The output above includes the warning <code>Warning: Cannot compute exact p-value with ties</code>. As such, we need to check the number of ties in the dataset.</p>
+<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u089n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>wt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument</code></pre>
+<pre><code>## [1] 127</code></pre>
+<div class="sourceCode" id="cb500"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>wt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument</code></pre>
+<pre><code>## [1] 85</code></pre>
+<p>As the number of ties is sizable, the use of Kendall’s tau is advisable.</p>
+<div class="sourceCode" id="cb503"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u089n_u122n_kendall</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
+<span>    <span class="va">u089n</span>, <span class="va">u122n</span>, </span>
+<span>    method <span class="op">=</span> <span class="st">"kendall"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">u089n_u122n_kendall</span></span></code></pre></div>
+<pre><code>## 
+##  Kendall's rank correlation tau
+## 
+## data:  u089n and u122n
+## z = 12.534, p-value &lt; 2.2e-16
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##       tau 
+## 0.2696906</code></pre>
+<p>The test is significant (<em>p</em> &lt; .01), thus we can say that there is a relationship, which is however extremely weak. The value for tau is 0.27 indicating that the two variables share only 7.3% of variance.</p>
 <p><strong>Question 203.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
+<p>The procedure is similar to the one seen above. The variable <code>Total_Households</code> should be used to normalise <code>u118</code>. Importantly, as the question specifies <em>people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>)</em> we also need to sum <code>u120</code> and <code>u122</code> to account for <em>one or the other</em> (as <a href="https://www.ons.gov.uk/census/censustransformationprogramme/questiondevelopment/occupationindustryandtraveltoworkquestiondevelopmentforcensus2021">the answers in the census questions were mutually exclusive</a>, only one mode could be chosen)</p>
+<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    u118n <span class="op">=</span> <span class="op">(</span><span class="va">u118</span> <span class="op">/</span> <span class="va">Total_Households</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,</span>
+<span>    u120u122n <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="va">u120</span> <span class="op">+</span> <span class="va">u122</span><span class="op">)</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u118n</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-67-1.png" width="672"></div>
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u120u122n</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-68-1.png" width="672"></div>
+<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">u118n</th>
+<th align="right">u120u122n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">0.91</td>
+<td align="right">0.79</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">5.78</td>
+<td align="right">5.02</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">0.46</td>
+<td align="right">1.20</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">1.46</td>
+<td align="right">3.83</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.93</td>
+<td align="right">0.97</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+</tr>
+</tbody>
+</table></div>
+<p>Again, both variables as not normally distributed. Thus, we can try to use a logarithmic transformation to try <em>“un-skew”</em> them.</p>
+<div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="va">log10</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
+<span>    <span class="co"># this is a shorthand</span></span>
+<span>    <span class="co"># to paste log10_ in front</span></span>
+<span>    <span class="co"># of all column names</span></span>
+<span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"log10_"</span>, <span class="va">.x</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">log10_u118n</th>
+<th align="right">log10_u120u122n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">NaN</td>
+<td align="right">-0.18</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">NaN</td>
+<td align="right">-1.13</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">NaN</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">NaN</td>
+<td align="right">0.29</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">NaN</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">NaN</td>
+<td align="right">0.04</td>
+</tr>
+</tbody>
+</table></div>
+<p>Again, <code>u118n</code> includes some zero value, thus producing <code>NaN</code> values in the table above. As such, we can try using the inverse hyperbolic sine.</p>
+<div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="va">asinh</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
+<span>    <span class="co"># this is a shorthand</span></span>
+<span>    <span class="co"># to paste ihs_ in front</span></span>
+<span>    <span class="co"># of all column names</span></span>
+<span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"ihs_"</span>, <span class="va">.x</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
+<span>    basic <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    norm <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="right">ihs_u118n</th>
+<th align="right">ihs_u120u122n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">skewness</td>
+<td align="right">-0.95</td>
+<td align="right">-0.17</td>
+</tr>
+<tr class="even">
+<td align="left">skew.2SE</td>
+<td align="right">-6.02</td>
+<td align="right">-1.11</td>
+</tr>
+<tr class="odd">
+<td align="left">kurtosis</td>
+<td align="right">1.70</td>
+<td align="right">0.09</td>
+</tr>
+<tr class="even">
+<td align="left">kurt.2SE</td>
+<td align="right">5.41</td>
+<td align="right">0.28</td>
+</tr>
+<tr class="odd">
+<td align="left">normtest.W</td>
+<td align="right">0.95</td>
+<td align="right">1.00</td>
+</tr>
+<tr class="even">
+<td align="left">normtest.p</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+</tr>
+</tbody>
+</table></div>
+<p>Note how <code>ihs_u120u122n</code> is normally distributed, but <code>ihs_u118n</code> is not normally distributed. So, again we can’t use Pearson’s r correlation, and we resort to use Spearman’s rho.</p>
+<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>    x <span class="op">=</span> <span class="va">u118n</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">u120u122n</span></span>
+<span>  <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-72-1.png" width="672"></div>
+<div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u118n_u120u122n_spearman</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
+<span>    <span class="va">u118n</span>, <span class="va">u120u122n</span>, </span>
+<span>    method <span class="op">=</span> <span class="st">"spearman"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning in cor.test.default(u118n, u120u122n, method = "spearman"): Cannot
+## compute exact p-value with ties</code></pre>
+<div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u118n_u120u122n_spearman</span></span></code></pre></div>
+<pre><code>## 
+##  Spearman's rank correlation rho
+## 
+## data:  u118n and u120u122n
+## S = 217161157, p-value &lt; 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##        rho 
+## -0.4320643</code></pre>
+<p>Note how the Spearman’s rho statistic is negative, indicating an inverse relationship between the to variables. That is a first indication that the more households with 2 or more cars or vans, the fewer people commute to work via public transport or on foot, bicycle or other similar means. However, again, the functions return the warning <code>Warning: Cannot compute exact p-value with ties</code>.</p>
+<div class="sourceCode" id="cb518"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u118n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>wt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument</code></pre>
+<pre><code>## [1] 115</code></pre>
+<div class="sourceCode" id="cb521"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>wt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument</code></pre>
+<pre><code>## [1] 83</code></pre>
+<p>Again, the dataset contains a sizable number of ties, thus the use of Kendall’s tau is advisable.</p>
+<div class="sourceCode" id="cb524"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">u118n_u120u122n_kendall</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
+<span>    <span class="va">u118n</span>, <span class="va">u120u122n</span>, </span>
+<span>    method <span class="op">=</span> <span class="st">"kendall"</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">u118n_u120u122n_kendall</span></span></code></pre></div>
+<pre><code>## 
+##  Kendall's rank correlation tau
+## 
+## data:  u118n and u120u122n
+## z = -14.278, p-value &lt; 2.2e-16
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##        tau 
+## -0.3065051</code></pre>
+<p>The test is significant (<em>p</em> &lt; .01), thus we can say that there is an inverse relationship, which is however very weak. The value for tau is -0.307 indicating that the two variables share only 9.4% of variance.</p>
 <!--
 
 ### Solutions 104.2 {-}
@@ -1680,9 +2640,9 @@ silly_function(cities, 1:3)
 <a class="nav-link" href="#solutions-202">Solutions 202</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-202.1">Solutions 202.1</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#solutions-203"><span class="header-section-number">12.4</span> Solutions 203</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#solutions-203.1"><span class="header-section-number">12.4.1</span> Solutions 203.1</a></li>
-<li><a class="nav-link" href="#solutions-203.2"><span class="header-section-number">12.4.2</span> Solutions 203.2</a></li>
+<a class="nav-link" href="#solutions-203">Solutions 203</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#solutions-203.1">Solutions 203.1</a></li>
+<li><a class="nav-link" href="#solutions-203.2">Solutions 203.2</a></li>
 </ul>
 </li>
 </ul>

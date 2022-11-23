@@ -854,26 +854,836 @@ leic_2011OAC_20to24 %>%
 If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a *p < .01* threshold. In the output above, the *p* value (`Pr(>F)`) is much lower than our threshold, indicating that the test is significance. Thus, the `perc_age_20_to_24` has different variance for different 2011OAc supergroups.
 
 
-## Solutions 203
+## Solutions 203 {-}
 
-### Solutions 203.1
+### Solutions 203.1 {-}
 
 Create a new RMarkdown document, and add the code necessary to oad the `2011_OAC_Raw_uVariables_Leicester.csv` dataset.
 
 
 
-**Question 203.1.1:** Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
+
+```r
+library(tidyverse)
+library(magrittr)
+library(knitr)
+library(pastecs)
+
+leicester_2011OAC <- read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+```
+
+**Question 203.1.1:** Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed into a normally distributed set using logarithmic or inverse hyperbolic sine functions.
+
+Start from exploring the variable distribution.
+
+
+```r
+leicester_2011OAC %>% 
+  ggplot(aes(
+    x = u020
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+
+
+```r
+leicester_2011OAC %>% 
+  ggplot(aes(
+    sample = u020
+  )) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-42-1.png" width="672" />
+
+
+```r
+leicester_2011OAC %>% 
+  pull(u020) %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.9663, p-value = 3.476e-14
+```
+
+The variable `u020` is clearly not normally distributed, probably mostly due to a long tail on the right side.
+
+Thus, we can try transform the variable using a logarithmic transformation or a inverse hyperbolic sine transformation. Let's try both.
+
+
+```r
+leicester_2011OAC_trans <-
+  leicester_2011OAC %>% 
+  mutate(
+    log10_u020 = log10(u020),
+    ihs_u020 = asinh(u020)
+  )
+```
+
+
+```r
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    sample = log10_u020
+  )) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-45-1.png" width="672" />
+
+
+```r
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    x = log10_u020
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-46-1.png" width="672" />
+
+
+
+
+```r
+leicester_2011OAC_trans %>% 
+  pull(log10_u020) %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99474, p-value = 0.001888
+```
+
+
+```r
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    x = ihs_u020
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-48-1.png" width="672" />
+
+
+```r
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    sample = ihs_u020
+  )) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-49-1.png" width="672" />
+
+
+```r
+leicester_2011OAC_trans %>% 
+  pull(ihs_u020) %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.99473, p-value = 0.001874
+```
+Even using a logarithmic or inverse hyperbolic sine transformation, the variable `u020` is still not normally distributed. The *p*-values are higher compared to the original variable, but still well below the $0.01$ threshold. As visible in the charts, the transformed variables still show some level of long tails on both sides.
+
 
 **Question 203.1.2:** Check whether the values of mean age (`u020`) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
 
+Note how the code below pivotes the table to obtain one column per 2011OAC supergroup.
+
+
+```r
+leicester_2011OAC %>% 
+  select(OA11CD, supgrpname, u020) %>% 
+  pivot_wider(
+    id_cols = OA11CD,
+    names_from = supgrpname,
+    names_prefix = "u020 ",
+    values_from = u020
+  ) %>% 
+  select(-OA11CD) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | u020 Suburbanites| u020 Cosmopolitans| u020 Multicultural Metropolitans| u020 Ethnicity Central| u020 Constrained City Dwellers| u020 Hard-Pressed Living| u020 Urbanites|
+|:----------|-----------------:|------------------:|--------------------------------:|----------------------:|------------------------------:|------------------------:|--------------:|
+|skewness   |              0.83|               1.15|                             0.56|                   1.81|                           1.40|                     1.42|           1.04|
+|skew.2SE   |              1.27|               2.17|                             2.76|                   2.87|                           1.78|                     2.96|           1.74|
+|kurtosis   |              1.24|               1.54|                             0.64|                   6.13|                           1.74|                     2.77|           3.56|
+|kurt.2SE   |              0.97|               1.47|                             1.58|                   4.92|                           1.14|                     2.91|           3.04|
+|normtest.W |              0.96|               0.91|                             0.98|                   0.87|                           0.86|                     0.89|           0.92|
+|normtest.p |              0.07|               0.00|                             0.00|                   0.00|                           0.00|                     0.00|           0.00|
+
+
+```r
+leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, log10_u020) %>% 
+  pivot_wider(
+    id_cols = OA11CD,
+    names_from = supgrpname,
+    names_prefix = "log10 u020 ",
+    values_from = log10_u020
+  ) %>% 
+  select(-OA11CD) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | log10 u020 Suburbanites| log10 u020 Cosmopolitans| log10 u020 Multicultural Metropolitans| log10 u020 Ethnicity Central| log10 u020 Constrained City Dwellers| log10 u020 Hard-Pressed Living| log10 u020 Urbanites|
+|:----------|-----------------------:|------------------------:|--------------------------------------:|----------------------------:|------------------------------------:|------------------------------:|--------------------:|
+|skewness   |                    0.46|                     0.51|                                   0.14|                         0.88|                                 0.94|                           0.81|                 0.21|
+|skew.2SE   |                    0.71|                     0.97|                                   0.69|                         1.39|                                 1.20|                           1.69|                 0.35|
+|kurtosis   |                    0.44|                     0.23|                                   0.01|                         1.77|                                 0.36|                           1.14|                 1.78|
+|kurt.2SE   |                    0.34|                     0.22|                                   0.01|                         1.42|                                 0.23|                           1.19|                 1.51|
+|normtest.W |                    0.98|                     0.97|                                   1.00|                         0.95|                                 0.92|                           0.95|                 0.95|
+|normtest.p |                    0.64|                     0.04|                                   0.51|                         0.02|                                 0.02|                           0.00|                 0.02|
+
+
+```r
+leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, ihs_u020) %>% 
+  pivot_wider(
+    id_cols = OA11CD,
+    names_from = supgrpname,
+    names_prefix = "ihs u020 ",
+    values_from = ihs_u020
+  ) %>% 
+  select(-OA11CD) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | ihs u020 Suburbanites| ihs u020 Cosmopolitans| ihs u020 Multicultural Metropolitans| ihs u020 Ethnicity Central| ihs u020 Constrained City Dwellers| ihs u020 Hard-Pressed Living| ihs u020 Urbanites|
+|:----------|---------------------:|----------------------:|------------------------------------:|--------------------------:|----------------------------------:|----------------------------:|------------------:|
+|skewness   |                  0.46|                   0.51|                                 0.14|                       0.88|                               0.94|                         0.81|               0.21|
+|skew.2SE   |                  0.71|                   0.97|                                 0.69|                       1.39|                               1.20|                         1.69|               0.36|
+|kurtosis   |                  0.44|                   0.23|                                 0.01|                       1.78|                               0.36|                         1.14|               1.78|
+|kurt.2SE   |                  0.34|                   0.22|                                 0.01|                       1.43|                               0.23|                         1.19|               1.51|
+|normtest.W |                  0.98|                   0.97|                                 1.00|                       0.95|                               0.92|                         0.95|               0.95|
+|normtest.p |                  0.64|                   0.04|                                 0.51|                       0.02|                               0.02|                         0.00|               0.02|
+
+While the original `u020` variable is only normally distributed (using a $0.01$ threshold) for the *Suburbanites* supergroup, the transformed variables are normally distributed for all supergroups except *Hard-Pressed Living*.
+
+
 **Question 203.1.3:** Is the distribution of mean age (`u020`) different in different 2011OAC supergroups in Leicester?
 
-### Solutions 203.2
+We use the variable transformed using a logarithmic transformation (which is easier to interpret than an inverse hyperbolic sine) and excluding the *Hard-Pressed Living* supergroup, to ensure that all groups taken into account are normally distributed. We can then test that using ANOVA.
+
+Let's start with a boxplot, which can also be horizontal, if the nominal variable (categories) is provides for the `y` aesthetic and the continuous variable  is provides for the `x` aesthetic. In the example below, that choice makes the 2011OAC supergroup names easier to read.
+
+
+```r
+leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, log10_u020) %>% 
+  filter(supgrpname != "Hard-Pressed Living") %>% 
+  ggplot(
+    aes(
+      x = log10_u020, 
+      y = supgrpname
+    )
+  ) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-54-1.png" width="672" />
+
+
+```r
+log10_u020_supgrpname_aov <-
+  leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, log10_u020) %>% 
+  filter(supgrpname != "Hard-Pressed Living") %$% 
+  aov(log10_u020 ~ supgrpname) %>%
+  summary()
+
+log10_u020_supgrpname_aov
+```
+
+```
+##              Df Sum Sq Mean Sq F value Pr(>F)    
+## supgrpname    5  1.049 0.20988   51.91 <2e-16 ***
+## Residuals   862  3.485 0.00404                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+The test is significant *F*(5, 862) = 51.91 with *p* < .01, thus we can say that the distribution of `u020` across the 2011OAC supergroups, excluding *Hard-Pressed Living*, are different.
+
+
+
+### Solutions 203.2 {-}
 
 **Question 203.2.1:** As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (`u089`) and people commuting to work on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
 
+The first necessary step is to normalise the data using the variable statistical unit `Total_Household_Spaces` for `u089` and `Total_Pop_No_NI_Students_16_to_74` for `u122` as suggested by the lookup table.
+
+
+```r
+flats_commuting <-
+  leicester_2011OAC %>% 
+  mutate(
+    u089n = (u089 / Total_Household_Spaces) * 100,
+    u122n = (u122 / Total_Pop_No_NI_Students_16_to_74) * 100
+  ) %>% 
+  select(OA11CD, u089n, u122n)
+```
+
+
+```r
+flats_commuting %>% 
+  ggplot(aes(
+    x = u089n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-57-1.png" width="672" />
+
+
+```r
+flats_commuting %>% 
+  ggplot(aes(
+    x = u122n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-58-1.png" width="672" />
+
+
+```r
+flats_commuting %>% 
+  select(u089n, u122n) %>%
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | u089n| u122n|
+|:----------|-----:|-----:|
+|skewness   |  1.56|  0.85|
+|skew.2SE   |  9.94|  5.40|
+|kurtosis   |  1.33|  0.85|
+|kurt.2SE   |  4.23|  2.72|
+|normtest.W |  0.74|  0.96|
+|normtest.p |  0.00|  0.00|
+
+The two plots and the table above indicate that the two variables are not normally distributed and left skewed. As such, we can try to apply a logarithmic transformation to both to try to *"un-skew"* them. Note how `rename_with` uses a [purrr-style lamba](https://purrr.tidyverse.org/articles/other-langs.html) shorthand to to paste `log10_` in front of all column names.
+
+
+```r
+flats_commuting %>% 
+  select(u089n, u122n) %>%
+  mutate(
+    across(
+      everything(),
+      log10
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste log10_ in front
+    # of all column names
+    ~ paste0("log10_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | log10_u089n| log10_u122n|
+|:----------|-----------:|-----------:|
+|skewness   |         NaN|       -0.59|
+|skew.2SE   |         NaN|       -3.73|
+|kurtosis   |         NaN|        0.63|
+|kurt.2SE   |         NaN|        2.01|
+|normtest.W |         NaN|        0.98|
+|normtest.p |         NaN|        0.00|
+
+The presence of `NaN` values in the `u089` column indicates that the variable includes zeros, for which the logarithm is not defined. As such, we can try using the inverse iperbolic sine.
+
+
+```r
+flats_commuting %>% 
+  select(u089n, u122n) %>%
+  mutate(
+    across(
+      everything(),
+      asinh
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste ihs_ in front
+    # of all column names
+    ~ paste0("ihs_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | ihs_u089n| ihs_u122n|
+|:----------|---------:|---------:|
+|skewness   |     -0.09|     -0.53|
+|skew.2SE   |     -0.59|     -3.40|
+|kurtosis   |     -1.10|      0.43|
+|kurt.2SE   |     -3.51|      1.36|
+|normtest.W |      0.96|      0.98|
+|normtest.p |      0.00|      0.00|
+
+The values are now not `NaN`, but still, the variables are not normally distributed. As such, we can not use Pearson's r correlation, as one of the assumptions is not met. In first instance, we can use Spearman's rho to assess their correlation.
+
+
+```r
+flats_commuting %>% 
+  ggplot(aes(
+    x = u089n,
+    y = u122n
+  )) +
+  geom_point() +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-62-1.png" width="672" />
+
+
+```r
+u089n_u122n_spearman <-
+  flats_commuting %$%
+  cor.test(
+    u089n, u122n, 
+    method = "spearman"
+  )
+```
+
+```
+## Warning in cor.test.default(u089n, u122n, method = "spearman"): Cannot compute
+## exact p-value with ties
+```
+
+```r
+u089n_u122n_spearman
+```
+
+```
+## 
+## 	Spearman's rank correlation rho
+## 
+## data:  u089n and u122n
+## S = 92011434, p-value < 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.3932327
+```
+
+The output above includes the warning `Warning: Cannot compute exact p-value with ties`. As such, we need to check the number of ties in the dataset.
+
+
+```r
+flats_commuting %>%
+  count(u089n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+```
+
+```
+## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument
+```
+
+```
+## [1] 127
+```
+
+```r
+flats_commuting %>%
+  count(u122n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+```
+
+```
+## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument
+```
+
+```
+## [1] 85
+```
+
+
+As the number of ties is sizable, the use of Kendall's tau is advisable.
+
+
+```r
+u089n_u122n_kendall <-
+  flats_commuting %$%
+  cor.test(
+    u089n, u122n, 
+    method = "kendall"
+  )
+
+u089n_u122n_kendall
+```
+
+```
+## 
+## 	Kendall's rank correlation tau
+## 
+## data:  u089n and u122n
+## z = 12.534, p-value < 2.2e-16
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##       tau 
+## 0.2696906
+```
+
+The test is significant (*p* < .01), thus we can say that there is a relationship, which is however extremely weak. The value for tau is 0.27 indicating that the two variables share only 7.3% of variance.
+
+
 **Question 203.2.2:** Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (`u118`) and people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
 
+The procedure is similar to the one seen above. The variable `Total_Households` should be used to normalise `u118`. Importantly, as the question specifies *people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`)* we also need to sum `u120` and `u122` to account for *one or the other* (as [the answers in the census questions were mutually exclusive](https://www.ons.gov.uk/census/censustransformationprogramme/questiondevelopment/occupationindustryandtraveltoworkquestiondevelopmentforcensus2021), only one mode could be chosen)
+
+
+```r
+cas_vs_not_cars <-
+  leicester_2011OAC %>% 
+  mutate(
+    u118n = (u118 / Total_Households) * 100,
+    u120u122n = ((u120 + u122) / Total_Pop_No_NI_Students_16_to_74) * 100
+  ) %>% 
+  select(OA11CD, u118n, u120u122n)
+```
+
+
+```r
+cas_vs_not_cars %>% 
+  ggplot(aes(
+    x = u118n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-67-1.png" width="672" />
+
+
+```r
+cas_vs_not_cars %>% 
+  ggplot(aes(
+    x = u120u122n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-68-1.png" width="672" />
+
+
+```r
+cas_vs_not_cars %>% 
+  select(u118n, u120u122n) %>%
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | u118n| u120u122n|
+|:----------|-----:|---------:|
+|skewness   |  0.91|      0.79|
+|skew.2SE   |  5.78|      5.02|
+|kurtosis   |  0.46|      1.20|
+|kurt.2SE   |  1.46|      3.83|
+|normtest.W |  0.93|      0.97|
+|normtest.p |  0.00|      0.00|
+
+Again, both variables as not normally distributed. Thus, we can try to use a logarithmic transformation to try *"un-skew"* them.
+
+
+```r
+cas_vs_not_cars %>% 
+  select(u118n, u120u122n) %>%
+  mutate(
+    across(
+      everything(),
+      log10
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste log10_ in front
+    # of all column names
+    ~ paste0("log10_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | log10_u118n| log10_u120u122n|
+|:----------|-----------:|---------------:|
+|skewness   |         NaN|           -0.18|
+|skew.2SE   |         NaN|           -1.13|
+|kurtosis   |         NaN|            0.09|
+|kurt.2SE   |         NaN|            0.29|
+|normtest.W |         NaN|            1.00|
+|normtest.p |         NaN|            0.04|
+
+Again, `u118n` includes some zero value, thus producing `NaN` values in the table above. As such, we can try using the inverse hyperbolic sine.
+
+
+
+```r
+cas_vs_not_cars %>% 
+  select(u118n, u120u122n) %>%
+  mutate(
+    across(
+      everything(),
+      asinh
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste ihs_ in front
+    # of all column names
+    ~ paste0("ihs_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+
+
+|           | ihs_u118n| ihs_u120u122n|
+|:----------|---------:|-------------:|
+|skewness   |     -0.95|         -0.17|
+|skew.2SE   |     -6.02|         -1.11|
+|kurtosis   |      1.70|          0.09|
+|kurt.2SE   |      5.41|          0.28|
+|normtest.W |      0.95|          1.00|
+|normtest.p |      0.00|          0.04|
+
+Note how `ihs_u120u122n` is normally distributed, but `ihs_u118n` is not normally distributed. So, again we can't use Pearson's r correlation, and we resort to use Spearman's rho.
+
+
+```r
+cas_vs_not_cars %>% 
+  ggplot(aes(
+    x = u118n,
+    y = u120u122n
+  )) +
+  geom_point() +
+  theme_bw()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-72-1.png" width="672" />
+
+
+```r
+u118n_u120u122n_spearman <-
+  cas_vs_not_cars %$%
+  cor.test(
+    u118n, u120u122n, 
+    method = "spearman"
+  )
+```
+
+```
+## Warning in cor.test.default(u118n, u120u122n, method = "spearman"): Cannot
+## compute exact p-value with ties
+```
+
+```r
+u118n_u120u122n_spearman
+```
+
+```
+## 
+## 	Spearman's rank correlation rho
+## 
+## data:  u118n and u120u122n
+## S = 217161157, p-value < 2.2e-16
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##        rho 
+## -0.4320643
+```
+
+Note how the Spearman's rho statistic is negative, indicating an inverse relationship between the to variables. That is a first indication that the more households with 2 or more cars or vans, the fewer people commute to work via public transport or on foot, bicycle or other similar means. However, again, the functions return the warning `Warning: Cannot compute exact p-value with ties`.
+
+
+```r
+cas_vs_not_cars %>%
+  count(u118n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+```
+
+```
+## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument
+```
+
+```
+## [1] 115
+```
+
+```r
+cas_vs_not_cars %>%
+  count(u120u122n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+```
+
+```
+## Warning: `wt = n()` is deprecated
+## ℹ You can now omit the `wt` argument
+```
+
+```
+## [1] 83
+```
+
+Again, the dataset contains a sizable number of ties, thus the use of Kendall's tau is advisable.
+
+
+```r
+u118n_u120u122n_kendall <-
+  cas_vs_not_cars %$%
+  cor.test(
+    u118n, u120u122n, 
+    method = "kendall"
+  )
+
+u118n_u120u122n_kendall
+```
+
+```
+## 
+## 	Kendall's rank correlation tau
+## 
+## data:  u118n and u120u122n
+## z = -14.278, p-value < 2.2e-16
+## alternative hypothesis: true tau is not equal to 0
+## sample estimates:
+##        tau 
+## -0.3065051
+```
+
+The test is significant (*p* < .01), thus we can say that there is an inverse relationship, which is however very weak. The value for tau is -0.307 indicating that the two variables share only 9.4% of variance.
 
 <!--
 

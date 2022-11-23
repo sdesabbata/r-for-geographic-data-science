@@ -714,28 +714,522 @@ leic_2011OAC_20to24 %>%
 If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a *p < .01* threshold. In the output above, the *p* value (`Pr(>F)`) is much lower than our threshold, indicating that the test is significance. Thus, the `perc_age_20_to_24` has different variance for different 2011OAc supergroups.
 
 
-## Solutions 203
+## Solutions 203 {-}
 
-### Solutions 203.1
+### Solutions 203.1 {-}
 
 Create a new RMarkdown document, and add the code necessary to oad the `2011_OAC_Raw_uVariables_Leicester.csv` dataset.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)
+library(knitr)
+library(pastecs)
+
 leicester_2011OAC <- read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
 ```
 
-**Question 203.1.1:** Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
+```{r, echo=TRUE, eval=FALSE}
+library(tidyverse)
+library(magrittr)
+library(knitr)
+library(pastecs)
+
+leicester_2011OAC <- read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+```
+
+**Question 203.1.1:** Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed into a normally distributed set using logarithmic or inverse hyperbolic sine functions.
+
+Start from exploring the variable distribution.
+
+```{r}
+leicester_2011OAC %>% 
+  ggplot(aes(
+    x = u020
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```{r}
+leicester_2011OAC %>% 
+  ggplot(aes(
+    sample = u020
+  )) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_bw()
+```
+
+```{r}
+leicester_2011OAC %>% 
+  pull(u020) %>% 
+  shapiro.test()
+```
+
+The variable `u020` is clearly not normally distributed, probably mostly due to a long tail on the right side.
+
+Thus, we can try transform the variable using a logarithmic transformation or a inverse hyperbolic sine transformation. Let's try both.
+
+```{r}
+leicester_2011OAC_trans <-
+  leicester_2011OAC %>% 
+  mutate(
+    log10_u020 = log10(u020),
+    ihs_u020 = asinh(u020)
+  )
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    sample = log10_u020
+  )) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_bw()
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    x = log10_u020
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+
+
+```{r}
+leicester_2011OAC_trans %>% 
+  pull(log10_u020) %>% 
+  shapiro.test()
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    x = ihs_u020
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  ggplot(aes(
+    sample = ihs_u020
+  )) +
+  stat_qq() +
+  stat_qq_line() +
+  theme_bw()
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  pull(ihs_u020) %>% 
+  shapiro.test()
+```
+Even using a logarithmic or inverse hyperbolic sine transformation, the variable `u020` is still not normally distributed. The *p*-values are higher compared to the original variable, but still well below the $0.01$ threshold. As visible in the charts, the transformed variables still show some level of long tails on both sides.
+
 
 **Question 203.1.2:** Check whether the values of mean age (`u020`) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
 
+Note how the code below pivotes the table to obtain one column per 2011OAC supergroup.
+
+```{r}
+leicester_2011OAC %>% 
+  select(OA11CD, supgrpname, u020) %>% 
+  pivot_wider(
+    id_cols = OA11CD,
+    names_from = supgrpname,
+    names_prefix = "u020 ",
+    values_from = u020
+  ) %>% 
+  select(-OA11CD) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, log10_u020) %>% 
+  pivot_wider(
+    id_cols = OA11CD,
+    names_from = supgrpname,
+    names_prefix = "log10 u020 ",
+    values_from = log10_u020
+  ) %>% 
+  select(-OA11CD) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+```{r}
+leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, ihs_u020) %>% 
+  pivot_wider(
+    id_cols = OA11CD,
+    names_from = supgrpname,
+    names_prefix = "ihs u020 ",
+    values_from = ihs_u020
+  ) %>% 
+  select(-OA11CD) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+While the original `u020` variable is only normally distributed (using a $0.01$ threshold) for the *Suburbanites* supergroup, the transformed variables are normally distributed for all supergroups except *Hard-Pressed Living*.
+
+
 **Question 203.1.3:** Is the distribution of mean age (`u020`) different in different 2011OAC supergroups in Leicester?
 
-### Solutions 203.2
+We use the variable transformed using a logarithmic transformation (which is easier to interpret than an inverse hyperbolic sine) and excluding the *Hard-Pressed Living* supergroup, to ensure that all groups taken into account are normally distributed. We can then test that using ANOVA.
+
+Let's start with a boxplot, which can also be horizontal, if the nominal variable (categories) is provides for the `y` aesthetic and the continuous variable  is provides for the `x` aesthetic. In the example below, that choice makes the 2011OAC supergroup names easier to read.
+
+```{r}
+leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, log10_u020) %>% 
+  filter(supgrpname != "Hard-Pressed Living") %>% 
+  ggplot(
+    aes(
+      x = log10_u020, 
+      y = supgrpname
+    )
+  ) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+```{r}
+log10_u020_supgrpname_aov <-
+  leicester_2011OAC_trans %>% 
+  select(OA11CD, supgrpname, log10_u020) %>% 
+  filter(supgrpname != "Hard-Pressed Living") %$% 
+  aov(log10_u020 ~ supgrpname) %>%
+  summary()
+
+log10_u020_supgrpname_aov
+```
+
+The test is significant *F*(`r log10_u020_supgrpname_aov[[1]] %$% Df[1] %>% round(digits = 2)`, `r log10_u020_supgrpname_aov[[1]] %$% Df[2] %>% round(digits = 2)`) = `r log10_u020_supgrpname_aov[[1]][1, 4] %>% round(digits = 2)` with *p* < .01, thus we can say that the distribution of `u020` across the 2011OAC supergroups, excluding *Hard-Pressed Living*, are different.
+
+
+
+### Solutions 203.2 {-}
 
 **Question 203.2.1:** As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (`u089`) and people commuting to work on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
 
+The first necessary step is to normalise the data using the variable statistical unit `Total_Household_Spaces` for `u089` and `Total_Pop_No_NI_Students_16_to_74` for `u122` as suggested by the lookup table.
+
+```{r}
+flats_commuting <-
+  leicester_2011OAC %>% 
+  mutate(
+    u089n = (u089 / Total_Household_Spaces) * 100,
+    u122n = (u122 / Total_Pop_No_NI_Students_16_to_74) * 100
+  ) %>% 
+  select(OA11CD, u089n, u122n)
+```
+
+```{r}
+flats_commuting %>% 
+  ggplot(aes(
+    x = u089n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```{r}
+flats_commuting %>% 
+  ggplot(aes(
+    x = u122n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```{r}
+flats_commuting %>% 
+  select(u089n, u122n) %>%
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+The two plots and the table above indicate that the two variables are not normally distributed and left skewed. As such, we can try to apply a logarithmic transformation to both to try to *"un-skew"* them. Note how `rename_with` uses a [purrr-style lamba](https://purrr.tidyverse.org/articles/other-langs.html) shorthand to to paste `log10_` in front of all column names.
+
+```{r}
+flats_commuting %>% 
+  select(u089n, u122n) %>%
+  mutate(
+    across(
+      everything(),
+      log10
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste log10_ in front
+    # of all column names
+    ~ paste0("log10_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+The presence of `NaN` values in the `u089` column indicates that the variable includes zeros, for which the logarithm is not defined. As such, we can try using the inverse iperbolic sine.
+
+```{r}
+flats_commuting %>% 
+  select(u089n, u122n) %>%
+  mutate(
+    across(
+      everything(),
+      asinh
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste ihs_ in front
+    # of all column names
+    ~ paste0("ihs_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+The values are now not `NaN`, but still, the variables are not normally distributed. As such, we can not use Pearson's r correlation, as one of the assumptions is not met. In first instance, we can use Spearman's rho to assess their correlation.
+
+```{r}
+flats_commuting %>% 
+  ggplot(aes(
+    x = u089n,
+    y = u122n
+  )) +
+  geom_point() +
+  theme_bw()
+```
+
+```{r}
+u089n_u122n_spearman <-
+  flats_commuting %$%
+  cor.test(
+    u089n, u122n, 
+    method = "spearman"
+  )
+
+u089n_u122n_spearman
+```
+
+The output above includes the warning `Warning: Cannot compute exact p-value with ties`. As such, we need to check the number of ties in the dataset.
+
+```{r}
+flats_commuting %>%
+  count(u089n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+
+
+flats_commuting %>%
+  count(u122n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+```
+
+
+As the number of ties is sizable, the use of Kendall's tau is advisable.
+
+```{r}
+u089n_u122n_kendall <-
+  flats_commuting %$%
+  cor.test(
+    u089n, u122n, 
+    method = "kendall"
+  )
+
+u089n_u122n_kendall
+```
+
+The test is significant (*p* < .01), thus we can say that there is a relationship, which is however extremely weak. The value for tau is `r (u089n_u122n_kendall$estimate) %>% round(digits = 3)` indicating that the two variables share only `r ((u089n_u122n_kendall$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance.
+
+
 **Question 203.2.2:** Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (`u118`) and people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
 
+The procedure is similar to the one seen above. The variable `Total_Households` should be used to normalise `u118`. Importantly, as the question specifies *people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`)* we also need to sum `u120` and `u122` to account for *one or the other* (as [the answers in the census questions were mutually exclusive](https://www.ons.gov.uk/census/censustransformationprogramme/questiondevelopment/occupationindustryandtraveltoworkquestiondevelopmentforcensus2021), only one mode could be chosen)
+
+```{r}
+cas_vs_not_cars <-
+  leicester_2011OAC %>% 
+  mutate(
+    u118n = (u118 / Total_Households) * 100,
+    u120u122n = ((u120 + u122) / Total_Pop_No_NI_Students_16_to_74) * 100
+  ) %>% 
+  select(OA11CD, u118n, u120u122n)
+```
+
+```{r}
+cas_vs_not_cars %>% 
+  ggplot(aes(
+    x = u118n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```{r}
+cas_vs_not_cars %>% 
+  ggplot(aes(
+    x = u120u122n
+  )) +
+  geom_histogram() +
+  theme_bw()
+```
+
+```{r}
+cas_vs_not_cars %>% 
+  select(u118n, u120u122n) %>%
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+Again, both variables as not normally distributed. Thus, we can try to use a logarithmic transformation to try *"un-skew"* them.
+
+```{r}
+cas_vs_not_cars %>% 
+  select(u118n, u120u122n) %>%
+  mutate(
+    across(
+      everything(),
+      log10
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste log10_ in front
+    # of all column names
+    ~ paste0("log10_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+Again, `u118n` includes some zero value, thus producing `NaN` values in the table above. As such, we can try using the inverse hyperbolic sine.
+
+
+```{r}
+cas_vs_not_cars %>% 
+  select(u118n, u120u122n) %>%
+  mutate(
+    across(
+      everything(),
+      asinh
+    )
+  ) %>% 
+  rename_with(
+    # this is a shorthand
+    # to paste ihs_ in front
+    # of all column names
+    ~ paste0("ihs_", .x)
+  ) %>% 
+  stat.desc(
+    basic = FALSE,
+    desc = FALSE,
+    norm = TRUE
+  ) %>% 
+  kable(digits = 2)
+```
+
+Note how `ihs_u120u122n` is normally distributed, but `ihs_u118n` is not normally distributed. So, again we can't use Pearson's r correlation, and we resort to use Spearman's rho.
+
+```{r}
+cas_vs_not_cars %>% 
+  ggplot(aes(
+    x = u118n,
+    y = u120u122n
+  )) +
+  geom_point() +
+  theme_bw()
+```
+
+```{r}
+u118n_u120u122n_spearman <-
+  cas_vs_not_cars %$%
+  cor.test(
+    u118n, u120u122n, 
+    method = "spearman"
+  )
+
+u118n_u120u122n_spearman
+```
+
+Note how the Spearman's rho statistic is negative, indicating an inverse relationship between the to variables. That is a first indication that the more households with 2 or more cars or vans, the fewer people commute to work via public transport or on foot, bicycle or other similar means. However, again, the functions return the warning `Warning: Cannot compute exact p-value with ties`.
+
+```{r}
+cas_vs_not_cars %>%
+  count(u118n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+
+
+cas_vs_not_cars %>%
+  count(u120u122n) %>%
+  filter(n > 1) %>%
+  count(wt = n()) %>%
+  pull(n)
+```
+
+Again, the dataset contains a sizable number of ties, thus the use of Kendall's tau is advisable.
+
+```{r}
+u118n_u120u122n_kendall <-
+  cas_vs_not_cars %$%
+  cor.test(
+    u118n, u120u122n, 
+    method = "kendall"
+  )
+
+u118n_u120u122n_kendall
+```
+
+The test is significant (*p* < .01), thus we can say that there is an inverse relationship, which is however very weak. The value for tau is `r (u118n_u120u122n_kendall$estimate) %>% round(digits = 3)` indicating that the two variables share only `r ((u118n_u120u122n_kendall$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance.
 
 <!--
 

@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 7 Comparing data | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a...">
+<meta name="description" content="Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a correlation analysis using two...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 7 Comparing data | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/comparing-data.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a...">
+<meta property="og:description" content="Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a correlation analysis using two...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 7 Comparing data | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a...">
+<meta name="twitter:description" content="Print this chapter The first part of this chapter guides you through an ANOVA (analysis of variance) using the iris dataset, while the second part showcases a correlation analysis using two...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -108,7 +108,6 @@
 <h1>
 <span class="header-section-number">7</span> Comparing data<a class="anchor" aria-label="anchor" href="#comparing-data"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>The first part of this chapter guides you through an ANOVA (analysis of variance) using the <code>iris</code> dataset, while the second part showcases a correlation analysis using two variables from the dataset used to create the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011OAC). Create a new R project for this chapter and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.</p>
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r">
@@ -163,7 +162,8 @@
 <span>      y <span class="op">=</span> <span class="va">Petal.Length</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384"></div>
 <p>ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to <code>0.05</code>.</p>
 <p>The three Shapiro–Wilk tests below are all not significant, which indicates that all three groups have normally distributed values.</p>

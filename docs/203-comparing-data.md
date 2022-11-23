@@ -1,7 +1,5 @@
 # Comparing data
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 The first part of this chapter guides you through an ANOVA (analysis of variance) using the `iris` dataset, while the second part showcases a correlation analysis using two variables from the dataset used to create the [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011OAC). Create a new R project for this chapter and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.
@@ -71,7 +69,8 @@ iris %>%
       y = Petal.Length
     )
   ) +
-  geom_boxplot()
+  geom_boxplot() +
+  theme_bw()
 ```
 
 <img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384" />
