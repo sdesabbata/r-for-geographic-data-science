@@ -37,7 +37,8 @@ iris$Petal.Length %>%
 
 ```r
 # Using %>% pipe and %$% exposition pipe
-iris %$% Petal.Length %>% 
+iris %$% 
+  Petal.Length %>% 
   mean() 
 ```
 
@@ -64,13 +65,13 @@ The example seen in the lecture illustrates how ANOVA can be used to verify that
 
 ```r
 iris %>%
-  ggplot2::ggplot(
+  ggplot(
     aes(
       x = Species, 
       y = Petal.Length
     )
   ) +
-  ggplot2::geom_boxplot()
+  geom_boxplot()
 ```
 
 <img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384" />
@@ -81,7 +82,10 @@ The three Shapiro–Wilk tests below are all not significant, which indicates th
 
 
 ```r
-iris %>% dplyr::filter(Species == "setosa") %>% dplyr::pull(Petal.Length) %>% stats::shapiro.test()
+iris %>% 
+  filter(Species == "setosa") %>% 
+  pull(Petal.Length) %>% 
+  shapiro.test()
 ```
 
 ```
@@ -93,7 +97,10 @@ iris %>% dplyr::filter(Species == "setosa") %>% dplyr::pull(Petal.Length) %>% st
 ```
 
 ```r
-iris %>% dplyr::filter(Species == "versicolor") %>% dplyr::pull(Petal.Length) %>% stats::shapiro.test()
+iris %>% 
+  filter(Species == "versicolor") %>% 
+  pull(Petal.Length) %>% 
+  shapiro.test()
 ```
 
 ```
@@ -105,7 +112,10 @@ iris %>% dplyr::filter(Species == "versicolor") %>% dplyr::pull(Petal.Length) %>
 ```
 
 ```r
-iris %>% dplyr::filter(Species == "virginica") %>% dplyr::pull(Petal.Length) %>% stats::shapiro.test()
+iris %>% 
+  filter(Species == "virginica") %>% 
+  pull(Petal.Length) %>% 
+  shapiro.test()
 ```
 
 ```
@@ -125,7 +135,7 @@ We can thus conduct the ANOVA test using the function `aov`, and the function `s
 # summary(iris_anova)
 
 iris %$%
-  stats::aov(Petal.Length ~ Species) %>%
+  aov(Petal.Length ~ Species) %>%
   summary()
 ```
 
@@ -148,15 +158,17 @@ The image below highlights the important values in the output: the significance 
 </center>
 
 
-## Exercise 314.1
+## Exercise 203.1
+
+Create a new RMarkdown document, and add the code necessary to oad the `2011_OAC_Raw_uVariables_Leicester.csv` dataset.
 
 
 
-**Question 314.1.1:** Load the `2011_OAC_Raw_uVariables_Leicester.csv` dataset. Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
+**Question 203.1.1:** Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
 
-**Question 314.1.2:** Check whether the values of mean age (`u020`) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
+**Question 203.1.2:** Check whether the values of mean age (`u020`) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
 
-**Question 314.1.3:** Is the distribution of mean age (`u020`) different in different 2011OAC supergroups in Leicester?
+**Question 203.1.3:** Is the distribution of mean age (`u020`) different in different 2011OAC supergroups in Leicester?
 
 
 ## Correlation
@@ -209,7 +221,7 @@ If you want to replicate the map above, you can download the
 # https://r-spatial.github.io/sf/
 library(sf)
 leic_2011OAC_shp <- 
-  sf::read_sf("data/Census_Residential_Data_Pack_2011/Local_Authority_Districts/E06000016/shapefiles/E06000016.shp")
+  read_sf("data/Census_Residential_Data_Pack_2011/Local_Authority_Districts/E06000016/shapefiles/E06000016.shp")
 
 # Create the map 
 # using the library tmap
@@ -217,16 +229,16 @@ leic_2011OAC_shp <-
 library(tmap)
 leic_2011OAC_shp %>%
   # Join shapefile and 2011 OAC data
-  dplyr::left_join(
+  left_join(
     leicester_2011OAC,
     by = c("oa_code" = "OA11CD")
   ) %>%
   # Calculate percentages
-  dplyr::mutate(perc_flats = (u089/Total_Dwellings)*100) %>%
+  mutate(perc_flats = (u089/Total_Dwellings)*100) %>%
   # Create the map
-  tmap::tm_shape() +
+  tm_shape() +
   # Define the choropleth aesthetic
-  tmap::tm_polygons(
+  tm_polygons(
     "perc_flats",
     title = "Percentage\nof flats",
     palette = "viridis",
@@ -234,14 +246,14 @@ leic_2011OAC_shp %>%
     border.alpha = 0
   ) +
   # Define the layout
-  tmap::tm_layout(
+  tm_layout(
     frame = FALSE,
     legend.title.size=1,
     legend.text.size = 0.5,
     legend.position = c("left","bottom")
   ) +
   # Don't forget the appropriate attribution
-  tmap::tm_credits(
+  tm_credits(
     "Source: CDRC 2011 OAC Geodata Pack by the ESRC Consumer\nDataResearch Centre; Contains National Statistics data Crown\ncopyright and database right 2015; Contains Ordnance Survey\ndata Crown copyright and database right 2015",
     size = 0.3,
     position = c("right", "bottom")
@@ -261,11 +273,11 @@ The process of transforming variables to be within a certain range (such as a pe
 ```r
 flats_and_cars <-
   leicester_2011OAC %>%
-  dplyr::mutate(
+  mutate(
     perc_flats = (u089 / Total_Household_Spaces) * 100,
     perc_2ormore_cars = (u118 / Total_Households) * 100
   ) %>%
-  dplyr::select(
+  select(
     OA11CD, supgrpname, supgrpcode,
     perc_flats, perc_2ormore_cars
   )
@@ -277,18 +289,20 @@ Plotting the two variables together in a scatterplot reveals a pattern. Indeed, 
 
 The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed. 
 
-As there are 969 OAs in Leicester, we can set the significance threshold to `0.01`. The results of the `stats::shapiro.test` functions below show that neither of the two variables are normally distributed. Transforming the variables using the *inverse hyperbolic sine* still does not result in normally distributed variables. Thus, we should discard *Pearson's r* as an option to explore the correlation between the two variables.
+As there are 969 OAs in Leicester, we can set the significance threshold to `0.01`. The results of the `shapiro.test` functions below show that neither of the two variables are normally distributed. Transforming the variables using the *inverse hyperbolic sine* still does not result in normally distributed variables. Thus, we should discard *Pearson's r* as an option to explore the correlation between the two variables.
 
 
 ```r
+library(pastecs)
+
 flats_and_cars %>%
-  dplyr::select(perc_flats, perc_2ormore_cars) %>%
-  dplyr::mutate(
+  select(perc_flats, perc_2ormore_cars) %>%
+  mutate(
     ihs_perc_flats = asinh(perc_flats),
     ihs_perc_2omcars = asinh(perc_2ormore_cars)
   ) %>%
-  pastecs::stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
-  knitr::kable()
+  stat.desc(basic = FALSE, desc = FALSE, norm = TRUE) %>%
+  kable()
 ```
 
 
@@ -308,32 +322,32 @@ The next step is to assess whether there are ties among the values in the two va
 ```r
 ties_perc_flats <-
   flats_and_cars %>%
-  dplyr::count(perc_flats) %>%
-  dplyr::filter(n > 1) %>% 
+  count(perc_flats) %>%
+  filter(n > 1) %>% 
   # Specify wt = n() to count rows
   # otherwise n is taken as weight
-  dplyr::count(wt = n()) %>%
-  dplyr::pull(n)
+  count(wt = n()) %>%
+  pull(n)
 
 ties_perc_2ormore_cars <-
   flats_and_cars %>%
-  dplyr::count(perc_2ormore_cars) %>%
-  dplyr::filter(n > 1) %>% 
+  count(perc_2ormore_cars) %>%
+  filter(n > 1) %>% 
   # Specify wt = n() to count rows
   # otherwise n is taken as weight
-  dplyr::count(wt = n()) %>%
-  dplyr::pull(n)
+  count(wt = n()) %>%
+  pull(n)
 ```
 
 The variable `perc_flats` has 127 values with ties and `perc_2ormore_cars` has 115  values with ties. As such, using *Spearman's rho* is not advisable and *Kendall's tau* should be used. As above, we can set the significance threshold to `0.01`.
 
-Finally, we can run the `stats::cor.test` function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.
+Finally, we can run the `cor.test` function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.
 
 
 ```r
 flats_and_cars_corKendall <-
   flats_and_cars %$%
-  stats::cor.test(
+  cor.test(
     perc_flats, perc_2ormore_cars, 
     method = "kendall"
   )
@@ -365,11 +379,11 @@ between the two variables.
 
 The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negative related, as the relationship is significant (`p-value < 0.01`) and the correlation value is negative (`tau =` -0.41). The two variables share 16.8% of variance. We can thus conclude that there is significant but very weak relationship between the two variables.
 
-## Exercise 314.2
+## Exercise 203.2
 
-**Question 314.2.1:** As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (`u089`) and people commuting to work on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
+**Question 203.2.1:** As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (`u089`) and people commuting to work on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
 
-**Question 314.2.2:** Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (`u118`) and people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
+**Question 203.2.2:** Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (`u118`) and people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
 
 
 ---

@@ -69,10 +69,10 @@ exercise-202.1
 comparing-data
 anova
 anova-example
-exercise-314.1
+exercise-203.1
 correlation
 correlation-analysis-example
-exercise-314.2
+exercise-203.2
 regression-analysis
 simple-regression
 simple-regression-example
@@ -113,3 +113,6 @@ function-definition
 functions-and-control-structures
 loading-r-scripts
 exercise-114.2
+solutions-203
+solutions-203.1
+solutions-203.2

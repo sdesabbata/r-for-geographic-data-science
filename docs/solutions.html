@@ -1060,7 +1060,7 @@
 <div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">stat.desc</span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-table"><table style="width:100%;" class="table table-sm">
 <colgroup>
@@ -1367,6 +1367,27 @@
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>If significant, the Levene’s test indicates that the variance is different in different levels. As before, we can set a <em>p &lt; .01</em> threshold. In the output above, the <em>p</em> value (<code>Pr(&gt;F)</code>) is much lower than our threshold, indicating that the test is significance. Thus, the <code>perc_age_20_to_24</code> has different variance for different 2011OAc supergroups.</p>
+</div>
+</div>
+<div id="solutions-203" class="section level2" number="12.4">
+<h2>
+<span class="header-section-number">12.4</span> Solutions 203<a class="anchor" aria-label="anchor" href="#solutions-203"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solutions-203.1" class="section level3" number="12.4.1">
+<h3>
+<span class="header-section-number">12.4.1</span> Solutions 203.1<a class="anchor" aria-label="anchor" href="#solutions-203.1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Create a new RMarkdown document, and add the code necessary to oad the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset.</p>
+<p><strong>Question 203.1.1:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<p><strong>Question 203.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
+<p><strong>Question 203.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
+</div>
+<div id="solutions-203.2" class="section level3" number="12.4.2">
+<h3>
+<span class="header-section-number">12.4.2</span> Solutions 203.2<a class="anchor" aria-label="anchor" href="#solutions-203.2"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Question 203.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
+<p><strong>Question 203.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
 <!--
 
 ### Solutions 104.2 {-}
@@ -1657,6 +1678,12 @@ silly_function(cities, 1:3)
 </li>
 <li>
 <a class="nav-link" href="#solutions-202">Solutions 202</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#solutions-202.1">Solutions 202.1</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#solutions-203"><span class="header-section-number">12.4</span> Solutions 203</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#solutions-203.1"><span class="header-section-number">12.4.1</span> Solutions 203.1</a></li>
+<li><a class="nav-link" href="#solutions-203.2"><span class="header-section-number">12.4.2</span> Solutions 203.2</a></li>
+</ul>
 </li>
 </ul>
 
