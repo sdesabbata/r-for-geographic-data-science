@@ -11,3 +11,11 @@ h1, h2, h3, h4, h5, h6 {
 .remark-code, .remark-inline-code {
   font-family: "Inconsolata", monospace;
 }
+
+.small .remark-code {
+  font-size: 60% !important;
+}
+
+.tiny .remark-code {
+  font-size: 50% !important;
+}

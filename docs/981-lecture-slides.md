@@ -14,7 +14,7 @@ The slides used in the lectures are available as web-based slides at the pages l
 3. **Data analysis**
     - 201 [Exploratory visualisation](slides/201-slides-data-visualisation.html)
     - 202 [Exploratory statistics](slides/202-slides-exploratory-statistics.html)
-    - 203 Comparing data
+    - [203 Comparing data](slides/203-slides-comparing-data.html)
     - 204 Regression models
 4. **Machine learning**
     - 301 Supervised

@@ -1,0 +1,1191 @@
+---
+title: "Lecture 203"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-11-23</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(magrittr)  
+
+library(knitr)
+library(kableExtra)
+
+library(nycflights13)
+library(palmerpenguins)
+
+library(pastecs)
+
+leicester_2011OAC <- 
+  read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
+```
+
+# Comparing data
+
+
+---
+## Recap
+
+.pull-left[
+
+<br/>
+
+**Prev**: Exploratory statistics
+
+- Descriptive statistics
+- Exploring assumptions
+    - Normality
+    - Skewness and kurtosis
+    - Homogeneity of variance
+
+**Today**: Comparing data
+
+- Comparing distributions through mean
+- Correlation analysis
+- Variable transformation
+
+<br/>
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+library(GGally)
+
+penguins %>%
+  select(
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm, 
+    body_mass_g,
+    species
+  ) %>%
+  ggpairs(
+    mapping = aes(color = species),
+    upper = 
+      list(continuous = 
+        wrap(ggally_cor, method = "kendall")),
+    lower = 
+      list(continuous = 
+        wrap("points", alpha = 0.3, size=0.1))
+  ) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+
+]
+
+
+
+
+---
+## Comparing means
+
+.pull-left[
+
+
+When are (two) group means  different?
+
+Independent T-test:
+
+- null hypothesis
+  - there is **no difference** between the groups
+- if *p-value* (significance) below threshold (e.g., `0.05` or `0.01`)
+  - **group means are different**
+- assumptions
+    - normally distributed values in groups
+    - homogeneity of variance of values in groups
+      - if groups have different sizes
+    - independence of groups
+      - e.g. different conditions of an experiment
+
+]
+.pull-right[
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+penguins %>%
+  filter(species %in% c("Adelie", "Gentoo")) %>%
+  ggplot(
+    aes(
+      x = species, 
+      y = bill_depth_mm,
+      fill = species
+    )
+  ) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("darkorange", "cyan4")) +
+  theme_bw()
+```
+
+]
+
+
+
+---
+## General linear model
+
+<br>
+
+**General linear model**
+
+- observation $i$ can be predicted by a $model$ (predictors)
+- accounting for some amount of error
+
+$$outcome_i = (model) + error_i $$
+
+<br>
+
+**Independent T-test** as a general linear model
+
+- groups is the predictor (categorical variable)
+- single observation value as group mean plus error
+
+$$outcome_i = (group\ mean) + error_i $$
+
+
+---
+## Example: bill depth
+
+.pull-left[
+
+<br/>
+
+Is the bill depth of *Adelie* and *Gentoo* penguins different?
+
+1. Check assumptions
+    1. Indipendent groups: ok
+    2. normal distribution: check using Shapiro-Wilk test
+    3. homogeneity of variance: not necessary
+2. Run T-test
+    1. `stats::t.test`
+
+]
+.pull-right[
+
+Values are normally distributed for both groups
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>% filter(species == "Adelie") %>% 
+  pull(bill_depth_mm) %>% shapiro.test()
+
+penguins %>% filter(species == "Gentoo") %>% 
+  pull(bill_depth_mm) %>% shapiro.test()
+```
+
+]
+
+
+---
+## stats::t.test
+
+.pull-left[
+
+The test is significant, the group means are different
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  filter(species %in% c("Adelie", "Gentoo")) %$%
+  t.test(bill_depth_mm ~ species)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins_t_test <- penguins %>%
+  filter(species %in% c("Adelie", "Gentoo")) %$%
+  t.test(bill_depth_mm ~ species)
+```
+
+How to report: 
+
+- *t*(`r penguins_t_test %$% parameter[["df"]] %>% round(digits = 2)`) = `r penguins_t_test %$% statistic[["t"]] %>% round(digits = 2)`, *p* < .01
+
+]
+.pull-right[
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+penguins %>%
+  filter(species %in% c("Adelie", "Gentoo")) %>%
+  ggplot(
+    aes(
+      x = species, 
+      y = bill_depth_mm,
+      fill = species
+    )
+  ) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("darkorange", "cyan4")) +
+  theme_bw()
+```
+
+]
+
+
+
+---
+## Example: bill depth (2)
+
+.pull-left[
+
+Is the bill depth of *Adelie* and *Chinstrap* penguins different?
+
+We already checked normality for *Adelie* and *Gentoo*. Are values for *Chinstrap* normally distributed?
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>% filter(species == "Chinstrap") %>% 
+  pull(bill_depth_mm) %>% shapiro.test()
+```
+
+Values are normally distributed for all three groups
+
+
+]
+.pull-right[
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+penguins %>%
+  filter(species %in% c("Adelie", "Chinstrap")) %>%
+  ggplot(
+    aes(
+      x = species, 
+      y = bill_depth_mm,
+      fill = species
+    )
+  ) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("darkorange", "darkorchid")) +
+  theme_bw()
+```
+
+]
+
+
+---
+## stats::t.test
+
+.pull-left[
+
+The test is not significant, the group means are not different
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  filter(species %in% c("Adelie", "Chinstrap")) %$%
+  t.test(bill_depth_mm ~ species)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins_t_test <- penguins %>%
+  filter(species %in% c("Adelie", "Chinstrap")) %$%
+  t.test(bill_depth_mm ~ species)
+```
+
+How to report: 
+
+- *t*(`r penguins_t_test %$% parameter[["df"]] %>% round(digits = 2)`) = `r penguins_t_test %$% statistic[["t"]] %>% round(digits = 2)`, *p* = `r penguins_t_test %$% p.value %>% round(digits = 2)`
+
+]
+.pull-right[
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+penguins %>%
+  filter(species %in% c("Adelie", "Chinstrap")) %>%
+  ggplot(
+    aes(
+      x = species, 
+      y = bill_depth_mm,
+      fill = species
+    )
+  ) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("darkorange", "darkorchid")) +
+  theme_bw()
+```
+
+]
+
+
+
+---
+## ANalysis Of VAriance (ANOVA)
+
+.pull-left[
+
+ANOVA is similar to the T-tests, but more than two groups
+
+- null hypothesis
+  - **no difference** between the groups
+- if *p-value* (significance) below threshold (e.g., `0.05` or `0.01`)
+  - **group means are different**
+- assumptions
+    - normally distributed values in groups
+        - especially if groups have different sizes
+    - homogeneity of variance of values in groups
+      - if groups have different sizes
+    - independence of groups
+      - e.g. different conditions of an experiment
+      
+]
+.pull-right[
+
+**General linear model**
+
+- observation $i$ can be predicted by a $model$ (predictors)
+- accounting for some amount of error
+
+$$outcome_i = (model) + error_i $$
+
+<br/>
+
+**ANOVA** as a general linear model
+
+- groups is the predictor (categorical variable)
+- single observation value as group mean plus error
+
+$$outcome_i = (group\ mean) + error_i $$
+
+]
+
+---
+## Example: bill depth (3)
+
+.pull-left[
+
+<br/>
+
+Is the bill depth different between all three species?
+
+1. Check assumptions
+    1. Indipendent groups: ok
+    2. normal distribution: check using Shapiro-Wilk test
+    3. homogeneity of variance: not necessary
+2. Run ANOVA
+    1. `stats::aov`
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+penguins %>%
+  ggplot(
+    aes(
+      x = species, 
+      y = bill_depth_mm,
+      fill = species, 
+    )
+  ) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+]
+
+---
+## stats::aov
+
+<br/>
+
+.pull-left[
+
+The test is significant, the group means are different
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %$%
+  aov(bill_depth_mm ~ species) %>%
+  summary()
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins_anova_summary <- penguins %$%
+  aov(bill_depth_mm ~ species) %>%
+  summary()
+```
+
+How to report:
+
+- *F*(`r penguins_anova_summary[[1]] %$% Df[1] %>% round(digits = 2)`, `r penguins_anova_summary[[1]] %$% Df[2] %>% round(digits = 2)`) = `r penguins_anova_summary[[1]][1, 4] %>% round(digits = 2)`, *p* < .01
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
+penguins %>%
+  ggplot(
+    aes(
+      x = species, 
+      y = bill_depth_mm,
+      fill = species, 
+    )
+  ) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+]
+
+
+---
+class: inverse, center, middle
+
+# Correlation
+
+
+---
+## Correlation
+
+<br/>
+
+**Correlation** is a standardised measure of covariance
+
+.pull-left[
+
+Two continuous variables can be
+
+- not related at all
+- related
+    - positively: 
+      - entities with *high values* in one 
+      - tend to have *high values* in the other
+    - negatively: 
+      - entities with *high values* in one 
+      - tend to have *low values* in the other
+
+]
+.pull-right[
+
+Three different approaches
+
+- **Pearson's r**
+  - if two variables are **normally distributed**
+- **Spearman’s rho**
+  - if two variables are **not normally distributed**
+- **Kendall’s tau**
+  - if **not normally distributed** 
+  - and there are a **large number of ties**
+
+]
+
+---
+## Example
+
+Are flipper length and body mass related in Chinstrap penguins?
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  filter(species == "Chinstrap") %>%
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+]
+
+
+
+---
+## Pearson’s r
+
+.pull-left[
+
+<br/>
+
+If  two variables are **normally distributed**, use **Pearson's r**
+
+- null hypothesis
+  - there is no relationship between the variables
+- assumptions
+  - variables are normally distributed
+
+The square of the correlation value indicates the percentage of shared variance
+
+]
+.pull-right[
+
+Flipper length and body mass are normally distributed in Chinstrap penguins
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  filter(species == "Chinstrap") %>%
+  pull(flipper_length_mm) %>% shapiro.test()
+
+penguins %>%
+  filter(species == "Chinstrap") %>%
+  pull(body_mass_g) %>% shapiro.test()
+```
+
+]
+
+---
+## stats::cor.test
+
+.pull-left[
+
+<br/>
+
+If  two variables are **normally distributed**, use **Pearson's r**
+
+- null hypothesis
+  - there is no relationship between the variables
+- assumptions
+  - variables are normally distributed
+
+The square of the correlation value indicates the percentage of shared variance
+
+]
+.pull-right[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  filter(species == "Chinstrap") %$%
+  cor.test(flipper_length_mm, body_mass_g)
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins %>%
+  filter(species == "Chinstrap") %$%
+  cor.test(flipper_length_mm, body_mass_g) ->
+  chinstrap_flip_mass_cor
+```
+
+- Flipper length and body mass are related
+  - `p-value < 0.01`
+- sharing `r ((chinstrap_flip_mass_cor$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance
+  - `r chinstrap_flip_mass_cor$estimate %>% round(digits = 3)` `^ 2 =` `r chinstrap_flip_mass_cor$estimate ^ 2 %>% round(digits = 3)`
+
+]
+
+---
+## Example: flipper length and body mass
+
+.pull-left[
+
+But, are flipper length and body mass related in penguins (without considering species as separated groups)?
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+penguins %>%
+  ggplot(aes(
+    x = flipper_length_mm, 
+    y = body_mass_g
+  )) +
+  geom_point(
+    aes(
+      color = species,
+      shape = species),
+    size = 2
+  ) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+]
+
+]
+.pull-right[
+
+Flipper length and body mass are not normally distributed when all penguins are taken into account as a single group
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %>%
+  pull(flipper_length_mm) %>% shapiro.test()
+
+penguins %>%
+  pull(body_mass_g) %>% shapiro.test()
+```
+
+]
+
+---
+## Spearman’s rho
+
+.pull-left[
+
+If  two variables are **not normally distrib.**, use **Spearman’s rho**
+
+- null hypothesis
+  - there is no relationship between the variables
+- non-parametric
+  - uses full dataset to calculate the statistics
+  - rather than estimate key parameters of distributions from data
+- based on rank difference
+- assumptions
+  - ties are uncommon
+
+The square of the correlation value indicates the percentage of shared variance
+
+]
+.pull-right[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %$%
+  cor.test(
+    flipper_length_mm, body_mass_g, 
+    method = "spearman"
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins %$%
+  cor.test(flipper_length_mm, body_mass_g, method = "spearman") ->
+  allpenguins_flip_mass_cor
+```
+
+- Flipper length and body mass are related
+  - `p-value < 0.01`
+- sharing `r ((allpenguins_flip_mass_cor$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance
+  - `r allpenguins_flip_mass_cor$estimate %>% round(digits = 3)` `^ 2 =` `r allpenguins_flip_mass_cor$estimate ^ 2 %>% round(digits = 3)`
+
+]
+
+---
+## Correlation with ties
+
+Spearman's rho
+
+- `Cannot compute exact p-value with ties`
+
+```{r, echo=TRUE, eval=FALSE}
+penguins %$%
+  cor.test(flipper_length_mm, body_mass_g, method = "spearman")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+## Warning in cor.test.default(flipper_length_mm, body_mass_g, method = "spearman"):
+##  Cannot compute exact p-value with ties
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins %$%
+  cor.test(flipper_length_mm, body_mass_g, method = "spearman")
+```
+
+
+---
+## Kendall’s tau
+
+.pull-left[
+
+If  two variables are **not normally distributed** and there are **many ties**, use **Kendall’s tau**
+
+- null hypothesis
+  - there is no relationship between the variables
+- non-parametric
+- based on rank difference
+- no assumptions
+- less *powerful*
+  - even if there is a relationship, significance might be high
+
+The square of the correlation value indicates the percentage of shared variance
+
+]
+.pull-right[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins %$%
+  cor.test(
+    flipper_length_mm, body_mass_g, 
+    method = "kendall"
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+penguins %$%
+  cor.test(flipper_length_mm, body_mass_g, method = "kendall")->
+  allpenguins_flip_mass_cor_kendall
+```
+
+- Flipper length and body mass are related
+  - `p-value < 0.01`
+- sharing `r ((allpenguins_flip_mass_cor_kendall$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance
+  - `r allpenguins_flip_mass_cor_kendall$estimate %>% round(digits = 3)` `^ 2 =` `r allpenguins_flip_mass_cor_kendall$estimate ^ 2 %>% round(digits = 3)`
+
+
+]
+
+
+---
+## psych::pairs.panels
+
+.pull-left[
+
+Combining: 
+
+- histograms
+- scatter plots 
+- correlations
+
+```{r, eval=FALSE, echo=TRUE, message=FALSE, warning=FALSE}
+library(psych)
+
+penguins %>%
+  select(
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm, 
+    body_mass_g
+  ) %>%
+  pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+
+## Signif.: 0 '***' 0.001 '**' 0.01
+## 0.01 '*' 0.05 0.05 '.' 0.1 ' ' 1
+```
+
+]
+.pull-right[
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+library(psych)
+
+penguins %>%
+  select(
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm, 
+    body_mass_g
+  ) %>%
+  pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+
+]
+
+]
+
+---
+## GGally::ggpairs
+
+More flexible and sophisticated pairs plots
+
+.pull-left[
+
+```{r, eval=FALSE, echo=TRUE, message=FALSE, warning=FALSE}
+library(GGally)
+
+penguins %>%
+  select(
+    bill_length_mm, bill_depth_mm,
+    flipper_length_mm, body_mass_g, species
+  ) %>%
+  ggpairs(
+    mapping = aes(color = species),
+    upper = list(continuous = 
+        wrap(ggally_cor, method = "kendall")),
+    lower = list(continuous = 
+        wrap("points", alpha = 0.3, size=0.1))
+  ) +
+  scale_color_manual(values = 
+    c("darkorange","darkorchid","cyan4")) +
+  scale_fill_manual(values = 
+    c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+
+## Signif.: 0 '***' 0.001 '**' 0.01
+## 0.01 '*' 0.05 0.05 '.' 0.1 ' ' 1
+```
+
+]
+.pull-right[
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+library(GGally)
+
+penguins %>%
+  select(
+    bill_length_mm, bill_depth_mm,
+    flipper_length_mm, body_mass_g,
+    species
+  ) %>%
+  ggpairs(
+    mapping = aes(color = species),
+    upper = 
+      list(continuous = 
+        wrap(ggally_cor, method = "kendall")),
+    lower = 
+      list(continuous = 
+        wrap("points", alpha = 0.3, size=0.1))
+  ) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+]
+
+]
+
+
+
+---
+## Chi-squre
+
+.pull-left[
+
+How to test a relationship between two **categorical** variables?
+
+Chi-square test:
+
+- null hypothesis
+  - no relationship between variables
+- non-parametric
+- based on cross-tabulated expected counts
+- no assumptions
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+library(gmodels)
+penguins %$%
+  CrossTable(
+    island, species, chisq = TRUE, 
+    expected = TRUE, prop.c = FALSE, 
+    prop.t = FALSE, prop.chisq = FALSE, 
+    sresid = TRUE, format = "SPSS"
+  )
+```
+
+]
+.pull-right[
+
+.small[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(gmodels)
+
+penguins %$%
+  CrossTable(island, species, chisq = TRUE, expected = TRUE, prop.c = FALSE, prop.t = FALSE, prop.chisq = FALSE, sresid = TRUE, format = "SPSS")
+```
+
+]
+
+]
+
+???
+
+Different islands do have different amounts of penguins from different species
+
+
+
+---
+class: inverse, center, middle
+
+# Data transformation
+
+
+---
+## Z-scores
+
+.pull-left[
+
+Transform the values as relative to
+
+- distribution's mean $\mu$
+- standard deviation $\sigma$ 
+
+$$ z_i = \frac{x_i - \mu}{\sigma} $$
+
+
+]
+.pull-right[
+
+```{r, echo=TRUE, eval=FALSE,message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  mutate(
+    flipper_length_zscore = 
+      scale(flipper_length_mm)
+  ) %>%
+  ggplot(aes(x = flipper_length_zscore)) +
+  geom_histogram() + 
+  theme_bw()
+```
+
+]
+
+.pull-left[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  ggplot(aes(x = flipper_length_mm)) +
+  geom_histogram() + 
+  theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE,message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  mutate(
+    flipper_length_zscore = 
+      scale(flipper_length_mm)
+  ) %>%
+  ggplot(aes(x = flipper_length_zscore)) +
+  geom_histogram() +
+  theme_bw()
+```
+
+]
+
+???
+
+Same distribution (bar some aggregation in the histogram)
+
+Commonly used to render two variables easier to compare
+
+
+---
+## Common transformations
+
+.pull-left[
+
+**Logarithmic** transformations are useful to *"un-skew"* variables
+
+Common approaches include:
+
+- natural logarithm (`log`)
+- binary logarithm (`log2`)
+- logarithm base 10 (`log10`)
+
+Only possible on values `> 0`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 2, fig.width = 6, fig.align = 'center'}
+ggplot() + 
+  stat_function(
+    fun = log10
+  ) +
+  xlim(1, 1000) +
+  xlab("Original values") +
+  ylab("Logarithm base 10") +
+  theme_bw()
+```
+
+]
+.pull-right[
+
+**Inverse hyperbolic sine** transformations are useful to *"un-skew"* variables
+
+- similar to logarithmic transformations
+- defined on all values
+- in R: `asinh`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 2, fig.width = 6, fig.align = 'center'}
+ggplot() + 
+  stat_function(
+    fun = asinh
+  ) +
+  xlim(-500, 500) +
+  xlab("Original values") +
+  ylab("Inverse hyperbolic sine") +
+  theme_bw()
+```
+
+]
+
+.center[
+Not always sufficient to *"un-skew"* variables
+]
+
+---
+## Example: residents aged 20 to 24
+
+.pull-left[
+
+The number of residents aged 20 to 24 (`u011`) in the areas of Leicester described as *"Cosmopolitans"* by the [2011 Output Area Classification](https://www.gov.uk/government/statistics/2011-area-classification-for-super-output-areas) is skewed
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+leicester_2011OAC %>% 
+  filter(supgrpname == "Cosmopolitans") %>%
+  ggplot(aes(x = u011)) +
+  geom_histogram() + theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>% 
+  filter(supgrpname == "Cosmopolitans") %>% 
+  select(u011) %>% 
+  stat.desc(
+    basic = FALSE, desc = FALSE, 
+    norm = TRUE
+  ) %>%
+  kable("html", digits = 3)
+```
+
+]
+
+
+
+---
+## Example: log10
+
+.pull-left[
+
+However, it's logarithm base 10 is normally distributed, thus it can be used with tests requiring normally distributed values
+
+```{r, echo=TRUE, eval=FALSE}
+mutate(log10_u011 = log10(u011))
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+leicester_2011OAC %>% 
+  filter(supgrpname == "Cosmopolitans") %>%
+  mutate(log10_u011 = log10(u011)) %>%
+  ggplot(aes(x = log10_u011)) +
+  geom_histogram() + theme_bw()
+```
+
+]
+.pull-right[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>% 
+  filter(supgrpname == "Cosmopolitans") %>%
+  mutate(log10_u011 = log10(u011)) %>% 
+  select(log10_u011) %>% 
+  stat.desc(
+    basic = FALSE, desc = FALSE, 
+    norm = TRUE
+  ) %>%
+  kable("html", digits = 3)
+```
+
+]
+
+
+
+---
+## Example: asinh
+
+.pull-left[
+
+The Inverse hyperbolic sine is also normally distributed
+
+```{r, echo=TRUE, eval=FALSE}
+mutate(ihs_u011 = asinh(u011))
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height = 4, fig.width = 6}
+leicester_2011OAC %>% 
+  filter(supgrpname == "Cosmopolitans") %>%
+  mutate(ihs_u011 = asinh(u011)) %>%
+  ggplot(aes(x = ihs_u011)) +
+  geom_histogram() + theme_bw()
+```
+
+
+]
+.pull-right[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_2011OAC %>% 
+  filter(supgrpname == "Cosmopolitans") %>%
+  mutate(ihs_u011 = asinh(u011)) %>%
+  select(ihs_u011) %>% 
+  stat.desc(
+    basic = FALSE, desc = FALSE, 
+    norm = TRUE
+  ) %>%
+  kable("html", digits = 3)
+```
+
+]
+
+
+---
+## Summary
+
+.pull-left[
+
+<br/>
+
+**Today**: Comparing data
+
+- Comparing distributions through mean
+- Correlation analysis
+- Variable transformation
+
+**Next time**: Regression analysis
+
+- Simple regression
+- Multiple regression
+- Comparing models
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+]
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+library(GGally)
+
+penguins %>%
+  select(
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm, 
+    body_mass_g,
+    species
+  ) %>%
+  ggpairs(
+    mapping = aes(color = species),
+    upper = 
+      list(continuous = 
+        wrap(ggally_cor, method = "kendall")),
+    lower = 
+      list(continuous = 
+        wrap("points", alpha = 0.3, size=0.1))
+  ) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  scale_fill_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+
+]
+
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
