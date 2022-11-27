@@ -1,0 +1,1143 @@
+---
+title: "Lecture 204"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-11-29</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+
+# Simple Regression
+
+
+---
+## Recap
+
+**Prev**: Comparing data
+
+- 311 Lecture Comparing groups
+- 312 Lecture Correlation
+- 313 Lecture Data transformations
+- 314 Practical session
+
+**Now**: Simple Regression
+
+- Regression
+- Ordinary Least Squares
+- Interpretation
+- Checking assumptions
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE,}
+library(tidyverse)
+library(magrittr)  
+library(palmerpenguins)
+library(pastecs)
+library(psych)
+library(lmtest)
+
+library(conflicted)
+conflict_prefer("filter", "dplyr")
+```
+
+
+---
+## Regression analysis
+
+<br/>
+
+**Regression analysis** is a supervised machine learning approach
+
+Special case of the general linear model
+
+$$ outcome_i = (model) + error_i $$
+
+<br/>
+
+Predict (estimate) value of one outcome (dependent) variable as
+
+- one predictor (independent) variable: **simple / univariate**
+
+$$Y_i=(b_0+b_1*X_{i1})+\epsilon_i$$
+    
+- more predictor (independent) variables: **multiple / multivar.**
+
+$$Y_i=(b_0+b_1*X_{i1}+b_2*X_{i2}+\dots+b_M*X_{iM})+\epsilon_i$$
+
+---
+## Example
+
+Can we predict a penguin's body mass from flipper length?
+
+$$body\ mass_i=(b_0+b_1*flipper\ length_{i})+\epsilon_i$$
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  theme_bw()
+```
+
+]
+
+
+---
+## Example
+
+Can we predict a penguin's body mass from flipper length?
+
+$$body\ mass_i=(b_0+b_1*flipper\ length_{i})+\epsilon_i$$
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  geom_smooth(method=lm) +
+  theme_bw()
+```
+
+]
+
+
+
+---
+## Least squares
+
+.pull-left[
+
+**Least squares** is the most commonly used approach to generate a regression model
+
+The model fits a line
+    
+- to **minimise** the squared values of the **residuals** (errors)
+- that is squared difference between
+    - **observed values**
+    - **model**
+    
+<br/>
+
+$$residual_i=observed_i-model_i$$
+
+$$deviation=\sum_i(observed_i-model_i)^2$$
+
+]
+.pull-right[
+
+.center[
+![:scale 90%](images/489px-Linear_least_squares_example2.svg.png)
+
+.referencenote[
+by  Krishnavedala<br/>
+via Wikimedia Commons,<br/>CC-BY-SA-3.0
+]
+]
+
+]
+
+
+---
+## Least squares: Assumptions
+
+.pull-left[
+
+<br/>
+
+- **Linearity**
+    - the relationship is actually linear
+- **Normality** of residuals
+    - standard residuals are normally distributed with mean `0`
+- **Homoscedasticity** of residuals
+    - at each level of the predictor variable(s) the variance of the standard residuals should be the same (*homo-scedasticity*) rather than different (*hetero-scedasticity*) 
+- **Independence** of residuals
+    - adjacent standard residuals are not correlated
+
+]
+.pull-right[
+
+.center[
+![:scale 90%](images/489px-Linear_least_squares_example2.svg.png)
+
+.referencenote[
+by  Krishnavedala<br/>
+via Wikimedia Commons,<br/>CC-BY-SA-3.0
+]
+]
+
+]
+
+---
+## stats::lm
+
+.pull-left[
+
+```{r, echo=TRUE}
+bm_fl_model <-
+  penguins %>%
+  filter(
+    !is.na(body_mass_g) &
+    !is.na(flipper_length_mm)
+  ) %$%
+  lm(body_mass_g ~ flipper_length_mm)
+
+bm_fl_model %>%  
+  summary()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE}
+bm_fl_model_summary <- bm_fl_model %>%
+  summary()
+```
+
+The output indicates
+
+- **p-value: < 2.2e-16**: $p<.01$ the model is significant
+  - derived by comparing **F-statistic** (`r bm_fl_model_summary$fstatistic[1] %>% round(digits = 2)`) to F distribution having specified degrees of freedom (`r bm_fl_model_summary$fstatistic[2]`, `r bm_fl_model_summary$fstatistic[3]`)
+  - Report as: F(`r bm_fl_model_summary$fstatistic[2]`, `r bm_fl_model_summary$fstatistic[3]`) = `r bm_fl_model_summary$fstatistic[1] %>% round(digits = 2)`
+- **Adjusted R-squared: `r bm_fl_model_summary$adj.r.squared %>% round(digits = 4)`**: 
+  - flipper length can account for `r (bm_fl_model_summary$adj.r.squared * 100) %>% round(digits = 2)`% variation in body mass
+- **Coefficients**
+  - Intercept estimate `r bm_fl_model_summary$coefficients[1,1] %>% round(digits = 4)` is significant
+  - `flipper_length_mm` (slope) estimate `r bm_fl_model_summary$coefficients[2,1] %>% round(digits = 4)` is significant
+
+]
+
+
+---
+## Outliers and influential cases
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_output <-
+  penguins %>%
+  filter(!is.na(body_mass_g) | !is.na(flipper_length_mm)) %>%
+  mutate(
+    model_stdres = bm_fl_model %>% rstandard(),
+    model_cook_dist = bm_fl_model %>% cooks.distance()
+  )
+
+penguins_output %>%
+  select(body_mass_g, model_stdres, model_cook_dist) %>%
+  filter(abs(model_stdres) > 2.58 | model_cook_dist > 1)
+```
+
+<br/>
+
+- No influential cases (Cook's distance `> 1`) 
+- There are a handful of outliers (4 abs std res `> 2.58`)
+
+
+---
+## Checking assumptions: normality
+
+.pull-left[
+
+Shapiro-Wilk test for normality of standard residuals, 
+
+- robust models: should be **not** significant 
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+penguins_output %$% 
+  shapiro.test(
+    model_stdres
+  )
+```
+
+**Standard residuals are normally distributed!**
+
+]
+.pull-right[
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+penguins_output %>%
+  ggplot(aes(x = model_stdres)) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+    bins = 100
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = penguins_output %>% pull(model_stdres) %>% mean(),
+      sd = penguins_output %>% pull(model_stdres) %>% sd()),
+    colour = "red", size = 1)
+
+```
+]
+
+]
+
+
+
+---
+## Checking assumptions: homoscedasticity
+
+.pull-left[
+
+Breusch-Pagan test for homoscedasticity of standard residuals
+
+- robust models: should be **not** significant
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
+bm_fl_model %>% 
+  bptest()
+```
+
+**Standard residuals are homoscedastic!**
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+bm_fl_model %>% 
+  plot(which = c(1))
+```
+
+]
+
+
+---
+## Checking assumptions: independence
+
+<br/>
+
+Durbin-Watson test for the independence of residuals
+
+- robust models: statistic should be close to 2 (advised between 1 and 3) and **not** significant
+
+```{r, echo=TRUE}
+bm_fl_model %>%
+  dwtest()
+```
+
+**Standard residuals are independent!**
+
+Note: the result depends on the order of the data.
+
+
+
+---
+## Example
+
+Yes, we can predict a penguin's body mass from flipper length!
+
+$$body\ mass_i=(-5780.83+49.69*flipper\ length_{i})+\epsilon_i$$
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 6}
+penguins %>%
+  ggplot(aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  scale_color_manual(values = c("darkorange","darkorchid","cyan4")) +
+  geom_smooth(method=lm) +
+  theme_bw()
+```
+
+]
+
+
+---
+class: inverse, center, middle
+
+# Multiple regression
+
+
+---
+## Multiple regression
+
+**Regression analysis** is a supervised machine learning approach
+
+Special case of the general linear model
+
+$$outcome_i=(model)+error_i$$
+
+Predict (estimate) value of one outcome (dependent) variable as
+
+- one predictor (independent) variable: **simple / univariate**
+
+$$Y_i=(b_0+b_1*X_{i1})+\epsilon_i$$
+    
+- more predictor (independent) variables: **multiple / multivar.**
+
+$$Y_i=(b_0+b_1*X_{i1}+b_2*X_{i2}+\dots+b_M*X_{iM})+\epsilon_i$$
+
+
+
+
+---
+## Assumptions
+
+- **Linearity**
+    - the relationship is actually linear
+- **Normality** of residuals
+    - standard residuals are normally distributed with mean `0`
+- **Homoscedasticity** of residuals
+    - at each level of the predictor variable(s) the variance of the standard residuals should be the same (*homo-scedasticity*) rather than different (*hetero-scedasticity*) 
+- **Independence** of residuals
+    - adjacent standard residuals are not correlated
+- When more than one predictor: **no multicollinearity**
+    - if two or more predictor variables are used in the model, each pair of variables not correlated
+
+
+
+---
+## Boston housing
+
+
+.pull-left[
+
+A classic R dataset
+
+- price of houses in Boston
+- in relation to: 
+  - house characteristics
+  - neighborhood 
+  - air quality
+  
+```{r}
+library(MASS)
+
+library(conflicted)
+conflict_prefer("select", "dplyr")
+```
+
+
+<br/>
+Harrison, D., and D. L. Rubinfeld. 1978. [Hedonic Housing Prices and the Demand for Clean Air](https://doi.org/10.1016/0095-0696(78)90006-2). Journal of Environmental Economics and Management 5 (1): 81–102.
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3.5, fig.height = 5}
+Boston %>%
+  ggplot(
+    aes(
+      x = nox, 
+      y = medv
+    )
+  ) +
+  xlab("Nitrogen oxides (NO) concentration") +
+  ylab("Median value in $1,000") +
+  geom_point()
+```
+
+]
+
+
+
+
+---
+## Example
+
+Can we predict price based on number of rooms and air quality?
+
+$$house\ value_i=(b_0+b_1*rooms_{i}+b_2*NO\ conc_{i})+\epsilon_i$$
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+Boston %>%
+  select(medv, rm, nox) %>%
+  pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+
+]
+
+
+---
+## stats::lm
+
+.small[
+
+```{r, echo=TRUE}
+Boston %$% 
+  lm(medv ~ rm + nox) ->
+  medv_model
+
+medv_model %>%  
+  summary()
+```
+
+]
+
+
+
+---
+## Overall fit
+
+```{r, echo=FALSE}
+medv_model_summary <- medv_model %>%
+  summary()
+```
+
+The output indicates
+
+- **p-value: < 2.2e-16**: $p<.01$ the model is significant
+  - derived by comparing **F-statistic** to F distribution `r medv_model_summary$fstatistic[1] %>% round(digits = 2)` having specified degrees of freedom (`r medv_model_summary$fstatistic[2]`, `r medv_model_summary$fstatistic[3]`)
+  - Report as: F(`r medv_model_summary$fstatistic[2]`, `r medv_model_summary$fstatistic[3]`) = `r medv_model_summary$fstatistic[1] %>% round(digits = 2)`
+- **Adjusted R-squared: `r medv_model_summary$adj.r.squared %>% round(digits = 4)`**: 
+  - number of rooms and air quality can account for `r (medv_model_summary$adj.r.squared * 100) %>% round(digits = 2)`% variation in house prices
+- **Coefficients**
+  - Intercept estimate `r medv_model_summary$coefficients[1,1] %>% round(digits = 4)` is significant
+  - `rm` (slope) estimate `r medv_model_summary$coefficients[3,1] %>% round(digits = 4)` is significant
+  - `nox` (slope) estimate `r medv_model_summary$coefficients[2,1] %>% round(digits = 4)` is significant
+
+
+
+---
+## Standardised coefficients
+
+- Indicate amount of change
+  - in the outcome variable
+  - per one standard deviation change in the predictor variable
+- Can also be interpreted as importance of predictor
+
+```{r, echo=TRUE}
+library(lm.beta)
+
+medv_model %>%
+  lm.beta()
+```
+
+
+
+---
+## Confindence intervals
+
+- Coefficients' 95% confidence intervals
+  - can be interpreted as interval containing true coefficient values
+  - good models should result in small intervals
+
+```{r, echo=TRUE}
+medv_model %>%
+  confint()
+```
+
+
+
+
+---
+## Outliers and influential cases
+
+.small[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+Boston %>%
+  mutate(
+    model_stdres = medv_model %>% rstandard(),
+    model_cook_dist = medv_model %>% cooks.distance()
+  ) ->
+  boston_output
+
+boston_output %>%
+  select(medv, model_stdres, model_cook_dist) %>%
+  filter(abs(model_stdres) > 2.58 | model_cook_dist > 1)
+```
+
+]
+
+No influential cases (Cook's distance `> 1`) but there are many outliers (7 abs std res `> 3.29`, 2% `> 2.58`)
+
+
+
+---
+## Checking assumptions: normality
+
+Shapiro-Wilk test for normality of standard residuals, 
+
+- robust models: should be **not** significant 
+
+.pull-left[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+boston_output %$% 
+  shapiro.test(
+    model_stdres
+  )
+```
+
+.referencenote[
+**Standard residuals are NOT normally distributed**
+]
+
+]
+.pull-right[
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
+boston_output %>%
+  ggplot(aes(x = model_stdres)) +
+  geom_histogram(
+    aes(
+      y =..density..
+    ),
+    bins = 100
+  ) + 
+  stat_function(
+    fun = dnorm, 
+    args = list(
+      mean = boston_output %>% pull(model_stdres) %>% mean(),
+      sd = boston_output %>% pull(model_stdres) %>% sd()),
+    colour = "red", size = 1)
+```
+
+]
+
+]
+
+
+
+---
+## Checking assumpt.: homoscedasticity
+
+Breusch-Pagan test for homoscedasticity of standard residuals
+
+- robust models: should be **not** significant
+
+.small[
+
+.pull-left[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
+medv_model %>% 
+  bptest()
+```
+
+.referencenote[
+**Standard residuals are NOT homoscedastic**
+]
+
+]
+.pull-right[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 3, fig.height = 3}
+medv_model %>% 
+  plot(which = c(1))
+```
+
+]
+
+]
+
+
+
+---
+## Checking assumptions: independence
+
+Durbin-Watson test for the independence of residuals
+
+- robust models: statistic should be close to 2 (advised between 1 and 3) and **not** significant
+
+.small[
+
+```{r, echo=TRUE}
+medv_model %>%
+  dwtest()
+```
+
+]
+
+.referencenote[
+**Standard residuals are NOT independent**
+
+Note: the result depends on the order of the data.
+]
+
+
+
+---
+## Checking assumpt.: multicollinearity
+
+Checking the variance inflation factor (VIF)
+
+- robust models should have no multicollinearity: 
+  - largest VIF should be lower than 10 or the average VIF should not be greater than 1
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(car)
+
+medv_model %>%
+  vif()
+```
+
+.referencenote[
+**There is no multicollinearity**
+]
+
+
+
+---
+## Example
+
+No, we can't predict house prices based only on number of rooms and air quality.
+
+- predictors are statistically significant
+- but model is not robust, as it doesn't satisfy most assumptions
+  - Standard residuals are NOT normally distributed
+  - Standard residuals are NOT homoscedastic
+  - Standard residuals are NOT independent
+  - (although there is no multicollinearity)
+
+We seem to be on the right path, but something is missing...
+
+
+---
+## Multiple regression
+
+**Regression analysis** is a supervised machine learning approach
+
+Special case of the general linear model
+
+$$outcome_i=(model)+error_i$$
+
+Predict (estimate) value of one outcome (dependent) variable as
+
+- one predictor (independent) variable: **simple / univariate**
+
+$$Y_i=(b_0+b_1*X_{i1})+\epsilon_i$$
+    
+- more predictor (independent) variables: **multiple / multivar.**
+
+$$Y_i=(b_0+b_1*X_{i1}+b_2*X_{i2}+\dots+b_M*X_{iM})+\epsilon_i$$
+
+
+---
+## Example
+
+Can we predict price based on number of rooms and air quality?
+
+$$house\ value_i=(b_0+b_1*rooms_{i}+b_1*NO\ conc_{i})+\epsilon_i$$
+
+center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+Boston %>% filter(medv < 50) %>%
+  select(medv, rm, nox) %>%
+  pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+
+]
+
+
+---
+## stats::lm
+
+.small[
+
+```{r, echo=TRUE}
+Boston %>% filter(medv < 50) %$% 
+  lm(medv ~ rm + nox) ->
+  medv_model1
+
+medv_model1 %>%  
+  summary()
+```
+
+]
+
+
+---
+## Checking assumptions
+
+.small[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+medv_model1 %>% 
+  rstandard() %>% 
+  shapiro.test()
+
+medv_model1 %>% 
+  bptest()
+
+medv_model1 %>%
+  dwtest()
+
+medv_model1 %>%
+  vif()
+```
+
+]
+
+
+---
+## Model 1
+
+No, we can't predict house prices based only on number of rooms and air quality.
+
+- predictors are statistically significant
+- but model is not robust, as it doesn't satisfy most assumptions
+  - Standard residuals are NOT normally distributed
+  - Standard residuals are NOT homoscedastic
+  - Standard residuals are NOT independent
+  - (although there is no multicollinearity)
+
+We seem to be on the right path, but something is missing...
+
+
+
+---
+## stats::lm
+
+.small[
+
+```{r, echo=TRUE}
+Boston %>% filter(medv < 50) %$% 
+  lm(medv ~ rm + nox + ptratio + log(crim)) ->
+  medv_model2
+
+medv_model2 %>%  
+  summary()
+```
+
+]
+
+---
+## Logarithmic transformations
+
+- 10% change in criminality score leads to
+  - $log(110/100) * b_{crim}= 0.0953 * b_{crim}$ change
+  - `0.0953 * -0.5558 = 0.0529` 
+
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 4}
+Boston %>% filter(medv < 50) %>%
+  mutate(
+    log_crim = log(crim)
+  ) %>%
+  select(medv, log_crim) %>%
+  pairs.panels(
+    method = "kendall",
+    stars = TRUE
+  )
+```
+
+]
+
+
+
+---
+## Checking assumptions
+
+.small[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+medv_model2 %>% 
+  rstandard() %>% 
+  shapiro.test()
+
+medv_model2 %>% 
+  bptest()
+
+medv_model2 %>%
+  dwtest()
+
+medv_model2 %>%
+  vif()
+```
+
+]
+
+
+
+---
+## Model 2
+
+No, we still can't robustly predict house prices based on number of rooms, air quality, student/teacher ratio and crime level.
+
+- predictors are statistically significant
+- but model is not robust
+  - Standard residuals are NOT normally distributed
+  - Standard residuals are NOT homoscedastic
+  - Standard residuals are NOT independent
+  - There is some sign of multicollinearity
+
+Still possibly on the right path, not quite there yet...
+
+Is there a difference between:
+
+- Model1's $R^2 =$ `r medv_model1 %>% summary() %$% adj.r.squared %>% round(digits = 4)` and Model2's $R^2 =$ `r medv_model2 %>% summary() %$% adj.r.squared %>% round(digits = 4)`?
+
+
+
+---
+## Comparing R-squared
+
+- $R^2$
+  - measure of correlation between
+    - values predicted by the model (fitted values)
+    - observed values for outcome variable
+- Adjusted $R^2$
+  - adjusts the $R^2$ depending on
+    - number of cases
+    - number of predictor (independent) variables
+  - *"unnecessary"* variables lower the value
+
+The model with the highest adjusted $R^2$ has the best fit
+
+
+
+---
+## Model difference with ANOVA
+
+Can be used to test whether adjusted $R^2$ are signif. different
+
+- if models are hierarchical
+  - one uses all variables of the other
+  - plus some additional variables
+  
+.small[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+anova(medv_model1, medv_model2)
+```
+
+]
+
+Still, neither model is robust
+
+
+
+---
+## Information criteria
+
+- Akaike Information Criterion (**AIC**)
+  - measure of model fit 
+    - penalising model with more variables
+  - not interpretable per-se, used to compare similar models
+    - lower value, better fit
+- Bayesian Information Criterion (**BIC**)
+  - similar to AIC
+  
+.small[
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+AIC(medv_model1)
+AIC(medv_model2)
+```
+
+]
+
+
+---
+## Stepwise selection
+
+**Stepwise selection** of predictor (independent) variables
+
+- iteratively adding and/or removing predictors 
+- to obtain best performing model
+
+Three approaches
+
+- forward: from no variable, iteratively add variables
+- backward: from all variables, iteratively remove variables
+- both (a.k.a. step-wise): 
+  - from no variable
+  - one step forward, add most promising variable
+  - one step backward, remove any variable not improving
+
+
+---
+## stepAIC
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+Boston %$% 
+  stepAIC(
+    object = 
+      lm(medv ~ 1),
+    scope = 
+      medv ~ 
+        crim + zn + indus + chas + rm + nox + age + 
+        dis + rad + tax + ptratio + black + lstat,
+    direction = "both",
+    trace = FALSE
+  ) ->
+  medv_model3
+
+medv_model3 %>%
+  summary()
+```
+
+
+---
+## Model 3
+
+.small[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+Boston %$% 
+  stepAIC(
+    object = lm(medv ~ 1),
+    scope = medv ~ crim + zn + indus + chas + rm + nox + age + dis + rad + tax + ptratio + black + lstat,
+    direction = "forward",
+    trace = FALSE
+  ) ->
+  medv_model3
+
+medv_model3 %>%
+  summary()
+```
+
+]
+
+
+
+---
+## Checking assumptions
+
+.small[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+medv_model3 %>% 
+  rstandard() %>% 
+  shapiro.test()
+
+medv_model3 %>% 
+  bptest()
+
+medv_model3 %>%
+  dwtest()
+
+medv_model3 %>%
+  vif() %>%
+  print(width = 70)
+```
+
+]
+
+
+
+---
+## Validation
+
+Can the model be generalised?
+
+- split data into
+  - training set: used to train the model
+  - test set: used to test the model
+
+Approaches:
+
+- Validation
+  - simple split: e.g. 80% traning, 20% test
+- Cross-validation
+  - leave-p-out: repeated split, leaving out p cases for test
+     - leave-1-out
+  - k-fold: repeated split, k equal size samples
+  
+
+---
+## caret::train
+
+Use caret::train to cross-validate Model 3
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+library(caret)
+
+train(
+  formula(medv_model3),
+  data = Boston,                        
+  trControl = trainControl(
+    method = "cv", # crossvalidate
+    number = 5 # folds
+  ),              
+  method = "lm", # regression model
+  na.action = na.pass
+) ->
+medv_model3_crossv
+```
+
+
+---
+## Crossvalidate Model 3
+
+.small[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(caret)
+
+train(
+  formula(medv_model3),
+  data = Boston,                        
+  trControl = trainControl(
+    method = "cv", # crossvalidate
+    number = 5 # folds
+  ),
+  method = "lm" # regression model
+) ->
+medv_model3_crossv
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+medv_model3_crossv
+medv_model3_crossv$resample
+```
+
+]
+
+
+
+
+---
+## Summary
+
+Simple Regression
+
+- Regression
+- Ordinary Least Squares
+- Interpretation
+- Checking assumptions
+
+**Next**: Multiple Regression
+
+- Multiple regression
+- Interpretation
+- Checking assumptions
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```

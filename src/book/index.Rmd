@@ -66,7 +66,7 @@ cd r-for-geographic-data-science
 
 This approach should allow not simply to use the materials but to easily edit and create your version in the same computational environment. To develop your materials, modify the code in the repository and run the `src/Docker_Make.sh` from the repository folder again to obtain the updated materials.
 
-The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to create the materials for this book and the lecture slides can be found in the `src/book` and `src/slides` folders, respectively. The files are used to generate the [Bookdown](https://bookdown.org/) [@R-bookdown] book and [IOSlides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) slides. The `src/utils` folder contains the IOSlides templates and some style classes used in the RMarkdown code.
+The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to create the materials for this book and the lecture slides can be found in the `src/book` and `src/slides` folders, respectively. The files are used to generate the [Bookdown](https://bookdown.org/) [@R-bookdown] book and [xaringan](https://github.com/yihui/xaringan) slides. The `src/slides` folder contains the `xaringan` templates and styles used in the RMarkdown code.
 
 ```{bash, echo=TRUE, eval=FALSE}
 .
@@ -79,8 +79,6 @@ The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to crea
     ├── practicals
     ├── slides
     └── utils
-        ├── IOSlides
-        └── RMarkdown
 ```
 
 You can edit the materials in the `r-for-geographic-data-science` repository folder using RStudio or another editor on your computer and then compile the new materials using Docker. Alternatively, you can follow the *learner* instructions below to start RStudio Server using Docker and develop your materials in the same environment in which they will be compiled.The first option might be quicker for minor edits, whereas the latter might be preferable for substantial modifications, especially when you need to test your code.
@@ -105,7 +103,7 @@ cd r-for-geographic-data-science
 
 The `src/Docker_RStudio_Start.sh` script will first create a `my_r-for-geographic-data-science` folder in the parent directory of the root directory of the repository (if it doesn't exist). The script will then instantiate a Docker container for the `sdesabbata/r-for-geographic-data-science` image, bind mount the `my_r-for-geographic-data-science` folder and the `r-for-geographic-data-science` repository folder to the container and start an RStudio Server.
 
-Using your browser, you can access the RStudio Server running from the Docker container by typing `127.0.0.1:28787` in your address bar and using `rstudio` as username and `rstudio` as password. As the `my_r-for-geographic-data-science` folder is bound, everything you will save in the `my_r-for-geographic-data-science` folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.
+The script outpur will include a line starting with `The password is set to` followed by a temporary password that you will need to access the RStudio Server. Copy the temporary password. Using your browser, you can access the RStudio Server running from the Docker container by typing `127.0.0.1:28787` in your address bar and using `rstudio` as username and the temporary password copied above as password. As the `my_r-for-geographic-data-science` folder is bound, everything you will save in the `my_r-for-geographic-data-science` folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.
 
 To stop the Docker container, running the script `src/Docker_RStudio_Stop.sh` (same on Windows using PowerShell) from the repository folder.
 

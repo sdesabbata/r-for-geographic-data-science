@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -147,7 +147,7 @@
 <span id="cb1-6"><a href="index.html#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-7"><a href="index.html#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ex">./src/Docker_Make.sh</span></span></code></pre></div>
 <p>This approach should allow not simply to use the materials but to easily edit and create your version in the same computational environment. To develop your materials, modify the code in the repository and run the <code>src/Docker_Make.sh</code> from the repository folder again to obtain the updated materials.</p>
-<p>The <a href="https://rmarkdown.rstudio.com/">RMarkdown</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-R-rmarkdown" role="doc-biblioref"&gt;JJ Allaire et al., &lt;em&gt;Rmarkdown: Dynamic Documents for r&lt;/em&gt;, 2021&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a></span> code used to create the materials for this book and the lecture slides can be found in the <code>src/book</code> and <code>src/slides</code> folders, respectively. The files are used to generate the <a href="https://bookdown.org/">Bookdown</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-R-bookdown" role="doc-biblioref"&gt;Yihui Xie, &lt;em&gt;Bookdown: Authoring Books and Technical Documents with r Markdown&lt;/em&gt;, 2021&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a></span> book and <a href="https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html">IOSlides</a> slides. The <code>src/utils</code> folder contains the IOSlides templates and some style classes used in the RMarkdown code.</p>
+<p>The <a href="https://rmarkdown.rstudio.com/">RMarkdown</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-R-rmarkdown" role="doc-biblioref"&gt;JJ Allaire et al., &lt;em&gt;Rmarkdown: Dynamic Documents for r&lt;/em&gt;, 2021&lt;/a&gt;.&lt;/p&gt;'><sup>2</sup></a></span> code used to create the materials for this book and the lecture slides can be found in the <code>src/book</code> and <code>src/slides</code> folders, respectively. The files are used to generate the <a href="https://bookdown.org/">Bookdown</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-R-bookdown" role="doc-biblioref"&gt;Yihui Xie, &lt;em&gt;Bookdown: Authoring Books and Technical Documents with r Markdown&lt;/em&gt;, 2021&lt;/a&gt;.&lt;/p&gt;'><sup>3</sup></a></span> book and <a href="https://github.com/yihui/xaringan">xaringan</a> slides. The <code>src/slides</code> folder contains the <code>xaringan</code> templates and styles used in the RMarkdown code.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="index.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">.</span></span>
 <span id="cb2-2"><a href="index.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> data</span>
 <span id="cb2-3"><a href="index.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs</span>
@@ -157,9 +157,7 @@
 <span id="cb2-7"><a href="index.html#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> images</span>
 <span id="cb2-8"><a href="index.html#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> practicals</span>
 <span id="cb2-9"><a href="index.html#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="ex">├──</span> slides</span>
-<span id="cb2-10"><a href="index.html#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> utils</span>
-<span id="cb2-11"><a href="index.html#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="ex">├──</span> IOSlides</span>
-<span id="cb2-12"><a href="index.html#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">└──</span> RMarkdown</span></code></pre></div>
+<span id="cb2-10"><a href="index.html#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> utils</span></code></pre></div>
 <p>You can edit the materials in the <code>r-for-geographic-data-science</code> repository folder using RStudio or another editor on your computer and then compile the new materials using Docker. Alternatively, you can follow the <em>learner</em> instructions below to start RStudio Server using Docker and develop your materials in the same environment in which they will be compiled.The first option might be quicker for minor edits, whereas the latter might be preferable for substantial modifications, especially when you need to test your code.</p>
 </div>
 <div id="learner" class="section level3 unnumbered">
@@ -176,7 +174,7 @@
 <span id="cb3-6"><a href="index.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="index.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">./src/Docker_RStudio_Start.sh</span></span></code></pre></div>
 <p>The <code>src/Docker_RStudio_Start.sh</code> script will first create a <code>my_r-for-geographic-data-science</code> folder in the parent directory of the root directory of the repository (if it doesn’t exist). The script will then instantiate a Docker container for the <code>sdesabbata/r-for-geographic-data-science</code> image, bind mount the <code>my_r-for-geographic-data-science</code> folder and the <code>r-for-geographic-data-science</code> repository folder to the container and start an RStudio Server.</p>
-<p>Using your browser, you can access the RStudio Server running from the Docker container by typing <code>127.0.0.1:28787</code> in your address bar and using <code>rstudio</code> as username and <code>rstudio</code> as password. As the <code>my_r-for-geographic-data-science</code> folder is bound, everything you will save in the <code>my_r-for-geographic-data-science</code> folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.</p>
+<p>The script outpur will include a line starting with <code>The password is set to</code> followed by a temporary password that you will need to access the RStudio Server. Copy the temporary password. Using your browser, you can access the RStudio Server running from the Docker container by typing <code>127.0.0.1:28787</code> in your address bar and using <code>rstudio</code> as username and the temporary password copied above as password. As the <code>my_r-for-geographic-data-science</code> folder is bound, everything you will save in the <code>my_r-for-geographic-data-science</code> folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.</p>
 <p>To stop the Docker container, running the script <code>src/Docker_RStudio_Stop.sh</code> (same on Windows using PowerShell) from the repository folder.</p>
 </div>
 <div id="session-info" class="section level3 unnumbered">
@@ -184,13 +182,13 @@
 </h3>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/sessionInfo.html">sessionInfo</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## R version 4.2.1 (2022-06-23)
+<pre><code>## R version 4.2.2 (2022-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.1 LTS
 ## 
 ## Matrix products: default
 ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -204,12 +202,12 @@
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] bookdown_0.29   withr_2.5.0     digest_0.6.29   R6_2.5.1       
-##  [5] jsonlite_1.8.0  magrittr_2.0.3  evaluate_0.16   stringi_1.7.8  
-##  [9] cachem_1.0.6    rlang_1.0.6     cli_3.4.0       fs_1.5.2       
-## [13] jquerylib_0.1.4 xml2_1.3.3      bslib_0.4.0     rmarkdown_2.16 
-## [17] tools_4.2.1     stringr_1.4.1   xfun_0.33       yaml_2.3.5     
-## [21] fastmap_1.1.0   compiler_4.2.1  memoise_2.0.1   htmltools_0.5.3
+##  [1] bookdown_0.29   withr_2.5.0     digest_0.6.30   R6_2.5.1       
+##  [5] jsonlite_1.8.3  magrittr_2.0.3  evaluate_0.17   stringi_1.7.8  
+##  [9] cachem_1.0.6    rlang_1.0.6     cli_3.4.1       fs_1.5.2       
+## [13] jquerylib_0.1.4 xml2_1.3.3      bslib_0.4.1     rmarkdown_2.17 
+## [17] tools_4.2.2     stringr_1.4.1   xfun_0.34       yaml_2.3.6     
+## [21] fastmap_1.1.0   compiler_4.2.2  memoise_2.0.1   htmltools_0.5.3
 ## [25] downlit_0.4.2   knitr_1.40      sass_0.4.2</code></pre>
 <hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
@@ -255,7 +253,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-23.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-27.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

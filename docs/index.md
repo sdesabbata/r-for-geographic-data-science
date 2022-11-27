@@ -1,7 +1,7 @@
 ---
 title: "R for Geographic Data Science"
 author: "Stefano De Sabbata"
-date: "2022-11-23"
+date: "2022-11-27"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [references.bib, packages.bib]
@@ -67,7 +67,7 @@ cd r-for-geographic-data-science
 
 This approach should allow not simply to use the materials but to easily edit and create your version in the same computational environment. To develop your materials, modify the code in the repository and run the `src/Docker_Make.sh` from the repository folder again to obtain the updated materials.
 
-The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to create the materials for this book and the lecture slides can be found in the `src/book` and `src/slides` folders, respectively. The files are used to generate the [Bookdown](https://bookdown.org/) [@R-bookdown] book and [IOSlides](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) slides. The `src/utils` folder contains the IOSlides templates and some style classes used in the RMarkdown code.
+The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to create the materials for this book and the lecture slides can be found in the `src/book` and `src/slides` folders, respectively. The files are used to generate the [Bookdown](https://bookdown.org/) [@R-bookdown] book and [xaringan](https://github.com/yihui/xaringan) slides. The `src/slides` folder contains the `xaringan` templates and styles used in the RMarkdown code.
 
 
 ```bash
@@ -81,8 +81,6 @@ The [RMarkdown](https://rmarkdown.rstudio.com/) [@R-rmarkdown] code used to crea
     ├── practicals
     ├── slides
     └── utils
-        ├── IOSlides
-        └── RMarkdown
 ```
 
 You can edit the materials in the `r-for-geographic-data-science` repository folder using RStudio or another editor on your computer and then compile the new materials using Docker. Alternatively, you can follow the *learner* instructions below to start RStudio Server using Docker and develop your materials in the same environment in which they will be compiled.The first option might be quicker for minor edits, whereas the latter might be preferable for substantial modifications, especially when you need to test your code.
@@ -108,7 +106,7 @@ cd r-for-geographic-data-science
 
 The `src/Docker_RStudio_Start.sh` script will first create a `my_r-for-geographic-data-science` folder in the parent directory of the root directory of the repository (if it doesn't exist). The script will then instantiate a Docker container for the `sdesabbata/r-for-geographic-data-science` image, bind mount the `my_r-for-geographic-data-science` folder and the `r-for-geographic-data-science` repository folder to the container and start an RStudio Server.
 
-Using your browser, you can access the RStudio Server running from the Docker container by typing `127.0.0.1:28787` in your address bar and using `rstudio` as username and `rstudio` as password. As the `my_r-for-geographic-data-science` folder is bound, everything you will save in the `my_r-for-geographic-data-science` folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.
+The script outpur will include a line starting with `The password is set to` followed by a temporary password that you will need to access the RStudio Server. Copy the temporary password. Using your browser, you can access the RStudio Server running from the Docker container by typing `127.0.0.1:28787` in your address bar and using `rstudio` as username and the temporary password copied above as password. As the `my_r-for-geographic-data-science` folder is bound, everything you will save in the `my_r-for-geographic-data-science` folder in your home directory on RStudio Server will be saved on your computer. Everything else will be lost when the Docker container is stopped.
 
 To stop the Docker container, running the script `src/Docker_RStudio_Stop.sh` (same on Windows using PowerShell) from the repository folder.
 
@@ -120,13 +118,13 @@ sessionInfo()
 ```
 
 ```
-## R version 4.2.1 (2022-06-23)
+## R version 4.2.2 (2022-10-31)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 20.04.5 LTS
+## Running under: Ubuntu 22.04.1 LTS
 ## 
 ## Matrix products: default
 ## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/liblapack.so.3
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -140,12 +138,12 @@ sessionInfo()
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] bookdown_0.29   withr_2.5.0     digest_0.6.29   R6_2.5.1       
-##  [5] jsonlite_1.8.0  magrittr_2.0.3  evaluate_0.16   stringi_1.7.8  
-##  [9] cachem_1.0.6    rlang_1.0.6     cli_3.4.0       fs_1.5.2       
-## [13] jquerylib_0.1.4 xml2_1.3.3      bslib_0.4.0     rmarkdown_2.16 
-## [17] tools_4.2.1     stringr_1.4.1   xfun_0.33       yaml_2.3.5     
-## [21] fastmap_1.1.0   compiler_4.2.1  memoise_2.0.1   htmltools_0.5.3
+##  [1] bookdown_0.29   withr_2.5.0     digest_0.6.30   R6_2.5.1       
+##  [5] jsonlite_1.8.3  magrittr_2.0.3  evaluate_0.17   stringi_1.7.8  
+##  [9] cachem_1.0.6    rlang_1.0.6     cli_3.4.1       fs_1.5.2       
+## [13] jquerylib_0.1.4 xml2_1.3.3      bslib_0.4.1     rmarkdown_2.17 
+## [17] tools_4.2.2     stringr_1.4.1   xfun_0.34       yaml_2.3.6     
+## [21] fastmap_1.1.0   compiler_4.2.2  memoise_2.0.1   htmltools_0.5.3
 ## [25] downlit_0.4.2   knitr_1.40      sass_0.4.2
 ```
 
