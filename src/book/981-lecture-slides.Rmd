@@ -11,15 +11,15 @@ The slides used in the lectures are available as web-based slides at the pages l
     - 102 [Reproducible data science](slides/102-slides-reproducible-data-science.html)
     - 103 [Data manipulation](slides/103-slides-data-manipulation.html)
     - 104 [Table operations](slides/104-slides-table-operations.html)
-3. **Data analysis**
+2. **Data analysis**
     - 201 [Exploratory visualisation](slides/201-slides-data-visualisation.html)
     - 202 [Exploratory statistics](slides/202-slides-exploratory-statistics.html)
-    - [203 Comparing data](slides/203-slides-comparing-data.html)
-    - 204 Regression models
-4. **Machine learning**
+    - 203 [Comparing data](slides/203-slides-comparing-data.html)
+    - 204 [Regression models](slides/204-slides-regression.html)
+3. **Machine learning**
     - 301 Supervised
     - 302 Unsupervised
-2. **R Scripting**
+4. **R Scripting**
     - 401 Control structures
     - 402 Functions
 

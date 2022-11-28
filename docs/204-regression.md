@@ -338,7 +338,7 @@ leicester_2011OAC_transp <-
 Let's observe how all those variable relate to one another using a pairs plot.
 
 
-<img src="204-regression_files/figure-html/unnamed-chunk-15-1.png" width="960" />
+<img src="204-regression_files/figure-html/unnamed-chunk-15-1.png" width="1536" />
 
 Based on the plot above and our understanding of the variables, we can try create a model able to relate and estimate the dependent (output) variable `perc_u120` (*Method of Travel to Work, Private Transport*) with the independent (predictor) variables:
 

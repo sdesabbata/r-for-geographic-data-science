@@ -248,7 +248,7 @@ leicester_2011OAC_transp <-
 Let's observe how all those variable relate to one another using a pairs plot.
 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 10, fig.height = 10}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 16, fig.height = 16}
 library(GGally)
 
 leicester_2011OAC_transp %>%
