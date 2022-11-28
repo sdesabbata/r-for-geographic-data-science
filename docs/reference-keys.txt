@@ -84,7 +84,7 @@ plots
 how-to-report-a-simple-regression
 multiple-regression
 multiple-regression-example
-exercise-324.1
+exercise-204.1
 supervised-machine-learning
 confusion-matrices
 urban-and-rural-population-density

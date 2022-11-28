@@ -327,13 +327,9 @@ library(lm.beta)
 lm.beta(commuting_model1)
 ```
 
-## Exercise 324.1
+## Exercise 204.1
 
-**Question 324.1.1:** Create a model having as outcome variable the presence of people using private transport for commuting to work, and using a stepwise *"both"* approach, having all the variables created for the example above and related to the presence of people working in different industry sectors (`perc_u141 to perc_u158`) as scope.
-
-**Question 324.1.2:** Is the presence of people using public transportation to commute to work statistically, linearly related to mean age (`u020`)?
-
-**Question 324.1.3:** Is the presence of people using public transportation to commute to work statistically, linearly related to (a subset of) the age structure categories (`u007` to `u019`)?
+**Question 204.1.1:** ...
 
 
 ---
