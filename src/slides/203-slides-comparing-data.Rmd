@@ -871,6 +871,7 @@ Chi-square test:
 
 ```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
 library(gmodels)
+
 penguins %$%
   CrossTable(
     island, species, chisq = TRUE, 

@@ -141,11 +141,14 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># November 20th, 2013</span></span>
-<span><span class="va">flights_nov_20</span> <span class="op">&lt;-</span> <span class="fu">nycflights13</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/nycflights13/man/flights.html">flights</a></span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>, <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>, <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span>, <span class="va">day</span> <span class="op">==</span><span class="fl">20</span><span class="op">)</span> </span></code></pre></div>
-<center>
-<img src="204-regression_files/figure-html/unnamed-chunk-3-1.png" width="384">
-</center>
+<span><span class="va">flights_nov_20</span> <span class="op">&lt;-</span> <span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>    <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span> <span class="op">&amp;</span></span>
+<span>    <span class="va">day</span> <span class="op">==</span><span class="fl">20</span></span>
+<span>  <span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <p>The code below generates the model using the function <code>lm</code>, and the function <code>summary</code> to obtain the summary of the results of the test. The model and summary are saved in the variables <code>delay_model</code> and <code>delay_model_summary</code>, respectively, for further use below. The variable <code>delay_model_summary</code> can then be called directly to visualise the result of the test.</p>
 <div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Classic R coding version</span></span>
@@ -189,9 +192,7 @@
 ## Multiple R-squared:  0.7775, Adjusted R-squared:  0.7773 
 ## F-statistic:  3397 on 1 and 972 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The image below highlights the important values in the output: the adjusted <span class="math inline">\(R^2\)</span> value; the model significance value <code>p-value</code> and the related F-statistic information <code>F-statistic</code>; the intercept and <code>dep_delay</code> coefficient estimates in the <code>Estimate</code> column and the related significance values of in the column <code>Pr(&gt;|t|)</code>.</p>
-<center>
-<img src="images/Regression_output_annotated.png" style="width:70.0%">
-</center>
+<div class="inline-figure"><img src="images/Regression_output_annotated.png" style="width:70.0%"></div>
 <p>The output indicates:</p>
 <ul>
 <li>
@@ -213,14 +214,12 @@
 </ul>
 </li>
 </ul>
-<center>
 <div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_delay</span>, y <span class="op">=</span> <span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span>ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">4.0943</span>, slope <span class="op">=</span> <span class="fl">1.04229</span>, color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
-<img src="204-regression_files/figure-html/unnamed-chunk-5-1.png" width="384">
-</center>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dep_delay</span>, y <span class="op">=</span> <span class="va">arr_delay</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span>ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_abline</a></span><span class="op">(</span>intercept <span class="op">=</span> <span class="fl">4.0943</span>, slope <span class="op">=</span> <span class="fl">1.04229</span>, color<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-5-1.png" width="384"></div>
 </div>
 <div id="checking-regression-assumptions" class="section level3" number="8.1.2">
 <h3>
@@ -233,16 +232,14 @@
 <p>The Shapiro-Wilk test can be used to check for the normality of standard residuals. The test should be not significant for robust models. In the example below, the standard residuals are <em>not</em> normally distributed. However, the plot further below does show that the distribution of the residuals is not far away from a normal distribution.</p>
 <div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  .
 ## W = 0.98231, p-value = 1.73e-09</code></pre>
-<center>
-<img src="204-regression_files/figure-html/unnamed-chunk-7-1.png" width="576">
-</center>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
 </div>
 <div id="homoscedasticity" class="section level4" number="8.1.2.2">
 <h4>
@@ -253,7 +250,7 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lmtest</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  studentized Breusch-Pagan test
 ## 
@@ -268,7 +265,7 @@
 <div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Also part of the library lmtest</span></span>
 <span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">lmtest</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
 ##  Durbin-Watson test
 ## 
@@ -284,19 +281,19 @@
 <div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-1.png" width="576"></div>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
 <div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-2.png" width="576"></div>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-2.png" width="672"></div>
 <div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-3.png" width="576"></div>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-3.png" width="672"></div>
 <div class="sourceCode" id="cb263"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>which <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<img src="204-regression_files/figure-html/unnamed-chunk-10-4.png" width="576">
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-10-4.png" width="672"></div>
 </div>
 </div>
 <div id="how-to-report-a-simple-regression" class="section level3" number="8.1.3">
@@ -328,45 +325,50 @@
 </h3>
 <p>The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (<code>u121</code>) in Leicester, using the number of people in different industry sectors as predictors.</p>
 <p>For instance, occupations such as electricity, gas, steam and air conditioning supply (<code>u144</code>) require to travel some distances with equipment, thus the related variable <code>u144</code> is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport.</p>
-<p>A multiple regression model can be specified in a similar way as a simple regression model, using the same <code>lm</code> function, but adding the additional predictor variables using a <code>+</code> operator.</p>
 <div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select and </span></span>
 <span><span class="co"># normalise variables</span></span>
 <span><span class="va">leicester_2011OAC_transp</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">OA11CD</span>, </span>
 <span>    <span class="va">Total_Pop_No_NI_Students_16_to_74</span>, <span class="va">Total_Employment_16_to_74</span>, </span>
 <span>    <span class="va">u121</span>, <span class="va">u141</span><span class="op">:</span><span class="va">u158</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># percentage method of travel</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    u121 <span class="op">=</span> <span class="op">(</span><span class="va">u121</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># percentage across industry sector columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span> </span>
 <span>      <span class="va">u141</span><span class="op">:</span><span class="va">u158</span>,</span>
 <span>      <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="va">Total_Employment_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">}</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># rename columns</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
 <span>    <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"perc_"</span>, <span class="va">x</span><span class="op">)</span> <span class="op">}</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">u121</span>, <span class="va">u141</span><span class="op">:</span><span class="va">u158</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Selected variables</span></span>
-<span></span>
-<span><span class="co"># perc_u120: Method of Travel to Work, Private Transport</span></span>
-<span><span class="co"># perc_u142: Industry Sector, Mining and quarrying</span></span>
-<span><span class="co"># perc_u144: Industry Sector, Electricity, gas, steam and air conditioning ...</span></span>
-<span><span class="co"># perc_u146: Industry Sector, Construction</span></span>
-<span><span class="co"># perc_u149: Industry Sector, Accommodation and food service activities</span></span>
-<span></span>
-<span><span class="co"># Create model</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p>Let’s observe how all those variable relate to one another using a pairs plot.</p>
+<div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-15-1.png" width="960"></div>
+<p>Based on the plot above and our understanding of the variables, we can try create a model able to relate and estimate the dependent (output) variable <code>perc_u120</code> (<em>Method of Travel to Work, Private Transport</em>) with the independent (predictor) variables:</p>
+<ul>
+<li>
+<code>perc_u142</code>: Industry Sector, Mining and quarrying</li>
+<li>
+<code>perc_u144</code>: Industry Sector, Electricity, gas, steam and air conditioning …</li>
+<li>
+<code>perc_u146</code>: Industry Sector, Construction</li>
+<li>
+<code>perc_u149</code>: Industry Sector, Accommodation and food service activities</li>
+</ul>
+<p>A multiple regression model can be specified in a similar way as a simple regression model, using the same <code>lm</code> function, but adding the additional predictor variables using a <code>+</code> operator.</p>
+<div class="sourceCode" id="cb267"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create model</span></span>
 <span><span class="va">commuting_model1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">leicester_2011OAC_transp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span></span>
@@ -399,10 +401,10 @@
 ## Residual standard error: 9.481 on 964 degrees of freedom
 ## Multiple R-squared:  0.3846, Adjusted R-squared:  0.3821 
 ## F-statistic: 150.6 on 4 and 964 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Not rendered in bookdown</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">commuting_model1</span>, header<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -411,7 +413,7 @@
 ## 
 ## data:  .
 ## W = 0.99889, p-value = 0.8307</code></pre>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -419,7 +421,7 @@
 ## 
 ## data:  .
 ## BP = 28.403, df = 4, p-value = 1.033e-05</code></pre>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -428,7 +430,7 @@
 ## data:  .
 ## DW = 1.835, p-value = 0.004908
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -438,7 +440,7 @@
 <p>The output above suggests that the model is fit (<span class="math inline">\(F(4, 964) = 150.62\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that a model based on the presence of people working in the four selected industry sectors can account for 38.21% of the number of people using private transportation to commute to work. However the model is only partially robust. The residuals are normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 1\)</span>, <span class="math inline">\(p =0.83\)</span>) and there seems to be no multicollinearity with average VIF <span class="math inline">\(1.02\)</span>, but the residuals don’t satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 28.4\)</span>, <span class="math inline">\(p &lt; .001\)</span>), nor the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.84\)</span>, <span class="math inline">\(p &lt; .01\)</span>).</p>
 <p>The coefficient values calculated by the <code>lm</code> functions are important to create the model, and provide useful information. For instance, the coefficient for the variable <code>perc_u144</code> is <code>1.169</code>, which indicates that if the presence of people working in electricity, gas, steam and air conditioning supply increases by one percentage point, the number of people using private transportation to commute to work increases by <code>1.169</code> percentage points, according to the model. The coefficients also indicate that the presence of people working in accommodation and food service activities actually has a negative impact (in the context of the variables selected for the model) on the number of people using private transportation to commute to work.</p>
 <p>In this example, all variables use the same unit and are of a similar type, which makes interpreting the model relatively simple. When that is not the case, it can be useful to look at the standardized <span class="math inline">\(\beta\)</span>, which provide the same information but measured in terms of standard deviation, which make comparisons between variables of different types easier to draw. For instance, the values calculated below using the function <code>lm.beta</code> of the library <code>lm.beta</code> indicate that if the presence of people working in construction has the highest impact on the outcome varaible. If the presence of people working in construction increases by one standard deviation, the number of people using private transportation to commute to work increases by <code>0.29</code> standard deviations, according to the model.</p>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install lm.beta library if necessary</span></span>
 <span><span class="co"># install.packages("lm.beta")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lm.beta</span><span class="op">)</span></span>
@@ -504,7 +506,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-27.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-28.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

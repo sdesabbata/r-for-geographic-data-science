@@ -40,14 +40,17 @@ $$arr\_delay_i = (Intercept + Coefficient_{dep\_delay} * dep\_delay_{i1}) + \eps
 library(nycflights13)
 
 # November 20th, 2013
-flights_nov_20 <- nycflights13::flights %>%
-  dplyr::filter(!is.na(dep_delay), !is.na(arr_delay), month == 11, day ==20) 
+flights_nov_20 <- flights %>%
+  filter(
+    !is.na(dep_delay) &
+    !is.na(arr_delay) &
+    month == 11 &
+    day ==20
+  ) 
 ```
 
 
-<center>
-<img src="204-regression_files/figure-html/unnamed-chunk-3-1.png" width="384" />
-</center>
+<img src="204-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
 The code below generates the model using the function `lm`, and the function `summary` to obtain the summary of the results of the test. The model and summary are saved in the variables `delay_model` and `delay_model_summary`, respectively, for further use below. The variable `delay_model_summary` can then be called directly to visualise the result of the test.
 
@@ -111,9 +114,9 @@ delay_model_summary
 
 The image below highlights the important values in the output: the adjusted $R^2$ value; the model significance value `p-value` and the related F-statistic information `F-statistic`; the intercept and `dep_delay` coefficient estimates in the `Estimate` column and the related significance values of in the column `Pr(>|t|)`.
 
-<center>
+
 ![](images/Regression_output_annotated.png){width=70%}
-</center>
+
 
 The output indicates:
 
@@ -125,17 +128,17 @@ The output indicates:
     - Intercept estimate -4.9672 is significant;
     - `dep_delay` coefficient (slope) estimate 1.0423 is significant.
 
-<center>
+
 
 ```r
 flights_nov_20 %>%
-  ggplot2::ggplot(aes(x = dep_delay, y = arr_delay)) +
-  ggplot2::geom_point() + ggplot2::coord_fixed(ratio = 1) +
-  ggplot2::geom_abline(intercept = 4.0943, slope = 1.04229, color="red")
+  ggplot(aes(x = dep_delay, y = arr_delay)) +
+  geom_point() + coord_fixed(ratio = 1) +
+  geom_abline(intercept = 4.0943, slope = 1.04229, color="red")
 ```
 
 <img src="204-regression_files/figure-html/unnamed-chunk-5-1.png" width="384" />
-</center>
+
 
 ### Checking regression assumptions
 
@@ -146,8 +149,8 @@ The Shapiro-Wilk test can be used to check for the normality of standard residua
 
 ```r
 delay_model %>% 
-  stats::rstandard() %>% 
-  stats::shapiro.test()
+  rstandard() %>% 
+  shapiro.test()
 ```
 
 ```
@@ -158,9 +161,9 @@ delay_model %>%
 ## W = 0.98231, p-value = 1.73e-09
 ```
 
-<center>
-<img src="204-regression_files/figure-html/unnamed-chunk-7-1.png" width="576" />
-</center>
+
+<img src="204-regression_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+
 
 #### Homoscedasticity
 
@@ -171,7 +174,7 @@ The Breusch-Pagan test can be used to check for the homoscedasticity of standard
 library(lmtest)
 
 delay_model %>% 
-  lmtest::bptest()
+  bptest()
 ```
 
 ```
@@ -190,7 +193,7 @@ The Durbin-Watson test can be used to check for the independence of residuals. T
 ```r
 # Also part of the library lmtest
 delay_model %>%
-  lmtest::dwtest()
+  dwtest()
 ```
 
 ```
@@ -212,29 +215,29 @@ delay_model %>%
   plot(which = c(1))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-1.png" width="576" />
+<img src="204-regression_files/figure-html/unnamed-chunk-10-1.png" width="672" />
 
 ```r
 delay_model %>%
   plot(which = c(2))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-2.png" width="576" />
+<img src="204-regression_files/figure-html/unnamed-chunk-10-2.png" width="672" />
 
 ```r
 delay_model %>%
   plot(which = c(3))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-3.png" width="576" />
+<img src="204-regression_files/figure-html/unnamed-chunk-10-3.png" width="672" />
 
 ```r
 delay_model %>%
   plot(which = c(5))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-4.png" width="576" />
-</center>
+<img src="204-regression_files/figure-html/unnamed-chunk-10-4.png" width="672" />
+
 
 ### How to report a simple regression
 
@@ -296,11 +299,9 @@ The example below explores whether a regression model can be created to estimate
 
 For instance, occupations such as electricity, gas, steam and air conditioning supply (`u144`) require to travel some distances with equipment, thus the related variable `u144` is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport. 
 
-A multiple regression model can be specified in a similar way as a simple regression model, using the same `lm` function, but adding the additional predictor variables using a `+` operator.
-
 
 ```r
-leicester_2011OAC <- readr::read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+leicester_2011OAC <- read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 ```
 
 
@@ -311,36 +312,45 @@ leicester_2011OAC <- readr::read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 # normalise variables
 leicester_2011OAC_transp <-
   leicester_2011OAC %>%
-  dplyr::select(
+  select(
     OA11CD, 
     Total_Pop_No_NI_Students_16_to_74, Total_Employment_16_to_74, 
     u121, u141:u158
   ) %>%
   # percentage method of travel
-  dplyr::mutate(
+  mutate(
     u121 = (u121 / Total_Pop_No_NI_Students_16_to_74) * 100
   ) %>%
   # percentage across industry sector columns
-  dplyr::mutate(
-    dplyr::across( 
+  mutate(
+    across( 
       u141:u158,
       function(x){ (x / Total_Employment_16_to_74) * 100 }
     )
   ) %>%
   # rename columns
-  dplyr::rename_with(
+  rename_with(
     function(x){ paste0("perc_", x) },
     c(u121, u141:u158)
   )
+```
 
-# Selected variables
+Let's observe how all those variable relate to one another using a pairs plot.
 
-# perc_u120: Method of Travel to Work, Private Transport
-# perc_u142: Industry Sector, Mining and quarrying
-# perc_u144: Industry Sector, Electricity, gas, steam and air conditioning ...
-# perc_u146: Industry Sector, Construction
-# perc_u149: Industry Sector, Accommodation and food service activities
 
+<img src="204-regression_files/figure-html/unnamed-chunk-15-1.png" width="960" />
+
+Based on the plot above and our understanding of the variables, we can try create a model able to relate and estimate the dependent (output) variable `perc_u120` (*Method of Travel to Work, Private Transport*) with the independent (predictor) variables:
+
+- `perc_u142`: Industry Sector, Mining and quarrying
+- `perc_u144`: Industry Sector, Electricity, gas, steam and air conditioning ...
+- `perc_u146`: Industry Sector, Construction
+- `perc_u149`: Industry Sector, Accommodation and food service activities
+
+A multiple regression model can be specified in a similar way as a simple regression model, using the same `lm` function, but adding the additional predictor variables using a `+` operator.
+
+
+```r
 # Create model
 commuting_model1 <- 
   leicester_2011OAC_transp %$%

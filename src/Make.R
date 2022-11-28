@@ -93,26 +93,26 @@ cat("\n\n>>> Rendering lecture slides... <<<\n\n")
 # Copy images directory to contents folder for local compile of bookdown
 file.copy(paste0(Sys.getenv("RGDS_HOME"), "/src/images"), paste0(Sys.getenv("RGDS_HOME"), "/src/slides/"), recursive=TRUE)
 
-# cat("\n\n>>> Rendering 101-introduction.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/101-slides-introduction.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-# 
-# cat("\n\n>>> Rendering 102-slides-reproducible-data-science.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/102-slides-reproducible-data-science.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-# 
-# cat("\n\n>>> Rendering 103-slides-data-manipulation.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/103-slides-data-manipulation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-# 
-# cat("\n\n>>> Rendering 104-slides-table-operations.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/104-slides-table-operations.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-# 
-# cat("\n\n>>> Rendering 201-slides-data-visualisation.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/201-slides-data-visualisation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-# 
-# cat("\n\n>>> Rendering 202-slides-exploratory-statistics.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/202-slides-exploratory-statistics.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
-# 
-# cat("\n\n>>> Rendering 203-slides-comparing-data.Rmd <<<\n\n")
-# rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/203-slides-comparing-data.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 101-introduction.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/101-slides-introduction.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+
+cat("\n\n>>> Rendering 102-slides-reproducible-data-science.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/102-slides-reproducible-data-science.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+
+cat("\n\n>>> Rendering 103-slides-data-manipulation.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/103-slides-data-manipulation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+
+cat("\n\n>>> Rendering 104-slides-table-operations.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/104-slides-table-operations.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+
+cat("\n\n>>> Rendering 201-slides-data-visualisation.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/201-slides-data-visualisation.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+
+cat("\n\n>>> Rendering 202-slides-exploratory-statistics.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/202-slides-exploratory-statistics.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+
+cat("\n\n>>> Rendering 203-slides-comparing-data.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/203-slides-comparing-data.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
 
 cat("\n\n>>> Rendering 204-slides-regression.Rmd <<<\n\n")
 rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/204-slides-regression.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
