@@ -30,9 +30,11 @@ A model is considered **robust** if the residuals do not show particular trends,
 
 ### Simple regression example
 
-The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the `nycflights13` dataset for the flight on November 20th, 2013. The scatterplot below seems to indicate that the relationship is indeed linear.
+The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the `nycflights13` dataset for the flight on November 20th, 2013. 
 
 $$arr\_delay_i = (Intercept + Coefficient_{dep\_delay} * dep\_delay_{i1}) + \epsilon_i $$
+
+The last line below arranges the table by arrival delay. It is advisable to give a meaningful order to the data (e.g., based on the outcome) before creating the model, in order to facilitate a robust execution of the Durbin-Watson test (see below).
 
 
 ```r
@@ -46,9 +48,11 @@ flights_nov_20 <- flights %>%
     !is.na(arr_delay) &
     month == 11 &
     day ==20
-  ) 
+  ) %>% 
+  arrange(arr_delay)
 ```
 
+The scatterplot below seems to indicate that the relationship is indeed linear.
 
 <img src="204-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" />
 
@@ -201,9 +205,21 @@ delay_model %>%
 ## 	Durbin-Watson test
 ## 
 ## data:  .
-## DW = 1.8731, p-value = 0.02358
+## DW = 0.72111, p-value < 2.2e-16
 ## alternative hypothesis: true autocorrelation is greater than 0
 ```
+
+The idea of autocorrelation of the residuals tested by the Durbin-Watson test can be illustrated using the lag plot below, where the standard residual of a case is compared to the standard residual of the previous case in the table. A clear patter in the plot would indicate that the residuals are not independent. In the plot below, no clear pattern is visible, thus reinforcing the results of the test above.
+
+
+```r
+delay_model %>%
+  rstandard() %>% 
+  lag.plot()
+```
+
+<img src="204-regression_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
 
 #### Plots
 
@@ -215,33 +231,33 @@ delay_model %>%
   plot(which = c(1))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="204-regression_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 
 ```r
 delay_model %>%
   plot(which = c(2))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-2.png" width="672" />
+<img src="204-regression_files/figure-html/unnamed-chunk-11-2.png" width="672" />
 
 ```r
 delay_model %>%
   plot(which = c(3))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-3.png" width="672" />
+<img src="204-regression_files/figure-html/unnamed-chunk-11-3.png" width="672" />
 
 ```r
 delay_model %>%
   plot(which = c(5))
 ```
 
-<img src="204-regression_files/figure-html/unnamed-chunk-10-4.png" width="672" />
+<img src="204-regression_files/figure-html/unnamed-chunk-11-4.png" width="672" />
 
 
 ### How to report a simple regression
 
-Overall, we can say that the delay model computed above is fit ($F(1, 972) = 3396.74$, $p < .001$), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 0.02$, $p =0.9$), and the independence assumption (Durbin-Watson test, $DW = 1.87$, $p =0.02$), but they are not normally distributed (Shapiro-Wilk test, $W =  0.98$, $p < .001$).
+Overall, we can say that the delay model computed above is fit ($F(1, 972) = 3396.74$, $p < .001$), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 0.02$, $p =0.9$), and the independence assumption (Durbin-Watson test, $DW = 0.72$, $p =0$), but they are not normally distributed (Shapiro-Wilk test, $W =  0.98$, $p < .001$).
 
 The [`stargazer` function of the `stargazer` library](https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer) can be applied to the model `delay_model` to generate a nicer output in RMarkdown PDF documents by including `results = "asis"` in the R snippet option.
 
@@ -284,6 +300,12 @@ F Statistic & 3,396.742$^{***}$ (df = 1; 972) \\
 \textit{Note:}  & \multicolumn{1}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
+
+
+## Exercise 204.1
+
+**Question 204.1.1:** While linear regression modelling does not require the variables to be normally distributed, very skewed variables such as `dep_delay` and `arr_delay` might be a significant obstacle to a robust model. Is it possible to build a robust model using *"un-skewed"* variables?
+
 
 ## Multiple regression
 
@@ -332,13 +354,14 @@ leicester_2011OAC_transp <-
   rename_with(
     function(x){ paste0("perc_", x) },
     c(u121, u141:u158)
-  )
+  ) %>% 
+  arrange(perc_u121)
 ```
 
 Let's observe how all those variable relate to one another using a pairs plot.
 
 
-<img src="204-regression_files/figure-html/unnamed-chunk-15-1.png" width="1536" />
+<img src="204-regression_files/figure-html/unnamed-chunk-16-1.png" width="1536" />
 
 Based on the plot above and our understanding of the variables, we can try create a model able to relate and estimate the dependent (output) variable `perc_u120` (*Method of Travel to Work, Private Transport*) with the independent (predictor) variables:
 
@@ -473,7 +496,7 @@ commuting_model1 %>%
 ## 	Durbin-Watson test
 ## 
 ## data:  .
-## DW = 1.835, p-value = 0.004908
+## DW = 0.72548, p-value < 2.2e-16
 ## alternative hypothesis: true autocorrelation is greater than 0
 ```
 
@@ -490,7 +513,7 @@ commuting_model1 %>%
 ##  1.006906  1.016578  1.037422  1.035663
 ```
 
-The output above suggests that the model is fit ($F(4, 964) = 150.62$, $p < .001$), indicating that a model based on the presence of people working in the four selected industry sectors can account for 38.21% of the number of people using private transportation to commute to work. However the model is only partially robust. The residuals are normally distributed (Shapiro-Wilk test, $W =  1$, $p =0.83$) and there seems to be no multicollinearity with average VIF $1.02$, but the residuals don't satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 28.4$, $p < .001$), nor the independence assumption (Durbin-Watson test, $DW = 1.84$, $p < .01$).
+The output above suggests that the model is fit ($F(4, 964) = 150.62$, $p < .001$), indicating that a model based on the presence of people working in the four selected industry sectors can account for 38.21% of the number of people using private transportation to commute to work. However the model is only partially robust. The residuals are normally distributed (Shapiro-Wilk test, $W =  1$, $p =0.83$) and there seems to be no multicollinearity with average VIF $1.02$, but the residuals don't satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 28.4$, $p < .001$), nor the independence assumption (Durbin-Watson test, $DW = 0.73$, $p < .01$).
 
 The coefficient values calculated by the `lm` functions are important to create the model, and provide useful information. For instance, the coefficient for the variable `perc_u144` is `1.169`, which indicates that if the presence of people working in electricity, gas, steam and air conditioning supply increases by one percentage point, the number of people using private transportation to commute to work increases by `1.169` percentage points, according to the model. The coefficients also indicate that the presence of people working in accommodation and food service activities actually has a negative impact (in the context of the variables selected for the model) on the number of people using private transportation to commute to work.
 
@@ -516,9 +539,9 @@ lm.beta(commuting_model1)
 ##          NA  0.07836017  0.11754058  0.29057993 -0.47841083
 ```
 
-## Exercise 204.1
+## Exercise 204.2
 
-**Question 204.1.1:** ...
+**Question 204.2.1:** Is it possible to create a model linking population density to housing type in Leicester?
 
 
 ---

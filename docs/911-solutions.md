@@ -1685,6 +1685,451 @@ u118n_u120u122n_kendall
 
 The test is significant (*p* < .01), thus we can say that there is an inverse relationship, which is however very weak. The value for tau is -0.307 indicating that the two variables share only 9.4% of variance.
 
+
+## Solutions 204 {-}
+
+### Solutions 204.1 {-}
+
+**Question 204.1.1:** While linear regression modelling does not require the variables to be normally distributed, very skewed variables such as `dep_delay` and `arr_delay` might be a significant obstacle to a robust model. Is it possible to build a robust model using *"un-skewed"* variables?
+
+
+
+As both variables, we can use the inverse hyperbolic sine (`asinh`) to *"un-skew"* the variables. However, as illustrated by the plot below, that *"expands"* the area around the origin of the two axis to the point that the linear relationship might be lost.
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-77-1.png" width="672" />
+
+We can still try build a model. However, as illustrated below, the relaionship has become very weak, and the model is still not robust.
+
+
+```r
+delay_model_2 <- flights_nov_20 %>% 
+  mutate(
+    ihs_dep_delay = asinh(-dep_delay),
+    ihs_arr_delay = asinh(-arr_delay)
+  ) %$%
+  lm(ihs_dep_delay ~ ihs_arr_delay) 
+
+delay_model_summary_2 <- delay_model_2 %>%
+  summary()
+
+delay_model_summary_2
+```
+
+```
+## 
+## Call:
+## lm(formula = ihs_dep_delay ~ ihs_arr_delay)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.4610 -1.0106  0.2507  0.9211  4.1417 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)    0.39881    0.06441   6.192 8.75e-10 ***
+## ihs_arr_delay  0.48274    0.01930  25.006  < 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.885 on 972 degrees of freedom
+## Multiple R-squared:  0.3915,	Adjusted R-squared:  0.3909 
+## F-statistic: 625.3 on 1 and 972 DF,  p-value: < 2.2e-16
+```
+
+
+```r
+delay_model_2 %>% 
+  rstandard() %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96798, p-value = 8.19e-14
+```
+
+
+```r
+delay_model_2 %>% 
+  bptest()
+```
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 230.08, df = 1, p-value < 2.2e-16
+```
+
+
+```r
+delay_model_2 %>%
+  dwtest()
+```
+
+```
+## 
+## 	Durbin-Watson test
+## 
+## data:  .
+## DW = 1.7535, p-value = 5.175e-05
+## alternative hypothesis: true autocorrelation is greater than 0
+```
+
+
+```r
+delay_model_2 %>% 
+  plot()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-82-1.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-82-2.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-82-3.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-82-4.png" width="672" />
+
+An alternative approach might be to use a double square root function -- i.e., square root of positive values and square root of the opposite of the value for negative values (more on `if_else` in the coming weeks). However, that seems not to fully resolve the issue.
+
+
+```
+## Warning in sqrt(dep_delay): NaNs produced
+```
+
+```
+## Warning in sqrt(-dep_delay): NaNs produced
+```
+
+```
+## Warning in sqrt(arr_delay): NaNs produced
+```
+
+```
+## Warning in sqrt(-arr_delay): NaNs produced
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-83-1.png" width="672" />
+
+
+### Solutions 204.2 {-}
+
+**Question 204.2.1:** Is it possible to create a model linking housing type (`u086` to `u090`) to the number of people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs?
+
+
+
+There are five variables in the 2011OAC dataset related to housing type and two related to they type of commuting mentioned in the question (listed below). So, the first step is to extract and normalise those while also summing up the two variables related to commuting, as done in previous exercises.
+
+- `u086`: *Whole house or bungalow: Detached*
+- `u087`: *Whole house or bungalow: Semi-detached*
+- `u088`: *Whole house or bungalow: Terraced (including end-terrace)*
+- `u089`: *Flats*
+- `u090`: *Caravan or other mobile or temporary structure*
+- `u120`:	*Public Transport*
+- `u122`:	*On foot, Bicycle or Other*
+
+
+```r
+leicester_dwellings <-
+  leicester_2011OAC %>%
+  dplyr::select(
+    OA11CD, 
+    Total_Dwellings, 
+    Total_Pop_No_NI_Students_16_to_74,
+    u120, u122,
+    u086:u090
+  ) %>%
+  mutate(
+    # On foot, Bicycle or Other
+    # + Public Transport
+    perc_fbpt = 
+      ((u120 + u122) / 
+         Total_Pop_No_NI_Students_16_to_74) * 100
+  ) %>% 
+  dplyr::mutate(
+    dplyr::across( 
+      u086:u090,
+      #scale
+      function(x){ (x / Total_Dwellings) * 100 }
+    )
+  ) %>%
+  dplyr::rename(
+    perc_detached = u086,
+    perc_semidetached = u087,
+    perc_terraced = u088,
+    perc_flats = u089,   
+    perc_carava_tmp = u090
+  ) %>%
+  # Remove columns not needed anymore
+  select(
+    -Total_Dwellings, 
+    -Total_Pop_No_NI_Students_16_to_74,
+    -u120, -u122
+  ) %>% 
+  arrange(perc_fbpt)
+```
+
+We can then explore the relationships between the variables using a pairs panel.
+
+
+```r
+library(GGally)
+
+leicester_dwellings %>%
+  dplyr::select(perc_fbpt,perc_detached:perc_carava_tmp) %>%
+  GGally::ggpairs(
+    upper = list(continuous = wrap(ggally_cor, method = "kendall")),
+    lower = list(continuous = wrap("points", alpha = 0.3, size=0.1))
+  )
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-86-1.png" width="672" />
+
+The plot above illustrates how the variable related to commuting via foot, bicycle or public transport in Leicester is very skewed. The same applies to the variables related to housing type. At the same time, the presence of *Caravan or other mobile or temporary structure* seems minimal. As such, we can attempt to remove the latter, and *"un-skew"* the rest using a logarithmic function. As there are cases in which at least one of the variables has minimum zero, we can take this example to explore the use of the function $log_{10}(x+1)$ -- which shift the logaritmic function to the left, so that the result is zero for $x=0$.
+
+
+```r
+leicester_dwellings %<>%
+  dplyr::mutate(
+    dplyr::across(
+      c(perc_fbpt,perc_detached:perc_flats),
+      ~ log10(.x + 1)
+    )
+  ) %>%
+  dplyr::rename_with(
+    ~ paste0("log_", .x),
+    c(perc_fbpt,perc_detached:perc_flats)
+  )
+```
+
+
+```r
+leicester_dwellings %>%
+  dplyr::select(log_perc_fbpt,log_perc_detached:log_perc_flats) %>%
+  GGally::ggpairs(
+    upper = list(continuous = wrap(ggally_cor, method = "kendall")),
+    lower = list(continuous = wrap("points", alpha = 0.3, size=0.1))
+  )
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-88-1.png" width="672" />
+
+The plot above indicates a somewhat weak linear relationship between commuting via foot, bicycle or public transport and housing types. At the same time, there seems to be a clear relationship between semidetached houses and flats, which indicates a possible case of multicolinearity. Let's try include all the variables above into a model and double-check multicolinearity.afterwards.
+
+
+```r
+# Create model
+dwellings_model1 <- 
+  leicester_dwellings %$%
+  lm(
+    log_perc_fbpt ~ 
+      log_perc_detached + log_perc_semidetached + 
+      log_perc_terraced + log_perc_flats
+  )
+
+# Print summary
+dwellings_model1 %>%
+  summary()
+```
+
+```
+## 
+## Call:
+## lm(formula = log_perc_fbpt ~ log_perc_detached + log_perc_semidetached + 
+##     log_perc_terraced + log_perc_flats)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.42849 -0.06348  0.01066  0.06716  0.33209 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)            1.441188   0.023965  60.136  < 2e-16 ***
+## log_perc_detached     -0.097106   0.008704 -11.156  < 2e-16 ***
+## log_perc_semidetached -0.071241   0.009176  -7.763 2.10e-14 ***
+## log_perc_terraced      0.039661   0.006777   5.852 6.63e-09 ***
+## log_perc_flats         0.009618   0.007510   1.281    0.201    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.09989 on 964 degrees of freedom
+## Multiple R-squared:  0.3602,	Adjusted R-squared:  0.3576 
+## F-statistic: 135.7 on 4 and 964 DF,  p-value: < 2.2e-16
+```
+
+
+```r
+dwellings_model1 %>%
+  plot()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-90-1.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-90-2.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-90-3.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-90-4.png" width="672" />
+
+
+```r
+dwellings_model1 %>%
+  rstandard() %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.98718, p-value = 1.722e-07
+```
+
+
+```r
+dwellings_model1 %>% 
+  bptest()
+```
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 83.074, df = 4, p-value < 2.2e-16
+```
+
+
+```r
+dwellings_model1 %>%
+  dwtest()
+```
+
+```
+## 
+## 	Durbin-Watson test
+## 
+## data:  .
+## DW = 0.71231, p-value < 2.2e-16
+## alternative hypothesis: true autocorrelation is greater than 0
+```
+
+
+```r
+dwellings_model1 %>%
+  vif()
+```
+
+```
+##     log_perc_detached log_perc_semidetached     log_perc_terraced 
+##              1.313314              1.948536              1.129558 
+##        log_perc_flats 
+##              1.943342
+```
+
+Interestingly, the results above don't indicate a sigificant level or multicolinearity. However, the model is not robust. Also, we can see how the variable `log_perc_flats` is not significant in the model. Thus, we can try remove that variable and see whether there is any improvement.
+
+
+```r
+# Create model
+dwellings_model2 <- 
+  leicester_dwellings %$%
+  lm(
+    log_perc_fbpt ~ 
+      log_perc_detached + log_perc_semidetached + 
+      log_perc_terraced
+  )
+
+# Print summary
+dwellings_model2 %>%
+  summary()
+```
+
+```
+## 
+## Call:
+## lm(formula = log_perc_fbpt ~ log_perc_detached + log_perc_semidetached + 
+##     log_perc_terraced)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.42751 -0.06284  0.01012  0.06590  0.33884 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)            1.465339   0.014794  99.047  < 2e-16 ***
+## log_perc_detached     -0.099686   0.008471 -11.768  < 2e-16 ***
+## log_perc_semidetached -0.078462   0.007243 -10.833  < 2e-16 ***
+## log_perc_terraced      0.037686   0.006601   5.709 1.51e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.09992 on 965 degrees of freedom
+## Multiple R-squared:  0.3591,	Adjusted R-squared:  0.3571 
+## F-statistic: 180.3 on 3 and 965 DF,  p-value: < 2.2e-16
+```
+
+
+```r
+dwellings_model2 %>%
+  plot()
+```
+
+<img src="911-solutions_files/figure-html/unnamed-chunk-96-1.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-96-2.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-96-3.png" width="672" /><img src="911-solutions_files/figure-html/unnamed-chunk-96-4.png" width="672" />
+
+
+```r
+dwellings_model2 %>%
+  rstandard() %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.98751, p-value = 2.413e-07
+```
+
+
+```r
+dwellings_model2 %>% 
+  bptest()
+```
+
+```
+## 
+## 	studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 80.115, df = 3, p-value < 2.2e-16
+```
+
+
+```r
+dwellings_model2 %>%
+  dwtest()
+```
+
+```
+## 
+## 	Durbin-Watson test
+## 
+## data:  .
+## DW = 0.71123, p-value < 2.2e-16
+## alternative hypothesis: true autocorrelation is greater than 0
+```
+
+
+```r
+dwellings_model2 %>%
+  vif()
+```
+
+```
+##     log_perc_detached log_perc_semidetached     log_perc_terraced 
+##              1.242958              1.212989              1.071107
+```
+
+All the variables within the models are now significant. However, the $R^2$ is very low, indicating a very weak model. Moreover, the tests above indicate that the model is not robust.
+
+Thus, we can conclude that, no, it seem like it is not possible to create a model linking population density to housing type in Leicester.
+
+
 <!--
 
 ### Solutions 104.2 {-}

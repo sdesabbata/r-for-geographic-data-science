@@ -33,9 +33,11 @@ A model is considered **robust** if the residuals do not show particular trends,
 
 ### Simple regression example
 
-The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the `nycflights13` dataset for the flight on November 20th, 2013. The scatterplot below seems to indicate that the relationship is indeed linear.
+The example that we have seen in the lecture illustrated how simple regression can be used to create a model to predict the arrival delay based on the departure delay of a flight, based on the data available in the `nycflights13` dataset for the flight on November 20th, 2013. 
 
 $$arr\_delay_i = (Intercept + Coefficient_{dep\_delay} * dep\_delay_{i1}) + \epsilon_i $$
+
+The last line below arranges the table by arrival delay. It is advisable to give a meaningful order to the data (e.g., based on the outcome) before creating the model, in order to facilitate a robust execution of the Durbin-Watson test (see below).
 
 ```{r, echo=TRUE}
 # Load the library
@@ -48,18 +50,23 @@ flights_nov_20 <- flights %>%
     !is.na(arr_delay) &
     month == 11 &
     day ==20
-  ) 
+  ) %>% 
+  arrange(arr_delay)
 ```
 
+The scatterplot below seems to indicate that the relationship is indeed linear.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 flights_nov_20 %>%
-  ggplot(aes(
-    x = dep_delay, 
-    y = arr_delay)
+  ggplot(
+    aes(
+      x = dep_delay, 
+      y = arr_delay
+    )
   ) +
   geom_point() + 
-  coord_fixed(ratio = 1)
+  coord_fixed(ratio = 1) +
+  theme_bw()
 ```
 
 The code below generates the model using the function `lm`, and the function `summary` to obtain the summary of the results of the test. The model and summary are saved in the variables `delay_model` and `delay_model_summary`, respectively, for further use below. The variable `delay_model_summary` can then be called directly to visualise the result of the test.
@@ -160,6 +167,15 @@ delay_model %>%
   dwtest()
 ```
 
+The idea of autocorrelation of the residuals tested by the Durbin-Watson test can be illustrated using the lag plot below, where the standard residual of a case is compared to the standard residual of the previous case in the table. A clear patter in the plot would indicate that the residuals are not independent. In the plot below, no clear pattern is visible, thus reinforcing the results of the test above.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+delay_model %>%
+  rstandard() %>% 
+  lag.plot()
+```
+
+
 #### Plots
 
 The [`plot.lm` function](https://www.rdocumentation.org/packages/stats/versions/3.6.1/topics/plot.lm) can be used to further explore the residuals visuallly. Usage is illustrated below. The *Residuals vs Fitted* and *Scale-Location* plot provide an insight into the homoscedasticity of the residuals, the *Normal Q-Q* plot provides an illustration of the normality of the residuals, and the *Residuals vs Leverage* can be useful to identify exceptional cases (e.g., Cook's distance greater than 1).
@@ -194,6 +210,12 @@ library(stargazer)
 # Not rendered in bookdown
 stargazer(delay_model, header = FALSE)
 ```
+
+
+## Exercise 204.1
+
+**Question 204.1.1:** While linear regression modelling does not require the variables to be normally distributed, very skewed variables such as `dep_delay` and `arr_delay` might be a significant obstacle to a robust model. Is it possible to build a robust model using *"un-skewed"* variables?
+
 
 ## Multiple regression
 
@@ -242,7 +264,8 @@ leicester_2011OAC_transp <-
   rename_with(
     function(x){ paste0("perc_", x) },
     c(u121, u141:u158)
-  )
+  ) %>% 
+  arrange(perc_u121)
 ```
 
 Let's observe how all those variable relate to one another using a pairs plot.
@@ -327,9 +350,9 @@ library(lm.beta)
 lm.beta(commuting_model1)
 ```
 
-## Exercise 204.1
+## Exercise 204.2
 
-**Question 204.1.1:** ...
+**Question 204.2.1:** Is it possible to create a model linking population density to housing type in Leicester?
 
 
 ---

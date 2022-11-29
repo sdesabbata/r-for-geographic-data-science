@@ -113,10 +113,10 @@
 </h2>
 <p>Note that you can add sections to your code, such as the “Intro” section below by selecting Code &gt; Insert Section… from the top menu in RStudio. Those will then be visible on a right panel in the RStudio integrated editor if you select Code &gt; Show Document Outline from the top menu. Code sections can help to visually organise your code and the Document Outline allows you to select a section and jump to it in the code.</p>
 <p>The code below deletes all variable and function currently defined in the environment, which is generally good practice, to avoid your script interacting with objects left over from previous sessions.</p>
-<div class="sourceCode" id="cb423"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Load the necessary libraries.</p>
-<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the tidyverse</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
@@ -128,7 +128,7 @@
 <h3>Solutions 101.1<a class="anchor" aria-label="anchor" href="#solutions-101.1"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the logarithm to the base 10, takes the highest integer number lower than the calculated value (lower round), and verifies whether it is an integer.</p>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># calculate the logarithm to the base 10</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -139,14 +139,14 @@
 <span>  <span class="co"># The answer is FALSE</span></span>
 <span>  <span class="co"># as the value is still of type numeric</span></span>
 <span>  <span class="co"># rather than type integer</span></span></code></pre></div>
-<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The code below replicates the procedure above</span></span>
 <span><span class="co"># but checking the value data type</span></span>
 <span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># The code below replicates the procedure above</span></span>
 <span><span class="co"># but using as.integer to transfor the value</span></span>
 <span><span class="co"># to an integer type</span></span>
@@ -155,7 +155,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># As above but checking whether the value is an integer</span></span>
 <span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -163,7 +163,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.2:</strong> Write a piece of code using the pipe operator that takes as input the number <code>1632</code>, calculates the square root, takes the lowest integer number higher than the calculated value (higher round), and verifies whether it is an integer.</p>
-<div class="sourceCode" id="cb429"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">1632</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># calculate the square root</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -172,14 +172,14 @@
 <span>  <span class="co"># check whether it is an integer</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.3:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"1632"</code>, transforms it into a number, and checks whether the result is <em>Not a Number</em>.</p>
-<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"1632"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># transform it into a number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># check whether the result is Not a Number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.4:</strong> Write a piece of code using the pipe operator that takes as input the string <code>"-16.32"</code>, transforms it into a number, takes the absolute value and truncates it, and finally checks whether the result is <em>Not Available</em>.</p>
-<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="st">"-16.32"</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># transform it into a number</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -190,13 +190,13 @@
 <span>  <span class="co"># check whether the result is Not Available</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.5:</strong> Rewrite a piece of code below by substituting the last line with the function <code><a href="https://rdrr.io/r/base/mean.html">mean()</a></code>. What kind of result do you obtain? What does it represent?</p>
-<div class="sourceCode" id="cb432"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>The output is a numeric value representing the aritmetic mean (average) of all the petal lengths of flowers in the <code>iris</code> dataset.</p>
 <p><strong>Question 101.1.6:</strong> Further edit the code created for <em>Question 101.1.6</em> by substituting <code>Petal.Length</code> with <code>Petal.Width</code> first and <code>Species</code> then? What kind of results do you obtain? What do they mean?</p>
-<div class="sourceCode" id="cb433"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Width</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -213,12 +213,12 @@
 <h3>Solutions 102.1<a class="anchor" aria-label="anchor" href="#solutions-102.1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Extend the code in the script <code>practical-102_my-script-002.R</code> to include the code necessary to solve the questions below.</p>
-<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hadley/nycflights13">nycflights13</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 101.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the air time and the carrier, but only for flights starting from the JFK airport. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
-<div class="sourceCode" id="cb435"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
@@ -262,7 +262,7 @@
 </tbody>
 </table></div>
 <p><strong>Question 102.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay and the overall air time, but only for flights of October 12th. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
-<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
@@ -318,7 +318,7 @@
 </tbody>
 </table></div>
 <p><strong>Question 102.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use <code>slice_head</code> and <code>kable</code> to output a nicely-formatted table containing only the first 10 rows.</p>
-<div class="sourceCode" id="cb437"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Start from the entire dataset</span></span>
 <span><span class="va">flights</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Retain only the necessary columns</span></span>
@@ -379,7 +379,7 @@
 <p>Create an RMarkdown document in RStudio, using <em>Exercise 103</em> as title and <em>PDF</em> as output. Delete all the contents except the first five lines which compose the heading. Save the document as <code>practical-103_exercises.Rmd</code>. Add the libraries and code necessary to read the data from the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file. Create a first section of the document (e.g., adding a second heading <em>Exercise 103.1</em>) and add your answers to the questions below.</p>
 <p>In order to answer the questions below, inspect the <strong>look-up</strong> table <code>2011_OAC_Raw_uVariables_Lookup.csv</code> (e.g., using Microsoft Excel) to identify the columns necessary to complete the task.</p>
 <p><strong>Question 103.1.1:</strong> Identify the five variables which are part of the variable subdomain <em>Housing Type</em> and write the code necessary to compute the total number of household spaces in Leicester for each housing type.</p>
-<div class="sourceCode" id="cb438"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    u086_tot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">u086</span><span class="op">)</span>,</span>
@@ -406,7 +406,7 @@
 </tr></tbody>
 </table></div>
 <p><strong>Question 103.1.2:</strong> Write the code necessary to compute the total number of household spaces in Leicester for each housing type grouped by 2011 OAC supergroup.</p>
-<div class="sourceCode" id="cb439"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -494,7 +494,7 @@
 </tbody>
 </table></div>
 <p><strong>Question 103.1.3:</strong> Write the code necessary to compute the percentage of household spaces (i.e., over to the total number of household spaces) in Leicester for each housing type grouped by 2011 OAC supergroup.</p>
-<div class="sourceCode" id="cb440"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -609,7 +609,7 @@
 <h3>Solutions 104.1<a class="anchor" aria-label="anchor" href="#solutions-104.1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Extend the code in the script <code>Data_Wrangling_Example.R</code> (see code below) to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC thatcan be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
-<div class="sourceCode" id="cb441"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Data_Wrangling_Example.R </span></span>
 <span></span>
 <span><span class="co"># Load the tidyverse</span></span>
@@ -655,7 +655,7 @@
 <span>    by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"LSOA11CD"</span> <span class="op">=</span> <span class="st">"FeatureCode"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p><strong>Question 104.1.1:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations, but only accounting for areas classified as Cosmopolitans or Ethnicity Central or Multicultural Metropolitans.</p>
-<div class="sourceCode" id="cb442"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Cosmopolitans"</span>, <span class="st">"Ethnicity Central"</span>, <span class="st">"Multicultural Metropolitans"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -664,7 +664,7 @@
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 104.1.2:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related supergroup in the 2011 OAC, but only accounting for areas in the top 5 deciles of the Index of Multiple Deprivations.</p>
-<div class="sourceCode" id="cb443"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span> <span class="op">&lt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -673,7 +673,7 @@
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 104.1.3:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> library to generate a table showing the percentage of people aged 65 and above, calculated grouping OAs by the related supergroup in the 2011 OAC and decile of the Index of Multiple Deprivations, and ordering the table by the calculated value in a descending order.</p>
-<div class="sourceCode" id="cb444"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span> <span class="op">&lt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -684,7 +684,7 @@
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Extend the code in the script <code>Data_Wrangling_Example.R</code> to include the code necessary to solve the questions below.</p>
 <p><strong>Question 104.1.4:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> and <code>tidyr</code> libraries to generate a long format of the <code>leicester_2011OAC_IMD2015</code> table only including the values (census variables) used in <em>Question 104.1.3</em>.</p>
-<div class="sourceCode" id="cb445"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">long_table</span> <span class="op">&lt;-</span> <span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span>, <span class="va">u016</span>, <span class="va">u017</span>, <span class="va">u018</span>, <span class="va">u019</span>, <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span></span>
@@ -713,7 +713,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">7</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 104.1.5:</strong> Write a piece of code using the pipe operator and the <code>dplyr</code> and <code>tidyr</code> libraries to generate a table similar to the one generated for <em>Question 104.1.4</em>, but showing the values as percentages over total population.</p>
-<div class="sourceCode" id="cb446"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">perc_long_table</span> <span class="op">&lt;-</span> <span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">IndexofMultipleDeprivationIMD</span>, <span class="va">u016</span>, <span class="va">u017</span>, <span class="va">u018</span>, <span class="va">u019</span>, <span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -745,7 +745,7 @@
 </h3>
 <p>Open the <code>Leicester_population</code> project used in previous chapters and extend the <em>“Exploring deprivation indices in Leicester”</em> document to include the code necessary to solve the questions below. Use the full list of variable names from the 2011 UK Census used to generate the 2011 OAC that can be found in the file <code>2011_OAC_Raw_uVariables_Lookup.csv</code> to indetify which columns to use to complete the tasks.</p>
 <p><strong>Question 201.1.1:</strong> Write a piece of code to create a chart showing the percentage of EU citizens over total population for each decile of the Index of Multiple Deprivations</p>
-<div class="sourceCode" id="cb447"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -762,7 +762,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Alternatively.</p>
-<div class="sourceCode" id="cb448"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">IndexofMultipleDeprivationIMD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
@@ -788,7 +788,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_col</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 201.1.2:</strong> Write a piece of code to create a chart showing the relationship between the percentage of EU citizens over total population with the related score of the Index of Multiple Deprivations, and illustrating also the 2011 OAC class of each OA.</p>
-<div class="sourceCode" id="cb449"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use a similar code as used in Exercise 104</span></span>
 <span><span class="co"># but filtering in the Scores rather than the deciles</span></span>
 <span><span class="va">leicester_IMD2015_score_wide</span> <span class="op">&lt;-</span> <span class="va">leicester_IMD2015</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -840,7 +840,7 @@
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 201.1.3:</strong> Write a piece of code to create a chart showing the relationship between the percentage of people aged 65 and above with the related score of the Income Deprivation, and illustrating also the 2011 OAC class of each OA.</p>
-<div class="sourceCode" id="cb450"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_IMD2015_score</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    aged_65_above <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="va">u016</span> <span class="op">+</span> <span class="va">u017</span> <span class="op">+</span> <span class="va">u018</span> <span class="op">+</span> <span class="va">u019</span><span class="op">)</span> <span class="op">/</span> <span class="va">Total_Population</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
@@ -868,14 +868,14 @@
 <h3>Solutions 202.1<a class="anchor" aria-label="anchor" href="#solutions-202.1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Create a new RMarkdown document, and add the code necessary to recreate the table <code>leic_2011OAC_20to24</code> used in the example above. Use the code below to re-shape the table <code>leic_2011OAC_20to24</code> by pivoting the <code>perc_age_20_to_24</code> column wider into multiple columns using <code>supgrpname</code> as new column names.</p>
-<div class="sourceCode" id="cb451"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op">&lt;-</span> <span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
 <span>    names_from <span class="op">=</span> <span class="va">supgrpname</span>,</span>
 <span>    values_from <span class="op">=</span> <span class="va">perc_age_20_to_24</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>That manipulation creates one column per supergroup, containing the <code>perc_age_20_to_24</code> if the OA is part of that supergroup, or an <code>NA</code> value if the OA is not part of the supergroup. The transformation is illustrated in the two tables below. The first shows an extract from the original <code>leic_2011OAC_20to24</code> dataset, followed by the wide version <code>leic_2011OAC_20to24_supgrp</code>.</p>
-<div class="sourceCode" id="cb452"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
@@ -938,7 +938,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb453"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_min</a></span><span class="op">(</span><span class="va">OA11CD</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
@@ -1057,7 +1057,7 @@
 </tbody>
 </table></div>
 <p><strong>Question 202.1.1:</strong> The code below uses the newly created <code>leic_2011OAC_20to24_supgrp</code> table to calculate the descriptive statistics calculated for the variable <code>leic_2011OAC_20to24</code> for each supergroup. Is <code>leic_2011OAC_20to24</code> normally distributed in any of the subgroups? If yes, which supergroups and based on which values do you justify that claim? (Write up to 200 words)</p>
-<div class="sourceCode" id="cb454"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24_supgrp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">OA11CD</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span>norm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1287,7 +1287,7 @@
 </tbody>
 </table></div>
 <p>We can set a <em>p &lt; .01</em> threshold, which is reasonable for the number of cases in the dataset (hundreds, at least for some of the 2011OAC supergroups). We can claim that <code>leic_2011OAC_20to24</code> is normally distributed in the supergroups Suburbanites (SU), Cosmopolitans (CP), Constrained City Dwellers (CD) and Hard-Pressed Living (HP), as the <code>normtest.p</code> value is above <code>0.01</code>, which allows us to reject the null hypothesis. The variable <code>leic_2011OAC_20to24</code> seems instead not to be normally distributed for Multicultural Metropolitans (MM), Ethnicity Central (EC) and Urbanites (UR). That is also further illustrated by the graphs below.</p>
-<div class="sourceCode" id="cb455"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"SU"</span>, <span class="st">"CP"</span>, <span class="st">"CD"</span>, <span class="st">"HP"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
@@ -1308,7 +1308,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Normally distributed"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-34-1.png" width="480"></div>
-<div class="sourceCode" id="cb456"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MM"</span>, <span class="st">"EC"</span>, <span class="st">"UR"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
@@ -1331,7 +1331,7 @@
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-35-1.png" width="480"></div>
 <p><strong>Question 202.1.2:</strong> Write the code necessary to test again the normality of <code>leic_2011OAC_20to24</code> for the supergroups where the analysis conducted for Question 202.1.1 indicated they are normal, using the function <code>shapiro.test</code>, and draw the respective Q-Q plot.</p>
 <p>Example for Hard-Pressed Living (HP).</p>
-<div class="sourceCode" id="cb457"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb458"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">==</span> <span class="st">"HP"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">perc_age_20_to_24</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1341,7 +1341,7 @@
 ## 
 ## data:  .
 ## W = 0.99303, p-value = 0.8863</code></pre>
-<div class="sourceCode" id="cb459"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">==</span> <span class="st">"HP"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
@@ -1354,7 +1354,7 @@
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
 <p><strong>Question 202.1.3:</strong> Observe the output of the Levene’s test executed below. What does the result tell you about the variance of <code>perc_age_20_to_24</code> in supergroups?</p>
 <p>Note that the <code>leveneTest</code> was not designed to work with a Tidyverse approach. As such, the code below uses <a href="https://magrittr.tidyverse.org/#the-argument-placeholder">the <code>.</code> argument placeholder</a> to specify that the input table <code>leic_2011OAC_20to24</code> which is coming down from the pipe should be used as argument for the <code>data</code> parameter.</p>
-<div class="sourceCode" id="cb460"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb461"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leic_2011OAC_20to24</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/car/man/leveneTest.html">leveneTest</a></span><span class="op">(</span></span>
 <span>    <span class="va">perc_age_20_to_24</span> <span class="op">~</span> <span class="va">supgrpname</span>, </span>
@@ -1376,7 +1376,7 @@
 <h3>Solutions 203.1<a class="anchor" aria-label="anchor" href="#solutions-203.1"><i class="fas fa-link"></i></a>
 </h3>
 <p>Create a new RMarkdown document, and add the code necessary to oad the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset.</p>
-<div class="sourceCode" id="cb462"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
@@ -1385,7 +1385,7 @@
 <span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Question 203.1.1:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed into a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
 <p>Start from exploring the variable distribution.</p>
-<div class="sourceCode" id="cb463"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb464"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u020</span></span>
@@ -1394,7 +1394,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-41-1.png" width="672"></div>
-<div class="sourceCode" id="cb465"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb466"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    sample <span class="op">=</span> <span class="va">u020</span></span>
@@ -1403,7 +1403,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-42-1.png" width="672"></div>
-<div class="sourceCode" id="cb466"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb467"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1414,14 +1414,14 @@
 ## W = 0.9663, p-value = 3.476e-14</code></pre>
 <p>The variable <code>u020</code> is clearly not normally distributed, probably mostly due to a long tail on the right side.</p>
 <p>Thus, we can try transform the variable using a logarithmic transformation or a inverse hyperbolic sine transformation. Let’s try both.</p>
-<div class="sourceCode" id="cb468"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    log10_u020 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">u020</span><span class="op">)</span>,</span>
 <span>    ihs_u020 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="va">u020</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb469"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    sample <span class="op">=</span> <span class="va">log10_u020</span></span>
@@ -1430,7 +1430,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-45-1.png" width="672"></div>
-<div class="sourceCode" id="cb470"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb471"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">log10_u020</span></span>
@@ -1439,7 +1439,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-46-1.png" width="672"></div>
-<div class="sourceCode" id="cb472"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb473"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1448,7 +1448,7 @@
 ## 
 ## data:  .
 ## W = 0.99474, p-value = 0.001888</code></pre>
-<div class="sourceCode" id="cb474"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb475"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">ihs_u020</span></span>
@@ -1457,7 +1457,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-48-1.png" width="672"></div>
-<div class="sourceCode" id="cb476"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    sample <span class="op">=</span> <span class="va">ihs_u020</span></span>
@@ -1466,7 +1466,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">stat_qq_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-49-1.png" width="672"></div>
-<div class="sourceCode" id="cb477"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb478"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">ihs_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -1478,7 +1478,7 @@
 <p>Even using a logarithmic or inverse hyperbolic sine transformation, the variable <code>u020</code> is still not normally distributed. The <em>p</em>-values are higher compared to the original variable, but still well below the <span class="math inline">\(0.01\)</span> threshold. As visible in the charts, the transformed variables still show some level of long tails on both sides.</p>
 <p><strong>Question 203.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
 <p>Note how the code below pivotes the table to obtain one column per 2011OAC supergroup.</p>
-<div class="sourceCode" id="cb479"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -1578,7 +1578,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb480"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -1678,7 +1678,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb481"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">ihs_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span></span>
@@ -1782,7 +1782,7 @@
 <p><strong>Question 203.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
 <p>We use the variable transformed using a logarithmic transformation (which is easier to interpret than an inverse hyperbolic sine) and excluding the <em>Hard-Pressed Living</em> supergroup, to ensure that all groups taken into account are normally distributed. We can then test that using ANOVA.</p>
 <p>Let’s start with a boxplot, which can also be horizontal, if the nominal variable (categories) is provides for the <code>y</code> aesthetic and the continuous variable is provides for the <code>x</code> aesthetic. In the example below, that choice makes the 2011OAC supergroup names easier to read.</p>
-<div class="sourceCode" id="cb482"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">!=</span> <span class="st">"Hard-Pressed Living"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1795,7 +1795,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-54-1.png" width="672"></div>
-<div class="sourceCode" id="cb483"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb484"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">log10_u020_supgrpname_aov</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC_trans</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">supgrpname</span>, <span class="va">log10_u020</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -1816,7 +1816,7 @@
 </h3>
 <p><strong>Question 203.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
 <p>The first necessary step is to normalise the data using the variable statistical unit <code>Total_Household_Spaces</code> for <code>u089</code> and <code>Total_Pop_No_NI_Students_16_to_74</code> for <code>u122</code> as suggested by the lookup table.</p>
-<div class="sourceCode" id="cb485"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -1824,7 +1824,7 @@
 <span>    u122n <span class="op">=</span> <span class="op">(</span><span class="va">u122</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb486"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb487"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u089n</span></span>
@@ -1833,7 +1833,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-57-1.png" width="672"></div>
-<div class="sourceCode" id="cb488"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb489"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u122n</span></span>
@@ -1842,7 +1842,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-58-1.png" width="672"></div>
-<div class="sourceCode" id="cb490"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
@@ -1891,7 +1891,7 @@
 </tbody>
 </table></div>
 <p>The two plots and the table above indicate that the two variables are not normally distributed and left skewed. As such, we can try to apply a logarithmic transformation to both to try to <em>“un-skew”</em> them. Note how <code>rename_with</code> uses a <a href="https://purrr.tidyverse.org/articles/other-langs.html">purrr-style lamba</a> shorthand to to paste <code>log10_</code> in front of all column names.</p>
-<div class="sourceCode" id="cb491"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -1952,7 +1952,7 @@
 </tbody>
 </table></div>
 <p>The presence of <code>NaN</code> values in the <code>u089</code> column indicates that the variable includes zeros, for which the logarithm is not defined. As such, we can try using the inverse iperbolic sine.</p>
-<div class="sourceCode" id="cb492"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u089n</span>, <span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -2013,7 +2013,7 @@
 </tbody>
 </table></div>
 <p>The values are now not <code>NaN</code>, but still, the variables are not normally distributed. As such, we can not use Pearson’s r correlation, as one of the assumptions is not met. In first instance, we can use Spearman’s rho to assess their correlation.</p>
-<div class="sourceCode" id="cb493"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u089n</span>,</span>
@@ -2022,7 +2022,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-62-1.png" width="672"></div>
-<div class="sourceCode" id="cb494"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb495"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u089n_u122n_spearman</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
@@ -2031,7 +2031,7 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning in cor.test.default(u089n, u122n, method = "spearman"): Cannot compute
 ## exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb496"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb497"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u089n_u122n_spearman</span></span></code></pre></div>
 <pre><code>## 
 ##  Spearman's rank correlation rho
@@ -2043,7 +2043,7 @@
 ##       rho 
 ## 0.3932327</code></pre>
 <p>The output above includes the warning <code>Warning: Cannot compute exact p-value with ties</code>. As such, we need to check the number of ties in the dataset.</p>
-<div class="sourceCode" id="cb498"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb499"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u089n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2052,7 +2052,7 @@
 <pre><code>## Warning: `wt = n()` is deprecated
 ## ℹ You can now omit the `wt` argument</code></pre>
 <pre><code>## [1] 127</code></pre>
-<div class="sourceCode" id="cb501"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb502"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2062,7 +2062,7 @@
 ## ℹ You can now omit the `wt` argument</code></pre>
 <pre><code>## [1] 85</code></pre>
 <p>As the number of ties is sizable, the use of Kendall’s tau is advisable.</p>
-<div class="sourceCode" id="cb504"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb505"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u089n_u122n_kendall</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">flats_commuting</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
@@ -2083,7 +2083,7 @@
 <p>The test is significant (<em>p</em> &lt; .01), thus we can say that there is a relationship, which is however extremely weak. The value for tau is 0.27 indicating that the two variables share only 7.3% of variance.</p>
 <p><strong>Question 203.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
 <p>The procedure is similar to the one seen above. The variable <code>Total_Households</code> should be used to normalise <code>u118</code>. Importantly, as the question specifies <em>people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>)</em> we also need to sum <code>u120</code> and <code>u122</code> to account for <em>one or the other</em> (as <a href="https://www.ons.gov.uk/census/censustransformationprogramme/questiondevelopment/occupationindustryandtraveltoworkquestiondevelopmentforcensus2021">the answers in the census questions were mutually exclusive</a>, only one mode could be chosen)</p>
-<div class="sourceCode" id="cb506"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -2091,7 +2091,7 @@
 <span>    u120u122n <span class="op">=</span> <span class="op">(</span><span class="op">(</span><span class="va">u120</span> <span class="op">+</span> <span class="va">u122</span><span class="op">)</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">OA11CD</span>, <span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb507"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb508"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u118n</span></span>
@@ -2100,7 +2100,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-67-1.png" width="672"></div>
-<div class="sourceCode" id="cb509"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb510"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u120u122n</span></span>
@@ -2109,7 +2109,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-68-1.png" width="672"></div>
-<div class="sourceCode" id="cb511"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/pastecs/man/stat.desc.html">stat.desc</a></span><span class="op">(</span></span>
@@ -2158,7 +2158,7 @@
 </tbody>
 </table></div>
 <p>Again, both variables as not normally distributed. Thus, we can try to use a logarithmic transformation to try <em>“un-skew”</em> them.</p>
-<div class="sourceCode" id="cb512"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -2219,7 +2219,7 @@
 </tbody>
 </table></div>
 <p>Again, <code>u118n</code> includes some zero value, thus producing <code>NaN</code> values in the table above. As such, we can try using the inverse hyperbolic sine.</p>
-<div class="sourceCode" id="cb513"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">u118n</span>, <span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -2280,7 +2280,7 @@
 </tbody>
 </table></div>
 <p>Note how <code>ihs_u120u122n</code> is normally distributed, but <code>ihs_u118n</code> is not normally distributed. So, again we can’t use Pearson’s r correlation, and we resort to use Spearman’s rho.</p>
-<div class="sourceCode" id="cb514"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="va">u118n</span>,</span>
@@ -2289,7 +2289,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-72-1.png" width="672"></div>
-<div class="sourceCode" id="cb515"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb516"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u118n_u120u122n_spearman</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
@@ -2298,7 +2298,7 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning in cor.test.default(u118n, u120u122n, method = "spearman"): Cannot
 ## compute exact p-value with ties</code></pre>
-<div class="sourceCode" id="cb517"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb518"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u118n_u120u122n_spearman</span></span></code></pre></div>
 <pre><code>## 
 ##  Spearman's rank correlation rho
@@ -2310,7 +2310,7 @@
 ##        rho 
 ## -0.4320643</code></pre>
 <p>Note how the Spearman’s rho statistic is negative, indicating an inverse relationship between the to variables. That is a first indication that the more households with 2 or more cars or vans, the fewer people commute to work via public transport or on foot, bicycle or other similar means. However, again, the functions return the warning <code>Warning: Cannot compute exact p-value with ties</code>.</p>
-<div class="sourceCode" id="cb519"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb520"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u118n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2319,7 +2319,7 @@
 <pre><code>## Warning: `wt = n()` is deprecated
 ## ℹ You can now omit the `wt` argument</code></pre>
 <pre><code>## [1] 115</code></pre>
-<div class="sourceCode" id="cb522"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb523"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">u120u122n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">n</span> <span class="op">&gt;</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2329,7 +2329,7 @@
 ## ℹ You can now omit the `wt` argument</code></pre>
 <pre><code>## [1] 83</code></pre>
 <p>Again, the dataset contains a sizable number of ties, thus the use of Kendall’s tau is advisable.</p>
-<div class="sourceCode" id="cb525"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb526"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u118n_u120u122n_kendall</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">cas_vs_not_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
@@ -2348,6 +2348,328 @@
 ##        tau 
 ## -0.3065051</code></pre>
 <p>The test is significant (<em>p</em> &lt; .01), thus we can say that there is an inverse relationship, which is however very weak. The value for tau is -0.307 indicating that the two variables share only 9.4% of variance.</p>
+</div>
+</div>
+<div id="solutions-204" class="section level2 unnumbered">
+<h2>Solutions 204<a class="anchor" aria-label="anchor" href="#solutions-204"><i class="fas fa-link"></i></a>
+</h2>
+<div id="solutions-204.1" class="section level3 unnumbered">
+<h3>Solutions 204.1<a class="anchor" aria-label="anchor" href="#solutions-204.1"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Question 204.1.1:</strong> While linear regression modelling does not require the variables to be normally distributed, very skewed variables such as <code>dep_delay</code> and <code>arr_delay</code> might be a significant obstacle to a robust model. Is it possible to build a robust model using <em>“un-skewed”</em> variables?</p>
+<p>As both variables, we can use the inverse hyperbolic sine (<code>asinh</code>) to <em>“un-skew”</em> the variables. However, as illustrated by the plot below, that <em>“expands”</em> the area around the origin of the two axis to the point that the linear relationship might be lost.</p>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-77-1.png" width="672"></div>
+<p>We can still try build a model. However, as illustrated below, the relaionship has become very weak, and the model is still not robust.</p>
+<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op">&lt;-</span> <span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    ihs_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="op">-</span><span class="va">dep_delay</span><span class="op">)</span>,</span>
+<span>    ihs_arr_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="op">-</span><span class="va">arr_delay</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">ihs_dep_delay</span> <span class="op">~</span> <span class="va">ihs_arr_delay</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">delay_model_summary_2</span> <span class="op">&lt;-</span> <span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">delay_model_summary_2</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ihs_dep_delay ~ ihs_arr_delay)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.4610 -1.0106  0.2507  0.9211  4.1417 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    0.39881    0.06441   6.192 8.75e-10 ***
+## ihs_arr_delay  0.48274    0.01930  25.006  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.885 on 972 degrees of freedom
+## Multiple R-squared:  0.3915, Adjusted R-squared:  0.3909 
+## F-statistic: 625.3 on 1 and 972 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96798, p-value = 8.19e-14</code></pre>
+<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 230.08, df = 1, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Durbin-Watson test
+## 
+## data:  .
+## DW = 1.7535, p-value = 5.175e-05
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="911-solutions_files/figure-html/unnamed-chunk-82-1.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-82-2.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-82-3.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-82-4.png" width="672"></p>
+<p>An alternative approach might be to use a double square root function – i.e., square root of positive values and square root of the opposite of the value for negative values (more on <code>if_else</code> in the coming weeks). However, that seems not to fully resolve the issue.</p>
+<pre><code>## Warning in sqrt(dep_delay): NaNs produced</code></pre>
+<pre><code>## Warning in sqrt(-dep_delay): NaNs produced</code></pre>
+<pre><code>## Warning in sqrt(arr_delay): NaNs produced</code></pre>
+<pre><code>## Warning in sqrt(-arr_delay): NaNs produced</code></pre>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-83-1.png" width="672"></div>
+</div>
+<div id="solutions-204.2" class="section level3 unnumbered">
+<h3>Solutions 204.2<a class="anchor" aria-label="anchor" href="#solutions-204.2"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Question 204.2.1:</strong> Is it possible to create a model linking housing type (<code>u086</code> to <code>u090</code>) to the number of people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs?</p>
+<p>There are five variables in the 2011OAC dataset related to housing type and two related to they type of commuting mentioned in the question (listed below). So, the first step is to extract and normalise those while also summing up the two variables related to commuting, as done in previous exercises.</p>
+<ul>
+<li>
+<code>u086</code>: <em>Whole house or bungalow: Detached</em>
+</li>
+<li>
+<code>u087</code>: <em>Whole house or bungalow: Semi-detached</em>
+</li>
+<li>
+<code>u088</code>: <em>Whole house or bungalow: Terraced (including end-terrace)</em>
+</li>
+<li>
+<code>u089</code>: <em>Flats</em>
+</li>
+<li>
+<code>u090</code>: <em>Caravan or other mobile or temporary structure</em>
+</li>
+<li>
+<code>u120</code>: <em>Public Transport</em>
+</li>
+<li>
+<code>u122</code>: <em>On foot, Bicycle or Other</em>
+</li>
+</ul>
+<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_dwellings</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">OA11CD</span>, </span>
+<span>    <span class="va">Total_Dwellings</span>, </span>
+<span>    <span class="va">Total_Pop_No_NI_Students_16_to_74</span>,</span>
+<span>    <span class="va">u120</span>, <span class="va">u122</span>,</span>
+<span>    <span class="va">u086</span><span class="op">:</span><span class="va">u090</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="co"># On foot, Bicycle or Other</span></span>
+<span>    <span class="co"># + Public Transport</span></span>
+<span>    perc_fbpt <span class="op">=</span> </span>
+<span>      <span class="op">(</span><span class="op">(</span><span class="va">u120</span> <span class="op">+</span> <span class="va">u122</span><span class="op">)</span> <span class="op">/</span> </span>
+<span>         <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span> </span>
+<span>      <span class="va">u086</span><span class="op">:</span><span class="va">u090</span>,</span>
+<span>      <span class="co">#scale</span></span>
+<span>      <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span> <span class="op">(</span><span class="va">x</span> <span class="op">/</span> <span class="va">Total_Dwellings</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span> <span class="op">}</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span></span>
+<span>    perc_detached <span class="op">=</span> <span class="va">u086</span>,</span>
+<span>    perc_semidetached <span class="op">=</span> <span class="va">u087</span>,</span>
+<span>    perc_terraced <span class="op">=</span> <span class="va">u088</span>,</span>
+<span>    perc_flats <span class="op">=</span> <span class="va">u089</span>,   </span>
+<span>    perc_carava_tmp <span class="op">=</span> <span class="va">u090</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="co"># Remove columns not needed anymore</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="op">-</span><span class="va">Total_Dwellings</span>, </span>
+<span>    <span class="op">-</span><span class="va">Total_Pop_No_NI_Students_16_to_74</span>,</span>
+<span>    <span class="op">-</span><span class="va">u120</span>, <span class="op">-</span><span class="va">u122</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">perc_fbpt</span><span class="op">)</span></span></code></pre></div>
+<p>We can then explore the relationships between the variables using a pairs panel.</p>
+<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_fbpt</span>,<span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_carava_tmp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span></span>
+<span>    upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-86-1.png" width="672"></div>
+<p>The plot above illustrates how the variable related to commuting via foot, bicycle or public transport in Leicester is very skewed. The same applies to the variables related to housing type. At the same time, the presence of <em>Caravan or other mobile or temporary structure</em> seems minimal. As such, we can attempt to remove the latter, and <em>“un-skew”</em> the rest using a logarithmic function. As there are cases in which at least one of the variables has minimum zero, we can take this example to explore the use of the function <span class="math inline">\(log_{10}(x+1)\)</span> – which shift the logaritmic function to the left, so that the result is zero for <span class="math inline">\(x=0\)</span>.</p>
+<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">perc_fbpt</span>,<span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_flats</span><span class="op">)</span>,</span>
+<span>      <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="va">.x</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename_with</a></span><span class="op">(</span></span>
+<span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"log_"</span>, <span class="va">.x</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">perc_fbpt</span>,<span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_flats</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">log_perc_fbpt</span>,<span class="va">log_perc_detached</span><span class="op">:</span><span class="va">log_perc_flats</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span></span>
+<span>    upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-88-1.png" width="672"></div>
+<p>The plot above indicates a somewhat weak linear relationship between commuting via foot, bicycle or public transport and housing types. At the same time, there seems to be a clear relationship between semidetached houses and flats, which indicates a possible case of multicolinearity. Let’s try include all the variables above into a model and double-check multicolinearity.afterwards.</p>
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create model</span></span>
+<span><span class="va">dwellings_model1</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span></span>
+<span>    <span class="va">log_perc_fbpt</span> <span class="op">~</span> </span>
+<span>      <span class="va">log_perc_detached</span> <span class="op">+</span> <span class="va">log_perc_semidetached</span> <span class="op">+</span> </span>
+<span>      <span class="va">log_perc_terraced</span> <span class="op">+</span> <span class="va">log_perc_flats</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print summary</span></span>
+<span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_perc_fbpt ~ log_perc_detached + log_perc_semidetached + 
+##     log_perc_terraced + log_perc_flats)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.42849 -0.06348  0.01066  0.06716  0.33209 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.441188   0.023965  60.136  &lt; 2e-16 ***
+## log_perc_detached     -0.097106   0.008704 -11.156  &lt; 2e-16 ***
+## log_perc_semidetached -0.071241   0.009176  -7.763 2.10e-14 ***
+## log_perc_terraced      0.039661   0.006777   5.852 6.63e-09 ***
+## log_perc_flats         0.009618   0.007510   1.281    0.201    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.09989 on 964 degrees of freedom
+## Multiple R-squared:  0.3602, Adjusted R-squared:  0.3576 
+## F-statistic: 135.7 on 4 and 964 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="911-solutions_files/figure-html/unnamed-chunk-90-1.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-90-2.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-90-3.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-90-4.png" width="672"></p>
+<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.98718, p-value = 1.722e-07</code></pre>
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 83.074, df = 4, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Durbin-Watson test
+## 
+## data:  .
+## DW = 0.71231, p-value &lt; 2.2e-16
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##     log_perc_detached log_perc_semidetached     log_perc_terraced 
+##              1.313314              1.948536              1.129558 
+##        log_perc_flats 
+##              1.943342</code></pre>
+<p>Interestingly, the results above don’t indicate a sigificant level or multicolinearity. However, the model is not robust. Also, we can see how the variable <code>log_perc_flats</code> is not significant in the model. Thus, we can try remove that variable and see whether there is any improvement.</p>
+<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create model</span></span>
+<span><span class="va">dwellings_model2</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span></span>
+<span>    <span class="va">log_perc_fbpt</span> <span class="op">~</span> </span>
+<span>      <span class="va">log_perc_detached</span> <span class="op">+</span> <span class="va">log_perc_semidetached</span> <span class="op">+</span> </span>
+<span>      <span class="va">log_perc_terraced</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print summary</span></span>
+<span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_perc_fbpt ~ log_perc_detached + log_perc_semidetached + 
+##     log_perc_terraced)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.42751 -0.06284  0.01012  0.06590  0.33884 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)            1.465339   0.014794  99.047  &lt; 2e-16 ***
+## log_perc_detached     -0.099686   0.008471 -11.768  &lt; 2e-16 ***
+## log_perc_semidetached -0.078462   0.007243 -10.833  &lt; 2e-16 ***
+## log_perc_terraced      0.037686   0.006601   5.709 1.51e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.09992 on 965 degrees of freedom
+## Multiple R-squared:  0.3591, Adjusted R-squared:  0.3571 
+## F-statistic: 180.3 on 3 and 965 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="911-solutions_files/figure-html/unnamed-chunk-96-1.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-96-2.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-96-3.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-96-4.png" width="672"></p>
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.98751, p-value = 2.413e-07</code></pre>
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  .
+## BP = 80.115, df = 3, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Durbin-Watson test
+## 
+## data:  .
+## DW = 0.71123, p-value &lt; 2.2e-16
+## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
+<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##     log_perc_detached log_perc_semidetached     log_perc_terraced 
+##              1.242958              1.212989              1.071107</code></pre>
+<p>All the variables within the models are now significant. However, the <span class="math inline">\(R^2\)</span> is very low, indicating a very weak model. Moreover, the tests above indicate that the model is not robust.</p>
+<p>Thus, we can conclude that, no, it seem like it is not possible to create a model linking population density to housing type in Leicester.</p>
 <!--
 
 ### Solutions 104.2 {-}
@@ -2645,6 +2967,12 @@ silly_function(cities, 1:3)
 <li><a class="nav-link" href="#solutions-203.2">Solutions 203.2</a></li>
 </ul>
 </li>
+<li>
+<a class="nav-link" href="#solutions-204">Solutions 204</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#solutions-204.1">Solutions 204.1</a></li>
+<li><a class="nav-link" href="#solutions-204.2">Solutions 204.2</a></li>
+</ul>
+</li>
 </ul>
 
       <div class="book-extra">
@@ -2662,7 +2990,7 @@ silly_function(cities, 1:3)
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-28.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

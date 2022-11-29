@@ -82,9 +82,10 @@ homoscedasticity
 independence
 plots
 how-to-report-a-simple-regression
+exercise-204.1
 multiple-regression
 multiple-regression-example
-exercise-204.1
+exercise-204.2
 supervised-machine-learning
 confusion-matrices
 urban-and-rural-population-density

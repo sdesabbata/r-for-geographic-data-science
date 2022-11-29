@@ -1231,6 +1231,305 @@ u118n_u120u122n_kendall
 
 The test is significant (*p* < .01), thus we can say that there is an inverse relationship, which is however very weak. The value for tau is `r (u118n_u120u122n_kendall$estimate) %>% round(digits = 3)` indicating that the two variables share only `r ((u118n_u120u122n_kendall$estimate ^ 2) * 100) %>% round(digits = 1)`% of variance.
 
+
+## Solutions 204 {-}
+
+### Solutions 204.1 {-}
+
+**Question 204.1.1:** While linear regression modelling does not require the variables to be normally distributed, very skewed variables such as `dep_delay` and `arr_delay` might be a significant obstacle to a robust model. Is it possible to build a robust model using *"un-skewed"* variables?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(magrittr)
+library(lmtest)
+library(nycflights13)
+
+# November 20th, 2013
+flights_nov_20 <- flights %>%
+  filter(
+    !is.na(dep_delay) &
+    !is.na(arr_delay) &
+    month == 11 &
+    day ==20
+  ) %>% 
+  arrange(arr_delay)
+```
+
+As both variables, we can use the inverse hyperbolic sine (`asinh`) to *"un-skew"* the variables. However, as illustrated by the plot below, that *"expands"* the area around the origin of the two axis to the point that the linear relationship might be lost.
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 7, fig.height = 7}
+flights_nov_20 %>%
+  mutate(
+    ihs_dep_delay = asinh(-dep_delay),
+    ihs_arr_delay = asinh(-arr_delay)
+  ) %>%
+  ggplot(
+    aes(
+      x = ihs_dep_delay, 
+      y = ihs_arr_delay
+    )
+  ) +
+  geom_point() + 
+  coord_fixed(ratio = 1) +
+  theme_bw()
+```
+
+We can still try build a model. However, as illustrated below, the relaionship has become very weak, and the model is still not robust.
+
+```{r, message=FALSE, warning=FALSE}
+delay_model_2 <- flights_nov_20 %>% 
+  mutate(
+    ihs_dep_delay = asinh(-dep_delay),
+    ihs_arr_delay = asinh(-arr_delay)
+  ) %$%
+  lm(ihs_dep_delay ~ ihs_arr_delay) 
+
+delay_model_summary_2 <- delay_model_2 %>%
+  summary()
+
+delay_model_summary_2
+```
+
+```{r}
+delay_model_2 %>% 
+  rstandard() %>% 
+  shapiro.test()
+```
+
+```{r}
+delay_model_2 %>% 
+  bptest()
+```
+
+```{r}
+delay_model_2 %>%
+  dwtest()
+```
+
+```{r}
+delay_model_2 %>% 
+  plot()
+```
+
+An alternative approach might be to use a double square root function -- i.e., square root of positive values and square root of the opposite of the value for negative values (more on `if_else` in the coming weeks). However, that seems not to fully resolve the issue.
+
+```{r, echo=FALSE, fig.width = 7, fig.height = 7}
+flights_nov_20 %>%
+  mutate(
+    sqrt_dep_delay = 
+      if_else(
+        dep_delay >= 0, 
+        sqrt(dep_delay), 
+        (-1 * sqrt(-dep_delay)
+      )
+    ),
+    sqrt_arr_delay = 
+      if_else(
+        arr_delay >= 0, 
+        sqrt(arr_delay), 
+        (-1 * sqrt(-arr_delay)
+      )
+    )
+  ) %>%
+  ggplot(
+    aes(
+      x = sqrt_dep_delay, 
+      y = sqrt_dep_delay
+    )
+  ) +
+  geom_point() + 
+  coord_fixed(ratio = 1) +
+  theme_bw()
+```
+
+
+### Solutions 204.2 {-}
+
+**Question 204.2.1:** Is it possible to create a model linking housing type (`u086` to `u090`) to the number of people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs?
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(car)
+library(lmtest)
+```
+
+There are five variables in the 2011OAC dataset related to housing type and two related to they type of commuting mentioned in the question (listed below). So, the first step is to extract and normalise those while also summing up the two variables related to commuting, as done in previous exercises.
+
+- `u086`: *Whole house or bungalow: Detached*
+- `u087`: *Whole house or bungalow: Semi-detached*
+- `u088`: *Whole house or bungalow: Terraced (including end-terrace)*
+- `u089`: *Flats*
+- `u090`: *Caravan or other mobile or temporary structure*
+- `u120`:	*Public Transport*
+- `u122`:	*On foot, Bicycle or Other*
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+leicester_dwellings <-
+  leicester_2011OAC %>%
+  dplyr::select(
+    OA11CD, 
+    Total_Dwellings, 
+    Total_Pop_No_NI_Students_16_to_74,
+    u120, u122,
+    u086:u090
+  ) %>%
+  mutate(
+    # On foot, Bicycle or Other
+    # + Public Transport
+    perc_fbpt = 
+      ((u120 + u122) / 
+         Total_Pop_No_NI_Students_16_to_74) * 100
+  ) %>% 
+  dplyr::mutate(
+    dplyr::across( 
+      u086:u090,
+      #scale
+      function(x){ (x / Total_Dwellings) * 100 }
+    )
+  ) %>%
+  dplyr::rename(
+    perc_detached = u086,
+    perc_semidetached = u087,
+    perc_terraced = u088,
+    perc_flats = u089,   
+    perc_carava_tmp = u090
+  ) %>%
+  # Remove columns not needed anymore
+  select(
+    -Total_Dwellings, 
+    -Total_Pop_No_NI_Students_16_to_74,
+    -u120, -u122
+  ) %>% 
+  arrange(perc_fbpt)
+```
+
+We can then explore the relationships between the variables using a pairs panel.
+
+```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+library(GGally)
+
+leicester_dwellings %>%
+  dplyr::select(perc_fbpt,perc_detached:perc_carava_tmp) %>%
+  GGally::ggpairs(
+    upper = list(continuous = wrap(ggally_cor, method = "kendall")),
+    lower = list(continuous = wrap("points", alpha = 0.3, size=0.1))
+  )
+```
+
+The plot above illustrates how the variable related to commuting via foot, bicycle or public transport in Leicester is very skewed. The same applies to the variables related to housing type. At the same time, the presence of *Caravan or other mobile or temporary structure* seems minimal. As such, we can attempt to remove the latter, and *"un-skew"* the rest using a logarithmic function. As there are cases in which at least one of the variables has minimum zero, we can take this example to explore the use of the function $log_{10}(x+1)$ -- which shift the logaritmic function to the left, so that the result is zero for $x=0$.
+
+```{r, message=FALSE, warning=FALSE}
+leicester_dwellings %<>%
+  dplyr::mutate(
+    dplyr::across(
+      c(perc_fbpt,perc_detached:perc_flats),
+      ~ log10(.x + 1)
+    )
+  ) %>%
+  dplyr::rename_with(
+    ~ paste0("log_", .x),
+    c(perc_fbpt,perc_detached:perc_flats)
+  )
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+leicester_dwellings %>%
+  dplyr::select(log_perc_fbpt,log_perc_detached:log_perc_flats) %>%
+  GGally::ggpairs(
+    upper = list(continuous = wrap(ggally_cor, method = "kendall")),
+    lower = list(continuous = wrap("points", alpha = 0.3, size=0.1))
+  )
+```
+
+The plot above indicates a somewhat weak linear relationship between commuting via foot, bicycle or public transport and housing types. At the same time, there seems to be a clear relationship between semidetached houses and flats, which indicates a possible case of multicolinearity. Let's try include all the variables above into a model and double-check multicolinearity.afterwards.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Create model
+dwellings_model1 <- 
+  leicester_dwellings %$%
+  lm(
+    log_perc_fbpt ~ 
+      log_perc_detached + log_perc_semidetached + 
+      log_perc_terraced + log_perc_flats
+  )
+
+# Print summary
+dwellings_model1 %>%
+  summary()
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+dwellings_model1 %>%
+  plot()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model1 %>%
+  rstandard() %>% 
+  shapiro.test()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model1 %>% 
+  bptest()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model1 %>%
+  dwtest()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model1 %>%
+  vif()
+```
+
+Interestingly, the results above don't indicate a sigificant level or multicolinearity. However, the model is not robust. Also, we can see how the variable `log_perc_flats` is not significant in the model. Thus, we can try remove that variable and see whether there is any improvement.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Create model
+dwellings_model2 <- 
+  leicester_dwellings %$%
+  lm(
+    log_perc_fbpt ~ 
+      log_perc_detached + log_perc_semidetached + 
+      log_perc_terraced
+  )
+
+# Print summary
+dwellings_model2 %>%
+  summary()
+```
+
+```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+dwellings_model2 %>%
+  plot()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model2 %>%
+  rstandard() %>% 
+  shapiro.test()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model2 %>% 
+  bptest()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model2 %>%
+  dwtest()
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+dwellings_model2 %>%
+  vif()
+```
+
+All the variables within the models are now significant. However, the $R^2$ is very low, indicating a very weak model. Moreover, the tests above indicate that the model is not robust.
+
+Thus, we can conclude that, no, it seem like it is not possible to create a model linking population density to housing type in Leicester.
+
+
 <!--
 
 ### Solutions 104.2 {-}
