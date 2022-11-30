@@ -2358,9 +2358,24 @@
 </h3>
 <p><strong>Question 204.1.1:</strong> While linear regression modelling does not require the variables to be normally distributed, very skewed variables such as <code>dep_delay</code> and <code>arr_delay</code> might be a significant obstacle to a robust model. Is it possible to build a robust model using <em>“un-skewed”</em> variables?</p>
 <p>As both variables, we can use the inverse hyperbolic sine (<code>asinh</code>) to <em>“un-skew”</em> the variables. However, as illustrated by the plot below, that <em>“expands”</em> the area around the origin of the two axis to the point that the linear relationship might be lost.</p>
+<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    ihs_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="op">-</span><span class="va">dep_delay</span><span class="op">)</span>,</span>
+<span>    ihs_arr_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="op">-</span><span class="va">arr_delay</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">ihs_dep_delay</span>, </span>
+<span>      y <span class="op">=</span> <span class="va">ihs_arr_delay</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span>ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-77-1.png" width="672"></div>
 <p>We can still try build a model. However, as illustrated below, the relaionship has become very weak, and the model is still not robust.</p>
-<div class="sourceCode" id="cb528"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb529"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op">&lt;-</span> <span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    ihs_dep_delay <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Hyperbolic.html">asinh</a></span><span class="op">(</span><span class="op">-</span><span class="va">dep_delay</span><span class="op">)</span>,</span>
@@ -2390,7 +2405,7 @@
 ## Residual standard error: 1.885 on 972 degrees of freedom
 ## Multiple R-squared:  0.3915, Adjusted R-squared:  0.3909 
 ## F-statistic: 625.3 on 1 and 972 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb530"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb531"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -2399,7 +2414,7 @@
 ## 
 ## data:  .
 ## W = 0.96798, p-value = 8.19e-14</code></pre>
-<div class="sourceCode" id="cb532"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb533"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -2407,7 +2422,7 @@
 ## 
 ## data:  .
 ## BP = 230.08, df = 1, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb534"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb535"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -2416,15 +2431,38 @@
 ## data:  .
 ## DW = 1.7535, p-value = 5.175e-05
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb536"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb537"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">delay_model_2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="911-solutions_files/figure-html/unnamed-chunk-82-1.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-82-2.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-82-3.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-82-4.png" width="672"></p>
 <p>An alternative approach might be to use a double square root function – i.e., square root of positive values and square root of the opposite of the value for negative values (more on <code>if_else</code> in the coming weeks). However, that seems not to fully resolve the issue.</p>
-<pre><code>## Warning in sqrt(dep_delay): NaNs produced</code></pre>
-<pre><code>## Warning in sqrt(-dep_delay): NaNs produced</code></pre>
-<pre><code>## Warning in sqrt(arr_delay): NaNs produced</code></pre>
-<pre><code>## Warning in sqrt(-arr_delay): NaNs produced</code></pre>
+<div class="sourceCode" id="cb538"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">flights_nov_20</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    sqrt_dep_delay <span class="op">=</span> </span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
+<span>        <span class="va">dep_delay</span> <span class="op">&gt;=</span> <span class="fl">0</span>, </span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">dep_delay</span><span class="op">)</span>, </span>
+<span>        <span class="op">(</span><span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">-</span><span class="va">dep_delay</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    sqrt_arr_delay <span class="op">=</span> </span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html">if_else</a></span><span class="op">(</span></span>
+<span>        <span class="va">arr_delay</span> <span class="op">&gt;=</span> <span class="fl">0</span>, </span>
+<span>        <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span>, </span>
+<span>        <span class="op">(</span><span class="op">-</span><span class="fl">1</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">-</span><span class="va">arr_delay</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">sqrt_dep_delay</span>, </span>
+<span>      y <span class="op">=</span> <span class="va">sqrt_arr_delay</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html">coord_fixed</a></span><span class="op">(</span>ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-83-1.png" width="672"></div>
 </div>
 <div id="solutions-204.2" class="section level3 unnumbered">
@@ -2455,7 +2493,7 @@
 <code>u122</code>: <em>On foot, Bicycle or Other</em>
 </li>
 </ul>
-<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb539"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_dwellings</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
@@ -2494,7 +2532,7 @@
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">perc_fbpt</span><span class="op">)</span></span></code></pre></div>
 <p>We can then explore the relationships between the variables using a pairs panel.</p>
-<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb540"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -2505,7 +2543,7 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-86-1.png" width="672"></div>
 <p>The plot above illustrates how the variable related to commuting via foot, bicycle or public transport in Leicester is very skewed. The same applies to the variables related to housing type. At the same time, the presence of <em>Caravan or other mobile or temporary structure</em> seems minimal. As such, we can attempt to remove the latter, and <em>“un-skew”</em> the rest using a logarithmic function. As there are cases in which at least one of the variables has minimum zero, we can take this example to explore the use of the function <span class="math inline">\(log_{10}(x+1)\)</span> – which shift the logaritmic function to the left, so that the result is zero for <span class="math inline">\(x=0\)</span>.</p>
-<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb541"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/compound.html">%&lt;&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
@@ -2517,7 +2555,7 @@
 <span>    <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"log_"</span>, <span class="va">.x</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">perc_fbpt</span>,<span class="va">perc_detached</span><span class="op">:</span><span class="va">perc_flats</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb544"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb542"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">log_perc_fbpt</span>,<span class="va">log_perc_detached</span><span class="op">:</span><span class="va">log_perc_flats</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">GGally</span><span class="fu">::</span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span></span>
@@ -2526,7 +2564,7 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="911-solutions_files/figure-html/unnamed-chunk-88-1.png" width="672"></div>
 <p>The plot above indicates a somewhat weak linear relationship between commuting via foot, bicycle or public transport and housing types. At the same time, there seems to be a clear relationship between semidetached houses and flats, which indicates a possible case of multicolinearity. Let’s try include all the variables above into a model and double-check multicolinearity.afterwards.</p>
-<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb543"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create model</span></span>
 <span><span class="va">dwellings_model1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
@@ -2561,11 +2599,11 @@
 ## Residual standard error: 0.09989 on 964 degrees of freedom
 ## Multiple R-squared:  0.3602, Adjusted R-squared:  0.3576 
 ## F-statistic: 135.7 on 4 and 964 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb547"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb545"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="911-solutions_files/figure-html/unnamed-chunk-90-1.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-90-2.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-90-3.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-90-4.png" width="672"></p>
-<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb546"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -2574,7 +2612,7 @@
 ## 
 ## data:  .
 ## W = 0.98718, p-value = 1.722e-07</code></pre>
-<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb548"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -2582,7 +2620,7 @@
 ## 
 ## data:  .
 ## BP = 83.074, df = 4, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb550"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -2591,7 +2629,7 @@
 ## data:  .
 ## DW = 0.71231, p-value &lt; 2.2e-16
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb552"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##     log_perc_detached log_perc_semidetached     log_perc_terraced 
@@ -2599,7 +2637,7 @@
 ##        log_perc_flats 
 ##              1.943342</code></pre>
 <p>Interestingly, the results above don’t indicate a sigificant level or multicolinearity. However, the model is not robust. Also, we can see how the variable <code>log_perc_flats</code> is not significant in the model. Thus, we can try remove that variable and see whether there is any improvement.</p>
-<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb554"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create model</span></span>
 <span><span class="va">dwellings_model2</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">leicester_dwellings</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
@@ -2633,11 +2671,11 @@
 ## Residual standard error: 0.09992 on 965 degrees of freedom
 ## Multiple R-squared:  0.3591, Adjusted R-squared:  0.3571 
 ## F-statistic: 180.3 on 3 and 965 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb558"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb556"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="911-solutions_files/figure-html/unnamed-chunk-96-1.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-96-2.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-96-3.png" width="672"><img src="911-solutions_files/figure-html/unnamed-chunk-96-4.png" width="672"></p>
-<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb557"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -2646,7 +2684,7 @@
 ## 
 ## data:  .
 ## W = 0.98751, p-value = 2.413e-07</code></pre>
-<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb559"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -2654,7 +2692,7 @@
 ## 
 ## data:  .
 ## BP = 80.115, df = 3, p-value &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb561"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -2663,7 +2701,7 @@
 ## data:  .
 ## DW = 0.71123, p-value &lt; 2.2e-16
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb565"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb563"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dwellings_model2</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/car/man/vif.html">vif</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##     log_perc_detached log_perc_semidetached     log_perc_terraced 

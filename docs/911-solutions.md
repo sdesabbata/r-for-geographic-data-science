@@ -1696,6 +1696,24 @@ The test is significant (*p* < .01), thus we can say that there is an inverse re
 
 As both variables, we can use the inverse hyperbolic sine (`asinh`) to *"un-skew"* the variables. However, as illustrated by the plot below, that *"expands"* the area around the origin of the two axis to the point that the linear relationship might be lost.
 
+
+```r
+flights_nov_20 %>%
+  mutate(
+    ihs_dep_delay = asinh(-dep_delay),
+    ihs_arr_delay = asinh(-arr_delay)
+  ) %>%
+  ggplot(
+    aes(
+      x = ihs_dep_delay, 
+      y = ihs_arr_delay
+    )
+  ) +
+  geom_point() + 
+  coord_fixed(ratio = 1) +
+  theme_bw()
+```
+
 <img src="911-solutions_files/figure-html/unnamed-chunk-77-1.png" width="672" />
 
 We can still try build a model. However, as illustrated below, the relaionship has become very weak, and the model is still not robust.
@@ -1791,20 +1809,33 @@ delay_model_2 %>%
 An alternative approach might be to use a double square root function -- i.e., square root of positive values and square root of the opposite of the value for negative values (more on `if_else` in the coming weeks). However, that seems not to fully resolve the issue.
 
 
-```
-## Warning in sqrt(dep_delay): NaNs produced
-```
-
-```
-## Warning in sqrt(-dep_delay): NaNs produced
-```
-
-```
-## Warning in sqrt(arr_delay): NaNs produced
-```
-
-```
-## Warning in sqrt(-arr_delay): NaNs produced
+```r
+flights_nov_20 %>%
+  mutate(
+    sqrt_dep_delay = 
+      if_else(
+        dep_delay >= 0, 
+        sqrt(dep_delay), 
+        (-1 * sqrt(-dep_delay)
+      )
+    ),
+    sqrt_arr_delay = 
+      if_else(
+        arr_delay >= 0, 
+        sqrt(arr_delay), 
+        (-1 * sqrt(-arr_delay)
+      )
+    )
+  ) %>%
+  ggplot(
+    aes(
+      x = sqrt_dep_delay, 
+      y = sqrt_arr_delay
+    )
+  ) +
+  geom_point() + 
+  coord_fixed(ratio = 1) +
+  theme_bw()
 ```
 
 <img src="911-solutions_files/figure-html/unnamed-chunk-83-1.png" width="672" />

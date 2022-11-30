@@ -1256,7 +1256,7 @@ flights_nov_20 <- flights %>%
 
 As both variables, we can use the inverse hyperbolic sine (`asinh`) to *"un-skew"* the variables. However, as illustrated by the plot below, that *"expands"* the area around the origin of the two axis to the point that the linear relationship might be lost.
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width = 7, fig.height = 7}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 flights_nov_20 %>%
   mutate(
     ihs_dep_delay = asinh(-dep_delay),
@@ -1275,7 +1275,7 @@ flights_nov_20 %>%
 
 We can still try build a model. However, as illustrated below, the relaionship has become very weak, and the model is still not robust.
 
-```{r, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 delay_model_2 <- flights_nov_20 %>% 
   mutate(
     ihs_dep_delay = asinh(-dep_delay),
@@ -1289,30 +1289,30 @@ delay_model_summary_2 <- delay_model_2 %>%
 delay_model_summary_2
 ```
 
-```{r}
+```{r, echo=TRUE}
 delay_model_2 %>% 
   rstandard() %>% 
   shapiro.test()
 ```
 
-```{r}
+```{r, echo=TRUE}
 delay_model_2 %>% 
   bptest()
 ```
 
-```{r}
+```{r, echo=TRUE}
 delay_model_2 %>%
   dwtest()
 ```
 
-```{r}
+```{r, echo=TRUE}
 delay_model_2 %>% 
   plot()
 ```
 
 An alternative approach might be to use a double square root function -- i.e., square root of positive values and square root of the opposite of the value for negative values (more on `if_else` in the coming weeks). However, that seems not to fully resolve the issue.
 
-```{r, echo=FALSE, fig.width = 7, fig.height = 7}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 flights_nov_20 %>%
   mutate(
     sqrt_dep_delay = 
@@ -1333,7 +1333,7 @@ flights_nov_20 %>%
   ggplot(
     aes(
       x = sqrt_dep_delay, 
-      y = sqrt_dep_delay
+      y = sqrt_arr_delay
     )
   ) +
   geom_point() + 
@@ -1403,7 +1403,7 @@ leicester_dwellings <-
 
 We can then explore the relationships between the variables using a pairs panel.
 
-```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 library(GGally)
 
 leicester_dwellings %>%
@@ -1416,7 +1416,7 @@ leicester_dwellings %>%
 
 The plot above illustrates how the variable related to commuting via foot, bicycle or public transport in Leicester is very skewed. The same applies to the variables related to housing type. At the same time, the presence of *Caravan or other mobile or temporary structure* seems minimal. As such, we can attempt to remove the latter, and *"un-skew"* the rest using a logarithmic function. As there are cases in which at least one of the variables has minimum zero, we can take this example to explore the use of the function $log_{10}(x+1)$ -- which shift the logaritmic function to the left, so that the result is zero for $x=0$.
 
-```{r, message=FALSE, warning=FALSE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 leicester_dwellings %<>%
   dplyr::mutate(
     dplyr::across(
@@ -1430,7 +1430,7 @@ leicester_dwellings %<>%
   )
 ```
 
-```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 leicester_dwellings %>%
   dplyr::select(log_perc_fbpt,log_perc_detached:log_perc_flats) %>%
   GGally::ggpairs(
@@ -1456,7 +1456,7 @@ dwellings_model1 %>%
   summary()
 ```
 
-```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 dwellings_model1 %>%
   plot()
 ```
@@ -1499,7 +1499,7 @@ dwellings_model2 %>%
   summary()
 ```
 
-```{r, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
 dwellings_model2 %>%
   plot()
 ```
