@@ -1,7 +1,5 @@
 # Regression analysis
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
@@ -49,7 +47,7 @@ flights_nov_20 <- flights %>%
     month == 11 &
     day ==20
   ) %>% 
-  arrange(arr_delay)
+  arrange(dep_time)
 ```
 
 The scatterplot below seems to indicate that the relationship is indeed linear.
@@ -205,7 +203,7 @@ delay_model %>%
 ## 	Durbin-Watson test
 ## 
 ## data:  .
-## DW = 0.72111, p-value < 2.2e-16
+## DW = 1.8731, p-value = 0.02358
 ## alternative hypothesis: true autocorrelation is greater than 0
 ```
 
@@ -257,7 +255,7 @@ delay_model %>%
 
 ### How to report a simple regression
 
-Overall, we can say that the delay model computed above is fit ($F(1, 972) = 3396.74$, $p < .001$), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 0.02$, $p =0.9$), and the independence assumption (Durbin-Watson test, $DW = 0.72$, $p =0$), but they are not normally distributed (Shapiro-Wilk test, $W =  0.98$, $p < .001$).
+Overall, we can say that the delay model computed above is fit ($F(1, 972) = 3396.74$, $p < .001$), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, $BP = 0.02$, $p =0.9$), and the independence assumption (Durbin-Watson test, $DW = 1.87$, $p =0.02$), but they are not normally distributed (Shapiro-Wilk test, $W =  0.98$, $p < .001$).
 
 The [`stargazer` function of the `stargazer` library](https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer) can be applied to the model `delay_model` to generate a nicer output in RMarkdown PDF documents by including `results = "asis"` in the R snippet option.
 

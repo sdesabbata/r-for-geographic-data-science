@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 8 Regression analysis | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how...">
+<meta name="description" content="Print this chapter This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how to run a regression analysis and...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 8 Regression analysis | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/regression-analysis.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how...">
+<meta property="og:description" content="Print this chapter This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how to run a regression analysis and...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 8 Regression analysis | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how...">
+<meta name="twitter:description" content="Print this chapter This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how to run a regression analysis and...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -108,7 +108,6 @@
 <h1>
 <span class="header-section-number">8</span> Regression analysis<a class="anchor" aria-label="anchor" href="#regression-analysis"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>This chapter focuses on regression analysis, starting from simple regression and then multiple regression analysis. Both sections discuss how to run a regression analysis and (importantly) how to check that the analysis meets the test assumptions and how to report the results in an analysis document.</p>
 <div id="simple-regression" class="section level2" number="8.1">
@@ -149,7 +148,7 @@
 <span>    <span class="va">month</span> <span class="op">==</span> <span class="fl">11</span> <span class="op">&amp;</span></span>
 <span>    <span class="va">day</span> <span class="op">==</span><span class="fl">20</span></span>
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">arr_delay</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">dep_time</span><span class="op">)</span></span></code></pre></div>
 <p>The scatterplot below seems to indicate that the relationship is indeed linear.</p>
 <div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-3-1.png" width="672"></div>
 <p>The code below generates the model using the function <code>lm</code>, and the function <code>summary</code> to obtain the summary of the results of the test. The model and summary are saved in the variables <code>delay_model</code> and <code>delay_model_summary</code>, respectively, for further use below. The variable <code>delay_model_summary</code> can then be called directly to visualise the result of the test.</p>
@@ -273,7 +272,7 @@
 ##  Durbin-Watson test
 ## 
 ## data:  .
-## DW = 0.72111, p-value &lt; 2.2e-16
+## DW = 1.8731, p-value = 0.02358
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
 <p>The idea of autocorrelation of the residuals tested by the Durbin-Watson test can be illustrated using the lag plot below, where the standard residual of a case is compared to the standard residual of the previous case in the table. A clear patter in the plot would indicate that the residuals are not independent. In the plot below, no clear pattern is visible, thus reinforcing the results of the test above.</p>
 <div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
@@ -309,7 +308,7 @@
 <h3>
 <span class="header-section-number">8.1.3</span> How to report a simple regression<a class="anchor" aria-label="anchor" href="#how-to-report-a-simple-regression"><i class="fas fa-link"></i></a>
 </h3>
-<p>Overall, we can say that the delay model computed above is fit (<span class="math inline">\(F(1, 972) = 3396.74\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 0.02\)</span>, <span class="math inline">\(p =0.9\)</span>), and the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 0.72\)</span>, <span class="math inline">\(p =0\)</span>), but they are not normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 0.98\)</span>, <span class="math inline">\(p &lt; .001\)</span>).</p>
+<p>Overall, we can say that the delay model computed above is fit (<span class="math inline">\(F(1, 972) = 3396.74\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that the departure delay might account for 77.73% of the arrival delay. However the model is only partially robust. The residuals satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 0.02\)</span>, <span class="math inline">\(p =0.9\)</span>), and the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 1.87\)</span>, <span class="math inline">\(p =0.02\)</span>), but they are not normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 0.98\)</span>, <span class="math inline">\(p &lt; .001\)</span>).</p>
 <p>The <a href="https://www.rdocumentation.org/packages/stargazer/versions/5.2.2/topics/stargazer"><code>stargazer</code> function of the <code>stargazer</code> library</a> can be applied to the model <code>delay_model</code> to generate a nicer output in RMarkdown PDF documents by including <code>results = "asis"</code> in the R snippet option.</p>
 <div class="sourceCode" id="cb265"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install stargazer if not yet installed</span></span>
@@ -521,7 +520,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-11-29.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-01.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

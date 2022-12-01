@@ -1,7 +1,5 @@
 # Regression analysis
 
-<br/><small>*This chapter is currently a draft.*</small>
-
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
@@ -51,7 +49,7 @@ flights_nov_20 <- flights %>%
     month == 11 &
     day ==20
   ) %>% 
-  arrange(arr_delay)
+  arrange(dep_time)
 ```
 
 The scatterplot below seems to indicate that the relationship is indeed linear.
