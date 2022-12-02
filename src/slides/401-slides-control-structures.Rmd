@@ -1,0 +1,497 @@
+---
+title: "Lecture 401"
+author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
+institute: ""
+date: "<small>2022-12-06</small>"
+output:
+  xaringan::moon_reader:
+    self_contained: true
+    css: ["css/sdesabbata-uol.css", "css/sdesabbata-uol-fonts.css"]
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "macros/my_remark_macros.js"
+---
+class: inverse, center, middle
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = Sys.getenv("RGDS_HOME"))
+rm(list = ls())
+```
+
+# Control structures
+
+
+---
+## Control structures
+
+Building blocks of programming
+
+.pull-left[
+
+- So far, *simple scripting*
+   - series of single steps to achieve an output
+   - independent from input or current environment
+
+- Control flow
+  - actual (imperative) programming
+  - including
+    - choice statements
+    - loops
+
+]
+.pull-right[
+
+
+]
+
+---
+## If
+
+<br/>
+
+Format: **if** (*condition*) *statement*
+
+- *condition*: expression returning a logic value (`TRUE` or `FALSE`)
+- *statement*: any valid R statement
+- *statement* only executed if *condition* is `TRUE`
+
+
+```{r, echo=TRUE}
+a_value <- -7
+if (a_value < 0) cat("Negative")
+a_value <- 8
+if (a_value < 0) cat("Negative")
+```
+
+
+---
+## Else
+
+<br/>
+
+Format: **if** (*condition*) *statement1* **else** *statement2*
+
+- *condition*: expression returning a logic value (`TRUE` or `FALSE`)
+- *statement1* and *statement2*: any valid R statements
+- *statement1*  executed if *condition* is `TRUE`
+- *statement2*  executed if *condition* is `FALSE`
+
+
+```{r, echo=TRUE}
+a_value <- -7
+if (a_value < 0) cat("Negative") else cat("Positive")
+a_value <- 8
+if (a_value < 0) cat("Negative") else cat("Positive")
+```
+
+
+---
+## Code blocks
+
+**Code blocks** allow to encapsulate **several** statements in a single group
+
+- `{` and `}` contain code blocks
+- the statements are execute together
+
+.pull-left[
+
+```{r, echo=TRUE}
+first_value <- 8
+second_value <- 5
+
+if (first_value > second_value) {
+  cat("The first value is higher\n")
+  difference <- first_value - second_value
+  cat("The difference is ", difference, "\n")
+}
+```
+
+]
+.pull-right[
+
+```{r, echo=TRUE}
+first_value <- 2
+second_value <- 5
+
+if (first_value > second_value) {
+  cat("The first value is higher\n")
+  difference <- first_value - second_value
+  cat("The difference is ", difference, "\n")
+} else {
+  cat("The first value is lower or equal\n")
+  difference <- first_value - second_value
+  cat("The difference is ", difference, "\n")
+}
+```
+
+]
+
+
+
+---
+## dplyr::if_else
+
+Allows to use conditional statements in `mutate`
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(knitr)
+
+leicester_2011OAC <- 
+  read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_Raw_uVariables_Leicester.csv"))
+```
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>% 
+  select(OA11CD, u006) %>% 
+  slice_head(n = 5) %>% 
+  kable()
+```
+
+]
+.pull-right[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>% 
+  select(OA11CD, u006) %>% 
+  mutate(
+    density_cat = if_else(
+      u006 < 100,
+      "low density", "high density"
+    )
+  ) %>% 
+  slice_head(n = 5) %>% 
+  kable()
+```
+
+]
+
+.pull-left[
+
+```{r, echo=FALSE, eval=TRUE}
+leicester_2011OAC %>% 
+  select(OA11CD, u006) %>% 
+  slice_head(n = 5) %>% 
+  kable()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE}
+leicester_2011OAC %>% 
+  select(OA11CD, u006) %>% 
+  mutate(
+    density_cat = if_else(
+      u006 < 100,
+      "low density", 
+      "high density"
+    )
+  ) %>% 
+  slice_head(n = 5) %>% 
+  kable()
+```
+
+]
+
+
+---
+## Loops
+Loops are a fundamental component of (procedural) programming.
+
+
+There are two main types of loops:
+
+- **conditional** loops 
+  - executed as long as a defined condition holds true
+  - construct `while`
+  - construct `repeat`
+- **deterministic** loops 
+  - are executed a pre-determined number of times
+  - construct `for`
+
+
+---
+## While
+
+The *while* construct
+
+- Defined using the `while` reserved word
+  - followed by the conditional statement between simple brackets
+  - and a code block
+- The instructions in the code block are re-executed 
+  - as long as the result of the evaluation of the conditional statement is `TRUE`
+
+```{r, echo=TRUE}
+current_value <- 0
+
+while (current_value < 3) {
+  cat("Current value is", current_value, "\n")
+  current_value <- current_value + 1
+}
+```
+
+<!--
+## Repeat
+
+The *repeat* construct can be defined using the `repeat` reserved word, followed by a code block. The instructions in the code block are re-executed until the command `break` is given. The latter is currently given through an `if` construct, which tests the condition that would stop the loop.
+
+```{r, echo=TRUE}
+current_value <- 0
+
+repeat {
+  cat("Current value is", current_value, "\n")
+  current_value <- current_value + 1
+  if (current_value >= 3) break
+}
+```
+
+
+## While vs Repeat
+The difference between `while` and `repeat` is mostly syntactical.
+
+- Sometimes one or the other might fit better with the algorithm you have in mind
+- Use the one that comes easier to you in the given situation
+-->
+
+---
+## For
+
+The *for* construct 
+
+- Defined using the `for` reserved word
+  - followed by the definition of an **iterator**
+    - a variable which is assigned temporarily
+    - with values from a vector
+  - followed by a code block
+- The construct iterates through all elements of the vector
+  - the code block instructions are re-executed 
+  - once for each element of the vector.
+
+```{r, echo=TRUE}
+cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
+for (city in cities) {
+  cat("Do you live in", city, "?\n")
+}
+```
+
+
+---
+## Example: histogram for all supergrups
+
+.pull-left[
+
+For instance
+
+- we can loop through all the 2011OAC supergrups
+- plot a histogra of population for each one of them
+
+```{r, echo=TRUE, eval=FALSE}
+for (
+  current_supgrp in
+    leicester_2011OAC %>% 
+      pull(supgrpname) %>% 
+      unique()
+  ) {
+  current_hist <-
+    leicester_2011OAC %>% 
+    filter(supgrpname == current_supgrp) %>% 
+    ggplot(aes(
+      x = Total_Population
+    )) +
+    geom_histogram() +
+    ggtitle(current_supgrp) +
+    theme_bw() 
+  print(current_hist)
+}
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE, fig.height=1.8, fig.width=3}
+for (
+  current_supgrp in
+    leicester_2011OAC %>% 
+      pull(supgrpname) %>% 
+      unique()
+  ) {
+  current_hist <-
+    leicester_2011OAC %>% 
+    filter(supgrpname == current_supgrp) %>% 
+    ggplot(aes(
+      x = Total_Population
+    )) +
+    geom_histogram() +
+    ggtitle(current_supgrp) +
+    theme_bw() 
+  print(current_hist)
+}
+```
+
+]
+
+
+---
+## Example: testing normality for all supergrups
+
+.pull-left[
+
+For instance
+
+- we can loop through all the 2011OAC supergrups
+- test the normality of each distribution
+
+```{r, echo=TRUE, eval=FALSE}
+for (
+  current_supgrp in
+    leicester_2011OAC %>% 
+      pull(supgrpname) %>% 
+      unique()
+  ) {
+  
+  print(current_supgrp)
+  leicester_2011OAC %>% 
+    filter(supgrpname == current_supgrp) %>% 
+    pull(Total_Population) %>%
+    shapiro.test() %>% 
+    print()
+  
+}
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE}
+for (
+  current_supgrp in
+    leicester_2011OAC %>% 
+      pull(supgrpname) %>% 
+      unique()
+  ) {
+  
+  print(current_supgrp)
+  leicester_2011OAC %>% 
+    filter(supgrpname == current_supgrp) %>% 
+    pull(Total_Population) %>%
+    shapiro.test() %>% 
+    print()
+  
+}
+```
+
+]
+
+
+---
+## Loops with conditional statements
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+for (
+  current_supgrp in
+    leicester_2011OAC %>% 
+      pull(supgrpname) %>% 
+      unique()
+  ) {
+  
+  current_p_value <-
+    leicester_2011OAC %>% 
+    filter(supgrpname == current_supgrp) %>% 
+    pull(Total_Population) %>%
+    shapiro.test() %$% 
+    p.value
+  
+  if (current_p_value > 0.01){
+    current_hist <-
+      leicester_2011OAC %>% 
+      filter(supgrpname == current_supgrp) %>% 
+      ggplot(aes(
+        x = Total_Population
+      )) +
+      geom_histogram() +
+      ggtitle(current_supgrp) +
+      theme_bw() 
+    print(current_hist)
+  } else {
+    print(
+      paste(
+        current_supgrp,
+        "is not normally distributed"
+      )
+    )
+  }
+  
+}
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE, fig.height=1.8, fig.width=3}
+library(magrittr)
+
+for (
+  current_supgrp in
+    leicester_2011OAC %>% 
+      pull(supgrpname) %>% 
+      unique()
+  ) {
+  
+  current_p_value <-
+    leicester_2011OAC %>% 
+    filter(supgrpname == current_supgrp) %>% 
+    pull(Total_Population) %>%
+    shapiro.test() %$% 
+    p.value
+  
+  if (current_p_value > 0.01){
+    current_hist <-
+      leicester_2011OAC %>% 
+      filter(supgrpname == current_supgrp) %>% 
+      ggplot(aes(
+        x = Total_Population
+      )) +
+      geom_histogram() +
+      ggtitle(current_supgrp) +
+      theme_bw() 
+    print(current_hist)
+  } else {
+    print(
+      paste(
+        current_supgrp,
+        "is not normally distributed"
+      )
+    )
+  }
+  
+}
+```
+
+]
+
+---
+## Summary
+
+Control structures
+
+- Conditional statements
+- Loops
+
+**Next**: Functions
+
+- Defining functions
+- Scope of a variable
+
+```{r cleanup, include=FALSE}
+rm(list = ls())
+```
