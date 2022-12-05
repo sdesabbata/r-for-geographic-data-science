@@ -27,6 +27,41 @@ rm(list = ls())
 
 
 ---
+## Recap
+
+.pull-left[
+
+<br/>
+
+**Prev**: Regression analysis
+
+- Simple regression
+- Multiple regression
+- Comparing models
+
+**Today**: Control structures
+
+- Conditional statements
+- Conditional and deterministic loops
+- Practical: *Group work!*
+
+
+]
+.pull-right[
+
+```{r echo=FALSE}
+for (i in 1:27) {
+  cat("I am in a loop")
+  for (j in 1:i) {
+    cat(".")
+  }
+  cat("\n")
+}
+```
+
+]
+
+---
 ## Control structures
 
 Building blocks of programming
@@ -50,7 +85,7 @@ Building blocks of programming
 ]
 
 ---
-## If
+## Conditionsl statements: if
 
 <br/>
 
@@ -70,9 +105,7 @@ if (a_value < 0) cat("Negative")
 
 
 ---
-## Else
-
-<br/>
+## Conditionsl statements: if / else
 
 Format: **if** (*condition*) *statement1* **else** *statement2*
 
@@ -81,12 +114,19 @@ Format: **if** (*condition*) *statement1* **else** *statement2*
 - *statement1*  executed if *condition* is `TRUE`
 - *statement2*  executed if *condition* is `FALSE`
 
-
 ```{r, echo=TRUE}
 a_value <- -7
 if (a_value < 0) cat("Negative") else cat("Positive")
+```
+
+```{r, echo=TRUE}
 a_value <- 8
 if (a_value < 0) cat("Negative") else cat("Positive")
+```
+
+```{r, echo=TRUE}
+a_value <- 0
+if (a_value < 0) cat("Negative") else if (a_value == 0) cat("Zero") else cat("Positive")
 ```
 
 
@@ -203,9 +243,70 @@ leicester_2011OAC %>%
 
 
 ---
-## Loops
-Loops are a fundamental component of (procedural) programming.
+## dplyr::case_when
 
+Allows to specify multiple conditions in a sort manner
+
+- similar to base R [`switch`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/switch.html)
+
+.pull-left[
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC %>% 
+  select(OA11CD, u006) %>% 
+  mutate(
+    density_cat = case_when(
+      u006 < 1 ~ "very low",
+      u006 < 10 ~ "low",
+      u006 < 100 ~ "medium",
+      u006 < 1000 ~ "high",
+      TRUE ~ "very high",
+    )
+  ) %>% 
+  slice_head(n = 5) %>% 
+  kable()
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE}
+leicester_2011OAC %>% 
+  select(OA11CD, u006) %>% 
+  mutate(
+    density_cat = case_when(
+      u006 < 1 ~ "very low",
+      u006 < 10 ~ "low",
+      u006 < 100 ~ "medium",
+      u006 < 1000 ~ "high",
+      TRUE ~ "very high",
+    )
+  ) %>% 
+  slice_head(n = 10) %>% 
+  kable()
+```
+
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Loops
+
+
+
+---
+## Loops
+
+.pull-left[
+
+<br/>
+
+Loops are a fundamental component of (procedural) programming
+
+- they allow to execute the same code multiple times
 
 There are two main types of loops:
 
@@ -218,25 +319,115 @@ There are two main types of loops:
   - construct `for`
 
 
+]
+.pull-right[
+
+```{r echo=FALSE}
+for (i in 1:27) {
+  cat(paste("This is the output of a program in a loop...", i, "\n"))
+}
+```
+
+
+]
+
+
 ---
-## While
+## Loop construct: while
 
-The *while* construct
+.pull-left[
 
-- Defined using the `while` reserved word
-  - followed by the conditional statement between simple brackets
+- Defined using `while` (reserved word)
+  - followed by a conditional statement between brackets
   - and a code block
 - The instructions in the code block are re-executed 
   - as long as the result of the evaluation of the conditional statement is `TRUE`
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 current_value <- 0
 
-while (current_value < 3) {
-  cat("Current value is", current_value, "\n")
+while (current_value <= 4) {
+  cat("Start of the block")
+  cat("  the value is", current_value, "\n")
   current_value <- current_value + 1
+  cat("  after summing 1 to it\n")
+  cat("  the value is now", current_value, "\n")
+  cat("End of the block, loop back...\n")
+  cat("\n")
 }
+cat("The loop ended, the value is now", current_value, "\n")
 ```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE}
+current_value <- 0
+
+while (current_value <= 4) {
+  cat("Start of the block")
+  cat("  the value is", current_value, "\n")
+  current_value <- current_value + 1
+  cat("  after summing 1 to it\n")
+  cat("  the value is now", current_value, "\n")
+  cat("End of the block, loop back...\n")
+  cat("\n")
+}
+cat("The loop ended, the value is now", current_value, "\n")
+```
+
+]
+
+---
+## Loop construct: repeat
+
+.pull-left[
+
+- Defined using `repeat` (reserved word)
+  - followed by a code block
+- The instructions in the code block are re-executed 
+  - until the command `break` is given
+
+**CAN BE DANGEROUS, USE AT YOUR OWN PERIL** `r emo::ji("grinning face with sweat")`
+
+
+```{r, echo=TRUE, eval=FALSE}
+current_value <- 0
+
+repeat {
+  cat("Start of the block")
+  cat("  the value is", current_value, "\n")
+  current_value <- current_value + 1
+  cat("  after summing 1 to it\n")
+  cat("  the value is now", current_value, "\n")
+  cat("End of the block, loop back...\n")
+  cat("\n")
+  if(current_value > 4) break
+}
+cat("The loop ended, the value is now", current_value, "\n")
+```
+
+]
+.pull-right[
+
+```{r, echo=FALSE, eval=TRUE}
+current_value <- 0
+
+repeat {
+  cat("Start of the block")
+  cat("  the value is", current_value, "\n")
+  current_value <- current_value + 1
+  cat("  after summing 1 to it\n")
+  cat("  the value is now", current_value, "\n")
+  cat("End of the block, loop back...\n")
+  cat("\n")
+  if(current_value > 4) break
+}
+cat("The loop ended, the value is now", current_value, "\n")
+```
+
+]
+
 
 <!--
 ## Repeat
@@ -262,11 +453,11 @@ The difference between `while` and `repeat` is mostly syntactical.
 -->
 
 ---
-## For
+## Loop construct: for
 
 The *for* construct 
 
-- Defined using the `for` reserved word
+- Defined using `for` (reserved word)
   - followed by the definition of an **iterator**
     - a variable which is assigned temporarily
     - with values from a vector
@@ -396,6 +587,8 @@ for (
 
 .pull-left[
 
+.small[
+
 ```{r, echo=TRUE, eval=FALSE}
 for (
   current_supgrp in
@@ -435,16 +628,20 @@ for (
 ```
 
 ]
+
+]
 .pull-right[
 
 ```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE, fig.height=1.8, fig.width=3}
 library(magrittr)
 
 for (
+  
   current_supgrp in
     leicester_2011OAC %>% 
       pull(supgrpname) %>% 
       unique()
+  
   ) {
   
   current_p_value <-
@@ -455,6 +652,7 @@ for (
     p.value
   
   if (current_p_value > 0.01){
+    
     current_hist <-
       leicester_2011OAC %>% 
       filter(supgrpname == current_supgrp) %>% 
@@ -464,14 +662,18 @@ for (
       geom_histogram() +
       ggtitle(current_supgrp) +
       theme_bw() 
+    
     print(current_hist)
+  
   } else {
+  
     print(
       paste(
         current_supgrp,
         "is not normally distributed"
       )
     )
+  
   }
   
 }
@@ -482,15 +684,42 @@ for (
 ---
 ## Summary
 
-Control structures
+.pull-left[
+
+<br/>
+
+**Today**: Control structures
 
 - Conditional statements
-- Loops
+- Conditional and deterministic loops
+- Practical: *Group work!*
 
-**Next**: Functions
+**Next time**: 
 
-- Defining functions
-- Scope of a variable
+- Writing functions
+- Recap
+- Practical: *Group work!*
+
+<br/>
+
+.referencenote[
+Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan). The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](https://yihui.org/knitr), and [R Markdown](https://rmarkdown.rstudio.com).
+]
+
+]
+.pull-right[
+
+```{r echo=FALSE}
+for (i in 1:27) {
+  cat("I am in a loop")
+  for (j in 1:i) {
+    cat(".")
+  }
+  cat("\n")
+}
+```
+
+]
 
 ```{r cleanup, include=FALSE}
 rm(list = ls())
