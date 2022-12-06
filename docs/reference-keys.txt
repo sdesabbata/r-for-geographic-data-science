@@ -1,4 +1,5 @@
 tab:unnamed-chunk-7
+tab:unnamed-chunk-1
 introduction-to-r
 the-r-programming-language
 rstudio
@@ -114,3 +115,8 @@ function-definition
 functions-and-control-structures
 loading-r-scripts
 exercise-114.2
+introduction
+data
+instructions
+part-1
+part-2

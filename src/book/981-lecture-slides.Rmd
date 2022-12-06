@@ -20,7 +20,7 @@ The slides used in the lectures are available as web-based slides at the pages l
     - 301 Supervised
     - 302 Unsupervised
 4. **R Scripting**
-    - 401 [Control structures](401-slides-control-structures.html)
+    - 401 [Control structures](slides/401-slides-control-structures.html)
     - 402 Functions
 
 

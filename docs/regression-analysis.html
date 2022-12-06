@@ -20,7 +20,8 @@
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
@@ -94,6 +95,7 @@
 <li class="book-part">Appendices</li>
 <li><a class="" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
+<li><a class="" href="groupwork-exercise.html">Groupwork exercise</a></li>
 <li><a class="" href="lecture-slides.html">Lecture slides</a></li>
 <li><a class="" href="reading-list.html">Reading list</a></li>
 <li><a class="" href="references-1.html">References</a></li>
@@ -337,7 +339,7 @@
 <h3>
 <span class="header-section-number">8.3.1</span> Multiple regression example<a class="anchor" aria-label="anchor" href="#multiple-regression-example"><i class="fas fa-link"></i></a>
 </h3>
-<p>The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (<code>u121</code>) in Leicester, using the number of people in different industry sectors as predictors.</p>
+<p>The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (<code>u121</code> in the 2011 Output Area Classification dataset seen in previous chapters) in Leicester, using the number of people in different industry sectors as predictors.</p>
 <p>For instance, occupations such as electricity, gas, steam and air conditioning supply (<code>u144</code>) require to travel some distances with equipment, thus the related variable <code>u144</code> is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport.</p>
 <div class="sourceCode" id="cb266"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
@@ -520,7 +522,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-05.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

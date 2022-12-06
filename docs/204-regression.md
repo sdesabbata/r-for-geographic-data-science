@@ -315,7 +315,7 @@ The assumptions are the same as the simple regression, plus the assumption of **
 
 ### Multiple regression example
 
-The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (`u121`) in Leicester, using the number of people in different industry sectors as predictors. 
+The example below explores whether a regression model can be created to estimate the number of people in Leicester commuting to work using private transport (`u121` in the 2011 Output Area Classification dataset seen in previous chapters) in Leicester, using the number of people in different industry sectors as predictors. 
 
 For instance, occupations such as electricity, gas, steam and air conditioning supply (`u144`) require to travel some distances with equipment, thus the related variable `u144` is included in the model, whereas people working in information and communication might be more likely to work from home or commute by public transport. 
 
