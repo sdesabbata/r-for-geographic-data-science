@@ -115,8 +115,3 @@ function-definition
 functions-and-control-structures
 loading-r-scripts
 exercise-114.2
-introduction
-data
-instructions
-part-1
-part-2
