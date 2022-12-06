@@ -64,9 +64,11 @@ for (i in 1:27) {
 ---
 ## Control structures
 
-Building blocks of programming
-
 .pull-left[
+
+<br/>
+
+Building blocks of programming
 
 - So far, *simple scripting*
    - series of single steps to achieve an output
@@ -81,11 +83,16 @@ Building blocks of programming
 ]
 .pull-right[
 
+![](images/control-flow-example.png)
+
+.referencenote[
+Example of control flow for a correlation analysis
+]
 
 ]
 
 ---
-## Conditionsl statements: if
+## Conditional statements: if
 
 <br/>
 
@@ -105,7 +112,7 @@ if (a_value < 0) cat("Negative")
 
 
 ---
-## Conditionsl statements: if / else
+## Conditional statements: if / else
 
 Format: **if** (*condition*) *statement1* **else** *statement2*
 

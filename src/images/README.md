@@ -7,6 +7,7 @@
 - [Creative Commons Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/)
     - `ANOVA_output_annotated.png` by [Stefano De Sabbata](https://sdesabbata.github.io/)
     - `artificial_neuron.png` by [Stefano De Sabbata](https://sdesabbata.github.io/)
+    - `control-flow-example.png` by [Stefano De Sabbata](https://sdesabbata.github.io/)
     - `DockerDiagram_Docker.png` by [Stefano De Sabbata](https://sdesabbata.github.io/)
     - `DockerDiagram_VM.png` by [Stefano De Sabbata](https://sdesabbata.github.io/)
     - `joins.png` by [Stefano De Sabbata](https://sdesabbata.github.io/)
