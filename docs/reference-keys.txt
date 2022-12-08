@@ -109,9 +109,15 @@ conditional-statements
 loops
 conditional-loops
 deterministic-loops
-exercise-114.1
+example-multiple-shapirowilk-tests
+suburbanites
+cosmopolitans
+multicultural-metropolitans
+ethnicity-central
+constrained-city-dwellers
+hard-pressed-living
+urbanites
 working-with-functions
 function-definition
 functions-and-control-structures
 loading-r-scripts
-exercise-114.2
