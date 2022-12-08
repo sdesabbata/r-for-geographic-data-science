@@ -6,16 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Chapter 12 Working with functions | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="This chapter is currently a draft. Print this chapter This chapter discusses some of the fundamental building blocks of programming and how they are implemented in R. The sections below introduce...">
+<meta name="description" content="Print this chapter  12.1 Function definition Recall from the first chapter that an algorithm or effective procedure is a mechanical rule, or automatic method, or programme for performing some...">
 <meta name="generator" content="bookdown 0.29 with bs4_book()">
 <meta property="og:title" content="Chapter 12 Working with functions | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/working-with-functions.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="This chapter is currently a draft. Print this chapter This chapter discusses some of the fundamental building blocks of programming and how they are implemented in R. The sections below introduce...">
+<meta property="og:description" content="Print this chapter  12.1 Function definition Recall from the first chapter that an algorithm or effective procedure is a mechanical rule, or automatic method, or programme for performing some...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 12 Working with functions | R for Geographic Data Science">
-<meta name="twitter:description" content="This chapter is currently a draft. Print this chapter This chapter discusses some of the fundamental building blocks of programming and how they are implemented in R. The sections below introduce...">
+<meta name="twitter:description" content="Print this chapter  12.1 Function definition Recall from the first chapter that an algorithm or effective procedure is a mechanical rule, or automatic method, or programme for performing some...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -110,41 +110,65 @@
 <h1>
 <span class="header-section-number">12</span> Working with functions<a class="anchor" aria-label="anchor" href="#working-with-functions"><i class="fas fa-link"></i></a>
 </h1>
-<p><br><small><em>This chapter is currently a draft.</em></small></p>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<p>This chapter discusses some of the fundamental building blocks of programming and how they are implemented in <code>R</code>. The sections below introduce <strong>vectors</strong> – which are complex <code>R</code> objects that can hold more than one value – and how to handle them. … we start the chapter by introducing <strong>scripts</strong>.</p>
 <div id="function-definition" class="section level2" number="12.1">
 <h2>
 <span class="header-section-number">12.1</span> Function definition<a class="anchor" aria-label="anchor" href="#function-definition"><i class="fas fa-link"></i></a>
 </h2>
-<p>Recall from the previous chapter that <em>an</em> <strong>algorithm</strong> <em>or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation</em> (Cutland, 1980, p. 7<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980" role="doc-biblioref"&gt;Cutland, &lt;em&gt;Computability&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>20</sup></a></span>). A <strong>program</strong> is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more <strong>function</strong>s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.</p>
-<p>The code below is a simple function with one parameter. The function simply calculates the square root of a number. Add the code below to your script and run that portion of the script (or type the code into the Console).</p>
+<p>Recall from the first chapter that <em>an</em> <strong>algorithm</strong> <em>or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation</em> (Cutland, 1980, p. 7<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980" role="doc-biblioref"&gt;Cutland, &lt;em&gt;Computability&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>20</sup></a></span>). A <strong>program</strong> is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more <strong>function</strong>s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.</p>
+<p>The code below presents two versions of a simple function with one parameter. The function simply calculates the square root of a number and returns a value with two digits.</p>
 <div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
-<span>   <span class="va">result</span></span>
-<span><span class="op">}</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">sqrt_2digits</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">sqrt_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">input_value</span><span class="op">)</span></span>
+<span>    <span class="va">rounded_value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">sqrt_value</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    <span class="va">rounded_value</span></span>
+<span>  <span class="op">}</span></span>
+<span></span>
+<span><span class="va">sqrt_2digits_pipe</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">input_value</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
 <p>Once the definition of a function has been executed, the function becomes part of the environment, and it should be visible in the Environment panel in a subsection titled <em>Functions</em>. Thereafter, the function can be called from the Console, from other portions of the script, as well as from other scripts.</p>
-<p>If you type the instruction below in the <em>Console</em>, or add it to the script and run it, the function is called using <code>27</code> as an argument, thus returning <code>3</code>.</p>
 <div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 3</code></pre>
+<code class="sourceCode R"><span><span class="fu">sqrt_2digits</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1.41</code></pre>
+<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">sqrt_2digits_pipe</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1.41</code></pre>
 <div id="functions-and-control-structures" class="section level3" number="12.1.1">
 <h3>
 <span class="header-section-number">12.1.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
 </h3>
-<p>One issue when writing functions is making sure that the data that has been given to the data is the right kind. For example, what happens when you try to compute the cube root of a negative number?</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></span></code></pre></div>
+<p>One issue when writing functions is making sure that the data that has been given to the data is the right kind. For example, what happens when you try to compute the cube root of a negative number using a function as defined below?</p>
+<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
+<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
+<span>   <span class="va">result</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
-<p>That probably wasn’t the answer you wanted, as <code>NaN</code> (<em>Not a Number</em>) is the value returned when a mathematical expression is numerically indeterminate. In this case, this is actually due to a shortcoming with the <code>^</code> operator in R, which only works for positive base values. In fact -7 is a perfectly valid cube root of -343, since (-7)x(-7)x(-7) = -343.</p>
+<p>That probably wasn’t the answer you wanted, as <code>NaN</code> (<em>Not a Number</em>) is the value returned when a mathematical expression is numerically indeterminate. In this case, this is actually due to a shortcoming with the <code>^</code> operator in R, which only works for positive base values. In fact <span class="math inline">\(-7\)</span> is a perfectly valid cube root of <span class="math inline">\(-343\)</span>, since <span class="math inline">\((-7)\times(-7)\times(-7) = -343\)</span>.</p>
 <p>To work around this limitation, we can state a conditional rule:</p>
 <ul>
-<li>If <code>x &lt; 0</code>: calculate the cube root of x ‘normally’.</li>
-<li>Otherwise: work out the cube root of the positive number, then change it to negative.</li>
+<li>If <code>x &lt; 0</code>
+<ul>
+<li>calculate the cube root of x ‘normally’.</li>
+</ul>
+</li>
+<li>Otherwise:
+<ul>
+<li>work out the cube root of the positive number, then change it to negative.</li>
+</ul>
+</li>
 </ul>
 <p>Those kinds of situations can be dealt with in an R function by using an <code>if</code> statement, as shown below. Note how the operator <code>-</code> (i.e., the symbol minus) is here used to obtain the inverse of a number, in the same way as <code>-1</code> is the inverse of the number <code>1</code>.</p>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
 <span>        <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> </span>
@@ -158,7 +182,7 @@
 <span><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></span></code></pre></div>
 <p>However, other things can go wrong. For example, <code>cube_root("Leicester")</code> would cause an error to occur, <code>Error in x^(1 / 3) : non-numeric argument to binary operator</code>. That shouldn’t be surprising because cube roots only make sense for numbers, not character variables. Thus, it might be helpful if the cube root function could spot this and print a warning explaining the problem, rather than just crashing with a fairly cryptic error message such as the one above, as it does at the moment.</p>
 <p>The function could be re-written to making use of <code>is.numeric</code> in a second conditional statement. If the input value is not numeric, the function returns the value <code>NA</code> (<em>Not Available</em>) instead of a number. Note that here there is an <code>if</code> statement inside another <code>if</code> statement, as it is always possible to nest code blocks – and <code>if</code> within a <code>for</code> within a <code>while</code> within an <code>if</code> within … etc.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span> </span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">input_value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
@@ -172,104 +196,175 @@
 <span>        <span class="cn">NA</span></span>
 <span>    <span class="op">}</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Finally, <code>cat</code> is a printing function that instructs R to display the provided argument (in this case, the phrase within quotes) as output in the Console. The <code>\n</code> in <code>cat</code> tells R to add a <em>newline</em> when printing out the warning.</p>
+<p>Remember, <code>cat</code> is a printing function that instructs R to display the provided argument (in this case, the phrase within quotes) as output in the Console. The <code>\n</code> in <code>cat</code> tells R to add a <em>newline</em> when printing out the warning.</p>
 </div>
 </div>
-<div id="loading-r-scripts" class="section level2" number="12.2">
+<div id="debugging" class="section level2" number="12.2">
 <h2>
-<span class="header-section-number">12.2</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.2</span> Debugging<a class="anchor" aria-label="anchor" href="#debugging"><i class="fas fa-link"></i></a>
 </h2>
-<p>It is furthermore possible to load the function(s) defined in one script from another script – in a fashion similar to when a library is loaded. Create a new R script named <code>Practical_204_RS_functions.R</code>, copy the code below in that R script and save the file</p>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
-<span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
-<span>   <span class="va">result</span></span>
-<span><span class="op">}</span></span></code></pre></div>
-<p>Create a second R script named <code>Practical_204_RS_main.R</code>, copy the code below in that second R script and save the file.</p>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"Practical_204_RS_functions.R"</span><span class="op">)</span></span>
+<p>The term <em>bug</em> is commonly used in computer science to refer to an error, failure, or fault in a system. The term `<code>debugging'' in programming thus refers to the procedure of searching for mistakes in the code. This procedure can be simply done by re-reading and revising the written code, but R provides a useful command called</code>debug`, that allows you to follow the execution of the code, and more easily identify mistakes.</p>
+<p>Try debugging the function - since it is working properly, you won’t (hopefully!) find any errors, but that will demonstrate the debug facility, by typing <code>debug(cube_root)</code> in the RStudio <em>Console</em>. That tells R that you want to run <code>cube_root</code> in debug mode. Next enter <code>cube_root(-50)</code> in the RStudio <em>Console</em> and see how repeatedly pressing the return key steps you through the function. Note particularly what happens at the <code>if</code> statement.</p>
+<p>At any stage in the process, you can type an R expression to check its value. For instance, when you get to the <code>if</code> statement, you can enter <code>input_value &gt; 0</code> in the RStudio <em>Console</em> to see whether it is true or false. Checking the value of expressions at various points when stepping through the code is a good way of identifying potential bugs or glitches in your code. Try running through the code for a few other cube root calculations, by replacing -50 above with different numbers, to get used to using the debugging facility.</p>
+<p>When you are done, enter <code>undebug(cube_root)</code>. That tells R that you are ready to return <code>cube_root</code> to running in normal mode. For further details about the debugger, enter <code><a href="https://rdrr.io/r/base/debug.html">help(debug)</a></code> in the RStudio <em>Console</em>.</p>
+</div>
+<div id="writing-functions-for-dplyr" class="section level2" number="12.3">
+<h2>
+<span class="header-section-number">12.3</span> Writing functions for dplyr<a class="anchor" aria-label="anchor" href="#writing-functions-for-dplyr"><i class="fas fa-link"></i></a>
+</h2>
+<p>The functions defined above are base R function, which not designed to work within the Tidyverse. Each one of the input is expected to be a number, although it can be applied to a vector. The functions are not designed to expect a dataframe or tibble as first argument (as Tidyverse functions such as <code>select</code> or <code>mutate</code>) and they are not designed to use the non-standard evaluation typical of the Tidyverse – i.e., when column names are provided as variable names, not as strings with quotes.</p>
+<p>The <a href="https://dplyr.tidyverse.org/articles/programming.html">Programming with dplyr</a> article on the <code>dplyr</code> pages explains the process in full detail and it was the source of information for this section. To greatly simplify, to design functions for the Tidyverse, functions should expect the first argument to be a tibble (or dataframe). All the parameters that expect column names as argument using the non-standard evaluation need to be used while <strong>embracing</strong> them with doubled braces <code>{{</code>. Furthermore, in order to create output column names using the input column names the operator <code>:=</code> must be used as illustrated below. Any additional paramenter can be provided as normal.</p>
+<p>The example below defines a function named <code>percentage_of</code>, which calculates a new column which is the percentage of a column based on another column as total. The first parameter <code>data</code> expects a dataframe or tibbe as argument, while the two subsequent parameters expect column names to be used through non-standard evaluation. The function uses a <code>mutate</code> to add a new column. The new column is defined using the <code>:=</code> operator and the name os <code>perc_</code> followed by a column names, followed by <code>_over_</code> and the name of the column used as total. The first and total columns are then used embraced with <code>{{</code>, dividing one by the other and finally multipled by a hundred.</p>
+<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">percentage_of</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="kw">function</span> <span class="op">(</span><span class="va">data</span>, <span class="va">var_col</span>, <span class="va">total_col</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>        <span class="st">"perc_{{var_col}}"</span> <span class="op">:=</span></span>
+<span>          <span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var_col</span> <span class="op">}</span><span class="op">}</span> <span class="op">/</span> <span class="op">{</span><span class="op">{</span> <span class="va">total_col</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>      <span class="op">)</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<p>The function can then be used to calculated the percentage of people in Leicester commuting to work using private transport (<code>u121</code> in the 2011 Output Area Classification dataset seen in previous chapters), using the <code>Total_Pop_No_NI_Students_16_to_74</code> as total. The first example below shows the procedure without the function. The second example shows the procedure using the function.</p>
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">cube_root</span><span class="op">(</span><span class="fl">27</span><span class="op">)</span></span></code></pre></div>
-<p>Executing the <code>Practical_204_RS_main.R</code> instructs the interpreter first to run the <code>Practical_204_RS_functions.R</code> script, thus creating the <code>cube_root</code> function, and then invoke the function using <code>27</code> as an argument, thus returning again <code>3</code>. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.</p>
-<!--
-## Debugging
-
-The term *bug* is commonly used in computer science to refer to an error, failure, or fault in a system. The term ``debugging'' in programming thus refers to the procedure of searching for mistakes in the code. This procedure can be simply done by re-reading and revising the written code, but R provides a useful command called `debug`, that allows you to follow the execution of the code, and more easily identify mistakes.
-
-Try debugging the function - since it is working properly,  you won't (hopefully!) find any errors,  but that will demonstrate the debug facility, by typing `debug(cube_root)` in the RStudio *Console*.  That tells R that you want to run `cube_root` in debug mode.  Next enter `cube_root(-50)` in the RStudio *Console* and see how repeatedly pressing the return key steps you through the function.  Note particularly what happens at the `if` statement.  
-
-At any stage in the process, you can type an R expression to check its value.  For instance, when you get to the `if` statement, you can enter `input_value > 0` in the RStudio *Console* to see whether it is true or false.  Checking the value of expressions at various points when stepping through the code is a good way of identifying potential bugs or glitches in your code.  Try running through the code for a few other cube root calculations,  by replacing -50 above with different numbers,  to get used to using the debugging facility.  
-
-When you are done, enter `undebug(cube_root)`. That tells R that you are ready to return `cube_root` to running in normal mode.  For further details about the debugger,  enter `help(debug)` in the RStudio *Console*.
--->
-<!--
-## Exercise 6.2
-
-Create a new R script as part of *Project_06*, named `Data_Wrangling_with_Functions.R`. Copy from the script `Data_Wrangling_Example.R` created in *Project_03* the first part that included loading both datasets, the part that created the tibble `leicester_IMD2015_decile_wide` and the part that left-joined it with `leicester_2011OAC` to create `leicester_2011OAC_IMD2015`.
-
-Add the following snippet of code that uses the `pull` from the `dplyr` library to extract the column `supgrpname` from `leicester_2011OAC` as a vector, and the function `unique` to extract the unique values from the vector. That effectively creates the vector `leicester_2011OAC_supergroups` listing all the names of the supergroups.
-
-
-```r
-leicester_2011OAC_supergroups <- leicester_2011OAC %>%
-  pull(supgrpname) %>%
-  unique()
-```
-
-Extend the code in the script `Data_Wrangling_with_Functions.R` to include the code necessary to solve the questions below -- which as you might notice are a variation on the questions seen in Practical 3.
-
-**Question 6.2.1**: Write a piece of code that loops over the supergroups names in `leicester_2011OAC_supergroups`, and for each one of those generates a table showing the percentage of EU citizens over total population, calculated grouping OAs by the related decile of the Index of Multiple Deprivations. **Tip:** use the `print` function at the end of the pipe that generates the table to print each table.
-
-**Question 6.2.2**: Write a piece of code that loops over the supergroups names in `leicester_2011OAC_supergroups`, and for each one of those calculates the overall percentage of EU citizens over total population, and if that percentage is over 5%, then it prints the name of the supergroup. **Tip:** use `pull` at the end of the pipe to extract the calculated percentage.
-
-**Question 6.2.3**: Write a functions named `median_index` with one input parameter `vector_of_numbers` as a numeric vector, implementing the index shown below where $v$ is `vector_of_numbers` and $index$ is the output value of the function. The index tends to `-1` when the median is close to the minimum, and it tends to `1` when the median is close to the maximum. Write a piece of code that extracts a colum of your choice from the `leicester_2011OAC_IMD2015` dataset as a vector and apply the index.
-
-$$index = \frac{median(v)-min(v)}{max(v)-min(v)} - \frac{max(v)-median(v)}{max(v)-min(v)}$$
-
-**Question 6.2.4**: If implemented carelessly, the index above can encounter a problem when all values are the same. In that case, $max(v)-min(v)$ is zero and thus a division by zero might return a `NaN` value. If you haven't done so yet, edit the function to take that case into account and simply return the value `0` in that case. Furthermore, include a check to verify that the input is a numeric vector.
-
-
-## Solutions
-
-
-
-### Exercise 6.1
-
-**Question 6.1.3**: Write a function with two parameters, a vector of numbers and a vector of characters (text). The function should check that the input has the correct data type. If all the numbers in the first vector are larger than zero, return the elements of the second vector from the first to the length of the first vector. 
-
-
-```r
-function_question_1_3 <- function (in_numbers, in_text) {
-  if (is.numeric(in_numbers) & is.character(in_text)) {
-    if (all(in_numbers > 0)) {
-      return(in_text[1:length(in_numbers)])
-    } else {
-      cat("Not all numbers are greater than zero")
-    }
-  }else{
-      cat("Input error")
-  }
-}
-
-# Examples
-function_question_1_3(c(2, 3), c("Derby", "Leicester", "Lincoln", "Nottingham") )
-function_question_1_3(c(3, -1, 0), c("Derby", "Leicester", "Lincoln", "Nottingham") )
-```
-
-### Exercise 6.2
-
-A full R Script is available in the Exercises folder (`docs/exercises`) of the repository (`111_X_Data_Wrangling_with_Functions.R`). Upload the prepared script to your *Practical_111* project folder, click on the uploaded file to open it in a new editor tab and compare it to your script.
-
-## Exercise 114.2
-
-**Question 114.2.1:** Write a function that calculates the areas of a circle, taking the radius as the first parameter.
-
-**Question 114.2.2:** Write a function that calculates the volume of a cylinder, taking the radius of the base as the first parameter and the height as the second parameter. The function should call the function defined above and multiply the returned value by the height to calculate the result.
-
-**Question 114.2.3:** Write a function with two parameters, a vector of numbers and a vector of characters (text). The function should check that the input has the correct data type. If all the numbers in the first vector are greater than zero, return the elements of the second vector from the first to the length of the first vector. 
-
-**Question 6.1.4:** Write a function to compute and print out `gcd(x,60)`  for `x` in the range 1 to `n`.  When this is done,  write another function to compute and print out `gcd(x,y)` for `x` in the range 1 to `n1` and `y` in the range 1 to `n2`.  *Hint:* for this exercise you need to nest one deterministic loop inside another one.  As an additional exercise,  try to modify the `cube_root` function so that it computes the cube root of each element from 0.5 in steps of 0.5 to `n`.
--->
+<span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">OA11CD</span>, <span class="va">u121</span>, <span class="va">Total_Pop_No_NI_Students_16_to_74</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    perc_u121 <span class="op">=</span> </span>
+<span>      <span class="op">(</span><span class="va">u121</span> <span class="op">/</span> <span class="va">Total_Pop_No_NI_Students_16_to_74</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">OA11CD</th>
+<th align="right">u121</th>
+<th align="right">Total_Pop_No_NI_Students_16_to_74</th>
+<th align="right">perc_u121</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00069517</td>
+<td align="right">113</td>
+<td align="right">225</td>
+<td align="right">50.22222</td>
+</tr>
+<tr class="even">
+<td align="left">E00069514</td>
+<td align="right">102</td>
+<td align="right">287</td>
+<td align="right">35.54007</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169516</td>
+<td align="right">94</td>
+<td align="right">282</td>
+<td align="right">33.33333</td>
+</tr>
+<tr class="even">
+<td align="left">E00169048</td>
+<td align="right">111</td>
+<td align="right">227</td>
+<td align="right">48.89868</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169044</td>
+<td align="right">110</td>
+<td align="right">231</td>
+<td align="right">47.61905</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">OA11CD</span>, <span class="va">u121</span>, <span class="va">Total_Pop_No_NI_Students_16_to_74</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">percentage_of</span><span class="op">(</span></span>
+<span>    <span class="va">u121</span>, <span class="va">Total_Pop_No_NI_Students_16_to_74</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">OA11CD</th>
+<th align="right">u121</th>
+<th align="right">Total_Pop_No_NI_Students_16_to_74</th>
+<th align="right">perc_u121</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">E00069517</td>
+<td align="right">113</td>
+<td align="right">225</td>
+<td align="right">50.22222</td>
+</tr>
+<tr class="even">
+<td align="left">E00069514</td>
+<td align="right">102</td>
+<td align="right">287</td>
+<td align="right">35.54007</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169516</td>
+<td align="right">94</td>
+<td align="right">282</td>
+<td align="right">33.33333</td>
+</tr>
+<tr class="even">
+<td align="left">E00169048</td>
+<td align="right">111</td>
+<td align="right">227</td>
+<td align="right">48.89868</td>
+</tr>
+<tr class="odd">
+<td align="left">E00169044</td>
+<td align="right">110</td>
+<td align="right">231</td>
+<td align="right">47.61905</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="loading-r-scripts" class="section level2" number="12.4">
+<h2>
+<span class="header-section-number">12.4</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+</h2>
+<p>A key reason for writing functions is that you can write them once and they use them any time you need them. That is the principle behind the creation of libraries, which are (mostly) collections of functions. To that purpose, it is possible to write functions in an R script and then load that script (and all functions there defined) fromanother script or RMarkdown document – in a fashion similar to when a library is loaded. Create a new R script named <code>my_useful_functions.R</code> (as seen in <a href="reproducible-data-science.html#r-scripts">this section</a>), copy the code below in that R script and save the file.</p>
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">percentage_of</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="kw">function</span> <span class="op">(</span><span class="va">data</span>, <span class="va">var_col</span>, <span class="va">total_col</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>        <span class="st">"perc_{{var_col}}"</span> <span class="op">:=</span></span>
+<span>          <span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var_col</span> <span class="op">}</span><span class="op">}</span> <span class="op">/</span> <span class="op">{</span><span class="op">{</span> <span class="va">total_col</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span>      <span class="op">)</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<p>Create a new RMarkdown document and copy-paste the code below in the new document.</p>
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"my_useful_functions.R"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
+<span>    <span class="va">OA11CD</span>, <span class="va">u121</span>, <span class="va">Total_Pop_No_NI_Students_16_to_74</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">percentage_of</span><span class="op">(</span></span>
+<span>    <span class="va">u121</span>, <span class="va">Total_Pop_No_NI_Students_16_to_74</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>When knitted, the new document uses <code>source</code> to instruct the interpreter load and run the code in <code>my_useful_functions.R</code> script, thus loading the definition of the <code>percentage_of</code> function. The rest of the code then load the 2011 OAC data and invokes the function within the pipe. That is a simple example, but this can be an extremely powerful tool to create your own library of functions to be used by different scripts.</p>
 <hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
@@ -288,7 +383,9 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 <li>
 <a class="nav-link" href="#function-definition"><span class="header-section-number">12.1</span> Function definition</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functions-and-control-structures"><span class="header-section-number">12.1.1</span> Functions and control structures</a></li></ul>
 </li>
-<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">12.2</span> Loading R scripts</a></li>
+<li><a class="nav-link" href="#debugging"><span class="header-section-number">12.2</span> Debugging</a></li>
+<li><a class="nav-link" href="#writing-functions-for-dplyr"><span class="header-section-number">12.3</span> Writing functions for dplyr</a></li>
+<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">12.4</span> Loading R scripts</a></li>
 </ul>
 
       <div class="book-extra">
@@ -311,7 +408,7 @@ A full R Script is available in the Exercises folder (`docs/exercises`) of the r
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-07.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-08.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

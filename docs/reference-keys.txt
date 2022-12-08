@@ -120,4 +120,6 @@ urbanites
 working-with-functions
 function-definition
 functions-and-control-structures
+debugging
+writing-functions-for-dplyr
 loading-r-scripts
