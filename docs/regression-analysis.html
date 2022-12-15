@@ -371,6 +371,18 @@
 <span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">perc_u121</span><span class="op">)</span></span></code></pre></div>
 <p>Let’s observe how all those variable relate to one another using a pairs plot.</p>
+<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/">GGally</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">leicester_2011OAC_transp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">perc_u121</span>, <span class="va">perc_u141</span><span class="op">:</span><span class="va">perc_u158</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggpairs.html">ggpairs</a></span><span class="op">(</span></span>
+<span>    upper <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> </span>
+<span>        <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="va">ggally_cor</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    lower <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>continuous <span class="op">=</span> </span>
+<span>        <span class="fu"><a href="https://ggobi.github.io/ggally/reference/wrap.html">wrap</a></span><span class="op">(</span><span class="st">"points"</span>, alpha <span class="op">=</span> <span class="fl">0.3</span>, size<span class="op">=</span><span class="fl">0.1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="204-regression_files/figure-html/unnamed-chunk-16-1.png" width="1536"></div>
 <p>Based on the plot above and our understanding of the variables, we can try create a model able to relate and estimate the dependent (output) variable <code>perc_u120</code> (<em>Method of Travel to Work, Private Transport</em>) with the independent (predictor) variables:</p>
 <ul>
@@ -384,7 +396,7 @@
 <code>perc_u149</code>: Industry Sector, Accommodation and food service activities</li>
 </ul>
 <p>A multiple regression model can be specified in a similar way as a simple regression model, using the same <code>lm</code> function, but adding the additional predictor variables using a <code>+</code> operator.</p>
-<div class="sourceCode" id="cb268"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb269"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create model</span></span>
 <span><span class="va">commuting_model1</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">leicester_2011OAC_transp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
@@ -418,10 +430,10 @@
 ## Residual standard error: 9.481 on 964 degrees of freedom
 ## Multiple R-squared:  0.3846, Adjusted R-squared:  0.3821 
 ## F-statistic: 150.6 on 4 and 964 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb270"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Not rendered in bookdown</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">commuting_model1</span>, header<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb271"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb272"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/influence.measures.html">rstandard</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -430,7 +442,7 @@
 ## 
 ## data:  .
 ## W = 0.99889, p-value = 0.8307</code></pre>
-<div class="sourceCode" id="cb273"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb274"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/bptest.html">bptest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -438,7 +450,7 @@
 ## 
 ## data:  .
 ## BP = 28.403, df = 4, p-value = 1.033e-05</code></pre>
-<div class="sourceCode" id="cb275"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb276"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/lmtest/man/dwtest.html">dwtest</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## 
@@ -447,7 +459,7 @@
 ## data:  .
 ## DW = 0.72548, p-value &lt; 2.2e-16
 ## alternative hypothesis: true autocorrelation is greater than 0</code></pre>
-<div class="sourceCode" id="cb277"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb278"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">commuting_model1</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -457,7 +469,7 @@
 <p>The output above suggests that the model is fit (<span class="math inline">\(F(4, 964) = 150.62\)</span>, <span class="math inline">\(p &lt; .001\)</span>), indicating that a model based on the presence of people working in the four selected industry sectors can account for 38.21% of the number of people using private transportation to commute to work. However the model is only partially robust. The residuals are normally distributed (Shapiro-Wilk test, <span class="math inline">\(W = 1\)</span>, <span class="math inline">\(p =0.83\)</span>) and there seems to be no multicollinearity with average VIF <span class="math inline">\(1.02\)</span>, but the residuals don’t satisfy the homoscedasticity assumption (Breusch-Pagan test, <span class="math inline">\(BP = 28.4\)</span>, <span class="math inline">\(p &lt; .001\)</span>), nor the independence assumption (Durbin-Watson test, <span class="math inline">\(DW = 0.73\)</span>, <span class="math inline">\(p &lt; .01\)</span>).</p>
 <p>The coefficient values calculated by the <code>lm</code> functions are important to create the model, and provide useful information. For instance, the coefficient for the variable <code>perc_u144</code> is <code>1.169</code>, which indicates that if the presence of people working in electricity, gas, steam and air conditioning supply increases by one percentage point, the number of people using private transportation to commute to work increases by <code>1.169</code> percentage points, according to the model. The coefficients also indicate that the presence of people working in accommodation and food service activities actually has a negative impact (in the context of the variables selected for the model) on the number of people using private transportation to commute to work.</p>
 <p>In this example, all variables use the same unit and are of a similar type, which makes interpreting the model relatively simple. When that is not the case, it can be useful to look at the standardized <span class="math inline">\(\beta\)</span>, which provide the same information but measured in terms of standard deviation, which make comparisons between variables of different types easier to draw. For instance, the values calculated below using the function <code>lm.beta</code> of the library <code>lm.beta</code> indicate that if the presence of people working in construction has the highest impact on the outcome varaible. If the presence of people working in construction increases by one standard deviation, the number of people using private transportation to commute to work increases by <code>0.29</code> standard deviations, according to the model.</p>
-<div class="sourceCode" id="cb279"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb280"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Install lm.beta library if necessary</span></span>
 <span><span class="co"># install.packages("lm.beta")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">lm.beta</span><span class="op">)</span></span>
@@ -522,7 +534,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-08.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-15.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -359,6 +359,21 @@ leicester_2011OAC_transp <-
 Let's observe how all those variable relate to one another using a pairs plot.
 
 
+
+```r
+library(GGally)
+
+leicester_2011OAC_transp %>%
+  select(perc_u121, perc_u141:perc_u158) %>%
+  ggpairs(
+    upper = list(continuous = 
+        wrap(ggally_cor, method = "kendall")),
+    lower = list(continuous = 
+        wrap("points", alpha = 0.3, size=0.1))
+  ) +
+  theme_bw()
+```
+
 <img src="204-regression_files/figure-html/unnamed-chunk-16-1.png" width="1536" />
 
 Based on the plot above and our understanding of the variables, we can try create a model able to relate and estimate the dependent (output) variable `perc_u120` (*Method of Travel to Work, Private Transport*) with the independent (predictor) variables:
