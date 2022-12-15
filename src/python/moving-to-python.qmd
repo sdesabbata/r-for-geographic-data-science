@@ -1,0 +1,725 @@
+---
+title: "Python for Geographic Data Science"
+author: "Stefano De Sabbata"
+number-sections: true
+format: 
+    html:
+        toc: true
+jupyter: python3
+---
+
+This short document is a brief introduction to Python for learners who have read the [*R for Geographic Data Science* book](https://sdesabbata.github.io/r-for-geographic-data-science/) and aim to expand their data science skills to include Python. As such, the document is designed to mirror (as far as possible)the first part of the [*R for Geographic Data Science* book](https://sdesabbata.github.io/r-for-geographic-data-science/), including [basic programming concepts](https://sdesabbata.github.io/r-for-geographic-data-science/introduction-to-r.html) and [data manipulation](https://sdesabbata.github.io/r-for-geographic-data-science/data-manipulation.html), as well as [control structures](https://sdesabbata.github.io/r-for-geographic-data-science/control-structures.html) and [working with functions](https://sdesabbata.github.io/r-for-geographic-data-science/working-with-functions.html).
+
+*This is a draft, most of the text needs to be rewritten*
+
+# Introduction to Python
+
+We start this chapter with a brief introduction to `R`, the programming language that will be the focus of the module, and the tool that we will use to do data science.
+
+`R` is one of the [most widely used programming languages nowadays](https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr), along with Python, especially in geographic and satellite data science. I don't personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find `R` more effective and powerful in data manipulation, statistical analysis, visualisation and mapping. That is the key reason why this book focuses on `R`. At the same time, beyond the mere details of syntax, the languages are not too different and are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.
+
+
+
+## The Python programming language
+
+**[`R`](https://www.r-project.org/)**[@R-base] was created in 1992 by `R`oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. `R` is a free, open-source implementation of the `S` statistical programming language initially created at Bell Labs. At its core, `R` is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language. 
+
+In simple terms, programming in `R` mainly focuses on devising a series of instructions to execute a task -- most commonly, loading and analysing a dataset.
+
+As such, R can be used to program by creating sequences of **instructions** involving **variables** -- which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (*if/else*) and loops, which will be the topic of the next practical session. Instructions can also be grouped into **functions**, which we will see in more detail in the next chapter.
+
+`R` is **interpreted**, not compiled. That means that an `R` interpreter receives an instruction you write and interprets and executes them. Other programming languages require their code to be compiled in an executable file to be executed on a computer.
+
+
+
+### Jupyther notebooks
+
+[RStudio](https://www.rstudio.com/) is probably the most popular [Integrated Development Environment (IDE)](https://en.wikipedia.org/wiki/Integrated_development_environment) for `R`. When using RStudio, the `R` interpreter is hidden in the backend, and RStudio is the frontend application that allows you to interact with the interpreter. As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the *Console* -- and the `R` script editor, when a script is being edited. The *Console* in an input/output window into the `R` interpreter, where you can type instructions and see the resulting output. 
+
+For instance, if you type in the *Console*
+
+```{python}
+1 + 1
+```
+
+the `R` interpreter understands that as an instruction to sum `1` to `1` and returns the following result as output.
+
+```{python}
+1 + 1
+```
+
+As these materials are created in Quarto...
+
+
+### Markdown
+
+An essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/), an R library that allows you to create scripts that mix the [Markdown](https://daringfireball.net/projects/markdown/) mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
+
+
+### Coding style
+
+A coding style is a set of rules and guidelines to write programming code designed to ensure that the code is easy to read, understand, and consistent over time. Following a good coding style is essential when writing code that others will read -- for instance, if you work in a team, publish your code or submit your code as a piece of coursework -- and it ensures you will understand your code in a few months. Following a good coding style is also an essential step towards reproducibility, as we will see in a later chapter.
+
+In this book, I will follow the [Tidyverse Style Guide (style.tidyverse.org)](http://style.tidyverse.org/). Study the Tidyverse Style Guide and use it consistently.
+
+
+
+## Core concepts
+
+
+
+### Values
+
+When a value is typed in the *Console*, the interpreter returns the same value. In the examples below, `2` is a simple numeric value, while `"String value"` is a textual value, which in `R` is referred to as a *character* value and in programming is also commonly referred to as a *string* (short for *a string of characters*). 
+
+Numeric example:
+
+```{python}
+2
+```
+
+Character example:
+
+```{python}
+"String value"
+```
+
+Note how character values need to start and end with a single or double quote (`'` or `"`), which are not part of the information themselves. The [Tidyverse Style Guide](https://style.tidyverse.org/syntax.html) suggests always using the double quote (`"`), so we will use those in this module.
+
+Anything that follows a `#` symbol is considered a *comment*, and the interpreter ignores it.
+
+```{python}
+# hi, I am a comment, please ignore me
+```
+
+As mentioned above, the interpreter understands simple operations on numeric and logic values, as well as text objects (including single characters and strings of character, that is text objects longer than one character, commonly referred to simply as *strings* in computer science), as discussed in more detail in [Appendix 1](appendix-1.html#basic-types).
+
+```{python}
+# Sum 1 and 2
+1 + 2
+```
+
+```{python}
+# Logical AND operation between
+# the value TRUE and FALSE
+True & False
+```
+
+```{python}
+# Check whether the character a
+# is equal to the character b
+"a" == "b"
+```
+
+
+
+### Variables
+
+In computer programming, a **variable** can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary -- hence the name variable. When programming, you can define a variable by naming it with an **identifier** and providing a **value** to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow saving the result of a piece of computation and to retrieve it later on for further analysis. 
+
+A variable can be defined in `R` using an identifier (e.g., `a_variable`) on the left of an **assignment operator** `=`, followed by the object to be linked to the identifier, such as a value (e.g., `1`) to be assigned on the right. The value of the variable can be invoked by simply specifying the identifier.
+
+```{python}
+a_variable = 1
+a_variable
+```
+
+If you type `a_variable = 1` in the *Console* in RStudio, a new element appears in the *Environment* panel, representing the new variable in the memory. The left part of the entry contains the identifier `a_variable`, and the right part contains the value assigned to the variable `a_variable`, that is `1`. In the example below, another variable named `another_variable` is created and summed to `a_variable`, saving the result in `sum_of_two_variables`.
+
+```{python}
+another_variable = 4
+another_variable
+```
+
+```{python}
+sum_of_two_variables = a_variable + another_variable
+sum_of_two_variables
+```
+
+
+
+### Algorithms
+
+Any operation that can be executed using a computer is called an **algorithm**. To be more precise, @cutland_1980 defined an algorithm as *"a mechanical rule, or automatic method, or program for performing some mathematical operation"* (Cutland, 1980, p. 7[@cutland_1980]). 
+
+The instructions you get to mount your Ikea furniture can be thought of as an algorithm, an effective procedure to perform the operation of mounting your furniture. You are playing the part of the computer executing the algorithm.
+
+A **program** is a set of instructions implementing an abstract algorithm into a specific language -- let that be R, Python, or any other language. In their definition, algorithms (and thus the programs that implement them) can use variables and functions. As is the case for `R`, programs that are interpreted rather than compiled are also referred to as **scripts**.
+
+
+
+### Functions
+
+You can think of a **function** as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each designed to complete a sub-task, which combined perform the entire task. 
+
+You can **invoke** a function by specifying the **function name** along with the **arguments** (input values) between simple brackets. Each argument corresponds to a **parameter** (i.e., an internal variable used within the function to run the operation, as we will see in more detail later in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., finding the square root of a number or calculating a linear regression). 
+
+For instance, `sqrt` is the pre-defined function in `R` that computes the square root of a number. The instruction `sqrt(2)` tells the `R` interpreter to run the function that calculates the square root using `2` as the input value. The function will return `1.414214`, the square root of `2`, as the output. 
+
+```{python}
+import math
+math.sqrt(2)
+```
+
+Another example is the function `round`, which returns a value rounded to a specified number of digits after the dot. For instance, `round(1.414214, digits = 2)` returns `1.41`. In this case, we specify that the second argument refers to the number of digits to be kept, and this is because this function also has other arguments that can be specified.
+
+```{python}
+round(1.414214, ndigits = 2)
+```
+
+Functions can also be used on the right side of the assignment operator `=` in which case the output value of the function will be stored in the memory slot with that identifier. Variables can be used as arguments. For instance, after saving the result of the square root of two in the variable `sqrt_of_two`, we can use the same variable as the first argument for the function `round`.
+
+```{python}
+sqrt_of_two = math.sqrt(2)
+sqrt_of_two
+```
+
+```{python}
+round(sqrt_of_two, ndigits = 2)
+```
+
+Functions can also be used as arguments of functions. Instead of first calculating the square root of two, saving the value in a variable, and then using the variable as the first argument of `round`, we can directly add the function `sqrt` and its argument as the first argument of the function `round`.
+
+```{python}
+round(math.sqrt(2), ndigits = 2)
+```
+
+In a subsequent chapter, we will see how you can create functions yourself.
+
+As we introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best to always aim for a code that is as easy to read and understand as possible. An essential step in ensuring that is to follow coding style guidelines closely.
+
+
+
+# Libraries
+
+Functions can be collected and stored in *libraries* (sometimes referred to as *packages*), containing related functions and sometimes datasets. For instance, the `base` library in `R` includes the `sqrt` function above, and the `rgdal` library, which contains implementations of the [GDAL (Geospatial Data Abstraction Library)](https://gdal.org/) functionalities for `R`. 
+
+Libraries can be installed in `R` using the function `install.packages` or using `Tool > Install Packages...` in RStudio. 
+
+
+
+## Control structures
+
+### Conditional statements
+
+```{python}
+a_variable = math.sqrt(2)
+
+if a_variable < 2:
+    print("Lower than two")
+else:
+    print("Greater or equal to two")
+```
+
+
+### Loops
+
+```{python}
+max_val = 5
+a_variable = 1
+
+while a_variable <= max_val:
+    print(a_variable)
+    a_variable += 1
+```
+
+```{python}
+for i in range(5):
+    print(i)
+```
+
+
+
+
+## Complex data types 
+
+### Vectors
+
+Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**^[The term *list* has a specific meaning in `R`. Don't use the term *list* to refer to *vectors*.].
+
+Vectors can be defined in R by using the function `c`, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided. 
+
+```{python}
+east_midlands_cities = ["Derby", "Leicester", "Lincoln", "Nottingham"]
+len(east_midlands_cities)
+```
+
+```{python}
+for city in east_midlands_cities:
+    print(city)
+```
+
+Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the *index* (or indices as we will see further below) of the elements to be retrieved. Indices start from `1`, so the index of the first element is `1`, the index of the second element is `2`, and so on and so forth^[That is different from many programming languages, where the index of the first element is `0`.].
+
+```{python}
+# Retrieve the third city
+east_midlands_cities[3]
+```
+
+To retrieve any subset of a vector (i.e., more than one element), you can specify an integer vector containing the indices (rather than a single integer value) of the items of interest between square brackets. 
+
+```{python}
+# Retrieve first to third (to fourth excluded)
+east_midlands_cities[1:4]
+```
+
+```{python}
+# Retrieve first and third city
+[east_midlands_cities[index] for index in [1,3]]
+```
+
+
+The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement and the second returns `TRUE` if all elements satisfy the condition
+
+```{python}
+[city == "Leicester" for city in east_midlands_cities]
+```
+
+```{python}
+any([city == "Leicester" for city in east_midlands_cities])
+```
+
+```{python}
+all([city == "Leicester" for city in east_midlands_cities])
+```
+
+
+Functions and operators can be applied to vectors in the same way as they would be applied to simple values. For instance, all built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.
+
+```{python}
+one_to_ten = [val for val in range(1, 10)]
+one_to_ten
+```
+
+```{python}
+[val + 1 for val in range(1, 10)]
+```
+
+```{python}
+[math.sqrt(val) for val in range(1, 10)]
+```
+
+
+### Pandas data frames
+
+The examples above illustrate how `R` allows working with simple data types. However, in data science, we rarely engage directly with such simple pieces of information. Rather, we commonly work with datasets composed of tables. **Data frames** are complex data types which encode the concept of a table in `R` by combining and arranging together a series of simple objects. In the following chapters, we will explore the different complex types and how to handle tables in more detail.
+
+`R` includes many simple example data frames, such as the [`iris`](https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris) dataset. When loading `R`, a pre-defined variable named `iris` will be available in the environment. By specifying the identifier `iris` in the console (as shown below), you can invoke the variable and see its contents. Each one of the 150 rows of the table (the first five rows are shown below) reports information about an iris flower. Four numeric columns (`Sepal.Length`, `Sepal.Width`, `Petal.Length` and `Petal.Width`) are used to describe the size of sepal and petal, while a string column (`Species`) is used to catalogue the species of iris.  
+
+```{python}
+from sklearn import datasets
+
+iris = datasets.load_iris(as_frame = True)
+```
+
+```{python}
+import pandas as pd
+
+iris_df = pd.DataFrame(data = iris.data, columns = iris.feature_names)
+iris_df.head()
+```
+
+As the rest of the book will illustrate, `R` provides a wide range of functions that will allow conducting any step of a a data analysis: from data input/ouput to data manipulation, from statistics and machine learning to visualisation, and even to creating a web-based book like the one you are currently reading (which has indeed been created using `R`). For instance, you can use the function `hist` to plot the histogram of petal lengths of flowers in `iris`. Note how, in the code below, the first parameter is not `iris` but `iris$Petal.Length` as the `$` is used to extract the `Petal.Length` from `iris` (more on this in the coming chapters).
+
+```{python}
+import matplotlib.pyplot as plt
+
+plt.hist(iris_df["petal length (cm)"])
+plt.show()
+```
+
+
+# Data manipulation
+
+
+As mentioned in the previous chapter, **data frames** are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vector representing a column and all vectors have the same length, thus representing the same number of rows.
+
+The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional), and thus, two pieces of information are necessary. The first index specifies which rows to select or filter, and the second index specifies which columns to select or filter. If no information is provided for either the first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query become, the longer and less readable the code becomes.
+
+The function `write_csv` can be used to save a dataset as a `csv` file. For instance, the code below uses `tidyverse` functions and the pipe operator `%>%` to *reproduce* the `2011_OAC_supgrp_Leicester.csv` dataset used [in the lecture](slides/103-slides-data-manipulation.html):
+
+1. **read** the 2011 OAC file `2011_OAC_Raw_uVariables_Leicester.csv` directly from the file, but without storing it into a variable;
+2. **select** the OA code variable `OA11CD`, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname` respectively);
+3. **filter** only those OA in the supergroup *Suburbanites* (code `6`);
+4. **write** the results to a file named `my--2011_OAC_supgrp_Leicester.csv`, which is your own version of the `2011_OAC_supgrp_Leicester.csv`.
+
+## Read data
+
+The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. 
+
+The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
+
+```{python}
+#| echo: false
+#| message: flase
+#| warning: false
+
+import os
+print(os.getcwd())
+```
+
+
+```{python}
+#| echo: false
+#| message: flase
+#| warning: false
+
+leicester_2011OAC = pd.read_csv("../../data/" + "2011_OAC_Raw_uVariables_Leicester.csv")
+```
+
+```{python}
+#| eval: false
+
+# Read the Leicester 2011 OAC dataset from the csv file
+leicester_2011OAC =
+  pd.read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+```
+
+
+#### Select columns
+
+Fortunately, rather than working with base R instructions, we can use the `dplyr` library, which is part of the Tidyverse and offers a grammar for data manipulation. The function `select` can be used to select some **columns** to output. For instance, in the code below, the function `select` is used to select the columns `origin`, `dest`, and `dep_delay`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
+
+```{python}
+subset_lei2011OAC = leicester_2011OAC[["OA11CD", "LSOA11CD", "supgrpcode", "supgrpname", "Total_Population"]]
+```
+
+```{python}
+# Illustrate some of the contents
+subset_lei2011OAC.head()
+```
+
+
+### Filter rows
+
+The function `filter` can instead be used to filter **rows** based on a specified condition. In the example below, the output of the `filter` step only includes the rows where the value of `month` is `11` (i.e., the eleventh month, November). 
+
+```{python}
+supgrp6_lei2011OAC = subset_lei2011OAC[subset_lei2011OAC["supgrpcode"] == 6]
+```
+
+```{python}
+supgrp6_lei2011OAC.head()
+```
+
+
+Notice how `filter` is used in combination with `select`. All functions in the `dplyr` library can be combined in any other order that makes logical sense. However, if the `select` step didn't include `month`, that same column couldn't have been used in the `filter` step.
+
+### Write data
+
+```{python}
+#| eval: false
+
+supgrp6_lei2011OAC.to_csv("my--2011_OAC_supgrp_Leicester.csv")
+```
+
+## Data manipulation
+
+The analysis below uses the [`dplyr`](https://dplyr.tidyverse.org/) library (also part of the Tidyverse), which it offers a grammar for data manipulation.
+
+For instance, the function `count` can be used to count the number of rows in a data frame. The code below provides the `leicester_2011OAC` dataframe (as read in input in the section above) as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column, containing the number of rows in that dataframe -- that is, the number of OAs in Leicester. 
+
+
+```{python}
+# Shape of the table
+leicester_2011OAC.shape
+```
+
+```{python}
+# Number of rows
+leicester_2011OAC.shape[0]
+```
+
+```{python}
+# Number of columns
+leicester_2011OAC.shape[1]
+```
+
+As discussed in the previous lecture, a [`tibble`](https://tibble.tidyverse.org/) is a data type similar to data frames, used by all the Tidyverse libraries. All Tidyverse functions output `tibble` rather than `data.frame` objects when representing a table. However, `data.frame` object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.
+
+The example above already shows how the **pipe operator** can be used effectively in a multi-step operation. In the `tibble` outputted by the `count` function above, the column `n` provides the count. The function `kable` of the library `knitr` is used to produce a well-formatted table.
+
+Note how the code above goes to a new line after every `%>%`, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.
+
+
+### Summarise
+
+The verb `count` is a special case (a shorthand) of the more general verb `summarise` (`summarize` using the American English spelling is also available with the same functionality), which allows generating tables presenting aggregate values of input data. 
+
+For instance, `summarise` can be used to create a table containing:
+
+- a column presenting the total population of Leicester;
+- a column presenting the total number of OAs in Leicester;
+- a column presenting the average population per OAs in Leicester;
+- a column presenting a logical value stating whether any OA in Leicester contains more than 600 people.
+
+That can be achieved applying different aggregate functions to the same column (`Total_Population`) of the `leicester_2011OAC` as illustrated below.
+
+- `sum` to calculate the total population of Leicester;
+- `n` to count the number of rows (as mentioned above `count` is a shorthand for the combination of `summarise` with `n`);
+- `mean` to calculate the average population per OAs in Leicester; 
+- `any` with a conditional statement comparing `Total_Population` and the value `600` using the numeric operator `>` (greater than) to assess whether any OA in Leicester contains more than 600 people.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  summarise(
+    # Total population in Leicester
+    tot_pop = sum(Total_Population),
+    # Number of OAs, no input column needed
+    num_of_OAs = n(),
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_600 = any(Total_Population > 600)
+  ) %>% 
+  kable()
+```
+
+A set of aggregate functions which are frequently used with `summarise` is available in [the `dplyr` page on `summarise`](https://dplyr.tidyverse.org/reference/summarise.html#useful-functions).
+
+To carry out more complex aggregations, the function `summarise` can be used in combination with the function `group_by` to summarise the values in the data frame based on groups. Rows having the same value for the column specified for the verb `group_by` (in the example below, the 2011 OAC supergroup, `supgrpname`) are grouped together, then values are aggregated based on the functions specified for the verb `summarise` (using one or more columns in the calculation). 
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  group_by(supgrpname) %>% 
+  summarise(
+    # Total population in Leicester
+    tot_pop = sum(Total_Population),
+    # Number of OAs, no input column needed
+    num_of_OAs = n(),
+    # Average population
+    avg_pop = mean(Total_Population), 
+    # Is there any OA with over 200 people?
+    pop_over_600 = any(Total_Population > 600)
+  ) %>% 
+  kable()
+```
+
+The shorthand function `count` also has the option to specify a column that will be used for an internal grouping. In the example below, the column name `supgrpname` is provided as an argument to the function `count`. As a result, the output shows the number of rows grouped by 2011 OAC supergroup.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  count(supgrpname) %>%
+  kable()
+```
+
+
+
+
+### Mutate
+
+The function `mutate` can be used to create a new column by conducting operations on current columns. For instance, in the example below, `summarise` is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb `mutate` is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same `avg_pop` column as above but through a different process.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  group_by(supgrpname) %>% 
+  summarise(
+    # Total population in Leicester
+    tot_pop = sum(Total_Population),
+    # Number of OAs, no input column needed
+    num_of_OAs = n(),
+    # Is there any OA with over 200 people?
+    pop_over_600 = any(Total_Population > 600)
+  ) %>% 
+  mutate(
+    # Average population
+    avg_pop = tot_pop / num_of_OAs, 
+  ) %>% 
+  kable(digits = c(0, 0, 0, 0, 2))
+```
+
+In this second example, the `u005` column (which represents the area of the OA in [hectares](https://en.wikipedia.org/wiki/Hectare), see `2011_OAC_Raw_uVariables_Lookup.csv`) is used to calculate the population density for each OA.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  mutate(
+    # Population density
+    pop_density = Total_Population / u005, 
+  ) %>% 
+  select(OA11CD, pop_density) %>% 
+  slice_head(n = 10) %>% 
+  kable(digits = c(0, 2))
+```
+
+
+### Arrange
+
+The function `arrange` can be used to sort a tibble by ascending order of the values in the specified column. If the operator `-` is specified before the column name, the descending order is used. The code below would produce a table showing the ten OAs with the largest population in Leicester.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  arrange(
+    # Descending delay
+    -Total_Population
+  ) %>% 
+  slice_head(n = 10) %>% 
+  kable()
+```
+
+In the example above, we have used `slice_head` to present only the first `n` (in the example `10`) rows in a table based on the existing order. The `dplyr` library also provides the functions `slice_max` and `slice_min` which incorporate the sorting functionality (see [`slice` reference page](https://dplyr.tidyverse.org/reference/slice.html)).
+
+As such, the following code uses `slice_max` to produce a table including only the 10 OAs with the *highest* population.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  slice_max(
+    Total_Population, 
+    n = 10
+  ) %>%
+  kable()
+```
+
+The following code, instead, uses `slice_min`, thus producing a table including only the 10 OAs with the *lowest* population..
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+leicester_2011OAC %>%
+  select(
+    OA11CD,	supgrpname,	
+    Total_Population
+  ) %>% 
+  slice_min(
+    Total_Population, 
+    n = 10
+  ) %>%
+  kable()
+```
+
+In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as is the case with the rows containing the value `21` in the example above.
+
+
+### Data manipulation example
+
+Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above. This is a full example of a short analysis using only one series of pipes to read, process and write data using `R` and almost all the `tidyverse` *verbs* seen so far.
+
+The input data are read from the csv file and part of the data are selected and filtered. The data are grouped, aggregated and arranged in order. The percentage of people living in OAs assigned to each 2011 OAC supergroup is calculated. The [Tee pipe](https://magrittr.tidyverse.org/reference/tee.html) (from the `magrittr` library) is used to write the resulting table to a file, while also passing the same input to the subsequent `kable` function to display the data.
+
+```{python}
+#| eval: false
+
+# --- TO-DO ---
+
+library(magrittr)
+
+# Let's start from the filename
+"2011_OAC_supgrp_Leicester.csv" %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop) %>% 
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100) %T>%
+  # Then use the Tee pipe %T>% in the line above
+  # to write the calculated values to file
+  # and pass the same input values to the kable function
+  write_csv(
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"
+  ) %>% 
+  # Print to screen nicely
+  kable()
+```
+
+```{python}
+#| eval: false
+#| echo: false
+
+# --- TO-DO ---
+
+library(magrittr)
+
+# Let's start from the filename
+paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv") %>% 
+  # as input to the read_csv function
+  read_csv(col_types = "cccci") %>% 
+  # Select only the necessary columns
+  select(supgrpname,	Total_Population) %>% 
+  # Let's say we are not interested in
+  # the Suburbanites supergroup
+  filter(supgrpname != "Suburbanites") %>% 
+  # Group by supergroup
+  group_by(supgrpname) %>% 
+  # Aggregate population
+  summarise(tot_pop = sum(Total_Population)) %>% 
+  # Ungroup
+  ungroup() %>% 
+  # Arrange by descending total population
+  arrange(-tot_pop) %>% 
+  # Calculate percentage
+  mutate(perc_pop = (tot_pop / 329839) * 100) %T>%
+  # Then use the Tee pipe %T>% in the line above
+  # to write the calculated values to file
+  # and pass the same input values to the kable function
+  write_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/",
+    "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv")
+  ) %>% 
+  # Print to screen nicely
+  kable(digits = c(0, 0, 2))
+```
+
+
+
+
+## Joining tables
+
+A join operation combines two tables into one by matching rows that have the same values in the specified column. This operation is usually executed on columns containing identifiers, which are matched through different tables containing different data about the same real-world entities. For instance, the table below presents the telephone prefixes for two cities. That information can be combined with the data present in the wide-formatted table above through a join operation on the columns containing the city names. As the two tables do not contain all the same cities, if a full join operation is executed, some cells have no values assigned.
+
+
+
+# Reading list
+
+Sergio J. Rey, Dani Arribas-Bel and Levi J. Wolf provide a wonderful introduction to using python for spatial data analysis in their [*Geographic Data Science with Python* book](https://geographicdata.science/book/intro.html).
+
+---
+
+<small>by [Stefano De Sabbata](https://sdesabbata.github.io/) -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).</small>

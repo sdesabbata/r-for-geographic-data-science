@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Stefano De Sabbata">
+
+<title>Python for Geographic Data Science</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="moving-to-python_files/libs/clipboard/clipboard.min.js"></script>
+<script src="moving-to-python_files/libs/quarto-html/quarto.js"></script>
+<script src="moving-to-python_files/libs/quarto-html/popper.min.js"></script>
+<script src="moving-to-python_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="moving-to-python_files/libs/quarto-html/anchor.min.js"></script>
+<link href="moving-to-python_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="moving-to-python_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="moving-to-python_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="moving-to-python_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="moving-to-python_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-python" id="toc-introduction-to-python" class="nav-link active" data-scroll-target="#introduction-to-python"><span class="toc-section-number">1</span>  Introduction to Python</a>
+  <ul class="collapse">
+  <li><a href="#the-python-programming-language" id="toc-the-python-programming-language" class="nav-link" data-scroll-target="#the-python-programming-language"><span class="toc-section-number">1.1</span>  The Python programming language</a>
+  <ul class="collapse">
+  <li><a href="#jupyther-notebooks" id="toc-jupyther-notebooks" class="nav-link" data-scroll-target="#jupyther-notebooks"><span class="toc-section-number">1.1.1</span>  Jupyther notebooks</a></li>
+  <li><a href="#markdown" id="toc-markdown" class="nav-link" data-scroll-target="#markdown"><span class="toc-section-number">1.1.2</span>  Markdown</a></li>
+  <li><a href="#coding-style" id="toc-coding-style" class="nav-link" data-scroll-target="#coding-style"><span class="toc-section-number">1.1.3</span>  Coding style</a></li>
+  </ul></li>
+  <li><a href="#core-concepts" id="toc-core-concepts" class="nav-link" data-scroll-target="#core-concepts"><span class="toc-section-number">1.2</span>  Core concepts</a>
+  <ul class="collapse">
+  <li><a href="#values" id="toc-values" class="nav-link" data-scroll-target="#values"><span class="toc-section-number">1.2.1</span>  Values</a></li>
+  <li><a href="#variables" id="toc-variables" class="nav-link" data-scroll-target="#variables"><span class="toc-section-number">1.2.2</span>  Variables</a></li>
+  <li><a href="#algorithms" id="toc-algorithms" class="nav-link" data-scroll-target="#algorithms"><span class="toc-section-number">1.2.3</span>  Algorithms</a></li>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions"><span class="toc-section-number">1.2.4</span>  Functions</a></li>
+  </ul></li>
+  <li><a href="#control-structures" id="toc-control-structures" class="nav-link" data-scroll-target="#control-structures"><span class="toc-section-number">1.3</span>  Control structures</a>
+  <ul class="collapse">
+  <li><a href="#conditional-statements" id="toc-conditional-statements" class="nav-link" data-scroll-target="#conditional-statements"><span class="toc-section-number">1.3.1</span>  Conditional statements</a></li>
+  <li><a href="#loops" id="toc-loops" class="nav-link" data-scroll-target="#loops"><span class="toc-section-number">1.3.2</span>  Loops</a></li>
+  </ul></li>
+  <li><a href="#complex-data-types" id="toc-complex-data-types" class="nav-link" data-scroll-target="#complex-data-types"><span class="toc-section-number">1.4</span>  Complex data types</a>
+  <ul class="collapse">
+  <li><a href="#vectors" id="toc-vectors" class="nav-link" data-scroll-target="#vectors"><span class="toc-section-number">1.4.1</span>  Vectors</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#libraries" id="toc-libraries" class="nav-link" data-scroll-target="#libraries"><span class="toc-section-number">2</span>  Libraries</a>
+  <ul class="collapse">
+  <li><a href="#pandas" id="toc-pandas" class="nav-link" data-scroll-target="#pandas"><span class="toc-section-number">2.1</span>  Pandas</a></li>
+  <li><a href="#matplotlib" id="toc-matplotlib" class="nav-link" data-scroll-target="#matplotlib"><span class="toc-section-number">2.2</span>  Matplotlib</a></li>
+  </ul></li>
+  <li><a href="#data-manipulation" id="toc-data-manipulation" class="nav-link" data-scroll-target="#data-manipulation"><span class="toc-section-number">3</span>  Data manipulation</a>
+  <ul class="collapse">
+  <li><a href="#read-data" id="toc-read-data" class="nav-link" data-scroll-target="#read-data"><span class="toc-section-number">3.1</span>  Read data</a>
+  <ul class="collapse">
+  <li><a href="#filter-rows" id="toc-filter-rows" class="nav-link" data-scroll-target="#filter-rows"><span class="toc-section-number">3.1.1</span>  Filter rows</a></li>
+  <li><a href="#write-data" id="toc-write-data" class="nav-link" data-scroll-target="#write-data"><span class="toc-section-number">3.1.2</span>  Write data</a></li>
+  </ul></li>
+  <li><a href="#data-manipulation-1" id="toc-data-manipulation-1" class="nav-link" data-scroll-target="#data-manipulation-1"><span class="toc-section-number">3.2</span>  Data manipulation</a>
+  <ul class="collapse">
+  <li><a href="#summarise" id="toc-summarise" class="nav-link" data-scroll-target="#summarise"><span class="toc-section-number">3.2.1</span>  Summarise</a></li>
+  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="toc-section-number">3.2.2</span>  Mutate</a></li>
+  <li><a href="#arrange" id="toc-arrange" class="nav-link" data-scroll-target="#arrange"><span class="toc-section-number">3.2.3</span>  Arrange</a></li>
+  <li><a href="#data-manipulation-example" id="toc-data-manipulation-example" class="nav-link" data-scroll-target="#data-manipulation-example"><span class="toc-section-number">3.2.4</span>  Data manipulation example</a></li>
+  </ul></li>
+  <li><a href="#joining-tables" id="toc-joining-tables" class="nav-link" data-scroll-target="#joining-tables"><span class="toc-section-number">3.3</span>  Joining tables</a></li>
+  </ul></li>
+  <li><a href="#reading-list" id="toc-reading-list" class="nav-link" data-scroll-target="#reading-list"><span class="toc-section-number">4</span>  Reading list</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Python for Geographic Data Science</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Stefano De Sabbata </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This short document is a brief introduction to Python for learners who have read the <a href="https://sdesabbata.github.io/r-for-geographic-data-science/"><em>R for Geographic Data Science</em> book</a> and aim to expand their data science skills to include Python. As such, the document is designed to mirror (as far as possible)the first part of the <a href="https://sdesabbata.github.io/r-for-geographic-data-science/"><em>R for Geographic Data Science</em> book</a>, including <a href="https://sdesabbata.github.io/r-for-geographic-data-science/introduction-to-r.html">basic programming concepts</a> and <a href="https://sdesabbata.github.io/r-for-geographic-data-science/data-manipulation.html">data manipulation</a>, as well as <a href="https://sdesabbata.github.io/r-for-geographic-data-science/control-structures.html">control structures</a> and <a href="https://sdesabbata.github.io/r-for-geographic-data-science/working-with-functions.html">working with functions</a>.</p>
+<p><em>This is a draft, most of the text needs to be rewritten</em></p>
+<section id="introduction-to-python" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction to Python</h1>
+<p>We start this chapter with a brief introduction to <code>R</code>, the programming language that will be the focus of the module, and the tool that we will use to do data science.</p>
+<p><code>R</code> is one of the <a href="https://spectrum.ieee.org/top-programming-languages-2021#toggle-gdpr">most widely used programming languages nowadays</a>, along with Python, especially in geographic and satellite data science. I don’t personally have a strong preference for either, and I use both fairly regularly and in combination. Most of the time, using one or the other is a matter of habit or the availability of a particular functionality that makes it easier to complete the task you are set to do. For instance, Python has great libraries for programming deep neural networks. However, I find <code>R</code> more effective and powerful in data manipulation, statistical analysis, visualisation and mapping. That is the key reason why this book focuses on <code>R</code>. At the same time, beyond the mere details of syntax, the languages are not too different and are becoming easier to integrate. Most principles and approaches covered in this book can be applied when using Python, just using a different syntax.</p>
+<section id="the-python-programming-language" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="the-python-programming-language"><span class="header-section-number">1.1</span> The Python programming language</h2>
+<p><strong><a href="https://www.r-project.org/"><code>R</code></a></strong><span class="citation" data-cites="R-base">[@R-base]</span> was created in 1992 by <code>R</code>oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. <code>R</code> is a free, open-source implementation of the <code>S</code> statistical programming language initially created at Bell Labs. At its core, <code>R</code> is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
+<p>In simple terms, programming in <code>R</code> mainly focuses on devising a series of instructions to execute a task – most commonly, loading and analysing a dataset.</p>
+<p>As such, R can be used to program by creating sequences of <strong>instructions</strong> involving <strong>variables</strong> – which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (<em>if/else</em>) and loops, which will be the topic of the next practical session. Instructions can also be grouped into <strong>functions</strong>, which we will see in more detail in the next chapter.</p>
+<p><code>R</code> is <strong>interpreted</strong>, not compiled. That means that an <code>R</code> interpreter receives an instruction you write and interprets and executes them. Other programming languages require their code to be compiled in an executable file to be executed on a computer.</p>
+<section id="jupyther-notebooks" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="jupyther-notebooks"><span class="header-section-number">1.1.1</span> Jupyther notebooks</h3>
+<p><a href="https://www.rstudio.com/">RStudio</a> is probably the most popular <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated Development Environment (IDE)</a> for <code>R</code>. When using RStudio, the <code>R</code> interpreter is hidden in the backend, and RStudio is the frontend application that allows you to interact with the interpreter. As you open RStudio or RStudio Server, the interface is divided into two main sections. On the left side, you find the <em>Console</em> – and the <code>R</code> script editor, when a script is being edited. The <em>Console</em> in an input/output window into the <code>R</code> interpreter, where you can type instructions and see the resulting output.</p>
+<p>For instance, if you type in the <em>Console</em></p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="205">
+<pre><code>2</code></pre>
+</div>
+</div>
+<p>the <code>R</code> interpreter understands that as an instruction to sum <code>1</code> to <code>1</code> and returns the following result as output.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="206">
+<pre><code>2</code></pre>
+</div>
+</div>
+<p>As these materials are created in Quarto…</p>
+</section>
+<section id="markdown" class="level3" data-number="1.1.2">
+<h3 data-number="1.1.2" class="anchored" data-anchor-id="markdown"><span class="header-section-number">1.1.2</span> Markdown</h3>
+<p>An essential tool used in creating this book is <a href="https://rmarkdown.rstudio.com/">RMarkdown</a>, an R library that allows you to create scripts that mix the <a href="https://daringfireball.net/projects/markdown/">Markdown</a> mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.</p>
+</section>
+<section id="coding-style" class="level3" data-number="1.1.3">
+<h3 data-number="1.1.3" class="anchored" data-anchor-id="coding-style"><span class="header-section-number">1.1.3</span> Coding style</h3>
+<p>A coding style is a set of rules and guidelines to write programming code designed to ensure that the code is easy to read, understand, and consistent over time. Following a good coding style is essential when writing code that others will read – for instance, if you work in a team, publish your code or submit your code as a piece of coursework – and it ensures you will understand your code in a few months. Following a good coding style is also an essential step towards reproducibility, as we will see in a later chapter.</p>
+<p>In this book, I will follow the <a href="http://style.tidyverse.org/">Tidyverse Style Guide (style.tidyverse.org)</a>. Study the Tidyverse Style Guide and use it consistently.</p>
+</section>
+</section>
+<section id="core-concepts" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="core-concepts"><span class="header-section-number">1.2</span> Core concepts</h2>
+<section id="values" class="level3" data-number="1.2.1">
+<h3 data-number="1.2.1" class="anchored" data-anchor-id="values"><span class="header-section-number">1.2.1</span> Values</h3>
+<p>When a value is typed in the <em>Console</em>, the interpreter returns the same value. In the examples below, <code>2</code> is a simple numeric value, while <code>"String value"</code> is a textual value, which in <code>R</code> is referred to as a <em>character</em> value and in programming is also commonly referred to as a <em>string</em> (short for <em>a string of characters</em>).</p>
+<p>Numeric example:</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="207">
+<pre><code>2</code></pre>
+</div>
+</div>
+<p>Character example:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">"String value"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="208">
+<pre><code>'String value'</code></pre>
+</div>
+</div>
+<p>Note how character values need to start and end with a single or double quote (<code>'</code> or <code>"</code>), which are not part of the information themselves. The <a href="https://style.tidyverse.org/syntax.html">Tidyverse Style Guide</a> suggests always using the double quote (<code>"</code>), so we will use those in this module.</p>
+<p>Anything that follows a <code>#</code> symbol is considered a <em>comment</em>, and the interpreter ignores it.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hi, I am a comment, please ignore me</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As mentioned above, the interpreter understands simple operations on numeric and logic values, as well as text objects (including single characters and strings of character, that is text objects longer than one character, commonly referred to simply as <em>strings</em> in computer science), as discussed in more detail in <a href="appendix-1.html#basic-types">Appendix 1</a>.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sum 1 and 2</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="210">
+<pre><code>3</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logical AND operation between</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the value TRUE and FALSE</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="va">True</span> <span class="op">&amp;</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="211">
+<pre><code>False</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check whether the character a</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># is equal to the character b</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">"a"</span> <span class="op">==</span> <span class="st">"b"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="212">
+<pre><code>False</code></pre>
+</div>
+</div>
+</section>
+<section id="variables" class="level3" data-number="1.2.2">
+<h3 data-number="1.2.2" class="anchored" data-anchor-id="variables"><span class="header-section-number">1.2.2</span> Variables</h3>
+<p>In computer programming, a <strong>variable</strong> can be thought about as a storage location (a bit of memory) with an associated name (also referred to as identifier) and a value that can vary – hence the name variable. When programming, you can define a variable by naming it with an <strong>identifier</strong> and providing a <strong>value</strong> to be stored in the variable. After that, you can retrieve the value stored in the variable by specifying the chosen identifier. Variables are an essential tool in programming, as they allow saving the result of a piece of computation and to retrieve it later on for further analysis.</p>
+<p>A variable can be defined in <code>R</code> using an identifier (e.g., <code>a_variable</code>) on the left of an <strong>assignment operator</strong> <code>=</code>, followed by the object to be linked to the identifier, such as a value (e.g., <code>1</code>) to be assigned on the right. The value of the variable can be invoked by simply specifying the identifier.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>a_variable <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>a_variable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="213">
+<pre><code>1</code></pre>
+</div>
+</div>
+<p>If you type <code>a_variable = 1</code> in the <em>Console</em> in RStudio, a new element appears in the <em>Environment</em> panel, representing the new variable in the memory. The left part of the entry contains the identifier <code>a_variable</code>, and the right part contains the value assigned to the variable <code>a_variable</code>, that is <code>1</code>. In the example below, another variable named <code>another_variable</code> is created and summed to <code>a_variable</code>, saving the result in <code>sum_of_two_variables</code>.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>another_variable <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>another_variable</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="214">
+<pre><code>4</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sum_of_two_variables <span class="op">=</span> a_variable <span class="op">+</span> another_variable</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sum_of_two_variables</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="215">
+<pre><code>5</code></pre>
+</div>
+</div>
+</section>
+<section id="algorithms" class="level3" data-number="1.2.3">
+<h3 data-number="1.2.3" class="anchored" data-anchor-id="algorithms"><span class="header-section-number">1.2.3</span> Algorithms</h3>
+<p>Any operation that can be executed using a computer is called an <strong>algorithm</strong>. To be more precise, <span class="citation" data-cites="cutland_1980">@cutland_1980</span> defined an algorithm as <em>“a mechanical rule, or automatic method, or program for performing some mathematical operation”</em> (Cutland, 1980, p.&nbsp;7<span class="citation" data-cites="cutland_1980">[@cutland_1980]</span>).</p>
+<p>The instructions you get to mount your Ikea furniture can be thought of as an algorithm, an effective procedure to perform the operation of mounting your furniture. You are playing the part of the computer executing the algorithm.</p>
+<p>A <strong>program</strong> is a set of instructions implementing an abstract algorithm into a specific language – let that be R, Python, or any other language. In their definition, algorithms (and thus the programs that implement them) can use variables and functions. As is the case for <code>R</code>, programs that are interpreted rather than compiled are also referred to as <strong>scripts</strong>.</p>
+</section>
+<section id="functions" class="level3" data-number="1.2.4">
+<h3 data-number="1.2.4" class="anchored" data-anchor-id="functions"><span class="header-section-number">1.2.4</span> Functions</h3>
+<p>You can think of a <strong>function</strong> as a processing unit that, having received some values as input, performs a specific task and can return a value as output. Some simple algorithms can be coded as programs made of only one function that performs the whole task. More complex algorithms might require multiple functions, each designed to complete a sub-task, which combined perform the entire task.</p>
+<p>You can <strong>invoke</strong> a function by specifying the <strong>function name</strong> along with the <strong>arguments</strong> (input values) between simple brackets. Each argument corresponds to a <strong>parameter</strong> (i.e., an internal variable used within the function to run the operation, as we will see in more detail later in this book). Programming languages provide pre-defined functions that implement common algorithms (e.g., finding the square root of a number or calculating a linear regression).</p>
+<p>For instance, <code>sqrt</code> is the pre-defined function in <code>R</code> that computes the square root of a number. The instruction <code>sqrt(2)</code> tells the <code>R</code> interpreter to run the function that calculates the square root using <code>2</code> as the input value. The function will return <code>1.414214</code>, the square root of <code>2</code>, as the output.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>math.sqrt(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="216">
+<pre><code>1.4142135623730951</code></pre>
+</div>
+</div>
+<p>Another example is the function <code>round</code>, which returns a value rounded to a specified number of digits after the dot. For instance, <code>round(1.414214, digits = 2)</code> returns <code>1.41</code>. In this case, we specify that the second argument refers to the number of digits to be kept, and this is because this function also has other arguments that can be specified.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(<span class="fl">1.414214</span>, ndigits <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="217">
+<pre><code>1.41</code></pre>
+</div>
+</div>
+<p>Functions can also be used on the right side of the assignment operator <code>=</code> in which case the output value of the function will be stored in the memory slot with that identifier. Variables can be used as arguments. For instance, after saving the result of the square root of two in the variable <code>sqrt_of_two</code>, we can use the same variable as the first argument for the function <code>round</code>.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sqrt_of_two <span class="op">=</span> math.sqrt(<span class="dv">2</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sqrt_of_two</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="218">
+<pre><code>1.4142135623730951</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(sqrt_of_two, ndigits <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="219">
+<pre><code>1.41</code></pre>
+</div>
+</div>
+<p>Functions can also be used as arguments of functions. Instead of first calculating the square root of two, saving the value in a variable, and then using the variable as the first argument of <code>round</code>, we can directly add the function <code>sqrt</code> and its argument as the first argument of the function <code>round</code>.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">round</span>(math.sqrt(<span class="dv">2</span>), ndigits <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="220">
+<pre><code>1.41</code></pre>
+</div>
+</div>
+<p>In a subsequent chapter, we will see how you can create functions yourself.</p>
+<p>As we introduce variables and functions, and functions using variables and functions, the complexity of our code increases quite rapidly. In fact, using a function as the argument for another function is usually discouraged because it makes the code more difficult to read. Instead, it would be best to always aim for a code that is as easy to read and understand as possible. An essential step in ensuring that is to follow coding style guidelines closely.</p>
+</section>
+</section>
+<section id="control-structures" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="control-structures"><span class="header-section-number">1.3</span> Control structures</h2>
+<section id="conditional-statements" class="level3" data-number="1.3.1">
+<h3 data-number="1.3.1" class="anchored" data-anchor-id="conditional-statements"><span class="header-section-number">1.3.1</span> Conditional statements</h3>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a_variable <span class="op">=</span> math.sqrt(<span class="dv">2</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a_variable <span class="op">&lt;</span> <span class="dv">2</span>:</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Lower than two"</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Greater or equal to two"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Lower than two</code></pre>
+</div>
+</div>
+</section>
+<section id="loops" class="level3" data-number="1.3.2">
+<h3 data-number="1.3.2" class="anchored" data-anchor-id="loops"><span class="header-section-number">1.3.2</span> Loops</h3>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>max_val <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>a_variable <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> a_variable <span class="op">&lt;=</span> max_val:</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(a_variable)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    a_variable <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1
+2
+3
+4
+5</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0
+1
+2
+3
+4</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="complex-data-types" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="complex-data-types"><span class="header-section-number">1.4</span> Complex data types</h2>
+<section id="vectors" class="level3" data-number="1.4.1">
+<h3 data-number="1.4.1" class="anchored" data-anchor-id="vectors"><span class="header-section-number">1.4.1</span> Vectors</h3>
+<p>Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In <code>R</code>, they are referred to as <strong>vectors</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>Vectors can be defined in R by using the function <code>c</code>, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>east_midlands_cities <span class="op">=</span> [<span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span>]</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(east_midlands_cities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="224">
+<pre><code>4</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> city <span class="kw">in</span> east_midlands_cities:</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(city)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Derby
+Leicester
+Lincoln
+Nottingham</code></pre>
+</div>
+</div>
+<p>Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the <em>index</em> (or indices as we will see further below) of the elements to be retrieved. Indices start from <code>1</code>, so the index of the first element is <code>1</code>, the index of the second element is <code>2</code>, and so on and so forth<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve the third city</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>east_midlands_cities[<span class="dv">3</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="226">
+<pre><code>'Nottingham'</code></pre>
+</div>
+</div>
+<p>To retrieve any subset of a vector (i.e., more than one element), you can specify an integer vector containing the indices (rather than a single integer value) of the items of interest between square brackets.</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve first to third (to fourth excluded)</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>east_midlands_cities[<span class="dv">1</span>:<span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="227">
+<pre><code>['Leicester', 'Lincoln', 'Nottingham']</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Retrieve first and third city</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>[east_midlands_cities[index] <span class="cf">for</span> index <span class="kw">in</span> [<span class="dv">1</span>,<span class="dv">3</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="228">
+<pre><code>['Leicester', 'Nottingham']</code></pre>
+</div>
+</div>
+<p>The logical operators <code>any</code> and <code>all</code> can be used to test conditions on the vector. The former returns <code>TRUE</code> if at least one element satisfies the statement and the second returns <code>TRUE</code> if all elements satisfy the condition</p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>[city <span class="op">==</span> <span class="st">"Leicester"</span> <span class="cf">for</span> city <span class="kw">in</span> east_midlands_cities]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="229">
+<pre><code>[False, True, False, False]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">any</span>([city <span class="op">==</span> <span class="st">"Leicester"</span> <span class="cf">for</span> city <span class="kw">in</span> east_midlands_cities])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="230">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="bu">all</span>([city <span class="op">==</span> <span class="st">"Leicester"</span> <span class="cf">for</span> city <span class="kw">in</span> east_midlands_cities])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="231">
+<pre><code>False</code></pre>
+</div>
+</div>
+<p>Functions and operators can be applied to vectors in the same way as they would be applied to simple values. For instance, all built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.</p>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>one_to_ten <span class="op">=</span> [val <span class="cf">for</span> val <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>one_to_ten</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="232">
+<pre><code>[1, 2, 3, 4, 5, 6, 7, 8, 9]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>[val <span class="op">+</span> <span class="dv">1</span> <span class="cf">for</span> val <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="233">
+<pre><code>[2, 3, 4, 5, 6, 7, 8, 9, 10]</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>[math.sqrt(val) <span class="cf">for</span> val <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="234">
+<pre><code>[1.0,
+ 1.4142135623730951,
+ 1.7320508075688772,
+ 2.0,
+ 2.23606797749979,
+ 2.449489742783178,
+ 2.6457513110645907,
+ 2.8284271247461903,
+ 3.0]</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="libraries" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Libraries</h1>
+<p>Functions can be collected and stored in <em>libraries</em> (sometimes referred to as <em>packages</em>), containing related functions and sometimes datasets. For instance, the <code>base</code> library in <code>R</code> includes the <code>sqrt</code> function above, and the <code>rgdal</code> library, which contains implementations of the <a href="https://gdal.org/">GDAL (Geospatial Data Abstraction Library)</a> functionalities for <code>R</code>.</p>
+<p>Libraries can be installed in <code>R</code> using the function <code>install.packages</code> or using <code>Tool &gt; Install Packages...</code> in RStudio.</p>
+<section id="pandas" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="pandas"><span class="header-section-number">2.1</span> Pandas</h2>
+<p>The examples above illustrate how <code>R</code> allows working with simple data types. However, in data science, we rarely engage directly with such simple pieces of information. Rather, we commonly work with datasets composed of tables. <strong>Data frames</strong> are complex data types which encode the concept of a table in <code>R</code> by combining and arranging together a series of simple objects. In the following chapters, we will explore the different complex types and how to handle tables in more detail.</p>
+<p><code>R</code> includes many simple example data frames, such as the <a href="https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/iris"><code>iris</code></a> dataset. When loading <code>R</code>, a pre-defined variable named <code>iris</code> will be available in the environment. By specifying the identifier <code>iris</code> in the console (as shown below), you can invoke the variable and see its contents. Each one of the 150 rows of the table (the first five rows are shown below) reports information about an iris flower. Four numeric columns (<code>Sepal.Length</code>, <code>Sepal.Width</code>, <code>Petal.Length</code> and <code>Petal.Width</code>) are used to describe the size of sepal and petal, while a string column (<code>Species</code>) is used to catalogue the species of iris.</p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn <span class="im">import</span> datasets</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> datasets.load_iris(as_frame <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>iris_df <span class="op">=</span> pd.DataFrame(data <span class="op">=</span> iris.data, columns <span class="op">=</span> iris.feature_names)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>iris_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="236">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sepal length (cm)</th>
+      <th>sepal width (cm)</th>
+      <th>petal length (cm)</th>
+      <th>petal width (cm)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="matplotlib" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="matplotlib"><span class="header-section-number">2.2</span> Matplotlib</h2>
+<p>As the rest of the book will illustrate, <code>R</code> provides a wide range of functions that will allow conducting any step of a a data analysis: from data input/ouput to data manipulation, from statistics and machine learning to visualisation, and even to creating a web-based book like the one you are currently reading (which has indeed been created using <code>R</code>). For instance, you can use the function <code>hist</code> to plot the histogram of petal lengths of flowers in <code>iris</code>. Note how, in the code below, the first parameter is not <code>iris</code> but <code>iris$Petal.Length</code> as the <code>$</code> is used to extract the <code>Petal.Length</code> from <code>iris</code> (more on this in the coming chapters).</p>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>plt.hist(iris_df[<span class="st">"petal length (cm)"</span>])</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="moving-to-python_files/figure-html/cell-34-output-1.png" width="566" height="404"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="data-manipulation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Data manipulation</h1>
+<p>As mentioned in the previous chapter, <strong>data frames</strong> are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vector representing a column and all vectors have the same length, thus representing the same number of rows.</p>
+<p>The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional), and thus, two pieces of information are necessary. The first index specifies which rows to select or filter, and the second index specifies which columns to select or filter. If no information is provided for either the first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query become, the longer and less readable the code becomes.</p>
+<p>The function <code>write_csv</code> can be used to save a dataset as a <code>csv</code> file. For instance, the code below uses <code>tidyverse</code> functions and the pipe operator <code>%&gt;%</code> to <em>reproduce</em> the <code>2011_OAC_supgrp_Leicester.csv</code> dataset used <a href="slides/103-slides-data-manipulation.html">in the lecture</a>:</p>
+<ol type="1">
+<li><strong>read</strong> the 2011 OAC file <code>2011_OAC_Raw_uVariables_Leicester.csv</code> directly from the file, but without storing it into a variable;</li>
+<li><strong>select</strong> the OA code variable <code>OA11CD</code>, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (<code>supgrpcode</code> and <code>supgrpname</code> respectively);</li>
+<li><strong>filter</strong> only those OA in the supergroup <em>Suburbanites</em> (code <code>6</code>);</li>
+<li><strong>write</strong> the results to a file named <code>my--2011_OAC_supgrp_Leicester.csv</code>, which is your own version of the <code>2011_OAC_supgrp_Leicester.csv</code>.</li>
+</ol>
+<section id="read-data" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="read-data"><span class="header-section-number">3.1</span> Read data</h2>
+<p>The <a href="https://readr.tidyverse.org/index.html"><code>readr</code> library</a> (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats.</p>
+<p>The <code>read_csv</code> function reads a <em>Comma Separated Values (CSV)</em> file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The <code>read_csv</code> instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows – one for each OA – and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.</p>
+<div class="cell" data-message="flase" data-execution_count="34">
+<div class="cell-output cell-output-stdout">
+<pre><code>/Users/sds27/repos/r-for-geographic-data-science/src/python</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the Leicester 2011 OAC dataset from the csv file</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">=</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  pd.read_csv(<span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="select-columns" class="level4" data-number="3.1.0.1">
+<h4 data-number="3.1.0.1" class="anchored" data-anchor-id="select-columns"><span class="header-section-number">3.1.0.1</span> Select columns</h4>
+<p>Fortunately, rather than working with base R instructions, we can use the <code>dplyr</code> library, which is part of the Tidyverse and offers a grammar for data manipulation. The function <code>select</code> can be used to select some <strong>columns</strong> to output. For instance, in the code below, the function <code>select</code> is used to select the columns <code>origin</code>, <code>dest</code>, and <code>dep_delay</code>, in combination with the function <code>slice_head</code>, which can be used to include only the first <code>n</code> rows (<code>5</code> in the example below) to output.</p>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>subset_lei2011OAC <span class="op">=</span> leicester_2011OAC[[<span class="st">"OA11CD"</span>, <span class="st">"LSOA11CD"</span>, <span class="st">"supgrpcode"</span>, <span class="st">"supgrpname"</span>, <span class="st">"Total_Population"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Illustrate some of the contents</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>subset_lei2011OAC.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="241">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>OA11CD</th>
+      <th>LSOA11CD</th>
+      <th>supgrpcode</th>
+      <th>supgrpname</th>
+      <th>Total_Population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>E00069517</td>
+      <td>E01013785</td>
+      <td>6</td>
+      <td>Suburbanites</td>
+      <td>313</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>E00069514</td>
+      <td>E01013784</td>
+      <td>2</td>
+      <td>Cosmopolitans</td>
+      <td>323</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>E00169516</td>
+      <td>E01013713</td>
+      <td>4</td>
+      <td>Multicultural Metropolitans</td>
+      <td>341</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>E00169048</td>
+      <td>E01032862</td>
+      <td>4</td>
+      <td>Multicultural Metropolitans</td>
+      <td>345</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>E00169044</td>
+      <td>E01032862</td>
+      <td>4</td>
+      <td>Multicultural Metropolitans</td>
+      <td>322</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="filter-rows" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="filter-rows"><span class="header-section-number">3.1.1</span> Filter rows</h3>
+<p>The function <code>filter</code> can instead be used to filter <strong>rows</strong> based on a specified condition. In the example below, the output of the <code>filter</code> step only includes the rows where the value of <code>month</code> is <code>11</code> (i.e., the eleventh month, November).</p>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>supgrp6_lei2011OAC <span class="op">=</span> subset_lei2011OAC[subset_lei2011OAC[<span class="st">"supgrpcode"</span>] <span class="op">==</span> <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>supgrp6_lei2011OAC.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="243">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>OA11CD</th>
+      <th>LSOA11CD</th>
+      <th>supgrpcode</th>
+      <th>supgrpname</th>
+      <th>Total_Population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>E00069517</td>
+      <td>E01013785</td>
+      <td>6</td>
+      <td>Suburbanites</td>
+      <td>313</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>E00069468</td>
+      <td>E01013767</td>
+      <td>6</td>
+      <td>Suburbanites</td>
+      <td>251</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>E00069528</td>
+      <td>E01013785</td>
+      <td>6</td>
+      <td>Suburbanites</td>
+      <td>270</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>E00069538</td>
+      <td>E01013783</td>
+      <td>6</td>
+      <td>Suburbanites</td>
+      <td>307</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <td>E00069174</td>
+      <td>E01013707</td>
+      <td>6</td>
+      <td>Suburbanites</td>
+      <td>321</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Notice how <code>filter</code> is used in combination with <code>select</code>. All functions in the <code>dplyr</code> library can be combined in any other order that makes logical sense. However, if the <code>select</code> step didn’t include <code>month</code>, that same column couldn’t have been used in the <code>filter</code> step.</p>
+</section>
+<section id="write-data" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="write-data"><span class="header-section-number">3.1.2</span> Write data</h3>
+<div class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>supgrp6_lei2011OAC.to_csv(<span class="st">"my--2011_OAC_supgrp_Leicester.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="data-manipulation-1" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="data-manipulation-1"><span class="header-section-number">3.2</span> Data manipulation</h2>
+<p>The analysis below uses the <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> library (also part of the Tidyverse), which it offers a grammar for data manipulation.</p>
+<p>For instance, the function <code>count</code> can be used to count the number of rows in a data frame. The code below provides the <code>leicester_2011OAC</code> dataframe (as read in input in the section above) as input to the function <code>count</code> through the pipe operator, thus creating a new <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> with only one row and one column, containing the number of rows in that dataframe – that is, the number of OAs in Leicester.</p>
+<div class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shape of the table</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="244">
+<pre><code>(969, 190)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of rows</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC.shape[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="245">
+<pre><code>969</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of columns</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC.shape[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="246">
+<pre><code>190</code></pre>
+</div>
+</div>
+<p>As discussed in the previous lecture, a <a href="https://tibble.tidyverse.org/"><code>tibble</code></a> is a data type similar to data frames, used by all the Tidyverse libraries. All Tidyverse functions output <code>tibble</code> rather than <code>data.frame</code> objects when representing a table. However, <code>data.frame</code> object can be provided as input, as they are automatically converted by Tidyverse functions before proceeding with the processing steps.</p>
+<p>The example above already shows how the <strong>pipe operator</strong> can be used effectively in a multi-step operation. In the <code>tibble</code> outputted by the <code>count</code> function above, the column <code>n</code> provides the count. The function <code>kable</code> of the library <code>knitr</code> is used to produce a well-formatted table.</p>
+<p>Note how the code above goes to a new line after every <code>%&gt;%</code>, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.</p>
+<section id="summarise" class="level3" data-number="3.2.1">
+<h3 data-number="3.2.1" class="anchored" data-anchor-id="summarise"><span class="header-section-number">3.2.1</span> Summarise</h3>
+<p>The verb <code>count</code> is a special case (a shorthand) of the more general verb <code>summarise</code> (<code>summarize</code> using the American English spelling is also available with the same functionality), which allows generating tables presenting aggregate values of input data.</p>
+<p>For instance, <code>summarise</code> can be used to create a table containing:</p>
+<ul>
+<li>a column presenting the total population of Leicester;</li>
+<li>a column presenting the total number of OAs in Leicester;</li>
+<li>a column presenting the average population per OAs in Leicester;</li>
+<li>a column presenting a logical value stating whether any OA in Leicester contains more than 600 people.</li>
+</ul>
+<p>That can be achieved applying different aggregate functions to the same column (<code>Total_Population</code>) of the <code>leicester_2011OAC</code> as illustrated below.</p>
+<ul>
+<li><code>sum</code> to calculate the total population of Leicester;</li>
+<li><code>n</code> to count the number of rows (as mentioned above <code>count</code> is a shorthand for the combination of <code>summarise</code> with <code>n</code>);</li>
+<li><code>mean</code> to calculate the average population per OAs in Leicester;</li>
+<li><code>any</code> with a conditional statement comparing <code>Total_Population</code> and the value <code>600</code> using the numeric operator <code>&gt;</code> (greater than) to assess whether any OA in Leicester contains more than 600 people.</li>
+</ul>
+<div class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  summarise(</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Total population in Leicester</span></span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>    tot_pop <span class="op">=</span> <span class="bu">sum</span>(Total_Population),</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of OAs, no input column needed</span></span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>    num_of_OAs <span class="op">=</span> n(),</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Average population</span></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a>    avg_pop <span class="op">=</span> mean(Total_Population), </span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Is there any OA with over 200 people?</span></span>
+<span id="cb76-12"><a href="#cb76-12" aria-hidden="true" tabindex="-1"></a>    pop_over_600 <span class="op">=</span> <span class="bu">any</span>(Total_Population <span class="op">&gt;</span> <span class="dv">600</span>)</span>
+<span id="cb76-13"><a href="#cb76-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb76-14"><a href="#cb76-14" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A set of aggregate functions which are frequently used with <code>summarise</code> is available in <a href="https://dplyr.tidyverse.org/reference/summarise.html#useful-functions">the <code>dplyr</code> page on <code>summarise</code></a>.</p>
+<p>To carry out more complex aggregations, the function <code>summarise</code> can be used in combination with the function <code>group_by</code> to summarise the values in the data frame based on groups. Rows having the same value for the column specified for the verb <code>group_by</code> (in the example below, the 2011 OAC supergroup, <code>supgrpname</code>) are grouped together, then values are aggregated based on the functions specified for the verb <code>summarise</code> (using one or more columns in the calculation).</p>
+<div class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  group_by(supgrpname) <span class="op">%&gt;%</span> </span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  summarise(</span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Total population in Leicester</span></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a>    tot_pop <span class="op">=</span> <span class="bu">sum</span>(Total_Population),</span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of OAs, no input column needed</span></span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a>    num_of_OAs <span class="op">=</span> n(),</span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Average population</span></span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a>    avg_pop <span class="op">=</span> mean(Total_Population), </span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Is there any OA with over 200 people?</span></span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a>    pop_over_600 <span class="op">=</span> <span class="bu">any</span>(Total_Population <span class="op">&gt;</span> <span class="dv">600</span>)</span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The shorthand function <code>count</code> also has the option to specify a column that will be used for an internal grouping. In the example below, the column name <code>supgrpname</code> is provided as an argument to the function <code>count</code>. As a result, the output shows the number of rows grouped by 2011 OAC supergroup.</p>
+<div class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  count(supgrpname) <span class="op">%&gt;%</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="mutate" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="mutate"><span class="header-section-number">3.2.2</span> Mutate</h3>
+<p>The function <code>mutate</code> can be used to create a new column by conducting operations on current columns. For instance, in the example below, <code>summarise</code> is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb <code>mutate</code> is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same <code>avg_pop</code> column as above but through a different process.</p>
+<div class="cell" data-execution_count="48">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  group_by(supgrpname) <span class="op">%&gt;%</span> </span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>  summarise(</span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Total population in Leicester</span></span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>    tot_pop <span class="op">=</span> <span class="bu">sum</span>(Total_Population),</span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Number of OAs, no input column needed</span></span>
+<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>    num_of_OAs <span class="op">=</span> n(),</span>
+<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Is there any OA with over 200 people?</span></span>
+<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>    pop_over_600 <span class="op">=</span> <span class="bu">any</span>(Total_Population <span class="op">&gt;</span> <span class="dv">600</span>)</span>
+<span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb79-13"><a href="#cb79-13" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb79-14"><a href="#cb79-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Average population</span></span>
+<span id="cb79-15"><a href="#cb79-15" aria-hidden="true" tabindex="-1"></a>    avg_pop <span class="op">=</span> tot_pop <span class="op">/</span> num_of_OAs, </span>
+<span id="cb79-16"><a href="#cb79-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb79-17"><a href="#cb79-17" aria-hidden="true" tabindex="-1"></a>  kable(digits <span class="op">=</span> c(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this second example, the <code>u005</code> column (which represents the area of the OA in <a href="https://en.wikipedia.org/wiki/Hectare">hectares</a>, see <code>2011_OAC_Raw_uVariables_Lookup.csv</code>) is used to calculate the population density for each OA.</p>
+<div class="cell" data-execution_count="49">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb80-4"><a href="#cb80-4" aria-hidden="true" tabindex="-1"></a>  mutate(</span>
+<span id="cb80-5"><a href="#cb80-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Population density</span></span>
+<span id="cb80-6"><a href="#cb80-6" aria-hidden="true" tabindex="-1"></a>    pop_density <span class="op">=</span> Total_Population <span class="op">/</span> u005, </span>
+<span id="cb80-7"><a href="#cb80-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb80-8"><a href="#cb80-8" aria-hidden="true" tabindex="-1"></a>  select(OA11CD, pop_density) <span class="op">%&gt;%</span> </span>
+<span id="cb80-9"><a href="#cb80-9" aria-hidden="true" tabindex="-1"></a>  slice_head(n <span class="op">=</span> <span class="dv">10</span>) <span class="op">%&gt;%</span> </span>
+<span id="cb80-10"><a href="#cb80-10" aria-hidden="true" tabindex="-1"></a>  kable(digits <span class="op">=</span> c(<span class="dv">0</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="arrange" class="level3" data-number="3.2.3">
+<h3 data-number="3.2.3" class="anchored" data-anchor-id="arrange"><span class="header-section-number">3.2.3</span> Arrange</h3>
+<p>The function <code>arrange</code> can be used to sort a tibble by ascending order of the values in the specified column. If the operator <code>-</code> is specified before the column name, the descending order is used. The code below would produce a table showing the ten OAs with the largest population in Leicester.</p>
+<div class="cell" data-execution_count="50">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>  select(</span>
+<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a>    OA11CD, supgrpname, </span>
+<span id="cb81-6"><a href="#cb81-6" aria-hidden="true" tabindex="-1"></a>    Total_Population</span>
+<span id="cb81-7"><a href="#cb81-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb81-8"><a href="#cb81-8" aria-hidden="true" tabindex="-1"></a>  arrange(</span>
+<span id="cb81-9"><a href="#cb81-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Descending delay</span></span>
+<span id="cb81-10"><a href="#cb81-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>Total_Population</span>
+<span id="cb81-11"><a href="#cb81-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb81-12"><a href="#cb81-12" aria-hidden="true" tabindex="-1"></a>  slice_head(n <span class="op">=</span> <span class="dv">10</span>) <span class="op">%&gt;%</span> </span>
+<span id="cb81-13"><a href="#cb81-13" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In the example above, we have used <code>slice_head</code> to present only the first <code>n</code> (in the example <code>10</code>) rows in a table based on the existing order. The <code>dplyr</code> library also provides the functions <code>slice_max</code> and <code>slice_min</code> which incorporate the sorting functionality (see <a href="https://dplyr.tidyverse.org/reference/slice.html"><code>slice</code> reference page</a>).</p>
+<p>As such, the following code uses <code>slice_max</code> to produce a table including only the 10 OAs with the <em>highest</em> population.</p>
+<div class="cell" data-execution_count="51">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  select(</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>    OA11CD, supgrpname, </span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>    Total_Population</span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  slice_max(</span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>    Total_Population, </span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The following code, instead, uses <code>slice_min</code>, thus producing a table including only the 10 OAs with the <em>lowest</em> population..</p>
+<div class="cell" data-execution_count="52">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb83-3"><a href="#cb83-3" aria-hidden="true" tabindex="-1"></a>leicester_2011OAC <span class="op">%&gt;%</span></span>
+<span id="cb83-4"><a href="#cb83-4" aria-hidden="true" tabindex="-1"></a>  select(</span>
+<span id="cb83-5"><a href="#cb83-5" aria-hidden="true" tabindex="-1"></a>    OA11CD, supgrpname, </span>
+<span id="cb83-6"><a href="#cb83-6" aria-hidden="true" tabindex="-1"></a>    Total_Population</span>
+<span id="cb83-7"><a href="#cb83-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb83-8"><a href="#cb83-8" aria-hidden="true" tabindex="-1"></a>  slice_min(</span>
+<span id="cb83-9"><a href="#cb83-9" aria-hidden="true" tabindex="-1"></a>    Total_Population, </span>
+<span id="cb83-10"><a href="#cb83-10" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb83-11"><a href="#cb83-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span></span>
+<span id="cb83-12"><a href="#cb83-12" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as is the case with the rows containing the value <code>21</code> in the example above.</p>
+</section>
+<section id="data-manipulation-example" class="level3" data-number="3.2.4">
+<h3 data-number="3.2.4" class="anchored" data-anchor-id="data-manipulation-example"><span class="header-section-number">3.2.4</span> Data manipulation example</h3>
+<p>Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above. This is a full example of a short analysis using only one series of pipes to read, process and write data using <code>R</code> and almost all the <code>tidyverse</code> <em>verbs</em> seen so far.</p>
+<p>The input data are read from the csv file and part of the data are selected and filtered. The data are grouped, aggregated and arranged in order. The percentage of people living in OAs assigned to each 2011 OAC supergroup is calculated. The <a href="https://magrittr.tidyverse.org/reference/tee.html">Tee pipe</a> (from the <code>magrittr</code> library) is used to write the resulting table to a file, while also passing the same input to the subsequent <code>kable</code> function to display the data.</p>
+<div class="cell" data-execution_count="53">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- TO-DO ---</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>library(magrittr)</span>
+<span id="cb84-4"><a href="#cb84-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-5"><a href="#cb84-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Let's start from the filename</span></span>
+<span id="cb84-6"><a href="#cb84-6" aria-hidden="true" tabindex="-1"></a><span class="co">"2011_OAC_supgrp_Leicester.csv"</span> <span class="op">%&gt;%</span> </span>
+<span id="cb84-7"><a href="#cb84-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># as input to the read_csv function</span></span>
+<span id="cb84-8"><a href="#cb84-8" aria-hidden="true" tabindex="-1"></a>  read_csv(col_types <span class="op">=</span> <span class="st">"cccci"</span>) <span class="op">%&gt;%</span> </span>
+<span id="cb84-9"><a href="#cb84-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select only the necessary columns</span></span>
+<span id="cb84-10"><a href="#cb84-10" aria-hidden="true" tabindex="-1"></a>  select(supgrpname,    Total_Population) <span class="op">%&gt;%</span> </span>
+<span id="cb84-11"><a href="#cb84-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Let's say we are not interested in</span></span>
+<span id="cb84-12"><a href="#cb84-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the Suburbanites supergroup</span></span>
+<span id="cb84-13"><a href="#cb84-13" aria-hidden="true" tabindex="-1"></a>  <span class="bu">filter</span>(supgrpname <span class="op">!=</span> <span class="st">"Suburbanites"</span>) <span class="op">%&gt;%</span> </span>
+<span id="cb84-14"><a href="#cb84-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Group by supergroup</span></span>
+<span id="cb84-15"><a href="#cb84-15" aria-hidden="true" tabindex="-1"></a>  group_by(supgrpname) <span class="op">%&gt;%</span> </span>
+<span id="cb84-16"><a href="#cb84-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aggregate population</span></span>
+<span id="cb84-17"><a href="#cb84-17" aria-hidden="true" tabindex="-1"></a>  summarise(tot_pop <span class="op">=</span> <span class="bu">sum</span>(Total_Population)) <span class="op">%&gt;%</span> </span>
+<span id="cb84-18"><a href="#cb84-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Ungroup</span></span>
+<span id="cb84-19"><a href="#cb84-19" aria-hidden="true" tabindex="-1"></a>  ungroup() <span class="op">%&gt;%</span> </span>
+<span id="cb84-20"><a href="#cb84-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Arrange by descending total population</span></span>
+<span id="cb84-21"><a href="#cb84-21" aria-hidden="true" tabindex="-1"></a>  arrange(<span class="op">-</span>tot_pop) <span class="op">%&gt;%</span> </span>
+<span id="cb84-22"><a href="#cb84-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate percentage</span></span>
+<span id="cb84-23"><a href="#cb84-23" aria-hidden="true" tabindex="-1"></a>  mutate(perc_pop <span class="op">=</span> (tot_pop <span class="op">/</span> <span class="dv">329839</span>) <span class="op">*</span> <span class="dv">100</span>) <span class="op">%</span>T<span class="op">&gt;%</span></span>
+<span id="cb84-24"><a href="#cb84-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Then use the Tee pipe %T&gt;% in the line above</span></span>
+<span id="cb84-25"><a href="#cb84-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to write the calculated values to file</span></span>
+<span id="cb84-26"><a href="#cb84-26" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and pass the same input values to the kable function</span></span>
+<span id="cb84-27"><a href="#cb84-27" aria-hidden="true" tabindex="-1"></a>  write_csv(</span>
+<span id="cb84-28"><a href="#cb84-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"</span></span>
+<span id="cb84-29"><a href="#cb84-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="op">%&gt;%</span> </span>
+<span id="cb84-30"><a href="#cb84-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Print to screen nicely</span></span>
+<span id="cb84-31"><a href="#cb84-31" aria-hidden="true" tabindex="-1"></a>  kable()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="joining-tables" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="joining-tables"><span class="header-section-number">3.3</span> Joining tables</h2>
+<p>A join operation combines two tables into one by matching rows that have the same values in the specified column. This operation is usually executed on columns containing identifiers, which are matched through different tables containing different data about the same real-world entities. For instance, the table below presents the telephone prefixes for two cities. That information can be combined with the data present in the wide-formatted table above through a join operation on the columns containing the city names. As the two tables do not contain all the same cities, if a full join operation is executed, some cells have no values assigned.</p>
+</section>
+</section>
+<section id="reading-list" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Reading list</h1>
+<p>Sergio J. Rey, Dani Arribas-Bel and Levi J. Wolf provide a wonderful introduction to using python for spatial data analysis in their <a href="https://geographicdata.science/book/intro.html"><em>Geographic Data Science with Python</em> book</a>.</p>
+<hr>
+<p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>The term <em>list</em> has a specific meaning in <code>R</code>. Don’t use the term <em>list</em> to refer to <em>vectors</em>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>That is different from many programming languages, where the index of the first element is <code>0</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

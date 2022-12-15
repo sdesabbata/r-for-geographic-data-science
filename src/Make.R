@@ -128,4 +128,18 @@ unlink(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/images"), recursive=TRUE)
 
 cat("\n\n>>> done. <<<\n\n")
 
+
+cat("\n\n>>> Retrieve python page <<<\n\n")
+dir.create(paste0(Sys.getenv("RGDS_HOME"), "/docs/python"))
+file.copy(
+  from = paste0(Sys.getenv("RGDS_HOME"), "/src/python"), 
+  to = paste0(Sys.getenv("RGDS_HOME"), "/docs/"), 
+  overwrite = TRUE, 
+  recursive = TRUE, 
+  copy.mode = TRUE
+)
+unlink(paste0(Sys.getenv("RGDS_HOME"), "/docs/python/*.qmd"))
+cat("\n\n>>> done. <<<\n\n")
+
+
 cat("\n\n>>> R for Geographic Data Science is ready! <<<\n\n\n")
