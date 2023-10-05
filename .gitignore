@@ -34,6 +34,7 @@
 /data/*
 /docs_preview/*
 !/data/README.md
+!/data/download-ons-oa-geometries.R
 
 # Items in the backup folder
 /backup/*

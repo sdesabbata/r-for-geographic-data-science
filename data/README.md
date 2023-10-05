@@ -33,3 +33,5 @@ Please create a `storage` folder in the main repository folder before following 
     - Source: [Office for National Statistics](https://geoportal.statistics.gov.uk/) licensed under the [Open Government Licence v.3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/); Contains OS data © Crown copyright and database right 2016.
     - Pre-processing:
         - download in the `data` folder.
+- The `Leicester_2011_OAs.geojson` file can be created using the `download-ons-oa-geometries.R` script available in this folder and the copied to the `storage` folder.
+    - The `download-ons-oa-geometries.R` script downloads and uses a series of files from the [Office for National Statistics](https://geoportal.statistics.gov.uk/) licensed under the [Open Government Licence v.3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) which contains both Ordnance Survey and ONS Intellectual Property Rights. Please check the comments in the script for further details.
