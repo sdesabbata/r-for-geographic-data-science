@@ -7,7 +7,7 @@
 <title>Chapter 5 Exploratory visualisation | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
 <meta name="description" content="Print this chapter This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, focusing on the u011 variable from the 2011 Output Area Classification...">
-<meta name="generator" content="bookdown 0.29 with bs4_book()">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
 <meta property="og:title" content="Chapter 5 Exploratory visualisation | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/exploratory-visualisation.html">
@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -113,7 +113,7 @@
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>This chapter showcases an exploratory analysis of the distribution of people aged 20 to 24 in Leicester, focusing on the <code>u011</code> variable from the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification (2011OAC)</a> dataset introduced previous chapters.</p>
 <p>Before continuing, create a new R project in RStudio, and upload the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> file to the project folder. Create new RMarkdown document within that project to replicate the analysis in this document. Once the document is set up, start by adding an R code snipped including the code below, which is loads the 2011OAC dataset and the libraries used for this chapter.</p>
-<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
 <span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
@@ -143,7 +143,7 @@
 <p>We start the analysis by visualising the number of people living in Leicester for each age bracket available in the dataset.</p>
 <p>The first step is to summarise the total amounts for each one of the columns from <code>u007</code> (Age 0 to 4) to <code>u019</code> (Age 90 and over). The code below uses the <a href="https://dplyr.tidyverse.org/reference/across.html"><code>dplyr</code> verb <code>across</code></a> to apply the same summarise function <code>sum</code> across all columns from <code>u007</code> to <code>u019</code>. The table is then pivoted to longer so that each age bracket is an entity of the table, and the number of people in the age bracket is the attribute to be visualised – if the procedure is unclear, try to execute it step-by-step (summarise first, then pivot) to see the different stages.</p>
 <p>Those values can then be represented in a visualisation using a bar chart, which combines the visual variables size (of the bar) and position (on the x-axis, the end of the bar) to encode a numeric value. The function <code>theme_bw</code> is used to use a simple black-and-white theme.</p>
-<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
@@ -172,7 +172,7 @@
 </h2>
 <p>To better observe how those values compare as proportions of the overall total, the visualisation can be transformed into a stacked bar chart, compounding all area marks into one single bar. The number of people can be moved from the <code>x</code> to the <code>y</code> axis. The age bracket can be moved from the <code>y</code> axis to the <code>fill</code> visual variable.</p>
 <p>As there are 13 categories, we can’t use the ColorBrewer schemes in this case (as most palettes count up to 12 colours). Thus, we can use the <code>scale_fill_tableau</code> function from the <code>ggthemes</code> library to select the <code>"Tableau 20"</code> colour palette, which offers 20 clearly distinct colours designed by <a href="https://tableau.com/">Tableau</a>, to complete the definition of the colour hue visual variable. The <code>factor(1)</code> value can be used to create a single bar on the <code>x</code> axis.</p>
-<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jrnold/ggthemes">ggthemes</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -199,7 +199,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-4-1.png" width="672"></div>
 <p>The polar coordinate system transformation <code>coord_polar(theta = "y")</code> can be used to transform the stacked bar chart into a pie chart.</p>
-<div class="sourceCode" id="cb200"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
@@ -225,7 +225,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-5-1.png" width="672"></div>
 <p>We can then use the <code>theme_minimal</code> theme and set a few of the theme elements to <code>element_blank</code> to clean-up the chart. We can also rename the age brackets columns ahead of the pivot and change the order of the slices using <code>direction = -1</code> to make the chart readable.</p>
-<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
@@ -278,7 +278,7 @@
 <span>  <span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-6-1.png" width="672"></div>
 <p>As the categories in this case have a clear order, the visual variable colour value could be used instead of colour hue, thus using a series of shared of the same hue. However, as there are 13 categories, again we can’t use the ColorBrewer schemes. Thus, the example below uses one of the <a href="https://sjmgarnier.github.io/viridis/">viridis</a> colour palettes.</p>
-<div class="sourceCode" id="cb202"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb154"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html">across</a></span><span class="op">(</span></span>
@@ -338,7 +338,7 @@
 <span class="header-section-number">5.4</span> Visualising Distributions<a class="anchor" aria-label="anchor" href="#visualising-distributions"><i class="fas fa-link"></i></a>
 </h2>
 <p>A histogram can be used to explore the distribution of the variable <code>u011</code>.</p>
-<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb155"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -350,7 +350,7 @@
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
 <p>If we aim to explore how that portion of the population is distributed among the different supergroups of the 2011OAC, there are a number of charts that would allow us to visualise that relationship.</p>
 <p>For instance, the bar chart above can be enhanced through the use of the visual variable colour and the <code>fill</code> option. The code creates a stacked bar chart where sections of each bar are filled with the colour associated with a 2011OAC supergroup.</p>
-<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb156"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -371,7 +371,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
 <p>However, the graphic above is not extremely clear. A boxplot and a violin plot created from the same data are shown below. In both cases, the parameter <code>axis.text.x</code> of the function theme is set to <code>element_text(angle = 90, hjust = 1)</code> in order to orientate the labels on the x-axis vertically, as the supergroup names are rather long, and they would overlap one-another if set horizontally on the x-axis. In both cases, the option <code>fig.height</code> of the R snippet in RMarkdown should be set to a higher value (e.g., <code>5</code>) to allow for sufficient room for the supergroup names.</p>
-<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb157"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -393,7 +393,7 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, hjust <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="201-exploratory-visualisation_files/figure-html/unnamed-chunk-10-1.png" width="672"></div>
-<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb158"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -421,7 +421,7 @@
 <span class="header-section-number">5.5</span> Visualising Relationships<a class="anchor" aria-label="anchor" href="#visualising-relationships"><i class="fas fa-link"></i></a>
 </h2>
 <p>The first bar chart above seems to illustrate that the distribution might be skewed towards the left, with most values seemingly below 50. However, that tells only part of the story about how people aged 20 to 24 are distributed in Leicester. In fact, each Output Area (OA) has a different total population. So, a higher number of people aged 20 to 24 living in an OA might be simply due to the OA been more populous than others. Thus, the next step is to compare <code>u011</code> to <code>Total_Population</code>, for instance, through a scatterplot such as the one below.</p>
-<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb159"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -490,7 +490,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-15.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-10-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

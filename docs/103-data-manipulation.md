@@ -3,154 +3,365 @@
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
-## R workflow
 
-### R Projects
+Programming languages commonly provide both simple data types, such as those seen in the [first chapter](introduction-to-r.html), and more complex objects capable of storing and organising multiple values, such as the tables that we have briefly seen in action in the [second chapter](reproducible-data-science.html). In this chapter we bridge that gap by discussing a series of complex data types and how to manipulate the information they store. In doing so, we discuss the [`dplyr`](https://dplyr.tidyverse.org/) library (also part of the Tidyverse), which it offers a grammar for data manipulation.
 
-RStudio provides an extremely useful functionality to organise all your code and data, that is **R Projects**. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on -- *Environment*, *History*, working directory, and much more, as we will see in the coming weeks.
-
-In RStudio Server, in the *Files* tab of the bottom-left panel, click on *Home* to make sure you are in your home folder -- if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on *New Folder* and enter *Practicals* in the prompt dialogue to create a folder named *Practicals*. 
-
-Select *File > New Project ...* from the main menu, then from the prompt menu, *New Directory*, and then *New Project*. Insert *Practical_103_example* as the directory name, and select the *Practicals* folder for the field *Create project as subdirectory of*. Finally, click *Create Project*. 
-
-RStudio has now created the project, and it should have activated it. If that is the case, the *Files* tab in the bottom-right panel should be in the *Practical_103_example* folder, which contains only the *Practical_103_example.Rproj* file. The *Practical_103_example.Rproj* stores all the *Environment* information for the current project, and all the project files (e.g., R scripts, data, output files) should be stored within the *Practical_103_example* folder. Moreover, the *Practical_103_example* is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file, that is the default directory where to save it. 
-
-On the top-right corner of RStudio, you should see a blue icon representing an R in a cube next to the name of the project (*Practical_103_example*). That also indicates that you are within the *Practical_103_example* project. Click on *Practical_103_example* and select *Close Project* to close the project. Next to the R in a cube icon, you should now see *Project: (None)*. Click on *Project: (None)* and select *Practical_103_example* from the list to reactivate the *Practical_103_example* project. In the future, you will thus be able to close and reactivate this or any other project as necessary, depending on what you are working with. Projects can also be activated by clicking on the related `.Rproj` file in the *Files* tab in the bottom-right panel or through the *Open Project...* option in the file menu.
-
-With the *Practical_103_example* project activated, select from the top menu *File > New File > RMarkdown* to create a new RMarkdown document -- you can use the default options in the creation menu, as this is just an example. Save and *knit* the RMarkdown document ([as shown in the previous chapter](reproducible-data-science.html#rmarkdown)). As you can see, both the RMarkdown file and the knitted are saved within the *Practical_103_example* folder.
+Before continuing, create a new R project named *GY7702-practical-103* and create a new R script named `complex-data-types.R`. Follow along with the examples below by copy-pasting the code in the script and then running one line at the time.
 
 
 
-## Data: 2011 Census and OAC
+## Complex data types
 
-The [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011 OAC) is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) finally used the k-means clustering approach to create 8 clusters or supergroups (see [map at datashine.org.uk](https://oac.datashine.org.uk)), as well as 26 groups and 76 subgroups. The dataset in the file `2011_OAC_Raw_uVariables_Leicester.csv` contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. 
+### Vectors
 
-Before continuing with the remainder of the practical, create a new project named *Leicester_population* and make sure it is activated. Download from Blackboard (or see the [data](https://github.com/sdesabbata/granolarr/tree/master/data) folder of the repository) the `2011_OAC_Raw_uVariables_Leicester.csv` file on your computer. The full variable names can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv`.
+The simplest of the complex objects usually allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**^[The term *list* has a specific meaning in `R`. Don't use the term *list* to refer to *vectors*.].
 
-Create a new RMarkdown document using *"Exploring population distribution in Leicester"* as the title and *PDF* as the output file type. Delete the example code after the `setup` chunk. Add a new markdown second-heading section named *Libraries* and a chunk loading the `tidyverse` and `knitr` libraries (see below). Save the file with the name `exploring_Leicester_population.Rmd` in the *Leicester_population* project.
-
-````
----
-title: "Exploring population distribution in Leicester"
-output: pdf_document
-date: "2022-10-20"
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## Libraries
-
-```{r libraries, warning=FALSE, message=FALSE}
-library(tidyverse)
-library(knitr)
-```
-
-````
-
-
-
-Upload the `2011_OAC_Raw_uVariables_Leicester.csv` file to the *Leicester_population* folder by clicking the *Upload* button and selecting the file from your computer.
-
-**Important**: at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after uploading using Microsoft Edge. If you are using Microsoft Edge, make sure the uploaded filename is `2011_OAC_Raw_uVariables_Leicester.csv` with not additional text. Otherwise, select the tick next to the file in the *File* tab in the bottom-right panel, click *Rename* (on the panel's bar) and rename the file to `2011_OAC_Raw_uVariables_Leicester.csv`.
-
-
-
-## Read and write data
-
-The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. 
-
-The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. The code below loads the 2011 OAC dataset. The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC.
+Vectors can be defined in R by using the function `c`, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided. 
 
 
 ```r
+east_midlands_cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
+length(east_midlands_cities)
+```
+
+```
+## [1] 4
+```
+
+```r
+# or using the pipe operator
+library(tidyverse)
+east_midlands_cities %>% length()
+```
+
+```
+## [1] 4
+```
+
+Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the *index* (or indices as we will see further below) of the elements to be retrieved. Indices start from `1`, so the index of the first element is `1`, the index of the second element is `2`, and so on and so forth^[That is different from many programming languages, where the index of the first element is `0`.].
+
+
+```r
+# Retrieve the third city
+east_midlands_cities[3]
+```
+
+```
+## [1] "Lincoln"
+```
+
+Alternatively, the `first`, `last`, or `nth` functions of the `dplyr` library within Tidyverse can be used to extract single values from vectors.
+
+
+```r
+# Retrieve the first city
+east_midlands_cities %>% first()
+```
+
+```
+## [1] "Derby"
+```
+
+```r
+# Retrieve the first city
+east_midlands_cities %>% nth(1)
+```
+
+```
+## [1] "Derby"
+```
+
+```r
+# Retrieve the third city
+east_midlands_cities %>% nth(3)
+```
+
+```
+## [1] "Lincoln"
+```
+
+To retrieve any subset of a vector (i.e., more than one element), you can specify an integer vector containing the indices (rather than a single integer value) of the items of interest between square brackets. 
+
+
+```r
+# Retrieve first and third city
+east_midlands_cities[c(1, 3)]
+```
+
+```
+## [1] "Derby"   "Lincoln"
+```
+
+Functions and operators can be applied to vectors in the same way as they would be applied to simple values. For instance, all built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.
+
+
+```r
+one_to_ten <- 1:10
+one_to_ten
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+```r
+one_to_ten + 1
+```
+
+```
+##  [1]  2  3  4  5  6  7  8  9 10 11
+```
+
+```r
+sqrt(one_to_ten)
+```
+
+```
+##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+##  [9] 3.000000 3.162278
+```
+
+Similarly, string functions can be applied to vectors containing character values. For instance, the code below uses `str_length` to obtain a vector of numeric values representing the lengths of the city names included in the vector of character values `east_midlands_cities`.
+
+
+```r
+str_length(east_midlands_cities)
+```
+
+```
+## [1]  5  9  7 10
+```
+
+As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (`TRUE` or `FALSE`) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned -- which contains the respective results of the conditions for each element.
+
+
+```r
+-3 > 0
+```
+
+```
+## [1] FALSE
+```
+
+```r
+minus_two_to_two <- c(-2, -1, 0, 1, 2) 
+minus_two_to_two > 0
+```
+
+```
+## [1] FALSE FALSE FALSE  TRUE  TRUE
+```
+
+A subset of the elements of a vector can also be selected by providing a vector of logical values between brackets after the identifier. A new vector is returned, containing only the values for which a `TRUE` value has been specified correspondingly.
+
+
+```r
+minus_two_to_two[c(TRUE, TRUE, FALSE, FALSE, TRUE)]
+```
+
+```
+## [1] -2 -1  2
+```
+
+As the result of evaluating the condition on a vector is a vector of logical values, this can be used to filter vectors based on conditions. If a condition is provided between square brackets (after the vector identifier instead of an index), a new vector is returned, which contains only the elements for which the condition is true. 
+
+
+```r
+minus_two_to_two > 0
+```
+
+```
+## [1] FALSE FALSE FALSE  TRUE  TRUE
+```
+
+```r
+minus_two_to_two[minus_two_to_two > 0]
+```
+
+```
+## [1] 1 2
+```
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**. The code below illustrates the difference between vectors and factors.
+
+
+```r
+houses_vector <- c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace")
+houses_vector
+```
+
+```
+## [1] "Bungalow" "Flat"     "Flat"     "Detached" "Flat"     "Terrace"  "Terrace"
+```
+
+```r
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+```
+## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
+## Levels: Bungalow Detached Flat Terrace
+```
+
+R also provides a data type named **ordered**, which is similar to the data type factor but the levels are considered as ordered categories and respond to operators like `>` (greater then) when filtered. **[Appending 1](appendix-1.html)** provides some more details on vectors for those eager to lear -- or if you get stuck with your code and feel like knowing more about how to work with vectors might help. 😊
+
+
+
+
+
+### Lists
+
+Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
+
+
+```r
+employee <- list("Stef", 2015)
+employee
+```
+
+```
+## [[1]]
+## [1] "Stef"
+## 
+## [[2]]
+## [1] 2015
+```
+
+```r
+employee[[1]] # Note the double square brackets for selection
+```
+
+```
+## [1] "Stef"
+```
+
+In **named lists** each element has a name, and elements can be selected using their name after the symbol `$`. 
+
+
+```r
+employee <- list(employee_name = "Stef", start_year = 2015)
+employee
+```
+
+```
+## $employee_name
+## [1] "Stef"
+## 
+## $start_year
+## [1] 2015
+```
+
+```r
+employee$employee_name
+```
+
+```
+## [1] "Stef"
+```
+
+
+
+## Data frames and tibbles
+
+As mentioned in the first chapter, **data frames** are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vector representing a column and all vectors have the same length, thus representing the same number of rows.
+
+In the Tidyverse, a [`tibble`](https://tibble.tidyverse.org/) is defined as: "a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code".
+
+Before continuing, create a *data* subfolder and copy the `2011_OAC_Raw_uVariables_Leicester.csv` file in the *data* subfolder. Then, create a new RMarkdown documemnt to be compiled as a PDF file, using *Data manipulation* as a title and `data-manipulation.Rmd` as file name. Follow along with the examples below by copy-pasting the code in new R chunks, running them one at the time and then compiling the whole document.
+
+
+
+### Selecting and filtering tables
+
+The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional), and thus, two pieces of information are necessary. The first index specifies which rows to select or filter, and the second index specifies which columns to select or filter. If no information is provided for either the first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query become, the longer and less readable the code becomes.
+
+
+```r
+library(tidyverse)
+library(knitr)
+
 # Read the Leicester 2011 OAC dataset from the csv file
 leicester_2011OAC <- 
   read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+```
 
-# Illustrate some of the contents
-leicester_2011OAC %>% 
-  select(
-    OA11CD, LSOA11CD, 
-    supgrpcode, supgrpname,
-    Total_Population
-  ) %>%
-  slice_head(n = 3) %>%
+
+
+
+```r
+# Select the 5th row
+leicester_2011OAC[5, ]
+
+# Select the 9th column (OAC supergroup name)
+leicester_2011OAC[, 9]
+
+# Select the 5th row and 9th column
+leicester_2011OAC[5, 9]
+
+# Select the OAC supergroup name column (9th column) of the 5th row
+leicester_2011OAC[5, "supgrpname"]
+
+# Select the OA code, OAC supergroup code name columns of the 5th row
+leicester_2011OAC[5, c("OA11CD", "supgrpcode", "supgrpname")]
+
+# Select the OA code, OAC supergroup code name columns
+# of the 5th to 10th rows 
+leicester_2011OAC[5:10, c("OA11CD", "supgrpcode", "supgrpname")]
+
+# Select the OA code, OAC supergroup code name columns
+# for all OAs with more than 600 inhabitants
+leicester_2011OAC[leicester_2011OAC$Total_Population > 600, c("OA11CD", "supgrpcode", "supgrpname")]
+```
+ 
+Fortunately, rather than working with base R instructions, we can use the `dplyr` library, which is part of the Tidyverse and offers a grammar for data manipulation. The function `select` can be used to select some **columns** to output. For instance, in the code below, the function `select` is used to select the columns `OA11CD`, `supgrpcode`, and `supgrpname`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
+
+
+```r
+leicester_2011OAC %>%
+  select(OA11CD, supgrpcode, supgrpname) %>%
+  slice_head(n = 5) %>%
   kable()
 ```
 
 
-|OA11CD    |LSOA11CD  | supgrpcode|supgrpname                  | Total_Population|
-|:---------|:---------|----------:|:---------------------------|----------------:|
-|E00069517 |E01013785 |          6|Suburbanites                |              313|
-|E00069514 |E01013784 |          2|Cosmopolitans               |              323|
-|E00169516 |E01013713 |          4|Multicultural Metropolitans |              341|
 
-The function `write_csv` can be used to save a dataset as a `csv` file. For instance, the code below uses `tidyverse` functions and the pipe operator `%>%` to *reproduce* the `2011_OAC_supgrp_Leicester.csv` dataset used [in the lecture](slides/103-slides-data-manipulation.html):
+|OA11CD    | supgrpcode|supgrpname                  |
+|:---------|----------:|:---------------------------|
+|E00069517 |          6|Suburbanites                |
+|E00069514 |          2|Cosmopolitans               |
+|E00169516 |          4|Multicultural Metropolitans |
+|E00169048 |          4|Multicultural Metropolitans |
+|E00169044 |          4|Multicultural Metropolitans |
 
-1. **read** the 2011 OAC file `2011_OAC_Raw_uVariables_Leicester.csv` directly from the file, but without storing it into a variable;
-2. **select** the OA code variable `OA11CD`, and the two variables representing the code and name of the supergroup assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname` respectively);
-3. **filter** only those OA in the supergroup *Suburbanites* (code `6`);
-4. **write** the results to a file named `my--2011_OAC_supgrp_Leicester.csv`, which is your own version of the `2011_OAC_supgrp_Leicester.csv`.
+The function `filter` can instead be used to filter **rows** based on a specified condition. In the example below, the output of the `filter` step only includes the rows where the value of `grpname` is `"Students Around Campus"` (i.e., OAs classified as part of the Students Around Campus group). Note that the `grpname` needs to be included in the `select` step in order to be able to used it in the subsequent `filter` operation. All functions in the `dplyr` library can be combined in any other order that makes logical sense. However, if the `select` step didn't include `grpname`, that same column couldn't have been used in the `filter` step.
 
 
 ```r
-read_csv("2011_OAC_Raw_uVariables_Leicester.csv") %>%
-  select(
-    OA11CD, LSOA11CD, 
-    supgrpcode, supgrpname,
-    Total_Population
-  ) %>%
-  write_csv("my--2011_OAC_supgrp_Leicester.csv")
+leicester_2011OAC %>%
+  select(OA11CD, supgrpname, grpname, Total_Population) %>%
+  filter(grpname == "Students Around Campus") %>%
+  slice_head(n = 5) %>%
+  kable()
 ```
 
 
 
-
-### File paths
-
-File paths can be specified in two different ways:
-
-- **Absolute file path**: the full file path from the *root* folder of your computer to the file. 
-  - The absolute file path of a file can be obtained using the `file.choose()` instruction from the *R Console*, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to the console.
-  - Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.
-  - However, absolute file paths can be problematic if the file is moved or if the script is run on a different system, and the file path would then be invalid
-- **Relative file path**: a partial path from the current working folder to the file. 
-  - The current *working directory* (current folder) is part of the environment of the `R` session and can be identified using the `getwd()` instruction from the *`*R Console*.
-    - When a new R session is started, the current *working directory* is usually the computer user's home folder.
-    - When working within an R project, the current *working directory* is the project directory.
-    - The current working can be manually set to a specific directory using the function `setwd`.
-  - Using a relative path while working within an R project is the option that provides the best overall **consistency**, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).
-
-
-```r
-# Absolute file path
-# Note: the first / indicates the root folder
-read_csv("/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-# Relative file path
-# assuming the working directory is the user's home folder
-# /home/username
-# Note: no initial / for relative file paths
-read_csv("GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
-
-
-# Relative file path
-# assuming you are working within an R project created in the folder
-# /home/username/GY7702
-# Note: no initial / for relative file paths
-read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
-```
+|OA11CD    |supgrpname    |grpname                | Total_Population|
+|:---------|:-------------|:----------------------|----------------:|
+|E00069514 |Cosmopolitans |Students Around Campus |              323|
+|E00068882 |Cosmopolitans |Students Around Campus |              285|
+|E00169553 |Cosmopolitans |Students Around Campus |              714|
+|E00068869 |Cosmopolitans |Students Around Campus |              319|
+|E00068876 |Cosmopolitans |Students Around Campus |              255|
 
 
 
+### Summarise
 
-## Data manipulation
-
-The analysis below uses the [`dplyr`](https://dplyr.tidyverse.org/) library (also part of the Tidyverse), which it offers a grammar for data manipulation.
-
-For instance, the function `count` can be used to count the number of rows in a data frame. The code below provides the `leicester_2011OAC` dataframe (as read in input in the section above) as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column, containing the number of rows in that dataframe -- that is, the number of OAs in Leicester. 
+the function `count` of the [`dplyr`](https://dplyr.tidyverse.org/) library can be used to count the number of rows in a data frame. The code below provides the `leicester_2011OAC` dataframe (as read in input in the section above) as input to the function `count` through the pipe operator, thus creating a new [`tibble`](https://tibble.tidyverse.org/) with only one row and one column, containing the number of rows in that dataframe -- that is, the number of OAs in Leicester. 
 
 
 
@@ -171,9 +382,6 @@ As discussed in the previous lecture, a [`tibble`](https://tibble.tidyverse.org/
 The example above already shows how the **pipe operator** can be used effectively in a multi-step operation. In the `tibble` outputted by the `count` function above, the column `n` provides the count. The function `kable` of the library `knitr` is used to produce a well-formatted table.
 
 Note how the code above goes to a new line after every `%>%`, and space is added at the beginning of new lines. That is very common in R programming (especially when functions have many parameters) as it makes the code more readable.
-
-
-### Summarise
 
 The verb `count` is a special case (a shorthand) of the more general verb `summarise` (`summarize` using the American English spelling is also available with the same functionality), which allows generating tables presenting aggregate values of input data. 
 
@@ -269,7 +477,6 @@ leicester_2011OAC %>%
 
 
 
-
 ### Mutate
 
 The function `mutate` can be used to create a new column by conducting operations on current columns. For instance, in the example below, `summarise` is first used to calculate the total number of people and the number of OAs per 2011 OAC supergroup. The verb `mutate` is then used to calculate the average population per OA per 2011 OAC supergroup, recreating the same `avg_pop` column as above but through a different process.
@@ -333,6 +540,7 @@ leicester_2011OAC %>%
 |E00068806 |       57.78|
 |E00068886 |      122.87|
 |E00068807 |       76.21|
+
 
 
 ### Arrange
@@ -423,7 +631,8 @@ leicester_2011OAC %>%
 In both cases, if the table contains ties, all rows containing a value that is present among the maximum or minimum selected values are presented, as is the case with the rows containing the value `21` in the example above.
 
 
-### Data manipulation example
+
+### Data manipulation workflow
 
 Finally, the code below illustrates a more complex, multi-step operation using all the functions discussed above. This is a full example of a short analysis using only one series of pipes to read, process and write data using `R` and almost all the `tidyverse` *verbs* seen so far.
 
@@ -472,7 +681,9 @@ library(magrittr)
 |Ethnicity Central           |   19137|     5.80|
 |Constrained City Dwellers   |    9263|     2.81|
 
-### Componentization
+
+
+## Componentization
 
 It is important to note that in the example above, no information is stored in the local environment. The input is read directly from the computer storage, the whole process is conducted in the `R` internal memory, and the output is saved back to the computer storage. That is the whole purpose of the pipe operator: to avoid creating unnecessary and temporary "mid-products" during the computation (i.e., variables whose only purpose is to store the data before the next step). 
 
@@ -544,52 +755,6 @@ leicester_nonsuburb_pop %>%
     "2011_Leicester_pop_per_OAC_supgrp_excl_suburb.csv"
   ) 
 ```
-
-
-
-## How to cite
-
-### References
-
-Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r]. Bibtex references can be added to a separate `.bib` file that is linked to in the heading of the RMarkdown document. References can then be cited using the `@` symbol followed by the reference id.
-
-For instance, this documents links to the `references.bib` bibtex file, which contains the academic references, and the `packages.bib` bibtex files, which contains additional references for the R packages (see also next section), by adding the following line in the heading.
-
-````
-bibliography: [references.bib, packages.bib]
-````
-
-The `references.bib` contains the following reference for the R Markdown Cookbook book.
-
-````
-@book{xie2020r,
-  title={R markdown cookbook},
-  author={Xie, Yihui and Dervieux, Christophe and Riederer, Emily},
-  year={2020},
-  publisher={Chapman and Hall/CRC},
-  url = {https://bookdown.org/yihui/rmarkdown-cookbook/}
-}
-````
-
-That allows writing the first sentence of this section as follows.
-
-````
-Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r].
-````
-
-Bibtex references can be obtained from most journals or by clicking on the *Cite* link under a paper in [Google Scholar](https://scholar.google.com/) and then selecting *Bibtex*.
-
-### Code
-
-The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
-
-<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
-
-Appropriate citations are even more important when directly copying or adapting code from others' work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)'s [*Academic Integrity at MIT: A Handbook for Students*](https://integrity.mit.edu/) includes a section on [writing code](https://integrity.mit.edu/handbook/writing-code) which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly. 
-That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.
-
-It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
-Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
 
 
 

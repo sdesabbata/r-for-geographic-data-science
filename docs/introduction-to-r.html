@@ -7,7 +7,7 @@
 <title>Chapter 1 Introduction to R | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
 <meta name="description" content="Print this chapter We start this chapter with a brief introduction to R, the programming language that will be the focus of the module, and the tool that we will use to do data science. R is one...">
-<meta name="generator" content="bookdown 0.29 with bs4_book()">
+<meta name="generator" content="bookdown 0.35 with bs4_book()">
 <meta property="og:title" content="Chapter 1 Introduction to R | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/introduction-to-r.html">
@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="libs/kePrint-0.0.1/kePrint.js"></script><link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-2Y0M0936JL"></script><script>
       window.dataLayer = window.dataLayer || [];
@@ -117,7 +117,7 @@
 <h2>
 <span class="header-section-number">1.1</span> The R programming language<a class="anchor" aria-label="anchor" href="#the-r-programming-language"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong><a href="https://www.r-project.org/"><code>R</code></a></strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-R-base" role="doc-biblioref"&gt;R Core Team, &lt;em&gt;R&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a></span> was created in 1992 by <code>R</code>oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. <code>R</code> is a free, open-source implementation of the <code>S</code> statistical programming language initially created at Bell Labs. At its core, <code>R</code> is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
+<p><strong><a href="https://www.r-project.org/"><code>R</code></a></strong><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-R-base"&gt;R Core Team, &lt;em&gt;R&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>4</sup></a></span> was created in 1992 by <code>R</code>oss Ihaka and Robert Gentleman at the University of Auckland, New Zealand. <code>R</code> is a free, open-source implementation of the <code>S</code> statistical programming language initially created at Bell Labs. At its core, <code>R</code> is a functional programming language (its main functionalities revolve around defining and executing functions). However, it now supports and is commonly used as an imperative (focused on instructions on variables and programming control structures) and object-oriented (involving complex object structures) programming language.</p>
 <p>In simple terms, programming in <code>R</code> mainly focuses on devising a series of instructions to execute a task – most commonly, loading and analysing a dataset.</p>
 <p>As such, R can be used to program by creating sequences of <strong>instructions</strong> involving <strong>variables</strong> – which are named entities that can store values, more on that below. That will be the main topic of this practical session. Instructions can include control flow structures, such as decision points (<em>if/else</em>) and loops, which will be the topic of the next practical session. Instructions can also be grouped into <strong>functions</strong>, which we will see in more detail in the next chapter.</p>
 <p><code>R</code> is <strong>interpreted</strong>, not compiled. That means that an <code>R</code> interpreter receives an instruction you write and interprets and executes them. Other programming languages require their code to be compiled in an executable file to be executed on a computer.</p>
@@ -260,7 +260,7 @@
 <h3>
 <span class="header-section-number">1.2.4</span> Algorithms<a class="anchor" aria-label="anchor" href="#algorithms"><i class="fas fa-link"></i></a>
 </h3>
-<p>Any operation that can be executed using a computer is called an <strong>algorithm</strong>. To be more precise, <span class="citation">Nigel Cutland<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980" role="doc-biblioref"&gt;&lt;em&gt;Computability: An Introduction to Recursive Function Theory&lt;/em&gt; (Cambridge University Press, 1980), &lt;/a&gt;&lt;a href="https://doi.org/10.1017/CBO9781139171496" role="doc-biblioref"&gt;https://doi.org/10.1017/CBO9781139171496&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a></span> defined an algorithm as <em>“a mechanical rule, or automatic method, or program for performing some mathematical operation”</em> (Cutland, 1980, p. 7<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980" role="doc-biblioref"&gt;Cutland&lt;/a&gt;.&lt;/p&gt;'><sup>6</sup></a></span>).</p>
+<p>Any operation that can be executed using a computer is called an <strong>algorithm</strong>. To be more precise, <span class="citation">Nigel Cutland<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980"&gt;&lt;em&gt;Computability: An Introduction to Recursive Function Theory&lt;/em&gt; (Cambridge University Press, 1980), &lt;span&gt;https://doi.org/10.1017/CBO9781139171496&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>5</sup></a></span> defined an algorithm as <em>“a mechanical rule, or automatic method, or program for performing some mathematical operation”</em> (Cutland, 1980, p. 7<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980"&gt;Cutland&lt;/a&gt;.&lt;/p&gt;'><sup>6</sup></a></span>).</p>
 <p>The instructions you get to mount your Ikea furniture can be thought of as an algorithm, an effective procedure to perform the operation of mounting your furniture. You are playing the part of the computer executing the algorithm.</p>
 <p>A <strong>program</strong> is a set of instructions implementing an abstract algorithm into a specific language – let that be R, Python, or any other language. In their definition, algorithms (and thus the programs that implement them) can use variables and functions. As is the case for <code>R</code>, programs that are interpreted rather than compiled are also referred to as <strong>scripts</strong>.</p>
 </div>
@@ -309,10 +309,10 @@
 <h2>
 <span class="header-section-number">1.3</span> Tidyverse<a class="anchor" aria-label="anchor" href="#tidyverse"><i class="fas fa-link"></i></a>
 </h2>
-<p>The meta-library <a href="https://www.tidyverse.org/">Tidyverse</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-tidyverse2019" role="doc-biblioref"&gt;Hadley Wickham et al., &lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;,”&lt;/span&gt; &lt;em&gt;Journal of Open Source Software&lt;/em&gt; 4, no. 43 (2019): 1686, &lt;/a&gt;&lt;a href="https://doi.org/10.21105/joss.01686" role="doc-biblioref"&gt;https://doi.org/10.21105/joss.01686&lt;/a&gt;.&lt;/p&gt;'><sup>7</sup></a></span> contains the following libraries:</p>
+<p>The meta-library <a href="https://www.tidyverse.org/">Tidyverse</a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-tidyverse2019"&gt;Hadley Wickham et al., &lt;span&gt;“Welcome to the &lt;span class="nocase"&gt;tidyverse&lt;/span&gt;,”&lt;/span&gt; &lt;em&gt;Journal of Open Source Software&lt;/em&gt; 4, no. 43 (2019): 1686, &lt;span&gt;https://doi.org/10.21105/joss.01686&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>7</sup></a></span> contains the following libraries:</p>
 <ul>
 <li>
-<a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-ggplot2" role="doc-biblioref"&gt;Hadley Wickham, &lt;em&gt;Ggplot2: Elegant Graphics for Data Analysis&lt;/em&gt; (Springer-Verlag New York, 2016), &lt;/a&gt;&lt;a href="https://ggplot2.tidyverse.org" role="doc-biblioref"&gt;https://ggplot2.tidyverse.org&lt;/a&gt;.&lt;/p&gt;'><sup>8</sup></a></span> is a system for declaratively creating graphics based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</li>
+<a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a><span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-ggplot2"&gt;Hadley Wickham, &lt;em&gt;Ggplot2: Elegant Graphics for Data Analysis&lt;/em&gt; (Springer-Verlag New York, 2016), &lt;span&gt;https://ggplot2.tidyverse.org&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>8</sup></a></span> is a system for declaratively creating graphics based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.</li>
 <li>
 <a href="https://dplyr.tidyverse.org/"><code>dplyr</code></a> provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.</li>
 <li>
@@ -382,8 +382,8 @@ str_replace_all("Leicester", "e", "x")
 <pre><code>## [1] 1</code></pre>
 <p>The image below graphically illustrates how the pipe operator works, compared to the same procedure executed using two temporary variables that are used to store temporary values.</p>
 <center>
-<div class="figure">
-<img src="images/PipeOperator.png" style="width:80.0%" alt=""><p class="caption">Illustration of how the pipe operator works</p>
+<div class="float">
+<img src="images/PipeOperator.png" style="width:80.0%" alt="Illustration of how the pipe operator works"><div class="figcaption">Illustration of how the pipe operator works</div>
 </div>
 </center>
 <p>Similarly, you can use pipe to recreate the histogram of petal lengths from the <code>iris</code> dataset shown above, using the function <code>pull</code> to extract the column <code>Petal.Length</code> from the table, instead of the operator <code>$</code>. However, the Tidyverse includes the <code>ggplot2</code> library, which provides support for more sophisticated plotting, as we will see in subsequent chapters.</p>
@@ -501,7 +501,7 @@ Answer the question below, consulting the [`stringr` library reference (stringr.
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2022-12-15.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-10-05.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

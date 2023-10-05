@@ -46,9 +46,8 @@ rm(list = ls())
 **Today**: Reproducible data science
 
 - Data science
-- Complex data types
 - Reproducibility
-- `dplyr`
+- Data input and output
 
 ]
 .pull-right[
@@ -63,6 +62,15 @@ via [dplyr GitHub repository](https://github.com/tidyverse/dplyr/), MIT License
 ]
 
 ]
+
+
+
+
+---
+class: inverse, center, middle
+
+# Reproducible data science
+
 
 
 ---
@@ -101,195 +109,6 @@ A simple example: [UK population and household change between 2011 and 2021 cens
 ]
 
 ]
-
-
-
-
----
-class: inverse, center, middle
-
-# Complex data types
-
-
-
-
----
-
-## Vectors
-
-.pull-left[
-
-**Vectors** are ordered list of values.
-
-- Vectors can be of any data type
-    - numeric
-    - character
-    - logic
-- All items in a vector have to be of the same type
-- Vectors can be of any length
-- Functions can be used on a vector variable directly
-
-]
-.pull-right[
-
-A vector variable can be defined using 
-
-- an **identifier** (e.g., `a_vector`) 
-- on the left of an **assignment operator** `<-`
-- followed by the object to be linked to the identifier
-- in this case, the result returned by the function `c`
-- which creates a vector containing the provided elements
-
-]
-
-<br/>
-
-```{r, echo=TRUE}
-a_vector <- c("Birmingham", "Derby", "Leicester",
-  "Lincoln", "Nottingham", "Wolverhampton")
-a_vector
-```
-
-
-
-
----
-
-## Selection and filtering
-
-Each element of a vector can be retrieved specifying the related **index** between square brackets, after the identifier of the vector. The first element of the vector has index 1.
-
-```{r, echo=TRUE}
-a_vector[3]
-```
-
-
-A vector of indexes can be used to retrieve more than one element.
-
-```{r, echo=TRUE}
-a_vector[c(5, 3)]
-```
-
-A condition can be provided for filtering only the elements for which the condition is true
-
-```{r, echo=TRUE}
-a_numeric_vector <- 1:5
-a_numeric_vector[a_numeric_vector >= 3]
-```
-
----
-
-## Factors
-
-A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
-
-A specific set of levels can be specified when creating a factor by providing a **levels** argument.
-
-```{r, echo=TRUE}
-houses_factor_spec <- factor(
-  c("People Carrier", "Flat", "Flat", "Hatchback",
-      "Flat", "Terrace", "Terrace"),
-  levels = c("Bungalow", "Flat", "Detached",
-       "Semi", "Terrace"))
-
-table(houses_factor_spec)
-```
-
-Factors are unordered by default, but ordered factors can be created
-
-
----
-
-## Lists and data frames
-
-Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
-
-```{r, echo=TRUE}
-employee <- list("Stef", 2015)
-employee
-employee[[1]] # Note the double square brackets for selection
-```
-
-In **named lists** each element has a name, and elements can be selected using the operator `$`. 
-
-```{r, echo=TRUE}
-employee <- list(employee_name = "Stef", start_year = 2015)
-employee$employee_name
-```
-
----
-
-## Data frames
-
-A **data frame** is equivalent to a *named list* where all elements are *vectors of the same length*.
-
-```{r, echo=TRUE}
-employees <- data.frame(
-  employee_name = c("Maria", "Pete", "Sarah"),
-  age = c(47, 34, 32),
-  role = c("Professor", "Researcher", "Researcher"))
-
-employees
-```
-
-Data frames are the most common way to represent tabular data in R.
-
-```{r, echo=FALSE, eval=TRUE}
-employees %>% 
-  knitr::kable()
-```
-
----
-
-## Selecting and filtering
-
-.pull-left[
-
-**Columns** of data frames can be **selected**
-
-- specifying the column index
-
-```{r, echo=TRUE, eval=FALSE}
-employees[, c(3, 2)]
-```
-
-- specifying the column name
-
-```{r, echo=TRUE}
-employees[, c("role", "employee_name")]
-```
-
-The same applies to **rows** (**slicing**)
-
-```{r, echo=TRUE}
-employees[3, ]
-```
-
-]
-.pull-right[
-
-As with vectors, a condition can be provided for **filtering** only the **rows** for which the condition is true
-
-```{r, echo=TRUE}
-employees$role
-```
-
-```{r, echo=TRUE}
-employees$role == "Researcher"
-```
-
-```{r, echo=TRUE}
-employees[employees$role == "Researcher", ]
-```
-
-]
-
-
-
----
-class: inverse, center, middle
-
-# Reproduciblity
 
 
 ---
@@ -495,183 +314,350 @@ Reproducible data analysis is particularly important when working in teams, to s
 
 
 
+
+
+
 ---
 class: inverse, center, middle
 
-# Into the Tidyverse
+# Input / Ouptut
+
 
 ---
 
+## Text file formats
+
+<br/>
+
 .pull-left[
 
-## dplyr
+[Tidyverse](https://www.tidyverse.org/) includes or [imports](https://www.tidyverse.org/packages/#import) many libraries for reading data
 
-The `dplyr` (pronounced *dee-ply-er*) library is part of `tidyverse` and it offers a grammar for data manipulation
+- Tabular formats
+  - [`readr`](https://readr.tidyverse.org/) for plain text
+  - [`readxl`](https://readxl.tidyverse.org/) for Excel (`.xls` and `.xlsx`)
+  - [`haven`](https://haven.tidyverse.org/) for SPSS, Stata, and SAS data.
+- Databases
+  - [`DBI`](https://cran.r-project.org/web/packages/DBI/) for relational databases
+- NoSQL
+  - [`jsonlite`](https://cran.r-project.org/web/packages/jsonlite/) for JSON
+  - [`xml2`](https://cran.r-project.org/web/packages/xml2/) for XML
+- Web
+  - [`httr`](https://cran.r-project.org/web/packages/httr/) for web APIs
 
-- `select`: select specific columns
-- `filter`: select specific rows
-- `arrange`: arrange rows in a particular order
-- `summarise`: calculate aggregated values (e.g., mean, max, etc)
-- `group_by`: group data based on common column values
-- `mutate`: add columns
-- `join`: merge tables (`data.frames` or `tibbles`)
+]
+.pull-right[
 
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
+A wide range of formats based on plain-text files exist to represent tabular data
+
+For instance
+
+- tabular formats
+    - comma-separated values files `.csv`
+    - semi-colon-separated values files `.csv`
+    - tab-separated values files `.tsv`
+    - other formats using custom delimiters
+    - fix-width files `.fwf`
+
+]
+
+
+---
+
+## Output Area Classification
+
+.pull-left[
+
+The file `2011_OAC_supgrp_Leicester.csv` contains
+
+- one row for each [Output Area (OA)](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) in Leicester
+- [Lower-Super Output Area (LSOA)](https://www.ons.gov.uk/methodology/geography/ukgeographies/censusgeography) containing the OA
+- code and name of the supergroup assigned to the OA by the [2011 Output Area Classification](http://geogale.github.io/2011OAC/)
+- total population of the OA
+
+Extract showing only the first few rows
+
+```{}
+OA11CD,LSOA11CD,supgrpcode,supgrpname,Total_Population
+E00069517,E01013785,6,Suburbanites,313
+E00069514,E01013784,2,Cosmopolitans,323
+E00169516,E01013713,4,Multicultural Metropolitans,341
+E00169048,E01032862,4,Multicultural Metropolitans,345
+```
+
+]
+.pull-right[
+
+
+```{r}
+knitr::include_url(
+  "https://mapmaker.cdrc.ac.uk/#/output-area-classification?h=0&lon=-1.1117&lat=52.6331&zoom=11",
+  height = "500px")
+```
+
+]
+
+
+
+
+---
+
+## readr
+
+.pull-left[
+
+The [`readr`](https://readr.tidyverse.org/) (pronounced *read-er*) provides functions to read and write text files
+
+- `readr::read_csv`: comma-separated files `.csv`
+- `readr::read_csv2`: semi-colon-separated files `.csv`
+- `readr::read_tsv`: tab-separated files `.tsv`
+- `readr::read_fwf`: fix-width files `.fwf`
+- `readr::read_delim`: files using a custom delimiter
+
+and their *write* counterpart, such as
+
+- `readr::write_csv`: comma-separated files `.csv`
+
+]
+.pull-right[
+
+
+Read functions provide options about how to interpret a file contents
+
+- For instance, `readr::read_csv`
+  - `col_names`: 
+    - `TRUE` or `FALSE` whether top row is column names
+    - or a vector of column names
+  - `col_types`:
+    - a `cols()` specification or a string
+  - `skip`: lines to skip before reading data
+  - `n_max`: max number of record to read
+
+]
+
+---
+
+## readr::read_csv
+
+The `readr::read_csv` function of the [`readr`](https://readr.tidyverse.org/index.html) library reads a *csv* file from the path provided as the first argument
+
+```{r, echo=TRUE, eval=FALSE}
 library(tidyverse)
+
+leicester_2011OAC <- 
+  read_csv("2011_OAC_supgrp_Leicester.csv")
+
+leicester_2011OAC
 ```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+leicester_2011OAC <- read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"))
+leicester_2011OAC %>% 
+  print()
+```
+
+
+---
+
+## readr::read_csv
+
+.pull-left[
+
+Using `readr::read_csv` as in the previous example with no further options 
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- 
+  read_csv("2011_OAC_supgrp_Leicester.csv")
+
+leicester_2011OAC
+```
+
+will generate the following warning
+
+```{}
+Parsed with column specification:
+cols(
+  OA11CD = col_character(),
+  LSOA11CD = col_character(),
+  supgrpcode = col_double(),
+  supgrpname = col_character(),
+  Total_Population = col_double()
+)
+```
+
 
 ]
 .pull-right[
 
-## tibble
+See [`readr` column specification](https://readr.tidyverse.org/reference/cols.html)
 
-A [tibble](https://tibble.tidyverse.org/) is a modern reimagining of the data.frame within `tidyverse`
-
-- they do less 
-    - don’t change column names or types
-    - don’t do partial matching
-- complain more
-    - e.g. when referring to a column that does not exist
-    
-That forces you to confront problems earlier, typically leading to cleaner, more expressive code.
+- `col_logical()` or `l` as logic values
+- `col_integer()` or `i` as integer
+- `col_double()` or `d` as numeric (double)
+- `col_character()` or `c` as character
+- `col_factor(levels, ordered)` or `f` as factor
+- `col_date(format = "")` or `D` as data type
+- `col_time(format = "")` or `t` as time type
+- `col_datetime(format = "")` or `T` as datetime
+- `col_number()` or `n` as numeric (dropping marks)
+- `col_skip()` or `_` or `-` don’t import
+- `col_guess()` or `?` use best type based on the input
 
 ]
 
----
-
-## Example dataset
-
-The library `nycflights13` contains a dataset storing data about all the flights departed from New York City in 2013
-
-```{r, echo=TRUE, eval=FALSE}
-install.packages("nycflights13")
-```
-
-```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
-library(nycflights13)
-
-flights
-```
-```{r, echo=FALSE}
-library(nycflights13)
-
-flights %>% 
-  print(n= 5, width = 100)
-```
-
-
-
 
 
 ---
 
-## dplyr::select
+## readr::read_csv
 
-.pull-left[
+Alternatively, column specifications can be provided manually
 
-`select` can be used to specify which columns to retain
+- using the argument `col_types`
+- and the function `cols`
 
 ```{r, echo=TRUE, eval=FALSE}
-flights %>%
-  select( 
-    origin, dest, 
-    dep_delay, arr_delay, 
-    year:day
+leicester_2011OAC <- read_csv(
+    "2011_OAC_supgrp_Leicester.csv",
+    col_types = cols(
+      OA11CD  = col_character(),
+      LSOA11CD  = col_character(),
+      supgrpcode  = col_character(),
+      supgrpname  = col_character(),
+      Total_Population  = col_integer()
+    )
   )
-
 ```
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"),
+    col_types = cols(
+      OA11CD  = col_character(),
+      LSOA11CD  = col_character(),
+      supgrpcode  = col_character(),
+      supgrpname  = col_character(),
+      Total_Population  = col_integer()
+    )
+  ) 
 
-]
-.pull-right[
-
-... or whichones to drop, using - in front of the column name
-
-```{r, echo=TRUE, eval=FALSE}
-flights %>%
-  select(
-    origin, dest, 
-    dep_delay, arr_delay, 
-    year:day
-  ) %>% 
-  select(-arr_delay)
+leicester_2011OAC%>% 
+  print(n= 5)
 ```
 
-]
-
-.pull-left[
-
-```{r, echo=FALSE}
-flights %>%
-  select( 
-    origin, dest, dep_delay, arr_delay, year:day
-  ) %>% 
-  print(n = 7)
-```
-
-]
-.pull-right[
-
-```{r, echo=FALSE}
-flights %>%
-  select(
-    origin, dest, dep_delay, arr_delay, year:day
-  ) %>% 
-  select(
-    -arr_delay
-  ) %>% 
-  print(n = 7)
-```
-]
 
 ---
 
-## dplyr::filter
+## readr::read_csv
+
+
+Alternatively, column specifications can be provided manually
+
+- using the argument `col_types`
+- and the corresponding one-letter codes for each column
+
+```{r, echo=TRUE, eval=FALSE}
+leicester_2011OAC <- read_csv(
+    "2011_OAC_supgrp_Leicester.csv",
+    col_types = "cccci"
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+leicester_2011OAC <- read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv"),
+    col_types = "cccci"
+  ) 
+
+leicester_2011OAC%>% 
+  print()
+```
+
+
+---
+
+## readr::write_csv
 
 .pull-left[
 
-`filter` can be used to specify a condition for **filtering** only the **rows** for which the condition is true
+The function `write_csv` can be used to save a dataset to `csv`
+
+Example:
+
+1. `read` the 2011 OAC dataset
+2. `select` a few columns
+3. `filter` only those OA in the supergroup *Suburbanites* (code `6`)
+4. `write` the results to a file named *2011_OAC_supgrp_Leicester_supgrp6.csv*
 
 ```{r, echo=TRUE, eval=FALSE}
-flights %>%
-  # Flights in November
-  filter(month == 11)
+read_csv("2011_OAC_supgrp_Leicester.csv") %>%
+  select(
+    OA11CD, supgrpcode, Total_Population
+  ) %>%
+  filter(supgrpcode == "6") %>%
+  write_csv(
+    "2011_OAC_supgrp_Leicester_supgrp6.csv"
+  )
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv")
+  ) %>%
+  select(OA11CD, supgrpcode, Total_Population) %>%
+  filter(supgrpcode == "6") %>%
+  write_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester_supgrp6.csv")
+  )
 ```
 
-```{r, echo=FALSE}
-flights %>%
-  filter(month == 11) %>%
-  print(n = 3, width = 52)
-```
+.referencenote[
+(... more on `select` and `filter` next week)
+]
 
 ]
 .pull-right[
 
-... and can be concatenated with `select` or any other function using `%>%` to create a more complex process
+Alternatively, `write_tsv` can be used
 
 ```{r, echo=TRUE, eval=FALSE}
-flights %>%
-  # Select the columns you need
+read_csv("2011_OAC_supgrp_Leicester.csv") %>%
   select(
-    origin, dest, 
-    dep_delay, arr_delay, 
-    year:day
-  ) %>% 
-  # Drop arr_delay... because you don't need it after all
-  select(-arr_delay) %>%
-  # Filter in only November flights
-  filter(month == 11)
+    OA11CD, supgrpcode, Total_Population
+  ) %>%
+  filter(supgrpcode == "6") %>%
+  write_tsv(
+    "2011_OAC_supgrp_Leicester_supgrp6.tsv"
+  )
+```
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+read_csv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester.csv")
+  ) %>%
+  select(OA11CD, supgrpcode, Total_Population) %>%
+  filter(supgrpcode == "6") %>%
+  write_tsv(
+    paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OAC_supgrp_Leicester_supgrp6.tsv")
+  )
 ```
 
-```{r, echo=FALSE}
-flights %>%
-  select(origin, dest, dep_delay, arr_delay, year:day) %>%
-  select(-arr_delay) %>%
-  filter(month == 11) %>%
-  print(n = 3, width = 52)
+```{}
+OA11CD      supgrpcode  Total_Population
+E00069517 6         313
+E00069468 6         251
+E00069528 6         270
+E00069538 6         307
+E00069174 6         321
+E00069170 6         353
+E00069171 6         351
+E00068713 6         265
+E00069005 6         391
+E00069014 6         316
+E00068989 6         354
 ```
 
 ]
+
 
 
 ---
@@ -685,15 +671,14 @@ flights %>%
 **Today**: Reproducible data science
 
 - Data science
-- Complex data types
 - Reproducibility
-- `dplyr`
+- Data input and output
 
 **Next week**: Data manipulation
 
-- Data input and output
-- Mutate and summarise data
-- Working with R projects
+- Complex data types
+- Into the Tidyverse
+  - `dplyr`
 
 <br/>
 

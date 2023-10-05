@@ -126,6 +126,114 @@ To be more precise, many programming languages require to *declare* a variable. 
 
 
 
+## More on vectors and factors {-}
+
+### Vectors {-}
+
+The operator `:` can be used to create integer vectors, starting from the number specified before the operator to the number specified after the operator. 
+
+```{r, echo=TRUE}
+# Create a vector containing integers between 2 and 4
+two_to_four <- 2:4
+two_to_four
+# Retrieve cities between the second and the fourth
+east_midlands_cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
+east_midlands_cities[two_to_four]
+# As the second element of two_to_four is 3...
+two_to_four[2]
+# the following command will retrieve the third city
+east_midlands_cities[two_to_four[2]]
+# Create a vector with cities from the previous vector
+selected_cities <- c(east_midlands_cities[1], east_midlands_cities[3:4])
+```
+
+
+The functions `seq` and `rep` can also be used to create vectors, as illustrated below.
+
+```{r, echo=TRUE}
+seq(1, 10, by = 0.5)
+seq(1, 10, length.out = 6)
+rep("Ciao", 4)
+```
+
+
+The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement and the second returns `TRUE` if all elements satisfy the condition
+
+```{r, echo=TRUE}
+any(east_midlands_cities == "Leicester")
+my_sequence <- seq(1, 10, length.out = 7)
+my_sequence
+any(my_sequence > 5)
+all(my_sequence > 5)
+```
+
+
+
+### Factors {-}
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
+
+```{r, echo=TRUE}
+houses_vector <- c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace")
+houses_vector
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+The function **table** can be used to obtain a tabulated count for each level.
+
+```{r, echo=TRUE}
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+table(houses_factor)
+```
+
+A specific set of levels can be specified when creating a factor by providing a **levels** argument.
+
+```{r, echo=TRUE}
+houses_factor_spec <- factor(
+  c("People Carrier", "Flat", "Flat", "Hatchback",
+      "Flat", "Terrace", "Terrace"),
+  levels = c("Bungalow", "Flat", "Detached",
+       "Semi", "Terrace"))
+
+table(houses_factor_spec)
+```
+
+In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
+
+```{r, echo=TRUE}
+income_nominal <- factor(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+```
+
+The *greater than* operator is not meaningful on the `income_nominal` factor defined above.
+
+```{r, echo=TRUE}
+income_nominal > "Low"
+```
+
+In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
+
+```{r, echo=TRUE}
+income_ordered <- ordered(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+
+income_ordered > "Low"
+
+sort(income_ordered)
+```
+
+
+
+
 ---
 
 <small>by [Stefano De Sabbata](https://sdesabbata.github.io/) -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).</small>

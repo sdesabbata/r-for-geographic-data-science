@@ -1,7 +1,7 @@
 ---
 title: "R for Geographic Data Science"
 author: "Stefano De Sabbata"
-date: "2022-12-15"
+date: "2023-10-05"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [references.bib, packages.bib]
@@ -16,7 +16,7 @@ csl: chicago-fullnote-bibliography.csl
 
 # Welcome {.unnumbered}
 
-<img src="images/r-for-geographic-data-science-cover.png" class="cover" width="250" height="328"/>This book is an introduction to geographic data science using `R` [@R-base], which I designed as a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2021/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2021) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). As such, it is very much *a work in progress* and currently under revision for the *2022/23* module.
+<img src="images/r-for-geographic-data-science-cover.png" class="cover" width="250" height="328"/>This book is an introduction to geographic data science using `R` [@R-base], which I designed as a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2023/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2023) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). As such, it is very much *a work in progress* and currently under revision for the *2023/24* module.
 
 ## Aims and learning objectives {.unnumbered}
 
@@ -118,13 +118,13 @@ sessionInfo()
 ```
 
 ```
-## R version 4.2.2 (2022-10-31)
+## R version 4.3.1 (2023-06-16)
 ## Platform: x86_64-pc-linux-gnu (64-bit)
-## Running under: Ubuntu 22.04.1 LTS
+## Running under: Ubuntu 22.04.3 LTS
 ## 
 ## Matrix products: default
-## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3
-## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so
+## BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+## LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.20.so;  LAPACK version 3.10.0
 ## 
 ## locale:
 ##  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
@@ -134,17 +134,19 @@ sessionInfo()
 ##  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
 ## [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 ## 
+## time zone: Etc/UTC
+## tzcode source: system (glibc)
+## 
 ## attached base packages:
 ## [1] stats     graphics  grDevices utils     datasets  methods   base     
 ## 
 ## loaded via a namespace (and not attached):
-##  [1] bookdown_0.29   withr_2.5.0     digest_0.6.30   R6_2.5.1       
-##  [5] jsonlite_1.8.3  magrittr_2.0.3  evaluate_0.17   stringi_1.7.8  
-##  [9] cachem_1.0.6    rlang_1.0.6     cli_3.4.1       fs_1.5.2       
-## [13] jquerylib_0.1.4 xml2_1.3.3      bslib_0.4.1     rmarkdown_2.17 
-## [17] tools_4.2.2     stringr_1.4.1   xfun_0.34       yaml_2.3.6     
-## [21] fastmap_1.1.0   compiler_4.2.2  memoise_2.0.1   htmltools_0.5.3
-## [25] downlit_0.4.2   knitr_1.40      sass_0.4.2
+##  [1] digest_0.6.33   R6_2.5.1        bookdown_0.35   fastmap_1.1.1  
+##  [5] xfun_0.40       cachem_1.0.8    knitr_1.44      memoise_2.0.1  
+##  [9] htmltools_0.5.6 rmarkdown_2.25  xml2_1.3.5      cli_3.6.1      
+## [13] downlit_0.4.3   sass_0.4.7      withr_2.5.0     jquerylib_0.1.4
+## [17] compiler_4.3.1  tools_4.3.1     evaluate_0.21   bslib_0.5.1    
+## [21] yaml_2.3.7      fs_1.6.3        rlang_1.1.1     jsonlite_1.8.7
 ```
 
 ------------------------------------------------------------------------

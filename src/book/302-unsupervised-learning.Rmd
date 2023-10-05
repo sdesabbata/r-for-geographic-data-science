@@ -447,71 +447,27 @@ for(cluster_number in 1:6){
 
 The radar charts are very effective in visualising the values for multiple varaibles, as long as the variables are all of similar type, value and range. In this case, as all values are percentages, radar chart are very effective in illustrating which variables have particularly high averages in each cluster.
 
-Finally, we can map the cluster cartographically to analyse their spatial distribution.
-
-```{r, include=FALSE}
-# Extract the shapefile from the zipped folder
-ifelse(!dir.exists(file.path(Sys.getenv("RGDS_HOME"), "tmp")), dir.create(file.path(Sys.getenv("RGDS_HOME"), "tmp")), FALSE)
-
-if (!dir.exists(file.path(paste0(Sys.getenv("RGDS_HOME"), "/tmp"), "E06000016"))) {
-  unzip(paste0(Sys.getenv("RGDS_HOME"), "/data/", "e06000016.zip"), exdir = "tmp")
-}
-```
-
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', fig.height = 8, fig.width = 7}
 library(sf)
-library(ggmap)
+library(mapsf)
 
-leicester_dwellings_and_geom <- 
-  sf::st_read("tmp/E06000016/E06000016_Leicester.shp") %>%
-  dplyr::left_join(
-    leicester_dwellings,
-    by = c("oa_code" = "OA11CD")
+leicester_dwellings_map <-
+  st_read("storage/Leicester_2011_OAs.geojson") %>%
+  left_join(leicester_dwellings)
+mf_init(
+  leicester_dwellings_map,
+  expandBB = c(0.3,0,0,0)
+)
+mf_map(
+  leicester_dwellings_map,
+  var = "dwellings_cluster", 
+  type = "typo",
+  leg_title = "Geodemographic\nclassification\nof dwellings", 
+  leg_pos = "bottomright",
+  add = TRUE
   )
-
-leicester_ggmap <-
-  ggmap::ggmap(
-    get_stamenmap(
-      c(left = -1.225, bottom = 52.575, right = -1.0, top = 52.7),
-      zoom = 14,
-      maptype = "toner"
-    )
-  )
-
-leicester_ggmap +
-  ggplot2::geom_sf(
-    data = leicester_dwellings_and_geom,
-    mapping = aes(
-      fill = dwellings_cluster,
-      geometry = geometry
-    ),
-    inherit.aes = FALSE,
-    color = NA,
-    alpha = 0.5
-  ) +
-  ggplot2::scale_fill_brewer(palette = "Set1") +
-  ggplot2::coord_sf(crs = st_crs(4326)) +
-  ggplot2::ggtitle("Geodemographic classification of dwellings") +
-  ggplot2::xlab("") + ggplot2::ylab("") +
-  ggplot2::theme(
-    legend.position = "bottom",
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
-    axis.ticks = element_blank(),
-    #legend.position = "none",
-    panel.border = element_rect(colour = "black", fill=NA, size=1)
-  ) +
-  ggplot2::labs(caption = "Source: CDRC 2011 OAC Geodata Pack by the ESRC Consumer Data Research Centre; Contains National Statistics\ndata Crown copyright and database right 2015; Contains Ordnance Survey data Crown copyright and database\nright 2015. Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under ODbL.")
+mf_credits(txt = "Source: Office for National Statistics,\nCensus 2021. Contains National Statistics\ndata Crown copyright and database right 2022;\nContains Ordnance Survey data Crown copyright\nand database right 2022.")
 ```
-
-```{r, include=FALSE}
-# Remove shapefile from temporary folder
-unlink(paste0(Sys.getenv("RGDS_HOME"), "/tmp/E06000016"), recursive = TRUE)
-if(length(list.files(path = paste0(Sys.getenv("RGDS_HOME"), "/tmp"), include.dirs = TRUE)) == 0){
-  unlink(paste0(Sys.getenv("RGDS_HOME"), "/tmp"), recursive = TRUE)
-}
-```
-
 
 
 ## Exercise 414.1

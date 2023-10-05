@@ -16,7 +16,7 @@ csl: chicago-fullnote-bibliography.csl
 
 # Welcome {.unnumbered}
 
-<img src="images/r-for-geographic-data-science-cover.png" class="cover" width="250" height="328"/>This book is an introduction to geographic data science using `R` [@R-base], which I designed as a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2021/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2021) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). As such, it is very much *a work in progress* and currently under revision for the *2022/23* module.
+<img src="images/r-for-geographic-data-science-cover.png" class="cover" width="250" height="328"/>This book is an introduction to geographic data science using `R` [@R-base], which I designed as a companion for the module [GY7702 R for Data Science](https://le.ac.uk/modules/2023/gy7702) of the [MSc in Geographic Information Science](https://le.ac.uk/courses/geographical-information-science-msc/2023) at the [School of Geography, Geology, and the Environment](https://le.ac.uk/gge) of the [University of Leicester](https://le.ac.uk/). As such, it is very much *a work in progress* and currently under revision for the *2023/24* module.
 
 ## Aims and learning objectives {.unnumbered}
 

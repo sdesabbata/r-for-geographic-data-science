@@ -459,25 +459,22 @@ $$Y_i=(b_0+b_1*X_{i1}+b_2*X_{i2}+\dots+b_M*X_{iM})+\epsilon_i$$
 
 
 ---
-## Boston housing
+## boston_data housing
 
 
 .pull-left[
 
 A classic R dataset
 
-- price of houses in Boston
+- price of houses in boston_data
 - in relation to: 
   - house characteristics
   - neighborhood 
   - air quality
   
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-library(MASS)
-
-library(conflicted)
-conflict_prefer("select", "dplyr")
-conflict_prefer("filter", "dplyr")
+boston_data <-
+  MASS::Boston
 ```
 
 
@@ -490,7 +487,7 @@ Harrison, D., and D. L. Rubinfeld. 1978. [Hedonic Housing Prices and the Demand 
 .pull-right[
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-Boston %>%
+boston_data %>%
   ggplot(
     aes(
       x = nox, 
@@ -508,7 +505,7 @@ Boston %>%
 
 
 ---
-## Example: Boston housing
+## Example: boston_data housing
 
 Can we predict price based on number of rooms and air quality?
 
@@ -517,7 +514,7 @@ $$house\ value_i=(b_0+b_1*rooms_{i}+b_2*NO\ conc_{i})+\epsilon_i$$
 .center[
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
-Boston %>%
+boston_data %>%
   select(medv, rm, nox) %>%
   ggpairs(
     upper = list(continuous = 
@@ -542,7 +539,7 @@ Boston %>%
 
 ```{r, echo=TRUE}
 medv_model <-
-  Boston %$% 
+  boston_data %$% 
   lm(medv ~ rm + nox)
   
 
@@ -619,7 +616,7 @@ medv_model %>%
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 boston_output <-
-  Boston %>%
+  boston_data %>%
   mutate(
     model_stdres = medv_model %>% rstandard(),
     model_cook_dist = medv_model %>% cooks.distance()
@@ -768,7 +765,7 @@ medv_model %>%
 
 
 ---
-## Conclusions: Boston housing
+## Conclusions: boston_data housing
 
 .pull-left[
 
@@ -787,7 +784,7 @@ We seem to be on the right path, but something is missing...
 .pull-right[
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-Boston %>%
+boston_data %>%
   select(medv, rm, nox) %>%
   ggpairs(
     upper = list(continuous = 
@@ -804,7 +801,7 @@ Boston %>%
 
 
 ---
-## Model: Boston housing (2)
+## Model: boston_data housing (2)
 
 .pull-left[
 
@@ -814,7 +811,7 @@ Can we predict house prices based on number of rooms, air quality, **student/tea
 
 ```{r, echo=TRUE}
 medv_model2 <-
-  Boston %>% 
+  boston_data %>% 
   filter(medv < 50) %$% 
   lm(
     medv ~ rm + nox + ptratio + log(crim)
@@ -831,7 +828,7 @@ medv_model2 %>%
 .pull-right[
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-Boston %>%
+boston_data %>%
   select(medv, rm, nox,  ptratio, crim) %>%
   ggpairs(
     upper = list(continuous = 
@@ -855,7 +852,7 @@ Boston %>%
 .center[
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
-Boston %>% 
+boston_data %>% 
   filter(medv < 50) %>%
   mutate(
     log_crim = log(crim)
@@ -906,7 +903,7 @@ medv_model2 %>% vif()
 
 
 ---
-## Conclusions: Boston housing (2)
+## Conclusions: boston_data housing (2)
 
 .pull-left[
 
@@ -925,7 +922,7 @@ Still possibly on the right path, not quite there yet...
 .pull-right[
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-Boston %>%
+boston_data %>%
   filter(medv < 50) %>%
   mutate(
     log_crim = log(crim)
@@ -975,7 +972,7 @@ Can be used to test whether adjusted $R^2$ are signif. different
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 medv_model1 <-
-  Boston %>% 
+  boston_data %>% 
   filter(medv < 50) %$% 
   stats::lm(medv ~ rm + nox)
 

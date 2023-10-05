@@ -3,6 +3,7 @@
 <br/><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small>
 
 
+
 ## Data science
 
 Singleton and Arribas-Bel define "geographic data science" as a space that *"effectively combines the long-standing tradition and epistemologies of Geographic Information Science and Geography with many of the recent advances that have given Data Science its relevance in an emerging 'datafied' world"* (Singleton and Arribas-Bel, 2021, p67[@singleton2021geographic]). In particular, they argue that "data science" emerged as a term to indicate the use of statistical and visual analytics tool to study a world where the digitalisation of everyday life resulted in a "data deluge" commonly referred to as "big data"[@kitchin2014data]. The academic debate about the historical and epistemological background of the term "data science" is quite complex, but the term has now acquired wide-spread usage.
@@ -12,7 +13,43 @@ As such, "data science" is commonly used to refer to a set of tools and approach
 This book focuses on an introduction to data science using R and a focus on geographic themes, although not necessarily using spatial analysis (i.e., when spatial relationships are part of the computation), which is covered in another module and wonderful books such as  [*An Introduction to R for Spatial Analysis and Mapping*](https://uk.sagepub.com/en-gb/eur/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) by Chris Brunsdon and Lex Comber and [*Geocomputation with R*](https://geocompr.robinlovelace.net/) by Robin Lovelace, Jakub Nowosad and Jannes Muenchow.
 
 
-### R Scripts
+
+## Reproducibility
+
+
+According to @gandrud2018reproducible, a quantitative analysis or project can be considered to be **reproducible** if: *"the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding"*. Reproducibility practices are rooted in software engineering, including project design practices (such as [Scrum](https://en.wikipedia.org/wiki/Scrum_(software_development))), software readability principles, testing and versioning.
+
+In GIScience, programming was essential to interact with early GIS software such as [ArcInfo](https://en.wikipedia.org/wiki/ArcInfo) in the 1980s and 1990s, up until the release of the [ArcGIS 8.0](https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0) suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development. 
+
+Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the [AGILE Reproducible Paper Guidelines](https://osf.io/numa5/) from the [Association of Geographic Information Laboratories in Europe](https://agile-online.org/)). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analyses that can be more easily verified and reproduced on different or new data. @doi:10.1080/13658816.2015.1137579 have discussed the issue of reproducibility in GIScience, identifying the following best practices:
+
+1. *"Data should be accessible within the public domain and available to researchers"*.
+2. *"Software used should have open code and be scrutable"*.
+3. *"Workflows should be public and link data, software, methods of analysis and presentation with discursive narrative"*.
+4. *"The peer review process and academic publishing should require submission of a workflow model and ideally open archiving of those materials necessary for replication"*.
+5. *"Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances"*.
+
+The rest of the chapter discusses three tools that can help you improve the reproducibility of your code: [Markdown](https://daringfireball.net/projects/markdown/), [RMarkdown](https://rmarkdown.rstudio.com/) and [Git](https://git-scm.com/).
+
+
+
+## R Projects
+
+RStudio provides an extremely useful functionality to organise all your code and data, that is *R Projects*. Those are specialised files that RStudio can use to store all the information it has on a specific project that you are working on -- *Environment*, *History*, working directory, and much more, as we will see in the coming weeks. Working with well-organised project is **crucial** in reproducible data science.
+
+In RStudio Server, in the *Files* tab of the bottom-left panel, click on *Home* to make sure you are in your home folder -- if you are working on your own computer, create a folder for these practicals wherever most convenient. Click on *New Folder* and enter *Practicals* in the prompt dialogue to create a folder named *Practicals*. 
+
+Select *File > New Project ...* from the main menu, then from the prompt menu, *New Directory*, and then *New Project*. Insert *GY7702-practical-102* as the directory name, and select the *Practicals* folder for the field *Create project as subdirectory of*. Finally, click *Create Project*. 
+
+RStudio has now created the project, and it should have activated it. If that is the case, the *Files* tab in the bottom-right panel should be in the *GY7702-practical-102* folder, which contains only the *GY7702-practical-102.Rproj* file. The *GY7702-practical-102.Rproj* stores all the *Environment* information for the current project, and all the project files (e.g., R scripts, data, output files) should be stored within the *GY7702-practical-102* folder. Moreover, the *GY7702-practical-102* is now your working directory, which means that you can refer to a file in the folder by using only its name and if you save a file, that is the default directory where to save it. 
+
+On the top-right corner of RStudio, you should see a blue icon representing an R in a cube next to the name of the project (*GY7702-practical-102*). That also indicates that you are within the *GY7702-practical-102* project. Click on *GY7702-practical-102* and select *Close Project* to close the project. Next to the R in a cube icon, you should now see *Project: (None)*. Click on *Project: (None)* and select *GY7702-practical-102* from the list to reactivate the *GY7702-practical-102* project. In the future, you will thus be able to close and reactivate this or any other project as necessary, depending on what you are working with. Projects can also be activated by clicking on the related `.Rproj` file in the *Files* tab in the bottom-right panel or through the *Open Project...* option in the file menu.
+
+With the *GY7702-practical-102* project activated, select from the top menu *File > New File > RMarkdown* to create a new RMarkdown document -- you can use the default options in the creation menu, as this is just an example. Save and *knit* the RMarkdown document ([as shown in the previous chapter](reproducible-data-science.html#rmarkdown)). As you can see, both the RMarkdown file and the knitted are saved within the *GY7702-practical-102* folder.
+
+
+
+## R Scripts
 
 The RStudio Console is handy to interacting with the `R` interpreter and obtain results of operations and commands. However, moving from simple instructions to an actual program or script to conduct data analysis, the Console is usually not sufficient anymore. In fact, the Console is not a very comfortable way of providing long and complex instructions to the interpreter. For instance, it doesn't easily allow you to overwrite past instructions when you want to change something in your procedure. A better option to create programs or data analysis scripts of any significant size is to use the RStudio integrated editor to create an `R` script.
 
@@ -37,7 +74,8 @@ From the top menu, select *File > Save*, type in `my-first-script.R` (make sure 
 
 Congratulations, you have executed your first `R` script! 😊👍
 
-You can then edit the script by adding (for instance) the new lines of code shown below, saving the file, and executing the script's new version.
+You can then edit the script by adding (for instance) the new lines of code shown below, saving the file, and executing the script's new version. 
+RStudio also allows to select one or more lines and click *Run* to execute only the selected lines or the line where the cursor currently is.
 
 
 ```r
@@ -45,735 +83,109 @@ You can then edit the script by adding (for instance) the new lines of code show
 # the line below uses the Sys.time of the base library 
 # to obtain the current time as a character string
 current_time <- Sys.time()
+print(current_time)
 ```
 
-**Self-test question**: What happens if you click the *Source* button again and thus execute the new version of the script? What happens if you click *Source* a third time?
+**Self-test questions**: 
 
-RStudio also allows to select one or more lines and click *Run* to execute only the selected lines or the line where the cursor currently is.
+- What happens if you select `print(current_time)` and click *Run* to run just that line?
+- What happens if you click the *Source* button again and thus execute the new version of the script? 
+- What happens if you click the *Source* a third time?
+- How do the three differ (if they do)?
 
 
 
-## Complex data types
+### Reproducible workflows
 
-Create a new empty R script following the procedure above, add a line loading the Tidyverse library and save it as `practical-102_my-script-001.R`. While reading the rest of this section, copy the new code in the script and use *Run* to execute the single instructions.
+The [`readr` library](https://readr.tidyverse.org/index.html) (also part of the Tidyverse) provides a series of functions that can be used to load from and save data to different file formats. The `read_csv` function reads a *Comma Separated Values (CSV)* file from the path provided as the first argument. 
 
-### Vectors
+The code below loads the `2011_OAC_Raw_uVariables_Leicester.csv` containing the [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011 OAC) for Leicester. The 2011 OAC is a geodemographic classification of the census Output Areas (OA) of the UK, which was created by [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) starting from an initial set of 167 prospective variables from the United Kingdom Census 2011: 86 were removed, 41 were retained as they are, and 40 were combined, leading to a final set of 60 variables. [Gale et al. (2016)](http://josis.org/index.php/josis/article/viewArticle/232) finally used the k-means clustering approach to create 8 clusters or supergroups (see [map at datashine.org.uk](https://oac.datashine.org.uk)), as well as 26 groups and 76 subgroups. The dataset in the file `2011_OAC_Raw_uVariables_Leicester.csv` contains all the original 167 variables, as well as the resulting groups, for the city of Leicester. The full variable names can be found in the file `2011_OAC_Raw_uVariables_Lookup.csv`.
 
-Programming languages commonly provide both simple data types, such as those seen in the previous chapter, and more complex objects capable of storing and organising multiple values. The simplest of those complex objects allow storing multiple values of the same type in an ordered list. Such objects take different names in different languages. In `R`, they are referred to as **vectors**^[The term *list* has a specific meaning in `R`. Don't use the term *list* to refer to *vectors*.].
-
-Vectors can be defined in R by using the function `c`, which takes as parameters the items to be stored in the vector. The items are stored in the order in which they are provided. 
-
-
-```r
-east_midlands_cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
-length(east_midlands_cities)
-```
-
-```
-## [1] 4
-```
-
-Once the vector has been created and assigned to an identifier, the elements within the vector can be retrieved by specifying the identifier, followed by square brackets and the *index* (or indices as we will see further below) of the elements to be retrieved. Indices start from `1`, so the index of the first element is `1`, the index of the second element is `2`, and so on and so forth^[That is different from many programming languages, where the index of the first element is `0`.].
-
-
-```r
-# Retrieve the third city
-east_midlands_cities[3]
-```
-
-```
-## [1] "Lincoln"
-```
-
-To retrieve any subset of a vector (i.e., more than one element), you can specify an integer vector containing the indices (rather than a single integer value) of the items of interest between square brackets. 
-
-
-```r
-# Retrieve first and third city
-east_midlands_cities[c(1, 3)]
-```
-
-```
-## [1] "Derby"   "Lincoln"
-```
-
-The operator `:` can be used to create integer vectors, starting from the number specified before the operator to the number specified after the operator. 
-
-
-```r
-# Create a vector containing integers between 2 and 4
-two_to_four <- 2:4
-two_to_four
-```
-
-```
-## [1] 2 3 4
-```
-
-```r
-# Retrieve cities between the second and the fourth
-east_midlands_cities[two_to_four]
-```
-
-```
-## [1] "Leicester"  "Lincoln"    "Nottingham"
-```
-
-```r
-# As the second element of two_to_four is 3...
-two_to_four[2]
-```
-
-```
-## [1] 3
-```
-
-```r
-# the following command will retrieve the third city
-east_midlands_cities[two_to_four[2]]
-```
-
-```
-## [1] "Lincoln"
-```
-
-```r
-# Create a vector with cities from the previous vector
-selected_cities <- c(east_midlands_cities[1], east_midlands_cities[3:4])
-```
-
-
-The functions `seq` and `rep` can also be used to create vectors, as illustrated below.
-
-
-```r
-seq(1, 10, by = 0.5)
-```
-
-```
-##  [1]  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0
-## [16]  8.5  9.0  9.5 10.0
-```
-
-```r
-seq(1, 10, length.out = 6)
-```
-
-```
-## [1]  1.0  2.8  4.6  6.4  8.2 10.0
-```
-
-```r
-rep("Ciao", 4)
-```
-
-```
-## [1] "Ciao" "Ciao" "Ciao" "Ciao"
-```
-
-
-The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement and the second returns `TRUE` if all elements satisfy the condition
-
-
-```r
-any(east_midlands_cities == "Leicester")
-```
-
-```
-## [1] TRUE
-```
-
-```r
-my_sequence <- seq(1, 10, length.out = 7)
-my_sequence
-```
-
-```
-## [1]  1.0  2.5  4.0  5.5  7.0  8.5 10.0
-```
-
-```r
-any(my_sequence > 5)
-```
-
-```
-## [1] TRUE
-```
-
-```r
-all(my_sequence > 5)
-```
-
-```
-## [1] FALSE
-```
-
-
-Functions and operators can be applied to vectors in the same way as they would be applied to simple values. For instance, all built-in numerical functions in R can be used on a vector variable directly. That is, if a vector is specified as input, the selected function is applied to each element of the vector.
-
-
-```r
-one_to_ten <- 1:10
-one_to_ten
-```
-
-```
-##  [1]  1  2  3  4  5  6  7  8  9 10
-```
-
-```r
-one_to_ten + 1
-```
-
-```
-##  [1]  2  3  4  5  6  7  8  9 10 11
-```
-
-```r
-sqrt(one_to_ten)
-```
-
-```
-##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
-##  [9] 3.000000 3.162278
-```
-
-Similarly, string functions can be applied to vectors containing character values. For instance, the code below uses `str_length` to obtain a vector of numeric values representing the lengths of the city names included in the vector of character values `east_midlands_cities`.
-
-
-```r
-str_length(east_midlands_cities)
-```
-
-```
-## [1]  5  9  7 10
-```
-
-#### Selecting and filtering vectors
-
-As seen in the previous chapter, a condition entered in the Console is evaluated for the provided input, and a logical value (`TRUE` or `FALSE`) is provided as output. Similarly, if the provided input is a vector, the condition is evaluated for each element of the vector, and a vector of logical values is returned -- which contains the respective results of the conditions for each element.
-
-
-```r
-minus_three <- -3
-minus_three > 0
-```
-
-```
-## [1] FALSE
-```
-
-```r
-minus_three_to_three <- -3:3
-minus_three_to_three
-```
-
-```
-## [1] -3 -2 -1  0  1  2  3
-```
-
-```r
-minus_three_to_three > 0
-```
-
-```
-## [1] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
-```
-
-A subset of the elements of a vector can also be selected by providing a vector of logical values between brackets after the identifier. A new vector is returned, containing only the values for which a `TRUE` value has been specified correspondingly.
-
-
-```r
-minus_two_to_two <- -2:2
-minus_two_to_two
-```
-
-```
-## [1] -2 -1  0  1  2
-```
-
-```r
-minus_two_to_two[c(TRUE, TRUE, FALSE, FALSE, TRUE)]
-```
-
-```
-## [1] -2 -1  2
-```
-
-As the result of evaluating the condition on a vector is a vector of logical values, this can be used to filter vectors based on conditions. If a condition is provided between square brackets (after the vector identifier instead of an index), a new vector is returned, which contains only the elements for which the condition is true. 
-
-
-```r
-minus_two_to_two > 0
-```
-
-```
-## [1] FALSE FALSE FALSE  TRUE  TRUE
-```
-
-```r
-minus_two_to_two[minus_two_to_two > 0]
-```
-
-```
-## [1] 1 2
-```
-
-
-
-
-### Factors
-
-A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
-
-
-```r
-houses_vector <- c("Bungalow", "Flat", "Flat",
-  "Detached", "Flat", "Terrace", "Terrace")
-houses_vector
-```
-
-```
-## [1] "Bungalow" "Flat"     "Flat"     "Detached" "Flat"     "Terrace"  "Terrace"
-```
-
-```r
-houses_factor <- factor(c("Bungalow", "Flat", "Flat",
-  "Detached", "Flat", "Terrace", "Terrace"))
-houses_factor
-```
-
-```
-## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
-## Levels: Bungalow Detached Flat Terrace
-```
-
-The function **table** can be used to obtain a tabulated count for each level.
-
-
-```r
-houses_factor <- factor(c("Bungalow", "Flat", "Flat",
-  "Detached", "Flat", "Terrace", "Terrace"))
-houses_factor
-```
-
-```
-## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
-## Levels: Bungalow Detached Flat Terrace
-```
-
-```r
-table(houses_factor)
-```
-
-```
-## houses_factor
-## Bungalow Detached     Flat  Terrace 
-##        1        1        3        2
-```
-
-A specific set of levels can be specified when creating a factor by providing a **levels** argument.
-
-
-```r
-houses_factor_spec <- factor(
-  c("People Carrier", "Flat", "Flat", "Hatchback",
-      "Flat", "Terrace", "Terrace"),
-  levels = c("Bungalow", "Flat", "Detached",
-       "Semi", "Terrace"))
-
-table(houses_factor_spec)
-```
-
-```
-## houses_factor_spec
-## Bungalow     Flat Detached     Semi  Terrace 
-##        0        3        0        0        2
-```
-
-In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
-
-
-```r
-income_nominal <- factor(
-  c("High", "High", "Low", "Low", "Low",
-      "Medium", "Low", "Medium"),
-  levels = c("Low", "Medium", "High"))
-```
-
-The *greater than* operator is not meaningful on the `income_nominal` factor defined above.
-
-
-```r
-income_nominal > "Low"
-```
-
-```
-## Warning in Ops.factor(income_nominal, "Low"): '>' not meaningful for factors
-```
-
-```
-## [1] NA NA NA NA NA NA NA NA
-```
-
-In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
-
-
-```r
-income_ordered <- ordered(
-  c("High", "High", "Low", "Low", "Low",
-      "Medium", "Low", "Medium"),
-  levels = c("Low", "Medium", "High"))
-
-income_ordered > "Low"
-```
-
-```
-## [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
-```
-
-```r
-sort(income_ordered)
-```
-
-```
-## [1] Low    Low    Low    Low    Medium Medium High   High  
-## Levels: Low < Medium < High
-```
-
-
-### Lists
-
-Variables of the type **list** can contain elements of different types (including vectors and matrices), whereas elements of vectors are all of the same type. 
-
-
-```r
-employee <- list("Stef", 2015)
-employee
-```
-
-```
-## [[1]]
-## [1] "Stef"
-## 
-## [[2]]
-## [1] 2015
-```
-
-```r
-employee[[1]] # Note the double square brackets for selection
-```
-
-```
-## [1] "Stef"
-```
-
-In **named lists** each element has a name, and elements can be selected using their name after the symbol `$`. 
-
-
-```r
-employee <- list(employee_name = "Stef", start_year = 2015)
-employee
-```
-
-```
-## $employee_name
-## [1] "Stef"
-## 
-## $start_year
-## [1] 2015
-```
-
-```r
-employee$employee_name
-```
-
-```
-## [1] "Stef"
-```
-
-
-### Data frames and tibbles
-
-As mentioned in the previous chapter, **data frames** are complex data types which encode the concept of a table in R by combining and arranging together a series of simple objects. Data frames are similar to named lists, where each element of the list is a vector representing a column and all vectors have the same length, thus representing the same number of rows.
-
-#### Example: Flights that Departed NYC in 2013
-
-RStudio and RStudio Server come with a number of libraries already pre-installed. However, you might find yourself in the position of wanting to install additional libraries to work with. The remainder of this chapter requires the library [`nycflights13`](https://cran.r-project.org/package=nycflights13), which contains a table listing all the flights that departed from New York City in 2013, and it is also the dataset used in the examples of your suggested reading ([*R for Data Science*, chapter 5](https://r4ds.had.co.nz/transform.html)) To install it, select *Tools > Install Packages...* from the top menu. Insert `nycflights13` in the *Packages (separate multiple with space or comma)* field and click install. RStudio will automatically execute the command `install.packages("nycflights13")` (so, no need to execute that yourself) and install the required library.
-
-As usual, use the function `library` to load the newly installed library, along with the library `knitr`, which can be used to produce more nicely-formatted outputs.
+The `read_csv` instruction throws a warning that shows the assumptions about the data types used when loading the data. As illustrated by the output of the last line of code, the data are loaded as a tibble 969 x 190, that is 969 rows -- one for each OA -- and 190 columns, 167 of which represent the input variables used to create the 2011 OAC. The function `write_csv` can similarly be used to save a dataset as a `csv` file, as illustrated in the exercise below. 
 
 
 ```r
 library(tidyverse)
-library(nycflights13)
 library(knitr)
 
-flights
+# Read the Leicester 2011 OAC dataset from the csv file
+leicester_2011OAC <- 
+  read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 ```
 
-```
-## # A tibble: 336,776 × 19
-##     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
-##    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
-##  1  2013     1     1      517        515       2     830     819      11 UA     
-##  2  2013     1     1      533        529       4     850     830      20 UA     
-##  3  2013     1     1      542        540       2     923     850      33 AA     
-##  4  2013     1     1      544        545      -1    1004    1022     -18 B6     
-##  5  2013     1     1      554        600      -6     812     837     -25 DL     
-##  6  2013     1     1      554        558      -4     740     728      12 UA     
-##  7  2013     1     1      555        600      -5     913     854      19 B6     
-##  8  2013     1     1      557        600      -3     709     723     -14 EV     
-##  9  2013     1     1      557        600      -3     838     846      -8 B6     
-## 10  2013     1     1      558        600      -2     753     745       8 AA     
-## # … with 336,766 more rows, 9 more variables: flight <int>, tailnum <chr>,
-## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-## #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
-## #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
-```
 
-Create a new empty R script following the procedure above and save it as `practical-102_my-script-002.R`. Start by adding the lines above to the new R script, and continue to add the code snippets provided below while you read.
+|OA11CD    |LSOA11CD  | supgrpcode|supgrpname                  | Total_Population|
+|:---------|:---------|----------:|:---------------------------|----------------:|
+|E00069517 |E01013785 |          6|Suburbanites                |              313|
+|E00069514 |E01013784 |          2|Cosmopolitans               |              323|
+|E00169516 |E01013713 |          4|Multicultural Metropolitans |              341|
 
-#### Selecting and filtering tables
+Both `read_csv` and `write_csv` require to specify a file path, that can be specified in two different ways:
 
-The approaches seen above for selecting and filtering data from vectors can be applied to data frames and tibbles. The only difference is that tables are bi-dimensional (rather than one-dimensional), and thus, two pieces of information are necessary. The first index specifies which rows to select or filter, and the second index specifies which columns to select or filter. If no information is provided for either the first or second index, all rows or columns are provided. However, as you can see from the examples below, the more complex the selection and filtering query become, the longer and less readable the code becomes.
+- **Absolute file path**: the full file path from the *root* folder of your computer to the file. 
+  - The absolute file path of a file can be obtained using the `file.choose()` instruction from the *R Console*, which will open an interactive window that will allow you to select a file from your computer. The absolute path to that file will be printed to the console.
+  - Absolute file paths provide a direct link to a specific file and ensure that you are loading that exact file.
+  - However, absolute file paths can be problematic if the file is moved or if the script is run on a different system, and the file path would then be invalid
+- **Relative file path**: a partial path from the current working folder to the file. 
+  - The current *working directory* (current folder) is part of the environment of the `R` session and can be identified using the `getwd()` instruction from the *`*R Console*.
+    - When a new R session is started, the current *working directory* is usually the computer user's home folder.
+    - When working within an R project, the current *working directory* is the project directory.
+    - The current working can be manually set to a specific directory using the function `setwd`.
+  - Using a relative path while working within an R project is the option that provides the best overall **consistency**, assuming that all (data) files to be read by scripts of a project are also contained in the project folder (or subfolder).
 
 
 ```r
-# Select the 5th row
-flights[5, ]
+# Absolute file path
+# Note: the first / indicates the root folder
+read_csv("/home/username/GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+# Relative file path
+# assuming the working directory is the user's home folder
+# /home/username
+# Note: no initial / for relative file paths
+read_csv("GY7702/data/2011_OAC_Raw_uVariables_Leicester.csv")
+
+
+# Relative file path
+# assuming you are working within an R project created in the folder
+# /home/username/GY7702
+# Note: no initial / for relative file paths
+read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv")
 ```
 
-```
-## # A tibble: 1 × 19
-##    year month   day dep_time sched_dep…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
-##   <int> <int> <int>    <int>       <int>   <dbl>   <int>   <int>   <dbl> <chr>  
-## 1  2013     1     1      554         600      -6     812     837     -25 DL     
-## # … with 9 more variables: flight <int>, tailnum <chr>, origin <chr>,
-## #   dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>, minute <dbl>,
-## #   time_hour <dttm>, and abbreviated variable names ¹​sched_dep_time,
-## #   ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
-```
 
-```r
-# Select the 3rd column
-flights[, 4]
-```
 
-```
-## # A tibble: 336,776 × 1
-##    dep_time
-##       <int>
-##  1      517
-##  2      533
-##  3      542
-##  4      544
-##  5      554
-##  6      554
-##  7      555
-##  8      557
-##  9      557
-## 10      558
-## # … with 336,766 more rows
-```
+### Exercise 102.1
 
-```r
-# Select the departure time column
-flights[, "dep_time"]
-```
+Create a new subfolder named `data` within the R project *GY7702-practical-102* and upload the `2011_OAC_Raw_uVariables_Leicester.csv` file into the `data` folder^[**Note**: at the time of writing, Chrome seems to upload the file correctly, whereas it might be necessary to change the names of the files after uploading using Microsoft Edge. If you are using Microsoft Edge, make sure the uploaded filename is `2011_OAC_Raw_uVariables_Leicester.csv` with not additional text. Otherwise, select the tick next to the file in the *File* tab in the bottom-right panel, click *Rename* (on the panel's bar) and rename the file to `2011_OAC_Raw_uVariables_Leicester.csv`.].
 
-```
-## # A tibble: 336,776 × 1
-##    dep_time
-##       <int>
-##  1      517
-##  2      533
-##  3      542
-##  4      544
-##  5      554
-##  6      554
-##  7      555
-##  8      557
-##  9      557
-## 10      558
-## # … with 336,766 more rows
-```
+Create a new R script named `students-around-campus.R` including the reproducible workflow defined in the code below, which uses the `tidyverse` functions `read_csv` and `write_csv`, as well as the `select` and `filter` functions -- will be discussed in detail [in the next chapter](data-manipulation.html), don't worry too much about them for now 😊 -- to execute the following steps:
 
-```r
-# Select the origin, destination and departure time columns
-flights[, c("origin", "dest", "dep_time")]
-```
+1. **read** the 2011 OAC file `2011_OAC_Raw_uVariables_Leicester.csv` directly from the file, but without storing it into a variable;
+2. **select** the OA codes variable, and the variables representing the code and name of the supergroup and group assigned to each OA by the 2011 OAC (`supgrpcode` and `supgrpname`, as well as `grpcode` and `grpname`);
+3. **filter** only the OAs classified as part of the *Students Around Campus* group in the 2011 OAC;
+4. **write** the results to a file named `2011_OAC_Leicester_StudentsAroundCampus.csv`, which is your own version of the `2011_OAC_supgrp_Leicester.csv`.
 
-```
-## # A tibble: 336,776 × 3
-##    origin dest  dep_time
-##    <chr>  <chr>    <int>
-##  1 EWR    IAH        517
-##  2 LGA    IAH        533
-##  3 JFK    MIA        542
-##  4 JFK    BQN        544
-##  5 LGA    ATL        554
-##  6 EWR    ORD        554
-##  7 EWR    FLL        555
-##  8 LGA    IAD        557
-##  9 JFK    MCO        557
-## 10 LGA    ORD        558
-## # … with 336,766 more rows
-```
-
-```r
-# Select the 5th row and 3rd column
-flights[5, 4]
-```
-
-```
-## # A tibble: 1 × 1
-##   dep_time
-##      <int>
-## 1      554
-```
-
-```r
-# Select the 5th to 10th rows 
-# and origin, destination and departure time columns
-flights[5:10, c("origin", "dest", "dep_time")]
-```
-
-```
-## # A tibble: 6 × 3
-##   origin dest  dep_time
-##   <chr>  <chr>    <int>
-## 1 LGA    ATL        554
-## 2 EWR    ORD        554
-## 3 EWR    FLL        555
-## 4 LGA    IAD        557
-## 5 JFK    MCO        557
-## 6 LGA    ORD        558
-```
-
-```r
-# Filter all rows where the flights departed at 5.54am
-flights[flights$dep_time == 554, ]
-```
-
-```
-## # A tibble: 8,932 × 19
-##     year month   day dep_time sched_de…¹ dep_d…² arr_t…³ sched…⁴ arr_d…⁵ carrier
-##    <int> <int> <int>    <int>      <int>   <dbl>   <int>   <int>   <dbl> <chr>  
-##  1  2013     1     1      554        600      -6     812     837     -25 DL     
-##  2  2013     1     1      554        558      -4     740     728      12 UA     
-##  3    NA    NA    NA       NA         NA      NA      NA      NA      NA <NA>   
-##  4    NA    NA    NA       NA         NA      NA      NA      NA      NA <NA>   
-##  5    NA    NA    NA       NA         NA      NA      NA      NA      NA <NA>   
-##  6    NA    NA    NA       NA         NA      NA      NA      NA      NA <NA>   
-##  7  2013     1     2      554        600      -6     845     901     -16 B6     
-##  8  2013     1     2      554        600      -6     841     851     -10 B6     
-##  9  2013     1     2      554        600      -6     909     858      11 B6     
-## 10    NA    NA    NA       NA         NA      NA      NA      NA      NA <NA>   
-## # … with 8,922 more rows, 9 more variables: flight <int>, tailnum <chr>,
-## #   origin <chr>, dest <chr>, air_time <dbl>, distance <dbl>, hour <dbl>,
-## #   minute <dbl>, time_hour <dttm>, and abbreviated variable names
-## #   ¹​sched_dep_time, ²​dep_delay, ³​arr_time, ⁴​sched_arr_time, ⁵​arr_delay
-```
-
-```r
-# Filter all rows where the flights departed at 5.54am
-# and origin, destination and departure time columns
-flights[flights$dep_time == 554, c("origin", "dest", "dep_time")]
-```
-
-```
-## # A tibble: 8,932 × 3
-##    origin dest  dep_time
-##    <chr>  <chr>    <int>
-##  1 LGA    ATL        554
-##  2 EWR    ORD        554
-##  3 <NA>   <NA>        NA
-##  4 <NA>   <NA>        NA
-##  5 <NA>   <NA>        NA
-##  6 <NA>   <NA>        NA
-##  7 JFK    FLL        554
-##  8 JFK    PBI        554
-##  9 LGA    FLL        554
-## 10 <NA>   <NA>        NA
-## # … with 8,922 more rows
-```
- 
-Fortunately, rather than working with base R instructions, we can use the `dplyr` library, which is part of the Tidyverse and offers a grammar for data manipulation. The function `select` can be used to select some **columns** to output. For instance, in the code below, the function `select` is used to select the columns `origin`, `dest`, and `dep_delay`, in combination with the function `slice_head`, which can be used to include only the first `n` rows (`5` in the example below) to output.
+Save and run the script. The new dataset written into a csv file can then be loaded into any other software, such as a GIS, to further analyse or visualise the data. At the same time, R offers a wide range of tools to both analyse or visualise, as we will see in this and other modules. You can download and inspect the file to verify that only contains seven columns mentioned in the code, and that all rows have `"Students Around Campus"` as value for the column `grpname`. 
 
 
 ```r
-flights %>%
-  select(origin, dest, dep_delay) %>%
-  slice_head(n = 5) %>%
-  kable()
+read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv") %>%
+  select(
+    OA11CD, LSOA11CD, 
+    supgrpcode, supgrpname,
+    grpcode, grpname,
+    Total_Population
+  ) %>%
+  filter(grpname == "Students Around Campus") %>%
+  write_csv("data/2011_OAC_Leicester_StudentsAroundCampus.csv")
 ```
 
 
 
-|origin |dest | dep_delay|
-|:------|:----|---------:|
-|EWR    |IAH  |         2|
-|LGA    |IAH  |         4|
-|JFK    |MIA  |         2|
-|JFK    |BQN  |        -1|
-|LGA    |ATL  |        -6|
-
-The function `filter` can instead be used to filter **rows** based on a specified condition. In the example below, the output of the `filter` step only includes the rows where the value of `month` is `11` (i.e., the eleventh month, November). 
 
 
-```r
-flights %>%
-  select(origin, dest, year, month, day, dep_delay) %>%
-  filter(month == 11) %>%
-  slice_head(n = 5) %>%
-  kable()
-```
-
-
-
-|origin |dest | year| month| day| dep_delay|
-|:------|:----|----:|-----:|---:|---------:|
-|JFK    |PSE  | 2013|    11|   1|         6|
-|JFK    |SYR  | 2013|    11|   1|       105|
-|EWR    |CLT  | 2013|    11|   1|        -5|
-|LGA    |IAH  | 2013|    11|   1|        -6|
-|JFK    |MIA  | 2013|    11|   1|        -3|
-
-Notice how `filter` is used in combination with `select`. All functions in the `dplyr` library can be combined in any other order that makes logical sense. However, if the `select` step didn't include `month`, that same column couldn't have been used in the `filter` step.
-
-
-## Exercise 102.1
-
-Extend the code in the script `practical-102_my-script-002.R` to include the code necessary to solve the questions below.
-
-**Question 101.1.1:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the air time and the carrier, but only for flights starting from the JFK airport. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
-
-**Question 102.1.2:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay and the overall air time, but only for flights of October 12th. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
-
-**Question 103.1.3:** Write a piece of code using the pipe operator and the `dplyr` library to generate a table showing the arrival delay, origin and destination, but only for flight leaving between 11am and 2pm. As in the examples above, use `slice_head` and `kable` to output a nicely-formatted table containing only the first 10 rows.
-
-
-
-## Reproducibility
-
-
-According to @gandrud2018reproducible, a quantitative analysis or project can be considered to be **reproducible** if: *"the data and code used to make a finding are available and they are sufficient for an independent researcher to recreate the finding"*. Reproducibility practices are rooted in software engineering, including project design practices (such as [Scrum](https://en.wikipedia.org/wiki/Scrum_(software_development))), software readability principles, testing and versioning.
-
-In GIScience, programming was essential to interact with early GIS software such as [ArcInfo](https://en.wikipedia.org/wiki/ArcInfo) in the 1980s and 1990s, up until the release of the [ArcGIS 8.0](https://en.wikipedia.org/wiki/ArcGIS#ArcMap_8.0) suite in 1999, which included a graphical user interface. The past decade has seen a gradual return to programming and scripting in GIS, especially where languages such as R and Python allowed to combine GIS capabilities with much broader data science and machine learning functionalities. Many disciplines have seen a similar trajectory, and as programming and data science become more integral to science, reproducibility practices become a cornerstone of scientific development. 
-
-Nowadays, many academic journals and conferences require some level of reproducibility when submitting a paper (e.g., see the [AGILE Reproducible Paper Guidelines](https://osf.io/numa5/) from the [Association of Geographic Information Laboratories in Europe](https://agile-online.org/)). Companies are keen on reproducible analysis, which is more reliable and more efficient in the long term. Second, as the amount of data increases, reproducible approaches effectively create reliable analyses that can be more easily verified and reproduced on different or new data. @doi:10.1080/13658816.2015.1137579 have discussed the issue of reproducibility in GIScience, identifying the following best practices:
-
-1. *"Data should be accessible within the public domain and available to researchers"*.
-2. *"Software used should have open code and be scrutable"*.
-3. *"Workflows should be public and link data, software, methods of analysis and presentation with discursive narrative"*.
-4. *"The peer review process and academic publishing should require submission of a workflow model and ideally open archiving of those materials necessary for replication"*.
-5. *"Where full reproducibility is not possible (commercial software or sensitive data) aim to adopt aspects attainable within circumstances"*.
-
-The rest of the chapter discusses three tools that can help you improve the reproducibility of your code: [Markdown](https://daringfireball.net/projects/markdown/), [RMarkdown](https://rmarkdown.rstudio.com/) and [Git](https://git-scm.com/).
-
-
-### Markdown
+## RMarkdown
 
 An essential tool used in creating this book is [RMarkdown](https://rmarkdown.rstudio.com/), an R library that allows you to create scripts that mix the [Markdown](https://daringfireball.net/projects/markdown/) mark-up language and R, to create dynamic documents. RMarkdown script can be compiled, at which point the Markdown notation is interpreted to create the output files, while the R code is executed and the output incorporated in the document.
 
@@ -817,9 +229,6 @@ The core Markdown notation used in this chapter is presented below. A full RMark
 3. This is number three
 ```
 
-
-### RMarkdown
-
 R code can be embedded in RMarkdown documents using code snippets, as in the example below. That results in the code chunk being displayed within the document (as *echo=TRUE* is specified), followed by the output from the execution of the same code.
 
 ````
@@ -851,9 +260,108 @@ Read the document through, inspecting both the R and the Markdown code. Note how
 
 Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the *Knit* button visible above the file panel in RStudio to compile the source file into a *PDF* file -- if the browser blocks the opening for the new file in a window, please allow the pop-up to open from the top-right of your browser. Read through the compiled document and compare it to the source document to assess how the compiled document is derived from the source.
 
-## Exercise 102.2
 
-Create an RMarkdown document in RStudio, using *Exercise 102.2* as title and *PDF* as output. Delete all the contents except the first five lines which compose the heading. Save the document as `practical-102_my-report-002.Rmd`. Copy the questions from *Exercise 102.1* as markdown content and your answers as R code, then compile the document to produce your report by clicking on the *Knit* button on the bar above the editor panel (top-left area) in RStudio, on the left side. Check the resulting *pdf* document.
+
+### Exercise 102.2
+
+Create a new RMarkdown document using *Students around campus in Leicester* as the title and *PDF* as the output file type. Delete the example code and add the code below, which includes a markdown second-heading section named *Libraries* and a chunk loading the `tidyverse` and `knitr` libraries. Save the file with the name `students-around-campus-map.R` in the *Leicester_population* project.
+
+````
+---
+title: "Students around campus in Leicester"
+output: pdf_document
+date: "2022-10-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries
+
+```{r libraries, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+````
+
+
+
+Upload the `Leicester_2011_OAs.geojson` to the data folder, then add a new markdown second-heading section named *Map* and a new R chunk. In the new R chunk, copy-paste the code below which uses a range of functions that we will see in the coming weeks, alongside the `sf` and `mapsf` libraries, to create a map showing the location of the OAs classified as part of the *Students Around Campus* group in the 2011 OAC. 
+
+Again, as mentioned above, don't worry too much about the details of the code right now. We will get to those in the coming weeks. Focus on understanding and embracing the **reproducible data science** workflow. 😊
+
+
+```r
+library(tidyverse)
+library(sf)
+library(mapsf)
+
+leicester_2011OAC_students <- 
+  read_csv("data/2011_OAC_Raw_uVariables_Leicester.csv") %>%
+      filter(grpname == "Students Around Campus")
+
+st_read("data/Leicester_2011_OAs.geojson") %>%
+  left_join(leicester_2011OAC_students) %>% 
+  mf_map(
+    var = "grpname", 
+    type = "typo",
+    pal = "Dark 3",
+    leg_title = "2011 OAC groups",
+    leg_no_data = "Other groups"
+    )
+mf_credits(txt = "Source: Office for National Statistics, Census 2021. Contains National Statistics data Crown copyright and database right 2022; Contains Ordnance Survey data Crown copyright and database right 2022.")
+```
+
+<img src="102-reproducibility_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+
+
+## How to cite
+
+### References
+
+Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r]. Bibtex references can be added to a separate `.bib` file that is linked to in the heading of the RMarkdown document. References can then be cited using the `@` symbol followed by the reference id.
+
+For instance, this documents links to the `references.bib` bibtex file, which contains the academic references, and the `packages.bib` bibtex files, which contains additional references for the R packages (see also next section), by adding the following line in the heading.
+
+````
+bibliography: [references.bib, packages.bib]
+````
+
+The `references.bib` contains the following reference for the R Markdown Cookbook book.
+
+````
+@book{xie2020r,
+  title={R markdown cookbook},
+  author={Xie, Yihui and Dervieux, Christophe and Riederer, Emily},
+  year={2020},
+  publisher={Chapman and Hall/CRC},
+  url = {https://bookdown.org/yihui/rmarkdown-cookbook/}
+}
+````
+
+That allows writing the first sentence of this section as follows.
+
+````
+Academic references can be added to RMarkdown [as illustrated in the R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html) [@xie2020r].
+````
+
+Bibtex references can be obtained from most journals or by clicking on the *Cite* link under a paper in [Google Scholar](https://scholar.google.com/) and then selecting *Bibtex*.
+
+### Code
+
+The UK's [Software Sustainability Institute](https://www.software.ac.uk/about) provides clear guidance about [how to cite software](https://www.software.ac.uk/how-cite-software) written by others. As outlined in the guidance, you should always cite and credit their work. However, using academic-style citations is not always straightforward when working with libraries, as most of them are not linked to an academic paper nor provide a [DOI](https://www.doi.org/). In such cases, you should at least include a link to the authors' website or repository in the script or final report when using a library. For instance, you can add a link to the Tidyverse's  [website](https://tidyverse.tidyverse.org/), [repository](https://github.com/tidyverse/tidyverse) or [CRAN page](https://cran.r-project.org/web/packages/tidyverse/index.html) when using the library. However, @tidyverse2019 also wrote a paper on their work on the Tidyverse for the [Journal of Open Source Software](https://joss.theoj.org/), so you can also cite their paper [using Bibtex in RMarkdown](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html).
+
+<!-- The two following paragraphs contain text adapted from text by Dr. Jorg D. Kaduk, jk61@leicester.ac.uk -->
+
+Appropriate citations are even more important when directly copying or adapting code from others' work. Plagiarism principles apply to code as much as they do to text. The Massachusetts Institute of Technology (MIT)'s [*Academic Integrity at MIT: A Handbook for Students*](https://integrity.mit.edu/) includes a section on [writing code](https://integrity.mit.edu/handbook/writing-code) which provides good guidance on when and how to cite code that you include in your projects or you adapt for your own code properly. 
+That also applies to re-using your own code, which you have written before. It is important that you refer to your previous work and fully acknowledge all previous work that has been used in a project so that others can find everything you have used in a project.
+
+It is common practice to follow a particular referencing style for the in-text quotations, references and bibliography, such as the Harvard style (see, e.g., the [Harvard Format Citation Guide](https://www.mendeley.com/guides/harvard-citation-guide/) available [Mendeley](https://www.mendeley.com/)'s help pages). 
+Following such guidelines will not only ensure that others can more easily use and reproduce your work but also that you demonstrate academic honesty and integrity.
+
 
 <!--
 

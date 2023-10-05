@@ -345,6 +345,246 @@ To be more precise, many programming languages require to *declare* a variable. 
 
 
 
+## More on vectors and factors {-}
+
+### Vectors {-}
+
+The operator `:` can be used to create integer vectors, starting from the number specified before the operator to the number specified after the operator. 
+
+
+```r
+# Create a vector containing integers between 2 and 4
+two_to_four <- 2:4
+two_to_four
+```
+
+```
+## [1] 2 3 4
+```
+
+```r
+# Retrieve cities between the second and the fourth
+east_midlands_cities <- c("Derby", "Leicester", "Lincoln", "Nottingham")
+east_midlands_cities[two_to_four]
+```
+
+```
+## [1] "Leicester"  "Lincoln"    "Nottingham"
+```
+
+```r
+# As the second element of two_to_four is 3...
+two_to_four[2]
+```
+
+```
+## [1] 3
+```
+
+```r
+# the following command will retrieve the third city
+east_midlands_cities[two_to_four[2]]
+```
+
+```
+## [1] "Lincoln"
+```
+
+```r
+# Create a vector with cities from the previous vector
+selected_cities <- c(east_midlands_cities[1], east_midlands_cities[3:4])
+```
+
+
+The functions `seq` and `rep` can also be used to create vectors, as illustrated below.
+
+
+```r
+seq(1, 10, by = 0.5)
+```
+
+```
+##  [1]  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0
+## [16]  8.5  9.0  9.5 10.0
+```
+
+```r
+seq(1, 10, length.out = 6)
+```
+
+```
+## [1]  1.0  2.8  4.6  6.4  8.2 10.0
+```
+
+```r
+rep("Ciao", 4)
+```
+
+```
+## [1] "Ciao" "Ciao" "Ciao" "Ciao"
+```
+
+
+The logical operators `any` and `all` can be used to test conditions on the vector. The former returns `TRUE` if at least one element satisfies the statement and the second returns `TRUE` if all elements satisfy the condition
+
+
+```r
+any(east_midlands_cities == "Leicester")
+```
+
+```
+## [1] TRUE
+```
+
+```r
+my_sequence <- seq(1, 10, length.out = 7)
+my_sequence
+```
+
+```
+## [1]  1.0  2.5  4.0  5.5  7.0  8.5 10.0
+```
+
+```r
+any(my_sequence > 5)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+all(my_sequence > 5)
+```
+
+```
+## [1] FALSE
+```
+
+
+
+### Factors {-}
+
+A **factor** is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of **levels**.
+
+
+```r
+houses_vector <- c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace")
+houses_vector
+```
+
+```
+## [1] "Bungalow" "Flat"     "Flat"     "Detached" "Flat"     "Terrace"  "Terrace"
+```
+
+```r
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+```
+## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
+## Levels: Bungalow Detached Flat Terrace
+```
+
+The function **table** can be used to obtain a tabulated count for each level.
+
+
+```r
+houses_factor <- factor(c("Bungalow", "Flat", "Flat",
+  "Detached", "Flat", "Terrace", "Terrace"))
+houses_factor
+```
+
+```
+## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
+## Levels: Bungalow Detached Flat Terrace
+```
+
+```r
+table(houses_factor)
+```
+
+```
+## houses_factor
+## Bungalow Detached     Flat  Terrace 
+##        1        1        3        2
+```
+
+A specific set of levels can be specified when creating a factor by providing a **levels** argument.
+
+
+```r
+houses_factor_spec <- factor(
+  c("People Carrier", "Flat", "Flat", "Hatchback",
+      "Flat", "Terrace", "Terrace"),
+  levels = c("Bungalow", "Flat", "Detached",
+       "Semi", "Terrace"))
+
+table(houses_factor_spec)
+```
+
+```
+## houses_factor_spec
+## Bungalow     Flat Detached     Semi  Terrace 
+##        0        3        0        0        2
+```
+
+In statistics terminology, (unordered) factors are **categorical** (i.e., binary or nominal) variables. Levels are not ordered.
+
+
+```r
+income_nominal <- factor(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+```
+
+The *greater than* operator is not meaningful on the `income_nominal` factor defined above.
+
+
+```r
+income_nominal > "Low"
+```
+
+```
+## Warning in Ops.factor(income_nominal, "Low"): '>' not meaningful for factors
+```
+
+```
+## [1] NA NA NA NA NA NA NA NA
+```
+
+In statistics terminology, ordered factors are **ordinal** variables. Levels are ordered.
+
+
+```r
+income_ordered <- ordered(
+  c("High", "High", "Low", "Low", "Low",
+      "Medium", "Low", "Medium"),
+  levels = c("Low", "Medium", "High"))
+
+income_ordered > "Low"
+```
+
+```
+## [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE
+```
+
+```r
+sort(income_ordered)
+```
+
+```
+## [1] Low    Low    Low    Low    Medium Medium High   High  
+## Levels: Low < Medium < High
+```
+
+
+
+
 ---
 
 <small>by [Stefano De Sabbata](https://sdesabbata.github.io/) -- text licensed under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), contains public sector information licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence), code licensed under the [GNU GPL v3.0](https://www.gnu.org/licenses/gpl-3.0.html).</small>
