@@ -264,7 +264,7 @@ Save the document (*File > Save*) as `my-first-rmarkdown.Rmd` and then click the
 
 ### Exercise 102.2
 
-Create a new RMarkdown document using *Students around campus in Leicester* as the title and *PDF* as the output file type. Delete the example code and add the code below, which includes a markdown second-heading section named *Libraries* and a chunk loading the `tidyverse` and `knitr` libraries. Save the file with the name `students-around-campus-map.R` in the *Leicester_population* project.
+Create a new RMarkdown document using *Students around campus in Leicester* as the title and *PDF* as the output file type. Delete the example code and add the code below, which includes a markdown second-heading section named *Libraries* and a chunk loading the `tidyverse` and `knitr` libraries. Save the file with the name `students-around-campus-map.Rmd` in the *Leicester_population* project.
 
 ````
 ---
