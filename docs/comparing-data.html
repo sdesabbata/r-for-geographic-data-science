@@ -112,21 +112,21 @@
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>The first part of this chapter guides you through an ANOVA (analysis of variance) using the <code>iris</code> dataset, while the second part showcases a correlation analysis using two variables from the dataset used to create the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011OAC). Create a new R project for this chapter and create a new RMarkdown document to replicate the analysis in this document and a separate RMarkdown document to work on the exercises.</p>
-<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
 <p>As many of the functions used in the analyses below are part of the oldest libraries developed for R, they have not been developed to be easily compatible with the Tidyverse and the <code>%&gt;%</code> operator. Fortunately, the <a href="https://magrittr.tidyverse.org/index.html"><code>magrittr</code> library</a> (loaded above) does not only define the <code>%&gt;%</code> operator seen so far, but also the <a href="https://magrittr.tidyverse.org/reference/exposition.html">exposition pipe operator <code>%$%</code></a>, which exposes the columns of the data.frame on the left of the operator to the expression on the right of the operator. That is, <code>%$%</code> allows to refer to the column of the data.frame directly in the subsequent expression. As such, the lines below expose the column <code>Petal.Length</code> of the data.frame <code>iris</code> and to pass it on to the <code>mean</code> function using different approaches, but they are all equivalent in their outcome.</p>
-<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Classic R approach</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Petal.Length</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## [1] 3.758</code></pre>
-<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using %&gt;% pipe</span></span>
 <span><span class="va">iris</span><span class="op">$</span><span class="va">Petal.Length</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span>  </span></code></pre></div>
 <pre><code>## [1] 3.758</code></pre>
-<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using %&gt;% pipe and %$% exposition pipe</span></span>
 <span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span> </span>
 <span>  <span class="va">Petal.Length</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -156,7 +156,7 @@
 <span class="header-section-number">7.1.1</span> ANOVA example<a class="anchor" aria-label="anchor" href="#anova-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>The example seen in the lecture illustrates how ANOVA can be used to verify that the three different species of iris in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"><code>iris</code> dataset</a> have different petal length.</p>
-<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -169,7 +169,7 @@
 <div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384"></div>
 <p>ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to <code>0.05</code>.</p>
 <p>The three Shapiro–Wilk tests below are all not significant, which indicates that all three groups have normally distributed values.</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -179,7 +179,7 @@
 ## 
 ## data:  .
 ## W = 0.95498, p-value = 0.05481</code></pre>
-<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -189,7 +189,7 @@
 ## 
 ## data:  .
 ## W = 0.966, p-value = 0.1585</code></pre>
-<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -200,7 +200,7 @@
 ## data:  .
 ## W = 0.96219, p-value = 0.1098</code></pre>
 <p>We can thus conduct the ANOVA test using the function <code>aov</code>, and the function <code>summary</code> to obtain the summary of the results of the test.</p>
-<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Classic R coding approach (not using %$%)</span></span>
 <span><span class="co"># iris_anova &lt;- aov(Petal.Length ~ Species, data = iris)</span></span>
 <span><span class="co"># summary(iris_anova)</span></span>
@@ -290,7 +290,7 @@
 <div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="384"></div>
 <p>If you want to replicate the map above, you can download the
 <a href="https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip">Census Residential Data Pack 2011 for Leicester</a> from the <a href="https://data.cdrc.ac.uk/">Consumer Data Research Centre</a> (requires to set up an account) and use the code below after having unzipped the downloaded file. The next semester’s module <a href="https://le.ac.uk/modules/2022/gy7707">GY7707 Geospatial Data Analytics</a> will cover spatial data handling, analysis and mapping in R in detail.</p>
-<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load the shapefile data</span></span>
 <span><span class="co"># using the library sf</span></span>
 <span><span class="co"># https://r-spatial.github.io/sf/</span></span>
@@ -349,7 +349,7 @@
 </li>
 </ul>
 <p>The process of transforming variables to be within a certain range (such as a percentage, thus using a <code>[0..100]</code> range, or a <code>[0..1]</code> range) is commonly referred to as <strong>normalisation</strong>. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as <strong>standardisation</strong>. However, note that these terms are sometime used interchangably.</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_and_cars</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -364,7 +364,7 @@
 <div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-11-1.png" width="576"></div>
 <p>The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed.</p>
 <p>As there are 969 OAs in Leicester, we can set the significance threshold to <code>0.01</code>. The results of the <code>shapiro.test</code> functions below show that neither of the two variables are normally distributed. Transforming the variables using the <em>inverse hyperbolic sine</em> still does not result in normally distributed variables. Thus, we should discard <em>Pearson’s r</em> as an option to explore the correlation between the two variables.</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/phgrosjean/pastecs">pastecs</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">flats_and_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -436,7 +436,7 @@
 </tbody>
 </table></div>
 <p>The next step is to assess whether there are ties among the values in the two variables. The code below fist counts the number of cases per value. Then it counts the number of values for which the number of cases is greater than one.</p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ties_perc_flats</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">flats_and_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">perc_flats</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -456,7 +456,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <p>The variable <code>perc_flats</code> has 127 values with ties and <code>perc_2ormore_cars</code> has 115 values with ties. As such, using <em>Spearman’s rho</em> is not advisable and <em>Kendall’s tau</em> should be used. As above, we can set the significance threshold to <code>0.01</code>.</p>
 <p>Finally, we can run the <code>cor.test</code> function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_and_cars_corKendall</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">flats_and_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
@@ -527,7 +527,7 @@ between the two variables.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-07.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

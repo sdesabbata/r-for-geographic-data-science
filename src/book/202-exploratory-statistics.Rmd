@@ -18,7 +18,7 @@ leicester_2011OAC <- read_csv(paste0(Sys.getenv("RGDS_HOME"), "/data/", "2011_OA
 
 The graphics above provide preliminary evidence that the distribution of people aged 20 to 24 might, in fact, be different in different 2011 supergroups. In the remainder of the chapter, we are going to explore that hypothesis further. First, load the necessary statistical libraries.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 library(pastecs)
 library(car)
 ```

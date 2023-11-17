@@ -116,14 +116,14 @@
 <span class="header-section-number">11.1</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
 </h2>
 <p>Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested, and the part of the procedure to execute in the case the condition is true is included in a <em>code block</em>.</p>
-<div class="sourceCode" id="cb285"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">25</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 <p>A simple conditional statement can be created using <code>if</code> as in the example above. A more complex structure can be created using both <code>if</code> and <code>else</code> to provide not only a procedure to execute in case the condition is true but also an alternative procedure to be executed when the condition is false.</p>
-<div class="sourceCode" id="cb286"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb287"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
@@ -133,7 +133,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## Today is not warm</code></pre>
 <p>Finally, conditional statements can be <strong>nested</strong>. That is, a conditional statement can be included as part of the code block to be executed after the condition is tested. For instance, in the example below, a second conditional statement is included in the code block to be executed in the case the condition is false.</p>
-<div class="sourceCode" id="cb288"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb289"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">5</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
@@ -147,7 +147,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## This is really cold!</code></pre>
 <p>Similarly, one of the examples seen in the lecture should be coded as follows.</p>
-<div class="sourceCode" id="cb290"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb291"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
@@ -161,7 +161,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## Negative</code></pre>
 <p>Alternatively, the same set of conditions can be rewritten as follows.</p>
-<div class="sourceCode" id="cb292"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb293"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span></span>
 <span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
@@ -184,7 +184,7 @@
 <span class="header-section-number">11.2.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
 </h3>
 <p>In R, conditional loops can be implemented using <code>while</code> and <code>repeat</code>. The difference between the two is mostly syntactical: the first tests the condition first and then execute the related code block if the condition is true; the second executes the code block until a <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> command is given (usually through a conditional statement).</p>
-<div class="sourceCode" id="cb294"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="co"># Keep printing as long as x is smaller than 2</span></span>
 <span><span class="kw">while</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
@@ -193,7 +193,7 @@
 <span><span class="op">}</span></span></code></pre></div>
 <pre><code>## 0 
 ## 1</code></pre>
-<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb297"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
 <span><span class="co"># Keep printing, if x is greater or equal than 2 than stop</span></span>
 <span><span class="kw">repeat</span> <span class="op">{</span></span>
@@ -211,7 +211,7 @@
 </h3>
 <p>The deterministic loop executes the subsequent code block iterating through the elements of a provided vector. During each iteration (i.e., execution of the code block), the current element of the vector is assigned to the variable in the statement, and it can be used in the code block.</p>
 <p>It is, for instance, possible to iterate over a vector and print each of its elements.</p>
-<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb299"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">city</span> <span class="kw">in</span> <span class="va">east_midlands_cities</span><span class="op">)</span><span class="op">{</span></span>
@@ -222,7 +222,7 @@
 ## Lincoln 
 ## Nottingham</code></pre>
 <p>It is common practice to create a vector of integers on the spot (e.g., using the <code>:</code> operator) to execute a certain sequence of steps a pre-defined number of times.</p>
-<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb301"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Exectuion number"</span>, <span class="va">iterator</span>, <span class="st">":\n"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step1: Hi!\n"</span><span class="op">)</span></span>
@@ -244,14 +244,14 @@
 <span class="header-section-number">11.3</span> Example: multiple Shapiro–Wilk tests<a class="anchor" aria-label="anchor" href="#example-multiple-shapirowilk-tests"><i class="fas fa-link"></i></a>
 </h2>
 <p>As seen during the lecture, it is possible to use control structures to scale up your analysis and design the code in a way so that an analysis step is executed on different data. The code below is a variation on what seen in class, and it illustrates how to conduct a simple analysis of the normal distribution of different sections of the input data.</p>
-<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb303"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>The chunck below ises the option <code>results = 'asis'</code>, which allows to interpret the output as Markdown code. That allows to translate the presence of <code>###</code> near the supergroup name into a third-level heading in the output.</p>
-<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb305"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span></span>
 <span>  </span>
 <span>  <span class="va">current_supgrp</span> <span class="kw">in</span></span>
@@ -421,7 +421,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-07.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-17.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

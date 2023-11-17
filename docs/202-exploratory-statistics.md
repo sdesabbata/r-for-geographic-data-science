@@ -16,6 +16,10 @@ leicester_2011OAC <- read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
 The graphics above provide preliminary evidence that the distribution of people aged 20 to 24 might, in fact, be different in different 2011 supergroups. In the remainder of the chapter, we are going to explore that hypothesis further. First, load the necessary statistical libraries.
 
 
+```r
+library(pastecs)
+library(car)
+```
 
 The code below calculates the percentage of people aged 20 to 24 (i.e., `u011`) over total population per OA, but it also recodes (see [recode](https://dplyr.tidyverse.org/reference/recode.html)) the names of the 2011OAC supergroups to a shorter 2-letter version, which is useful for the tables presented further below. Note that the code below uses the library name as a prefix `dplyr::` in front of the function name `recode` (thus, `dplyr::recode`) to make sure the function `recode` of the package `car` (thus, `car::recode`) is not used instead.
 
