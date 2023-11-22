@@ -4,18 +4,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 12 Working with functions | R for Geographic Data Science</title>
+<title>Chapter 12 R scripting | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
-<meta name="description" content="Print this chapter  12.1 Function definition Recall from the first chapter that an algorithm or effective procedure is a mechanical rule, or automatic method, or programme for performing some...">
+<meta name="description" content="Print this chapter  12.1 Conditional statements Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether...">
 <meta name="generator" content="bookdown 0.35 with bs4_book()">
-<meta property="og:title" content="Chapter 12 Working with functions | R for Geographic Data Science">
+<meta property="og:title" content="Chapter 12 R scripting | R for Geographic Data Science">
 <meta property="og:type" content="book">
-<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/working-with-functions.html">
+<meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/r-scripting.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
-<meta property="og:description" content="Print this chapter  12.1 Function definition Recall from the first chapter that an algorithm or effective procedure is a mechanical rule, or automatic method, or programme for performing some...">
+<meta property="og:description" content="Print this chapter  12.1 Conditional statements Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 12 Working with functions | R for Geographic Data Science">
-<meta name="twitter:description" content="Print this chapter  12.1 Function definition Recall from the first chapter that an algorithm or effective procedure is a mechanical rule, or automatic method, or programme for performing some...">
+<meta name="twitter:title" content="Chapter 12 R scripting | R for Geographic Data Science">
+<meta name="twitter:description" content="Print this chapter  12.1 Conditional statements Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -86,12 +86,12 @@
 <li><a class="" href="exploratory-statistics.html"><span class="header-section-number">6</span> Exploratory statistics</a></li>
 <li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
 <li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
+<li><a class="" href="multiple-regression.html"><span class="header-section-number">9</span> Multiple regression</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">10</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">11</span> Unsupervised machine learning</a></li>
 <li class="book-part">R scripting</li>
-<li><a class="" href="control-structures.html"><span class="header-section-number">11</span> Control structures</a></li>
-<li><a class="active" href="working-with-functions.html"><span class="header-section-number">12</span> Working with functions</a></li>
+<li><a class="active" href="r-scripting.html"><span class="header-section-number">12</span> R scripting</a></li>
 <li class="book-part">Appendices</li>
 <li><a class="" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
@@ -106,18 +106,282 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="working-with-functions" class="section level1" number="12">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="r-scripting" class="section level1" number="12">
 <h1>
-<span class="header-section-number">12</span> Working with functions<a class="anchor" aria-label="anchor" href="#working-with-functions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12</span> R scripting<a class="anchor" aria-label="anchor" href="#r-scripting"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
-<div id="function-definition" class="section level2" number="12.1">
+<div id="conditional-statements" class="section level2" number="12.1">
 <h2>
-<span class="header-section-number">12.1</span> Function definition<a class="anchor" aria-label="anchor" href="#function-definition"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.1</span> Conditional statements<a class="anchor" aria-label="anchor" href="#conditional-statements"><i class="fas fa-link"></i></a>
+</h2>
+<p>Conditional statements are fundamental in (procedural) programming, as they allow to execute or not execute part of a procedure depending on whether a certain condition is true. The condition is tested, and the part of the procedure to execute in the case the condition is true is included in a <em>code block</em>.</p>
+<div class="sourceCode" id="cb295"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">25</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>A simple conditional statement can be created using <code>if</code> as in the example above. A more complex structure can be created using both <code>if</code> and <code>else</code> to provide not only a procedure to execute in case the condition is true but also an alternative procedure to be executed when the condition is false.</p>
+<div class="sourceCode" id="cb296"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fl">12</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Today is not warm"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## Today is not warm</code></pre>
+<p>Finally, conditional statements can be <strong>nested</strong>. That is, a conditional statement can be included as part of the code block to be executed after the condition is tested. For instance, in the example below, a second conditional statement is included in the code block to be executed in the case the condition is false.</p>
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">5</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">25</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"It really warm today!"</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">temperature</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"There is a nice temperature today"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"This is really cold!"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## This is really cold!</code></pre>
+<p>Similarly, one of the examples seen in the lecture should be coded as follows.</p>
+<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Zero"</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Negative"</span><span class="op">)</span> </span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Positive"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## Negative</code></pre>
+<p>Alternatively, the same set of conditions can be rewritten as follows.</p>
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">7</span></span>
+<span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Negative"</span><span class="op">)</span> </span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Zero"</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Positive"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## Negative</code></pre>
+<p>The choice of how to structure the conditions depends only on the logic behind the code that you are aiming to execute and the nature and order of the operations that need to be executed.</p>
+</div>
+<div id="loops" class="section level2" number="12.2">
+<h2>
+<span class="header-section-number">12.2</span> Loops<a class="anchor" aria-label="anchor" href="#loops"><i class="fas fa-link"></i></a>
+</h2>
+<p>Loops are another core component of (procedural) programming and implement the idea of solving a problem or executing a task by performing the same set of steps a number of times. There are two main kinds of loops in R - <strong>deterministic</strong> and <strong>conditional</strong> loops. The former is executed a fixed number of times, specified at the beginning of the loop. The latter is executed until a specific condition is met. Both deterministic and conditional loops are extremely important in working with vectors.</p>
+<div id="conditional-loops" class="section level3" number="12.2.1">
+<h3>
+<span class="header-section-number">12.2.1</span> Conditional Loops<a class="anchor" aria-label="anchor" href="#conditional-loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R, conditional loops can be implemented using <code>while</code> and <code>repeat</code>. The difference between the two is mostly syntactical: the first tests the condition first and then execute the related code block if the condition is true; the second executes the code block until a <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> command is given (usually through a conditional statement).</p>
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="co"># Keep printing as long as x is smaller than 2</span></span>
+<span><span class="kw">while</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&lt;</span> <span class="fl">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">a_value</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span>  <span class="va">a_value</span> <span class="op">&lt;-</span> <span class="va">a_value</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## 0 
+## 1</code></pre>
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">a_value</span> <span class="op">&lt;-</span> <span class="fl">0</span></span>
+<span><span class="co"># Keep printing, if x is greater or equal than 2 than stop</span></span>
+<span><span class="kw">repeat</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">a_value</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span>  <span class="va">a_value</span> <span class="op">&lt;-</span> <span class="va">a_value</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">a_value</span> <span class="op">&gt;=</span> <span class="fl">2</span><span class="op">)</span> <span class="kw">break</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## 0 
+## 1</code></pre>
+<p>Conditional loops can be a source of issues within a script. If they are not accurately designed, they can enter into an infinite loop – for instance if the <code>while</code> condition is always <code>TRUE</code> or if the <code><a href="https://rdrr.io/r/base/Control.html">break</a></code> condition within <code>repeat</code> always <code>FALSE</code>.</p>
+</div>
+<div id="deterministic-loops" class="section level3" number="12.2.2">
+<h3>
+<span class="header-section-number">12.2.2</span> Deterministic Loops<a class="anchor" aria-label="anchor" href="#deterministic-loops"><i class="fas fa-link"></i></a>
+</h3>
+<p>The deterministic loop executes the subsequent code block iterating through the elements of a provided vector. During each iteration (i.e., execution of the code block), the current element of the vector is assigned to the variable in the statement, and it can be used in the code block.</p>
+<p>It is, for instance, possible to iterate over a vector and print each of its elements.</p>
+<div class="sourceCode" id="cb308"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">city</span> <span class="kw">in</span> <span class="va">east_midlands_cities</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="va">city</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## Derby 
+## Leicester 
+## Lincoln 
+## Nottingham</code></pre>
+<p>It is common practice to create a vector of integers on the spot (e.g., using the <code>:</code> operator) to execute a certain sequence of steps a pre-defined number of times.</p>
+<div class="sourceCode" id="cb310"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span><span class="va">iterator</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Exectuion number"</span>, <span class="va">iterator</span>, <span class="st">":\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step1: Hi!\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"    Step2: How is it going?\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## Exectuion number 1 :
+##     Step1: Hi!
+##     Step2: How is it going?
+## Exectuion number 2 :
+##     Step1: Hi!
+##     Step2: How is it going?
+## Exectuion number 3 :
+##     Step1: Hi!
+##     Step2: How is it going?</code></pre>
+</div>
+</div>
+<div id="example-multiple-shapirowilk-tests" class="section level2" number="12.3">
+<h2>
+<span class="header-section-number">12.3</span> Example: multiple Shapiro–Wilk tests<a class="anchor" aria-label="anchor" href="#example-multiple-shapirowilk-tests"><i class="fas fa-link"></i></a>
+</h2>
+<p>As seen during the lecture, it is possible to use control structures to scale up your analysis and design the code in a way so that an analysis step is executed on different data. The code below is a variation on what seen in class, and it illustrates how to conduct a simple analysis of the normal distribution of different sections of the input data.</p>
+<div class="sourceCode" id="cb312"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
+<p>The chunck below ises the option <code>results = 'asis'</code>, which allows to interpret the output as Markdown code. That allows to translate the presence of <code>###</code> near the supergroup name into a third-level heading in the output.</p>
+<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">for</span> <span class="op">(</span></span>
+<span>  </span>
+<span>  <span class="va">current_supgrp</span> <span class="kw">in</span></span>
+<span>    <span class="co"># Extract the list of unique supergroup names</span></span>
+<span>    <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">supgrpname</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="op">)</span> <span class="op">{</span></span>
+<span>  </span>
+<span>  <span class="co"># Print supergroup name</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\n\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span></span>
+<span>    <span class="co"># Use a markdown heading</span></span>
+<span>    <span class="co"># including some space above and blow it</span></span>
+<span>    <span class="st">"###"</span>,</span>
+<span>    <span class="va">current_supgrp</span>,</span>
+<span>    <span class="st">"\n\n"</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Run a Shapiro–Wilk test</span></span>
+<span>  <span class="va">current_shapiro_test</span> <span class="op">&lt;-</span></span>
+<span>    <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">==</span> <span class="va">current_supgrp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Total_Population</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="co"># Extract p value</span></span>
+<span>  <span class="va">current_p_value</span> <span class="op">&lt;-</span></span>
+<span>    <span class="va">current_shapiro_test</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span> </span>
+<span>    <span class="va">p.value</span></span>
+<span>  </span>
+<span>  <span class="co"># Print whether the distribution</span></span>
+<span>  <span class="co"># is significant or not</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="va">current_p_value</span> <span class="op">&gt;</span> <span class="fl">0.01</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span></span>
+<span>      <span class="st">"\n\n"</span>,</span>
+<span>      <span class="st">"The total population"</span>,</span>
+<span>      <span class="st">"of OA in Leicester"</span>,</span>
+<span>      <span class="st">"in areas classified as"</span>,</span>
+<span>      <span class="va">current_supgrp</span>,</span>
+<span>      <span class="st">"is normally distributed"</span>,</span>
+<span>      <span class="st">"\n\n"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span></span>
+<span>      <span class="st">"\n\n"</span>,</span>
+<span>      <span class="st">"The total population"</span>,</span>
+<span>      <span class="st">"of OA in Leicester"</span>,</span>
+<span>      <span class="st">"in areas classified as"</span>,</span>
+<span>      <span class="va">current_supgrp</span>,</span>
+<span>      <span class="st">"is not normally distributed"</span>,</span>
+<span>      <span class="st">"\n\n"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="co"># Create an histogram</span></span>
+<span>  <span class="va">current_hist</span> <span class="op">&lt;-</span></span>
+<span>    <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">supgrpname</span> <span class="op">==</span> <span class="va">current_supgrp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">Total_Population</span></span>
+<span>    <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="va">current_supgrp</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> </span>
+<span>  </span>
+<span>  <span class="co"># Print the histogram</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">current_hist</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\n\n"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="op">}</span></span></code></pre></div>
+<div id="suburbanites" class="section level3" number="12.3.1">
+<h3>
+<span class="header-section-number">12.3.1</span> Suburbanites<a class="anchor" aria-label="anchor" href="#suburbanites"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Suburbanites is normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-1.png" width="672"></div>
+</div>
+<div id="cosmopolitans" class="section level3" number="12.3.2">
+<h3>
+<span class="header-section-number">12.3.2</span> Cosmopolitans<a class="anchor" aria-label="anchor" href="#cosmopolitans"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Cosmopolitans is not normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-2.png" width="672"></div>
+</div>
+<div id="multicultural-metropolitans" class="section level3" number="12.3.3">
+<h3>
+<span class="header-section-number">12.3.3</span> Multicultural Metropolitans<a class="anchor" aria-label="anchor" href="#multicultural-metropolitans"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Multicultural Metropolitans is not normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-3.png" width="672"></div>
+</div>
+<div id="ethnicity-central" class="section level3" number="12.3.4">
+<h3>
+<span class="header-section-number">12.3.4</span> Ethnicity Central<a class="anchor" aria-label="anchor" href="#ethnicity-central"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Ethnicity Central is normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-4.png" width="672"></div>
+</div>
+<div id="constrained-city-dwellers" class="section level3" number="12.3.5">
+<h3>
+<span class="header-section-number">12.3.5</span> Constrained City Dwellers<a class="anchor" aria-label="anchor" href="#constrained-city-dwellers"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Constrained City Dwellers is normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-5.png" width="672"></div>
+</div>
+<div id="hard-pressed-living" class="section level3" number="12.3.6">
+<h3>
+<span class="header-section-number">12.3.6</span> Hard-Pressed Living<a class="anchor" aria-label="anchor" href="#hard-pressed-living"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Hard-Pressed Living is normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-6.png" width="672"></div>
+</div>
+<div id="urbanites" class="section level3" number="12.3.7">
+<h3>
+<span class="header-section-number">12.3.7</span> Urbanites<a class="anchor" aria-label="anchor" href="#urbanites"><i class="fas fa-link"></i></a>
+</h3>
+<p>The total population of OA in Leicester in areas classified as Urbanites is normally distributed</p>
+<div class="inline-figure"><img src="401-more-on-R-scripting_files/figure-html/unnamed-chunk-13-7.png" width="672"></div>
+</div>
+</div>
+<div id="function-definition" class="section level2" number="12.4">
+<h2>
+<span class="header-section-number">12.4</span> Function definition<a class="anchor" aria-label="anchor" href="#function-definition"><i class="fas fa-link"></i></a>
 </h2>
 <p>Recall from the first chapter that <em>an</em> <strong>algorithm</strong> <em>or effective procedure is a mechanical rule, or automatic method, or programme for performing some mathematical operation</em> (Cutland, 1980, p. 7<span class="citation"><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;&lt;a href="references-1.html#ref-cutland_1980"&gt;Cutland, &lt;em&gt;Computability&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;'><sup>21</sup></a></span>). A <strong>program</strong> is a specific set of instructions that implement an abstract algorithm. The definition of an algorithm (and thus a program) can consist of one or more <strong>function</strong>s, which are sets of instructions that perform a task, possibly using an input, possibly returning an output value.</p>
 <p>The code below presents two versions of a simple function with one parameter. The function simply calculates the square root of a number and returns a value with two digits.</p>
-<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">sqrt_2digits</span> <span class="op">&lt;-</span> </span>
@@ -134,18 +398,18 @@
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>  <span class="op">}</span></span></code></pre></div>
 <p>Once the definition of a function has been executed, the function becomes part of the environment, and it should be visible in the Environment panel in a subsection titled <em>Functions</em>. Thereafter, the function can be called from the Console, from other portions of the script, as well as from other scripts.</p>
-<div class="sourceCode" id="cb307"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sqrt_2digits</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
-<div class="sourceCode" id="cb309"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">sqrt_2digits_pipe</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
-<div id="functions-and-control-structures" class="section level3" number="12.1.1">
+<div id="functions-and-control-structures" class="section level3" number="12.4.1">
 <h3>
-<span class="header-section-number">12.1.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.4.1</span> Functions and control structures<a class="anchor" aria-label="anchor" href="#functions-and-control-structures"><i class="fas fa-link"></i></a>
 </h3>
 <p>One issue when writing functions is making sure that the data that has been given to the data is the right kind. For example, what happens when you try to compute the cube root of a negative number using a function as defined below?</p>
-<div class="sourceCode" id="cb311"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>   <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span> <span class="op">^</span> <span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span></span>
 <span>   <span class="va">result</span></span>
@@ -168,7 +432,7 @@
 </li>
 </ul>
 <p>Those kinds of situations can be dealt with in an R function by using an <code>if</code> statement, as shown below. Note how the operator <code>-</code> (i.e., the symbol minus) is here used to obtain the inverse of a number, in the same way as <code>-1</code> is the inverse of the number <code>1</code>.</p>
-<div class="sourceCode" id="cb313"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb322"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
 <span>        <span class="va">result</span> <span class="op">&lt;-</span> <span class="va">input_value</span><span class="op">^</span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">3</span><span class="op">)</span> </span>
@@ -182,7 +446,7 @@
 <span><span class="fu">cube_root</span><span class="op">(</span><span class="op">-</span><span class="fl">343</span><span class="op">)</span></span></code></pre></div>
 <p>However, other things can go wrong. For example, <code>cube_root("Leicester")</code> would cause an error to occur, <code>Error in x^(1 / 3) : non-numeric argument to binary operator</code>. That shouldn’t be surprising because cube roots only make sense for numbers, not character variables. Thus, it might be helpful if the cube root function could spot this and print a warning explaining the problem, rather than just crashing with a fairly cryptic error message such as the one above, as it does at the moment.</p>
 <p>The function could be re-written to making use of <code>is.numeric</code> in a second conditional statement. If the input value is not numeric, the function returns the value <code>NA</code> (<em>Not Available</em>) instead of a number. Note that here there is an <code>if</code> statement inside another <code>if</code> statement, as it is always possible to nest code blocks – and <code>if</code> within a <code>for</code> within a <code>while</code> within an <code>if</code> within … etc.</p>
-<div class="sourceCode" id="cb314"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cube_root</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">input_value</span><span class="op">)</span> <span class="op">{</span> </span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">input_value</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>        <span class="kw">if</span> <span class="op">(</span><span class="va">input_value</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span><span class="op">{</span></span>
@@ -199,23 +463,23 @@
 <p>Remember, <code>cat</code> is a printing function that instructs R to display the provided argument (in this case, the phrase within quotes) as output in the Console. The <code>\n</code> in <code>cat</code> tells R to add a <em>newline</em> when printing out the warning.</p>
 </div>
 </div>
-<div id="debugging" class="section level2" number="12.2">
+<div id="debugging" class="section level2" number="12.5">
 <h2>
-<span class="header-section-number">12.2</span> Debugging<a class="anchor" aria-label="anchor" href="#debugging"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.5</span> Debugging<a class="anchor" aria-label="anchor" href="#debugging"><i class="fas fa-link"></i></a>
 </h2>
 <p>The term <em>bug</em> is commonly used in computer science to refer to an error, failure, or fault in a system. The term `<code>debugging'' in programming thus refers to the procedure of searching for mistakes in the code. This procedure can be simply done by re-reading and revising the written code, but R provides a useful command called</code>debug`, that allows you to follow the execution of the code, and more easily identify mistakes.</p>
 <p>Try debugging the function - since it is working properly, you won’t (hopefully!) find any errors, but that will demonstrate the debug facility, by typing <code>debug(cube_root)</code> in the RStudio <em>Console</em>. That tells R that you want to run <code>cube_root</code> in debug mode. Next enter <code>cube_root(-50)</code> in the RStudio <em>Console</em> and see how repeatedly pressing the return key steps you through the function. Note particularly what happens at the <code>if</code> statement.</p>
 <p>At any stage in the process, you can type an R expression to check its value. For instance, when you get to the <code>if</code> statement, you can enter <code>input_value &gt; 0</code> in the RStudio <em>Console</em> to see whether it is true or false. Checking the value of expressions at various points when stepping through the code is a good way of identifying potential bugs or glitches in your code. Try running through the code for a few other cube root calculations, by replacing -50 above with different numbers, to get used to using the debugging facility.</p>
 <p>When you are done, enter <code>undebug(cube_root)</code>. That tells R that you are ready to return <code>cube_root</code> to running in normal mode. For further details about the debugger, enter <code><a href="https://rdrr.io/r/base/debug.html">help(debug)</a></code> in the RStudio <em>Console</em>.</p>
 </div>
-<div id="writing-functions-for-dplyr" class="section level2" number="12.3">
+<div id="writing-functions-for-dplyr" class="section level2" number="12.6">
 <h2>
-<span class="header-section-number">12.3</span> Writing functions for dplyr<a class="anchor" aria-label="anchor" href="#writing-functions-for-dplyr"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.6</span> Writing functions for dplyr<a class="anchor" aria-label="anchor" href="#writing-functions-for-dplyr"><i class="fas fa-link"></i></a>
 </h2>
 <p>The functions defined above are base R function, which not designed to work within the Tidyverse. Each one of the input is expected to be a number, although it can be applied to a vector. The functions are not designed to expect a dataframe or tibble as first argument (as Tidyverse functions such as <code>select</code> or <code>mutate</code>) and they are not designed to use the non-standard evaluation typical of the Tidyverse – i.e., when column names are provided as variable names, not as strings with quotes.</p>
 <p>The <a href="https://dplyr.tidyverse.org/articles/programming.html">Programming with dplyr</a> article on the <code>dplyr</code> pages explains the process in full detail and it was the source of information for this section. To greatly simplify, to design functions for the Tidyverse, functions should expect the first argument to be a tibble (or dataframe). All the parameters that expect column names as argument using the non-standard evaluation need to be used while <strong>embracing</strong> them with doubled braces <code>{{</code>. Furthermore, in order to create output column names using the input column names the operator <code>:=</code> must be used as illustrated below. Any additional paramenter can be provided as normal.</p>
 <p>The example below defines a function named <code>percentage_of</code>, which calculates a new column which is the percentage of a column based on another column as total. The first parameter <code>data</code> expects a dataframe or tibbe as argument, while the two subsequent parameters expect column names to be used through non-standard evaluation. The function uses a <code>mutate</code> to add a new column. The new column is defined using the <code>:=</code> operator and the name os <code>perc_</code> followed by a column names, followed by <code>_over_</code> and the name of the column used as total. The first and total columns are then used embraced with <code>{{</code>, dividing one by the other and finally multipled by a hundred.</p>
-<div class="sourceCode" id="cb315"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb324"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">percentage_of</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="kw">function</span> <span class="op">(</span><span class="va">data</span>, <span class="va">var_col</span>, <span class="va">total_col</span><span class="op">)</span> <span class="op">{</span></span>
 <span>    <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -225,9 +489,9 @@
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">}</span></span></code></pre></div>
 <p>The function can then be used to calculated the percentage of people in Leicester commuting to work using private transport (<code>u121</code> in the 2011 Output Area Classification dataset seen in previous chapters), using the <code>Total_Pop_No_NI_Students_16_to_74</code> as total. The first example below shows the procedure without the function. The second example shows the procedure using the function.</p>
-<div class="sourceCode" id="cb316"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb317"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb326"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -280,7 +544,7 @@
 </tr>
 </tbody>
 </table></div>
-<div class="sourceCode" id="cb318"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span></span>
 <span>    <span class="va">OA11CD</span>, <span class="va">u121</span>, <span class="va">Total_Pop_No_NI_Students_16_to_74</span></span>
@@ -331,12 +595,12 @@
 </tbody>
 </table></div>
 </div>
-<div id="loading-r-scripts" class="section level2" number="12.4">
+<div id="loading-r-scripts" class="section level2" number="12.7">
 <h2>
-<span class="header-section-number">12.4</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
+<span class="header-section-number">12.7</span> Loading R scripts<a class="anchor" aria-label="anchor" href="#loading-r-scripts"><i class="fas fa-link"></i></a>
 </h2>
 <p>A key reason for writing functions is that you can write them once and they use them any time you need them. That is the principle behind the creation of libraries, which are (mostly) collections of functions. To that purpose, it is possible to write functions in an R script and then load that script (and all functions there defined) fromanother script or RMarkdown document – in a fashion similar to when a library is loaded. Create a new R script named <code>my_useful_functions.R</code> (as seen in <a href="reproducible-data-science.html#r-scripts">this section</a>), copy the code below in that R script and save the file.</p>
-<div class="sourceCode" id="cb319"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb328"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">percentage_of</span> <span class="op">&lt;-</span> </span>
@@ -348,7 +612,7 @@
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">}</span></span></code></pre></div>
 <p>Create a new RMarkdown document and copy-paste the code below in the new document.</p>
-<div class="sourceCode" id="cb320"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/source.html">source</a></span><span class="op">(</span><span class="st">"my_useful_functions.R"</span><span class="op">)</span></span>
@@ -374,24 +638,42 @@
 
 
 <div class="chapter-nav">
-<div class="prev"><a href="control-structures.html"><span class="header-section-number">11</span> Control structures</a></div>
+<div class="prev"><a href="unsupervised-machine-learning.html"><span class="header-section-number">11</span> Unsupervised machine learning</a></div>
 <div class="next"><a href="appendix-1.html">Appendix 1</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#working-with-functions"><span class="header-section-number">12</span> Working with functions</a></li>
+<li><a class="nav-link" href="#r-scripting"><span class="header-section-number">12</span> R scripting</a></li>
+<li><a class="nav-link" href="#conditional-statements"><span class="header-section-number">12.1</span> Conditional statements</a></li>
 <li>
-<a class="nav-link" href="#function-definition"><span class="header-section-number">12.1</span> Function definition</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functions-and-control-structures"><span class="header-section-number">12.1.1</span> Functions and control structures</a></li></ul>
+<a class="nav-link" href="#loops"><span class="header-section-number">12.2</span> Loops</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conditional-loops"><span class="header-section-number">12.2.1</span> Conditional Loops</a></li>
+<li><a class="nav-link" href="#deterministic-loops"><span class="header-section-number">12.2.2</span> Deterministic Loops</a></li>
+</ul>
 </li>
-<li><a class="nav-link" href="#debugging"><span class="header-section-number">12.2</span> Debugging</a></li>
-<li><a class="nav-link" href="#writing-functions-for-dplyr"><span class="header-section-number">12.3</span> Writing functions for dplyr</a></li>
-<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">12.4</span> Loading R scripts</a></li>
+<li>
+<a class="nav-link" href="#example-multiple-shapirowilk-tests"><span class="header-section-number">12.3</span> Example: multiple Shapiro–Wilk tests</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#suburbanites"><span class="header-section-number">12.3.1</span> Suburbanites</a></li>
+<li><a class="nav-link" href="#cosmopolitans"><span class="header-section-number">12.3.2</span> Cosmopolitans</a></li>
+<li><a class="nav-link" href="#multicultural-metropolitans"><span class="header-section-number">12.3.3</span> Multicultural Metropolitans</a></li>
+<li><a class="nav-link" href="#ethnicity-central"><span class="header-section-number">12.3.4</span> Ethnicity Central</a></li>
+<li><a class="nav-link" href="#constrained-city-dwellers"><span class="header-section-number">12.3.5</span> Constrained City Dwellers</a></li>
+<li><a class="nav-link" href="#hard-pressed-living"><span class="header-section-number">12.3.6</span> Hard-Pressed Living</a></li>
+<li><a class="nav-link" href="#urbanites"><span class="header-section-number">12.3.7</span> Urbanites</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#function-definition"><span class="header-section-number">12.4</span> Function definition</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#functions-and-control-structures"><span class="header-section-number">12.4.1</span> Functions and control structures</a></li></ul>
+</li>
+<li><a class="nav-link" href="#debugging"><span class="header-section-number">12.5</span> Debugging</a></li>
+<li><a class="nav-link" href="#writing-functions-for-dplyr"><span class="header-section-number">12.6</span> Writing functions for dplyr</a></li>
+<li><a class="nav-link" href="#loading-r-scripts"><span class="header-section-number">12.7</span> Loading R scripts</a></li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/402-functions.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/402-functions.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/sdesabbata/r-for-geographic-data-science/blob/main/src/book/401-more-on-R-scripting.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/sdesabbata/r-for-geographic-data-science/edit/main/src/book/401-more-on-R-scripting.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -408,7 +690,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-17.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

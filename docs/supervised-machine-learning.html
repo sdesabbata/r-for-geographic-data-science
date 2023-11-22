@@ -4,17 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Chapter 9 Supervised machine learning | R for Geographic Data Science</title>
+<title>Chapter 10 Supervised machine learning | R for Geographic Data Science</title>
 <meta name="author" content="Stefano De Sabbata">
 <meta name="description" content="Print this chapter The field of machine learning sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), “the field...">
 <meta name="generator" content="bookdown 0.35 with bs4_book()">
-<meta property="og:title" content="Chapter 9 Supervised machine learning | R for Geographic Data Science">
+<meta property="og:title" content="Chapter 10 Supervised machine learning | R for Geographic Data Science">
 <meta property="og:type" content="book">
 <meta property="og:url" content="https://sdesabbata.github.io/r-for-geographic-data-science/supervised-machine-learning.html">
 <meta property="og:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <meta property="og:description" content="Print this chapter The field of machine learning sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), “the field...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Chapter 9 Supervised machine learning | R for Geographic Data Science">
+<meta name="twitter:title" content="Chapter 10 Supervised machine learning | R for Geographic Data Science">
 <meta name="twitter:description" content="Print this chapter The field of machine learning sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), “the field...">
 <meta name="twitter:image" content="https://sdesabbata.github.io/r-for-geographic-data-science/images/r-for-geographic-data-science-cover.png">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -86,12 +86,12 @@
 <li><a class="" href="exploratory-statistics.html"><span class="header-section-number">6</span> Exploratory statistics</a></li>
 <li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
 <li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
+<li><a class="" href="multiple-regression.html"><span class="header-section-number">9</span> Multiple regression</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="active" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li><a class="active" href="supervised-machine-learning.html"><span class="header-section-number">10</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">11</span> Unsupervised machine learning</a></li>
 <li class="book-part">R scripting</li>
-<li><a class="" href="control-structures.html"><span class="header-section-number">11</span> Control structures</a></li>
-<li><a class="" href="working-with-functions.html"><span class="header-section-number">12</span> Working with functions</a></li>
+<li><a class="" href="r-scripting.html"><span class="header-section-number">12</span> R scripting</a></li>
 <li class="book-part">Appendices</li>
 <li><a class="" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
@@ -106,9 +106,9 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="supervised-machine-learning" class="section level1" number="9">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="supervised-machine-learning" class="section level1" number="10">
 <h1>
-<span class="header-section-number">9</span> Supervised machine learning<a class="anchor" aria-label="anchor" href="#supervised-machine-learning"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10</span> Supervised machine learning<a class="anchor" aria-label="anchor" href="#supervised-machine-learning"><i class="fas fa-link"></i></a>
 </h1>
 <p><br><small><a href="javascript:if(window.print)window.print()">Print this chapter</a></small></p>
 <p>The field of <strong>machine learning</strong> sits at the intersection of computer science and statistics, and it is a core component of data science. According to Mitchell (1997), <em>“the field of machine learning is concerned with the question of how to construct computer programs that automatically improve with experience.”</em></p>
@@ -136,9 +136,9 @@
 <li>support vector machines;</li>
 <li>artificial neural networks.</li>
 </ul>
-<div id="confusion-matrices" class="section level2" number="9.1">
+<div id="confusion-matrices" class="section level2" number="10.1">
 <h2>
-<span class="header-section-number">9.1</span> Confusion matrices<a class="anchor" aria-label="anchor" href="#confusion-matrices"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.1</span> Confusion matrices<a class="anchor" aria-label="anchor" href="#confusion-matrices"><i class="fas fa-link"></i></a>
 </h2>
 <p>Once a classification model has been created, the next step is validation. The latter can involve different approaches and procedures, but one of the most common and simple approaches is to split the data between a training and a testing set. The model is trained on the training set and then validated using the testing set. Both sets will contain both the input values (predictors) and the output values (outcome).</p>
 <p>The model trained using the training set can be used to predict the values for the testing set. The outcome of the prediction can be compared to the actual categories in the testing dataset. A <strong>confusion matrix</strong> is a representation of the correspondence between actual values and predicted values in the testing dataset, including:</p>
@@ -175,18 +175,18 @@ F-score = \frac{2 \times precision \times recall}{precision + recall}
 \]</span>
 Finally, the <em>kappa statistic</em> (the most common being <a href="https://en.wikipedia.org/wiki/Cohen%27s_kappa">Cohen’s kappa</a>) is an additional measure of accuracy, which measures the agreement between prediction and actual values, while also accounting for the probability of correct prediction by chance.</p>
 </div>
-<div id="urban-and-rural-population-density" class="section level2" number="9.2">
+<div id="urban-and-rural-population-density" class="section level2" number="10.2">
 <h2>
-<span class="header-section-number">9.2</span> Urban and rural population density<a class="anchor" aria-label="anchor" href="#urban-and-rural-population-density"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.2</span> Urban and rural population density<a class="anchor" aria-label="anchor" href="#urban-and-rural-population-density"><i class="fas fa-link"></i></a>
 </h2>
 <p>The two examples below explore the relation between some of the variables from the United Kingdom 2011 Census included among the 167 initial variables used to create the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification</a> (<a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a>) and the <a href="https://geoportal.statistics.gov.uk/datasets/rural-urban-classification-2011-of-output-areas-in-england-and-wales">Rural Urban Classification (2011) of Output Areas in England and Wales</a> created by the <a href="https://geoportal.statistics.gov.uk/">Office for National Statistics</a>. The various examples and models explore whether it is possible to learn the rural-urban distinction by using some of those census variables, in the Local Authority Districts (LADs) in Leicestershire (excluding the city of Leicester itself.</p>
 <p>The code below uses the libraries <code>caret</code>, <code>e1071</code> and <code>neuralnet</code>. Please install them before continuing.</p>
-<div class="sourceCode" id="cb235"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"caret"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"e1071"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"neuralnet"</span><span class="op">)</span></span></code></pre></div>
 <p>The examples use the same data seen in previous chapters, but for the 7 LADs in Leicestershire outside the boundaries of the city of Leicester: Blaby, Charnwood, Harborough, Hinckley and Bosworth, Melton, North West Leicestershire, and Oadby and Wigston. Those data are loaded from the <code>2011_OAC_Raw_uVariables_Leicestershire.csv</code>. The second part of the code extracts the data of the Rural Urban Classification (2011) from the compressed file <code>RUC11_OA11_EW.zip</code>, loads the extracted data and finally deletes them.</p>
-<div class="sourceCode" id="cb236"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Libraries</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org">magrittr</a></span><span class="op">)</span></span>
@@ -202,7 +202,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <span><span class="va">ru_class_2011</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"RUC11_OA11_EW.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span><span class="op">(</span><span class="st">"RUC11_OA11_EW.csv"</span><span class="op">)</span></span></code></pre></div>
 <p>We can then join the two datasets and create a simplified, binary rural - urban classification, that is used in the examples below.</p>
-<div class="sourceCode" id="cb237"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb246"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">liec_shire_2011OAC_RU</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">liec_shire_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">ru_class_2011</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -220,12 +220,12 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 </div>
-<div id="logistic-regression" class="section level2" number="9.3">
+<div id="logistic-regression" class="section level2" number="10.3">
 <h2>
-<span class="header-section-number">9.3</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.3</span> Logistic regression<a class="anchor" aria-label="anchor" href="#logistic-regression"><i class="fas fa-link"></i></a>
 </h2>
 <p>Can we predict whether an Output Area (OA) is urban or rural, solely based on its population density?</p>
-<div class="sourceCode" id="cb238"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">liec_shire_2011OAC_RU</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -244,7 +244,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="301-supervised-learning_files/figure-html/unnamed-chunk-5-1.png" width="576"></div>
 <p>The two patters in the plot above seem quite close even when plotted using a logarithmically transformed x-axis. As a first step, we can extract from the dataset only the data we need, and create a logarithmic transformation of the population density value. To be able to perform a simple validatin our model, we can divide that data in a training (80% of the dataset) and a testing set (20% of the dataset).</p>
-<div class="sourceCode" id="cb239"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb248"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Data for logit model</span></span>
 <span><span class="va">ru_logit_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">liec_shire_2011OAC_RU</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -263,7 +263,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <span>  <span class="va">ru_logit_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter-joins.html">anti_join</a></span><span class="op">(</span><span class="va">ru_logit_data_trainig</span><span class="op">)</span></span></code></pre></div>
 <p>We can then compute the logit model using the <code><a href="https://rdrr.io/r/stats/glm.html">stats::glm</a></code> function and specifying <code><a href="https://rdrr.io/r/stats/family.html">binomial()</a></code> as <code>family</code>. The summary of the model highlights how the model is significant, but <code>Residual deviance</code> is fairly close to the <code>Null deviance</code> (null model), which is not a good sign.</p>
-<div class="sourceCode" id="cb240"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ru_logit_model</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">ru_logit_data_trainig</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/glm.html">glm</a></span><span class="op">(</span></span>
@@ -280,21 +280,21 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -1.27435    0.12806  -9.951   &lt;2e-16 ***
-## density_log  1.77301    0.09738  18.208   &lt;2e-16 ***
+## (Intercept) -1.22740    0.12832  -9.565   &lt;2e-16 ***
+## density_log  1.79643    0.09867  18.207   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 2088.6  on 1667  degrees of freedom
-## Residual deviance: 1626.9  on 1666  degrees of freedom
-## AIC: 1630.9
+##     Null deviance: 2050.6  on 1667  degrees of freedom
+## Residual deviance: 1592.7  on 1666  degrees of freedom
+## AIC: 1596.7
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>As per other regression models, it would be necessary to test the assumptions of the logit model and the overall distribution of the residuals. However, as this model only has one predictor, we will confine our performance analysis to simple validation.</p>
 <p>We can test the performance of the model through a validation exercise, using the testing dataset. Finally, we can compare the results of the prediction with the original data using a confusion matrix.</p>
-<div class="sourceCode" id="cb242"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ru_logit_prediction</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="va">ru_logit_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># Use model to predict values</span></span>
@@ -335,40 +335,40 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    60    25
-##      urban    54   278
+##      rural    68    21
+##      urban    70   258
 ##                                          
-##                Accuracy : 0.8106         
-##                  95% CI : (0.7696, 0.847)
-##     No Information Rate : 0.7266         
-##     P-Value [Acc &gt; NIR] : 4.344e-05      
+##                Accuracy : 0.7818         
+##                  95% CI : (0.739, 0.8205)
+##     No Information Rate : 0.6691         
+##     P-Value [Acc &gt; NIR] : 2.746e-07      
 ##                                          
-##                   Kappa : 0.4821         
+##                   Kappa : 0.4586         
 ##                                          
-##  Mcnemar's Test P-Value : 0.001631       
+##  Mcnemar's Test P-Value : 4.860e-07      
 ##                                          
-##             Sensitivity : 0.5263         
-##             Specificity : 0.9175         
-##          Pos Pred Value : 0.7059         
-##          Neg Pred Value : 0.8373         
-##               Precision : 0.7059         
-##                  Recall : 0.5263         
-##                      F1 : 0.6030         
-##              Prevalence : 0.2734         
-##          Detection Rate : 0.1439         
-##    Detection Prevalence : 0.2038         
-##       Balanced Accuracy : 0.7219         
+##             Sensitivity : 0.4928         
+##             Specificity : 0.9247         
+##          Pos Pred Value : 0.7640         
+##          Neg Pred Value : 0.7866         
+##               Precision : 0.7640         
+##                  Recall : 0.4928         
+##                      F1 : 0.5991         
+##              Prevalence : 0.3309         
+##          Detection Rate : 0.1631         
+##    Detection Prevalence : 0.2134         
+##       Balanced Accuracy : 0.7087         
 ##                                          
 ##        'Positive' Class : rural          
 ## </code></pre>
 </div>
-<div id="support-vector-machines" class="section level2" number="9.4">
+<div id="support-vector-machines" class="section level2" number="10.4">
 <h2>
-<span class="header-section-number">9.4</span> Support vector machines<a class="anchor" aria-label="anchor" href="#support-vector-machines"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.4</span> Support vector machines<a class="anchor" aria-label="anchor" href="#support-vector-machines"><i class="fas fa-link"></i></a>
 </h2>
 <p>Support vector machines (SVMs) are another very common approach to supervised classification. SVMs perform the classification task by partitioning the data space into regions separated by hyperplanes. For instance, in a bi-dimensional space, a hyperplane is a line, and the algorithm is designed to find the line that best separates two groups of data. Computationally, the process is not dissimilar to linear regression.</p>
 <p>To showcase the use of SVMs, the example below expands on the one above by building a model for urban - rural classification that uses total population and area (logarithmically transformed) as two separate input values, rather than combined as population density. The aim of the SVM is then to find a line that maximises the margin between the two groups shown in the plot below.</p>
-<div class="sourceCode" id="cb244"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">liec_shire_2011OAC_RU</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -388,7 +388,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="301-supervised-learning_files/figure-html/unnamed-chunk-9-1.png" width="576"></div>
 <p>The plot illustrates how the two variables are skewed (note that the axes are logarithmically transformed) and that the two groups are not linearly separable. We can thus follow a procedure similar to the one seen above: extract the necessary data; split the data between training and testing for validation; build the model; predict the values for the testing set and interpret the confusion matrix.</p>
-<div class="sourceCode" id="cb245"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb254"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Data for SVM model</span></span>
 <span><span class="va">ru_svm_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">liec_shire_2011OAC_RU</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -451,34 +451,34 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    58    20
-##      urban    70   269
+##      rural    64    25
+##      urban    61   267
 ##                                           
-##                Accuracy : 0.7842          
-##                  95% CI : (0.7415, 0.8227)
-##     No Information Rate : 0.693           
-##     P-Value [Acc &gt; NIR] : 2.019e-05       
+##                Accuracy : 0.7938          
+##                  95% CI : (0.7517, 0.8316)
+##     No Information Rate : 0.7002          
+##     P-Value [Acc &gt; NIR] : 1.046e-05       
 ##                                           
-##                   Kappa : 0.4308          
+##                   Kappa : 0.4647          
 ##                                           
-##  Mcnemar's Test P-Value : 2.404e-07       
+##  Mcnemar's Test P-Value : 0.0001606       
 ##                                           
-##             Sensitivity : 0.4531          
-##             Specificity : 0.9308          
-##          Pos Pred Value : 0.7436          
-##          Neg Pred Value : 0.7935          
-##               Precision : 0.7436          
-##                  Recall : 0.4531          
-##                      F1 : 0.5631          
-##              Prevalence : 0.3070          
-##          Detection Rate : 0.1391          
-##    Detection Prevalence : 0.1871          
-##       Balanced Accuracy : 0.6920          
+##             Sensitivity : 0.5120          
+##             Specificity : 0.9144          
+##          Pos Pred Value : 0.7191          
+##          Neg Pred Value : 0.8140          
+##               Precision : 0.7191          
+##                  Recall : 0.5120          
+##                      F1 : 0.5981          
+##              Prevalence : 0.2998          
+##          Detection Rate : 0.1535          
+##    Detection Prevalence : 0.2134          
+##       Balanced Accuracy : 0.7132          
 ##                                           
 ##        'Positive' Class : rural           
 ## </code></pre>
 <p>As a third more complex example, we can explore how to build a model for rural - urban classification using the presence of the five different types of dwelling as input variables. The confusion matrix below clearly illustrates that a simple linear SVM is not adequate to construct such a model.</p>
-<div class="sourceCode" id="cb247"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb256"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Data for SVM model</span></span>
 <span><span class="va">ru_dwellings_data</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">liec_shire_2011OAC_RU</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -553,37 +553,37 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ##           Reference
 ## Prediction rural urban
 ##      rural     0     0
-##      urban   130   287
-##                                           
-##                Accuracy : 0.6882          
-##                  95% CI : (0.6414, 0.7324)
-##     No Information Rate : 0.6882          
-##     P-Value [Acc &gt; NIR] : 0.5237          
-##                                           
-##                   Kappa : 0               
-##                                           
-##  Mcnemar's Test P-Value : &lt;2e-16          
-##                                           
-##             Sensitivity : 0.0000          
-##             Specificity : 1.0000          
-##          Pos Pred Value :    NaN          
-##          Neg Pred Value : 0.6882          
-##               Precision :     NA          
-##                  Recall : 0.0000          
-##                      F1 :     NA          
-##              Prevalence : 0.3118          
-##          Detection Rate : 0.0000          
-##    Detection Prevalence : 0.0000          
-##       Balanced Accuracy : 0.5000          
-##                                           
-##        'Positive' Class : rural           
+##      urban   128   289
+##                                          
+##                Accuracy : 0.693          
+##                  95% CI : (0.6463, 0.737)
+##     No Information Rate : 0.693          
+##     P-Value [Acc &gt; NIR] : 0.5239         
+##                                          
+##                   Kappa : 0              
+##                                          
+##  Mcnemar's Test P-Value : &lt;2e-16         
+##                                          
+##             Sensitivity : 0.000          
+##             Specificity : 1.000          
+##          Pos Pred Value :   NaN          
+##          Neg Pred Value : 0.693          
+##               Precision :    NA          
+##                  Recall : 0.000          
+##                      F1 :    NA          
+##              Prevalence : 0.307          
+##          Detection Rate : 0.000          
+##    Detection Prevalence : 0.000          
+##       Balanced Accuracy : 0.500          
+##                                          
+##        'Positive' Class : rural          
 ## </code></pre>
-<div id="kernels" class="section level3" number="9.4.1">
+<div id="kernels" class="section level3" number="10.4.1">
 <h3>
-<span class="header-section-number">9.4.1</span> Kernels<a class="anchor" aria-label="anchor" href="#kernels"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.4.1</span> Kernels<a class="anchor" aria-label="anchor" href="#kernels"><i class="fas fa-link"></i></a>
 </h3>
 <p>Instead of relying on simple linear hyperplanes, we can use the <em>“kernel trick”</em> to project the data into a higher-dimensional space, which might allow groups to be (more easily) linearly separable.</p>
-<div class="sourceCode" id="cb249"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb258"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Build a second model</span></span>
 <span><span class="co"># using a radial kernel</span></span>
 <span><span class="va">ru_dwellings_svm_radial_model</span> <span class="op">&lt;-</span> </span>
@@ -624,37 +624,37 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    41    32
-##      urban    89   255
-##                                          
-##                Accuracy : 0.7098         
-##                  95% CI : (0.6637, 0.753)
-##     No Information Rate : 0.6882         
-##     P-Value [Acc &gt; NIR] : 0.1848         
-##                                          
-##                   Kappa : 0.2317         
-##                                          
-##  Mcnemar's Test P-Value : 3.564e-07      
-##                                          
-##             Sensitivity : 0.31538        
-##             Specificity : 0.88850        
-##          Pos Pred Value : 0.56164        
-##          Neg Pred Value : 0.74128        
-##               Precision : 0.56164        
-##                  Recall : 0.31538        
-##                      F1 : 0.40394        
-##              Prevalence : 0.31175        
-##          Detection Rate : 0.09832        
-##    Detection Prevalence : 0.17506        
-##       Balanced Accuracy : 0.60194        
-##                                          
-##        'Positive' Class : rural          
+##      rural    40    26
+##      urban    88   263
+##                                           
+##                Accuracy : 0.7266          
+##                  95% CI : (0.6811, 0.7689)
+##     No Information Rate : 0.693           
+##     P-Value [Acc &gt; NIR] : 0.07477         
+##                                           
+##                   Kappa : 0.2572          
+##                                           
+##  Mcnemar's Test P-Value : 1.109e-08       
+##                                           
+##             Sensitivity : 0.31250         
+##             Specificity : 0.91003         
+##          Pos Pred Value : 0.60606         
+##          Neg Pred Value : 0.74929         
+##               Precision : 0.60606         
+##                  Recall : 0.31250         
+##                      F1 : 0.41237         
+##              Prevalence : 0.30695         
+##          Detection Rate : 0.09592         
+##    Detection Prevalence : 0.15827         
+##       Balanced Accuracy : 0.61127         
+##                                           
+##        'Positive' Class : rural           
 ## </code></pre>
 </div>
 </div>
-<div id="artificial-neural-networks" class="section level2" number="9.5">
+<div id="artificial-neural-networks" class="section level2" number="10.5">
 <h2>
-<span class="header-section-number">9.5</span> Artificial neural networks<a class="anchor" aria-label="anchor" href="#artificial-neural-networks"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.5</span> Artificial neural networks<a class="anchor" aria-label="anchor" href="#artificial-neural-networks"><i class="fas fa-link"></i></a>
 </h2>
 <p>Artificial neural networks (ANNs) are one of the most studied approaches in supervised machine learning, and the term actually defines a large set of different approaches. These model aims to simulate a simplistic version of a brain made of artificial neurons. Each artificial neuron combines a series of input values into one output values, using a series of weights (one per input value) and an activation function. The aim of the model is to learn an optimal set of weights that, once combined with the input values, generates the correct output value. The latter is also influenced by the activation function, which modulates the final result.</p>
 <center>
@@ -677,7 +677,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 </li>
 </ul>
 <p>We can explore the construction of an ANN for the same input and output variables seen in the previous example, and compare which one of the two approaches produces better results. The example below creates a multi-layer ANN, using two hidden layers, with five and two nodes, respectively.</p>
-<div class="sourceCode" id="cb251"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb260"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load library for ANNs</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bips-hb/neuralnet">neuralnet</a></span><span class="op">)</span></span>
 <span></span>
@@ -694,10 +694,10 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <span>    <span class="co"># Max num of steps for training</span></span>
 <span>    stepmax <span class="op">=</span> <span class="fl">1000000</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb252"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb261"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ru_dwellings_nnet_model</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span>  <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>rep <span class="op">=</span> <span class="st">"best"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="301-supervised-learning_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
-<div class="sourceCode" id="cb253"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb262"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Predict the values for the testing dataset</span></span>
 <span><span class="va">ru_dwellings_nnet_prediction</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">neuralnet</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/neuralnet/man/compute.html">compute</a></span><span class="op">(</span></span>
@@ -746,36 +746,36 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 ## 
 ##           Reference
 ## Prediction rural urban
-##      rural    49    33
-##      urban    81   254
+##      rural    48    31
+##      urban    80   258
 ##                                           
-##                Accuracy : 0.7266          
-##                  95% CI : (0.6811, 0.7689)
-##     No Information Rate : 0.6882          
-##     P-Value [Acc &gt; NIR] : 0.04938         
+##                Accuracy : 0.7338          
+##                  95% CI : (0.6886, 0.7756)
+##     No Information Rate : 0.693           
+##     P-Value [Acc &gt; NIR] : 0.03859         
 ##                                           
-##                   Kappa : 0.2914          
+##                   Kappa : 0.2997          
 ##                                           
-##  Mcnemar's Test P-Value : 1.073e-05       
+##  Mcnemar's Test P-Value : 5.215e-06       
 ##                                           
-##             Sensitivity : 0.3769          
-##             Specificity : 0.8850          
-##          Pos Pred Value : 0.5976          
-##          Neg Pred Value : 0.7582          
-##               Precision : 0.5976          
-##                  Recall : 0.3769          
-##                      F1 : 0.4623          
-##              Prevalence : 0.3118          
-##          Detection Rate : 0.1175          
-##    Detection Prevalence : 0.1966          
-##       Balanced Accuracy : 0.6310          
+##             Sensitivity : 0.3750          
+##             Specificity : 0.8927          
+##          Pos Pred Value : 0.6076          
+##          Neg Pred Value : 0.7633          
+##               Precision : 0.6076          
+##                  Recall : 0.3750          
+##                      F1 : 0.4638          
+##              Prevalence : 0.3070          
+##          Detection Rate : 0.1151          
+##    Detection Prevalence : 0.1894          
+##       Balanced Accuracy : 0.6339          
 ##                                           
 ##        'Positive' Class : rural           
 ## </code></pre>
 </div>
-<div id="exercise-404.1" class="section level2" number="9.6">
+<div id="exercise-404.1" class="section level2" number="10.6">
 <h2>
-<span class="header-section-number">9.6</span> Exercise 404.1<a class="anchor" aria-label="anchor" href="#exercise-404.1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">10.6</span> Exercise 404.1<a class="anchor" aria-label="anchor" href="#exercise-404.1"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Question 404.1.1:</strong> Create an SVM model capable of classifying areas in Leicester and Leicestershire as rural or urban based on the series of variables that relate to <em>“Economic Activity”</em> among the 167 initial variables used to create the <a href="https://maps.cdrc.ac.uk/#/geodemographics/oac11/default/BTTTFFT/12/-1.1233/52.6454/">2011 Output Area Classification</a> (<a href="http://josis.net/index.php/josis/article/view/232/150">Gale <em>et al.</em>, 2016</a>).</p>
 <p><strong>Question 404.1.2:</strong> Create an ANN using the same input and output values used in Question 404.1.1.</p>
@@ -787,20 +787,20 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 </div>
 
   <div class="chapter-nav">
-<div class="prev"><a href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></div>
-<div class="next"><a href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></div>
+<div class="prev"><a href="multiple-regression.html"><span class="header-section-number">9</span> Multiple regression</a></div>
+<div class="next"><a href="unsupervised-machine-learning.html"><span class="header-section-number">11</span> Unsupervised machine learning</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#supervised-machine-learning"><span class="header-section-number">9</span> Supervised machine learning</a></li>
-<li><a class="nav-link" href="#confusion-matrices"><span class="header-section-number">9.1</span> Confusion matrices</a></li>
-<li><a class="nav-link" href="#urban-and-rural-population-density"><span class="header-section-number">9.2</span> Urban and rural population density</a></li>
-<li><a class="nav-link" href="#logistic-regression"><span class="header-section-number">9.3</span> Logistic regression</a></li>
+<li><a class="nav-link" href="#supervised-machine-learning"><span class="header-section-number">10</span> Supervised machine learning</a></li>
+<li><a class="nav-link" href="#confusion-matrices"><span class="header-section-number">10.1</span> Confusion matrices</a></li>
+<li><a class="nav-link" href="#urban-and-rural-population-density"><span class="header-section-number">10.2</span> Urban and rural population density</a></li>
+<li><a class="nav-link" href="#logistic-regression"><span class="header-section-number">10.3</span> Logistic regression</a></li>
 <li>
-<a class="nav-link" href="#support-vector-machines"><span class="header-section-number">9.4</span> Support vector machines</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kernels"><span class="header-section-number">9.4.1</span> Kernels</a></li></ul>
+<a class="nav-link" href="#support-vector-machines"><span class="header-section-number">10.4</span> Support vector machines</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kernels"><span class="header-section-number">10.4.1</span> Kernels</a></li></ul>
 </li>
-<li><a class="nav-link" href="#artificial-neural-networks"><span class="header-section-number">9.5</span> Artificial neural networks</a></li>
-<li><a class="nav-link" href="#exercise-404.1"><span class="header-section-number">9.6</span> Exercise 404.1</a></li>
+<li><a class="nav-link" href="#artificial-neural-networks"><span class="header-section-number">10.5</span> Artificial neural networks</a></li>
+<li><a class="nav-link" href="#exercise-404.1"><span class="header-section-number">10.6</span> Exercise 404.1</a></li>
 </ul>
 
       <div class="book-extra">
@@ -818,7 +818,7 @@ Finally, the <em>kappa statistic</em> (the most common being <a href="https://en
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-17.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

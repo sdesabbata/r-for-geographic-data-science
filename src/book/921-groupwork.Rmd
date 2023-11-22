@@ -54,6 +54,15 @@ uvar_lookup %>%
 
 ## Part 2 {-}
 
+Select two among the variables explored in *Part 1* (see Table 1) to create a robust (where possible), **simple linear regression** model. The model should have as outcome (dependent) variable an indicator of the health of the population and as predictors (independent) variables a variables related to occupation. The variables should be selected based on the outcome of the analysis done for *Part 1*, in order to ensure that the model is as strong and robust as possible.
+
+$$health = occupation + error $$
+
+Remember *"correlation does not imply causation"*. `r emo::ji("smiling face with smiling eyes")`
+
+
+## Part 3 {-}
+
 Use the variables explored in *Part 1* (see Table 1) to create a robust (where possible), **multiple linear regression** model. The model should have as outcome (dependent) variable an indicator of the health of the population. The indicator can be one of the variables explored in *Part 1* (see Table 1) or a combination thereof. The model should have as predictors (independent) variables a relevant set of variables related to education and occupation. 
 
 
@@ -63,7 +72,7 @@ Present the model that achieves the best fit and the process through which it ha
 
 Alternatively, **if no robust model or no significant model can be created** for Leicester, include the code and the output (can include graphics) that illustrate that finding, and a related discussion (still, up to 500 words). The latter could be written as a final discussion after the analysis, or as a description of each step of the analysis, or a combination of the two.
 
-Remember *"correlation does not imply causation"*. `r emo::ji("smiling face with smiling eyes")`
+...again, remember *"correlation does not imply causation"*. `r emo::ji("smiling face with smiling eyes")`
 
 
 ---

@@ -60,9 +60,9 @@ significance
 shapirowilk-test
 exercise-202.1
 comparing-data
+independent-t-test
 anova
 anova-example
-exercise-203.1
 correlation
 correlation-analysis-example
 exercise-203.2
@@ -75,7 +75,7 @@ homoscedasticity
 independence
 plots
 how-to-report-a-simple-regression
-exercise-204.1
+exercise-205
 multiple-regression
 multiple-regression-example
 exercise-204.2
@@ -96,7 +96,7 @@ interpreting-the-clusters
 a-geodemographic-of-dwelling-types
 interpreting-the-clusters-1
 exercise-414.1
-control-structures
+r-scripting
 conditional-statements
 loops
 conditional-loops
@@ -109,7 +109,6 @@ ethnicity-central
 constrained-city-dwellers
 hard-pressed-living
 urbanites
-working-with-functions
 function-definition
 functions-and-control-structures
 debugging

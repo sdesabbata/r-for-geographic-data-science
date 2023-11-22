@@ -86,12 +86,12 @@
 <li><a class="" href="exploratory-statistics.html"><span class="header-section-number">6</span> Exploratory statistics</a></li>
 <li><a class="" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
 <li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
+<li><a class="" href="multiple-regression.html"><span class="header-section-number">9</span> Multiple regression</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">10</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">11</span> Unsupervised machine learning</a></li>
 <li class="book-part">R scripting</li>
-<li><a class="" href="control-structures.html"><span class="header-section-number">11</span> Control structures</a></li>
-<li><a class="" href="working-with-functions.html"><span class="header-section-number">12</span> Working with functions</a></li>
+<li><a class="" href="r-scripting.html"><span class="header-section-number">12</span> R scripting</a></li>
 <li class="book-part">Appendices</li>
 <li><a class="active" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
@@ -117,14 +117,14 @@
 <h3>Numeric<a class="anchor" aria-label="anchor" href="#numeric"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <em>numeric</em> type represents numbers (both integers and reals).</p>
-<div class="sourceCode" id="cb321"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb330"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">1.41</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb323"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb332"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/integer.html">is.integer</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb325"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/double.html">is.double</a></span><span class="op">(</span><span class="va">a_number</span><span class="op">)</span> <span class="co"># i.e., is real</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>Base numeric operators.</p>
@@ -181,40 +181,40 @@
 </tbody>
 </table></div>
 <p>Some pre-defined functions in <code>R</code>:</p>
-<div class="sourceCode" id="cb327"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="co"># Absolute value</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb329"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">ceiling</a></span><span class="op">(</span><span class="fl">3.475</span><span class="op">)</span> <span class="co"># Upper round</span></span></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb331"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">floor</a></span><span class="op">(</span><span class="fl">3.475</span><span class="op">)</span> <span class="co"># Lower round</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb333"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">trunc</a></span><span class="op">(</span><span class="fl">5.99</span><span class="op">)</span> <span class="co"># Truncate</span></span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb335"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log10</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span> <span class="co"># Logarithm 10</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb337"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">exp</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="co"># Natural logarithm and e</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Use simple brackets to specify the order of execution. If not specified the default order is: rise to power first, then multiplication and division, sum and subtraction last.</p>
-<div class="sourceCode" id="cb339"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_number</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span><span class="op">(</span><span class="va">a_number</span> <span class="op">+</span> <span class="fl">2</span><span class="op">)</span> <span class="op">*</span> <span class="fl">3</span></span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb341"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_number</span> <span class="op">+</span> <span class="op">(</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb343"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_number</span> <span class="op">+</span> <span class="fl">2</span> <span class="op">*</span> <span class="fl">3</span></span></code></pre></div>
 <pre><code>## [1] 7</code></pre>
 <p>The object <code>NaN</code> (<em>Not a Number</em>) is returned by <code>R</code> when the result of an operation is not a number.</p>
-<div class="sourceCode" id="cb345"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">0</span> <span class="op">/</span> <span class="fl">0</span></span></code></pre></div>
 <pre><code>## [1] NaN</code></pre>
-<div class="sourceCode" id="cb347"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html">is.nan</a></span><span class="op">(</span><span class="fl">0</span> <span class="op">/</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 <p>That is not to be confused with the object <code>NA</code> (<em>Not Available</em>), which is returned for missing data.</p>
@@ -223,35 +223,35 @@
 <h3>Logical<a class="anchor" aria-label="anchor" href="#logical"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <em>logical</em> type encodes two truth values: True and False.</p>
-<div class="sourceCode" id="cb349"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">logical_var</span> <span class="op">&lt;-</span> <span class="cn">TRUE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">is.logical</a></span><span class="op">(</span><span class="va">logical_var</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb351"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Logic.html">isTRUE</a></span><span class="op">(</span><span class="va">logical_var</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb353"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/logical.html">as.logical</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span> <span class="co"># TRUE if not zero</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p><code>R</code> provides a series of basic logic operators you can use to evaluate <em>conditions</em>. For instance, you can use the logic operator <code>==</code> to evaluate the condition <code>5==2</code>, which tests whether the value <code>5</code> is equal to the value <code>2</code>. Conditions can be tested on values as well as on variables.</p>
-<div class="sourceCode" id="cb355"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">5</span><span class="op">==</span><span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb357"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb366"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">first_value</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
 <span><span class="va">second_value</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
 <span><span class="va">first_value</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb359"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb368"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">first_value</span> <span class="op">==</span> <span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb361"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb370"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">second_value</span> <span class="op">==</span> <span class="fl">5</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb372"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">second_value</span> <span class="op">==</span> <span class="fl">2</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb374"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">first_value</span> <span class="op">==</span> <span class="va">second_value</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <div class="inline-table"><table class="table table-sm">
@@ -323,20 +323,20 @@
 <h3>Character<a class="anchor" aria-label="anchor" href="#character"><i class="fas fa-link"></i></a>
 </h3>
 <p>The <em>character</em> type represents text objects, including single characters and character strings (that is text objects longer than one character, commonly referred to simply as <em>strings</em> in computer science).</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_string</span> <span class="op">&lt;-</span> <span class="st">"Hello world!"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">a_string</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_string</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/character.html">as.character</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span> <span class="co"># type conversion  (a.k.a. casting)</span></span></code></pre></div>
 <pre><code>## [1] "2"</code></pre>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="st">"2"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<div class="sourceCode" id="cb375"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="st">"Ciao"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
@@ -345,21 +345,21 @@
 <h3>Types and variables<a class="anchor" aria-label="anchor" href="#types-and-variables"><i class="fas fa-link"></i></a>
 </h3>
 <p>A variable storing a value of a given type is said to have the same type. However, variables in <code>R</code> don’t have an assigned type themselves. That means that a variable can be assigned a numeric value first and then changed to a character value.</p>
-<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb387"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="fl">1.41</span></span>
 <span><span class="va">a_variable</span></span></code></pre></div>
 <pre><code>## [1] 1.41</code></pre>
-<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb389"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_variable</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb391"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">a_variable</span> <span class="op">&lt;-</span> <span class="st">"Hello world!"</span></span>
 <span><span class="va">a_variable</span></span></code></pre></div>
 <pre><code>## [1] "Hello world!"</code></pre>
-<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb393"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">a_variable</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb395"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">a_variable</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 <p>To be more precise, many programming languages require to <em>declare</em> a variable. That is, to state the type of a variable before it can be used. Variable declaration was particularly common in older programming languages such as <code>C</code> and <code>Java</code>. <code>R</code> does not require to declare variables types.</p>
@@ -372,50 +372,50 @@
 <h3>Vectors<a class="anchor" aria-label="anchor" href="#vectors-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>The operator <code>:</code> can be used to create integer vectors, starting from the number specified before the operator to the number specified after the operator.</p>
-<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a vector containing integers between 2 and 4</span></span>
 <span><span class="va">two_to_four</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">:</span><span class="fl">4</span></span>
 <span><span class="va">two_to_four</span></span></code></pre></div>
 <pre><code>## [1] 2 3 4</code></pre>
-<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Retrieve cities between the second and the fourth</span></span>
 <span><span class="va">east_midlands_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Derby"</span>, <span class="st">"Leicester"</span>, <span class="st">"Lincoln"</span>, <span class="st">"Nottingham"</span><span class="op">)</span></span>
 <span><span class="va">east_midlands_cities</span><span class="op">[</span><span class="va">two_to_four</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "Leicester"  "Lincoln"    "Nottingham"</code></pre>
-<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># As the second element of two_to_four is 3...</span></span>
 <span><span class="va">two_to_four</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb394"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># the following command will retrieve the third city</span></span>
 <span><span class="va">east_midlands_cities</span><span class="op">[</span><span class="va">two_to_four</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <pre><code>## [1] "Lincoln"</code></pre>
-<div class="sourceCode" id="cb396"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a vector with cities from the previous vector</span></span>
 <span><span class="va">selected_cities</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">east_midlands_cities</span><span class="op">[</span><span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <p>The functions <code>seq</code> and <code>rep</code> can also be used to create vectors, as illustrated below.</p>
-<div class="sourceCode" id="cb397"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb406"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, by <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##  [1]  1.0  1.5  2.0  2.5  3.0  3.5  4.0  4.5  5.0  5.5  6.0  6.5  7.0  7.5  8.0
 ## [16]  8.5  9.0  9.5 10.0</code></pre>
-<div class="sourceCode" id="cb399"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb408"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1]  1.0  2.8  4.6  6.4  8.2 10.0</code></pre>
-<div class="sourceCode" id="cb401"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb410"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">"Ciao"</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] "Ciao" "Ciao" "Ciao" "Ciao"</code></pre>
 <p>The logical operators <code>any</code> and <code>all</code> can be used to test conditions on the vector. The former returns <code>TRUE</code> if at least one element satisfies the statement and the second returns <code>TRUE</code> if all elements satisfy the condition</p>
-<div class="sourceCode" id="cb403"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb412"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">east_midlands_cities</span> <span class="op">==</span> <span class="st">"Leicester"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb405"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb414"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_sequence</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">10</span>, length.out <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span>
 <span><span class="va">my_sequence</span></span></code></pre></div>
 <pre><code>## [1]  1.0  2.5  4.0  5.5  7.0  8.5 10.0</code></pre>
-<div class="sourceCode" id="cb407"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb416"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">my_sequence</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
-<div class="sourceCode" id="cb409"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb418"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/all.html">all</a></span><span class="op">(</span><span class="va">my_sequence</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] FALSE</code></pre>
 </div>
@@ -423,31 +423,31 @@
 <h3>Factors<a class="anchor" aria-label="anchor" href="#factors"><i class="fas fa-link"></i></a>
 </h3>
 <p>A <strong>factor</strong> is a data type similar to a vector. However, the values contained in a factor can only be selected from a set of <strong>levels</strong>.</p>
-<div class="sourceCode" id="cb411"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb420"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">houses_vector</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bungalow"</span>, <span class="st">"Flat"</span>, <span class="st">"Flat"</span>,</span>
 <span>  <span class="st">"Detached"</span>, <span class="st">"Flat"</span>, <span class="st">"Terrace"</span>, <span class="st">"Terrace"</span><span class="op">)</span></span>
 <span><span class="va">houses_vector</span></span></code></pre></div>
 <pre><code>## [1] "Bungalow" "Flat"     "Flat"     "Detached" "Flat"     "Terrace"  "Terrace"</code></pre>
-<div class="sourceCode" id="cb413"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">houses_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bungalow"</span>, <span class="st">"Flat"</span>, <span class="st">"Flat"</span>,</span>
 <span>  <span class="st">"Detached"</span>, <span class="st">"Flat"</span>, <span class="st">"Terrace"</span>, <span class="st">"Terrace"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">houses_factor</span></span></code></pre></div>
 <pre><code>## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
 ## Levels: Bungalow Detached Flat Terrace</code></pre>
 <p>The function <strong>table</strong> can be used to obtain a tabulated count for each level.</p>
-<div class="sourceCode" id="cb415"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb424"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">houses_factor</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Bungalow"</span>, <span class="st">"Flat"</span>, <span class="st">"Flat"</span>,</span>
 <span>  <span class="st">"Detached"</span>, <span class="st">"Flat"</span>, <span class="st">"Terrace"</span>, <span class="st">"Terrace"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">houses_factor</span></span></code></pre></div>
 <pre><code>## [1] Bungalow Flat     Flat     Detached Flat     Terrace  Terrace 
 ## Levels: Bungalow Detached Flat Terrace</code></pre>
-<div class="sourceCode" id="cb417"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb426"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">houses_factor</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## houses_factor
 ## Bungalow Detached     Flat  Terrace 
 ##        1        1        3        2</code></pre>
 <p>A specific set of levels can be specified when creating a factor by providing a <strong>levels</strong> argument.</p>
-<div class="sourceCode" id="cb419"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb428"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">houses_factor_spec</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"People Carrier"</span>, <span class="st">"Flat"</span>, <span class="st">"Flat"</span>, <span class="st">"Hatchback"</span>,</span>
 <span>      <span class="st">"Flat"</span>, <span class="st">"Terrace"</span>, <span class="st">"Terrace"</span><span class="op">)</span>,</span>
@@ -459,18 +459,18 @@
 ## Bungalow     Flat Detached     Semi  Terrace 
 ##        0        3        0        0        2</code></pre>
 <p>In statistics terminology, (unordered) factors are <strong>categorical</strong> (i.e., binary or nominal) variables. Levels are not ordered.</p>
-<div class="sourceCode" id="cb421"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb430"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">income_nominal</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"High"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>, <span class="st">"Low"</span>, <span class="st">"Low"</span>,</span>
 <span>      <span class="st">"Medium"</span>, <span class="st">"Low"</span>, <span class="st">"Medium"</span><span class="op">)</span>,</span>
 <span>  levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Low"</span>, <span class="st">"Medium"</span>, <span class="st">"High"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The <em>greater than</em> operator is not meaningful on the <code>income_nominal</code> factor defined above.</p>
-<div class="sourceCode" id="cb422"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb431"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">income_nominal</span> <span class="op">&gt;</span> <span class="st">"Low"</span></span></code></pre></div>
 <pre><code>## Warning in Ops.factor(income_nominal, "Low"): '&gt;' not meaningful for factors</code></pre>
 <pre><code>## [1] NA NA NA NA NA NA NA NA</code></pre>
 <p>In statistics terminology, ordered factors are <strong>ordinal</strong> variables. Levels are ordered.</p>
-<div class="sourceCode" id="cb425"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb434"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">income_ordered</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">ordered</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"High"</span>, <span class="st">"High"</span>, <span class="st">"Low"</span>, <span class="st">"Low"</span>, <span class="st">"Low"</span>,</span>
 <span>      <span class="st">"Medium"</span>, <span class="st">"Low"</span>, <span class="st">"Medium"</span><span class="op">)</span>,</span>
@@ -478,7 +478,7 @@
 <span></span>
 <span><span class="va">income_ordered</span> <span class="op">&gt;</span> <span class="st">"Low"</span></span></code></pre></div>
 <pre><code>## [1]  TRUE  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE</code></pre>
-<div class="sourceCode" id="cb427"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb436"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">income_ordered</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] Low    Low    Low    Low    Medium Medium High   High  
 ## Levels: Low &lt; Medium &lt; High</code></pre>
@@ -489,7 +489,7 @@
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="working-with-functions.html"><span class="header-section-number">12</span> Working with functions</a></div>
+<div class="prev"><a href="r-scripting.html"><span class="header-section-number">12</span> R scripting</a></div>
 <div class="next"><a href="solutions.html">Solutions</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
@@ -526,7 +526,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-17.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

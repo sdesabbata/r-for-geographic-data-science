@@ -442,7 +442,7 @@ class: inverse, center, middle
 
 
 
-# Control structures
+# R scripting
 
 
 ---
@@ -458,10 +458,11 @@ class: inverse, center, middle
 - Multiple regression
 - Comparing models
 
-**Today**: Control structures
+**Today**: R scripting
 
 - Conditional statements
 - Conditional and deterministic loops
+- Working with functions
 - Practical: *Group work!*
 
 
@@ -1309,6 +1310,425 @@ for (
 
 ]
 
+
+
+---
+class: inverse, center, middle
+
+# Functions
+
+
+
+---
+## Defining functions
+
+.pull-left[
+
+A function can be defined 
+
+- using an **identifier** (e.g., `add_one`) 
+- the **assignment operator** `&lt;-`
+- followed by the corpus of the function
+  - starts with the reserved word `function`
+  - followed by the **parameter(s)** (e.g., `input_value`) between brackets
+  - and the instruction(s) to be executed in a code block
+  - the value of the last statement is returned as output
+
+After being defined
+
+- a function can be invoked by specifying 
+  - the **identifier**
+  - the necessary **parameter(s)**
+
+]
+.pull-right[
+
+&lt;br/&gt;&lt;br/&gt;
+
+
+
+```r
+add_one &lt;- 
+  function (input_value) {
+    output_value &lt;- input_value + 1
+    output_value
+  }
+```
+
+
+```r
+add_one(3)
+```
+
+```
+## [1] 4
+```
+
+```r
+add_one(1024)
+```
+
+```
+## [1] 1025
+```
+
+]
+
+
+---
+## Adding complexity
+
+.pull-left[
+
+- A function can be defined as having two or more **parameters** 
+  - by specifying  more than one parameter name (separated by **commas**) in the function definition
+- A function always take as input as many values as the number of parameters specified in the definition
+  - otherwise an error is generated
+
+
+```r
+percentage_of &lt;- 
+  function (original_value, total) {
+    prop &lt;- original_value / total
+    perc &lt;- prop * 100
+    perc
+  }
+
+percentage_of(4, 5)
+```
+
+```
+## [1] 80
+```
+
+]
+.pull-right[
+
+Functions can contain both loops and conditional statements
+
+
+```r
+percentage_of &lt;- 
+  function (original_value, total) {
+    if (
+      (original_value &lt; total) &amp;
+      (total &gt; 0)
+    ) {
+      prop &lt;- original_value / total
+      perc &lt;- prop * 100
+      perc
+    } else {
+      NA
+    }
+  }
+
+percentage_of(4, 5)
+```
+
+```
+## [1] 80
+```
+
+```r
+percentage_of(4, 3)
+```
+
+```
+## [1] NA
+```
+
+]
+
+
+---
+## Scope
+
+.pull-left[
+
+&lt;br/&gt;
+
+The **scope of a variable** is the part of code in which the variable is *&quot;visible&quot;*
+
+In R, variables have a **hierarchical** scope:
+
+- a variable defined in a script can be used referred to from within a definition of a function in the same script
+- a variable defined within a definition of a function will **not** be referable from outside the definition
+- scope does **not** apply to `if` or loop constructs
+
+]
+.pull-right[
+
+In the example
+
+- `total` is now **global** to the function `times_x`
+- `original_value` is **local** to the function `percentage_of`
+
+
+```r
+total &lt;- 5
+
+percentage_of &lt;- 
+  function (original_value) {
+    prop &lt;- original_value / total
+    perc &lt;- prop * 100
+    perc
+  }
+
+percentage_of(4)
+```
+
+```
+## [1] 80
+```
+
+**DO NOT DO THIS, IT&#39;S VERY DANGEROUS!**  😅
+
+]
+
+
+
+---
+## What is debugging?
+
+.pull-left[
+
+Hardly any reasonably sized function works first time!
+
+- Two broad kinds of problem
+    - The function crashes (i.e. throws up an error)
+    - The function doesn&#39;t crash  but returns the wrong answer
+      - More difficult to fix
+- Prevention is better than cure, test the code as you write.
+
+**Debugging** is the process of finding the problems in the code.
+
+- *&quot;Steping through&quot;* the function line by line.
+- Check the values of variables, and see if they are doing what they are supposed to.
+
+
+]
+.pull-right[
+
+R has tools to help with this.
+
+- Enter `debug( &lt;&lt;Function Name&gt;&gt; )`
+- For example: `debug(area.tri)`
+- Then just use the function - it goes into &#39;debug mode&#39;.
+- Prompt becomes `Browse&gt;`
+  - Return executes current line
+  - Typing in any command executes it
+  - Typing in `c` and the return runs to the end of a function/block
+  - Typing in `Q` exits the function
+- R can `see&#39; variables that are specific to the function
+- Enter `undebug(&lt;&lt;Function Name&gt;&gt;)` to return to normal
+
+]
+
+---
+## Writing functions for dplyr
+
+.pull-left[
+
+&lt;br/&gt;&lt;br/&gt;
+
+This is a base R function, not designed to work within the Tidyverse
+
+- each one of the input is expected to be a number
+- can be applied to vectors
+  - thus could work with dataframe columns
+  - but not easily
+
+
+
+]
+.pull-right[
+
+
+```r
+percentage_of &lt;- 
+  function (original_value, total) {
+    prop &lt;- original_value / total
+    perc &lt;- prop * 100
+    perc
+  }
+
+percentage_of(
+  c(1, 2, 3, 4), 
+  5
+)
+```
+
+```
+## [1] 20 40 60 80
+```
+
+```r
+my_data &lt;- data.frame(
+  case_id = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;),
+  case_val = c(1, 2, 3, 4)
+)
+
+my_data %$% 
+  percentage_of(case_val, 5)
+```
+
+```
+## [1] 20 40 60 80
+```
+
+
+]
+
+---
+## Writing functions for dplyr
+
+.pull-left[
+
+&lt;br/&gt;&lt;br/&gt;
+
+To design functions for the Tidyverse
+
+- first parameter should expect a tibble
+- subsequent parameters should expect 
+  - columns
+    - need to **embrace** arguments with doubled braces `{{` to use it
+  - additional parameters 
+
+
+
+]
+.pull-right[
+
+
+```r
+percentage_of &lt;- 
+  function (data, var_col, total) {
+    data %&gt;% 
+      mutate(
+        perc = ({{ var_col }} / total) * 100
+      )
+  }
+
+my_data &lt;- tibble(
+  case_id = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;),
+  case_val = c(1, 2, 3, 4)
+)
+
+my_data %&gt;% 
+  percentage_of(case_val, 5) %&gt;% 
+  kable()
+```
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&quot;text-align:left;&quot;&gt; case_id &lt;/th&gt;
+   &lt;th style=&quot;text-align:right;&quot;&gt; case_val &lt;/th&gt;
+   &lt;th style=&quot;text-align:right;&quot;&gt; perc &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; A &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 1 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; B &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 2 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 40 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; C &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 3 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 60 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; D &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 4 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 80 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+]
+
+---
+## A more complex example
+
+Using the operator `:=` to use input column names to create output column names
+
+.pull-left[
+
+
+```r
+percentage_of &lt;- 
+  function (data, var_col, total_col) {
+    data %&gt;%
+      mutate(
+        &quot;perc_{{var_col}}_over_{{total_col}}&quot; :=
+          ({{ var_col }} / {{ total_col }}) * 100
+      )
+  }
+```
+
+]
+.pull-right[
+
+
+```r
+my_data_2 &lt;- tibble(
+  case_id = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;),
+  case_val = c(1, 2, 3, 4),
+  case_total = c(4, 4, 6, 6)
+)
+
+my_data_2 %&gt;% 
+  percentage_of(case_val, case_total) %&gt;% 
+  kable()
+```
+
+]
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&quot;text-align:left;&quot;&gt; case_id &lt;/th&gt;
+   &lt;th style=&quot;text-align:right;&quot;&gt; case_val &lt;/th&gt;
+   &lt;th style=&quot;text-align:right;&quot;&gt; case_total &lt;/th&gt;
+   &lt;th style=&quot;text-align:right;&quot;&gt; perc_case_val_over_case_total &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; A &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 1 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 4 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 25.00000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; B &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 2 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 4 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 50.00000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; C &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 3 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 6 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 50.00000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&quot;text-align:left;&quot;&gt; D &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 4 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 6 &lt;/td&gt;
+   &lt;td style=&quot;text-align:right;&quot;&gt; 66.66667 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+
+
 ---
 ## Summary
 
@@ -1316,17 +1736,14 @@ for (
 
 &lt;br/&gt;
 
-**Today**: Control structures
+**Today**: R scripting
 
 - Conditional statements
 - Conditional and deterministic loops
+- Working with functions
 - Practical: *Group work!*
 
-**Next time**: 
-
-- Writing functions
-- Recap
-- Practical: *Group work!*
+... and that&#39;s all folks! 👋 😊
 
 &lt;br/&gt;
 

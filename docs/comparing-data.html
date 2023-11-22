@@ -86,12 +86,12 @@
 <li><a class="" href="exploratory-statistics.html"><span class="header-section-number">6</span> Exploratory statistics</a></li>
 <li><a class="active" href="comparing-data.html"><span class="header-section-number">7</span> Comparing data</a></li>
 <li><a class="" href="regression-analysis.html"><span class="header-section-number">8</span> Regression analysis</a></li>
+<li><a class="" href="multiple-regression.html"><span class="header-section-number">9</span> Multiple regression</a></li>
 <li class="book-part">Machine learning</li>
-<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">9</span> Supervised machine learning</a></li>
-<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">10</span> Unsupervised machine learning</a></li>
+<li><a class="" href="supervised-machine-learning.html"><span class="header-section-number">10</span> Supervised machine learning</a></li>
+<li><a class="" href="unsupervised-machine-learning.html"><span class="header-section-number">11</span> Unsupervised machine learning</a></li>
 <li class="book-part">R scripting</li>
-<li><a class="" href="control-structures.html"><span class="header-section-number">11</span> Control structures</a></li>
-<li><a class="" href="working-with-functions.html"><span class="header-section-number">12</span> Working with functions</a></li>
+<li><a class="" href="r-scripting.html"><span class="header-section-number">12</span> R scripting</a></li>
 <li class="book-part">Appendices</li>
 <li><a class="" href="appendix-1.html">Appendix 1</a></li>
 <li><a class="" href="solutions.html">Solutions</a></li>
@@ -132,11 +132,205 @@
 <span>  <span class="va">Petal.Length</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">)</span> </span></code></pre></div>
 <pre><code>## [1] 3.758</code></pre>
-<div id="anova" class="section level2" number="7.1">
+<div id="independent-t-test" class="section level2" number="7.1">
 <h2>
-<span class="header-section-number">7.1</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.1</span> Independent T-test<a class="anchor" aria-label="anchor" href="#independent-t-test"><i class="fas fa-link"></i></a>
 </h2>
-<p>The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the t-test, which has the same objective but allows to test only two groups.</p>
+<p>The Independent T-test is a simple statistical test that can be used to compare two independent groups based on the same attribute. For instance, you might want to compare the versicolor and virginica species of iris based on their petal length, to assess if they are different. The boxplot below indicates that the two species seem to have rather different petal length, but is the difference statistically significant? That is the type of question that we can answer using the Independent T-test.</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">versicolor_and_virginica</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span></span>
+<span>    <span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span> <span class="op">|</span> <span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Species</span>, <span class="va">Petal.Length</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">versicolor_and_virginica</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
+<span>      x <span class="op">=</span> <span class="va">Species</span>, </span>
+<span>      y <span class="op">=</span> <span class="va">Petal.Length</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384"></div>
+<p>The Independent T-test can be seen as a special version of the <strong>general linear model</strong>. In the general linear model, observation <span class="math inline">\(i\)</span> can be predicted by a <span class="math inline">\(model\)</span> (predictors) if we allow for some amount of error.</p>
+<p><span class="math display">\[outcome_i = (model) + error_i \]</span></p>
+<p>For the Independent T-test, the predictor is the the <strong>group average</strong> for the outcome, which is equal to our outcome if we allow for some amount of error.</p>
+<p><span class="math display">\[outcome_i = (group\ mean) + error_i \]</span></p>
+<p>Calculating the average per group can be seen as an extremely simplified version of machine learning. The observed values are used to <em>“learn”</em> a model, which in this case is their average. The <em>“model”</em> is as simple as a table with the average for each group. As such, we can <em>“learn”</em> a model for the petal length of versicolor and virginica iris, as shown below. If we then want to <em>“predict”</em> the petal length for a new flower, we can simply look at the species and return the related average for that species. For instance, our <em>“prediction”</em> for a new versicolor iris will be 4.26.</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">avg_petal_length_ver_and_vir</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">versicolor_and_virginica</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    avg_petal_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">avg_petal_length_ver_and_vir</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Species</th>
+<th align="right">avg_petal_length</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">versicolor</td>
+<td align="right">4.260</td>
+</tr>
+<tr class="even">
+<td align="left">virginica</td>
+<td align="right">5.552</td>
+</tr>
+</tbody>
+</table></div>
+<p>To simplify, the Independent Test crates such a model and then estimates how the averages compare to each other and the standard deviations of the two groups to be able to say whether the two groups are the same or different. However, for such an analysis to be meaningful, the means and standard deviations must be representative of the distributions. As such, the values for each of the two groups should be normally distributed. We can test that with two Shapiro–Wilk tests. As shown below, both tests are not significant, which indicates that both groups have normally distributed values.</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">versicolor_and_virginica</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.966, p-value = 0.1585</code></pre>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">versicolor_and_virginica</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96219, p-value = 0.1098</code></pre>
+<p>We can thus run the Independent test. As there are 50 flowers for each species it is safer to set the significance threshold to <code>0.01</code>. The result object contains a series of values which can be of interest to understand the model. In our case, we focus on <em>p</em>-value, which in this case is estimated as <code>p-value &lt; 2.2e-16</code>. As the <em>p</em>-value is lower than <code>0.01</code>, the test is significant. Thus, the group means are different.</p>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t_test__ver_and_vir</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">versicolor_and_virginica</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">Petal.Length</span> <span class="op">~</span> <span class="va">Species</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t_test__ver_and_vir</span></span></code></pre></div>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  Petal.Length by Species
+## t = -12.604, df = 95.57, p-value &lt; 2.2e-16
+## alternative hypothesis: true difference in means between group versicolor and group virginica is not equal to 0
+## 95 percent confidence interval:
+##  -1.49549 -1.08851
+## sample estimates:
+## mean in group versicolor  mean in group virginica 
+##                    4.260                    5.552</code></pre>
+<p>We can report the result of the Independent test as:</p>
+<ul>
+<li>
+<em>t</em>(95.57) = -12.6, <em>p</em> &lt; 0.01</li>
+</ul>
+<p>The Independent T-test result object <code>t_test__ver_and_vir</code> also includes the standard error, which is used a measure of the quality (i.e., fitness) of the model compared to the data on which it has been created (i.e., fitted or <em>“learn”</em>).</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">t_test__ver_and_vir</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
+<span>  <span class="va">stderr</span></span></code></pre></div>
+<pre><code>## [1] 0.1025089</code></pre>
+<p>The calculations of the standard error are a bit complicated, but they relate to another extremely common measure, which is the <strong>residual</strong> (also known as, <strong>error</strong>), which is the <strong>difference between the observed value and the model</strong>. Throughout statistics, machine learning and artificial intelligence, it is very common to use the <a href="https://en.wikipedia.org/wiki/Residual_sum_of_squares"><strong>Sum of the Squares of the Residuals (SSR)</strong></a> or the <a href="https://en.wikipedia.org/wiki/Mean_squared_error"><strong>Mean of the Squares of the Error (MSE)</strong></a> as measures of model quality.</p>
+<p>For a simple model such as the one used by the Independent T-test, we can quickly calculate those two values as follows. Join the table with the table containing the averages calculated above. Calculate the residuals (also known as, errors) as the difference between the observed value and the average, as well as the squares of those values. Finally, calculate the sum and average aggregation.</p>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Join and calculate the residuals</span></span>
+<span><span class="va">residuals_ver_and_vir</span> <span class="op">&lt;-</span></span>
+<span>  <span class="va">versicolor_and_virginica</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">avg_petal_length_ver_and_vir</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    residual <span class="op">=</span> <span class="va">Petal.Length</span> <span class="op">-</span> <span class="va">avg_petal_length</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
+<span>    sq_residual <span class="op">=</span> <span class="va">residual</span><span class="op">^</span><span class="fl">2</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<pre><code>## Joining with `by = join_by(Species)`</code></pre>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># A quick look at the table created above</span></span>
+<span><span class="va">residuals_ver_and_vir</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_head</a></span><span class="op">(</span>n<span class="op">=</span><span class="fl">3</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">Species</th>
+<th align="right">Petal.Length</th>
+<th align="right">avg_petal_length</th>
+<th align="right">residual</th>
+<th align="right">sq_residual</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">versicolor</td>
+<td align="right">4.7</td>
+<td align="right">4.260</td>
+<td align="right">0.440</td>
+<td align="right">0.193600</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">4.5</td>
+<td align="right">4.260</td>
+<td align="right">0.240</td>
+<td align="right">0.057600</td>
+</tr>
+<tr class="odd">
+<td align="left">versicolor</td>
+<td align="right">4.9</td>
+<td align="right">4.260</td>
+<td align="right">0.640</td>
+<td align="right">0.409600</td>
+</tr>
+<tr class="even">
+<td align="left">virginica</td>
+<td align="right">6.0</td>
+<td align="right">5.552</td>
+<td align="right">0.448</td>
+<td align="right">0.200704</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">5.1</td>
+<td align="right">5.552</td>
+<td align="right">-0.452</td>
+<td align="right">0.204304</td>
+</tr>
+<tr class="even">
+<td align="left">virginica</td>
+<td align="right">5.9</td>
+<td align="right">5.552</td>
+<td align="right">0.348</td>
+<td align="right">0.121104</td>
+</tr>
+</tbody>
+</table></div>
+<div class="sourceCode" id="cb197"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">residuals_ver_and_vir</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span></span>
+<span>    ssr <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">sq_residual</span><span class="op">)</span>,</span>
+<span>    mse <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">sq_residual</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="right">ssr</th>
+<th align="right">mse</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">25.7448</td>
+<td align="right">0.257448</td>
+</tr></tbody>
+</table></div>
+</div>
+<div id="anova" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> ANOVA<a class="anchor" aria-label="anchor" href="#anova"><i class="fas fa-link"></i></a>
+</h2>
+<p>The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for multiple different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the Independent T-test, which has the same objective but allows to test only two groups.</p>
 <p>The ANOVA test has the following assumptions:</p>
 <ul>
 <li>normally distributed values in groups
@@ -151,12 +345,12 @@
 </li>
 <li>independence of groups</li>
 </ul>
-<div id="anova-example" class="section level3" number="7.1.1">
+<div id="anova-example" class="section level3" number="7.2.1">
 <h3>
-<span class="header-section-number">7.1.1</span> ANOVA example<a class="anchor" aria-label="anchor" href="#anova-example"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2.1</span> ANOVA example<a class="anchor" aria-label="anchor" href="#anova-example"><i class="fas fa-link"></i></a>
 </h3>
 <p>The example seen in the lecture illustrates how ANOVA can be used to verify that the three different species of iris in the <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html"><code>iris</code> dataset</a> have different petal length.</p>
-<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb198"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span></span>
@@ -166,10 +360,10 @@
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384"></div>
-<p>ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to <code>0.05</code>.</p>
-<p>The three Shapiro–Wilk tests below are all not significant, which indicates that all three groups have normally distributed values.</p>
-<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-11-1.png" width="384"></div>
+<p>As the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to <code>0.01</code>.</p>
+<p>We already run two Shapiro–Wilk tests for the Independent T-test above. The Shapiro–Wilk test for the iris species setosa is also not significant, which indicates that all three groups have normally distributed values.</p>
+<div class="sourceCode" id="cb199"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -179,28 +373,8 @@
 ## 
 ## data:  .
 ## W = 0.95498, p-value = 0.05481</code></pre>
-<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"versicolor"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  .
-## W = 0.966, p-value = 0.1585</code></pre>
-<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">iris</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">Petal.Length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/shapiro.test.html">shapiro.test</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  .
-## W = 0.96219, p-value = 0.1098</code></pre>
 <p>We can thus conduct the ANOVA test using the function <code>aov</code>, and the function <code>summary</code> to obtain the summary of the results of the test.</p>
-<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb201"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Classic R coding approach (not using %$%)</span></span>
 <span><span class="co"># iris_anova &lt;- aov(Petal.Length ~ Species, data = iris)</span></span>
 <span><span class="co"># summary(iris_anova)</span></span>
@@ -213,27 +387,18 @@
 ## Residuals   147   27.2    0.19                   
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
-<p>The difference is significant F(2, 147) = 1180.16, <em>p</em> &lt; .01.</p>
+<p>The difference is significant F(2, 147) = 1180.16, <em>p</em> &lt; .01. Also, note how the the output above contains a row for the <code>Residuals</code> with a related value for the column <code>Sum Sq</code>, which is the SSR value for the simple model used to calculate the ANOVA statistics.</p>
 <p>The image below highlights the important values in the output: the significance value <code>Pr(&gt;F)</code>; the F-statistic value <code>F value</code>; and the two degrees of freedom values for the F-statistic in the <code>Df</code> column.</p>
 <center>
 <img src="images/ANOVA_output_annotated.png" style="width:70.0%">
 </center>
 </div>
 </div>
-<div id="exercise-203.1" class="section level2" number="7.2">
-<h2>
-<span class="header-section-number">7.2</span> Exercise 203.1<a class="anchor" aria-label="anchor" href="#exercise-203.1"><i class="fas fa-link"></i></a>
-</h2>
-<p>Create a new RMarkdown document, and add the code necessary to oad the <code>2011_OAC_Raw_uVariables_Leicester.csv</code> dataset.</p>
-<p><strong>Question 203.1.1:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
-<p><strong>Question 203.1.2:</strong> Check whether the values of mean age (<code>u020</code>) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.</p>
-<p><strong>Question 203.1.3:</strong> Is the distribution of mean age (<code>u020</code>) different in different 2011OAC supergroups in Leicester?</p>
-</div>
 <div id="correlation" class="section level2" number="7.3">
 <h2>
 <span class="header-section-number">7.3</span> Correlation<a class="anchor" aria-label="anchor" href="#correlation"><i class="fas fa-link"></i></a>
 </h2>
-<p>The term <strong>correlation</strong> is used to refer to a series of a standardised measures of covariance, which can be used to statistically assess whether two variables are related or not.</p>
+<p>The term <strong>correlation</strong> is used to refer to a series of standardised measures of covariance, which can be used to statistically assess whether two variables are related or not.</p>
 <p>Furthermore, if two variables are related, such measures can identify whether they are:</p>
 <ul>
 <li>positively related:
@@ -285,13 +450,17 @@
 <h3>
 <span class="header-section-number">7.3.1</span> Correlation analysis example<a class="anchor" aria-label="anchor" href="#correlation-analysis-example"><i class="fas fa-link"></i></a>
 </h3>
-<p>When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: <em>“do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?”</em></p>
-<p>That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?</p>
-<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="384"></div>
-<p>If you want to replicate the map above, you can download the
-<a href="https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip">Census Residential Data Pack 2011 for Leicester</a> from the <a href="https://data.cdrc.ac.uk/">Consumer Data Research Centre</a> (requires to set up an account) and use the code below after having unzipped the downloaded file. The next semester’s module <a href="https://le.ac.uk/modules/2022/gy7707">GY7707 Geospatial Data Analytics</a> will cover spatial data handling, analysis and mapping in R in detail.</p>
-<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load the shapefile data</span></span>
+<p>When studying how people live in cities, a number of questions might arise about where they live and how they move around the city. For instance, looking at a map of Leicester, it is clear that (as in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might lead us to ask: <em>“do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city centre?”</em></p>
+<p>That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such, people living in flats might be more likely to walk or cycle to work or commute using public transportation within the city or to other cities. City centres usually afford fewer spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypotheses based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such a hypothesis?</p>
+<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-16-1.png" width="384"></div>
+<p>The map above is <em>only demonstrative</em>. The next semester’s module <a href="https://le.ac.uk/modules/2022/gy7707">GY7707 Geospatial Data Analytics</a> will cover spatial data handling, analysis and mapping in R in detail. If you want to replicate the map above, you need download the
+<a href="https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip">Census Residential Data Pack 2011 for Leicester</a> from the <a href="https://data.cdrc.ac.uk/">Consumer Data Research Centre</a> (requires to set up an account) and use the code below after having unzipped the downloaded file.</p>
+<div class="sourceCode" id="cb203"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Read the Leicester 2011 OAC dataset from the csv file</span></span>
+<span><span class="va">leicester_2011OAC</span> <span class="op">&lt;-</span> </span>
+<span>  <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"2011_OAC_Raw_uVariables_Leicester.csv"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the shapefile data</span></span>
 <span><span class="co"># using the library sf</span></span>
 <span><span class="co"># https://r-spatial.github.io/sf/</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
@@ -333,7 +502,7 @@
 <span>    size <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>    position <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"right"</span>, <span class="st">"bottom"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>The dataset used to create the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.</p>
+<p>The dataset used to create the <a href="https://github.com/geogale/2011OAC">2011 Output Area Classification</a> (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not the values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.</p>
 <ul>
 <li>
 <code>u089</code>: count of flats per Output Area (OA). The statistical unit for this variable is <code>Household_Spaces</code>. As OAs vary in size and composition, we can use <code>Total_Household_Spaces</code> to calculate the percentage of flats per OA, which is a more stable measure.
@@ -348,8 +517,8 @@
 </ul>
 </li>
 </ul>
-<p>The process of transforming variables to be within a certain range (such as a percentage, thus using a <code>[0..100]</code> range, or a <code>[0..1]</code> range) is commonly referred to as <strong>normalisation</strong>. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as <strong>standardisation</strong>. However, note that these terms are sometime used interchangably.</p>
-<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<p>The process of transforming variables to be within a certain range (such as a percentage, thus using a <code>[0..100]</code> range, or a <code>[0..1]</code> range) is commonly referred to as <strong>normalisation</strong>. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as <strong>standardisation</strong>. However, note that these terms are sometime used interchangeably.</p>
+<div class="sourceCode" id="cb204"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_and_cars</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">leicester_2011OAC</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span></span>
@@ -361,10 +530,10 @@
 <span>    <span class="va">perc_flats</span>, <span class="va">perc_2ormore_cars</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Plotting the two variables together in a scatterplot reveals a pattern. Indeed, a very low percentage of households living in flats own two or more cars. However, the proportion of households owning two or more cars who live in the suburbs seem to span almost throughout the whole range, from zero to 80%. That seems to indicate some level of negative relationship, but the picture is clearly far less clear-cut as we might have initially assumed. The initial assumption about car ownership for households living in flats seems to hold, but we probably didn’t consider the situation in the suburbs with sufficient care.</p>
-<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-11-1.png" width="576"></div>
-<p>The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed.</p>
+<div class="inline-figure"><img src="203-comparing-data_files/figure-html/unnamed-chunk-19-1.png" width="576"></div>
+<p>The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus, which correlation test we should use for the analysis. The scatterplot already seem to suggests that the variables are rather skewed.</p>
 <p>As there are 969 OAs in Leicester, we can set the significance threshold to <code>0.01</code>. The results of the <code>shapiro.test</code> functions below show that neither of the two variables are normally distributed. Transforming the variables using the <em>inverse hyperbolic sine</em> still does not result in normally distributed variables. Thus, we should discard <em>Pearson’s r</em> as an option to explore the correlation between the two variables.</p>
-<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb205"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/phgrosjean/pastecs">pastecs</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">flats_and_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -436,7 +605,7 @@
 </tbody>
 </table></div>
 <p>The next step is to assess whether there are ties among the values in the two variables. The code below fist counts the number of cases per value. Then it counts the number of values for which the number of cases is greater than one.</p>
-<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb206"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ties_perc_flats</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">flats_and_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">perc_flats</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -455,8 +624,8 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span>wt <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></code></pre></div>
 <p>The variable <code>perc_flats</code> has 127 values with ties and <code>perc_2ormore_cars</code> has 115 values with ties. As such, using <em>Spearman’s rho</em> is not advisable and <em>Kendall’s tau</em> should be used. As above, we can set the significance threshold to <code>0.01</code>.</p>
-<p>Finally, we can run the <code>cor.test</code> function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.</p>
-<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<p>Finally, we can run the <code>cor.test</code> function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This allows for two subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimated value in RMarkdwon in the following paragraph, to show the percentage of shared variance.</p>
+<div class="sourceCode" id="cb207"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flats_and_cars_corKendall</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">flats_and_cars</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/exposition.html">%$%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span></span>
@@ -476,20 +645,19 @@
 ## -0.4094335</code></pre>
 <pre><code>The percentage of flats and the percentage of households 
 owning 2 or more cars or vans per OA in the city of Leicester 
-are negative related, as the relationship is significant 
+are negatively related, as the relationship is significant 
 (`p-value &lt; 0.01`) and the correlation value is negative 
 (`tau =` -0.41). The two variables share 16.8% of variance. We can thus conclude 
-that there is significant but very weak relationship 
+that there is a significant but very weak relationship 
 between the two variables.</code></pre>
-<p>The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negative related, as the relationship is significant (<code>p-value &lt; 0.01</code>) and the correlation value is negative (<code>tau =</code> -0.41). The two variables share 16.8% of variance. We can thus conclude that there is significant but very weak relationship between the two variables.</p>
+<p>The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negatively related, as the relationship is significant (<code>p-value &lt; 0.01</code>) and the correlation value is negative (<code>tau =</code> -0.41). The two variables share 16.8% of variance. We can thus conclude that there is a significant but very weak relationship between the two variables.</p>
 </div>
 </div>
 <div id="exercise-203.2" class="section level2" number="7.4">
 <h2>
 <span class="header-section-number">7.4</span> Exercise 203.2<a class="anchor" aria-label="anchor" href="#exercise-203.2"><i class="fas fa-link"></i></a>
 </h2>
-<p><strong>Question 203.2.1:</strong> As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (<code>u089</code>) and people commuting to work on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
-<p><strong>Question 203.2.2:</strong> Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (<code>u118</code>) and people commuting to work via public transport (<code>u120</code>) or on foot, bicycle or other similar means (<code>u122</code>) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure.</p>
+<p>See <a href="groupwork-exercise.html">group work exercise, Introduction and Part 1</a>.</p>
 <hr>
 <p><small>by <a href="https://sdesabbata.github.io/">Stefano De Sabbata</a> – text licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, contains public sector information licensed under the <a href="http://www.nationalarchives.gov.uk/doc/open-government-licence">Open Government Licence v3.0</a>, code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU GPL v3.0</a>.</small></p>
 
@@ -502,10 +670,10 @@ between the two variables.</code></pre>
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#comparing-data"><span class="header-section-number">7</span> Comparing data</a></li>
+<li><a class="nav-link" href="#independent-t-test"><span class="header-section-number">7.1</span> Independent T-test</a></li>
 <li>
-<a class="nav-link" href="#anova"><span class="header-section-number">7.1</span> ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#anova-example"><span class="header-section-number">7.1.1</span> ANOVA example</a></li></ul>
+<a class="nav-link" href="#anova"><span class="header-section-number">7.2</span> ANOVA</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#anova-example"><span class="header-section-number">7.2.1</span> ANOVA example</a></li></ul>
 </li>
-<li><a class="nav-link" href="#exercise-203.1"><span class="header-section-number">7.2</span> Exercise 203.1</a></li>
 <li>
 <a class="nav-link" href="#correlation"><span class="header-section-number">7.3</span> Correlation</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#correlation-analysis-example"><span class="header-section-number">7.3.1</span> Correlation analysis example</a></li></ul>
 </li>
@@ -527,7 +695,7 @@ between the two variables.</code></pre>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-17.</p>
+    <p>"<strong>R for Geographic Data Science</strong>" was written by Stefano De Sabbata. It was last built on 2023-11-22.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -44,9 +44,204 @@ iris %$%
 ## [1] 3.758
 ```
 
+
+
+## Independent T-test
+
+The Independent T-test is a simple statistical test that can be used to compare two independent groups based on the same attribute. For instance, you might want to compare the versicolor and virginica species of iris based on their petal length, to assess if they are different. The boxplot below indicates that the two species seem to have rather different petal length, but is the difference statistically significant? That is the type of question that we can answer using the Independent T-test.
+
+
+```r
+versicolor_and_virginica <-
+  iris %>% 
+  filter(
+    Species == "versicolor" | Species == "virginica"
+  ) %>% 
+  select(Species, Petal.Length)
+
+versicolor_and_virginica %>%
+  ggplot(
+    aes(
+      x = Species, 
+      y = Petal.Length
+    )
+  ) +
+  geom_boxplot() +
+  theme_bw()
+```
+
+<img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384" />
+
+The Independent T-test can be seen as a special version of the **general linear model**. In the general linear model, observation $i$ can be predicted by a $model$ (predictors) if we allow for some amount of error.
+
+$$outcome_i = (model) + error_i $$
+
+For the Independent T-test, the predictor is the the **group average** for the outcome, which is equal to our outcome if we allow for some amount of error.
+
+$$outcome_i = (group\ mean) + error_i $$
+
+Calculating the average per group can be seen as an extremely simplified version of machine learning. The observed values are used to *"learn"* a model, which in this case is their average. The *"model"* is as simple as a table with the average for each group. As such, we can *"learn"* a model for the petal length of versicolor and virginica iris, as shown below. If we then want to *"predict"* the petal length for a new flower, we can simply look at the species and return the related average for that species. For instance, our *"prediction"* for a new versicolor iris will be 4.26.
+
+
+```r
+avg_petal_length_ver_and_vir <-
+  versicolor_and_virginica %>% 
+  group_by(Species) %>% 
+  summarise(
+    avg_petal_length = mean(Petal.Length)
+  )
+
+avg_petal_length_ver_and_vir %>% 
+  kable()
+```
+
+
+
+|Species    | avg_petal_length|
+|:----------|----------------:|
+|versicolor |            4.260|
+|virginica  |            5.552|
+
+To simplify, the Independent Test crates such a model and then estimates how the averages compare to each other and the standard deviations of the two groups to be able to say whether the two groups are the same or different. However, for such an analysis to be meaningful, the means and standard deviations must be representative of the distributions. As such, the values for each of the two groups should be normally distributed. We can test that with two Shapiro–Wilk tests. As shown below, both tests are not significant, which indicates that both groups have normally distributed values.
+
+
+```r
+versicolor_and_virginica %>% 
+  filter(Species == "versicolor") %>% 
+  pull(Petal.Length) %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.966, p-value = 0.1585
+```
+
+```r
+versicolor_and_virginica %>% 
+  filter(Species == "virginica") %>% 
+  pull(Petal.Length) %>% 
+  shapiro.test()
+```
+
+```
+## 
+## 	Shapiro-Wilk normality test
+## 
+## data:  .
+## W = 0.96219, p-value = 0.1098
+```
+
+
+
+
+We can thus run the Independent test. As there are 50 flowers for each species it is safer to set the significance threshold to `0.01`. The result object contains a series of values which can be of interest to understand the model. In our case, we focus on *p*-value, which in this case is estimated as `p-value < 2.2e-16`. As the *p*-value is lower than `0.01`, the test is significant. Thus, the group means are different.
+
+
+```r
+t_test__ver_and_vir <-
+  versicolor_and_virginica %$%
+  t.test(Petal.Length ~ Species)
+```
+
+
+```r
+t_test__ver_and_vir
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  Petal.Length by Species
+## t = -12.604, df = 95.57, p-value < 2.2e-16
+## alternative hypothesis: true difference in means between group versicolor and group virginica is not equal to 0
+## 95 percent confidence interval:
+##  -1.49549 -1.08851
+## sample estimates:
+## mean in group versicolor  mean in group virginica 
+##                    4.260                    5.552
+```
+
+We can report the result of the  Independent test as:
+
+- *t*(95.57) = -12.6, *p* < 0.01
+
+The Independent T-test result object `t_test__ver_and_vir` also includes the standard error, which is used a measure of the quality (i.e., fitness) of the model compared to the data on which it has been created (i.e., fitted or *"learn"*).
+
+
+```r
+t_test__ver_and_vir %$%
+  stderr
+```
+
+```
+## [1] 0.1025089
+```
+
+The calculations of the standard error are a bit complicated, but they relate to another extremely common measure, which is the **residual** (also known as, **error**), which is the **difference between the observed value and the model**. Throughout statistics, machine learning and artificial intelligence, it is very common to use the [**Sum of the Squares of the Residuals (SSR)**](https://en.wikipedia.org/wiki/Residual_sum_of_squares) or the [**Mean of the Squares of the Error (MSE)**](https://en.wikipedia.org/wiki/Mean_squared_error) as measures of model quality.
+
+For a simple model such as the one used by the Independent T-test, we can quickly calculate those two values as follows. Join the table with the table containing the averages calculated above. Calculate the residuals (also known as, errors) as the difference between the observed value and the average, as well as the squares of those values. Finally, calculate the sum and average aggregation.
+
+
+```r
+# Join and calculate the residuals
+residuals_ver_and_vir <-
+  versicolor_and_virginica %>% 
+  left_join(avg_petal_length_ver_and_vir) %>% 
+  mutate(
+    residual = Petal.Length - avg_petal_length
+  ) %>% 
+  mutate(
+    sq_residual = residual^2
+  )
+```
+
+```
+## Joining with `by = join_by(Species)`
+```
+
+```r
+# A quick look at the table created above
+residuals_ver_and_vir %>% 
+  group_by(Species) %>% 
+  slice_head(n=3) %>% 
+  kable()
+```
+
+
+
+|Species    | Petal.Length| avg_petal_length| residual| sq_residual|
+|:----------|------------:|----------------:|--------:|-----------:|
+|versicolor |          4.7|            4.260|    0.440|    0.193600|
+|versicolor |          4.5|            4.260|    0.240|    0.057600|
+|versicolor |          4.9|            4.260|    0.640|    0.409600|
+|virginica  |          6.0|            5.552|    0.448|    0.200704|
+|virginica  |          5.1|            5.552|   -0.452|    0.204304|
+|virginica  |          5.9|            5.552|    0.348|    0.121104|
+
+```r
+residuals_ver_and_vir %>% 
+  summarise(
+    ssr = sum(sq_residual),
+    mse = mean(sq_residual)
+  ) %>% 
+  kable()
+```
+
+
+
+|     ssr|      mse|
+|-------:|--------:|
+| 25.7448| 0.257448|
+
+
 ## ANOVA
 
-The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the t-test, which has the same objective but allows to test only two groups. 
+The ANOVA (analysis of variance) tests whether the values of a variable (e.g., length of the petal) are on average different for multiple different groups (e.g., different species of iris). ANOVA has been developed as a generalised version of the Independent T-test, which has the same objective but allows to test only two groups. 
 
 The ANOVA test has the following assumptions:
 
@@ -73,11 +268,11 @@ iris %>%
   theme_bw()
 ```
 
-<img src="203-comparing-data_files/figure-html/unnamed-chunk-3-1.png" width="384" />
+<img src="203-comparing-data_files/figure-html/unnamed-chunk-11-1.png" width="384" />
 
-ANOVA is considered a robust test, thus, as the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to `0.05`.
+As the groups are of the same size, there is no need to test for the homogeneity of variance. Furthermore, the groups come from different species of flowers, so there is no need to test the independence of the values. The only assumption that needs testing is whether the values in the three groups are normally distributed. As there are 50 flowers per species, we can set the significance threshold to `0.01`.
 
-The three Shapiro–Wilk tests below are all not significant, which indicates that all three groups have normally distributed values.
+We already run two Shapiro–Wilk tests for the Independent T-test above. The Shapiro–Wilk test for the iris species setosa is also not significant, which indicates that all three groups have normally distributed values.
 
 
 ```r
@@ -93,36 +288,6 @@ iris %>%
 ## 
 ## data:  .
 ## W = 0.95498, p-value = 0.05481
-```
-
-```r
-iris %>% 
-  filter(Species == "versicolor") %>% 
-  pull(Petal.Length) %>% 
-  shapiro.test()
-```
-
-```
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  .
-## W = 0.966, p-value = 0.1585
-```
-
-```r
-iris %>% 
-  filter(Species == "virginica") %>% 
-  pull(Petal.Length) %>% 
-  shapiro.test()
-```
-
-```
-## 
-## 	Shapiro-Wilk normality test
-## 
-## data:  .
-## W = 0.96219, p-value = 0.1098
 ```
 
 We can thus conduct the ANOVA test using the function `aov`, and the function `summary` to obtain the summary of the results of the test.
@@ -148,7 +313,7 @@ iris %$%
 
 
 
-The difference is significant F(2, 147) = 1180.16, *p* < .01. 
+The difference is significant F(2, 147) = 1180.16, *p* < .01. Also, note how the the output above contains a row for the `Residuals` with a related value for the column `Sum Sq`, which is the SSR value for the simple model used to calculate the ANOVA statistics.
 
 The image below highlights the important values in the output: the significance value `Pr(>F)`; the F-statistic value `F value`; and the two degrees of freedom values for the F-statistic in the `Df` column.
 
@@ -157,22 +322,10 @@ The image below highlights the important values in the output: the significance 
 </center>
 
 
-## Exercise 203.1
-
-Create a new RMarkdown document, and add the code necessary to oad the `2011_OAC_Raw_uVariables_Leicester.csv` dataset.
-
-
-
-**Question 203.1.1:** Check whether the values of mean age (`u020`) are normally distributed, and whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
-
-**Question 203.1.2:** Check whether the values of mean age (`u020`) are normally distributed when looking at the different 2011OAC supergroups separately. Check whether they can be transformed to a normally distributed set using logarithmic or inverse hyperbolic sine functions.
-
-**Question 203.1.3:** Is the distribution of mean age (`u020`) different in different 2011OAC supergroups in Leicester?
-
 
 ## Correlation
 
-The term **correlation** is used to refer to a series of a standardised measures of covariance, which can be used to statistically assess whether two variables are related or not. 
+The term **correlation** is used to refer to a series of standardised measures of covariance, which can be used to statistically assess whether two variables are related or not. 
 
 Furthermore, if two variables are related, such measures can identify whether they are:
 
@@ -204,17 +357,24 @@ However, each one has different assumptions about the variables' distribution an
 
 ### Correlation analysis example
 
-When studying how people live in cities, a number of questions might arise about where the live and how the move around the city. For instance, looking at a map of Leicester, it is clear that (has in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might led us to ask: *"do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city center?"*
+When studying how people live in cities, a number of questions might arise about where they live and how they move around the city. For instance, looking at a map of Leicester, it is clear that (as in many English cities) there seems to be a very high concentration of flats in the city centre. At the same time, there seems to be almost no flats at all in the suburbs. This might lead us to ask: *"do households living in flats (and thus mostly in the city centre) own the same amount of cars as households living in the city centre?"*
 
-That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such people living in flats might be more likely to walk or cycle to work, or commute using public transportation within the city or to other cities. City centres usually afford less spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypothesis based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such an hypothesis?
+That could be due to many reasons. As the suburbs in England are largely residential, whereas most working places are located in the city centre. As such, people living in flats might be more likely to walk or cycle to work or commute using public transportation within the city or to other cities. City centres usually afford fewer spaces for parking. Many flats are rented to students, who might be less likely to own a car. The list could continue, but these are still hypotheses based on a certain (probably biased) view of the city. Can we use data analysis to explore whether there is any ground to such a hypothesis?
 
-<img src="203-comparing-data_files/figure-html/unnamed-chunk-8-1.png" width="384" />
 
-If you want to replicate the map above, you can download the 
-[Census Residential Data Pack 2011 for Leicester](https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip) from the [Consumer Data Research Centre](https://data.cdrc.ac.uk/) (requires to set up an account) and use the code below after having unzipped the downloaded file. The next semester's module [GY7707 Geospatial Data Analytics](https://le.ac.uk/modules/2022/gy7707) will cover spatial data handling, analysis and mapping in R in detail.
+
+
+<img src="203-comparing-data_files/figure-html/unnamed-chunk-16-1.png" width="384" />
+
+The map above is *only demonstrative*. The next semester's module [GY7707 Geospatial Data Analytics](https://le.ac.uk/modules/2022/gy7707) will cover spatial data handling, analysis and mapping in R in detail. If you want to replicate the map above, you need download the 
+[Census Residential Data Pack 2011 for Leicester](https://data.cdrc.ac.uk/system/files/Census_Residential_Data_Pack_2011/Census_Residential_Data_Pack_2011_E06000016.zip) from the [Consumer Data Research Centre](https://data.cdrc.ac.uk/) (requires to set up an account) and use the code below after having unzipped the downloaded file. 
 
 
 ```r
+# Read the Leicester 2011 OAC dataset from the csv file
+leicester_2011OAC <- 
+  read_csv("2011_OAC_Raw_uVariables_Leicester.csv")
+
 # Load the shapefile data
 # using the library sf
 # https://r-spatial.github.io/sf/
@@ -259,14 +419,14 @@ leic_2011OAC_shp %>%
   )
 ```
 
-The dataset used to create the [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not they values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.
+The dataset used to create the [2011 Output Area Classification](https://github.com/geogale/2011OAC) (2011OAC) contains two variables that might help explore this issue. These data are not very current anymore, and they are not the values we might collect if we were to conduct a fresh survey for this specific study. However, they can still provide some insight.
 
 - `u089`: count of flats per Output Area (OA). The statistical unit for this variable is `Household_Spaces`. As OAs vary in size and composition, we can use `Total_Household_Spaces` to calculate the percentage of flats per OA, which is a more stable measure.
   - `perc_flats = (u089 / Total_Household_Spaces) * 100`
 - `u118`: 2 or more cars or vans in household. The statistical unit for this variable is `Household`. As OAs vary in size and composition, we can use `Total_Households` to calculate the percentage of households per OA with 2 or more cars or vans, which is a more stable measure.
   - `perc_2ormore_cars = (u118 / Total_Households) * 100`
 
-The process of transforming variables to be within a certain range (such as a percentage, thus using a `[0..100]` range, or a `[0..1]` range) is commonly referred to as **normalisation**. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as **standardisation**. However, note that these terms are sometime used interchangably.
+The process of transforming variables to be within a certain range (such as a percentage, thus using a `[0..100]` range, or a `[0..1]` range) is commonly referred to as **normalisation**. The process of transforming a variable to have mean zero and standard deviation one (z-scores) is commonly referred to as **standardisation**. However, note that these terms are sometime used interchangeably.
 
 
 ```r
@@ -284,9 +444,9 @@ flats_and_cars <-
 
 Plotting the two variables together in a scatterplot reveals a pattern. Indeed, a very low percentage of households living in flats own two or more cars. However, the proportion of households owning two or more cars who live in the suburbs seem to span almost throughout the whole range, from zero to 80%. That seems to indicate some level of negative relationship, but the picture is clearly far less clear-cut as we might have initially assumed. The initial assumption about car ownership for households living in flats seems to hold, but we probably didn't consider the situation in the suburbs with sufficient care.
 
-<img src="203-comparing-data_files/figure-html/unnamed-chunk-11-1.png" width="576" />
+<img src="203-comparing-data_files/figure-html/unnamed-chunk-19-1.png" width="576" />
 
-The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus which correlation test we should use for the analysis. The scatterplot already seem to suggest that the variables are rather skewed. 
+The first step in establishing whether there is a relationship between the two variables is to assess whether they are normally distributed, and thus, which correlation test we should use for the analysis. The scatterplot already seem to suggests that the variables are rather skewed. 
 
 As there are 969 OAs in Leicester, we can set the significance threshold to `0.01`. The results of the `shapiro.test` functions below show that neither of the two variables are normally distributed. Transforming the variables using the *inverse hyperbolic sine* still does not result in normally distributed variables. Thus, we should discard *Pearson's r* as an option to explore the correlation between the two variables.
 
@@ -340,7 +500,7 @@ ties_perc_2ormore_cars <-
 
 The variable `perc_flats` has 127 values with ties and `perc_2ormore_cars` has 115  values with ties. As such, using *Spearman's rho* is not advisable and *Kendall's tau* should be used. As above, we can set the significance threshold to `0.01`.
 
-Finally, we can run the `cor.test` function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This afford to subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimate value in RMarkdwon in the following paragraph, to show the percentage of shared variace.
+Finally, we can run the `cor.test` function to assess the relationship between the two variables. The code below saves the results of the test to a variable. This allows for two subsequent actions. First, we can show the full results by simply invoking the name of the variable (term used in the programming-related meaning here) in the final line of the code. Second, we can extract and square the estimated value in RMarkdwon in the following paragraph, to show the percentage of shared variance.
 
 
 ```r
@@ -369,20 +529,19 @@ flats_and_cars_corKendall
 ```{}
 The percentage of flats and the percentage of households 
 owning 2 or more cars or vans per OA in the city of Leicester 
-are negative related, as the relationship is significant 
+are negatively related, as the relationship is significant 
 (`p-value < 0.01`) and the correlation value is negative 
 (`tau =` -0.41). The two variables share 16.8% of variance. We can thus conclude 
-that there is significant but very weak relationship 
+that there is a significant but very weak relationship 
 between the two variables.
 ```
 
-The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negative related, as the relationship is significant (`p-value < 0.01`) and the correlation value is negative (`tau =` -0.41). The two variables share 16.8% of variance. We can thus conclude that there is significant but very weak relationship between the two variables.
+The percentage of flats and the percentage of households owning 2 or more cars or vans per OA in the city of Leicester are negatively related, as the relationship is significant (`p-value < 0.01`) and the correlation value is negative (`tau =` -0.41). The two variables share 16.8% of variance. We can thus conclude that there is a significant but very weak relationship between the two variables.
+
 
 ## Exercise 203.2
 
-**Question 203.2.1:** As mentioned above, when discussing movement in cities, there is an assumption that people living in the city centre live in flats and work or cycle to work, whereas people living in the suburbs live in whole houses and commute via car. Study the correlation between the presence of flats (`u089`) and people commuting to work on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
-
-**Question 203.2.2:** Another interesting issue to explore is the relationship between car ownership and the use of public transport. Study the correlation between the presence of households owning 2 or more cars or vans (`u118`) and people commuting to work via public transport (`u120`) or on foot, bicycle or other similar means (`u122`) in the same OAs. Consider whether the values might need to be normalised or otherwised transformed before starting the testing procedure. 
+See [group work exercise, Introduction and Part 1](groupwork-exercise.html).
 
 
 ---

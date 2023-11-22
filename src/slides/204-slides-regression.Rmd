@@ -56,8 +56,8 @@ conflict_prefer("filter", "dplyr")
 **Today**: Regression analysis
 
 - Simple regression
-- Multiple regression
-- Comparing models
+- Least square via gradient descent
+- Logistic regression
 
 <br/>
 
@@ -182,6 +182,19 @@ via Wikimedia Commons,<br/>CC-BY-SA-3.0
 ]
 
 ]
+
+
+
+---
+## Least squares via gradient descent
+
+<center>
+
+![](../images/linear-regression-gd_shiny-app.png)
+
+[sdesabbata.shinyapps.io/linear-regression-gd](https://sdesabbata.shinyapps.io/linear-regression-gd/)
+
+</center>
 
 
 ---
@@ -405,615 +418,193 @@ penguins %>%
 ]
 
 
----
-class: inverse, center, middle
-
-# Multiple regression
-
 
 ---
-## Multiple regression
+## A different problem: classification
 
-<br/>
+- *regression*: predicting a continuous output variable
+- *classification*: predicting a categorical (nominal, including binary) output variable
 
-**Regression analysis** is a supervised machine learning approach
+For instance: can we automatically identify the two species based on the penguins' body mass?
 
-Special case of the general linear model
+```{r}
+#| message: FALSE
+#| warning: FALSE
 
-$$outcome_i=(model)+error_i$$
+penguins_to_learn <-
+  palmerpenguins::penguins %>%
+  filter(species %in% c("Adelie", "Gentoo")) %>%
+  mutate(species = forcats::fct_drop(species)) %>%
+  filter(!is.na(body_mass_g) | !is.na(bill_depth_mm)) %>%
+  mutate(across(bill_length_mm:body_mass_g, scale))
+```
 
-<br/>
 
-Predict (estimate) value of one outcome (dependent) variable as
+<center>
+```{r}
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
+#| fig.width:  8
+#| fig.height: 2.5
 
-- one predictor (independent) variable: **simple / univariate**
-
-$$Y_i=(b_0+b_1*X_{i1})+\epsilon_i$$
-    
-- more predictor (independent) variables: **multiple / multivar.**
-
-$$Y_i=(b_0+b_1*X_{i1}+b_2*X_{i2}+\dots+b_M*X_{iM})+\epsilon_i$$
-
+penguins_to_learn %>%
+  mutate(
+    species_01 = dplyr::recode(species, Adelie = 0, Gentoo = 1)
+  ) %>%
+  ggplot(aes(x = body_mass_g, y = species)) +
+  geom_point(
+    aes(
+      color = species,
+        shape = species),
+        size = 2
+  ) +
+  scale_color_manual(values = c("darkorange", "cyan4")) +
+  theme_bw()
+```
+</center>
 
 
 
 ---
-## Assumptions
+## Logistic regression {.smaller}
+
+
+.pull-left[
+
+There are different approaches on how to define it... this is probably the most common
 
 <br/>
 
-- **Linearity**
-    - the relationship is actually linear
-- **Normality** of residuals
-    - standard residuals are normally distributed with mean `0`
-- **Homoscedasticity** of residuals
-    - at each level of the predictor variable(s) the variance of the standard residuals should be the same (*homo-scedasticity*) rather than different (*hetero-scedasticity*) 
-- **Independence** of residuals
-    - adjacent standard residuals are not correlated
+$$h(x) = \frac{1}{1 + e^{-(\color{purple}{w \cdot \phi(x)})}}$$
+
+where $0.5$ is the (soft) decision bundary
+
+- if $h(x) < 0.5$ probably Adelie
+- if $h(x) > 0.5$ probably Gentoo
+
+]
+.pull-right[
+
+```{r}
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
+#| fig.width:  5
+#| fig.height: 4
+ggplot() + 
+  xlim(-10, 10) +
+  xlab("x") +
+  ylab("y") +
+  stat_function(
+    fun = function(x) { (1 / (1 + exp(-x))) }
+  ) +
+  theme_bw()
+```
+
+]
+
 
 <br/>
 
+**Interestingly**, that's equivalent to
+
+<center>
+
+$h_w(x) = \color{orchid}{\sigma} (w \cdot \phi(x))$ &nbsp;&nbsp;&nbsp; with &nbsp;&nbsp;&nbsp; $\color{orchid}{\sigma}(z) = \frac{1}{1 + e^{-z}}$
+
+</center>
+
+
+
+---
+## Example
+
+<br/>
+
+```{r}
+#| echo: TRUE
+#| message: FALSE
+#| warning: FALSE
+
+penguins_to_learn <-
+  palmerpenguins::penguins %>%
+  filter(species %in% c("Adelie", "Gentoo")) %>%
+  mutate(species = forcats::fct_drop(species)) %>%
+  filter(!is.na(body_mass_g) | !is.na(bill_depth_mm)) %>%
+  mutate(across(bill_length_mm:body_mass_g, scale)) %>%
+  mutate(
+    species_01 = dplyr::recode(species, Adelie = 0, Gentoo = 1)
+  )
+```
+
+
+<center>
+```{r}
+#| echo: FALSE
+#| message: FALSE
+#| warning: FALSE
+#| fig.width:  8
+#| fig.height: 2.5
+
+penguins_to_learn %>%
+  mutate(
+    species_01 = dplyr::recode(species, Adelie = 0, Gentoo = 1)
+  ) %>%
+  ggplot(aes(x = body_mass_g, y = species_01)) +
+  geom_point(
+    aes(
+      color = species,
+        shape = species),
+        size = 2
+  ) +
+  scale_color_manual(values = c("darkorange", "cyan4")) +
+  stat_smooth(method="glm", method.args=list(family="binomial"), se=FALSE) +
+  ylab("") +
+  theme_bw()
+```
+</center>
+
+
+
+---
+## stats::glm
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+sp_bm_model <- penguins_to_learn %$%
+  glm(species_01 ~ body_mass_g, family = binomial())
+
+sp_bm_model %>%
+  summary() %>%
+  print()
+```
+
+
+
+---
+## Logistic regression {.smaller}
+
+Assumptions
+
+- **Linearity** of the logit
+    - predictors have linear relationship with log of outcome
 - When more than one predictor: **no multicollinearity**
     - if two or more predictor variables are used in the model, each pair of variables not correlated
 
+Pseudo-R2
 
+- Approaches to calculating model quality (power)
 
----
-## boston_data housing
+Adding complexity
 
+- Multiple logistic regression: multiple predictors
+- Multinomial logistic regression: several categories as outcome
 
-.pull-left[
 
-A classic R dataset
 
-- price of houses in boston_data
-- in relation to: 
-  - house characteristics
-  - neighborhood 
-  - air quality
-  
-```{r echo=TRUE, message=FALSE, warning=FALSE}
-boston_data <-
-  MASS::Boston
-```
-
-
-<br/>
-.referencenote[
-Harrison, D., and D. L. Rubinfeld. 1978. [Hedonic Housing Prices and the Demand for Clean Air](https://doi.org/10.1016/0095-0696(78)90006-2). Journal of Environmental Economics and Management 5 (1): 81–102.
-]
-
-]
-.pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-boston_data %>%
-  ggplot(
-    aes(
-      x = nox, 
-      y = medv
-    )
-  ) +
-  xlab("Nitrogen oxides (NO) concentration") +
-  ylab("Median value in $1,000") +
-  geom_point()
-```
-
-]
-
-
-
-
----
-## Example: boston_data housing
-
-Can we predict price based on number of rooms and air quality?
-
-$$house\ value_i=(b_0+b_1*rooms_{i}+b_2*NO\ conc_{i})+\epsilon_i$$
-
-.center[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
-boston_data %>%
-  select(medv, rm, nox) %>%
-  ggpairs(
-    upper = list(continuous = 
-        wrap(ggally_cor, method = "kendall")),
-    lower = list(continuous = 
-        wrap("points", alpha = 0.3, size=0.1))
-  ) +
-  theme_bw()
-```
-
-]
-
-
----
-## stats::lm
-
-.pull-left[
-
-<br/>
-
-.small[
-
-```{r, echo=TRUE}
-medv_model <-
-  boston_data %$% 
-  lm(medv ~ rm + nox)
-  
-
-medv_model %>%  
-  summary()
-```
-
-]
-
-]
-.pull-right[
-
-```{r, echo=FALSE}
-medv_model_summary <- medv_model %>%
-  summary()
-```
-
-The output indicates
-
-- **p-value: < 2.2e-16**: $p<.01$ the model is significant
-  - derived by comparing **F-statistic** to F distribution `r medv_model_summary$fstatistic[1] %>% round(digits = 2)` having specified degrees of freedom (`r medv_model_summary$fstatistic[2]`, `r medv_model_summary$fstatistic[3]`)
-  - Report as: F(`r medv_model_summary$fstatistic[2]`, `r medv_model_summary$fstatistic[3]`) = `r medv_model_summary$fstatistic[1] %>% round(digits = 2)`
-- **Adjusted R-squared: `r medv_model_summary$adj.r.squared %>% round(digits = 4)`**: 
-  - number of rooms and air quality can account for `r (medv_model_summary$adj.r.squared * 100) %>% round(digits = 2)`% variation in house prices
-- **Coefficients**
-  - Intercept est. `r medv_model_summary$coefficients[1,1] %>% round(digits = 1)` is significant
-  - `rm` (slope) est. `r medv_model_summary$coefficients[2,1] %>% round(digits = 1)` is significant
-  - `nox` (slope) est. `r medv_model_summary$coefficients[3,1] %>% round(digits = 1)` is significant
-
-]
-
-
-
----
-## Coefficients
-
-.pull-left[
-
-### Confindence intervals 
-
-- Coefficients' 95% confidence intervals
-  - can be interpreted as interval containing true coefficient values
-  - good models should result in small intervals
-
-```{r, echo=TRUE}
-medv_model %>%
-  confint()
-```
-
-]
-.pull-right[
-
-### Standardised coefficients
-
-- Indicate amount of change
-  - in the outcome variable
-  - per one standard deviation change in the predictor variable
-- Can also be interpreted as importance of predictor
-
-```{r, echo=TRUE}
-library(lm.beta)
-
-medv_model %>%
-  lm.beta()
-```
-
-]
-
-
-
----
-## Outliers and influential cases
-
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-boston_output <-
-  boston_data %>%
-  mutate(
-    model_stdres = medv_model %>% rstandard(),
-    model_cook_dist = medv_model %>% cooks.distance()
-  )
-  
-
-boston_output %>%
-  select(medv, model_stdres, model_cook_dist) %>%
-  filter(abs(model_stdres) > 2.58 | model_cook_dist > 1)
-```
-
-- No influential cases (Cook's distance `> 1`)
-- There are many outliers (7 abs std res `> 3.29`, 2% `> 2.58`)
-
-
-
----
-## Checking assumptions: normality
-
-.pull-left[
-
-Shapiro-Wilk test for normality of standard residuals, 
-
-- robust models: should be **not** significant 
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-boston_output %$% 
-  shapiro.test(
-    model_stdres
-  )
-```
-
-{{content}}
-
-]
-.pull-right[
-
-.center[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-boston_output %>%
-  ggplot(aes(x = model_stdres)) +
-  geom_histogram(
-    aes(
-      y =..density..
-    ),
-    bins = 100
-  ) + 
-  stat_function(
-    fun = dnorm, 
-    args = list(
-      mean = boston_output %>% pull(model_stdres) %>% mean(),
-      sd = boston_output %>% pull(model_stdres) %>% sd()),
-    colour = "red", size = 1)
-```
-
-]
-
-]
-
---
-
-**Standard residuals are NOT normally distributed**
-
-
----
-## Checking assumptions: homoscedasticity
-
-
-.pull-left[
-
-Breusch-Pagan test for homoscedasticity of standard residuals
-
-- robust models: should be **not** significant
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-medv_model %>% 
-  bptest()
-```
-
-{{content}}
-
-]
-.pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-medv_model %>% 
-  plot(which = c(1))
-```
-
-]
-
---
-
-**Standard residuals are NOT homoscedastic**
-
-
-
----
-## Checking assumptions: independence
-
-<br/>
-
-Durbin-Watson test for the independence of residuals
-
-- robust models: statistic should be close to 2 (advised between 1 and 3) and **not** significant
-
-
-```{r, echo=TRUE}
-medv_model %>%
-  dwtest()
-```
-
---
-
-**Standard residuals are NOT independent**
-
-Note: the result depends on the order of the data.
-
-
-
----
-## Checking assumptions: multicollinearity
-
-<br/>
-
-Checking the variance inflation factor (VIF)
-
-- robust models should have no multicollinearity: 
-  - largest VIF should be lower than 10 
-  - or the average VIF should not be greater than 1
-
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-library(car)
-
-medv_model %>%
-  vif()
-```
-
---
-
-**There is no multicollinearity**
-
-
-
-
----
-## Conclusions: boston_data housing
-
-.pull-left[
-
-No, we can't predict house prices based only on number of rooms and air quality.
-
-- predictors are statistically significant
-- but model is not robust, as it doesn't satisfy most assumptions
-  - Standard residuals are NOT normally distributed
-  - Standard residuals are NOT homoscedastic
-  - Standard residuals are NOT independent
-  - (although there is no multicollinearity)
-
-We seem to be on the right path, but something is missing...
-
-]
-.pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-boston_data %>%
-  select(medv, rm, nox) %>%
-  ggpairs(
-    upper = list(continuous = 
-        wrap(ggally_cor, method = "kendall")),
-    lower = list(continuous = 
-        wrap("points", alpha = 0.3, size=0.1))
-  ) +
-  theme_bw()
-```
-
-
-]
-
-
-
----
-## Model: boston_data housing (2)
-
-.pull-left[
-
-Can we predict house prices based on number of rooms, air quality, **student/teacher ratio** and **crime level**?
-
-.small[
-
-```{r, echo=TRUE}
-medv_model2 <-
-  boston_data %>% 
-  filter(medv < 50) %$% 
-  lm(
-    medv ~ rm + nox + ptratio + log(crim)
-  )
-  
-
-medv_model2 %>%  
-  summary()
-```
-
-]
-
-]
-.pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-boston_data %>%
-  select(medv, rm, nox,  ptratio, crim) %>%
-  ggpairs(
-    upper = list(continuous = 
-        wrap(ggally_cor, method = "kendall")),
-    lower = list(continuous = 
-        wrap("points", alpha = 0.3, size=0.1))
-  ) +
-  theme_bw()
-```
-
-]
-
-
----
-## Logarithmic transformations
-
-- 10% change in criminality score leads to
-  - $log(110/100) * b_{crim}= 0.0953 * b_{crim}$ change
-  - `0.0953 * -0.5558 = 0.0529` 
-
-.center[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 6, fig.height = 6}
-boston_data %>% 
-  filter(medv < 50) %>%
-  mutate(
-    log_crim = log(crim)
-  ) %>%
-  select(medv, log_crim) %>%
-  ggpairs(
-    upper = list(continuous = 
-        wrap(ggally_cor, method = "kendall")),
-    lower = list(continuous = 
-        wrap("points", alpha = 0.3, size=0.1))
-  ) +
-  theme_bw()
-```
-
-]
-
-
-
----
-## Checking assumptions
-
-.pull-left[
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-medv_model2 %>% rstandard() %>% 
-  shapiro.test()
-
-medv_model2 %>% bptest()
-```
-
-]
-.pull-right[
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-medv_model2 %>% dwtest()
-
-medv_model2 %>% vif()
-```
-
-]
-
---
-
-- Standard residuals are NOT normally distributed
-- Standard residuals are NOT homoscedastic (borderline)
-- Standard residuals are NOT independent
-- There is some sign of multicollinearity
-
-
----
-## Conclusions: boston_data housing (2)
-
-.pull-left[
-
-No, we still can't robustly predict house prices based on number of rooms, air quality, student/teacher ratio and crime level.
-
-- predictors are statistically significant
-- but model is not robust
-  - Standard residuals are NOT normally distributed
-  - Standard residuals are NOT homoscedastic (borderline)
-  - Standard residuals are NOT independent
-  - There is some sign of multicollinearity
-
-Still possibly on the right path, not quite there yet...
-
-]
-.pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width = 7, fig.height = 7}
-boston_data %>%
-  filter(medv < 50) %>%
-  mutate(
-    log_crim = log(crim)
-  ) %>%
-  select(medv, rm, nox,  ptratio, log_crim) %>%
-  ggpairs(
-    upper = list(continuous = 
-        wrap(ggally_cor, method = "kendall")),
-    lower = list(continuous = 
-        wrap("points", alpha = 0.3, size=0.1))
-  ) +
-  theme_bw()
-```
-
-]
-
----
-## Comparing models
-
-
-Is there a difference between Model1's $R^2 =$ `r medv_model %>% summary() %$% adj.r.squared %>% round(digits = 4)` and Model2's $R^2 =$ `r medv_model2 %>% summary() %$% adj.r.squared %>% round(digits = 4)`?
-
-.pull-left[
-
-- $R^2$
-  - measure of correlation between
-    - values predicted by the model (fitted values)
-    - observed values for outcome variable
-- Adjusted $R^2$, depending on
-    - number of cases
-    - number of predictor (independent) variables
-  - *"unnecessary"* variables lower the value
-
-The model with the highest adjusted $R^2$ has the best fit
-
-]
-.pull-right[
-
-Can be used to test whether adjusted $R^2$ are signif. different
-
-- if models are hierarchical
-  - one uses all variables of the other
-  - plus some additional variables
-
-
-.small[
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-medv_model1 <-
-  boston_data %>% 
-  filter(medv < 50) %$% 
-  stats::lm(medv ~ rm + nox)
-
-anova(medv_model1, medv_model2)
-```
-
-]
-
-]
-
-Still, neither model is robust!
-
-
-
----
-## Information criteria
-
-<br/>
-
-.pull-left[
-
-- Akaike Information Criterion (**AIC**)
-  - measure of model fit 
-    - penalising model with more variables
-  - not interpretable per-se, used to compare similar models
-    - lower value, better fit
-
-]
-.pull-right[
-
-```{r, echo=TRUE, message=FALSE, warning=FALSE}
-AIC(medv_model1)
-AIC(medv_model2)
-```
-
-]
-
-<br/>
-
-- Bayesian Information Criterion (**BIC**)
-  - similar to AIC
 
 
 ---
