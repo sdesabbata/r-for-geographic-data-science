@@ -2,7 +2,7 @@
 title: "Lecture 401"
 author: "Dr Stefano De Sabbata<br/><small>School of Geography, Geology, and the Env., University of Leicester<br/><a href=\"https://github.com/sdesabbata/r-for-geographic-data-science\" style=\"color: white\">github.com/sdesabbata/r-for-geographic-data-science</a><br/><a href=\"mailto:s.desabbata@le.ac.uk\" style=\"color: white\">s.desabbata&commat;le.ac.uk</a> &vert; <a href=\"https://twitter.com/maps4thought\" style=\"color: white\">&commat;maps4thought</a><br/>text licensed under <a href=\"https://creativecommons.org/licenses/by-sa/4.0/\" style=\"color: white\">CC BY-SA 4.0</a>, code licensed under <a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" style=\"color: white\">GNU GPL v3.0</a></small>"
 institute: ""
-date: "<small>2022-12-06</small>"
+date: ""
 output:
   xaringan::moon_reader:
     self_contained: true

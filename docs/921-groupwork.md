@@ -24,7 +24,7 @@ Download from Blackboard (or see the [data](https://github.com/sdesabbata/granol
 
 ## Part 1 {-}
 
-Conduct an **exploratory analysis** of the variables listed in Table 1. Include the code, the output (can include graphics) and a description of the findings. The latter should be up to 500 words and it can be written as a final discussion after the analysis, or as a description of each step of the analysis, or a combination of the two.
+Conduct an **exploratory and comparative analysis** of the variables listed in Table 1. Include the code, the output (can include graphics) and a description of the findings. The latter should be up to 500 words and it can be written as a final discussion after the analysis, or as a description of each step of the analysis, or a combination of the two.
 
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>(\#tab:unnamed-chunk-1)Variables to be used for Part 1 and 2 of this groupwork exercise</caption>

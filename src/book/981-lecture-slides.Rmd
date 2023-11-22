@@ -16,12 +16,12 @@ The slides used in the lectures are available as web-based slides at the pages l
     - 202 [Exploratory statistics](slides/202-slides-exploratory-statistics.html)
     - 203 [Comparing data](slides/203-slides-comparing-data.html)
     - 204 [Regression models](slides/204-slides-regression.html)
+    - 205 [Multiple regression models](slides/205-slides-regression-multiple.html)
 3. **Machine learning**
     - 301 Supervised
     - 302 Unsupervised
 4. **R Scripting**
-    - 401 [Control structures](slides/401-slides-control-structures.html)
-    - 402 [Functions](slides/402-slides-functions.html)
+    - 401 [R scripting](slides/401-slides-scripting.html)
 
 
 ---

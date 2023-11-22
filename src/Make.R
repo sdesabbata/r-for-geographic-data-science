@@ -120,8 +120,8 @@ rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/204-slides-regres
 cat("\n\n>>> Rendering 205-slides-regression-multiple.Rmd <<<\n\n")
 rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/205-slides-regression-multiple.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
 
-cat("\n\n>>> Rendering 401-slides-control-structures.Rmd <<<\n\n")
-rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/401-slides-control-structures.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
+cat("\n\n>>> Rendering 401-slides-scripting.Rmd <<<\n\n")
+rmarkdown::render(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/401-slides-scripting.Rmd"), quiet = TRUE, output_dir = paste0(Sys.getenv("RGDS_HOME"), "/docs/slides"))
 
 # Delete temporary images directory
 unlink(paste0(Sys.getenv("RGDS_HOME"), "/src/slides/images"), recursive=TRUE)
