@@ -188,13 +188,13 @@ via Wikimedia Commons,<br/>CC-BY-SA-3.0
 ---
 ## Least squares via gradient descent
 
-<center>
+.center[
 
-![](../images/linear-regression-gd_shiny-app.png)
+![:scale 90%](images/linear-regression-gd_shiny-app.png)
 
 [sdesabbata.shinyapps.io/linear-regression-gd](https://sdesabbata.shinyapps.io/linear-regression-gd/)
 
-</center>
+]
 
 
 ---
