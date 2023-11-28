@@ -427,10 +427,7 @@ penguins %>%
 
 For instance: can we automatically identify the two species based on the penguins' body mass?
 
-```{r}
-#| message: FALSE
-#| warning: FALSE
-
+```{r, message=FALSE, warning=FALSE}
 penguins_to_learn <-
   palmerpenguins::penguins %>%
   filter(species %in% c("Adelie", "Gentoo")) %>%
@@ -440,13 +437,9 @@ penguins_to_learn <-
 ```
 
 
-<center>
-```{r}
-#| echo: FALSE
-#| message: FALSE
-#| warning: FALSE
-#| fig.width:  8
-#| fig.height: 2.5
+.center[
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=10, fig.height=5}
 
 penguins_to_learn %>%
   mutate(
@@ -462,12 +455,13 @@ penguins_to_learn %>%
   scale_color_manual(values = c("darkorange", "cyan4")) +
   theme_bw()
 ```
-</center>
+
+]
 
 
 
 ---
-## Logistic regression {.smaller}
+## Logistic regression
 
 
 .pull-left[
@@ -539,7 +533,8 @@ penguins_to_learn <-
 ```
 
 
-<center>
+.center[
+
 ```{r}
 #| echo: FALSE
 #| message: FALSE
@@ -563,7 +558,8 @@ penguins_to_learn %>%
   ylab("") +
   theme_bw()
 ```
-</center>
+
+]
 
 
 
@@ -585,7 +581,7 @@ sp_bm_model %>%
 
 
 ---
-## Logistic regression {.smaller}
+## Logistic regression
 
 Assumptions
 
