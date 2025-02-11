@@ -97,7 +97,8 @@ for (i in 0:(
     ) %>% 
     str_sub(end = -6) %>% 
     paste0(
-      "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2021_Boundaries_EW_BGC/FeatureServer/0/query?where=%20(",
+      # "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2021_Boundaries_EW_BGC/FeatureServer/0/query?where=%20(",
+      "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_2021_EW_BGC_V2/FeatureServer/0/query?where=%20(",
       .,
       ")%20&outFields=*&outSR=4326&f=json"
     ) %>% 
@@ -158,7 +159,8 @@ for (i in 0:(
     ) %>% 
     str_sub(end = -6) %>% 
     paste0(
-      "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2011_Boundaries_EW_BGC/FeatureServer/0/query?where=%20(",
+      #"https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_December_2011_Boundaries_EW_BGC/FeatureServer/0/query?where=%20(",
+      "https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/Output_Areas_Dec_2011_Boundaries_EW_BGC_2022/FeatureServer/0/query?where=%20(",
       .,
       ")%20&outFields=*&outSR=4326&f=json"
     ) %>% 
@@ -184,12 +186,14 @@ lookup_Leicester_OA_2011 %>%
 
 # Write
 geom_Leicester_OAs %>% 
-  left_join(lookup_Leicester_OA_2011) %>% 
+  left_join(lookup_Leicester_OA_2011) %>%
+  select(-OBJECTID, -Shape__Area, -Shape__Length, -GlobalID, -LAD11NMW, -ObjectId) %>% 
   st_write("storage/Leicester_2011_OAs.geojson")
 
 
 # Matching information
-fromJSON("https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/OA11_OA21_EW_LU_V2/FeatureServer/0/query?where=LAD22NM%20%3D%20'LEICESTER'&outFields=*&outSR=4326&f=json") %$%
+# fromJSON("https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/OA11_OA21_EW_LU_V2/FeatureServer/0/query?where=LAD22NM%20%3D%20'LEICESTER'&outFields=*&outSR=4326&f=json") %$%
+fromJSON("https://services1.arcgis.com/ESMARspQHYMw9BZ9/arcgis/rest/services/OA11_OA21_LAD22_EW_LU_Exact_fit_V2/FeatureServer/0/query?where=LAD22NM%20%3D%20'LEICESTER'&outFields=*&outSR=4326&f=json") %$%
   features %$%
   attributes %>%
   write_csv("storage/Leicester_2011to2021_OAs.csv")
